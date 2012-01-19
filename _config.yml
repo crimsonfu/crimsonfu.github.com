@@ -1,0 +1,4 @@
+destination: _site
+markdown: rdiscount
+rdiscount:
+  extensions: [autolink]

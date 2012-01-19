@@ -1,0 +1,18 @@
+body {
+/*
+  background-color:silver;
+*/
+  background-color:white;
+}
+
+pre {
+  white-space: pre-wrap; /* http://www.w3.org/TR/CSS2/text.html */
+}
+
+h1 {
+  font-size: 140%
+}
+
+h2 {
+  font-size: 100%
+}
