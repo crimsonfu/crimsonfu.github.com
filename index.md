@@ -21,6 +21,7 @@ title: crimsonfu - sysadmins who code
 ## Members
 
 * Philip Durbin (pdurbin on freenode): http://greptilian.com
+* Steve Huff (shuff on freenode, [hakamadare](https://github.com/hakamadare) on GitHub, [SHUFF](https://metacpan.org/author/SHUFF) on CPAN)
 
 ## About the name crimsonfu
 
