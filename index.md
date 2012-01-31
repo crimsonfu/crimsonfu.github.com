@@ -30,6 +30,7 @@ title: crimsonfu - sysadmins who code
 
 * Philip Durbin (pdurbin on freenode): http://greptilian.com
 * Steve Huff (shuff on freenode, [hakamadare](https://github.com/hakamadare) on GitHub, [SHUFF](https://metacpan.org/author/SHUFF) on CPAN)
+* Tim Hartmann (tfhartmann): http://personalskynet.blogspot.com/ 
 
 ## About the name crimsonfu
 
