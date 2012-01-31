@@ -18,6 +18,14 @@ title: crimsonfu - sysadmins who code
 * Open Source by Default
 * [When in Doubt, Make it Public](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)
 
+## Articles
+
+<ul>
+{% for post in site.posts reversed %}
+<li>{{ post.date | date:"%Y-%m-%d" }}: <a href="{{ post.url }}">{{ post.title }}</a> by <a href="/members/{{post.author}}">{{ site.authors[post.author]display_name }}</a></li>
+{% endfor %}
+</ul>
+
 ## Members
 
 * Philip Durbin (pdurbin on freenode): http://greptilian.com

@@ -2,3 +2,6 @@ destination: _site
 markdown: rdiscount
 rdiscount:
   extensions: [autolink]
+authors:
+  pdurbin:
+    display_name: Philip Durbin
