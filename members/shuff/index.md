@@ -1,3 +1,7 @@
+---
+title: Steve Huff
+layout: default
+---
 # Steve Huff
 
 Journeyman [Perl](https://metacpan.org/author/SHUFF) hacker and Puppeteer.
