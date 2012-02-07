@@ -4,19 +4,17 @@ title: crimsonfu - sysadmins who code
 ---
 **CRIMSON Fu**: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU** 
 
-## On topic
-
-* Linux
-* Puppet
-* scripting, automation
-* best practices
-* ...
+On topic: Linux, Puppet, scripting, automation, best practices, etc.
 
 ## Guiding Principles
 
 * Strength in Numbers
 * Open Source by Default
 * [When in Doubt, Make it Public](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)
+
+## IRC channel
+
+A publicly-logged IRC channel (#crimsonfu on freenode) is our primary means of communication: http://irclog.perlgeek.de/crimsonfu
 
 ## Articles
 
@@ -28,13 +26,11 @@ title: crimsonfu - sysadmins who code
 
 ## Members
 
-* Philip Durbin (pdurbin on freenode): http://greptilian.com
-* Steve Huff (shuff on freenode, [hakamadare](https://github.com/hakamadare) on GitHub, [SHUFF](https://metacpan.org/author/SHUFF) on CPAN)
-* Tim Hartmann (tfhartmann): http://personalskynet.blogspot.com/ 
+See our [members](members) page.
 
 ## About the name crimsonfu
 
-"Crimson" because this group is being started by members of the Harvard community.  "Fu" is a nod to http://commandlinefu.com
+"Crimson" because this group is being started by members of the Harvard community.  "Fu" is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
 
 [topical channel]: http://freenode.net/policy.shtml#topicalchannels
 
