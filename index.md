@@ -14,7 +14,9 @@ On topic: Linux, Puppet, scripting, automation, best practices, etc.
 
 ## IRC channel
 
-A publicly-logged IRC channel (#crimsonfu on freenode) is our primary means of communication: http://irclog.perlgeek.de/crimsonfu
+A publicly-logged IRC channel (#crimsonfu on freenode) is our primary means of communication.
+
+Our IRC logs can be found at http://irclog.perlgeek.de/crimsonfu and we sometimes back them up to our [irclogs](irclogs) page with [a script](bin/logfetch.pl).
 
 ## Articles
 

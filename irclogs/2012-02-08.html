@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+15:04 pdurbin  moving #puppet from svn to git and adding dynamic environments, in 15 minutes. I smell a blog post -- http://twitter.com/sjoeboo/status/167000795194195970
+15:04 pdurbin  now that our puppet is on git, i'm itching to make a change but i have other things to do!
+15:05 shuff    well done
+15:25 Pax      Has anyone printed array elements in ERB templates?
+15:25 Pax      I don't mean like looping through an array, I mean like calling print element[1]
+15:29 shuff    print() in ERB == teh badness
+15:29 shuff    my gut feeling is that your problem is there
+15:31 shuff    i take it there's some reason why &lt;%= element[1] -%&gt; doesn't do what you want?
+15:34 whorka   one of our affiliates is looking for a 1/2" reel tape drive (on [abcd-hard]). last time I saw one of those it was connected to a VAX.
+15:45 sjoeboo  http://sjoeboo.github.com/blog/2012/02/08/moving-puppet-from-subversion-to-git-in-15-minutes-while-adding-dynamic-environments/
+15:45 sjoeboo  ta da!
+15:45 shuff    w0000t
+15:51 shuff    oh hey, guess what?  FAS has a Status.Net installation: https://fasnet.fas.harvard.edu/
+15:51 shuff    pdurbin: still hate the magical AJAXy new Twitter interface? :)
+15:52 Pax      @shuff
+15:53 Pax      yeah, I think it's actually less of a problem with printing elements since foo = [ 'test', 'test1']  then calling the element works
+15:53 Pax      I think it's that I'm trying to do math in the array
+15:53 Pax      so here's my examples so far
+15:53 Pax      $cpu  = "$::processorcount" * 2 + 1
+15:53 shuff    this gets better and better
+15:54 Pax      $load = [  "${cpu} + 25", "${cpu} + 20", "${cpu} + 15", "${cpu} + 10", "${cpu} + 5", "${cpu}" ]
+15:54 Pax      $load = [  "${cpu} + 25", "${cpu} + 20", "${cpu} + 15", "${cpu} + 10", "${cpu} + 5", "${cpu}" ]
+15:54 Pax      whoops sorry to many pastes
+15:56 Pax      ok so simplifying it like this
+15:56 Pax      $load = [  "${cpu}", "${cpu}", "${cpu}", "${cpu}", "${cpu}", "${cpu}" ]
+15:56 shuff    just to be clear: the code you're posting is in your Puppet manifests, yes?  not Ruby statements in a template?
+15:56 Pax      yup, it's all in the manifest, I was hoping to just do all the math there rather then make the template harder to read
+15:56 shuff    makes sense
+15:57 Pax      so doing the above simplification gets me this error on compile
+15:57 Pax      err: Could not retrieve catalog from remote server: Error 400 on SERVER: Failed to parse template nagios/etc/nagios/nrpe.cfg.erb: wrong number of arguments (0 for 1) at /etc/puppet/development/modules/nagios/manifests/monitored.pp:35 on node awesome.noc.harvard.edu
+15:58 Pax      So i'm thinking that maybe an array element can't be another variable?
+15:59 shuff    can you paste the portion of your template where you dereference that variable?
+15:59 Pax      &lt;%= load[1] -%&gt;
+16:00 Pax      which works, if the load array is static
+16:00 Pax      so $load [ '1', '2' ]  works
+16:00 shuff    i vaguely suspect that the issue is quoting
+16:00 Pax      while $load [ "$x", "$y" ]
+16:01 shuff    let me hack in irb for a moment
+16:01 Pax      you know I was just wondering
+16:02 Pax      Hmm neither this
+16:02 Pax      $cpu  = 1
+16:02 Pax      $load = [ $cpu, $cpu, $cpu, $cpu, $cpu, $cpu ]
+16:02 Pax      nor this
+16:02 Pax      $load = [ "$cpu", "$cpu", "$cpu", "$cpu", "$cpu", "$cpu" ]
+16:03 Pax      worked
+16:04 shuff    ok
+16:04 shuff    here comes some shenanigans
+16:05 shuff    $base_load = [ 25, 20, 15, 10, 5, 1 ]
+16:06 shuff    $load = split(inline_template('&lt;%= base_load.collect { |x| x + cpu }.join(",") -%&gt;'), ',')
+16:07 shuff    and i believe you should now be able to reference e.g. &lt;%= load[2] -%&gt; in a template
+16:07 shuff    look upon my works, ye mighty, and despair
+16:19 Pax      hmm I get Error 400 on SERVER: Failed to parse inline template: can't convert Fixnum into String
+16:19 shuff    hmmmm
+16:20 shuff    maybe replace 'x + cpu' with 'x.to_s + cpu'?
+16:21 shuff    or populate $base_load = [ "25", "20", … ] etc.?
+16:22 shuff    i find it *really* frustrating that Ruby's magical quasi-typeless variables try really hard to DWIM up until they don't, and then they fail unhelpfully
+16:22 shuff    variables should have sigils just like Larry intended :)
+16:23 Pax      LOL
+16:47 Pax      I think I'm going to end up doing it right in the template in the end, at the moment i'm thinking that the amount of jiggering i'd have to do in the manifest will make it so confusing as to make it hard for another admin to figure out what I'm doing
+16:48 shuff    you could write some comments!
+16:49 Pax      say what now? whats a comment?
+16:49 Pax      :p
+17:09 agoddard pdurbin: ohAi
+17:10 pdurbin  agoddard: welcome!
+17:12 agoddard Not sure I totally follow the erb stuff, got a gist of it? I'd be happy to see if I have an example from a chef erb template..
+19:09 pdurbin  someday i need to write a script to programatically look at our vmware installation and get a list of each guest's name and whether it's off or running
+19:13 shuff    http://search.cpan.org/dist/Sys-Virt/
+19:13 shuff    available from repoforge :)
+19:13 shuff    or you can use carlasouza's puppet-virt module and use the built-in facts
+19:14 pdurbin  Sys::Virt talks to vmware? i've only used it for kvm
+19:14 shuff    http://libvirt.org/drvesx.html
+19:14 shuff    done!
+19:15 pdurbin  have you used this?
+19:16 shuff    nope
+19:16 shuff    but it appears well-documented
+19:17 shuff    and this sort of application is the whole point of libvirt
+19:20 pdurbin  i'll report back if i get it working. not today. thanks
+19:21 shuff    sounds good
+19:40 agoddard I did some similar stuff with Chef a while back, but never finished it
+19:40 agoddard https://github.com/agoddard/knife-libvirt
+19:41 agoddard there might be some takeaways in https://github.com/agoddard/knife-libvirt/blob/master/libvirt_server.rb if they're any help..
+19:48 pdurbin  this looks great, but it's all "host = qemu+tls://..." stuff so kvm, not vmware, right?
+19:49 pdurbin  similar to what we're doing here, from what i can tell: http://sjoeboo.github.com/blog/2012/01/05/getting-kvm-domain-info-into-puppet-facts/
+19:52 pdurbin  so glad sjoeboo blogs so i don't have to
+19:52 sjoeboo  haha
+19:52 sjoeboo  with infrequency
+20:28 agoddard afaik it's just straight up libvirt, so you could likely change the connection params to suit, but I haven't used libvirt w/ VMware before
+20:34 pdurbin  yeah, i'll play with it
+</pre></body></html>

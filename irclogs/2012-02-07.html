@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:34 PaxIndustria yo
+03:41 pdurbin      new blog post: crimsonfu freenode IRC channel setup - http://crimsonfu.github.com/2012/02/06/crimsonfu-freenode-irc-channel-setup.html
+15:30 pdurbin      so the short of the new blog post is that we won't change to +i (invite-only) for this channel
+15:30 pdurbin      if spam ends up in our chat logs, we'll contact moritz on freenode
+15:30 pdurbin      if it becomes a real problem, he'll enable an admin interface so we can delete spam ourselves
+15:59 pdurbin      oh, also, i updated our home page to talk about this irc channel. so prepare for the mad rush of people joining it :)
+16:02 shuff        sweet
+16:26 * ventz      prepares for the mad rush
+16:26 * ventz      ...waiting...
+16:26 * ventz      ...still waiting...
+16:29 whorka       anyone used this? I use fink and macports myself. http://mxcl.github.com/homebrew/
+16:29 ventz        whorka: i use fink, and just tried homebrew a few months ago for the first time
+16:29 ventz        i really *really* like the idea behind it, but it's just "not there yet" package wise
+16:29 pdurbin      homebrew is awesome.  you definitely should use it
+16:30 ventz        it's just gorgeous when it comes to adding your own packages (vs fink)
+16:30 pdurbin      `brew install wget`
+16:30 ventz        i am not a fan that it doesn't jail everything to /somedir like fink
+16:31 whorka       hmm, ok. maybe I'll check it out. thanks!
+16:31 pdurbin      ventz: you're using homebrew with sudo???
+16:31 pdurbin      just install everything in your home directory
+16:32 pdurbin      mkdir ~/.homebrew
+16:32 ventz        on the mac, it suggested /usr/local/bin, which i followed
+16:32 pdurbin      cd ~/.homebrew
+16:32 pdurbin      curl -Lsf http://github.com/mxcl/homebrew/tarball/master &gt; homebrew.tar.gz
+16:33 pdurbin      ~/.homebrew/mxcl-homebrew-810f604/bin/brew install wget
+16:35 pdurbin      thank god shuff is away. he's a fink maintainer :)
+16:35 pdurbin      don't let him poison your mind
+16:36 whorka       I prefer macports right now, but homebrew looks pretty slick.
+16:37 whorka       btw pdurbin thanks for plugging Perl Weekly. I'm getting lots of useful info there.
+16:40 pdurbin      sure. but perl weekly is a little to spammy for me on google+.  it's more like hourly.  but the actually weekly newsletter is great
+16:41 pdurbin      oh, whorka, i did notice you mentioned you got apache+fastcgi+etc working under selinux.  good job
+16:43 whorka       yes, finally. I actually just got it really working yesterday.
+16:43 pdurbin      i hope you put the rpms somewhere for public consumption
+16:44 whorka       I'm going to post the config info, but it's wrapped up in our proprietary configuration management rpms. all the code is public.
+16:45 pdurbin      ok. makes sense
+16:45 whorka       the 2 most important lessons I learned: 1) "man httpd_selinux". 2) the selinux audit.log doesn't actually show all the avc denials unless you disable "dontaudit" rules with "semodule -DB" (and re-enable with "semodule -B")
+16:46 pdurbin      hard lessons
+16:46 whorka       learned well
+17:20 agperson     is anyone aware of a web interface to edit config files with augeas?
+17:25 shuff        huh
+17:25 shuff        not off the top of my head
+17:26 agperson     i'm trying to figure out a way to let users modify subversion authz-style access lists, and one thought was to write an augeas lens and somehow expose that.
+17:27 agperson     but not coming up with anything
+17:27 shuff        this is for modifying a svnaccess.conf?  served via apache?
+17:28 shuff        i guess maybe look at https://wiki.ubuntu.com/UbuntuCentralizedServiceAdministrator
+17:28 shuff        but that looks like a lot more than what you want
+17:28 agperson     yeah
+17:29 agperson     i'm not sure that ubuntu project got very far, but yeah, that's the idea…i've looked at about a dozen SVN management front ends and so far they all suck :)
+17:29 shuff        and iirc there's no mechanism for including other files in svnaccess.conf
+17:31 agperson     correct
+17:31 shuff        maybe look at http://search.cpan.org/dist/SVN-Access/
+17:31 shuff        and build a cgi that sits in front of that?
+17:31 agperson     ah, interesting
+17:32 shuff        looks like its only dependency is Tie::IxHash, which is not too hard to meet
+19:59 shuff        zomg
+19:59 shuff        github is down!
+20:01 whorka       worksforme (http)
+20:03 shuff        i did get a brief "GitHub - Down for Maintenance" page
+20:04 whorka       Lincoln Lab just stole our Netapp tech. He was supposed to come in for a "priority 3" event today and they had a "priority 1" :'(
+20:06 shuff        haha
+20:07 shuff        i wonder if it's my old group, and their 6+ years out of support netapp finally died
+20:07 shuff        that would definitely be a priority 1
+20:10 whorka       ours just needs a new battery. apparently the 32xx series has a battery charger firmware problem. hope you don't have any of them.
+20:12 shuff        oh, speaking of hardware problems, how about this one: http://www.cisco.com/en/US/ts/fn/634/fn63430.html
+20:12 shuff        "A failure has been observed where a MOSFET power transistor failed in a manner that caused the MOSFET to overheat and emit a flash before failing."
+20:13 whorka       uh-oh. the magic smoke got out.
+</pre></body></html>

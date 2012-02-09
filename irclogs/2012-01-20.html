@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+14:44 sjoeboo  using the puppet queue or straight to a db?
+14:44 sjoeboo  (thin storeconfigs FTW)
+14:51 Pax      @sjoeboo I used MySQL for it, I'm going to set up some message queueing in front of it too.
+14:52 sjoeboo  nice, thats what we do, initially turning on storeconfigs and colelcting/exporting sshkey killed our puppet master
+14:52 sjoeboo  BUT, thin store configs made it all better
+14:52 sjoeboo  but putting a a queue in front is next
+14:53 Pax      how'd you do the thin storeconfigs?
+14:54 Pax      Oh, NM, just found it on the wiki page! :p
+14:54 sjoeboo  storeconfigs = true
+14:54 sjoeboo  thin_storeconfigs = true
+14:54 sjoeboo  yep!
+14:57 Pax      So far it's been pretty cool, and the Nagios hooks worked nicely too
+14:58 sjoeboo  yeah, we only use it for collecting/exporting ssh keys so far, and a little nagios testing
+14:58 sjoeboo  but collecting/exporting 1700+ keys was a bit much at first
+14:59 Pax      LOL I bet!
+15:01 Pax      I'm working on Nagios service dependancies now… I *hate* when I get "Server down" "SSH" down
+15:02 Pax      no kidding? SSH is down when the servers down? NOOOOO
+15:02 Pax      :p
+15:05 pdurbin  Pax: i made you an owner of the crimsonfu github organization
+15:10 pdurbin  also, i just stared a "members" section of http://crimsonfu.github.com  please feel free to add/introduce yourself there
+15:30 shuff    sweet
+15:30 shuff    done
+15:32 pdurbin  "SHUFF on CPAN". awesome.  like you're yelling :)
+15:33 pdurbin  wow, linking to https://metacpan.org/author/SHUFF rather than http://search.cpan.org/~shuff/  what a snub
+15:33 shuff    i sound my barbaric yawp over the roofs of the world
+15:43 Pax      w00t!
+15:43 Pax      I haz git power!
+15:43 shuff    Pax: what patch were you asking about yesterday?
+15:43 shuff    you were interested in a howto?
+15:45 Pax      ahh the passenger patch you gave eric
+15:45 shuff    oh right
+15:45 shuff    argh
+15:45 shuff    i think it has a bug in it
+15:46 Pax      he's wanting to set up his prod puppet master today, and I've not yet used your patchy goodness
+15:46 shuff    i *really* need to just sit down and make that work
+15:46 Pax      oh hey, I'm noticing on RHEL5 if you upgrade augeas-libs to 0.10.0  it cause the augeus types to run over and over again
+15:46 shuff    aaaa
+15:46 Pax      started noticing it yesterday after we patched some dev boxes
+15:46 shuff    that's no good
+15:47 Pax      yeah
+15:47 shuff    augeas package from what repo?
+15:47 shuff    EPEL?
+15:47 Pax      EPEL I think, double checking
+15:47 Pax      yup EPEL
+15:48 shuff    bugzilla time :)
+15:48 Pax      grr this is going to be a pain, I use augeas a bunch
+15:51 shuff    my word, how i hate this particular puppet bug: http://projects.puppetlabs.com/issues/5368
+15:51 shuff    i run into it infrequently enough that i always forget what the problem is and have to look it up again :)
+15:52 pdurbin  so speaking of howto's i was thinking we could take turns making blog posts on our websites
+15:52 shuff    like a miniature Ironman contest!  we could have badges :)
+15:52 pdurbin  let's not get ahead of ourselves :)
+15:56 shuff    agperson: welcome!
+15:56 agperson thanks, happy to be here
+16:20 Pax      https://bugzilla.redhat.com/show_bug.cgi?id=771097
+16:33 Pax      Well the good news is that puppet-2.6.13-2.el5.noarch  in EPEL testing seems to resolve the issue (confirmed so far in my dev)
+21:31 pdurbin  talking to sjoeboo about configuring apache via puppet. i think Pax was working on this recently. heading our now, but i'll ping him next week
+</pre></body></html>
