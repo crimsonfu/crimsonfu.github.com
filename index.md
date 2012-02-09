@@ -2,9 +2,7 @@
 layout: default
 title: crimsonfu - sysadmins who code
 ---
-**CRIMSON Fu**: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU** 
-
-On topic: Linux, Puppet, scripting, automation, best practices, etc.
+On topic: Linux, Puppet, scripting, automation, best practices, **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU** 
 
 ## Guiding Principles
 
@@ -32,7 +30,7 @@ See our [members](members) page.
 
 ## About the name crimsonfu
 
-"Crimson" because this group is being started by members of the Harvard community.  "Fu" is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
+Crimson is the color associated with the school were the founders met, but **we welcome all comers**!  Fu is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
 
 [topical channel]: http://freenode.net/policy.shtml#topicalchannels
 
