@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+15:04 shuff   nesssssssuuuuuuuuuussssssssssss!
+15:13 pdurbin trouble upgrading to nessus 5.0?
+15:15 shuff   no, trouble with (we think) overenthusiastic nessus scans beating up our systems
+15:15 pdurbin that's unpossible
+19:08 whorka  looks like I goofed when I switched from mod_fastcgi to mod_fcgid so that I could set a per-vhost script timeout.
+19:09 whorka  while that worked as intended, I also ended up with a config that would only serve one request per fastcgi handler, ignorant of how many children it has.
+19:09 whorka  per http://serverfault.com/questions/303535/a-single-php-fastcgi-process-blocks-all-other-php-requests
+19:11 shuff   oh hooray, you found docs!
+19:12 pdurbin yes, this sounds familiar. and the link you sent has a link to the site by brandon turner
+19:12 whorka  yup, I'm come full circle back to Brandon Turner's blog, but with renewed understanding.
+19:12 pdurbin jinx
+19:12 shuff   unfortunately i keep reading that mod_fastcgi is old and busted and mod_fcgid is the new hotness
+19:12 shuff   but i'm not so sure that's the case
+19:13 whorka  it was exactly that sort of thing that led me astray. mod_fastcgi's development has been stagnant for many years, although their website (copyright 2008) says "There is not much development on FastCGI because it is a very stable protocol / application.  But, yes, we are here..."
+19:29 pdurbin this is all eerily familiar. remember something about the older code being better...
+</pre></body></html>
