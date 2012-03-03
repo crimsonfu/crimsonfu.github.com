@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+14:32 pdurbin Bug 324 – 3.2.0: gmetad fails to collect data from multiple grids - http://bugzilla.ganglia.info/cgi-bin/bugzilla/show_bug.cgi?id=324
+14:32 pdurbin (bug filed for the ganglia problem i mentioned the other day)
+18:44 pdurbin lots of puppet for me today
+19:26 pdurbin hmm, i'd like to run `useradd -K UID_MAX=900 wikiuser` but i'm using "user { 'wikiuser':  uid  =&gt; 500, }" instead
+19:37 pdurbin huh, funny that a file i put in /home/wikuser is owned by puppet:puppet. i guess i have to explicitly change it with "owner" and "group" in my manifest
+</pre></body></html>

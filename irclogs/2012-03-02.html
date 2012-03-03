@@ -1,0 +1,297 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+14:41 pdurbin        Philip Durbin - Google+ - Fast is salt: [root@host~]# time salt "*" test.ping | wc… - https://plus.google.com/107770072576338242009/posts/YbCriPJCmqy
+14:44 shuff          pdurbin: a bit more on deploying wordpress with puppet: http://puppetlabs.com/blog/using-puppet-modules-to-install-and-manage-wordpress/
+14:45 pdurbin        oh good and it references the wordpress module by jonhadfield.  that's the one i'm planning to try very soonish
+14:46 pdurbin        thanks, shuff
+14:47 shuff          glad to be of service
+14:48 pdurbin        i wonder if sjoeboo ran `puppet-module install jonhadfield/wordpress` or just downloaded the tarball. i've never used that command
+14:48 sjoeboo        puppet module install
+14:48 shuff          puppet-module-install is pretty neat
+14:49 shuff          the one feature it *really* needs is the ability to check for available updates
+14:49 * sjoeboo      may have toasted the puppet master cert this morning….but we'l see….
+14:50 shuff          sjoeboo: is your puppet master behind a web proxy, or can it get directly to puppet forge?
+14:50 sjoeboo        behind aproxy
+14:50 sjoeboo        but the module install would be done on an admin workstation working in the git clone
+14:50 shuff          any problems traversing the proxy?
+14:50 sjoeboo        no one can ever touch puppet on the master
+14:50 shuff          as it should be
+14:54 sjoeboo        well, master recovered, can't sign new certs however
+14:54 sjoeboo        sigh
+15:35 pdurbin        "What's involved in making me the root?" hmm. maaaybe i shouldn't give this guy root. . .
+15:38 sjoeboo        anyone have good openssl smarts?
+15:38 sjoeboo        "new" (cleaned cert) puppet client cannot get cert verified.
+15:38 sjoeboo        time is in sync
+15:38 sjoeboo        i can do:
+15:38 sjoeboo        oot::wave { 10:34:20 Fri Mar 02 }
+15:38 sjoeboo        ~-&gt; openssl verify -CAfile /var/lib/puppet/ssl/certs/ca.pem /var/lib/puppet/ssl/certs/wave.rc.fas.harvard.edu.pem
+15:38 sjoeboo        says its okay
+15:38 * sjoeboo      confused
+15:39 shuff          hmm
+15:39 sjoeboo        yah
+15:39 pdurbin        does `openssl asn1parse -in /var/lib/puppet/ssl/certs/ca.pem` show you anything interesting?
+15:39 sjoeboo        trying to avoid  a flu regeneration
+15:39 sjoeboo        define interesting
+16:28 shuff          hey, fyi for Harvard folks: apparently HUIT is developing first-class Git and Subversion support for University-wide use :)
+16:28 shuff          http://isites.harvard.edu/icb/icb.do?keyword=standardization
+16:31 pdurbin        booo paywall. making me log in
+16:37 pdurbin        subversion for internal code and git for open source? death to subversion, i say
+16:40 shuff          if you were obliged to develop on Windows, you might sing a different tune
+16:47 pdurbin        maybe, but i've helped some windows people install git. it's fine
+18:13 Pax            i sorta have mixed feelings, kinda wish they had picked just 1
+18:15 pdurbin        yeah. git only, i say
+18:30 pdurbin        it is 2012 after all ;)
+18:41 Pax            LOL
+18:52 pdurbin        wow, sjoeboo's cobbler_new_system.rb is very handy!
+19:26 Pax            how so?
+19:26 Pax            or rather whats it do?
+19:57 pdurbin        Okay, I will make a system as: cobbler system add --name=marxlab --hostname=foo.example.com --dns-name=foo.example.com --interface=eth0 --ip-address=10.10.10.123 --mac-address=random --profile=CentOS-6.0-x86_64-vm --virt-bridge=br371 --virt-type=qemu
+19:58 pdurbin        that's what it does. asks questions. add a system to cobbler for you
+19:59 pdurbin        westmaas: are you here? i have dumb openstack questions!
+19:59 pdurbin        that is to say, i am dumb, not openstack
+19:59 westmaas       pdurbin: yes!
+19:59 westmaas       and there are no dumb questions, only questions I won't bother answering
+20:00 pdurbin        firstly, what's the best doc to start with? assume i know nothing
+20:00 westmaas       (but thats usually cause I get distracted)
+20:00 westmaas       as a user, operator of openstack, I assume?
+20:00 westmaas       not as a developer against openstack
+20:01 pdurbin        let's pretend i would like to have a private cloud
+20:01 westmaas       http://docs.openstack.org/diablo/openstack-compute/starter/content/
+20:01 pdurbin        for buzzword compliance
+20:01 pdurbin        Ubuntu 11.10?? we're a centos shop!
+20:02 pdurbin        have a centos version?
+20:02 westmaas       no :( not yet
+20:02 pdurbin        that's ok, i'll muddle through. next...
+20:02 pdurbin        let's say i have 4 servers that i'm going to use as hypervisors
+20:02 pdurbin        4 physical servers
+20:03 westmaas       alrighty
+20:03 pdurbin        where do i install openstack?
+20:03 pdurbin        do the 4 physical servers get an openstack client?
+20:03 pdurbin        and i need a 5th physical server for the openstack web gui?
+20:03 westmaas       do you have any other machines you can use as part of your infrastructure, just not for VMs?
+20:04 pdurbin        (i assume openstack has a web gui)
+20:04 westmaas       it does, althought rackspace doesn't use that so I haven't played much with it.
+20:04 westmaas       so there is a component that you install on each hypervisor
+20:04 pdurbin        well, our infrastrucure is vast and sprawling.  we have dns on a separate server
+20:04 pdurbin        we have server that runs cobbler and puppet
+20:05 westmaas       you need somewhere, not necessarily on separate servers: rabbit, mysql, glance api (image service), nova api (compute service), keystone (authentication service), horizon (web ui)
+20:06 westmaas       mysql/postgres
+20:06 westmaas       possibly other DBs would work as well
+20:06 pdurbin        ok. . . this sounds like a lot of stuff :)
+20:06 westmaas       :)
+20:06 westmaas       it is.
+20:07 pdurbin        let's say i get that 5th server. i can install all those components on the 5th server?
+20:07 westmaas       yes
+20:07 pdurbin        ok
+20:07 westmaas       if you want to get a very basic view, you can actually run all the components on a single server using devstack
+20:08 pdurbin        devstack, eh?
+20:08 westmaas       which just starts up everything on one machine, geared towards openstack developers, but still all is running
+20:08 westmaas       ironcamel: does devstack run horizon?
+20:08 pdurbin        it sounds like devstack is what i want for now then
+20:08 westmaas       only works on ubuntu though.
+20:08 westmaas       http://devstack.org/
+20:09 pdurbin        man, you guys love ubuntu
+20:10 ironcamel      westmaas: http://50.56.122.134
+20:10 ironcamel      yes
+20:10 westmaas       haha we had a lot of support from ubuntu people when it first started off
+20:10 westmaas       pdurbin: ironcamel's dev stack is actually running on a cloud server...
+20:10 westmaas       so its a cloud infrastructure on a VM
+20:10 ironcamel      i'm trying to become incepted
+20:11 ironcamel      login is admin/asdf for that url
+20:12 pdurbin        'Success: Instance "pdurbin1" launched.
+20:12 pdurbin        i'm doin' stuff!! thanks, ironcamel!
+20:12 pdurbin        status: build
+20:12 pdurbin        task: networking
+20:14 ironcamel      yeah! welcome to the cloud. you will be assimilated.
+20:16 pdurbin        hmm, i had to click away for the little spinning wheel to go away
+20:16 westmaas       pdurbin: you can also see the admin/project views, to get an idea of what you can do as either a user or an admin - most users wouldn't see the admin section
+20:16 pdurbin        the wheel next to "task: networking"
+20:16 westmaas       pdurbin: don't blame us we don't gui here :(
+20:16 westmaas       but you can file a bug!
+20:17 ironcamel      why are you using a gui? be a man, CLI or die!
+20:17 pdurbin        aw, man, in the #salt channel they file bugs for you!  and implement your feature request in less than a day
+20:18 ironcamel      now that's fanatical support
+20:18 westmaas       see if they will file bugs against openstack for you!
+20:18 pdurbin        ironcamel: nice default password. do you add this?
+20:18 pdurbin        for user "cirros"
+20:18 ironcamel      no
+20:18 ironcamel      that is a devstack thing
+20:19 ironcamel      every server you create with devstack has that user and password
+20:19 pdurbin        nice. i'm root on my vm
+20:20 pdurbin        with the VNC tab. i'm impressed that this work on linux.  (i'm using firefox on linux)
+20:21 pdurbin        so my vm has an address of 10.0.0.3.  ironcamel could theoretically NAT that out and I'd be able to ssh to it
+20:22 ironcamel      theoretically, if ironcamel knew how to do such things
+20:23 ironcamel      on a typical deployment, vm's will have public and private ip's
+20:26 jamesdotcuff   ironcamel: nicely done there captain! we have a winner! ;-)
+20:26 pdurbin        oh hey, james :)
+20:26 * jamesdotcuff waves
+20:26 pdurbin        everybody look busy
+20:27 jamesdotcuff   yeah had no idea that the vnc integration was that hot.  v. cool
+20:28 pdurbin        james, you should go make yourself a vm
+20:28 jcuff          yeah I was just about to go through the process
+20:29 westmaas       nice
+20:29 pdurbin        now if only i could find it again in the gui...
+20:30 westmaas       find your instance, or where you do it?
+20:30 jcuff          yeah I'm having that same erm "learning curve" ;-)
+20:30 jcuff          docs are for wimps
+20:30 jcuff          heheh
+20:30 pdurbin        so go to http://50.56.122.134/nova/images_and_snapshots/
+20:30 pdurbin        and click Launch
+20:30 westmaas       haha, tbh, I always use the api
+20:30 pdurbin        next to cirros-0.3.0-x86_64-blank
+20:30 westmaas       this is the first time I've looked at the gui in the last 6 months!
+20:30 jcuff          got it
+20:31 jcuff          sweet - folks are going to love this
+20:32 pdurbin        Error: Unable to get vnc console for instance "8b5bb952-633e-44ee-8dbf-184ef30a1afd".
+20:32 pdurbin        maybe the "jcuff" vm isn't finished building yet...
+20:32 jcuff          yeah I was a little eager - in now
+20:32 pdurbin        ah, there we go. fine now
+20:32 pdurbin        heh
+20:33 pdurbin        watching james type on the vnc vm screen
+20:33 jcuff          you see the same vnc... that's lovely - we can use it to show folks how to do things
+20:33 jcuff          sold... how much does this cost...
+20:33 jcuff          oh yeah...
+20:33 westmaas       haha :)
+20:33 jcuff          jcuff@srv:~$ git clone git://github.com/openstack-dev/devstack.git
+20:34 jcuff          Cloning into devstack..
+20:34 jcuff          basement is busy...
+20:34 pdurbin        see, james is an ubuntu guy...
+20:34 westmaas       so no probs
+20:34 ironcamel      i know how to sell things to you all now ... just show you a gui :)
+20:35 jcuff          installing...
+20:35 jcuff          yeah I'm all about the fluffies ;-)
+20:35 jcuff          gotta love ./stack.sh done
+20:35 westmaas       promise me you won't use devstack for production!
+20:36 pdurbin        that... doesn't... sound like us... ;)
+20:36 westmaas       lol
+20:36 westmaas       im guessing you guys aren't down with puppet or chef since you are looking at salt?
+20:36 pdurbin        no no, we love puppet
+20:36 * jcuff        stares at shoes
+20:36 westmaas       ah cool
+20:37 pdurbin        but started playing with salt, what? yesterday i guess
+20:37 sjoeboo        salt only for remote execution
+20:37 jcuff          Cloning into /opt/stack/nova...
+20:37 westmaas       theres quite a few puppet scripts out there that support openstack already
+20:37 pdurbin        sjoeboo gets all the credit
+20:37 westmaas       sjoeboo: ah cool
+20:37 pdurbin        oh really. . .
+20:37 sjoeboo        quick, how to force libvirt to always make disks in a particular format
+20:37 sjoeboo        go
+20:37 ironcamel      salt is like parallel-ssh right
+20:37 sjoeboo        way better
+20:37 sjoeboo        no server-&gt;client
+20:37 sjoeboo        all mq based
+20:38 ironcamel      cool
+20:38 westmaas       yeah, I haven't looked too much into it but I can give you a few links to some repos...one done by a guy at redhat, which is probably of interest to a centos shop
+20:38 pdurbin        yes, links please
+20:39 pdurbin        and would we tie openstack in with cobbler??
+20:40 pdurbin        or maybe we'd dedicate cobbler to physical hosts and use some whizzy openstack thing for kickstarting vms
+20:40 pdurbin        i guess openstack is based around images, AMI's or whatever. . .
+20:41 pdurbin        can i do a kickstart of an openstack VM?
+20:41 westmaas       yeah, use images, and you can inject files on create
+20:41 pdurbin        use images he says
+20:41 pdurbin        do people do kickstarts of vms?
+20:41 pdurbin        right now we use koan, if you're familiar with that
+20:42 pdurbin        Kickstart Over A Network
+20:42 westmaas       not terribly, sorry
+20:42 pdurbin        we run koan from the physical KVM host, and pass it a system name
+20:42 pdurbin        koan --system=mynewvm
+20:42 pdurbin        koan then looks up "mynewvm" in cobbler
+20:43 westmaas       https://github.com/derekhiggins/puppetlabs-openstack
+20:43 pdurbin        (mynewvm was added to cobbler with sjoeboo's script, as described above)
+20:43 westmaas       thats a fork from puppetlabs, with some redhat stuff added on
+20:43 pdurbin        cobbler servers up a kickstart file, which the vm uses to kickstart itself
+20:44 pdurbin        does that make sense?
+20:44 westmaas       https://github.com/derekhiggins/puppetlabs-openstack-nosubmodules
+20:44 westmaas       sorry that might be the one you want to use
+20:45 westmaas       pdurbin: yes.  I'm not sure off the top of my head how to get that here.
+20:45 pdurbin        well, maybe we don't need koan and cobbler in an openstack world. . .
+20:45 pdurbin        but i think we do need kickstarts. . .
+20:46 westmaas       what do you do in the kickstart?
+20:46 pdurbin        or at least, kickstarts are what i've used for years
+20:46 pdurbin        maybe it's just a comfort thing
+20:46 pdurbin        well, let me go look
+20:47 pdurbin        we set up our yum repos
+20:47 pdurbin        say which rpms we want to install
+20:49 pdurbin        i dunno, a few other things i guess. we tell puppet to start on boot
+20:50 pdurbin        then when the vm reboots after a kickstart it gets registered with puppet and configures itself
+20:52 pdurbin        so is this easy to do with images? what's the openstack way to do this?
+20:52 sjoeboo        image = no
+20:52 pdurbin        sjoeboo: we can't use images?
+20:52 pdurbin        i'm trying to be openminded! ;)
+20:52 sjoeboo        i dislike the idea very much
+20:52 pdurbin        openstack, openmind
+20:53 pdurbin        me too, to be honest
+20:53 sjoeboo        then you need to reconfigure lots of stuff
+20:53 westmaas       could be painful to make changes there.
+20:53 sjoeboo        yeah, make a change = build a new golden master? redeploy? no thanks
+20:53 westmaas       so I haven't dealt too much with this, public clouds obviously don't have quite this level of kickstart need.
+20:53 pdurbin        sjoeboo: exactly. no fun, i would think...
+20:53 sjoeboo        kcikstarts would be just as fas and have finer grain control
+20:53 pdurbin        cobbler is very dynamic. it's nice
+20:54 sjoeboo        except for the failure in the ability to for the disk image format for a Vm!
+20:54 sjoeboo        i'm finding it impossible to make anything but a raw and convert it later
+20:54 westmaas       how bad is getting puppet on the images that connects to your puppet server?
+20:54 westmaas       and let puppet take care of all those other things?
+20:54 westmaas       or is that still too painful?
+20:55 westmaas       I will ask around on the way to do this, too.
+20:55 pdurbin        so what's involved in making an image?
+20:55 sjoeboo        what about editing the mac address in the network config?
+20:55 sjoeboo        hsotname?
+20:55 sjoeboo        puppet cert based on hostname
+20:55 sjoeboo        etc etc
+20:56 sjoeboo        images are for windows and osx deployments only
+20:58 pdurbin        can you please point me to docs on images?
+20:59 westmaas       yeah let me see whate I can find.  I'm definitely agreeing with sjoeboo here, best to run something as close to a stock os image as possible
+20:59 westmaas       http://docs.openstack.org/diablo/openstack-compute/starter/content/Creating_a_Linux_Image_-_Ubuntu_Fedora-d1e1287.html
+21:00 pdurbin        thanks. so, we're not running a public cloud, obviously
+21:00 westmaas       right
+21:03 pdurbin        westmaas: what were you saying about injecting files?
+21:03 pdurbin        can you inject an exec? :)
+21:03 pdurbin        i.e. install this rpm or whatever
+21:04 westmaas       nah, sadly.  you'd have to combine that with sshing and doing things after the fact
+21:04 westmaas       http://docs.openstack.org/api/openstack-compute/2/content/Server_Personality-d1e2543.html
+21:05 westmaas       we mostly use it to add ssh keys, so that you can then connect via ssh and do whatever.
+21:05 westmaas       that would obviously require additional tooling on your end though.
+21:06 pdurbin        reading through Image Management a bit
+21:09 westmaas       sjoeboo: do you mean setting the mac address of the host?
+21:09 sjoeboo        yes/no
+21:09 westmaas       of the instance*
+21:09 westmaas       sorry :)
+21:09 westmaas       the virtual machine
+21:10 sjoeboo        setting it, but also having that match whats in /etc/sysconfig/network-scripts/ifcfg-eth0, for instance
+21:10 westmaas       that stuff is handled by a couple other services: quantum and melange do all the networking including assigning mac addresses
+21:11 pdurbin        i mean, i'm not too worried about mac addresses.  we just tell cobbler "random" and it makes one up for us
+21:11 pdurbin        but the mac address is important
+21:11 sjoeboo        right
+21:11 pdurbin        because when the vm boots
+21:11 sjoeboo        BUT
+21:11 sjoeboo        kickstart configs the network interface
+21:11 sjoeboo        os-side
+21:12 pdurbin        true true. good point
+21:12 sjoeboo        so, if you have a  prebuilt system, that, among other things, are set to values that amy or may not be right
+21:12 sjoeboo        then you're talking about doing something sys-prep-y to images etc
+21:12 sjoeboo        when you could just kickstart and be done
+21:12 sjoeboo        now…the "Image" could be the pie boot images
+21:12 sjoeboo        done
+21:13 pdurbin        pxe, he means
+21:13 sjoeboo        yes
+21:14 pdurbin        that's basically what koan is doing, right? having the newly created vm boot with a pxe image
+21:15 pdurbin        and cobbler makes a pxe config to point to the vm's kickstart file
+21:15 pdurbin        that is cobbler creates a kickstart file for every system in cobbler
+21:15 sjoeboo        the pxe file had the ks= hard coded into the boot
+21:15 pdurbin        these are generated programmatically, of course. there are templates and what not
+21:16 pdurbin        right
+21:16 pdurbin        westmaas: we live in a kickstart world!
+21:17 westmaas       hehe
+21:17 pdurbin        it's not so bad
+21:17 pdurbin        i imagine ubuntu has the same thing
+21:17 pdurbin        we actually use cobbler with ubuntu too, you know
+22:26 westmaas       pdurbin: that dev stack instance is transient just fyi
+22:26 westmaas       prolly going to get wiped soonish
+</pre></body></html>

@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+13:47 pdurbin  i sent this to shuff, but i wonder what westmaas has to say about: https://twitter.com/unixdaemon/status/170152922993266688
+13:47 pdurbin  "the mind share isn't there for Eucalyptus any more. Feels like everyone's moved on to OpenStack, CloudFoundary and even OpenNebula"
+13:48 pdurbin  shuff seems to favor drop-in AWS compatibility with Eucalyptus. i'm wondering if OpenStack is yet another API...
+14:34 westmaas for private clouds, openstack provides a dropin replace ment for AWS compatibility as of some date (not sure what date)
+14:34 westmaas and to me, that is the problem with any aws compatible cloud
+14:34 westmaas its compatible to some point, but its always playing catchup and never allowed to add anything new
+14:35 westmaas of course, if you only care about the basics, and will always care only about the basics, it probably doesn't matter much
+14:36 westmaas if you care about writing an application that will work on a private cloud, and hp cloud, and internap cloud, and rackspace cloud, obviously using the openstack API is going to be the way to go :)
+14:37 pdurbin  obviously ;)
+14:38 pdurbin  so the openstack api *is* different than the AWS API
+14:38 westmaas also, I'd say that the ubuntu guys are very heavily involved in openstack, and it wouldn't surprise me to see eucalytpus switch to openstack underneath - maintaining the aws compatibility
+14:38 westmaas yes
+14:38 pdurbin  ok, so one must write to one or the other
+14:38 pdurbin  there was some other API too. . . delta cloud or something...
+14:38 pdurbin  http://en.wikipedia.org/wiki/Deltacloud
+14:39 pdurbin  "Deltacloud is an API developed by Red Hat that abstracts differences between clouds"
+14:39 shuff    deltacloud is a least-common-functionality abstraction layer
+14:39 pdurbin  is that bad? :)
+14:39 shuff    depends on whether you want to use platform-specific functionality
+14:40 pdurbin  the problem is. . . i don't know what i want. . . yet :)
+14:40 shuff    real-world example: you can use deltacloud to do things like start up and shut down instances on AWS
+14:40 westmaas or rackspace cloud
+14:40 shuff    exactly
+14:40 westmaas is deltacloud just client side? I forget
+14:40 westmaas libcloud is another library that does that
+14:40 shuff    but if you want to do e.g. DNS management with Route53, then deltacloud cannot help you, and you have to use a platform-specific tool
+14:41 westmaas yep
+14:41 pdurbin  sheesh. someone tell me which API i should write code against! ;)
+14:41 westmaas the open one that you can influence :P
+14:41 shuff    deltacloud really == aeolus frontend + deltacloud backend
+14:41 shuff    westmaas: +1
+14:42 shuff    if you do not already have lots of legacy code you have to support
+14:42 westmaas yep, its a big problem.
+14:42 pdurbin  we have no cloud code to speak of, yet
+14:43 shuff    then you should deploy the private cloud platform that you are most comfortable deploying and supporting
+14:43 shuff    and write your cloud code for that :)
+14:44 pdurbin  so many cloud platforms
+14:45 pdurbin  four listed in the tweet above
+14:45 westmaas I just lost one of my developers to redhat, cause they wanted to him to work on openstack for him - obviously I have a lot of stake in openstack, but it really does seem to have the most momentum.
+14:45 westmaas for them*
+14:46 pdurbin  interesting. so redhat is interested in openstack. they seem to have lots of their own cloud stuff
+14:46 westmaas yep, and tbh citrix is the same way, very interested in openstack but not putting all their eggs in one basket
+14:47 westmaas I think citrix has more invested in openstack than redhat does, but redhat's team is growing
+14:47 westmaas you can yum install in fedora now, for example
+14:47 westmaas with no special repos or anything
+14:48 pdurbin  huh. nice. i had no idea. i'll try it on my fedora laptop at home
+14:48 westmaas i think it was available in 16, though I'm lost on where they are now :D
+14:48 pdurbin  yeah, i'm on 16. the latest
+14:49 shuff    oh hey, pdurbin, how are you liking GNOME 3?
+14:49 westmaas but still shuff is right: whatever you feel most comfortable with.  do you know the areas you have the most pain managing VMs right now?
+14:50 pdurbin  you really want me to tell you about my pain with regard to managing VMs?  no you don't :)
+14:50 westmaas haha
+14:51 westmaas well what I really want is to hear your wishlist, and then you can decide based on which one best fulfills that list
+14:52 pdurbin  ok, ok, but not today. today i'm dinking with http://ikiwiki.info/ and grabbing RPMs from http://xapian.org/download
+14:52 shuff    whoa, whoa
+14:53 shuff    how did Xapian get involved in this?
+14:53 pdurbin  for http://ikiwiki.info/plugins/search/
+14:53 shuff    aha
+14:59 pdurbin  No package perl(Search::Xapian). sigh. time to build more RPMs
+15:00 pdurbin  been grabbing them from https://admin.fedoraproject.org/pkgdb/acls/name/perl-Search-Xapian for example
+15:28 pdurbin  grr. not going to work. no xapian-omega from fedora. shuff, are you an EPEL maintainer yet?
+15:29 shuff    nope :(
+15:29 pdurbin  ok. we're all EPEL here
+15:30 shuff    there's a functional xapian-omega package in FInk!
+15:30 pdurbin  heh
+15:43 pdurbin  to answer your question from before, shuff, i believe i tweeted that i'm "tolerating" GNOME 3 :)
+15:43 shuff    well, that is better than i had hoped
+15:43 shuff    s/hoped/expected/
+18:14 sjoeboo  new hotness
+18:14 sjoeboo  http://software.rc.fas.harvard.edu/ganglia
+19:16 shuff    oooooo
+19:16 shuff    fancy
+19:26 pdurbin  :)
+19:26 pdurbin  we like it
+</pre></body></html>
