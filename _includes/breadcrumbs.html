@@ -43,7 +43,7 @@
   <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
   <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
   <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}">{{myThirdWord}}</a> &#187; </li>
-  {% unless myFourthWord == 'index.html' %}
+  {% unless myFifthWord == 'index.html' %}
   <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}/{{myFourthWord}}">{{myFourthWord}}</a> &#187; </li>
   {% endunless %}
 {% else %}
@@ -51,6 +51,7 @@
   <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
   <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
   <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}">{{myThirdWord}}</a> &#187; </li>
+  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}/{{myFourthWord}}">{{myFourthWord}}</a> &#187; </li>
 {% endif %}
 
 {% include breadcrumbs-end.html %}
