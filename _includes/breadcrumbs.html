@@ -1,57 +1,32 @@
 {% include breadcrumbs-begin.html %}
 
-{% assign url = {{page.url}} %}
-{% assign delimiter = '/' %}
-{% capture allparts %}{{ url | replace: delimiter, ' ' }}{% endcapture %}
+{% comment %}
+based on http://stackoverflow.com/questions/9612235/what-are-some-good-ways-to-implement-breadcrumbs-on-a-jekyll-site/9633517#9633517
+{% endcomment %}
 
-{% capture myFirstWord  %}{{ allparts    | truncatewords: 1 | remove: '...' }}{% endcapture %}
-{% capture minusFirst   %}{{ allparts    | replace_first: myFirstWord, ''   }}{% endcapture %}
+{% capture url_parts %}{{ page.url | remove: "/index.html" | replace: '/', " " }}{% endcapture %}
+{% capture num_levels_deep %}{{ url_parts | number_of_words | minus: 1 }}{% endcapture %}
+{% capture remaining_parts %}{{ url_parts }}{% endcapture %}
+{% assign growing_path="" %}
 
-{% capture mySecondWord %}{{ minusFirst  | truncatewords: 1 | remove: '...' }}{% endcapture %}
-{% capture minusSecond  %}{{ minusFirst  | replace_first: mySecondWord, ''  }}{% endcapture %}
-
-{% capture myThirdWord  %}{{ minusSecond | truncatewords: 1 | remove: '...' }}{% endcapture %}
-{% capture minusThird   %}{{ minusSecond | replace_first: myThirdWord, ''   }}{% endcapture %}
-
-{% capture myFourthWord %}{{ minusThird  | truncatewords: 1 | remove: '...' }}{% endcapture %}
-{% capture minusFourth  %}{{ minusThird  | replace_first: myFourthWord, ''  }}{% endcapture %}
-
-{% capture myFifthWord  %}{{ minusFourth | truncatewords: 1 | remove: '...' }}{% endcapture %}
-
-{% if myFirstWord contains '.html' %}
-  <li><a href="/">home</a> &nbsp; </li>
-{% elsif mySecondWord contains '.html' %}
-  <li><a href="/">home</a> &#187; </li>
-  {% unless mySecondWord == 'index.html' %}
-  <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
-  {% endunless %}
-{% elsif myThirdWord contains '.html' %}
-  <li><a href="/">home</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
-  {% unless myThirdWord == 'index.html' %}
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
-  {% endunless %}
-{% elsif myFourthWord contains '.html' %}
-  <li><a href="/">home</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
-  {% unless myFourthWord == 'index.html' %}
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}">{{myThirdWord}}</a> &#187; </li>
-  {% endunless %}
-{% elsif myFifthWord contains '.html' %}
-  <li><a href="/">home</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}">{{myThirdWord}}</a> &#187; </li>
-  {% unless myFifthWord == 'index.html' %}
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}/{{myFourthWord}}">{{myFourthWord}}</a> &#187; </li>
-  {% endunless %}
+{% if num_levels_deep == "-1" %}
+<li><a href="/">home</a> &nbsp; </li>
 {% else %}
-  <li><a href="/">home</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}">{{myFirstWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}">{{mySecondWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}">{{myThirdWord}}</a> &#187; </li>
-  <li><a href="/{{myFirstWord}}/{{mySecondWord}}/{{myThirdWord}}/{{myFourthWord}}">{{myFourthWord}}</a> &#187; </li>
+<li><a href="/">home</a> &#187; </li>
+  {% for unused in site.something_to_iterate_over limit: num_levels_deep %}
+
+    {% capture first_of_remaining %}{{ remaining_parts | truncatewords: 1, '' }}{% endcapture %}
+    {% capture growing_path %}{{ growing_path }}/{{ first_of_remaining }}{% endcapture %}
+
+<li><a href="{{growing_path}}">{{ first_of_remaining }}</a> &#187; </li> 
+
+{% comment %}
+<li>(remaining_parts: {{remaining_parts}}, first_of_remaining: {{first_of_remaining}}, growing_path: {{growing_path}})  <a href="{{growing_path}}">{{ first_of_remaining }}</a> &#187; </li>
+{% endcomment %}
+
+    {% capture remaining_parts %}{{ remaining_parts | remove_first: first_of_remaining }}{% endcapture %}
+
+  {% endfor %}
 {% endif %}
 
 {% include breadcrumbs-end.html %}
