@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+04:13 pdurbin   added breadcrumbs: http://crimsonfu.github.com/members/pdurbin
+15:25 pdurbin   take THAT, multi-site Drupal!
+15:25 shuff     punch it in the face
+15:31 pdurbin   who knew all that dinking with openscholar would come in handy
+15:32 pdurbin   was just talking to a guy here (eric) about how i'd like to write the definitive guide on how to preview DNS changes by editing /etc/hosts or equivalent
+15:38 agperson  would it be a very long guide?
+15:40 shuff     it might be a more realistic simulation if you were to use dnsmasq or unbound or something like that
+15:41 agoddard  pdurbin: yeah, i wrote it quickly (not finished at all yet) and could do with a ton of refactoring
+15:41 agoddard  pdurbin: (PassNG) - I just opened it 'cause my buddy wanted to work on it with me and I ran out of private collabs on the githubs ;)
+15:44 pdurbin   agoddard: cool cool, i stopped when it needed imagemagik-devel (sp?) or whatever
+15:45 pdurbin   agperson: long enough such that a drupal or wordpress person could grok it
+15:46 agoddard  pdurbin: ya, I'd already written some stuff with rmagick, so I just re-used that code (http://tedx.anthonygoddard.com/)
+15:47 agoddard  pdurbin: but the general idea was.. give it a password and it'll give someone a single use link to an image containing the password. There's better ways to send passwords, but this way seemed better than the status quo (plain text emails or WORD.DOC attachements ;)
+15:49 pdurbin   agoddard: should just encrypt the file with the other person's public key, right?
+15:49 agoddard  ya, but was for folks who didn't know what a public key was
+15:49 pdurbin   "just". . . as if everyone has a public key
+15:49 pdurbin   heh. right :)
+15:49 agoddard  :)
+15:50 agoddard  re: hosts file, some devs here use ghost, I haven't used it but seems kinda friendly https://github.com/bjeanes/ghost
+15:51 pdurbin   wow, ghost is for when you really get into editing /etc/hosts!
+15:51 pdurbin   i guess my doc could link to it
+15:52 pdurbin   shuff: unbounded ended up being more than i needed, frankly. KISS
+15:52 pdurbin   er, unbound, i mean
+16:06 agoddard  I guess ghost would be ace if you had to set a ton of hosts for some reason for someone's env.. but me thinks if you gotta do that, there's prolly another issue somewhere ;)
+18:28 pdurbin   reviewing my ssh keys at https://github.com/settings/ssh/audit , per the email from github
+18:41 ironcamel pdurbin: did you actually compare the fingerprints to your actual keys?
+18:43 ironcamel i didn't know how to do that at first, but my co-worker showed me: ssh-keygen -lf pub-key-file
+18:45 pdurbin   ironcamel: i actually rejected/deleted them all except for one i can't check from here.  uploaded a new key. but thanks for the handy command. i'll use it when i get home
+18:46 shuff     thanks for the heads-up; just verified and re-approved mine
+18:50 whorka    github -&gt; Notifications -&gt; Mark all as read is giving a 404, but at least it's cute: https://github.com/inbox/read_all_notifications
+19:48 agoddard  haha, I just googled "show ssh fingerprint" like 20 min ago, didn't see any obvious results, put off the github fix
+19:48 agoddard  then switched to this window and hazaah!
+19:48 agoddard  thanks
+20:57 pdurbin   first day of logging :) http://irclog.perlgeek.de/salt/2012-03-07
+21:25 pdurbin   drupal, you are killing me. you and your non-working book_menu_subtree_data on recent database dumps
+21:45 pdurbin   ah ha! some funny drupal permissions going on...
+22:06 shuff     stdout.readlines.detect {|line| %r{host/#{Facter.value("fqdn")}} =~ line}.to_s.chomp.split(' ', 2).shift
+22:06 shuff     i am delighted with my ability to write Perl programs in Ruby :)
+22:25 pdurbin   shuff: oVirt - http://twit.tv/show/floss-weekly/203
+22:25 shuff     yay oVirt!
+</pre></body></html>
