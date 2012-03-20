@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+14:31 Pax      mornin
+14:56 shuff    hey hey :)
+15:23 Pax      has anyone written any custom facts to get primary interface name?
+15:31 shuff    hm
+15:31 shuff    not off the top of my head
+15:32 shuff    btw, Pax: rob and i should shortly have a patch to submit to your pam_access puppet module :)
+15:32 Pax      oh, cool, what did you add?
+15:34 shuff    we're parameterizing it
+15:34 shuff    we would like to use it to manage pam_access on our own systems
+15:35 Pax      oh! do a quick check out, I actually did that already, see if it matches up!
+15:35 Pax      I did a really quick job of it though, so improvements would be really welcome!
+15:36 shuff    what's the svn url?
+15:37 Pax      http://svn.noc.harvard.edu/puppet/
+15:37 Pax      http://svn.noc.harvard.edu/puppet/trunk/modules/pam_access/
+15:37 Pax      for the pam module
+15:40 shuff    sweet
+15:40 shuff    i'm looking at it now
+17:20 shuff    booyah
+17:20 shuff    how's this for a regex?
+17:20 shuff    ^(:?ALL|LOCAL|[[:alnum:]]+|(?:[[:digit:]]{1,3}\.){3}[[:digit:]]{1,3}(?:\/(?:[[:digit:]]{1,2}|(?:[[:digit:]]{1,3}\.){3}[[:digit:]]{1,3}))?|(?:[[:digit:]]{1,3}\.){1,3}|(?:[[:alnum:]\-]+)?(?:\.[[:alnum:]\-]+)+)$
+19:29 pdurbin_ ha! finally! i have a working centos6 cisco anyconnect vpn rpm! \o/
+19:45 shuff    well done :)
+19:46 pdurbin_ i had written my own for fedora at home. ugly ugly but it worked. since i having trouble with vpn today i switched to one by this guy, i think: https://admin.fedoraproject.org/pkgdb/users/info/slaanesh
+19:47 pdurbin_ he had emailed me a spec file: Philip Durbin - Google+ - nice! some guy just emailed me an RPM spec file after… - https://plus.google.com/107770072576338242009/posts/Jr6nX8jYMVh#107770072576338242009/posts/Jr6nX8jYMVh
+19:47 pdurbin_ had to patch it. asking him where he'd like to put it
+</pre></body></html>

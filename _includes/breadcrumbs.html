@@ -1,0 +1,32 @@
+{% include breadcrumbs-begin.html %}
+
+{% comment %}
+based on http://stackoverflow.com/questions/9612235/what-are-some-good-ways-to-implement-breadcrumbs-on-a-jekyll-site/9633517#9633517
+{% endcomment %}
+
+{% capture url_parts %}{{ page.url | remove: "/index.html" | replace: '/', " " }}{% endcapture %}
+{% capture num_levels_deep %}{{ url_parts | number_of_words | minus: 1 }}{% endcapture %}
+{% capture remaining_parts %}{{ url_parts }}{% endcapture %}
+{% assign growing_path="" %}
+
+{% if num_levels_deep == "-1" %}
+<li><a href="/">home</a> &nbsp; </li>
+{% else %}
+<li><a href="/">home</a> &#187; </li>
+  {% for unused in site.something_to_iterate_over limit: num_levels_deep %}
+
+    {% capture first_of_remaining %}{{ remaining_parts | truncatewords: 1, '' }}{% endcapture %}
+    {% capture growing_path %}{{ growing_path }}/{{ first_of_remaining }}{% endcapture %}
+
+<li><a href="{{growing_path}}">{{ first_of_remaining }}</a> &#187; </li> 
+
+{% comment %}
+<li>(remaining_parts: {{remaining_parts}}, first_of_remaining: {{first_of_remaining}}, growing_path: {{growing_path}})  <a href="{{growing_path}}">{{ first_of_remaining }}</a> &#187; </li>
+{% endcomment %}
+
+    {% capture remaining_parts %}{{ remaining_parts | remove_first: first_of_remaining }}{% endcapture %}
+
+  {% endfor %}
+{% endif %}
+
+{% include breadcrumbs-end.html %}

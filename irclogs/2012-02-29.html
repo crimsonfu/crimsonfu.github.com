@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+14:58 pdurbin   i guess if i leave the ownership as puppet:puppet i could remove this from the top of the file: "# THIS FILE IS MANAGED BY PUPPET!! --pdurbin 2012-02-28"
+15:00 shuff     ehh
+15:01 shuff     i love leaving comments like that in puppet-managed files
+15:01 shuff     they do no harm
+15:03 pdurbin   and do you leave the ownership as puppet:puppet so people really know the file came from puppet?
+15:03 shuff     nope
+15:04 pdurbin   it's the path of least resistance :)
+15:04 shuff     fair enough
+15:04 pdurbin   a shorter manifest :)
+15:04 shuff     as long as the daemon in question doesn't get cranky if its config file is owned by someone else
+15:07 pdurbin   it's just an ikiwiki setup file. just needs to be readable by the ikiwiki user
+15:07 shuff     cool
+15:23 pdurbin   is anyone putting wordpress into puppet?
+15:29 shuff     not yet :)
+15:29 shuff     give me a couple months
+15:29 pdurbin   are you going to publish a howto about it on the crimsonfu website? (HINT HINT)
+15:29 shuff     oh hey, that is a good idea :)
+15:34 pdurbin   quiz time... if you could have a server provisioned for you, or given an interface like #openstack to do it yourself which would you pick? --jamesdotcuff http://twitter.com/jamesdotcuff/status/174879739520106496
+15:36 ironcamel that's not a quiz
+15:36 pdurbin   ironcamel: sure it is.  our director asking our users :)
+15:37 ironcamel but there is no right or wrong answer ... is there?
+15:37 ironcamel i would choose the do it myself, since i already do it daily
+15:38 ironcamel and have released a bunch of tools to help others do it as well
+15:39 pdurbin   sure, but you're very technical. many of our users are less technical than you are
+15:40 ironcamel but they are technical enough to answer a quiz on twitter :)
+15:50 pdurbin   the replies are coming in... i'm telling james we should host a thinkup installation
+15:50 pdurbin   so we could capture all the replies, like this: http://expertlabs.aaas.org/thinkup01/post/?t=174218144502652928&amp;n=twitter
+15:58 pdurbin   follow up question: "'@blowdart: @jamesdotcuff  Depends, what extra does the api build?" &lt; yeah that's our thought, Drupal/WP autobuild by API etc #readytowear' --jamesdotcuff http://twitter.com/jamesdotcuff/status/174883531468701697
+16:01 shuff     ahem: http://forge.puppetlabs.com/jonhadfield/wordpress
+16:02 pdurbin   hmm... thanks for googling that for me :)
+16:02 shuff     glad to be of service :)
+16:02 pdurbin   shuff: so, you work out the kinks and i'll use your version
+16:02 shuff     sold!
+16:02 shuff     also, i will gladly pay you thursday
+16:03 shuff     for a hamburger today
+16:04 pdurbin   crimsonfu lunch today? sure! sorry, folks who aren't near cambridge
+18:00 pdurbin   just gave a demo ikiwiki in puppet :)
+19:44 pdurbin   handy: http://stackoverflow.com/questions/245840/rename-files-in-sub-directories
+19:57 whorka    those answers have some interesting bugs
+19:57 pdurbin   heh, sure :)
+19:57 pdurbin   but man, i just love having our wiki as a bunch of markdown files i can dink around with locally
+20:02 whorka    If I had a stackoverflow account I would post this:
+20:02 whorka    find . -regex '.*\.html$' -exec sh -c 'name=`echo "{}" |sed "s/\.html$/.htm/"`; mv "{}" "$name"' ';'
+20:03 pdurbin   nice. stack overflow accounts are free, you know :)
+20:04 pdurbin   you can go make fun of my answers: http://stackoverflow.com/users/19464/philip-durbin
+20:07 whorka    actually I like this answer better than my own http://stackoverflow.com/a/248147
+20:07 pdurbin   i kind of tried to use that one, but ended up using a variation of this one instead: http://stackoverflow.com/a/245864
+20:09 whorka    that one scares me for a couple reasons: read without -r. anchored sed regex with global flag.
+20:10 whorka    oh and the unquoted variables potentially breaking on whitespace
+20:11 pdurbin   yeah, i fixed some of that with my version. i only have a few dozen files. no whitespace, etc
+21:21 pdurbin   i just updated our DNS, cutting our wiki over from my hacker-friendly jekyll thing to ikiwiki
+21:28 pdurbin   i can't believe i've got sjoeboo talking about Salt! \o/
+21:29 sjoeboo   ONLY for remote execution
+21:30 shuff     instead of MC?
+21:31 sjoeboo   yeah
+21:31 sjoeboo   maybe
+21:31 sjoeboo   i had played with MC a bit..
+21:32 sjoeboo   i want to run any shel command, basically
+21:32 sjoeboo   i like what its trying to so
+21:32 shuff     you can totally do that with MC
+21:32 sjoeboo   but the ability to in a crunch hit all 2000 systems in a minute or two and say "unmount this!" is what i want
+21:32 sjoeboo   in a panic
+21:32 sjoeboo   without writing an agent
+21:33 sjoeboo   like the command needed to be sent yesterday
+21:33 shuff     there is a plugin that lets you execute arbitrary shell commands
+21:33 shuff     i'm digging for it
+21:40 pdurbin   shuff: salt is about performance and scaling mostly. don't be offended :)
+21:40 shuff     https://github.com/puppetlabs/marionette-collective/blob/master/lib/mcollective/shell.rb
+21:40 shuff     aha
+21:40 shuff     it's not even a third-party plugin
+21:41 shuff     it's part of the distribution, just not enabled by default
+21:42 shuff     bah, i cannot find the documentation that i want right now
+21:43 shuff     pdurbin: none taken.  also, Salt is Perl!
+21:44 shuff     ok, no, i was right the first time: https://github.com/joemiller/shellcmd-agent
+21:44 shuff     that's the ticket
+</pre></body></html>

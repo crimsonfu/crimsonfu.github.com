@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+04:49 pdurbin  wrote a script to download our irc logs and put them in the git repo for our website: http://crimsonfu.github.com/irclogs
+04:56 pdurbin  heh. at https://github.com/crimsonfu next to our crimsonfu.github.com repo it now says "Perl" :)
+05:06 pdurbin  my first tweet about crimsonfu. wonder if anyone will notice: http://twitter.com/philipdurbin/status/167473990389088256
+14:59 pdurbin  How to export information about your VMs from vCenter | The VMguy: http://vmguy.com/wordpress/index.php/archives/1262
+14:59 pdurbin  quick and dirty "show me the vms" from the gui.  the csv and xls formats are oddly formatted however. xml seems to work best
+15:04 shuff    oh hey - there's a Perl analog to facter: http://search.cpan.org/dist/pfacter/
+15:08 pdurbin  huh. so there is
+15:26 shuff    looks like it could stand to be a bit more mature
+15:26 shuff    the dude hasn't really built it to be extensible
+15:26 pdurbin  you haven't told us what problem you are trying to solve ;)
+15:26 shuff    hacking on facter requires Ruby :)
+18:00 agoddard so are all of you guys @ rc?
+18:09 pdurbin  nope. hmm, we should all make pages at http://crimsonfu.github.com/members to introduce ourselves
+18:12 pdurbin  my "we welcome all comers" commit: https://github.com/crimsonfu/crimsonfu.github.com/commit/0054db819f3dcb8a15402c37fc7dd61d17735698
+18:56 shuff    HUIT (FAS Unix Group) here
+18:59 whorka   HMDC (FAS IQSS) here
+19:05 agoddard siq. I'll add my page as soon as I can
+19:41 pdurbin  tweaking an rpm spec file
+19:41 pdurbin  Release: 2%{?dist}
+19:41 pdurbin  should become
+19:41 pdurbin  Release: 2-fasrc%{?dist}
+19:41 pdurbin  or
+19:41 pdurbin  Release: 2%{?dist}-fasrc
+19:41 pdurbin  ?
+19:47 pdurbin  hmm, the answer seems to be neither:
+19:47 pdurbin  error: line 4: Illegal char '-' in release: Release: 2-fasrc
+19:49 whorka   over here we use a dot and add a suffix
+19:49 whorka   Release: 2%{?dist}.HMDC
+19:52 pdurbin  sold!
+19:52 pdurbin  yields pam_radius-1.3.17-2.fasrc.x86_64
+19:52 pdurbin  thanks, whorka
+19:52 sjoeboo  nice
+21:02 pdurbin  pam_radius_auth-rfc4226.patch
+</pre></body></html>

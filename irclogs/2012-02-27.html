@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+13:27 pdurbin   ironcamel: why not just become root, just `cpan` and let it write all over my file system, potentially overwritting files that are owned by RPMs? this is a religious issue :)
+14:13 westmaas  agoddard: 4 days late, but...let me know what questions I can answer about openstack!
+14:22 pdurbin   agoddard: sorry. . . i mentioned to westmaas you have openstack questions :)
+15:46 ironcamel pdurbin: cpan will not overwrite system libs
+15:46 ironcamel redhat has separate system dirs for system packages and perl packages
+15:48 pdurbin   ironcamel: but the files owned by perl RPMs will be overwritten
+15:48 ironcamel pdurbin: no they won't
+15:49 ironcamel i'll show you ...
+15:49 pdurbin   shuff: what's a perl RPM that one often clobbers with an rfx package?
+15:50 shuff     hm
+15:50 shuff     give me a moment
+15:50 ironcamel pdurbin: you are familiar with site_perl and vendor_perl?
+15:50 pdurbin   ironcamel: not particularly, unfortunately
+15:51 ironcamel perl -e 'print "$_\n" for @INC'
+15:51 ironcamel run that command on one of your boxes
+15:51 shuff     some of the modules in the IO::Compress family are decent examples
+15:51 pdurbin   (rfx packages clobber upstream (i.e. RHEL) packages: http://repoforge.org/faq/ )
+15:51 ironcamel you will see site_perl dirs and vendor_perl dirs
+15:51 ironcamel perl modules installed via rpm go into vendor_perl
+15:52 shuff     yup
+15:52 shuff     however, that is not true of the man pages
+15:52 ironcamel yeah, probably
+15:52 shuff     definitely :)
+15:53 ironcamel at least perl modules give you man pages :)
+15:54 ironcamel that is not something you can even complain about with other systems
+15:54 pdurbin   does rdoc work with rvm? i never seem to have any docs with ruby gems
+15:56 pdurbin   "Generating Darkfish format into /home/pdurbin/doc..."
+15:56 pdurbin   whoa. don't even know what that is... tried to run `rdoc puppet`. i get puppet from an rpm
+15:57 pdurbin   oh oh
+15:57 pdurbin   i forgot i have a directory full of stuff called puppet. my bad
+15:57 pdurbin   but when i `cd /tmp &amp;&amp; rdoc puppet` i get "uh-oh! RDoc had a problem"
+15:58 pdurbin   anyway. i tend to just run `somegem --help` because i don't understand rdoc
+16:14 ironcamel pdurbin: btw, i always default to installing via cpan (instead of yum/apt) because i always want the latest version of everything. otherwise i feel like i'm missing out on something! :)
+16:14 ironcamel redhat repos especially seem to get very stale
+17:02 sjoeboo   FAS-IT RHEL mirror seems broken…..
+17:10 agoddard  westmaas: any experience with openstack using iSCSI arrays for disk?
+20:22 Pax       in ruby, how does once search for available modules?
+20:32 shuff     available on the local system, or available anywhere?
+20:34 Pax       on the local system
+20:34 shuff     hm
+20:35 shuff     try 'require "module"' inside a begin block and trap the error?
+20:35 shuff     or maybe i'm not understanding what you're trying to do
+20:39 Pax       well, 1 see what modules are available and 2 see what methods you can use,, maybe the right tool is ri?
+20:41 shuff     `ri -c`, perhaps
+21:48 westmaas  agoddard: hmm, no I haven't done that
+21:49 westmaas  however I think that the CI environment that the community uses does use iSCSI in some way
+21:49 westmaas  I believe its how it deploys before running functional tests
+21:57 agoddard  ace, yeah I think nova-volume does some software iSCSI stuff, I wanna test it with some of our arrays though so we can either provision iSCSI backed LVMs to VMs, or iSCSI LUNs directly
+</pre></body></html>

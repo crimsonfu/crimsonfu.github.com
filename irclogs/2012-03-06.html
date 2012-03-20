@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+06:09 ventz   git has officially pissed me off
+06:09 ventz   pretty much unless you are using github, it's a piece of shit software when it comes to server compatability
+13:27 pdurbin ventz: server incompatibility with git?
+13:43 pdurbin agoddard: https://github.com/agoddard/PassNG seems interesting but. . . lots of dependencies
+13:57 Pax     morning
+14:05 pdurbin morning
+14:30 pdurbin finally getting around to adding "--type-set=puppet=.pp" to ~/.ackrc
+14:32 shuff   \o/
+14:34 pdurbin shuff: much stuff in your .ackrc?
+14:35 shuff   $ cat .ackrc
+14:35 shuff   --type-set=puppet=.pp
+14:35 shuff   --type-set=rpm=.rpm,.spec
+14:35 shuff   --type-set=spec=.spec
+14:35 shuff   not too much
+14:35 pdurbin yeah, it's pretty usable out of the box
+14:40 pdurbin shuff: what hint? (from yesterday)
+14:57 shuff   the hint is "yes, you should" :)
+14:58 pdurbin ah. ok :)
+15:22 pdurbin hmm. nice article on overcommitment of memory (and cpu) with kvm http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Administration_Guide/sect-Virtualization-Tips_and_tricks-Overcommitting_with_KVM.html
+16:39 ventz   pdurbin: yea, it reminds me of SVN 10+ years ago
+16:39 ventz   so basically, to me only 2 methods of "exposure" are realistic - http and ssh
+16:40 ventz   in order to have http -- easy enough, drop in a webroot -- ok, strange, why not have it like an app (like svn) -- oh wait, that's where gitweb comes in -- hack on top of a poorly made decision, ok, so now how do we write back? yet another hack, webdav, ok, sort of works, most of the time, it's super inneficient, and oh wait, git has problems on it's own too that cause other problems (put bugs and pack -- which uncover an apache bug...story for another
+16:41 ventz   so now, ssh -- ok, works PERFECTLY, but doesn't play well with anything else? why? because the other methods are hacks on top of poorly made decisions
+16:41 ventz   so, in order for me to:
+16:41 ventz   1.) provide ssh access for making changes, 2.) provide http access (which stays updated after ssh pushes) for get access, and 3.) provide a web view -- something always ends up breaking
+17:32 pdurbin ventz: why do your users need http access to git?
+17:48 pdurbin just do it like github does. that's what i'm trying to do here. and it's working, more or less
+18:17 pdurbin hmm. How do large organizations with large turnover and many systems perform account provisioning? - Server Fault - http://serverfault.com/questions/198389/how-do-large-organizations-with-large-turnover-and-many-systems-perform-account
+18:56 ventz   pdurbin: i have a box that i don't want to give users ssh accounts to (mostly b/c it's ldap based, has other access, complicated, etc... -- htaccess file is just much easier)
+18:57 ventz   The problem comes when you push with ssh, it breaks gitweb, and if you fix the permissions there, it breaks git over http -- it's outdated
+18:57 ventz   you do the git update-server-info, now it breaks the other one again...
+18:57 ventz   i have the post hook, still nothing
+18:58 pdurbin is there a howto you're following to set up the http access? i've never done this...
+18:58 ventz   i used stuff on the web (set this up &gt; 1 year ago), but last night I found this: http://www.jedi.be/blog/2009/05/06/8-ways-to-share-your-git-repository/#apachehttp
+18:58 ventz   which seems pretty good
+18:59 pdurbin yeah, i've seen this blog post before
+19:05 pdurbin ventz: this is getting a bit dated, but you might be interested in it: http://code.google.com/p/support/wiki/DVCSAnalysis
+19:06 pdurbin it explains why google chose to support hg rather than git, in part due to better http support in hg
+19:06 pdurbin support hg projects on code.google.com that is
+19:27 ventz   pdurbin: thanks. that was interesting
+19:28 ventz   i think i am going to move my git repo to svn sadly
+19:28 ventz   i'ts just too frustrating
+19:44 pdurbin so sad
+</pre></body></html>

@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+21:19 pdurbin  wow, sounds like running openstack on centos was pretty rough in january 2011: Blake Yeager - Deployment Strategies - OpenStack Austin Meetup - December 8th, 2011 http://www.youtube.com/watch?v=RtvegVNnJ_4#t=3m42s
+21:19 pdurbin  and that most people continue to run openstack on ubuntu
+21:35 pdurbin  hmm, this video talks about how much intelligence is expected to be built into the web applications built on top of openstack. OpenStack Basics - Overview: http://www.youtube.com/watch?v=c1GFoY4btpo
+21:37 pdurbin  ... that the design of openstack assumes some openstack components can fail and that the web application can deal with the failure
+21:53 pdurbin  nice that that video is linked from http://wiki.openstack.org/DemoVideos
+21:55 pdurbin  hmm, "XFS is considered to be the best option" -- http://docs.openstack.org/diablo/openstack-compute/starter/content/Swift_Object_Server-d1e291.html
+22:05 pdurbin  woof, this is starting to get a bit involved... http://docs.openstack.org/diablo/openstack-compute/starter/content/Nova_conf-d2s367.html
+22:06 pdurbin  sudo mkfs.xfs -i size=1024 /dev/sdb1
+22:07 pdurbin  yeah, definitely pushing xfs: http://docs.openstack.org/diablo/openstack-compute/starter/content/Swift_configuration.html
+22:09 pdurbin  "string that can never change (DO NOT LOSE)" heh. http://docs.openstack.org/diablo/openstack-compute/starter/content/Swift_hash_configuration.html
+22:14 pdurbin  "Sometimes you may have XXX instead of the smiley" heh. http://docs.openstack.org/diablo/openstack-compute/starter/content/Nova_Components_nova-compute_alone_-d1e1123.html
+22:21 pdurbin  i have to agree with sjoeboo's comments from friday that all this image creation seems like a pain compared to kickstart: http://docs.openstack.org/diablo/openstack-compute/starter/content/OS_Installation-d1e1298.html
+22:35 pdurbin  "Currently we assume that all images have a kernel image and a ramdisk. Modern hypervisors on modern VMs can run raw disk images, without the complexity of a separate ramdisk/kernel image" https://blueprints.launchpad.net/nova/+spec/raw-disk-images
+22:42 pdurbin  shuff: i know you like Eucalyptus. you'll be happy to see openstack uses its command line tool: http://docs.openstack.org/diablo/openstack-compute/starter/content/Euca2ools-Command_Line_Tools-d1e1828.html
+22:44 pdurbin  euca-get-console-output. nice
+22:46 pdurbin  hmm. "The storage on the instances is non persistent in nature and hence any data that you generate and store on the file system on the first disk of the instance gets lost when the instance is terminated."
+22:47 pdurbin  "You will need to use persistent volumes provided by nova-volume if you want any data generated during the life of the instance to persist after the instance is terminated." http://docs.openstack.org/diablo/openstack-compute/starter/content/Nova-volume-d1e2000.html
+22:48 pdurbin  it's not clear to me how to persist the VMs, which seems rather important
+22:52 pdurbin  Q: "How to make a vm persistent?" https://answers.launchpad.net/nova/+question/149350 A: "You need to bundle your running instance, upload it and register it to create a new image."
+22:54 pdurbin  gonna have to ask westmaas about that one... coming from vmware and kvm, we're used to our
+22:54 pdurbin  VMs being persistent
+22:58 pdurbin  "Nova stores the data related to the projects, users, resources etc. in a database, by default in a MySQL database." mysql by default, i guess. http://docs.openstack.org/diablo/openstack-compute/starter/content/Database_Management-d1e2713.html
+22:59 pdurbin  still not clear to me what a "project" is. not really defined at http://docs.openstack.org/diablo/openstack-compute/starter/content/Project_Management-d1e2672.html
+23:01 pdurbin  the networking section is pretty light. basically just a pointer to http://docs.openstack.org/openstack-compute/admin/content/ch04.html
+23:02 pdurbin  ah, at least that page says "A Compute project consists of a number of VM instances created by a user"
+23:04 westmaas yeah, the idea is you can have multiple users with access to the same project
+23:04 westmaas its basically an auth boundary
+23:04 pdurbin  oh hey, westmaas :)
+23:04 westmaas :)
+23:05 pdurbin  i thought i was talking to myself
+23:05 pdurbin  i thought i had invented a new form of blogging :)
+23:05 westmaas do you care about data being persisted after you delete an instance?
+23:05 westmaas haha
+23:05 westmaas or only being there after reboots, and the like.
+23:05 pdurbin  well, delete sounds so. . . final
+23:06 pdurbin  what if i shutdown a vm for a while
+23:06 pdurbin  and someone complains
+23:06 pdurbin  so i turn it back on
+23:06 pdurbin  is the vm as-is?
+23:06 westmaas yeah, that'd be fine.
+23:06 westmaas I think openstack does support amazon style ephemeral instances, but I don't really know anything about that.
+23:07 westmaas by defaults our instances are more permanent
+23:07 pdurbin  ok. good
+23:07 pdurbin  uh oh, wife and kids coming up the stairs
+23:07 pdurbin  at least i finished that intro doc
+23:07 westmaas haha
+23:07 westmaas cool
+23:08 westmaas also jan 2011 is soooo long ago :)
+23:08 westmaas That's before my team started on the project!
+</pre></body></html>

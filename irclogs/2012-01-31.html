@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+05:25 pdurbin   just wrote our first blog post: http://crimsonfu.github.com/2012/01/30/introducing-crimsonfu.html
+14:36 pdurbin   got a nice crash course in python yesterday
+14:36 pdurbin   well, python/django. the two are conflated in my mind now
+15:10 Pax       oh yeah?
+15:11 Pax       I've been really digging python
+15:47 pdurbin   python seems really nice
+15:47 pdurbin   and i like how with django it's like you're building a command line app and then figuring out the presentation in a gui later. very unix-y
+15:56 shuff     here comes security
+15:56 shuff     everybody look busy
+16:01 pdurbin   ventz: welcome!  we hope to attract a diverse membership, per my blog post above :)
+18:12 ventz     pdurbin: i am diverse membership? :)
+18:14 shuff     we have both types of music here
+18:14 shuff     country *and* western
+18:14 * pdurbin sighs
+18:15 pdurbin   i think we're up to four different teams using puppet
+18:21 sjoeboo   so, I'm asking this in #puppet,but.....
+18:21 sjoeboo   facter -p operatingsystem
+18:21 shuff     yup?
+18:21 sjoeboo   give one result (cents, which is right)
+18:21 sjoeboo   however
+18:21 sjoeboo   a selector for that is coming up with "linux"
+18:21 sjoeboo   (which faster  has for kernel value, which makes sense)
+18:21 shuff     hm
+18:21 sjoeboo   never seen this before
+18:22 shuff     code sample?
+18:23 sjoeboo   ruby_shadow_pkg = $operatingsystem ? {
+18:23 sjoeboo   5   /(Ubuntu|Debian)/ =&gt; "libshadow-ruby1.8",
+18:23 sjoeboo   6   /(CentOS|Redhat)/ =&gt; "ruby-shadow",
+18:23 sjoeboo   7   }
+18:23 sjoeboo   Error 400 on SERVER: No matching value for selector param 'Linux' &lt;snip&gt; line 7
+18:24 shuff     huh
+18:24 sjoeboo   ugh, maybe i should use the newer syntax of $::operatingsystem...
+18:24 shuff     aha, good thought
+18:24 pdurbin   sjoeboo: that's what puppet-lint wants ;)
+18:24 shuff     is $operatingsystem a variable that gets set somewhere?
+18:24 shuff     that's clobbering your fact?
+18:24 sjoeboo   come from facter
+18:24 sjoeboo   no, shouldn't be..
+18:25 shuff     and what version of puppet/facter?
+18:25 sjoeboo   2.7.9 master and client
+18:28 shuff     have you tried good old printf debugging?  throw a `debug($operatingsystem)` right before that selector and see what shows up in the logs (or use a notify)?
+18:33 sjoeboo   hm, not working...
+18:33 sjoeboo   can't even finish retrieving catalog so the notify never fires on the client...
+18:34 shuff     the debug() (or a warn() or err()) should fire on the master during compilation and be visible in the master's logs
+18:34 shuff     you can run puppetmasterd in the foreground if you want to see absolutely everything
+18:36 sjoeboo   hm, still not seeing them, but its super chatty
+18:38 sjoeboo   yeah, nothing in logs for a notify, or notice
+18:38 shuff     i don't think there should be
+18:38 shuff     you really have to use a function like debug() or warn()
+18:38 shuff     which will log a message on the master when it is executed
+18:42 sjoeboo   negative
+18:42 shuff     weird
+18:55 sjoeboo   well, its getting redefined SOMEWHERE
+18:55 sjoeboo   info: Loading downloaded plugin /var/lib/puppet/lib/facter/vms-running.rb
+18:55 sjoeboo   CentOS
+18:55 sjoeboo   Could not retrieve operatingsystem: undefined method `match' for nil:NilClass
+18:55 sjoeboo   Linux
+18:55 sjoeboo   info: Loading facts in vms-running
+18:55 sjoeboo   Linux
+18:55 sjoeboo   info: Loading facts in n_mounts
+18:55 sjoeboo   info: Loading facts in compute_node
+18:55 sjoeboo   info: Loading facts in puppet_classes
+18:55 sjoeboo   info: Loading facts in lsf_queues
+18:55 sjoeboo   info: Loading facts in need_proxy
+18:55 sjoeboo   info: Loading facts in iptables
+18:55 sjoeboo   info: Loading facts in vms-running
+18:55 sjoeboo   Linux
+18:55 sjoeboo   thats the result of a single puts in accustom fact
+18:55 shuff     aha
+18:56 sjoeboo   firs time its good, then gets munged!
+18:57 shuff     what version of facter are you running?
+18:57 sjoeboo   1.6.4
+18:58 shuff     i bet i know where the "Linux" is coming from
+18:58 shuff     from the bottom of /usr/lib/ruby/1.8/facter/operatingsystem.rb:
+18:58 sjoeboo   ?
+18:58 sjoeboo   hmmm
+18:58 shuff     Facter.add(:operatingsystem) do
+18:58 shuff     # Default to just returning the kernel as the operating system
+18:58 shuff     setcode do Facter[:kernel].value end
+18:58 shuff     end
+18:59 shuff     boom
+18:59 shuff     for some reason the prior attempt to populate that fact failed
+18:59 shuff     do you have some nonstandard permissions on /etc/redhat-release or something?
+19:00 sjoeboo   thats a symlink to centos-release
+19:00 sjoeboo   but thats
+19:00 sjoeboo   rw-r--r--
+19:00 shuff     looks fine
+19:00 shuff     here's the code that should be running:
+19:00 shuff     elsif FileTest.exists?("/etc/redhat-release")
+19:00 shuff     txt = File.read("/etc/redhat-release")
+19:00 shuff     if txt =~ /centos/i
+19:00 shuff     "CentOS"
+19:00 shuff     else
+19:00 shuff     "RedHat"
+19:00 shuff     end
+19:02 sjoeboo   and that should be fine, again,f after locally works just perfectly...
+19:02 sjoeboo   and seemingly does the first time...
+19:03 shuff     wtf
+19:04 sjoeboo   yum update faster and it works!
+19:04 shuff     :( :( :(
+19:04 shuff     boooooo facter
+19:05 shuff     what's the new version?
+19:05 sjoeboo   Jan 31 14:04:31 Updated: facter-1.6.5-1.el6.noarch
+19:05 sjoeboo   Added exception handling to the fact class. When adding a resolution to
+19:05 sjoeboo   a fact, if an exception was thrown outside of the setcode block, facter
+19:05 sjoeboo   would crash. Added handling so that if an exception is thrown, facter
+19:05 sjoeboo   logs the error and discards the fact
+19:05 sjoeboo   i think thats it
+19:06 sjoeboo   these checks were pre setcoe in a custom function
+19:06 shuff     haha
+19:06 shuff     i think that's it too
+20:15 pdurbin   anyone have a script for backing up KVM VMs?
+20:17 agperson  not as such, i had bacula run a script to snapshot the LVM volume and just straight back up the file…I think.
+20:19 pdurbin   hmm, and the LVM snapshot pauses the VM or whatever?  gets a good, clean backup?
+20:19 agperson  well...
+20:20 pdurbin   let me put it this way. . . did a restore work?
+20:20 agperson  yeah, but I probably wouldn't do it that way for a database server
+20:20 agperson  i would rely more on the backup client on the VM itself, we were using backups of the disk images as a secondary form of backup
+20:20 agperson  the LVM snapshot ensures a consistent backup, but it doesn't quiesce the VM in any way first...
+20:21 pdurbin   interesting. thanks
+21:34 pdurbin   trying to convince sjoeboo to listen to FLOSS Weekly 191 about Salt ( http://saltstack.org ): http://twit.tv/show/floss-weekly/191
+21:34 pdurbin   [B[B[B[B[B[B[B[B[B
+21:34 pdurbin   (Salt is full of ZeroMQ goodness, I hear)
+</pre></body></html>

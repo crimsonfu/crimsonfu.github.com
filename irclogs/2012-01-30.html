@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+14:32 Pax      so what are you looking for a an invetory software? I'm wondering if a front end for exported resources + location/rack data might do it
+14:34 pdurbin  well, shuff and whorka know what i'm used to. . . a custom mysql database with the inventory information we cared about
+14:35 pdurbin  which we populated both programatically and manually
+14:36 pdurbin  programattically whenever we could, of course.  but a server doesn't know what rack it's in, so that was (is for whorka) manual
+14:42 pdurbin  i hadn't heard (or forgot) about exported resources, but i found this: http://docs.puppetlabs.com/guides/exported_resources.html
+14:42 shuff    yup
+14:44 pdurbin  where do you guys store the information of where a server is physically? (which data center, which rack, which rack unit)
+14:44 shuff    us? racktables
+14:47 pdurbin  yeah, we use racktables too, but racktables could use a RESTful API: https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+14:54 Pax      so I was  thinking maybe a custom fact based on CDP to get location
+14:54 pdurbin  CDP?
+14:54 Pax      all the network devices have 6digit Harvard Location codes that we can get out of snmp
+14:55 Pax      Cisco Discovery Protocol
+14:55 Pax      it lets the devices know what device they are "next to" on the network
+14:55 pdurbin  not all of our network equipment is cisco.  some of it is dell
+14:56 Pax      I suspect CPD would still work though
+14:59 pdurbin  looking at http://linuxdynasty.org/82/howto-get-cdp-neighbor-information-through-python-and-snmp/
+14:59 Pax      but yeah, my though was if we could get the servers picking up location, and ideally rack location that would rule
+15:06 pdurbin  Pax: this is certainly a technique i hadn't considered. thanks
+15:24 Pax      hmm I like the snap query!
+15:26 pdurbin  Pax: snap query?
+16:29 Pax      snmp
+16:30 Pax      someday I'll learn to type
+16:32 Pax      just popped this up http://personalskynet.blogspot.com/2012/01/monitoring-with-puppet-and-nagios.html
+16:33 Pax      I'm still kinda getting my bloggy feet under me, but I figured it might help someone else :)
+16:34 shuff    huh
+16:34 shuff    the meat of that topic seems to be here: http://blog.gurski.org/index.php/2010/01/28/automatic-monitoring-with-puppet-and-nagios/
+16:38 agperson so you need the storedconfigs to do the collections?
+16:38 shuff    yes
+16:39 shuff    puppet agents spit out their information, and it goes in the storedconfig
+16:39 shuff    then, when the master is building the catalog for the nagios server, it reads the stored configs and generates a bunch of nagios resources based on them
+16:39 shuff    (if i'm interpreting this setup correctly)
+16:39 agperson i'm wondering if that means that nagios is always one run behind
+16:41 agperson alternately you can setup Zabbix instead and do automatic checkin :)
+16:41 shuff    ?
+16:41 shuff    why would it be one run behind?
+16:41 agperson if the nagios resources are being collected from the stored information, and the stored information is coming from the run reports from the agents, wouldn't that mean that the info is slightly "stale" by its nature?
+16:42 agperson probably not enough to be an issue in most cases, but its not like a machine is updated with a new service and instantly nagios is updated with a monitor for that service
+16:43 shuff    aha, i see
+16:44 shuff    hm
+16:45 shuff    to be precise: it looks like the process that generates exported resources is the *compilation* of a given node's catalog, which takes place on the master
+16:46 shuff    and since that's the same process that pushes new packages, services etc. to the managed host, i don't believe that this process introduces any lag into the generated nagios config
+16:46 shuff    other than the timelag between when the puppet agent runs on the nagios server and on the other server
+16:47 agperson got it.  well, it would certainly reduce time lag around here, where manually getting checks entered can take days, weeks, or we can forget to do it entirely! :)
+16:49 shuff    srsly :)
+18:49 pdurbin  cobbler + git = awesome: scm_track_enabled docs?: https://fedorahosted.org/pipermail/cobbler/2009-June/004301.html
+18:56 pdurbin  https://github.com/cobbler/cobbler/blob/master/cobbler/modules/scm_track.py
+18:58 shuff    booooo utils.subprocess_call
+18:58 shuff    that is heinous
+18:58 shuff    no wonder he's complaining that it's slow on every operation
+18:59 pdurbin  at least i can easily see which git commands he's running :)
+18:59 shuff    he should be using Dulwich (http://www.samba.org/~jelmer/dulwich/)
+19:01 shuff    although in general this seems like a cool idea
+19:01 shuff    i take it that /var/lib/cobbler is essentially the DB in cobbler?
+19:24 pdurbin  that's where most of the configs are stored
+19:24 pdurbin  though i do find myself editing /etc/cobbler/dhcp.template sometimes
+</pre></body></html>
