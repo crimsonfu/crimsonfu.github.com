@@ -1,0 +1,150 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+13:17 pdurbin     shuff: you're basically working on PaaS, from what i understand
+13:18 pdurbin     i just listened to this episode on Red Hat's OpenShift.  good stuff: The Cloudcast (.NET): Episode 13 - Meeting the PaaS Master + Show Notes - http://www.thecloudcast.net/2011/07/cloudcast.html
+13:19 pdurbin     the Red Hat guy said they might offer OpenShift as a distro some day
+13:20 shuff       openshift is hella cool
+13:23 pdurbin     i'm trying to convince ironcamel to stand up a Dancer app with me: http://twitter.com/philipdurbin/status/178517701797494784
+14:17 pdurbin     shuff: i just stood up wellington.cgi!
+14:31 Pax         Morning!
+14:32 pdurbin     morning
+14:33 Pax         oh hey pdurbin, yesterday you mentioned logstash, which looks like a cool project but I'm not sure it add's anything to what we've already got
+14:34 pdurbin     except that it's free and open source ;)
+14:34 shuff       \o/
+14:34 Pax         (besides cost)
+14:34 Pax         sure, but what problem is that solving for us?
+14:35 pdurbin     Pax: meh, it's more for whorka, who isn't using splunk. agoddard speaks highly of logstash
+14:35 Pax         while I'm *always* about looking for the FLOSS option, it's gotta at least be as good as what we already use
+14:36 Pax         That being said, if we weren't already using tool that were similar, it would for sure be on the shortlist
+14:36 pdurbin     Pax: ok, that's all i want :)
+15:30 ironcamel   pdurbin: there is no convincing needed. If it's a Dancer app, I'm in :)
+15:30 shuff       :)
+15:30 ironcamel   pdurbin: just waiting on you to through something up on github
+15:31 pdurbin     ironcamel: yeah, ball's in my court
+15:32 ironcamel   s/through/throw :)
+15:33 pdurbin     ironcamel: in the meantime, you could stand up a Dancer app on OpenShift :)
+15:40 ironcamel   pdurbin: sure
+15:45 pdurbin     i bet some other crimsonfu members would be interested in openshift, so when you have a public url to share, please do!
+15:45 ironcamel   sure thing
+18:01 ironcamel   deadly linux commands: https://plus.google.com/u/0/111560558537332305125/posts/d64bp6rkZMC
+18:01 ironcamel   some interesting ones on there
+18:05 pdurbin     mmm, fork bomb
+18:05 pdurbin     "Never download from untrusted sources, and then execute the possibly malicious codes that they are giving you." *ahem* RVM
+18:16 ironcamel   you mean the directions for installing rvm?
+18:18 ironcamel   cpanminus has an interesting feature. you can install via curl -L cpanmin.us | sudo perl - Module::Name
+18:18 ironcamel   but that is very dangerous, so there is a --sudo feature
+18:19 ironcamel   curl -L http://cpanmin.us | perl - --sudo Module::Name
+18:19 ironcamel   https://metacpan.org/module/App::cpanminus#Installing-to-system-perl
+18:20 pdurbin     yeah. . . i use RPMs. or local::lib
+18:20 ironcamel   and the --sudo flag makes it so that privileges are elevated only for the part where cpanminus is copying the files over
+18:20 ironcamel   local::lib++
+18:20 ironcamel   do you know about perlbrew
+18:22 pdurbin     i had to use perlbrew on snow leopard (os x) because perl was so broken. now i'm back to local::lib on mac
+18:24 ironcamel   i like perlbrew because it lets you use the latest greatest version of perl with all the latest features
+18:24 pdurbin     that's understandable. i tend to write to the lowest common denominator: RHEL :)
+18:25 ironcamel   RHEL 5?
+18:25 pdurbin     RHEL 6
+18:26 ironcamel   so you are at least using the perl 5.10 syntax candy?
+18:26 pdurbin     maybe. i don't know :)
+18:26 ironcamel   given/when, say, state, and //
+18:26 pdurbin     nope
+18:27 pdurbin     too fancy for me
+18:27 * ironcamel bonks pdurbin on the head
+18:27 ironcamel   you should at least look into given/when, it is amazing
+18:27 ironcamel   it has "pattern matching"
+18:28 ironcamel   only other language i know that has that is scala
+18:28 ironcamel   it has nothing to do with regex patterns
+18:28 ironcamel   and say "foo" is same thing as print "foo\n"
+18:28 pdurbin     "You know, I actually advise people to avoid given/when" --rjbs 2011-04-28
+18:28 ironcamel   don't listen to him
+18:29 ironcamel   listen to everything else he says, just ignore that bit
+18:29 pdurbin     heh
+18:29 pdurbin     i should ask him if i can publish this email
+18:30 pdurbin     or has he written about it extensively already?
+18:30 ironcamel   he wrote you that in an email?
+18:30 pdurbin     yeah
+18:31 ironcamel   what were you emailing him about?
+18:31 pdurbin     plus a long explanation i don't understand
+18:32 pdurbin     something for shuff: Bug #64302 for Dist-Zilla: Requiring EU:MM 6.31 excludes RHEL5 - https://rt.cpan.org/Public/Bug/Display.html?id=64302
+18:32 ironcamel   i wonder if he wrote that before 5.10.1 was released
+18:32 ironcamel   because 5.10.0 had some issues with given/when that were fixed
+18:32 pdurbin     he wrote it 2011-04-28
+18:33 shuff       resolved! \o/
+18:37 ironcamel   pdurbin: you should also consider what the book Modern Perl has to say about it (free digital version available)
+18:37 ironcamel   and also Programming Perl 4th edition, which just came out and i just receieved, and it covers Perl up to version 5.14
+18:38 pdurbin     ironcamel: what's your hurry to be so modern? ;)
+18:40 ironcamel   i'm a modern type of guy i guess
+18:40 ironcamel   i like my edges to be bleeding
+18:43 pdurbin     shuff had suggested I switch from YAML to YAML::Any but i think i'm going to switch back to the former because the latter isn't in our default yum repos
+18:50 pdurbin     speaking of fancy: Highcharts - Interactive JavaScript charts for your webpage - http://www.highcharts.com
+18:51 ironcamel   wow
+19:54 pdurbin     shuff, i take it back, i do have YAML::Any already
+19:57 ironcamel   just saw that you can link to MULTIPLE lines in github https://github.com/jinzhu/vrome/blob/master/src/vromerc_example#L16:L20
+19:57 ironcamel   I'm not sure how to do that using the UI though
+19:57 pdurbin     huh. nice
+20:03 ironcamel   pdurbin: just thought of another reason for you to become more "modern". Perl 5.8 and 5.10 are no longer supported. see the /topic in #perl
+20:05 pdurbin     ironcamel: it's a good point
+20:05 pdurbin     here you go: http://blogs.perl.org/users/philip_durbin/2012/03/rjbs-advises-to-avoid-givenwhen.html
+20:06 ironcamel   pdurbin: damn, he wrote you back quick
+20:06 pdurbin     he's the man
+20:07 pdurbin     as we've discussed, i'm a fan of dzil
+20:07 ironcamel   dzil++
+20:09 pdurbin     jeez, does the formatting on that post look terrible or is it just me?
+20:09 pdurbin     i guess i can read it if i copy and paste it into gedit or whatever
+20:11 ironcamel   yes, formatting is horrible
+20:11 ironcamel   it is cutting off the right edge
+20:11 ironcamel   oh, let me try that ...
+20:11 pdurbin     it just threw it in a &lt;pre&gt; tage with markdown
+20:12 pdurbin     s/tage/tag/
+20:12 ironcamel   i highlighted the text, then did: xclip -o | nopaste -l test
+20:12 ironcamel   to get http://paste.perldancer.org/1uYeL1Fi6M5sL
+20:13 pdurbin     ah, much more readable. thanks
+20:13 ironcamel   xclip -o | nopaste
+20:13 ironcamel   you should cpanm nopaste
+20:13 ironcamel   if you don't have it already
+20:14 ironcamel   its a create tool. you can pass a file nopaste foo.sh
+20:15 ironcamel   or it reads from stdin, echo hello | nopaste
+20:15 ironcamel   and you can configure which nopaste service it will use, otherwise it will use a default one
+20:15 ironcamel   s/create tool/great tool/
+20:16 pdurbin     do you mean http://search.cpan.org/perldoc?App::Nopaste ?
+20:16 ironcamel   yes
+20:18 ironcamel   cpanm doesn't require fully qualified name
+20:18 ironcamel   for example, you can cpanm cpanm :)
+20:18 ironcamel   that upgrades your App::cpanminus
+20:18 ironcamel   or cpanm p
+20:18 ironcamel   that installs App::p
+20:19 pdurbin     i've been meaning to try cpanm. does it work with local::lib?  or otherwise allow me to just install stuff in my home directory, not as root?
+20:19 ironcamel   yes, definitely works with local::lib
+20:19 ironcamel   and it has this awesome -l option
+20:19 ironcamel   cpanm -L extlib Plack
+20:19 ironcamel   that will install Plack and all its deps in a local folder named extlib
+20:20 ironcamel   using local::lib
+20:20 pdurbin     hmm, cool
+20:20 ironcamel   it's a great way to package all your deps locally
+20:20 ironcamel   for distribution
+20:21 ironcamel   -l, --local-lib Sets the local::lib compatible path to install modules to.
+20:22 pdurbin     nice, i typed `echo crimsonfu | nopaste` and it posted http://pastie.org/3610596
+20:22 ironcamel   Reading rjbs's response, its almost like he is complaining that the smart match operator is too powerful.
+20:23 ironcamel   He does have a valid point about how $_ is localized, but I doubt I would run into that issue, and if I did, now I know how to get around it :)
+20:24 ironcamel   pdurbin: I installed App::Nopaste::Service::Pastedance and configured nopaste to use that by default
+20:24 ironcamel   by adding this to my bashrc: export NOPASTE_SERVICES=Pastedance
+20:24 pdurbin     nice
+20:25 ironcamel   figured it would give a little more visibility to Dancer if i used that one by default
+20:28 ironcamel   pdurbin: http://paste.perldancer.org/1M2k1rNFxpRcf
+20:29 ironcamel   that is a program i wrote during a programming exercise at work, for calculating roman numerals
+20:29 ironcamel   notice how i use given/when and how awesome it is
+20:29 ironcamel   when it matches against a list, it checks if $_ is in the list
+20:30 ironcamel   if it matches against a string or number, it checks for equality
+20:31 ironcamel   it follows the DWIM (do what i mean) philosphy. it can match against regexes, functions, hashes, ... it just does the right thing
+20:31 ironcamel   apparently, this makes rjbs uncomfortable
+20:35 pdurbin     very cool. will study it more later. have a good weekend!
+20:38 ironcamel   pdurbin: thanks, you too
+20:41 ironcamel   pdurbin: I wonder if rjbs would also dislike scala's pattern matching: http://www.scala-lang.org/node/120
+20:42 ironcamel   "Scala has a built-in general pattern matching mechanism. It allows to match on any sort of data with a first-match policy."
+20:43 ironcamel   http://www.joergm.com/2009/04/scala-pattern-matching-explained/
+</pre></body></html>

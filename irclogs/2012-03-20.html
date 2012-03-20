@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+13:07 Pax     morning
+13:08 shuff   hey hey
+13:08 Pax     So last night I threw up version 1 of a de-provision script into my members area
+13:08 Pax     https://github.com/crimsonfu/crimsonfu.github.com/blob/master/members/tfhartmann/deprovision-node
+13:09 Pax     I figured I'd throw it out to the group since most of it is pretty common, RHN, func, puppet certs etc
+13:17 shuff   hm; all i see on the site is a link to your blog
+13:18 shuff   but i do see the file in git
+13:19 shuff   nice :)
+13:19 Pax     yup, just checked it in
+13:26 pdurbin yeah, makes a lot of sense to use python with cobbler, since that's what it's written in. i'm using perl to parse cobbler xmlrpc output
+13:42 Pax     i got really lazy with certmaster though, I could have used the certmaster module but decided on a system call
+15:30 pdurbin curl -s http://modules.rc.fas.harvard.edu/api/1/avail/ | python26 -mjson.tool
+15:32 pdurbin what do you guys think? is that json reasonable?
+15:35 shuff   the help payloads are awfully unstructured
+15:36 pdurbin shuff: that's true enough. . .  at least they're no worse than what you currently see at http://rc.fas.harvard.edu/faq/modulelist
+15:36 shuff   hang on, i'm typing :)
+15:39 shuff   what if your JSON entries looked something like this:
+15:39 shuff   {
+15:39 shuff   "errors": 0,
+15:39 shuff   "modules": {
+15:39 shuff   "bio/454_util": {
+15:39 shuff   "help": {
+15:39 shuff   "fullpath": "/n/sw/odyssey-apps/modules-3.2.6/Modules/modulefiles/bio/454_util",
+15:39 shuff   "environment": "454 utilities"
+15:39 shuff   },
+15:39 shuff   "updated": "1274994369"
+15:39 shuff   },
+15:39 shuff   }
+15:39 shuff   }
+15:40 shuff   and then some tool used a template to turn that information into
+15:40 shuff   -------------------------------------------------------------------\nModule Specific Help for /n/sw/odyssey-apps/modules-3.2.6/Modules/modulefiles/bio/454_util:\n\n\n\tbio/454_util\n\t****************************************************\n\n\t  This module sets up the environment for:\n\n\t    454 utilities\n\t    454 utilities\n\n\t  Use the command:\n\n\t    module display bio/454_util\n\n\t  to see exactly what this module does.\n\n\t******************
+15:40 shuff   it looks to me like most of the text is the same from entry to entry, and only little bits change
+15:41 shuff   that screams template to me
+15:44 shuff   actually, hang on, one more little tweak:
+15:44 shuff   {
+15:44 shuff   "errors": 0,
+15:44 shuff   "modules": {
+15:44 shuff   "bio:" {
+15:44 shuff   "454_util": {
+15:44 shuff   "help": {
+15:44 shuff   "fullpath": "/n/sw/odyssey-apps/modules-3.2.6/Modules/modulefiles/bio/454_util",
+15:44 shuff   "environment": "454 utilities"
+15:44 shuff   },
+15:44 shuff   "updated": "1274994369"
+15:44 shuff   },
+15:44 shuff   },
+15:44 shuff   }
+15:44 shuff   }
+15:46 pdurbin bio/ABCreg has some actual help. . . "Implements the linear regression approach to Approximate Bayesian Computation, or ABC"
+15:46 shuff   excellent
+15:46 pdurbin bio/phylobayes-3.2f: PhyloBayes is a Bayesian Monte Carlo Markov Chain (MCMC) sampler for phylogenetic reconstruction using protein alignments.
+15:47 pdurbin the big win, i think, is presenting this information in a reasonable format (i.e. JSON) so it can be re-used
+15:47 shuff   let me be clear: i think presenting it in *any* structured data format is better than not :)
+15:47 pdurbin heh. ok
+15:48 pdurbin you want MORE structure
+15:48 shuff   i can see how more structure would be useful
+15:48 shuff   but anything is better than screen-scraping
+15:48 pdurbin yeah. . . maybe for /api/2 ;)
+15:50 pdurbin i think module(1) might have perl bindings but i'm not sure...
+15:50 pdurbin it's un-googleable :(
+15:53 shuff   oh, environment modules
+15:53 shuff   such a need idea
+15:53 shuff   neat
+15:53 shuff   such a poorly chosen project name
+16:06 pdurbin shuff: i'm glad you haven't complained about the fact that i'm just throwing that JSON in a file called index.html.  i guess it makes no difference, which is good.  the main thing is for the url not to change...
+16:07 shuff   sounds good
+17:29 pdurbin setting up backups of my git servers with rsync because it seems to work well enough
+</pre></body></html>
