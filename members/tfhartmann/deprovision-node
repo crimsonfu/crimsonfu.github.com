@@ -1,0 +1,177 @@
+#!/usr/bin/python
+# Name: deprovision-node
+# Purpose: deprovision nodes from IT infrastructure and tools
+# Version: 1.0
+# Tim Hartmann
+# 1.30.2012
+# Harvard University
+# 
+## Links
+# https://github.com/cobbler/cobbler/wiki/XMLRPC
+# https://access.redhat.com/knowledge/docs/Red_Hat_Network/API_Documentation
+#
+## ToDo
+# Puppet Certs
+# Puppet DB
+# /usr/share/puppet/ext/puppetstoredconfigclean.rb
+# Func Certs
+# Remove from kerberos
+# RHN
+# DNS
+# Monitoring ( maybe be handled by Puppet DB)
+# 
+import xmlrpclib
+import sys, subprocess
+import getpass
+import argparse
+import json
+
+COBBLERURL = 'https://puppet.noc.harvard.edu/cobbler_api'
+RHNURL = 'https://rhn.redhat.com/rpc/api'
+
+parser = argparse.ArgumentParser(description='Deprovision a node (server) from service. This script allows you to list and remove nodes from managed resources and tools such as Cobbler, Puppet, Func and RedHat Network. NOTE: For any "clean" option you MUST define a node to be cleaned with the --node argument',
+    epilog='Example: deprovision-node --node foo.example.com ')
+
+parser.add_argument('--node', dest='node', action='store', metavar='<name>',
+    help='Node name (Normally FQDN)')
+
+parser.add_argument('--clean-all', dest='cleanall', action='store_true',
+    help='Remove Node from ALL Resources')
+
+parser.add_argument('--clean-certs', dest='cleancerts', action='store_true',
+    help='Remove Certs from Puppet')
+
+parser.add_argument('--clean-cobbler', dest='cleancobbler', action='store_true',
+    help='Remove Node from Cobbler')
+
+parser.add_argument('--clean-rhn', dest='cleanrhn', action='store_true',
+    help='Remove Node from RHN (Defaults to Group: UNSG)')
+
+parser.add_argument('--clean-puppetdb', dest='cleanpuppetdb', action='store_true',
+    help='Remove Node from Puppet Stored Configs DB')
+
+parser.add_argument('--clean-func', dest='cleanfunc', action='store_true',
+    help='Remove Node from func/certmaster')
+
+parser.add_argument('--rhn-list', dest='rhnlist', action='store_true',
+    help='List Servers in RHN (Defaults to Group: UNSG)')
+
+parser.add_argument('--cobbler-list', dest='cobblerlist', action='store_true',
+    help='List Servers in Cobbler')
+
+args = parser.parse_args()
+
+
+def rhnservers(url):
+    SATELLITE_URL = url
+    SATELLITE_LOGIN = raw_input('RHN Account?: ')
+    SATELLITE_PASSWORD = getpass.getpass(prompt='RHN Password?: ')
+
+    client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
+    key = client.auth.login(SATELLITE_LOGIN, SATELLITE_PASSWORD)
+    list = client.systemgroup.listSystems(key, 'UNSG')
+    servers = {}
+
+    #Load RHN Data into a dict for later use
+    for group in list:
+        sysname = group.get('name')
+        sysid =  group.get('id')
+        servers[sysname] = sysid
+
+    if args.rhnlist == True:
+        servernames = sorted(servers.keys())
+        for name in servernames:
+            print name
+
+    if args.cleanrhn == True and args.node != None:
+        id = int(servers[args.node])
+        print '#### Removing Node "' + args.node +'" from RHN ####'
+        client.system.deleteSystems(key,id)
+    client.auth.logout(key)
+
+def listcobbler(url):
+    server = xmlrpclib.Server(url)
+    list = server.get_systems()
+    for node in list:
+        print node['name'] 
+
+def cleancobbler(url):
+    COBBLER_LOGIN = raw_input('Cobbler Account?: ')
+    COBBLER_PASSWORD = getpass.getpass(prompt='Cobbler Password?: ')
+    server = xmlrpclib.Server(url)
+    token = server.login(COBBLER_LOGIN, COBBLER_PASSWORD)
+    print '#### Removing Node from "' + args.node +'" Cobbler ####'
+    server.remove_system(args.node,token,False)
+
+def cleancerts():
+    CMD = '/usr/bin/puppet cert clean '
+    CLEANCMD = CMD + args.node
+    print '#### Removing Node Cert from Puppet ####'
+    subprocess.call( CLEANCMD, shell=True )
+
+def cleanfunc():
+    # This is just a ugly,ugly hack but hopefully we'll replace func with
+    # mcollective soon. The right way to do this would be with the python api
+    CMD = '/usr/bin/certmaster-ca  --clean '
+    CLEANCMD = CMD + args.node
+    print '#### Removing Node Cert from func/certmaster ####'
+    subprocess.call( CLEANCMD, shell=True )
+
+def cleanpuppetdb():
+    #CMD = '/bin/ls -l '
+    CMD = '/usr/share/puppet/ext/puppetstoredconfigclean.rb '
+    CLEANCMD = CMD + args.node
+    print args.node
+    print CLEANCMD
+    print '#### Removing Node from Puppet DB ####'
+    subprocess.call( CLEANCMD, shell=True )
+
+def main():
+    # If called with no args print help
+    if len(sys.argv) < 2:
+        parser.print_help()
+        sys.exit(1)
+
+    # List Nodes 
+    if args.rhnlist == True:
+        rhnservers(RHNURL)
+        sys.exit(0)
+
+    if args.cobblerlist == True:
+        listcobbler(COBBLERURL)
+        sys.exit(0)
+
+    # Clean Nodes 
+    if args.cleanall == True and args.node != None:
+        print '#### Cleaning Node from ALL resources ####'
+        args.cleanrhn = True
+        rhnservers(RHNURL)
+        cleancobbler(COBBLERURL)
+        cleancerts()
+        cleanfunc()
+        cleanpuppetdb()
+        sys.exit(0)
+
+    if args.cleanpuppetdb == True and args.node != None:
+        cleanpuppetdb()
+        sys.exit(0)
+
+    if args.cleancerts == True and args.node != None:
+        cleancerts()
+        sys.exit(0)
+
+    if args.cleanfunc == True and args.node != None:
+        cleanfunc()
+        sys.exit(0)
+
+    if args.cleancobbler == True and args.node != None:
+        cleancobbler(COBBLERURL)
+        sys.exit(0)
+
+    if args.cleanrhn == True and args.node != None:
+        rhnservers(RHNURL)
+        sys.exit(0)
+
+    else:
+        parser.print_help()
+main()
