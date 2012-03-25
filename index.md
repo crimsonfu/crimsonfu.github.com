@@ -30,7 +30,7 @@ See our [members](members) page.
 
 ## About the name crimsonfu
 
-Crimson is the color associated with the school were the founders met, but **we welcome all comers**!  Fu is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
+Crimson is the color associated with the school where the founders met, but **we welcome all comers**!  Fu is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
 
 [topical channel]: http://freenode.net/policy.shtml#topicalchannels
 
