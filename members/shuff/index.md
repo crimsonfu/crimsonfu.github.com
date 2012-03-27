@@ -10,4 +10,4 @@ Download my GPG key [here](http://pgp.mit.edu:11371/pks/lookup?op=vindex&search=
 
 ---
 
-Harvard users who have been migrated to Exchange, but who don't want to use Outlook, may find my notes on [configuring the Lightning Exchange Provider](% post_url thunderbird-exchange-calendar %}) to be of use.
+Harvard users who have been migrated to Exchange, but who don't want to use Outlook, may find my notes on [configuring the Lightning Exchange Provider](% post_url 2012-03-27-lightning-exchange-provider %}) to be of use.
