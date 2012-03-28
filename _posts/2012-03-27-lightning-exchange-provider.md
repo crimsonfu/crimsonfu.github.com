@@ -1,5 +1,6 @@
 ---
 title: Calendaring with Thunderbird and Exchange 2007/2010
+author: shuff
 layout: default
 ---
 
