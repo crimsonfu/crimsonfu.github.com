@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+13:25 pdurbin   linux - How to copy a large number of files quickly between two servers - Server Fault - http://serverfault.com/questions/18125/how-to-copy-a-large-number-of-files-quickly-between-two-servers/376596#376596
+13:28 pdurbin   [i had never heard of ttcp(1) ] http://ftp.arl.mil/mike/ttcp.html
+14:44 pdurbin   agoddard: i got my networks for openstack yesterday. planning to set up cobbler to kickstart the physical hosts today
+14:44 agoddard  pdurbin: sliq
+14:44 agoddard  u see the cloudstack/apache announcement?
+14:44 pdurbin   no... link?
+14:44 agoddard  fak3r and I are looking into rockin' the cloudstack aktion
+14:45 agoddard  http://www.wired.com/wiredenterprise/2012/04/citrix-cloudstack/
+14:46 pdurbin   didn't realize that cloudstack is only "mostly" open source
+14:55 whorka    I wonder how netcat, socat, and ttcp compare in performance.
+14:56 pdurbin   agoddard: i just posted http://pastie.org/3727369 , my notes from http://www.cloudstack.org/about-cloudstack/cloudstack-events/viewevent/29-build-an-open-source-cloud-day-boston.html (the cloudstack event i attended 2011-12-09)
+14:56 pdurbin   i swear, nopaste is the easiest way to blog.  thanks again, ironcamel
+14:56 agoddard  nice!
+14:57 pdurbin   cloudstack did seem pretty mature, i must say
+14:57 agoddard  my thoughts with cloud vs. open at the moment are basically - we need something with a nice API, preferably one that someone's already written a  knife plugin for, and we need something that'll rock iSCSI storage for our VMs
+15:00 pdurbin   https://github.com/CloudStack/knife-cloudstack
+15:04 pdurbin   agoddard: does cloudstack work with iSCSI storage?
+15:05 agoddard  pdurbin: yeppers
+15:05 agoddard  pdurbin: hopefully we'll be able to start testing it in our next iteration
+15:06 * pdurbin considers the advantage of using some of the same tools as agoddard and fak3r
+15:08 westmaas  awww you guys are killing me!
+15:08 agoddard  westmaas: sorry :/
+15:08 agoddard  but logstash and sensu are goin revolutionize your worlds
+15:08 agoddard  :D
+15:31 pdurbin   westmaas: again, i'm actively working on setting up openstack! the demo thing
+15:31 westmaas  :)
+15:31 pdurbin   this thing: http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e390.html
+15:45 agoddard  at least if we rock different ones, we'll be able to compare
+15:45 agoddard  (but seriously, install logstash and sensu...) ;)
+15:46 pdurbin   agoddard: i know, i know... multiple people stirring the pot about sensu at least.  logstash isn't even on our radar... YET!
+16:26 pdurbin   whorka: i have no idea how netcat, socat, and ttcp compare in performance
+16:27 pdurbin   oh, by the way, as of today, both http://irclog.perlgeek.de/crimsonfu and http://irclog.perlgeek.de/crimsonfu/today have links back to http://crimsonfu.github.com
+17:27 ironcamel pdurbin: http://rexify.org
+18:10 pdurbin   ironcamel: do i want that? rex?
+18:11 ironcamel i don't know
+18:33 pdurbin   writing to my team about http://dancer-pdurbin.rhcloud.com which i stood up on https://openshift.redhat.com
+18:39 pdurbin   `gem install gitfinger &amp;&amp; gitfinger openshift`
+19:18 ironcamel pdurbin: the crowdtilt.com folks are using rex, not as a replacement for chef, but just to help automate tasks with vagrant/our dev/staging/prod environments and even common chef tasks
+19:20 pdurbin   huh. ok. cool
+19:20 pdurbin   that reminds me. this is how i think i might try to learn some ruby: http://rubykoans.com
+19:20 ironcamel what are you writing to your team?
+19:21 ironcamel how to deploy dancer on openshift?
+19:21 ironcamel i have been writing ruby a lot the past couple weeks
+19:21 ironcamel at work
+19:22 ironcamel i should probably do that koans thing. but i've been learning a lot just diving in and asking questions in #ruby-lang
+19:22 ironcamel and a lot of perl idioms work in ruby, so its pretty easy to learn for me
+19:27 pdurbin   if openshift ever becomes open source and we could host it, i think it would be a great offering for our users
+19:27 pdurbin   "here, have a web app"
+19:33 ironcamel so the open in openshift must not stand for open source?
+19:33 pdurbin   i.e. the users could run `rhc app create -a wordpress -t php-5.3` and get a wordpress installation immediately
+19:33 agperson  that would be beautiful
+19:33 pdurbin   ironcamel: heh. i don't know how open source it is...
+19:33 agperson  they are saying "in the next few months" it will be
+19:34 pdurbin   agperson: it works! go try it out on rhcloud
+19:34 agperson  perhaps i will...
+19:34 pdurbin   you can have up to 5 free apps
+19:34 pdurbin   nodejs, rails, django, etc.
+19:34 agperson  i'll have to give it a go
+19:36 agperson  any idea how it compares to vmware's cloudfoundry?
+19:37 agperson  (aside from, i assume, no vmware dependency!)
+19:56 pdurbin   agperson: never heard of it
+19:58 * pdurbin glances at http://www.cloudfoundry.com/faq
+19:58 pdurbin   i *think* openshift supports more languages and frameworks
+</pre></body></html>

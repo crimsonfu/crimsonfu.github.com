@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:13 pdurbin   ironcamel: `yum install ack` does the job in rpm-land
+14:59 ironcamel pdurbin: i know, i meant on debian, they screwed up. they call it ack-grep or something.
+15:01 ironcamel and then after you install it, you probably would want to create an alias so you don't have to type ack-grep each time. but running cpanm ack will install the latest ack for you and place it in your sytem path
+15:04 pdurbin   ironcamel: out of the box, you have to type `ack-grep myString myfile.txt`? that's dumb
+15:06 shuff     this frustrates the heck out of me
+15:07 shuff     i would have preferred that they simply make it conflict with the preexisting "ack" package
+15:13 pdurbin   those damn packagers
+15:16 shuff     srsly
+17:21 pdurbin   has anyone tried this? Sensu, a monitoring framework - PorterTech - http://portertech.ca/2011/11/01/sensu-a-monitoring-framework/
+17:24 pdurbin   Sensu competes with nagios.  it uses messaging (AMQP rather than ZeroMQ, like salt uses)
+17:25 pdurbin   i heard about Sensu at http://devopscafe.org/show/2012/3/16/devops-cafe-episode-24.html
+17:28 pdurbin   westmaas or ironcamel: openstack uses AMQP (with RabbitMQ). i'd be curious to hear what you think about AMQP vs. ZeroMQ
+17:29 pdurbin   looks like i should just start by reading http://nichol.as/zeromq-an-introduction
+17:30 westmaas  I haven't explored it too much - but I think someone just implemented zeromq support for nova
+17:36 pdurbin   interesting. thanks
+17:36 ironcamel pdurbin: i am a big fan of the stomp protocol
+17:37 ironcamel http://stomp.github.com/
+17:37 ironcamel it is text oriented like http, and like json it has a super simple spec
+17:39 pdurbin   it even has text in the name :)
+17:39 ironcamel you can even (and I have done this for debugging) telnet to a stomp server and interact with it
+17:41 pdurbin   on the previous devops cafe podcast ( http://devopscafe.org/show/2012/3/5/devops-cafe-episode-23.html ) Ben Rockwood was arguing that every sysadmin should get to know messaging protocols
+18:36 pdurbin   i bet agoddard has looked at sensu...
+18:37 agoddard  sensu is awesomesauce
+18:37 agoddard  I lost my IRC scrollback - not awesome
+18:37 agoddard  oh wait, logs.. awesome :D
+18:37 pdurbin   heh. logs ftw!  \o/
+18:38 agoddard  nice, just read them. yeppers, sensu is awesome, @portertech is the man
+18:38 agoddard  he was in Boston last week, next time he's around we should have some beers up there
+18:39 pdurbin   too bad we missed him. yes, beers for all
+18:39 pdurbin   his company is based in newton
+18:39 agoddard  I'm working at the moment on replacing nagios with sensu, and then replacing collectd etc with metrics pulled from sensu checks into graphite (and then openTSDB when I get my hbase a** into gear)
+18:39 pdurbin   says they have hack fests in boston. i tweeted at him about it
+18:39 agoddard  ya, Sonian, they do some pretty cool stuff with scaling. portertech is based in Vancouver but travels to the HQ sometimes
+18:39 pdurbin   see, i knew agoddard would be all over this :)
+18:39 agoddard  :D
+18:41 agoddard  currently we lose our nagios server (happened a few times) and we don't know until we realize it's been a little too quiet on the pager front
+18:42 pdurbin   heh. i guess a little noise is ok :)
+18:42 agoddard  hmm.. the last message didn't send.. fu irccloud. /me tries again:
+18:42 agoddard  "currently we roll two nagios servers, one @ RC and one at MBL.. with Sensu it'll all be the same system, using our existing AMQP queues to send checks from RC to CLI. If either site goes down, or any of the tunnels, then multiple instances will be able to see it and hit the alarm"
+18:42 agoddard  there we go
+18:42 pdurbin   nice. what are you using for AMQP?
+18:43 agoddard  rabbitmq
+18:43 agoddard  we had some existing rabbitmq infrastructure for a rails app, so decided to keep it simple, it's been pretty reliable
+18:44 pdurbin   cool, cool. yeah, like i was saying earlier, openstack uses rabbitmq
+18:44 shuff     in my admittedly limited experience, rabbitmq was easier to set up than amqp
+18:44 agoddard  how's openstack working out for you guys?
+18:46 pdurbin   i thought rabbitmq was an implementation of amqp...
+18:47 agoddard  +1, just uses the AMQ(Protocol)
+18:48 pdurbin   agoddard: i'm waiting for a couple test networks per http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e390.html
+18:49 shuff     hello?
+18:49 agoddard  shuff: yo
+18:49 shuff     ok good - just disconnected and *appeared* to reconnect
+18:50 agoddard  pdurbin: cool, can't remember if I've already mentioned it, but I'm super keen on looking at iSCSI LUN backed storage or iSCSI backed LVM storage for VMs with OpenStack
+18:50 pdurbin   agoddard: you mentioned. the irclogs never forget :)
+18:50 agoddard  pdurbin: oh ya, the logs again, damn.. they're helpful
+18:51 pdurbin   and pretty much, i think we might be looking at something similar
+18:51 agoddard  +10000
+18:51 * pdurbin nudges sjoeboo, points at whiteboard
+18:51 sjoeboo   yeah....
+18:51 sjoeboo   sigh
+18:51 shuff     right now right now right now
+18:51 pdurbin   agoddard: what's your iSCSI hardware? some dell array?
+18:51 sjoeboo   need to get into those md3000i's...
+18:52 agoddard  ya, we have two md3220i's with additional 1220 shelves
+18:52 pdurbin   ok, very similar
+18:52 agoddard  the 3220's are full of 2.5" 146GB 15kSAS, the 1220's are full of 500GB NL-SAS
+18:53 agoddard  we have one 3220 in production and one just sitting there waiting for us to get our openstack asses into gear.
+18:54 sjoeboo   10 md3000i's i think 1TB drives, 10GB backend network
+18:55 agoddard  nice!
+18:56 sjoeboo   sadly, the kvm front ends we need to move to, at least until we unwired some shit, are far far away from the isolated backend network
+19:07 pdurbin   shuff: do you still use nagstamon?
+19:08 shuff     i tried it out under OS X (i don't currently have a linux workstation at my desk), but it's not as nicely integrated as it is with GNOME
+19:08 pdurbin   ok, i think sjoeboo was going to try on OS X too
+19:09 sjoeboo   they have a dmg
+19:09 sjoeboo   works, after a zero install….install
+19:09 sjoeboo   but yeah, semi-meh
+19:09 sjoeboo   might look for an osx altenative...
+19:10 pdurbin   "It is inspired by Nagios Checker for Firefox" -- http://nagstamon.ifw-dresden.de
+19:10 pdurbin   https://addons.mozilla.org/de/firefox/addon/nagios-checker/
+19:11 sjoeboo   firefox meh
+19:11 sjoeboo   ha
+19:11 sjoeboo   kiding, mostly
+19:11 pdurbin   it better to have that addon in some other browser anyway. it's a hog
+19:12 pdurbin   and will require you to restart firefox at least once a day
+19:12 pdurbin   i'm really selling it...
+</pre></body></html>

@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+14:40 ventz         ironcamel: i use it as a mouse replacement for quick things
+14:40 ventz         the hjkl makes it slow, but using: jkl for left,down,right, and i for up changes the game
+14:41 ventz         because now ji is top left and jk is left down, etc...
+14:41 ventz         as it turns out, when you get semi-used to this, it's actually faster to hold down two keys and tap another key 2-3 times, then raise your hand and move the mouse, and put it back
+15:33 ironcamel     ventz: do you not use vim?
+15:34 ironcamel     ventz: as a vim user, i would be afraid to map jkl to be different than the tradition vi hjkl mapping
+15:36 ventz         ironcamel: i am, i live in vim :)
+15:36 ironcamel     ventz: you should try openbox
+15:37 ventz         so once you run keynav, it sits in the bg and monitors for ctrl+; -- that enables it, then you use the keys and hit space to "select" or escape to "cancel"
+15:37 ventz         ironcamel: is that like blackbox? (i used to use that a lot back in college w/ the sun systems)
+15:37 ironcamel     openbox by default as direction alt-arrow, to switch between windows, or move windows, or resize windows
+15:38 ironcamel     i mapped them to alt-{h,j,k,l}
+15:38 ventz         that's awesome
+15:38 ironcamel     i don't use a mouse at all
+15:38 ventz         ohh, you can run it under gnome hmm
+15:38 ironcamel     i mean i use it for browsing
+15:38 ventz         there are a few quircks that i can't get past in gnome/ubuntu
+15:38 ironcamel     but for basic window management, openbox makes it so you don't need a mouse
+15:39 ironcamel     ventz: well, i left ubuntu
+15:39 ironcamel     because of the crazy stuff they were doing
+15:39 ventz         i am still using 10.04 (even for the desktop)
+15:39 ironcamel     i am running openbox on debian on one box, and crunchbang/openbox on another
+15:39 ventz         the new "unity" crap...ughhh
+15:40 ironcamel     i am actually running linux-mint-debian at the moment
+15:40 ironcamel     ventz: exactly
+15:41 ironcamel     i tried installing openbox on ubuntu to escape unity, and ubuntu somehow got its claws into that
+15:41 ironcamel     nautilus would take over the background
+15:41 ironcamel     that was the last straw
+15:42 ventz         mint is based on debian?
+15:43 ironcamel     linux-mint-debian is based on debian
+15:43 ironcamel     linux-mint is based on ubuntu
+15:43 ventz         what do you like about mint? I just read about it yesterday -- after hearing something a few months ago
+15:44 ventz         someone was swearing up and down how it's 10x better than ubuntu, but their reason was it's more like windows...
+15:44 ironcamel     i like that it is debian
+15:44 ventz         what does it give you on top of just debian thought?
+15:44 ironcamel     and they have a nice alternative to unity/gnome-shell
+15:45 ironcamel     it's a more traditional desktop, even though i don't use it
+15:45 ironcamel     i would probably be happy with just debian
+15:45 ironcamel     it was just the distro i tried after ubuntu
+15:45 ventz         i really like debian, but there are a couple of nice add-ins in ubuntu which make it more "user friendly". I've noticed that debian is extremely good about compatability and bug fixes - which ubuntu is not
+15:45 ironcamel     oh, i remember something really cool i liked about linux-mint-debian
+15:46 ironcamel     they have rolling updates
+15:46 ventz         (the reason why i run debian on my eeepc)
+15:46 ironcamel     so you never have to install a major new version
+15:46 ventz         that's very cool
+15:46 ironcamel     you just get updates as you go along
+15:46 ventz         that would be huge for a server in a colo actually too
+15:47 ventz         but i am guessing they are more oriented towards the desktop?
+15:47 ironcamel     i think you can achieve the same thing in debian if you enable the testing repo
+15:47 ironcamel     yeah, seems they are focused on the desktop
+15:48 ironcamel     http://en.wikipedia.org/wiki/Rolling_release#Debian-based
+15:49 ironcamel     "Linux Mint Debian Edition (LMDE) and antiX are cyclical rolling release Deb binary-based Linux distributions based on Debian testing."
+15:57 ventz         i have to get going, will be back later -- need to install a bunch of stuff @10 ware
+15:57 ironcamel     later :)
+17:31 pdurbin       very interested in the openbox discussion but too busy to participate. been thinking about trying ratpoison but if openbox does mouseless well...
+18:32 ironcamel     pdurbin: you missed epic irc exchange between me and mst in #dancer. he only kicked me once
+19:10 pdurbin       ironcamel: was it logged?
+19:14 shuff         http://www.backup-manager.org/pipermail/dancer-users/2011-May/001388.html
+19:16 pdurbin       sad
+19:16 shuff         it is unfortunate
+19:26 matt1337357   Why so adamant about publicly visible irc logs? Is this for educational purposes?
+19:33 pdurbin       Coding Horror: When In Doubt, Make It Public - http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html
+19:34 pdurbin       it's one of our core principles: http://crimsonfu.github.com
+19:34 pdurbin       "We live in a world of infinitely searchable micro-content, and every contribution, however small, enriches all of us."
+19:36 matt1337357   or
+19:36 matt1337357   we're just adding to the already immense amount of white noise on the internet
+19:36 * matt1337357 shrugs
+19:37 matt1337357   that being said, I'm all for public visibility
+19:37 matt1337357   I was just curious about motivations
+19:39 matt1337357   This is kinda related. Have you tried duckduckgo instead of google yet?
+19:42 ironcamel     duckduckgo++
+19:42 matt1337357   It's kinda hard to use entirely because of the fact that we're used to good catering search results to us, so it missing the mark periodically with a search query actually feels kind of good
+19:42 pdurbin       it troubles me that it favors metacpan over search.cpan #oldschool
+19:43 ironcamel     metacpan++
+19:43 matt1337357   cpan is...
+19:44 pdurbin       like cran ;)
+19:44 shuff         pdurbin: use !oldcpan in duckduckgo to get classic cpan
+19:44 matt1337357   HAH
+19:44 matt1337357   cran is finally getting cleaned up
+19:44 ironcamel     i have firefox keywords for search cpan/metacpan
+19:45 ironcamel     *searching
+19:45 matt1337357   I think I already like metacpan over cpan
+19:45 matt1337357   but I was prefering github over cpan already
+19:45 shuff         metacpan does not let me apply my preferred source code highlighting and so it is dead to me :)
+19:46 ironcamel     you are very picky
+19:47 matt1337357   I still haven't read modern perl
+19:47 shuff         i am a geek, obsessively focusing on arbitrary minutia is my birthright
+19:47 matt1337357   javascript is too cool nowadays
+19:47 ironcamel     jquery is cool
+19:48 ironcamel     jquery makes javascript very enjoyable
+19:48 matt1337357   oh
+19:48 matt1337357   I'm okay with jquery. I have to compulsively write wrappers for jquery
+19:48 ironcamel     wrappers for a wrapper ?
+19:48 matt1337357   so I feel like I can remove it at some point in the near future
+19:49 matt1337357   I just have a dream that someday I won't need jquery
+19:49 matt1337357   and want to be able to transition smoothly out
+19:49 ironcamel     i think some proposed javascript ecma thing has half of jquery built in
+19:49 matt1337357   yea
+19:49 ironcamel     but will take years to get adopted probably
+19:49 matt1337357   queryselectors, etc
+19:50 matt1337357   and css3 stole like a million of jquery's features
+19:50 matt1337357   http://www.htmlgoodies.com/beyond/css/css3-transitions-syntax-and-example-code.html
+19:50 matt1337357   it even does the transision functions as beziers
+19:51 matt1337357   all the important browsers support it.
+19:51 ironcamel     hmmm ... i think i prefer to not have to learn all the details of css
+19:51 ironcamel     and use a framework like bootstrap for css, and jquery for javascript
+19:52 matt1337357   jquery is 100kb
+19:52 matt1337357   minified.
+19:52 ironcamel     you think that is too big?
+19:52 matt1337357   i guess it doesn't matter that much
+19:52 matt1337357   i think, that's ugly
+19:53 ironcamel     you can use cdn's
+19:53 matt1337357   yup
+19:53 matt1337357   or gzip
+19:53 ironcamel     people will have it cached in their browser already
+19:53 ironcamel     if you use google's cdn for jquery
+19:54 ironcamel     i found i ran into an issue, when protecting my app with https. then i couldn't link to google's cdn at that point.
+19:54 matt1337357   i think things like that halt the development of browsers
+19:54 ironcamel     since the cdn was http
+19:54 matt1337357   if things never break, then we get stuck with a million years of kludge
+19:54 ironcamel     things like what?
+19:54 matt1337357   like giving no one motivation to leave ie6
+19:58 matt1337357   haven't made up my mind on this yet: http://coffeescript.org/
+19:58 matt1337357   but hear future javascript commits to github are all written in coffee
+19:59 matt1337357   to the github project..
+20:01 ironcamel     i really dislike the whole idea of that
+20:01 ironcamel     i bet debugging is a nightmare
+20:02 ironcamel     writing code that generates code, not my thing
+20:02 matt1337357   I don't know if it's intimidating to me because it's new and I don't know it
+20:02 matt1337357   or if it's unnecessarily complex
+20:04 matt1337357   regardless, I'm into functional programming
+20:05 ironcamel     at least jquery is still javascript
+20:06 pdurbin       yeah, i agree that debugging coffeescript must be a nightmare
+20:07 matt1337357   I don't really see why it's really much different
+20:08 matt1337357   all the tricks used in modern javascript programming are done much more semantically
+20:09 ironcamel     matt1337357: you know that coffeescript is just translated to the corresponding javascript. imagine writing ruby that is translated to python.
+20:10 ironcamel     and the interpreter invokes the python
+20:12 matt1337357   i mean it's not like debugging optimized code
+20:12 matt1337357   I mean, I see the point
+20:13 matt1337357   but I think that when you look at an object in the debugger or console it's going to be pretty looking to your semantic representation
+20:13 matt1337357   it's not like the debuggers shows the million curly brackets of the javascript code - it shows the object version of it
+20:14 matt1337357   pretty much looking like* your conceptual representation
+20:15 ironcamel     i would think that the debugger WOULD shoule the curly brackets and javascript code
+20:15 ironcamel     s/shoule/show/
+20:15 ironcamel     the debugger is running the javascript, not the coffeescript
+20:15 matt1337357   yes, i know
+20:16 matt1337357   maybe i just fence-post too much
+20:16 matt1337357   as opposed to line-by-line debugging
+20:17 matt1337357   the traceback could arguably get ugly
+20:17 ironcamel     what is fence-post?
+20:18 matt1337357   surrounding blocks of code with prints to the debug log/console/whatever
+20:18 ironcamel     ah, yes, i do both
+20:19 ironcamel     sometimes the line-by-line thing is necessary, though i prefer the fence-post thing
+20:19 matt1337357   agreed
+20:20 pdurbin       more often than i like to admit, i write Desperate Perl: http://micro.jcuff.net/desperation
+20:20 ironcamel     stop doing that
+20:21 ironcamel     just kidding
+</pre></body></html>

@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+13:25 pdurbin  shuff: does https://github.com/tomtom/tcomment_vim toggle blockquotes in markdown out of the box?
+13:26 shuff    that is a bit of a difficult question to answer, given that i've never (to my knowledge) run a vim instance that had tcomment as its only plugin
+13:26 shuff    but i will do a quick test
+13:28 shuff    hm
+13:28 shuff    toggling blockquote works on my system
+13:28 shuff    but that is not conclusive
+13:29 pdurbin  what keys are you hitting?
+13:29 shuff    Gc
+13:30 pdurbin  as soon as i hit G my cursor goes down to the bottom of the page...
+13:30 pdurbin  gcc works, make as /*  */ style comment...
+13:30 shuff    aha, sorry, was insufficiently specific
+13:30 shuff    select text in visual mode, then hit Gc
+13:31 shuff    i can just hit gcc and it turns this
+13:31 shuff    arma virumque cano troiae qui primus ab oris
+13:31 shuff    into this
+13:31 shuff    &gt; arma virumque cano troiae qui primus ab oris
+13:32 pdurbin  i get
+13:32 pdurbin  this: /*arma virumque cano troiae qui primus ab oris*/
+13:34 shuff    what does :set syntax? return?
+13:35 pdurbin  syntax=mkd
+13:37 shuff    hmm
+13:37 shuff    i'm also using the https://github.com/gmarik/vim-markdown plugin
+13:37 shuff    maybe that will do it for you?
+13:38 shuff    i get syntax=markdown
+13:38 pdurbin  i'm using https://github.com/plasticboy/vim-markdown
+13:38 shuff    aha, that is old and busted
+13:39 pdurbin  ok, i swapped and now i get syntax=markdown
+13:40 pdurbin  but i see the same /* behavior */
+13:44 shuff    hm
+13:44 shuff    i've been digging to see if i set commentstring somewhere else
+13:44 shuff    no luck so far
+13:48 pdurbin  i'm pretty sure you have something custom...
+13:48 pdurbin  want
+15:39 pdurbin  jabrcx: this is the git submodule example i was thinking of: https://github.com/ginatrapani/narrowthegapp/tree/master/webapp/extlibs
+19:13 pdurbin  "when the helper turns the unicast back into a broadcast on the routers SVI, it needs to be explicitly defined in the transparent firewall"
+19:44 pdurbin  (03:41:47 PM) pdurbin: i still don't get what vagrant is, quite
+19:44 pdurbin  (03:41:58 PM) pdurbin: it's for developers and ops to use the same configs, right?
+19:50 pdurbin  that seemed to be what ben rockwood was saying in his LISA Keynote 2011: The DevOps Transformation « Cuddletech - http://cuddletech.com/blog/?p=695
+20:27 agoddard pdurbin: vagrant: http://crankstations.com/vagrant
+20:28 agoddard my blog really needs updating
+20:29 agoddard vagrant is also what street-chef uses to make craziness.. (more shameless self promotion) https://github.com/agoddard/street-chef
+20:30 pdurbin  heading out but will check it out. thanks!
+</pre></body></html>

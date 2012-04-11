@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+13:45 Pax     How would you explain the benefits of an execution tool like fund. mcollective or salt stack to someone who was perfectly happy with ssh for loops or pssh
+13:50 pdurbin func, you mean
+13:50 pdurbin salt is hella fast
+13:50 pdurbin scales very well
+13:52 pdurbin but we're blocked on deploying salt until this issue is resolved: Issue #891: Salt-master stops responding - [FIXED with libzmq 2.1.11] · saltstack/salt - https://github.com/saltstack/salt/issues/891
+13:55 pdurbin sjoeboo: salt 0.9.8 is out: https://github.com/saltstack/salt/issues?milestone=21 seems to not have the fix we need though. . .
+13:55 sjoeboo yeah, i was going to look, waiting for rpms
+13:55 pdurbin do you think our issue is fixed??
+13:56 sjoeboo have not looked
+13:56 pdurbin (we can take this to #salt)
+13:57 pdurbin if anyone wants to follow along: http://irclog.perlgeek.de/salt/2012-03-22#i_5333922
+14:16 Pax     pdurbin: sure, but isn't the possible and not unreasonable response "so is ssh"
+14:16 Pax     fast I mean
+14:17 Pax     I just had a conversion with a sysadmin friend where I made the arguments *for* using tools and thought getting your takes on it would be interesting
+14:20 pdurbin no no no. much faster
+14:22 pdurbin http://irclog.perlgeek.de/crimsonfu/2012-03-02#i_5235814
+14:24 pdurbin just added this comment to my google plus post: "To be clear about what is going on here, it can take 15 minute or more to do this operation over pdsh.  Salt took 6 seconds."
+14:27 Pax     :) Continuing to play the devils advocate here… "Speed and….?"
+14:30 pdurbin your remote execution tool should allow you to easily specify host groups. all mail servers, etc.
+14:35 pdurbin it should do some logging, ideally. whorka is still using the logging functionality with gsh (a wrapper script, basically) i'm familiar with from hmdc
+</pre></body></html>
