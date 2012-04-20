@@ -6,7 +6,7 @@ On topic: Linux, Puppet, scripting, automation, best practices, **C**onfigu**R**
 
 ## Guiding Principles
 
-* strength in numbers
+* none of us is as smart as all of us
 * open source by default
 * [when in doubt, make it public](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)
 
