@@ -2,7 +2,7 @@
 layout: default
 title: crimsonfu - sysadmins who code
 ---
-On topic: Linux, Puppet, scripting, automation, best practices, **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU** 
+On topic: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU**, Linux, scripting, automation, best practices
 
 ## Guiding principles
 
