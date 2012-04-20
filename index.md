@@ -4,7 +4,7 @@ title: crimsonfu - sysadmins who code
 ---
 On topic: Linux, Puppet, scripting, automation, best practices, **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU** 
 
-## Guiding Principles
+## Guiding principles
 
 * none of us is as smart as all of us
 * open source by default
