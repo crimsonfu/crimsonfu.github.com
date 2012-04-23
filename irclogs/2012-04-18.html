@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+15:39 pdurbin     huh, this just came to my attention: Freedcamp - Free Project Management - http://freedcamp.com
+15:40 SEJeff_work We know secure, 256-bits of it in every interaction you do!
+15:40 shuff       huh
+15:40 SEJeff_work So they likely use symetric encryption. Possibly AES
+15:41 SEJeff_work How is the shared secret stored is the first thing I wonder. Security symetric keys is harder than asymetric ones.
+15:41 SEJeff_work ^^ from the website pdurbin linked
+15:41 shuff       i do love signing up for things online
+15:41 shuff       even the tumblr downtime did not stop me
+15:41 SEJeff_work ha
+15:42 pdurbin     oh, that reminds me that i finally got around to posting something retweeted by agoddard: http://pdurbin.tumblr.com/post/21285810446/http-twitter-com-longcat111
+15:43 SEJeff_work :)
+15:44 agoddard    long cat
+15:44 SEJeff_work is long
+15:44 agoddard    :D
+15:46 pdurbin     now back to work you guys
+15:46 SEJeff_work boo
+15:47 pdurbin     so ventz is teaching me ubuntu. thank god. because i've always been a red hat guy. i'm compiling notes here if anyone is interested: http://wiki.greptilian.com/ubuntu
+15:47 pdurbin     i don't even know what dash is but i don't like it
+15:48 SEJeff_work A posix shell
+15:49 SEJeff_work It executes big shell scripts way faster than bash
+15:49 SEJeff_work I think it takes a minute off of compiling openoffice.org if you build it with /bin/sh set as dash vs bash
+15:51 pdurbin     meh. sticking with bash for now: http://git.greptilian.com/?p=wiki.git;a=blob;f=ubuntu.mdwn;h=7025cb7e2b5f9d963aaa9109fbc70561e765e811;hb=c3602d6fa43dedd44aa7879d5c4f794ce1249346#l38
+15:52 SEJeff_work pdurbin, deb as a format has not equiv to rpm -V, There is debsums, but it is a very horrible hack
+15:52 SEJeff_work And not all packages are required to have checksums of all files
+15:53 pdurbin     i'm soooo much more familiar with rpm and yum. i'm lost in debian
+15:53 pdurbin     i just grep'ed through the archive and i don't think i've said this yet:
+15:53 pdurbin     i'm a debian guy at heart, i think, though i've never used it
+15:54 SEJeff_work apt-cache dumpavail
+15:54 SEJeff_work huge archive is huge
+15:54 pdurbin     i guess this is no longer true, since this week i'm starting to use ubuntu
+15:55 SEJeff_work /etc/default vs /etc/sysconfig
+15:55 SEJeff_work annoying
+15:57 pdurbin     i'm actually considering not even learning debian/ubuntu very well, at least a first, and just using salt to do my dirty work
+15:57 SEJeff_work Ha!
+15:57 pdurbin     SEJeff_work: expect more salt issues on github ;)
+15:57 SEJeff_work apt-cache madison $packagename is also quite nice, but poorly named
+15:57 SEJeff_work Awesome!
+15:57 SEJeff_work We need more debian/*buntu users
+15:57 agoddard    I used to find myself in more dependency hell in Centos than Debian/Ubuntu.. but it's a moot point now 'cause it's all chef'd :)
+15:57 SEJeff_work I used Ubuntu for 4-5 years and just recently got tired of it. Now back to Fedora
+15:58 pdurbin     i run fedora at home and i like it. except for gnome 3
+15:58 * pdurbin   shakes fist
+15:58 SEJeff_work Install cinnamon
+15:58 SEJeff_work way nicer
+15:58 pdurbin     ok
+15:59 pdurbin     agoddard: i tend to just rebuild fedora rpms for centos, if necessary
+15:59 SEJeff_work mock ftw
+15:59 pdurbin     oh, i stood this up too: http://yum.greptilian.com
+15:59 pdurbin     cause i know you guys are dying for ikiwiki on centos
+16:00 agoddard    I don't use operating systems anymore. I'm.. post OS.. : - |
+16:00 pdurbin     heh. there you go
+16:01 pdurbin     abstract it all away
+16:01 SEJeff_work agoddard, Let me guess, you write javascript for node.js? :P
+16:01 agoddard    I restart my servers with a git post commit hook... 0_0
+16:01 SEJeff_work ha
+16:02 agoddard    well, here's a war story about Debian.. I had an etch install which I needed to upgrade for some node packages
+16:02 agoddard    and it was all "are you sure Y/N", then "are you really really sure?" then all "please type 'Yes, do as I say'.. and I was like meh.. whatever.. &lt;enter&gt; &lt;enter&gt; &lt;enter&gt;
+16:03 agoddard    so it cleared off every package on the system.. *all of them* and then failed on reinstalling like.. bash or something
+16:03 pdurbin     yikes!
+16:03 agoddard    I was like "hmm.. maybe I wasn't so sure.. "
+16:03 pdurbin     i'm confused by apt-get is so. . . interactive. don't make me think!
+16:04 agoddard    and I managed to rebuild it from the SSH connection that I was still logged in to for the whole thing (but if that had died, 0_o)
+16:04 agoddard    I had to manually copy a bunch of utils so I could compile things I needed to get apt back, copied bash from an iso.. etc. fun times :)
+16:05 agoddard    anyway, point is.. it worked, so that's a +1 for debian (and a -1 for anthony paying attention to warning messages on old servers)
+16:06 shuff       "Phil Hughes wrote in Linux Journal that you could teach a chicken to install Debian." (http://www.tldp.org/LDP/gs/node4.html)
+16:07 shuff       other distributions have much poorer poultry interactivity
+16:07 shuff       i am reminded of the famous Versailles Debian Days
+16:07 shuff       oh man i need to go get lunch
+16:11 SEJeff_work A package manager that is able to require input is fail to me by design
+16:11 SEJeff_work that package manager is known as apt
+16:13 pdurbin     +1
+16:14 SEJeff_work I had to add these hacks to salt's apt module to keep it from hanging on stdin: https://github.com/saltstack/salt/blob/develop/salt/modules/apt.py#L25
+16:14 pdurbin     shuff is referring to http://www.versaillespoultrydays.com but it's a long story. lunch time
+17:01 matt1337357 I run debian at home, but I really think it's just like a hobby platform. As in, you get debian to tweak it as your hobby
+17:02 matt1337357 it does things too non-standardly and the software is too old
+17:04 matt1337357 I don't really know if debian can survive as technology converges. With technology all being the same on multiple platforms - apple products / google products / etc - debian is just going to be an odd relic, I think
+17:06 shuff       um
+17:06 shuff       you do know about the staged debian release cycle, yes?
+17:06 matt1337357 yea
+17:06 shuff       ok
+17:07 matt1337357 you think it's a good idea?
+17:07 shuff       it doesn't particularly matter whether i think it's a good idea :) i just have no idea how to interpret your statement that "the software is too old"
+17:08 matt1337357 because when I have to look up debian specific instructions on help forums to get year-old arduino software to work... I think it's bad
+17:08 shuff       what software?
+17:09 matt1337357 the last thing i had a problem with was arduino's stuff
+17:09 matt1337357 also coming packaged with an old version of gnome is pretty weak
+17:10 matt1337357 but I actually have nothing against unity
+17:11 matt1337357 then again i don't run Ubuntu on any machine that matters, so my opinion shouldn't be taken seriously there
+17:11 shuff       so, arduino 1.0 is the current release (from http://arduino.cc)
+17:11 shuff       http://packages.debian.org/sid/arduino
+17:11 matt1337357 I had to use arduino 0017 on debian
+17:11 matt1337357 with updated version of some of the jar files
+17:12 matt1337357 which you had to swap out manually
+17:12 matt1337357 from here: http://arduino.cc/en/Main/Software
+17:13 matt1337357 and I previously installed it from sid
+17:13 matt1337357 but that failed just outright
+17:14 shuff       i dunno; these are the instructions i found on the Arduino wiki: http://arduino.cc/playground/Linux/Debian
+17:14 matt1337357 http://www.arduino.cc/playground/Linux/Debian
+17:14 matt1337357 the top part did not work for me
+17:15 shuff       you might want to take that up with the Arduino community then
+17:15 shuff       but ymmv, i guess
+17:15 matt1337357 or just go to another distro
+17:16 matt1337357 I think it'll take me less time to install a new distro than get a *decent* response
+17:18 matt1337357 this is actually also an on-going office debate between jsagotsky and me. he just started trying out ubuntu
+17:18 matt1337357 but is using xmonad is the window manager
+17:18 SEJeff_work matt1337357, What about testing or sid?
+17:19 SEJeff_work sid is obnoxiously bleeding edge, even more so than Fedora rawhide at times and breaks often.
+17:19 matt1337357 I didn't have luck at the time
+17:19 matt1337357 i think it could have changed by now though
+17:19 matt1337357 my first resort will always be repos...
+17:20 matt1337357 i got 0017 working after a lot of banging my head against the keyboard. and that was about a year ago
+17:20 matt1337357 0017 wasn't the new release at the time
+17:49 matt1337357 probably more unimportant news, but I've been geeking out on this far too long: http://twitter.com/intent/user?screen_name=Raspberry_Pi
+17:51 matt1337357 and this: http://www.kickstarter.com/projects/597507018/pebble-e-paper-watch-for-iphone-and-android
+18:32 pdurbin     fun toys
+18:32 pdurbin     gonna be launching openauth soon... http://blog.jcuff.net/2011/09/beautiful-two-factor-desktop-client.html
+18:32 pdurbin     i'm taking a peek at the code
+18:37 pdurbin     it'll be very handy to finally be able to get my 2 factor auth token from a linux desktop
+18:39 pdurbin     it's basically the next iteration of http://rc.fas.harvard.edu/kb/high-performance-computing/access-odyssey-using-your-securid-key-fob-or-soft-token/
+20:41 matt1337357 pdurbin: I think they're a bit better than toys
+20:41 matt1337357 this is like... the future
+20:41 pdurbin     heh. ok
+20:42 matt1337357 ....plus I need a new watch
+20:43 matt1337357 also doing things like restarting apache via a watch would be kinda cool
+</pre></body></html>

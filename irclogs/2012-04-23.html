@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+12:06 SEJeff_work matt1337357, pdurbin_ Re: The php hate blog... My friend, who is a self styled php expert, says that the large majority of that article is true if applied against a 2 year old version of php. He also said against a modern version of php, most of the article is complete crap/lies and that a very small portion of it is true and amusing, but overall, it is all factually incorrect.
+12:48 pdurbin     SEJeff_work: so, judging from http://www.php.net/releases/ i guess your friend means the major criticisms in http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design/ apply (roughly) to PHP 5.3.2 (Released: 04 Mar 2010) but not PHP 5.3.9 (Released: 10 January 2012). on centos 6 i have php 5.3.3
+12:50 SEJeff_work Yes, my friends servers run (ewwwwww) Ubuntu
+12:50 SEJeff_work So he tends to have the latest php running: http://iclasspro.com/
+12:50 SEJeff_work An the website is one of the prettiest wordpress templates I've seen
+12:51 pdurbin     oh, that reminds me. everyone should patch their wordpress installations: http://wordpress.org/news/2012/04/wordpress-3-3-2/
+12:54 SEJeff_work uggggg
+13:24 pdurbin     SEJeff_work: i guess i'm just not that passionate about php to get riled up. php is for getting work done. it's kind of a mess. live and let live
+13:25 SEJeff_work heh
+13:26 SEJeff_work But fastcgi on most hosts levels the playing field pretty well
+13:34 pdurbin     SEJeff_work: oh, you mean performance wise?  sure.  php is well understood enough that it's not too hard to speed it up
+13:34 SEJeff_work Just in general. php is perfect for really low-end shared webhosting
+13:35 SEJeff_work fastcgi is great for $other_languages_that_arent_php on similar setups. php achieved it's goals and then some. It isn't great, but it isn't the worst.
+13:40 pdurbin     yeah, i've been meaning to get fastcgi set up on my new home server.  for privilege separation mostly. i want each php app to have its own user, rather than running as apache
+13:54 pdurbin     shuff: i threw together a terrible hack as i was pressed for time: http://yum.greptilian.com/SRPMS/ikiwiki-discount-hack-0.0.1-1.src.rpm . maybe we can put something in repoforge
+14:03 pdurbin     anyway, we can talk about it at Issue #154: request for perl-Text-Markdown-Discount · repoforge/rpms - https://github.com/repoforge/rpms/issues/154
+15:21 agoddard    ohA¡
+15:22 agoddard    rockin some vagrant sensu build testing. Vagrant is so siq.
+15:23 pdurbin     agoddard: i'm realizing i *still* haven't read your article... http://irclog.perlgeek.de/crimsonfu/2012-03-28#i_5363507 :( shame on me.  here it is: http://crankstations.com/vagrant
+15:23 * agoddard  is reminded how long ago he wrote a post, needs to get something new up there soon!
+15:24 pdurbin     so, vagrant is for virtualbox. . . but i'm using kvm. . . but the blog post says fan of libvirt, which i am too...
+15:27 agoddard    ya, so basically you rock virtualbox on your local machine (or anywhere) and make a Vagrantfile which describes a VM, then vagrant manages all the virtualbox stuff behind the scenes, I use it for little ephemeral machines I wanna test on
+15:28 agoddard    a Vagrantfile can contain multiple VMs, and have a private network for them, shared storage etc
+15:28 pdurbin     agoddard: so it's really for client side testing? would i ever convert the spec into a kvm vm?
+15:28 SEJeff_work But it only does virtual box?
+15:28 SEJeff_work Not really a prod-worthy solution I take it?
+15:30 agoddard    I wouldn't convert the spec to a prod machine, or run virtualbox as my hypervisor, but because of CM, you can easily replicate your prod environment in VMs
+15:32 pdurbin     agoddard: so use chef to define your vagrant VMs and your KVM VMs?
+15:32 agoddard    vagrant has provisioners for chef, puppet etc.. so I take my chef roles &amp; cookbooks and throw them in vagrant to test them
+15:32 agoddard    then deploy them to prod when they're ready
+15:33 pdurbin     agoddard: ok i think ben rockwood was saying the same thing at LISA Keynote 2011: The DevOps Transformation « Cuddletech - http://cuddletech.com/blog/?p=695
+15:34 SEJeff_work cuddletech &lt;3
+15:34 SEJeff_work Even if he is a huge solaris fan (boo), really really bright guy.
+15:34 pdurbin     i highly recommend listening to that talk
+15:34 matt1337357 hah
+15:35 agoddard    this should be pretty easy to read: https://github.com/agoddard/street-chef/blob/master/Vagrantfile
+15:35 matt1337357 What's the preferred linux distro here?
+15:35 agoddard    siq, will check out the talk
+15:36 pdurbin     agoddard: what do you use for remote execution? gsh? pdsh? func? salt?
+15:37 agoddard    w/ vagrant? with street-chef, I rock knife-ssh, otherwise vagrant manages ssh connections, so the above would work
+15:37 SEJeff_work pdurbin, Check out onall if you want to use ssh
+15:37 SEJeff_work There isn't a better (imo) remote execution thingy via ssh than onall
+15:37 agoddard    not on vagrant, I use cap shell, but that's 'cause I'm lame :)
+15:37 SEJeff_work http://www.digitalprognosis.com/opensource/onall
+15:38 pdurbin     SEJeff_work: mmm, perl :)  of all people i thought you'd say everyone should use salt for remote execution
+15:38 SEJeff_work pdurbin, "if you want to use ssh"
+15:38 SEJeff_work Otherwise, use salt :)
+15:38 SEJeff_work ssh doesn't scale up as well as pub/sub
+15:38 agoddard    if you're logging in, you're doing it wrong™ &lt; ;) j/k..
+15:41 pdurbin     matt1337357: i'm a fan of the red hat ecosystem
+15:46 matt1337357 pdurbin: hm. I'm having a hard time finding one that's making me happy
+15:49 pdurbin     matt1337357: maybe you could describe what you want at http://unix.stackexchange.com
+15:49 matt1337357 I think I want ubuntu and don't want to admit it
+15:50 matt1337357 I want bleeding edge, pretty and good support
+15:51 pdurbin     matt1337357: could also ask at http://sixgun.org/forum/
+</pre></body></html>

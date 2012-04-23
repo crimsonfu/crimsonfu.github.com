@@ -1,0 +1,141 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+12:37 pdurbin     another day, another kernel panic
+13:04 SEJeff_work only 1?
+13:05 SEJeff_work pdurbin, Do you run an internal kerneloops server?
+13:14 pdurbin     SEJeff_work: is a kerneloops server like a netdump server?
+13:14 * pdurbin   googles
+13:15 SEJeff_work pdurbin, Ever seen kerneloops.org?
+13:15 pdurbin     heh. cowsay: http://en.wikipedia.org/wiki/File:Linux-2.6-oops-parisc.jpg
+13:16 SEJeff_work Ha!
+13:16 SEJeff_work &lt;3 HP-UX on Parisc
+13:16 SEJeff_work There is a HP Visualize B2000 Parisc under my desk at home
+13:16 pdurbin     visiting http://kerneloops.com for the first time right now
+13:17 SEJeff_work The .com isn't it, I guess the org is down. Weird
+13:17 pdurbin     oh wait, .ORG
+13:17 pdurbin     The server at kerneloops.org is taking too long to respond.
+13:17 SEJeff_work It is a site for tracking kernel oopses that upstream looks at for trends and whatnot
+13:17 SEJeff_work Fedora / Redhat's bug tracker thingy abrtd has a kerneloops plugin
+13:17 pdurbin     huh. cool. when it works :)
+13:18 SEJeff_work So it will detect oopses and send them to a kerneloops server
+13:18 SEJeff_work if you run your own kernel oops server, it can be configured to send them all there
+13:18 SEJeff_work We haxor our kernels a bit so we need that sometimes :)
+13:19 pdurbin     wow, not much here: http://wayback.archive.org/web/*/http://kerneloops.org
+13:20 pdurbin     ok, here's one: http://web.archive.org/web/20080511210114/http://www.kerneloops.org/
+13:20 pdurbin     "Oopses are collected from the linux-kernel mailing list (and a few related lists), the bugzilla.kernel.org bugzilla and from the client application that you can download from this page."
+13:23 pdurbin     process: rm, call trace: xfs
+13:23 pdurbin     our xfs history is a bit checkered: http://blog.jcuff.net/search/label/XFS
+13:24 pdurbin     http://blog dot jamesdotcuff dot net: of search and discovery: when storage goes bump in the night - http://blog.jcuff.net/2012/01/of-search-and-discovery-when-storage.html
+13:25 pdurbin     http://blog dot jamesdotcuff dot net: xfs minus fun and profit. - http://blog.jcuff.net/2012/04/xfs-minus-fun-and-profit.html
+13:26 pdurbin     though i did enjoy dave chinner's talk on XFS: James Cuff - Google+ - http://blog.jcuff.net/2012/01/of-search-and-discovery-when-… - https://plus.google.com/111523359226039496180/posts/RDvMDvzbUag
+13:26 pdurbin     i've been meaning to check if the slides are available yet
+13:27 pdurbin     XFS: Recent and Future Adventures in Filesystem Scalability - Dave Chinner - YouTube - http://www.youtube.com/watch?v=FegjLbCnoBw
+13:28 pdurbin     oh good, the slides are at http://xfs.org/images/d/d1/Xfs-scalability-lca2012.pdf via http://xfs.org/index.php/XFS_Papers_and_Documentation
+13:30 pdurbin     "There's a White Elephant in the Room.... BTRFS will soon replace ext4 as the default Linux filesystem thanks to its unique feature set. Ext4 is now being outperformed by XFS on its traditionally strong workloads, but is unable to compete with XFS where it is traditionally strong. Ext4 has serious scalability challenges to be useful on current, sub-$10,000 server hardware. Ext4 has become an aggregation of semi-finished projects that don't play w
+13:32 SEJeff_work xfs... color me not impressed
+13:32 SEJeff_work It has the crash resiliency of reiserfs3
+13:32 SEJeff_work meaning it eats itsself just about every time the system is powered off hard and there is something writing to disk
+13:33 SEJeff_work However it does well with big 12Tb + filesystems. We use ext4 instead of xfs as ext4 tends to break less
+13:34 SEJeff_work especially now that ext4 has online resize that doesn't suck
+13:34 pdurbin     my experience with xfs, which is limited to a few months, has been mostly negative (per the blog posts above) but dave chinner's talk is worth watching.  it's sort of a "state of the filesystems" talk at the end
+13:35 pdurbin     i'm fuzzy on the details, would need to watch again, but i was left with the impression that all is not well in ext4 land
+13:36 SEJeff_work Yeah I watched a talk from Ted Tso (ext* head cheese) at LPC last year about it. He changed some of the features like the writeback stuff to similar to how XFS does it
+13:37 pdurbin     meanwhile, /proc/mdstat says this resync will be done in ~68 hours: "[&gt;....................]  resync =  1.0% (79990656/7811891008) finish=4065.9min speed=31693K/sec"
+13:37 SEJeff_work However, it still handles crashes better than xfs. If ext4 would just add sane snapshotting, it would be *good enough* for most use cases.
+13:37 SEJeff_work ouch! How big is the volume?
+13:47 pdurbin     `blockdev --getsize64 /dev/md1` returns 31997505568768, which is in bytes, so ~29 TB. 512-byte sectors, per `blockdev --getss /dev/md1` also: http://stackoverflow.com/questions/1027037/determine-the-size-of-a-block-device/2802956#2802956
+13:54 SEJeff_work And it runs xfs?
+13:54 pdurbin     yep
+13:55 pdurbin     echo $[ `cat /sys/block/md1/size` * 512] gives me the same number, 31997505568768
+13:58 pdurbin     what's the quickest, dirtiest way to set up graphing of website performance?
+13:58 pdurbin     shuff: in opsview we called this performance data, i think
+13:58 pdurbin     plots of server room temperature, for example
+13:58 shuff       perfdata is a nagiosism, not an opsviewism
+13:58 shuff       but you are correct
+13:58 pdurbin     oh good!
+13:59 pdurbin     opsview and nagios are terribly conflated in my mind
+13:59 shuff       the standard Nagios check_http binary returns perfdata
+14:01 pdurbin     shuff: so with stock nagios (3.3.1), can i just flip a switch and start collecting perfdata for a check_http check?
+14:01 shuff       if you want to leverage your existing Nagios infrastructure, just put up http://nagiosgraph.sourceforge.net/
+14:02 shuff       i suspect you are already collecting the perfdata - look at /var/log/nagios/perf* iirc
+14:02 pdurbin     this looks to be it... http://nagios.sourceforge.net/docs/3_0/configmain.html#process_performance_data
+14:04 pdurbin     nagios.cfg:process_performance_data=0
+14:05 shuff       there should be nagiosgraph RPMs available from the usual purveyors
+14:06 SEJeff_work Longer term, consider setting up graphite
+14:06 SEJeff_work Ever see the talks Metrics, Metrics, Everywhere! Or Metrics Driven Engineering?
+14:06 pdurbin     i was wondering if sensu collects and graphs perfdata out of the box
+14:07 pdurbin     i've heard good things about graphite as well
+14:08 SEJeff_work pdurbin, Graphite is a good backend and it is great for on the fly reporting stuff, but for a "monitoring dashboard" sort of thing, nothing beats slapping gdash ontop of graphite
+14:08 SEJeff_work pdurbin, Also we have a salt user who uses sensu and has some states online for it: https://github.com/blast-hardcheese/blast-salt-states/tree/master/sensu if you are interested
+14:11 pdurbin     nice. agoddard is into sensu: http://irclog.perlgeek.de/search.pl?channel=crimsonfu&amp;nick=&amp;q=sensu
+14:13 SEJeff_work Not really sold on logstash
+14:13 SEJeff_work It is for converting logs into different formats, which is cool, but all of my logs are syslog
+14:13 SEJeff_work About 30G / day
+14:13 SEJeff_work So we skipped over logstash and are playing with graylog2 and elasticsearch. So far so good
+14:45 * agoddard  reads backlog
+14:57 agoddard    Graylog2 is awesome, but only listens on syslog &amp; GELF. We originally switched to logstash so we could use elasticsearch (Graylog only rocked mongoDB). Now we just use both. Logstash instances collect &amp; ship logs around everywhere, then indexers grab the logs from rabbitMQ and throw them into ES and Graylog2
+14:57 agoddard    graylog2 gives us user managment etc, so they work really well together
+14:57 SEJeff_work agoddard, graylog2 moved away from mongo
+14:57 SEJeff_work all syslog data is in elasticsearch
+14:58 agoddard    sensu metrics checks can go to AMQP or straight to openTSB, graphite etc.. they do the timestamp,name,value thing and plugins can be written in any language
+14:58 SEJeff_work mongodb is fail. Graylog2 still uses mongo, but just for user preferences and graphing, which is annoying, but fine
+14:58 SEJeff_work Thats pretty sexy
+14:58 agoddard    SEJeff_work: ya, it was awesome when they switched to ES.
+14:58 SEJeff_work Has anyone built something ontop of openTSB like graphite?
+14:59 agoddard    we actually tunnel our logs from RC to MBL, logstash is killer for this w/amqp
+14:59 SEJeff_work RC and MBL? Forgive me, I'm new here.
+14:59 agoddard    afaik, no.. we're not using openTSDB yet in prod, but might end up having a similar setup to our LS/Graylog thing, where we have an archive and then more realtime source for metrics
+14:59 agoddard    RC-&gt;MBL, basically Data center 1 to data center 2
+15:00 SEJeff_work agoddard, Have you looked at graphite + ceres?
+15:00 SEJeff_work Oh right
+15:00 SEJeff_work We have 40+ locations with servers
+15:00 SEJeff_work centralized syslog replicated to 2 main locations
+15:00 SEJeff_work with a cluster local aggregated copy in each cluster
+15:02 agoddard    nice, what happens if sites can't see the centralized syslog?
+15:02 SEJeff_work Well to minimize network issues, we have every self sustainable
+15:02 agoddard    re: ceres, nope (/me googles..)
+15:03 SEJeff_work ie: 2 ldap + vip 2 dns + vip local syslog aggregator + vip
+15:03 SEJeff_work then the local aggregator forwards to the central aggregator
+15:03 SEJeff_work rsyslog can cache on disk or in memory and forward when it can reconnect
+15:03 agoddard    nice. We queue the shiz out of everything, so things catch up when the netsplit is over, but with Sensu we're going to add servers at each site too, so they can deal with a global queue
+15:05 SEJeff_work Do you use rabbit or activemq with sensu?
+15:05 SEJeff_work and why
+15:06 agoddard    rabbit just 'cause we were already using it for a few apps &amp; logstash
+15:06 * agoddard  has a note to read this: http://blog.aggregateknowledge.com/tag/zeromq/
+15:10 SEJeff_work agoddard, Have you seen the video of the guy who wrote amqp talk about why he wrote zeromq?
+15:10 SEJeff_work also rabbitmq doesn't really do mesh at all if I recall
+15:11 SEJeff_work activemq does it. It is a beast to configure in their gawdy xml config, but we have a 4 way mesh setup and it is stable
+15:11 agoddard    it does fanout, which.. might be similar? our topology is pretty basic &amp; needs some love &amp; attention
+15:20 agoddard    SEJeff_work: haven't seen the video, would love to, I need to get more up to speed on 0mq
+15:20 agoddard    SEJeff_work: you at harvard?
+15:26 SEJeff_work agoddard, I am not at harvard
+15:27 SEJeff_work I work for a "high frequency trading" company
+15:27 SEJeff_work http://twit.tv/show/floss-weekly/195
+15:27 agoddard    oh nice. I'm not at Harv either (but a lot of our environment is there, so we work a lot with the awesome research computing folks)
+15:28 agoddard    thanks for the vid, will check it out
+15:28 SEJeff_work Yeah I never went to college. Instead, I decided to fly remote control spy planes for the US Army. The Hunter and Shadow 200 in specific.
+15:32 agoddard    nice. I used to human controlled planes that did way less interesting stuff, just got my old logbook shipped to me, going to do a few hours flying this summer hopefully..
+15:32 agoddard    I crashed the only RC plane I ever owned pretty quickly :(
+15:35 * agoddard  has to netsplit, back on after lunch
+15:38 SEJeff_work later
+15:39 SEJeff_work Well this was a "rc" that had a radius range of 160km
+15:39 SEJeff_work and a ceiling of 14k msl
+16:36 pdurbin     moved our website to new hardware, bumped the ram. perfdata indicates almost no change but the user is happier. *shrug*  i'm going to lunch
+16:39 pdurbin     grep -P "$IP\thttp\t" /tmp/service-perfdata | perl -lane 'print "@F[1,15]"' | while read i j; do echo "`date --date=@$i +%Y-%m-%d_%R` $j seconds"; done
+16:43 pdurbin     i had simply uncommented '#service_perfdata_file=/tmp/service-perfdata' shuff. doesn't go to /var/log/nagios by default. anyway. lunch!
+17:32 pdurbin     is `puppet agent --noop --no-daemonize --onetime --verbose --no-splay --debug` the way to see what puppet will do to a host without actually doing anything?
+17:32 SEJeff_work pdurbin, puppetd --test --noop also works
+17:33 SEJeff_work --debug is really intense
+17:33 SEJeff_work Normally only necessary when you're troubleshooting an exec and the exec is failing for instance
+17:35 pdurbin     --debug *is* intense, but i guess i need it to see what would happen
+17:38 Pax         to see a noon run I normally just do 'puppets -tv --noop'
+17:40 pdurbin     yeah, that makes sense. thanks
+17:40 pdurbin     wait -t implies -v, i think
+17:41 pdurbin     yeah, it does
+17:54 pdurbin     i highly recommend that zeromq video.  you can also just listen to the audio, like i did (twice). i don't think i missed anything only having the audio.  just talking heads. http://www.podtrac.com/pts/redirect.mp3/twit.cachefly.net/floss0195.mp3
+</pre></body></html>

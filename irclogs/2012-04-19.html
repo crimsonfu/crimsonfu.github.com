@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+14:54 pdurbin       matt1337357: fyi, i believe whorka has an arduino...
+14:55 SEJeff_work   speaking of, when is Android@HOME going to take off?
+15:01 matt1337357   pdurbin: i know - I actually have his book for projects...
+15:02 matt1337357   I don't know how interested I am in the arduino anymore now that the raspberry pi is coming out
+15:02 matt1337357   cost of arduino board vs. cost of raspberrypi is absurd considering one has ethernet, sound out, and 1080p hdmi out...
+15:03 matt1337357   my buddy started making a robot arm out of an arduino and a multiplexer
+15:03 matt1337357   i should actually check up on how that project's going...
+16:04 pdurbin       matt1337357: i'd love a raspberry pi demo some day
+16:06 pdurbin       just listed to a great talk by https://github.com/jabrcx who was using Slidy for his slides: http://www.w3.org/Talks/Tools/#slidy
+16:06 pdurbin       s/listed/listened/
+17:27 pdurbin       shuff: "An open source biomedical research community that started in 2005, the Synaptic Leap (see below), has as its motto the quote "None of us is as smart as all of us" (This quote has an uncertain attribution. Some sources credit Robert Oppenheimer, some that it is a Japanese Proverb)." --Open access and open source in chemistry - http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1975827/
+17:27 pdurbin       this is the quote i was telling you about over lunch
+17:28 pdurbin       how i'm thinking of changing one of crimsonfu's guiding principles from "strength in numbers" to "none of us is as smart as all of us"
+17:40 SEJeff_work   How about: A million monkeys with a million type writers...
+17:51 pdurbin       :)
+18:00 ventz         How about...TWO million monkeys with TWO million type writers...
+18:01 SEJeff_work   touche!
+18:03 matt1337357   how about 1 monkey and 1 typewriter and a lot of time
+18:05 SEJeff_work   So 1 monkey, 1 typewriter, and some time walk into a bar. The beginning of a bad joke.
+18:06 matt1337357   how long do you think it would take for the monkey to write a funny ending to that joke?
+18:07 matt1337357   :/
+18:07 ventz         heh
+18:07 SEJeff_work   longer than longcat
+18:07 ventz         let's really throw a curve ball -- two million monkeys but only one million type writters
+18:07 SEJeff_work   pair programming!
+18:07 ventz         but one of the monkeys has been under the direct leadership of steve jobs
+18:11 SEJeff_work   They'll be 50% more productive and have a 50% shorter lifespan due to committing suicide?
+18:15 SEJeff_work   Any logstash and/or graphite users here?
+19:35 pdurbin       agoddard loves him some logstash
+19:37 SEJeff_work   I'm a bit annoyed that graylog2 won't do the right thing and parse syslog lines from central syslog aggregators. The upstream tells me I have to put logstash between the syslog-ng aggregator and graylog2 just to get the proper hostnames
+19:37 pdurbin       "SEJeff_work: Not really sold on logstash" -- http://irclog.perlgeek.de/crimsonfu/2012-04-13#i_5438593
+19:38 SEJeff_work   Well that was logstash + logstash web
+19:38 SEJeff_work   logstash web is the suck, logstash + kibana is pretty nice, but for our uses, graylog2 is a far superior user experience. I still like kibana quite a bit
+19:40 SEJeff_work   Just wondering if there is a sane config / tutorial on feeding logstash syslog over the wire instead of via a file and running some grok rules for our custom timestamp format. There isn't anywhere on the internets that has an example of hte proper syslog-ng template to send to logstash, so things are a bit suck
+19:47 agoddard      logstash filter
+19:47 agoddard      then logstash output -&gt; graylog GELF
+19:48 agoddard      if you wanna be insane hardcore, logstash filter via zeromq 0_o
+19:49 SEJeff_work   Well logstash and graylog are running on the same host
+19:49 SEJeff_work   agoddard, I'll take a look at that. Thanks
+20:17 pdurbin       SEJeff_work: you could go ask in ##infra-talk here on freenode and report back. http://infra-talk.org
+20:18 SEJeff_work   True, good peeps like vvuksan hang out there a lot
+20:18 pdurbin       ##infra-talk is great but last i checked it isn't logged
+20:19 pdurbin       "need to ask rest of channel how they feel abt the idea" -- http://twitter.com/ripienaar/status/171202817808269312
+20:26 pdurbin       yep, he's in my list of people that seem quite active in ##infra-talk: auxesis Cope masterzen mconigliaro Mithrandir nico PiyushK Ramereth robinbowes russss sdog tazz thom unixdaemon Volcane vvuksan whack z00dax6
+20:31 SEJeff_work   He is one of the lead ganglia developers
+20:31 SEJeff_work   and he did the ganglia-web rewrite himself
+20:37 pdurbin       nice. we make heavy use of ganglia: http://software.rc.fas.harvard.edu/ganglia
+20:38 SEJeff_work   As do we
+20:38 SEJeff_work   And you use vvuksan's new graphite-web
+20:38 pdurbin       that's where this graph came from: http://crimsonfu.github.com/images/rcss4-network_report-last-2hr-1333475820.png
+20:38 SEJeff_work   I've got a few shite patches in that webui or in the core, but nothing extensive. Not a huge php fan
+20:39 pdurbin       oh, i didn't even know it's php
+20:39 SEJeff_work   Yup
+20:48 matt1337357   I used to be a php developer
+20:48 matt1337357   forever ago
+20:49 matt1337357   and just slowly made transitions out of it. php is kinda whatever
+20:49 matt1337357   I only write tiny php scripts to ajax in nowadays
+20:49 SEJeff_work   There was an article recently that had some awful php hate
+20:49 SEJeff_work   Most of it was wrong
+20:50 SEJeff_work   xmlhttprequest + jQuery &lt;3
+20:50 matt1337357   it's easy to hate php now that ajax is everywhere
+20:50 matt1337357   it's just like "why?"
+20:50 SEJeff_work   Or it's easy to hate php now that php is everywhere
+20:50 matt1337357   i use it mostly to get meta-data and then handle all of it in javascript
+20:50 matt1337357   yea... the entirity of the world swears by drupal now
+20:50 matt1337357   makes me cringe
+20:51 * SEJeff_work uses django for ajax serverside
+20:51 matt1337357   hm
+20:51 matt1337357   i tried django and wasn't crazy about it
+20:51 matt1337357   i'd like to get into node
+20:51 SEJeff_work   when?
+20:51 matt1337357   like... wow
+20:51 matt1337357   4 years ago?
+20:51 SEJeff_work   node just seems like doing it wrong all over
+20:51 SEJeff_work   Oh yeah ha
+20:51 matt1337357   well - that's a good question
+20:51 SEJeff_work   It has made itsself not suck since then
+20:51 matt1337357   for non-web servers i love it
+20:51 SEJeff_work   it being django
+20:52 matt1337357   gotcha
+20:52 matt1337357   i'm going afk
+20:52 matt1337357   talk to you later
+20:52 * SEJeff_work waves
+</pre></body></html>

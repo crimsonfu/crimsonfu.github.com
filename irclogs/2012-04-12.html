@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+12:59 Pax         morning
+13:01 pdurbin     morning! playing with salt states!! http://irclog.perlgeek.de/salt/2012-04-12#i_5432258
+13:08 Pax         hey cool!
+13:08 pdurbin     it's super easy
+13:09 pdurbin     and everything i need so far is in epel
+13:10 pdurbin     gonna see how far i can get translating this puppet manifest into salt states: http://git.greptilian.com/?p=grinfra.git;a=blob;f=puppet/modules/server1/manifests/init.pp;hb=HEAD
+13:17 shuff       oh hey pdurbin, check out http://taskwarrior.org &lt;http://taskwarrior.org/&gt;
+13:17 shuff       Todo.txt made significantly more awesome :)
+13:18 pdurbin     shuff: huh. ok
+13:18 pdurbin     Pax: here is are the salt states i've stubbed out so far: http://server1.greptilian.com/srv/salt/
+13:24 pdurbin     here's how i installed a package (screen): http://server1.greptilian.com/scratch/salt-install-package.txt
+13:24 pdurbin     stupid vps.v2s.org.  i'm not sure why it says that rather than server1.greptilian.com...
+13:57 westmaas    pdurbin: have you tried setting up openstack outside of devstack?
+14:04 pdurbin     westmaas: i'm working on it. being a centos shop, i'm a bit blocked on ubuntu
+14:05 pdurbin     last week i added the right ubuntu to cobbler.  fiddled and fiddled and got a vm to install.  now on to an installation on a physical server
+14:05 westmaas    meaning you are trying to do this on ubuntu even though you are a centos shop?
+14:13 pdurbin     yes. i thought i had to... "This is a tutorial style beginner's guide for OpenStack™ on Ubuntu 11.10" -- http://docs.openstack.org/diablo/openstack-compute/starter/content/index.html
+14:13 pdurbin     that's the guide i plan to follow
+14:15 westmaas    gotcha, yeah, to follow that guide you maybe do.
+14:15 westmaas    rpms are in EPEL for stable releases though
+14:16 pdurbin     is there a guide for centos?
+14:16 westmaas    I'd guess once you are through the installation/configuration pieces it doesn't matter
+14:16 westmaas    not yet
+14:16 pdurbin     please let me know when the guide for centos has been written :)
+14:17 westmaas    haha
+14:17 westmaas    k
+14:40 SEJeff      Hey pdurbin, thanks for introducing me to crimsonfu
+14:41 SEJeff      I'm a sysadmin, and I code.
+14:41 pdurbin     SEJeff: welcome! like #salt, we log this channel too
+14:41 SEJeff      Thats cool
+14:41 SEJeff      But I prefer the term: Systems Engineer for a sysadmin who codes
+14:41 SEJeff      DevOps is a buzzword
+14:41 pdurbin     yeah, i'm a little down on devops as a term
+14:42 pdurbin     i can't bring myself to call myself an engineer
+14:42 * pdurbin   tears up RHCE cert
+14:43 SEJeff      After spending almost 2.5 years building a vendor agnostic network config management system (glorified python + pexpect library + django + jQuery)... I think it is fair to call one's self an engineer
+14:43 SEJeff      Especially if you write more code than do day to day ops work
+14:43 SEJeff      But it is all semantics.
+14:44 pdurbin     fine, but architects build buildings
+14:44 SEJeff      I wouldn't dare call myself an architect :)
+14:44 SEJeff      More like a builder
+14:44 pdurbin     a maker
+14:44 SEJeff      Ever read Dune?
+14:44 pdurbin     i've heard of it
+14:44 SEJeff      sadness
+14:45 SEJeff      A maker is a giant sand worm that eats things walking along in the desert
+14:46 pdurbin     i just stick with sysadmin, usually
+14:47 shuff       SEJeff: welcome!  the spice must flow
+14:47 matt1337357 I've always more strongly identified with the House Harkonnen
+14:48 SEJeff      matt1337357, Hopefully not the Baron
+14:49 SEJeff      shuff, control the spice, control the universe
+14:50 SEJeff      pdurbin, So #salt is always looking for smart sysadmins, developers, or just plain users to help us shape the future of the project. Any suggestions so far?
+14:52 pdurbin     hmm, i struggled a tiny bit with the docs. i guess i should actually read them instead of just typing whatever is in a &lt;code&gt; tag ;)
+14:53 pdurbin     i think you salt guys are doing great
+14:53 pdurbin     we've using it often across ~1700 hosts
+14:54 pdurbin     there is a bug you could fix for me...
+14:55 westmaas    people in my office keep asking if the devs are gonna get things to the devops guys or the system engineers are going to get stuff over to the devops guys
+14:55 pdurbin     this one: Issue #891: Salt-master stops responding - [FIXED with libzmq 2.1.11] · saltstack/salt: https://github.com/saltstack/salt/issues/891
+14:55 westmaas    :(
+14:55 pdurbin     SEJeff: because we keep having to restart the salt master :(
+14:57 SEJeff      pdurbin, Thats shite
+14:57 SEJeff      How often does it happen?
+14:57 pdurbin     ya know...
+14:58 pdurbin     i always just restart the master every time i go to use it
+14:58 SEJeff      It is a bug in zeromq, but still, complete shite
+14:58 SEJeff      :(
+14:58 pdurbin     we've been putting off documenting how to use salt for the rest of our team until this is fixed
+14:59 pdurbin     we includes a guy who's not in the room at the moment, but usually is.  here, i shared his g+ post about salt: https://plus.google.com/107770072576338242009/posts/YbCriPJCmqy
+15:00 pdurbin     15 minutes vs. 6 seconds.  salt ftw
+15:00 SEJeff      indeed
+15:01 SEJeff      Our production is 1800 servers
+15:01 SEJeff      Well a few more, but it varies. Around that
+15:02 pdurbin     is there an upstream zeromq bug?
+15:02 SEJeff      pdurbin, And you've upped the sysctls, right?
+15:03 SEJeff      Supposedly, upstream fixed it in zeromq 3.1 for good.
+15:03 SEJeff      keyword
+15:06 pdurbin     keyword?
+15:06 SEJeff      Keyword being supposedly
+15:06 pdurbin     ah. but no bug number
+15:07 SEJeff      pdurbin, I don't know the upstream bug. Tom spoke with the 0mq upstream about it. There was also a mailinglist post about it. Did you try upping the sysctls?
+15:07 SEJeff      http://readthedocs.org/docs/salt/en/v0.9.8/topics/troubleshooting/#salt-master-stops-responding
+15:08 pdurbin     hmm, didn't know about that doc. thanks. trying to summon the guy who would know if we upped the sysctls
+15:09 pdurbin     i'm just the idea guy. the one who listens to floss weekly :)
+15:09 SEJeff      Oh ha!
+15:09 SEJeff      Randall (Schwartz) works pretty close to here actually. I've went out a few times for drinks with him. Nice guy
+15:10 pdurbin     i tried to say hi to him at the sunset grill during a boston perlmongers meeting but he was very busy
+15:11 SEJeff      He lives in PDX and works near LAX
+15:11 pdurbin     he does seem very nice
+15:11 SEJeff      Super commuter
+15:13 pdurbin     argh. stupid bios stopped responding. westmaas: i'm getting ubuntu on that physical host
+15:15 pdurbin     shuff and whorka: i miss having real console access. this dell java console thing is terrible
+15:16 shuff       :(
+15:16 shuff       if it makes you feel any better
+15:16 SEJeff      pdurbin, What kind of servers? Dell R6xx R7xx and R8xx have the Drac and serial works like a champ
+15:16 shuff       imagine when all the systems are in Holyoke
+15:17 pdurbin     Dell PowerEdge C5125
+15:18 pdurbin     restarted firefox and i'm back in business
+15:18 SEJeff      Haven't played with the dell blade-ish stuff like that
+15:19 pdurbin     SEJeff: but you have real console access? i'm used to a wire going to a serial port
+15:19 SEJeff      pdurbin, Yeah via an ethernet cable plugged into an opengear serial concentrator
+15:19 SEJeff      Every server in our firm has a serial connection this way setup to 115200 baud
+15:19 pdurbin     right, for us it was avocent. for whorka it still is
+15:20 pdurbin     yeah, same same
+15:20 SEJeff      pdurbin, We used avocent's cyclades eons ago. They are 2x as expensive and not as easy to deal with compared to the opengear console servers
+15:21 pdurbin     good to know
+15:30 SEJeff      Also unlike the cyclades, opengear's software is actively developed and they add features. Just a better product.
+15:33 pdurbin     cool
+15:34 pdurbin     SEJeff: i don't see anything about sysctl in our salt::master puppet class. definitely worth a shot
+15:34 SEJeff      For sure
+15:41 pdurbin     how strange that "force pxe first" is enabled
+15:43 pdurbin     oh good, sjoeboo is here
+15:43 sjoeboo     hang on, client update, be right back
+15:43 whorka      SEJeff: thanks for the tip. I would love to find a better replacement for Avocent.
+15:44 sjoeboo     okay
+15:46 sjoeboo     whats up now?
+15:46 pdurbin     http://readthedocs.org/docs/salt/en/v0.9.8/topics/troubleshooting/#salt-master-stops-responding
+15:47 SEJeff      sjoeboo, Can you enable those sysctls and see if it fixes the "master stops responding" issues with salt?
+15:49 sjoeboo     [root@provisions ~]# rpm -qa |grep zeromq
+15:49 sjoeboo     zeromq-2.1.9-1.el5
+15:49 sjoeboo     so we're certainly behind
+15:51 sjoeboo     there done, time to wait and see
+15:54 pdurbin     great. thanks
+15:57 pdurbin     sjoeboo: SEJeff was asking earlier if we have any suggestions for salt: http://irclog.perlgeek.de/crimsonfu/2012-04-12#i_5432697
+16:05 sjoeboo     not yet, been too busy with all the other happenings to do much side from executer some things here and there
+16:12 pdurbin     yeah, like i said, we've been very impressed with salt's remote execution speed. i'm only just looking at salt's config mgmt features (salt states)
+16:14 pdurbin     whorka: how can you ever think of leaving cyclades/avocent/emersonnetworkpower/etc/etc?
+16:18 SEJeff      sentry makes pretty good managed power towers as well, but those aren't as important as a good console server
+16:19 whorka      agreed. OOBM has saved us when the network was unreliable.
+16:20 whorka      does opengear have SSH passthrough to serial?
+16:23 SEJeff      They have all of the features cyclades do at about 1/2 the price
+16:23 SEJeff      They also have this real crack rdp over serial thing for windows boxes
+16:23 SEJeff      if you are that unlucky
+16:24 SEJeff      I looked at it once, but we don't have windows servers. I think it creates a network interface over the serial link and then tunnels the rdp traffic. Something crack like that, but they are the only vendor doing it.
+16:25 whorka      that's pretty cool. we have a couple managed servers running Windows. their admins might like a more direct access path.
+16:27 * pdurbin   daydreams about not having windows servers
+16:29 SEJeff      Yup: http://www.opengear.com/News-PR060201.html CTRL f search in that page for RDP-over-serial
+17:01 SEJeff      sjoeboo, You know... Looking at https://plus.google.com/103415330307393824597/posts/VDBcjHJ4Hgd , you might be able to speed that up more. You could try bind mounting /var/cache/salt/jobs to /dev/shm or mounting it as tmpfs
+17:01 SEJeff      You should be able to do it faster
+17:01 sjoeboo     meh, thats far faster than a push run
+17:02 sjoeboo     plus the box i've been running this one servers a few other purposes, and is ram heavy, so this is fast enough for now
+17:02 pdurbin     SEJeff: you have to understand where we're comin from... :)
+17:02 SEJeff      heh
+17:02 SEJeff      pdsh is basically ssh, right?
+17:02 pdurbin     SEJeff: but in theory, how fast are you thinking? 3 seconds?
+17:03 SEJeff      Depends on the hardware and network ultimately
+17:03 SEJeff      But why not 3 instead of 6?
+17:04 pdurbin     because we're coming from 15 MINUTES :)
+17:04 SEJeff      Ha
+</pre></body></html>
