@@ -2,7 +2,7 @@
 layout: default
 title: crimsonfu - sysadmins who code
 ---
-On topic: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU**, Linux, scripting, automation, best practices
+On topic: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU**, Linux, scripting, automation, security, best practices
 
 ## Guiding principles
 
