@@ -20,6 +20,8 @@ Our [IRC logs][logs] can be found at http://irclog.perlgeek.de/crimsonfu and we 
 
 If you enjoy the [things we talk about][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu
 
+http://irc.tc/freenode/crimsonfu provides a nice graph of our user count history over time.
+
 ## Articles
 
 <ul>
