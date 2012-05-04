@@ -40,6 +40,14 @@ Crimson is the color associated with the school where the founders met (as staff
 
 Fu is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
 
+## About our logo
+
+This thing?
+
+<img src="http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=128" alt="crimsonfu logo">
+
+Patches welcome! https://github.com/crimsonfu/crimsonfu.github.com/blob/master/images/crimsonfu-logo.svg
+
 ## Updating this website
 
 The source is at http://github.com/crimsonfu/crimsonfu.github.com 
