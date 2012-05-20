@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+00:52 ironcamel   nice article on c/c++
+14:20 pdurbin     echo $[ `date --date="Fri May 11 10:02:12 EDT 2012" +%s` - `date --date="Fri May 11 09:58:49 EDT 2012" +%s` ]
+14:21 pdurbin     that's how long our website was down
+14:22 pdurbin     as i moved the vm disk image from one disk array to another
+14:22 pdurbin     gotta vacate the one disk array so someone can do some work on it
+14:58 pdurbin     SEJeff: wondering if you had an openflow question or if you were just playing around with it: http://irclog.perlgeek.de/crimsonfu/2012-05-08#i_5562039
+15:04 gridiron    at first glance this is just odd: http://99-bottles-of-beer.net/language-perl-737.html but then I look at the source.
+15:04 gridiron    they  wrote a perl script that accepts a jpg and a perl script
+15:05 gridiron    and produces a new perl script that does the job of the input script and is the ascii art of the jpeg
+15:05 gridiron    horrifying, but cool
+15:08 pdurbin     *very* cool :)
+15:08 pdurbin     huh. uses http://search.cpan.org/dist/Acme-EyeDrops/lib/Acme/EyeDrops.pm apparently
+15:34 SEJeff|away pdurbin, /me has a reason to use openflow
+15:34 SEJeff|away Was curious if anyone except for my buddy @ facebook has any experience with it.
+18:12 pdurbin     any body using this? or thinking about using it? RTFM: The RT FAQ Manager - Best Practical - http://bestpractical.com/rtfm/
+18:14 whorka      yup. maybe not for all it's intended purposes, but it's at least useful for inserting boilerplate replies into RT ticket responses.
+18:16 pdurbin     oh yeah. i *did* use rtfm ;)
+18:16 pdurbin     we replaced stockanswers with it, right?
+18:17 pdurbin     but riddle me this. . . could rtfm serve as a q&amp;a site like this Stack Overflow clone? OSQA | The Open Source Q&amp;A System - http://www.osqa.net
+18:18 pdurbin     and. . . how would rtfm compare to, say, zendesk? Help Desk Software | Support Ticket System | Zendesk.com - http://www.zendesk.com
+18:26 whorka      RTFM seems more targeted toward helpdesk admins, not community-sourced answers like OSQA. Zendesk seems like an RT competitor.
+18:27 pdurbin     whorka: ok, but could i sort of promote or expose some RTFM answers as canonical? maybe even make them public and indexable?
+18:27 pdurbin     the idea being that many questions are asked over and over
+18:28 whorka      AFAIK RT 3.x doesn't have a public-facing interface for RTFM. Maybe RT 4.x?
+18:29 pdurbin     ok. i'm not sure if everyone is my group is so into it being public anyway :)
+18:39 pdurbin     huh, i've never even heard of this one: IT Service Management Software - Free Open Source Help Desk - Problem Management System - Customer Interaction Software | OTRS - http://www.otrs.com/en/
+18:39 pdurbin     which i found at http://stackoverflow.com/questions/3832603/can-anyone-recommend-an-open-source-help-desk-application-like-zendesk
+18:40 pdurbin     there's a nice mini review of zendesk at recommendations - Zendesk or Assistly? - OnStartups Beta - Stack Exchange - http://answers.onstartups.com/questions/33749/zendesk-or-assistly/36670#36670
+18:45 whorka      "Our pricing model is also a key differentiator." Looks like they both cost $.
+18:46 pdurbin     heh
+18:46 pdurbin     zendesk has an api: http://www.zendesk.com/support/api
+21:37 SEJeff      Yeah OTRS got a new webui in the last big release
+21:38 SEJeff      Maybe 6-8 months ago? There was a bit publicity push from them about it
+</pre></body></html>

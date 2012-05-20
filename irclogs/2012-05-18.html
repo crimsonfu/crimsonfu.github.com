@@ -1,0 +1,184 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+00:52 magoo     SEJeff: really like task warrior - just the thing I've needed
+12:48 pdurbin   check this upcoming desktop computer: HP t410 AiO (all in one). ARM Cortex-A8 processor ( http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0344c/index.html ), uses only 13 watts of power, which is delivered power-over-ethernet: http://www.hp.com/united-states/campaigns/thin-client-solutions/t410.html#tab-graphics-specs . see also http://www.pcworld.idg.com.au/article/424196/new_hp_thin_client_cuts_power_cord/
+12:49 pdurbin   "A standard desktop PC in a workplace environment consumes around 100 Watts not including the monitor, and the most efficient thin clients consume around 10 Watts. HP's t410 includes an 18.5in monitor for only three more Watts"
+12:51 pdurbin   "The other problem with the Intel instruction set is, as we saw, it's inefficient due to the 90/10 rule. So you have all these transistors sitting around not doing much because they just end up being the exception rather than the rule. Whereas this lean RISC design has all your transistors busy all the time, so that's efficient, too. You get a lot of use out of the power that the transistor is using." -- http://www.grc.com/sn/sn-252.htm
+12:52 SEJeff    But the tradeoff is performance
+12:52 SEJeff    arm is slow
+12:53 SEJeff    when compared to a modern intel processor such as a nehalum+
+12:53 pdurbin   meh. i'm always at the command line :)
+12:53 SEJeff    exactly
+12:53 SEJeff    running perf tools :)
+12:53 pdurbin   should be fast enough. will it run fedora? as we've discussed fedora runs on ARM
+12:54 SEJeff    I'm not sure if all of fedora runs on arm
+12:54 SEJeff    It is still a non-primary arch for fedora
+12:54 SEJeff    So lots of ftbfs most likely
+12:55 pdurbin   Fails To Build From Source: http://en.wikipedia.org/wiki/FTBFS
+12:56 pdurbin   sure. but i'm still glad the fedora guys are working on ARM support
+12:56 SEJeff    indeed
+13:18 pdurbin   boooo, i'm running qemu-kvm-0.12.1 on centos 6, not 0.13.0 :( http://blog.wpkg.org/2010/10/04/resizing-qcow2-images/ i guess i'll have to convert this qcow2 image to raw to increase its size. . .
+13:18 pdurbin   would love to just run `qemu-img resize mydisk.qcow2 +5GB` per http://www.linux-kvm.com/content/how-resize-your-kvm-virtual-disk
+13:24 SEJeff    pdurbin, Question
+13:24 SEJeff    Have you ever backported newer stuff to RHEL/CentOS? If not, would you like a tutorial more or less? I do it all the time.
+13:26 pdurbin   well, sure. . . i've used the "clobber" repo from repoforge (or whatever it's called) before. in general, i try to stick with the generic upstream packages though.
+13:28 SEJeff    pdurbin, repoforge is bad
+13:28 SEJeff    The packages do a very good job of breaking your systems
+13:28 pdurbin   "rfx" they call it -- [suggest] Recent changes to RPMforge - http://lists.repoforge.org/pipermail/users/2010-November/018282.html via http://repoforge.org/faq/ . i voted for "clobber"
+13:28 SEJeff    It is very very easy to backport packages from Fedora to EL[56] using mock
+13:29 pdurbin   SEJeff: careful, one of the crimsonfu members is also a repoforge packager :)
+13:29 SEJeff    But if you'd prefer to just use raw disk images instead that works too.
+13:29 SEJeff    pdurbin, Well perhaps I should tell them that they break the GNOME yum auto-updates thing all the time :)
+13:30 SEJeff    for the gnome.org servers, which I help run
+13:30 pdurbin   SEJeff: yes, i backported the ikiwiki rpm from fedora for use in centos: http://yum.greptilian.com
+13:30 pdurbin   SEJeff: you should file an issue. i'm sure they'd appreciate it: https://github.com/repoforge/rpms/issues
+13:30 SEJeff    The only repo that is almost guaranteed to never break EL* is EPEL
+13:30 SEJeff    or if you're careful, stuff from fedora directly
+13:31 SEJeff    pdurbin, I actively steer people away from repoforge
+13:31 SEJeff    due to experiencing far too much breakage using it
+13:31 pdurbin   SEJeff: oh. you're one of those ;)
+13:31 SEJeff    *shrug* if the packages aren't high enough quality and break running systems
+13:31 SEJeff    It is a bad idea
+13:32 pdurbin   better not follow whorka's http://whorka.github.com/blog/2012/02/08/apache-mod_fastcgi-suexec-php-apc-rhel.html then :)
+13:32 SEJeff    one of those being defined as doesn't like to see broken deps ever
+13:34 SEJeff    pdurbin, But just saying. It is very easy to backport a onesy/twosey package and shouldn't be something you're afraid of if you want the functionality
+13:34 pdurbin   as we've discussed, there's much more work involved in getting packages in epel than repoforge: http://irclog.perlgeek.de/crimsonfu/2012-05-08#i_5559423
+13:35 SEJeff    pdurbin, Sure. There is more work because the demand higher quality packages. It shows :)
+13:35 SEJeff    You're just proving the point I was trying to make heh
+13:36 pdurbin   repoforge/rpmforge/dag has a much longer history than epel. in practice, i'm switching to epel
+13:36 SEJeff    However, once you do the initial work, it is very easy to get packages into epel. Even easier if they are already in Fedora. We've gotten perhaps a dozen or so packages in EPEL as hard and optional dependencies for salt. It wasn't very hard.
+13:36 SEJeff    dag was awesome back in the day
+13:37 pdurbin   i've been meaning to become a fedora/epel contributor
+13:37 pdurbin   SEJeff: would you consider qemu-kvm-0.12.1.2-2.209.el6_2.4.x86_64, qemu-img-0.12.1.2-2.209.el6_2.4.x86_64 and all related packages to be onesy/twosey? i'm not sure i would...
+13:39 SEJeff    I wouldn't build / install the kernel module for kvm
+13:39 SEJeff    but the userspace tools? Yes
+13:39 SEJeff    At worst, you use mockchain
+13:39 SEJeff    which is easy
+13:40 pdurbin   i need to get up to speed with mock
+13:40 SEJeff    pdurbin, If you ever have some time and want to let me know. I do it all the time as I'm the primary guy who manages our internal repos at work
+13:40 pdurbin   any handy links to howto's?
+13:41 pdurbin   if not, you could write up a crimsonfu blog post :)
+13:41 SEJeff    pdurbin, Oh and I wrote a really crappy wrapper for mock (and I mean really crappy) http://www.digitalprognosis.com/opensource/scripts/pkgbuild
+13:41 SEJeff    I wrote that for when we have to backport packages for GNOME
+13:42 SEJeff    Like when Redhat flat refused to backport the new sssd to RHEL 5.2 I think it was when we had issues which caused users to not have the ability to login to git.gnome.org (effectively stopped git contributions)
+13:42 pdurbin   SEJeff: ok, at least i see you're using mock in there. would probably be a good starting point for me
+13:42 SEJeff    I had to backport sssd for RHEL5 on the git server or switch back to pam_ldap, which is yucky in comparison
+13:43 SEJeff    pdurbin, the config is pretty straightforward. Look under /etc/mock. Edit the default config and then the distro specific one with your repos.
+13:44 pdurbin   huh, i just ran `qemu-img resize /var/lib/libvirt/images/pdurbin1-disk0.qcow +5GB` and it said "Image resized." . ls -l shows the same size though. . .
+13:48 SEJeff    holy netsplit batman!
+13:49 pdurbin   gparted should have a Requires: dejavu-lgc-sans-fonts
+13:50 pdurbin   yeah, i don't think that resize did anything. it lies with its "Image resized". no magic backport, i don't think. . .
+13:52 pdurbin   and a reboot didn't help either
+13:55 SEJeff    :/
+13:56 * pdurbin looks at http://pkgs.fedoraproject.org/gitweb/?p=qemu.git;a=blob;f=qemu.spec;hb=HEAD
+13:56 pdurbin   wow, lots of patches
+13:56 SEJeff    Also remember that most of the qemu upstream are redhatters
+13:56 pdurbin   sure
+13:56 pdurbin   is that what they call them? :)
+13:57 SEJeff    yes, /me has many friends there
+13:58 SEJeff    pdurbin, wow that is an insane number of patches though. You weren't kidding!
+13:59 pdurbin   still a onesy/twosey? :)
+14:00 pdurbin   at some point you just run your hypervisors on fedora rather than el6 if you want all the shiny
+14:00 SEJeff    pdurbin, 100 patches != 100 packages :)
+14:01 SEJeff    And I was just suggesting using the new qemu-image package. Does that require the new qemu-kvm kernel module?
+14:01 SEJeff    It might, but I'd be surprised
+14:01 pdurbin   no idea
+14:01 SEJeff    Avi K is good about keeping the kvm stuff backwards compat. I used to follow the kvm dev really closely
+14:01 SEJeff    Avi K == the guy who wrote kvm more or less
+14:02 SEJeff    http://avikivity.blogspot.com/
+14:06 magoo     agoddard: you around?
+14:09 pdurbin   magoo: i don't see him on IM...
+14:11 * pdurbin attempts a build of http://pkgs.fedoraproject.org/gitweb/?p=qemu.git;a=blob;f=qemu.spec;hb=35db8c0471c57821ed2b330304b69b4cedc551ea on el6
+14:16 SEJeff    pdurbin, Are you building from git or rebuilding a src rpm/
+14:16 pdurbin   git
+14:16 SEJeff    hardcore
+14:17 pdurbin   do you have an srpm for this? i looked
+14:17 SEJeff    I normally grab the latest src rpm from koji or here: http://dl.fedoraproject.org/pub/fedora/linux/releases/
+14:17 SEJeff    http://dl.fedoraproject.org/pub/fedora/linux/releases/test/17-Beta/Fedora/source/SRPMS/qemu-1.0-6.fc17.src.rpm
+14:17 pdurbin   so that's pretty new. . . too new?  hmm
+14:18 SEJeff    I'm a bit confused
+14:18 SEJeff    That spec says version 0.13.0
+14:18 SEJeff    the srpm is 1.0.6
+14:19 pdurbin   i was thinking about going for a version that's just new enough to have the feature i need
+14:19 SEJeff    pdurbin, And if you want to grab the latest from rawhide: http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/source/SRPMS/q/qemu-1.0-17.fc18.src.rpm
+14:19 SEJeff    seems reasonable
+14:20 pdurbin   i wish there were a link from http://pkgs.fedoraproject.org/gitweb/?p=qemu.git back to https://admin.fedoraproject.org/pkgdb/acls/name/qemu . or maybe there is and i just don't see it
+14:22 pdurbin   i guess i could try http://kojipkgs.fedoraproject.org/packages/qemu/0.13.0/1.fc14/i686/qemu-img-0.13.0-1.fc14.i686.rpm via http://koji.fedoraproject.org/koji/buildinfo?buildID=201006
+14:24 pdurbin   whoops, http://kojipkgs.fedoraproject.org/packages/qemu/0.13.0/1.fc14/x86_64/qemu-img-0.13.0-1.fc14.x86_64.rpm i mean (not i686)
+14:34 pdurbin   bah! ran `rpm -Uvh qemu-img-0.13.0-1.fc14.x86_64.rpm --nodeps` and tried a resize on qcow2 but it still didn't seem to work
+14:35 pdurbin   actually, hmm!  qemu-info is showing the virtual size increasing...
+14:36 pdurbin   er, `qemu-img info` i mean
+14:38 SEJeff    pdurbin, Sparse image file?
+14:39 pdurbin   i'm probably just being dumb. probably need to boot into Parted Magic like I've done before: http://partedmagic.com
+14:51 pdurbin   yup. just me being dumb. plenty of unallocated when i run gparted from within parted magic. i should have followed my own doc from the start :)
+15:36 pdurbin   good old gparted
+15:44 pdurbin   i have all kinds of corrections to the noise i was making above
+15:50 pdurbin   wow, somehow i didn't realize `virsh setmem myvm 2097152` would have an immediate affect on a running vm. MemTotal in /proc/meminfo is suddenly bigger
+15:50 pdurbin   ventz: well, truthfully, you told me yesterday this would work but i only half believed you :)
+16:12 pdurbin   ok, so corrections to the qemu resize business above
+16:13 pdurbin   stock el6 qemu-img resizes qcow2 images just fine
+16:13 pdurbin   never never believe the size reported by `ls -l`. (i should have known better). always run `qemu-img info` instead
+16:14 pdurbin   to actually do the resize, reboot with a Parted Magic iso and use gparted
+16:14 pdurbin   or some fancier command line only way if you have the fu, i suppose
+16:14 SEJeff    parted isn't that hard to use from the cli
+16:14 pdurbin   SEJeff: yeah? have a link to a nice howto?
+16:14 SEJeff    I learned from the manpage :)
+16:14 SEJeff    Let me look one up
+16:15 SEJeff    http://www.cyberciti.biz/tips/fdisk-unable-to-create-partition-greater-2tb.html  http://www.gnu.org/software/parted/manual/html_chapter/parted_2.html
+16:15 SEJeff    That manual is actually really good
+16:16 pdurbin   cool. thanks
+16:16 pdurbin   but you have to boot off some iso or into rescue mode, right?
+16:16 pdurbin   you can't just run parted on a running system, can you?
+16:19 pdurbin   that is to say, you have to unmount the file system you're working on...
+16:20 pdurbin   that's what i've been doing anyway. booting off the parted magic iso
+16:22 SEJeff    pdurbin, Oh I thought you were doing this for vms
+16:22 pdurbin   i am. these are vms
+16:22 SEJeff    If you're using lvm you can grow things live
+16:22 pdurbin   kvm
+16:22 SEJeff    lvm + ext4 I believe
+16:22 ventz     pdurbin: using resize2fs is very easy
+16:22 SEJeff    ++
+16:22 pdurbin   well, the vm i was working on wasn't using lvm
+16:23 SEJeff    You need the filesystem and underlying partitions to grow
+16:23 SEJeff    If the filesystem doesn't fill the entire partition, then you just use resize2fs like ventz mentioned without worrying. Otherwise, yes the way you did it works
+16:23 ventz     my favorite for lvm:
+16:23 ventz     lvdisplay
+16:23 ventz     swapoff /dev/VolGroup00/LogVol01
+16:23 ventz     lvresize -L -4GB /dev/VolGroup00/LogVol01
+16:23 ventz     lvresize -L +4GB /dev/VolGroup00/LogVol00
+16:23 ventz     resize2fs -p /dev/VolGroup00/LogVol00
+16:24 ventz     mkswap /dev/VolGroup00/LogVol01
+16:24 ventz     swapon /dev/VolGroup00/LogVol01
+16:24 ventz     # fixing centos one day at a time ;)
+16:26 pdurbin   ok, but for non-lvm, i think i need to reboot at least, for the ubuntu vm to know that i made the qcow2 image bigger
+16:26 SEJeff    pdurbin, There might be a trick you can do
+16:26 pdurbin   SEJeff: yeah, probably there is
+16:26 SEJeff    There is a way to force the kernel to re-read the partition table. Hold on
+16:26 pdurbin   ventz: thanks for the lvm fu
+16:27 SEJeff    pdurbin, partprobe
+16:27 SEJeff    partprobe /dev/XXX
+16:27 pdurbin   right. that makes sense
+16:27 pdurbin   will have to try that in my test vm
+16:28 SEJeff    pdurbin, I'm pretty sure partprobe calls or does the equivalent of: blockdev --rereadpt /dev/sda
+16:28 pdurbin   ok
+16:28 SEJeff    blockdev was what I was originally thinking of
+16:29 pdurbin   i definitely seem to have had to reboot the vm to increase the max ram
+16:29 SEJeff    That most likely depends on the kernel
+16:29 SEJeff    and kvm version
+16:30 pdurbin   "error: Unable to change MaxMemorySize , error: Requested operation is not valid: cannot resize the maximum memory on an active domain" from `virsh setmaxmem myvm 2097152`
+16:30 pdurbin   qemu-kvm-0.12.1.2-2.209.el6_2.4.x86_64 kernel-2.6.32-220.7.1.el6.centos.plus.x86_64
+17:34 SEJeff    Might be relevant in this channel: http://jpmens.net/2010/10/29/alternative-dns-servers-the-book-as-pdf/
+17:34 SEJeff    pdurbin, It has a bit about powerdns too ^^
+17:35 pdurbin   huh. very cool
+17:59 pdurbin   "You just need to do apt-get install &lt;packagename&gt;. This will upgrade only that single package." -- http://askubuntu.com/questions/44122/upgrade-a-single-package-with-apt-get/44124#44124 ubuntu is so odd...
+19:11 pdurbin   trying to remember NX :)
+19:46 pdurbin   looking at http://perldoc.perl.org/perlfaq8.html#How-do-I-keep-my-own-module/library-directory? via http://stackoverflow.com/questions/1366902/why-does-installing-certain-cpan-modules-require-root-privilege/1370065#1370065
+19:47 pdurbin   cpan&gt; o conf makepl_arg INSTALL_BASE=/mydir/perl
+19:47 pdurbin   i guess that's what i'm looking for
+20:04 pdurbin   that config option seems to work: http://pastie.org/3932312
+</pre></body></html>

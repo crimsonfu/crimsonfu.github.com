@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+00:59 pdurbin   at least it has the latest version of openstack (essex)
+02:20 pdurbin   ok, i just posted serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individuals-files-with-separate-history-such-as-in-var-named
+02:20 pdurbin   shoot, i meant to make that a link: http://serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individuals-files-with-separate-history-such-as-in-var-named
+02:28 pdurbin   sheesh, typo in the title. how embarrassing. fixed: http://serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individual-files-with-separate-history-such-as-in-var-named
+02:32 pdurbin   mmm, answers coming in already: http://serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individual-files-with-separate-history-such-a/383635#383635 . i love stack overflow and company. had never heard of http://joey.kitenet.net/code/etckeeper/ but its made by the guy behind ikiwiki!
+02:37 pdurbin   nice, and here's randal's answer: http://serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individual-files-with-separate-history-such-a/383636#383636
+02:44 pdurbin   hmm, i sure hope i'm not angering randal... :( https://twitter.com/merlyn/status/195702294677950465
+13:14 pdurbin   hmmm. http://blog.mymediasystem.net/uncategorized/vmware-kvm-migration-guide/
+15:22 pdurbin   holy crap! `yum -q update --json` ftw!! https://github.com/deanwilson/yum-transaction-json
+15:22 pdurbin   "Show pending YUM upgrades and installs as a JSON data structure"
+15:25 pdurbin   you get back something like this: {"firefox":{"pending":{"epoch":0,"version":"10.0.4","arch":"x86_64","release":"1.el6.centos","state":"u"}},"libpng":{"pending":{"epoch":2,"version":"1.2.48","arch":"x86_64","release":"1.el6_2","state":"ud"}}}
+16:58 ironcamel sweet, arch linux has cpanminus in its packages
+17:03 ironcamel arch has a mirror next door at virginia tech so downloading/syncing is blazing fast for me
+17:14 pdurbin   i've been meaning to try cpanminus for probably 2 years
+17:28 ironcamel pdurbin: cpan App::cpanminus
+17:48 pdurbin   sub descending { ${$patches_avail_by_host}{$b} -&gt;{yum_updates_avail} &lt;=&gt; ${$patches_avail_by_host}{$a} -&gt;{yum_updates_avail}; }
+17:55 pdurbin   ironcamel: yeah, yeah :)
+18:02 ironcamel pdurbin: ${$patches_avail_by_host}{$b} is written nicer as $patches_avail_by_host-&gt;{$b}
+18:03 ironcamel pdurbin: $patches_avail_by_host-&gt;{$b}{yum_updates_avail} is what you want
+18:04 ironcamel the subsequent -&gt;'s are unnecessary
+18:12 pdurbin   ironcamel: you're right. thanks!!
+18:13 ironcamel np
+18:14 pdurbin   ran it through perlcritic just now too. i love perlcritic
+18:14 ironcamel yeah, it's pretty nice
+18:15 ironcamel pdurbin: would perlcritic give you the same suggestion i did? for the code you posted
+18:15 pdurbin   nope :(
+18:15 pdurbin   you provide a value add ;)
+18:15 ironcamel hehe
+18:17 ironcamel pdurbin: just remember, for multi-dimensional arrayrefs, you access items via $arrayref-&gt;[1]{foo}[42]
+18:17 ironcamel for hashrefs: $hashref-&gt;{foo}[22]{bar}
+18:17 pdurbin   how could i ever forget that? ;)
+18:17 ironcamel thats a hash of arrays of hashes
+18:18 ironcamel if you have a %hash instead of a $hashref, just leave off the -&gt; ... $hash{foo}[22]{bar}
+18:18 ironcamel the -&gt; operator dereferences a ref, similar to c++
+18:19 pdurbin   right
+19:09 pdurbin   nice, my buddy's project, packetfence, selected 3 google summer of code students: http://www.packetfence.org/news/2012/article/packetfence-selects-3-students-projects-as-part-of-google-summer-of-code.html
+19:33 ironcamel magoo_: you may be interested to know that lucidchart is integrated with google drive
+19:33 ironcamel lucidchart is a pretty cool online collaborative diagramming tool
+19:34 ironcamel i should say it is integrated with google docs
+19:36 ironcamel i did get a google drive invite. looking forward to playing with that.
+19:39 pdurbin   Online Diagram &amp; Flowchart Software | Lucidchart - http://www.lucidchart.com
+</pre></body></html>

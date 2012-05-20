@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+16:03 pdurbin  StampedeCon | Big Data Conference Series - St. Louis, MO, August 1, 2012 - http://stampedecon.com
+16:04 pdurbin  agoddard: partially organized by fak3r, i think
+18:22 pdurbin  playing with multipath(8)
+18:52 magoo    is there a way to add an override_attribute to a node in a single command without going from file?
+18:57 SEJeff   pdurbin, -lll is your friend
+18:59 pdurbin  SEJeff: ah, i had only been using -ll :)
+18:59 pdurbin  magoo: i think we need some more context
+18:59 pdurbin  now i'm on to gdisk, http://www.rodsbooks.com/gdisk/download.html#obs http://en.wikipedia.org/wiki/GUID_Partition_Table
+19:04 pdurbin  it's apparently better than MBR :) http://en.wikipedia.org/wiki/Master_Boot_Record
+19:05 magoo    pdurbin: I literally need to set an override attribute on a chef node via a single command but without going from a file or doing an interactive edit such knife node edit NODE
+19:06 magoo    I need to do it this way so as to be able to wrap the command with one of the tools we use - Rex
+19:07 pdurbin  agoddard would probably be able to help you but he's busy tweeting from chefcon https://twitter.com/anthonygoddard/status/203189581506543616
+19:07 pdurbin  magoo: why aren't you at chefcon? you could ask there :)
+19:12 pdurbin  magoo: so you're a big fan of chef? we're mostly a puppet shop, sprinkled with salt
+19:15 pdurbin  does everyone use GPT partition tables? am i just out of it?
+19:17 SEJeff   GPT++
+19:17 SEJeff   You have to use parted
+19:17 SEJeff   fdisk won't do it properly
+19:20 pdurbin  here's the output of `gdisk -l /dev/vda` on some random VM if anyone is interested: http://pastie.org/3926965
+19:20 pdurbin  "GPT: not present" !!
+19:23 pdurbin  see also https://plus.google.com/107770072576338242009/posts/Rav6GQJnuig and http://blog.backblaze.com/2009/09/01/petabytes-on-a-budget-how-to-build-cheap-cloud-storage/
+19:23 SEJeff   pdurbin, Oh let me find the thing about backblaze
+19:23 SEJeff   http://bioteam.net/2011/08/why-you-should-never-build-a-backblaze-pod/
+19:24 pdurbin  SEJeff: look at the comments on my g+ post :)
+19:24 SEJeff   pdurbin, Honestly I think the backblaze pods would be fine with a clustered filesystem over top such as Ceph or Glusterfs
+19:24 pdurbin  oh, not even the comments. the post itself
+19:25 SEJeff   So long as the data is replicated and you can lose a brick without losing data, they are a great approach
+19:25 pdurbin  i met that guy at a conference the other month. the lisa think in boston or whatever it was
+19:25 pdurbin  i should see if he wants to hang out in this channel with us. . .
+19:25 SEJeff   Oh just saw you linked that post already
+19:25 SEJeff   ha
+19:26 pdurbin  he's the one who tweeted about the openstack event i missed :(
+19:58 agoddard magoo: I guess you could use the API directly if you need to make changes via your other tools.
+19:59 agoddard magoo: even if you need to make the changes on the fly, I think it would be best to persist it to disk somewhere, otherwise it leaves the attributes out in no mans land
+20:00 magoo    agoddard: that's ok, no mans land is fine in this case because the variable we're setting is the branch name for feature branches that we'd like to test deploy to our staging environment
+20:01 magoo    usually, it's just the dev branch that's deployed to staging but it's become clear that being able to selectively deploy feature branches is necessary
+20:03 agoddard magoo: etsy have some nice tooling around flipping environments, that might prove to be a bit cleaner depending on what the issues are http://www.slideshare.net/mcdonnps/lessons-from-etsy-avoiding-kitchen-nightmares-chefconf-2012
+20:07 magoo    this may not address the specific need we have but this is awesome stuff regardless
+20:18 agoddard magoo: how many nodes are you managing w/ chef?
+20:18 agoddard pdurbin: when are you gonna start using chef? ;)
+20:18 pdurbin  agoddard: um. chef or salt?
+20:18 agoddard pdurbin: chef
+20:19 pdurbin  so the big win with chef over puppet is that you get to (have to) write ruby, right?
+20:19 pdurbin  is there anything else?
+20:19 SEJeff   hahaha
+20:20 pdurbin  SEJeff: ha?
+20:20 SEJeff   pdurbin, It has a builtin solr server that keeps the chef equiv of salt grains on the master
+20:20 SEJeff   so you can slice and dice things with the "knife" tool
+20:20 SEJeff   but it uses ssh so meh
+20:20 SEJeff   The idea of salt is to query that data live because salt is fast enough to do that
+20:20 pdurbin  SEJeff: heh. exactly
+20:21 agoddard the attributes hierarchy I think gives you some nice advantages over puppet as I understand it, much easier reusability of recipes* (*I've never used puppet)
+20:21 SEJeff   If you have a bunch of ruby talent, chef is fantastic
+20:21 SEJeff   chef == infrastructure is code
+20:21 SEJeff   salt is more: infrastructure is data
+20:22 agoddard so salt == ohai? :/
+20:22 agoddard just enough ruby talent req'd: http://wiki.opscode.com/display/chef/Just+Enough+Ruby+for+Chef
+20:22 SEJeff   agoddard, Salt = puppet + mcollective OR chef without silly ssh or massive dependencies like solr
+20:22 SEJeff   it is much lighter weight
+20:22 SEJeff   And faster
+20:22 SEJeff   however, use the best tool for the job. Chef is good stuff
+20:23 SEJeff   agoddard, At it's core, salt is remote execution + host metadata + config management
+20:23 magoo    agoddard: 7 production and 7 staging... and then i have a standalone role that provisions everything in vagrant using solo
+20:23 magoo    we're a startup as you can see :)
+20:24 SEJeff   Do we have any vagrant "experts" here?
+20:24 SEJeff   I'm looking to port vagrant-ansible to salt so that there is a native salt provisioner in vagrant
+20:24 agoddard rog. the new chef omnibus install is pretty siq, same ruby, same stack on AIX, solaris 9, CentOS and Debian, would be cool for FAS imo
+20:24 SEJeff   omnibus?
+20:25 agoddard Vagrant+salt? https://github.com/mattmcclean/vagrant-salt
+20:25 SEJeff   agoddard, Notice it isn't a real vagrant provisioner
+20:26 agoddard SEJeff: omnibus - entire stack in a package.. all the box needs is the kernel and standard libs, this will throw everything on top
+20:26 SEJeff   which has to be a subclass of one of the vagrant provisioner classes, which is ruby
+20:26 SEJeff   agoddard, Oh like sun's .bin shell script extractors?
+20:26 agoddard SEJeff: I think I'm glad I don't know what sun's .bin shell script extractors are ;)
+20:26 magoo    wonder if vagrant is supporting 'environments' yet
+20:27 SEJeff   agoddard, That would be great for operating systems with horrendous package management like solaris
+20:27 SEJeff   but not so great for normal Linux distros where that is discouraged. Great for users though
+20:27 agoddard SEJeff: and for boxes that you don't want to mess with multiple ruby versions, or if you're bad at managing your gems, installing chef won't kill your existing ruby app
+20:28 SEJeff   agoddard, Pretty win
+20:28 SEJeff   Thats why I always loved the bundler gem
+20:28 SEJeff   http://gembundler.com/
+20:28 agoddard magoo: https://gist.github.com/2721412
+20:29 SEJeff   agoddard, This is an actual vagrant provisioner: https://github.com/dsander/vagrant-ansible Looking to port it to salt. Are you any good with ruby? I might ask a few questions here when I've got a chance to hack on it.
+20:30 magoo    agoddard: saweeet!
+20:31 magoo    I've been using duplicate roles in lieu of this
+20:33 pdurbin  me is still trying to figure out what omnibus is. this i guess. . . https://github.com/opscode/omnibus-ruby
+20:34 SEJeff   pdurbin, http://lists.opscode.com/sympa/arc/chef-dev/2011-08/msg00055.html
+20:35 pdurbin  SEJeff: ok so https://github.com/opscode/omnibus . thanks
+20:39 SEJeff   np
+20:49 agoddard ohai.. sorry, we lost internet here
+21:17 magoo    agoddard: is it only possible to use environment with the chef server provisioner... right now, i'm using chef-solo in vagrant
+21:20 agoddard magoo: oh, right.. oops :/ you can try this, and load it up with environments once it's bootstrapped: https://github.com/agoddard/street-chef
+21:26 magoo    nice!
+21:27 magoo    this basically gets an internal chef-server up and running, right
+21:27 agoddard yep, then it prepares a few client nodes and writes out your local knife config with keys, so knife works out of the box
+21:27 agoddard but I haven't worked on / with it for a while, so hopefully it's still happy :)
+21:28 magoo    man, my todo list is growing large.... too many badass tools at my disposal
+21:29 SEJeff   Here is another if you're into that sort of thing: http://taskwarrior.org/projects/show/taskwarrior I &lt;3 it
+21:30 agoddard SEJeff: ha, nice
+21:31 magoo    SEJeff: do you have an ADD warrior? :P
+21:32 magoo    well, i guess those come in pill form, n/m
+21:32 SEJeff   magoo, I'm ADD to the extreme. No todo list app / method really worked until I found tw.
+21:32 SEJeff   I'm not ok with medicating that sort of thing :P
+21:32 SEJeff   ADD people multitask better than most people if they learn to focus. It takes discipline and patience, but is possible.
+21:33 magoo    tw?
+21:34 magoo    oh, haha
+21:34 magoo    i was being thick
+21:36 SEJeff   :)
+21:38 SEJeff   magoo, Best ADD/ADHD article of all time: http://davemartorana.com/logs/ramblings/my-struggle-with-adhd
+21:39 magoo    SEJeff: i've actually tried the medication several times... but coming off of it at night is a bitch. I can't see how people sustain that
+21:40 SEJeff   My mother was a nurse and refused when people said I should use ritalin
+21:41 magoo    yeah, i really think it should be an absolute last resort for children
+21:41 SEJeff   Agreed. Only if the child is out of control
+21:41 SEJeff   vs being lazy
+21:41 magoo    long term consequences of amphetamines are not fully known in the least
+21:42 SEJeff   The FDA took most OTC amphetamines off the market due to issues
+</pre></body></html>

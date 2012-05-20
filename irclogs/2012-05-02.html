@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+02:14 ironcame1 pdurbin: cool, what does that do though?
+02:15 ironcame1 sync your projects
+12:39 pdurbin   ironcamel: what are you asking? sync?
+12:41 pdurbin   oh oh, my script. just does a `git pull`, basically. based on the list of git repos at http://git.greptilian.com/?a=project_index
+12:42 pdurbin   i guess i should write some pod ;)
+14:58 shuff     hi folks!
+14:58 shuff     w00t http://forge.puppetlabs.com/huit/pam_access
+15:02 pdurbin   hmm, veeeery interesting
+18:22 pdurbin   my first python script: https://github.com/fasrc/api/blob/master/modules
+18:23 pdurbin   i haven't run pychecker on it yet: http://pychecker.sourceforge.net
+18:24 SEJeff    pdurbin, sys.version is a tuple that will do what you want
+18:24 SEJeff    instead of sys.hexversion I think
+18:24 SEJeff    If you want to cheat and combine sys.stderr.write(msg + "\n") and sys.exit(1), you can just shorten it to: raise SystemExit("message")
+18:25 pdurbin   yeah, i found the hexversion thing at http://www.secnetix.de/olli/Python/tricks.hawk (maybe i should have included a link the code) and liked it
+18:26 pdurbin   "The variable hexversion is only available since Python 1.5.2, so we first check if it is there, just in case someone has an even older version." :)
+18:26 pdurbin   i like how python brings SEJeff back from the dead. i thought he was on vacation ;)
+18:27 SEJeff    pdurbin, I was sick
+18:27 SEJeff    out from work yest
+18:27 SEJeff    Friday and Monday I was at: http://stagecoachfestival.com/
+18:27 pdurbin   ah. hope you're feeling better
+18:28 SEJeff    surprised the wife with tix. We went to Indio and rented a little house for the weekend
+18:28 SEJeff    Yup mostly better now.
+18:28 pdurbin   anyway, pull requests welcome. the script operates on a public api
+18:28 pdurbin   should "just work"
+18:29 SEJeff    pdurbin, thanks. Yes feeling much better. The doc gave me some steroids, but I don't feel like Aah-nold or anything
+18:48 pdurbin   :)
+</pre></body></html>

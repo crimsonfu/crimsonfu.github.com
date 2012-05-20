@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+10:47 pdurbin   ironcamel: you seem to like to know when i sling some perl :) http://git.greptilian.com/?p=grinfra.git;a=blob;f=bin/grgit.pl;hb=HEAD
+14:32 magoo_    got one for the chef gurus amongst us
+14:33 magoo_    &lt;% if defined?(node.postgresql.master).nil? -%&gt;
+14:34 magoo_    that seems to be breaking my template ... more to follow
+14:36 pdurbin   agoddard is the resident chef guru and evangelist ;)
+14:39 pdurbin   "extended away" in IM though :)
+14:41 Pax       can I be "extended away" in reality?
+15:36 pdurbin   bleh, svn. i should just move this to git
+15:37 * pdurbin glances at Moving Puppet From Subversion to GIT in 15 Minutes While Adding Dynamic Environments - Coffee &amp; Beer - http://blog.mattynick.com/blog/2012/02/08/moving-puppet-from-subversion-to-git-in-15-minutes-while-adding-dynamic-environments/
+16:39 pdurbin   nmblookup -U 10.1.1.2 -R 'SERVER1' # tell me the ip address, oh wins server
+17:11 agoddard  magoo_: ohai, what's the issue?
+17:22 magoo_    agoddard: I ended up not needing the block of code but here was the issue
+17:22 magoo_    http://pastebin.com/sz7jSxVu
+17:23 magoo_    I'd still like to know what the hell was so wrong with that statement
+17:23 magoo_    the advice i got in #chef was that the &lt;% if should not have shown up in erb -x
+17:23 magoo_    which makes sense but I can't explain it
+17:24 agoddard  ya it shouldn't have shown up
+17:25 magoo_    meh, at least I discovered erb -x :)
+17:28 agoddard  I think I'd do something like : if node.postgresql.master == true , and then I'd set a default attribute to true or false.. maybe.. off the top of my head that should work and read clearly, but maybe the master attribute needs to be more than just true/false..
+17:29 agoddard  magoo_: actually, maybe some other logic to catch the string of false being false, but you get the idea :D
+17:31 magoo_    agoddard: yeah, that's much cleaner
+20:14 magoo_    anyone in here using keepalived?
+20:15 magoo_    let me rephrase that... anyone in here using keepalived successfully in ec2
+20:16 magoo_    i think that's a whole different beast
+20:16 pdurbin   Keepalived for Linux - Linux High Availability - http://keepalived.org ?
+20:16 magoo_    that's the one
+20:16 magoo_    i haven't started the project yet, just gathering feedback
+20:18 pdurbin   no upvoted answers ... How to configuration keepalived on Amazon EC2? - Server Fault - http://serverfault.com/questions/351359/how-to-configuration-keepalived-on-amazon-ec2
+20:20 pdurbin   some guy says ( http://serverfault.com/questions/330930/keepalived-questions-requirements-abilities-limitations/332438#332438 ) to use pacemaker and corosyn instead: http://www.clusterlabs.org
+20:20 magoo_    i ran into this the other day and discovered the unicast patch to make it work but there's not much info as to configurations being used out there
+20:21 magoo_    good find, i'll have  alook
+20:21 pdurbin   this guy likes keepalived: http://serverfault.com/questions/276170/alternatives-to-heartbeat-pacemaker-and-corosync/276453#276453
+20:21 pdurbin   magoo_: please report back :)
+20:22 magoo_    of course!
+20:23 pdurbin   sunmanagers SUMMARY style ;)
+20:41 pdurbin   running `yum install pv`. was just telling sjoeboo i'm been meaning to play with it. "pv - monitor the progress of data through a pipe" http://www.commandlinefu.com/commands/tagged/609/pv
+20:42 pdurbin   i've
+20:45 pdurbin   for example: Command to import Mysql database with a progress bar. | commandlinefu.com - http://www.commandlinefu.com/commands/view/8726/command-to-import-mysql-database-with-a-progress-bar.
+</pre></body></html>

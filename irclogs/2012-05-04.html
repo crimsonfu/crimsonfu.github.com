@@ -1,0 +1,457 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+03:37 pdurbin       added command line options: --short, --whatis, --updated, --api-updated · 9ef3308 · pdurbin/api - https://github.com/pdurbin/api/commit/9ef3308263cff53780f776d8931a4e35519bbe43
+03:37 pdurbin       just in case you aren't following my every commit on github as i learn a little python ;)
+03:38 pdurbin       playing with optparse: Parser for command line options - http://docs.python.org/library/optparse.html
+12:16 SEJeff_work   pdurbin, That url is borka
+12:31 pdurbin       SEJeff_work: d'oh! thanks. yes, i just renamed it: https://github.com/pdurbin/fasrc-api
+12:31 pdurbin       what's awesome is that people can still see where it's forked from: https://github.com/fasrc/api
+12:32 pdurbin       it made no sense to me to have a repo called "api" in my personal github account. api for what? i'm glad github supports renames and maintains the fork links properly
+12:33 pdurbin       anyway, sorry for the 404. i'm well aware of Hypertext Style: Cool URIs don't change.: http://www.w3.org/Provider/Style/URI.html
+12:33 SEJeff_work   pdurbin, That kills kittens: https://github.com/pdurbin/fasrc-api/blob/optparse/modules#L10
+12:33 pdurbin       SEJeff_work: no. come on
+12:34 pdurbin       it's from http://www.secnetix.de/olli/Python/tricks.hawk
+12:34 pdurbin       "The variable hexversion is only available since Python 1.5.2, so we first check if it is there, just in case someone has an even older version."
+12:35 SEJeff_work   pdurbin, You should burn your eyes out after reading that
+12:35 pdurbin       see also discussion (with you) at http://irclog.perlgeek.de/crimsonfu/2012-05-02#i_5530001
+12:35 SEJeff_work   He is teaching you very poor python foo
+12:35 SEJeff_work   Yes I recall
+12:35 SEJeff_work   sys.version is how you check python version
+12:35 pdurbin       but but but. what if someone tries to run my script on python 1.5.2?? :)
+12:35 SEJeff_work   Or for programatically doing it...
+12:36 SEJeff_work   sys.version_info
+12:36 SEJeff_work   Sorry I said sys.version is a tuple, it is a string. sys.version_info is the proper way
+12:36 SEJeff_work   &gt;&gt;&gt; sys.version_info
+12:36 SEJeff_work   (2, 6, 6, 'final', 0)
+12:36 pdurbin       when was sys.version_info introduced?
+12:37 SEJeff_work   You can use hexversion, it is just ugly is all
+12:38 SEJeff_work   Ah touche, version_info is "new in 2.0"
+12:38 SEJeff_work   But would you ever have anyone running python 1.x?
+12:39 pdurbin       SEJeff_work: who knows!
+12:39 pdurbin       check this out
+12:39 pdurbin       "Our community has a long-held belief that backward-compatibility is a virtue, even when the functionality in question is a design flaw. We would all love to unmake some mistakes we've made over the past decades. Living with every design error we've ever made can lead to painful stagnation. Unwinding our mistakes is very, very difficult. Doing so without actively harming our users is nearly impossible. Lately, ignoring or actively opposing compat
+12:39 SEJeff_work   Do you write C89 ANSI C so you can support sco unixserver?
+12:39 SEJeff_work   and aix 3 or 4?
+12:39 pdurbin       this is why i love perl. people care about backward compatibility
+12:39 pdurbin       unlike some other languages. . .
+12:40 SEJeff_work   Being a pragmatist, there is a point where I guess it just seems silly
+12:40 SEJeff_work   And perl has been around a lot longer than python
+12:40 pdurbin       sure, but it's a cultural thing as well
+12:41 SEJeff_work   Absolutely. Perl lets you do things 10 different ways, which results in impressively ugly code often. From using perl (and being NO expert) my take is that it is more difficult to write code in a language that has multiple ways to do the same thing vs a language that has less ways to do it.
+12:42 SEJeff_work   ie: Take 5 nontrivial perl projects and look at them. It will be like reading 5 different programming languages at times. I see that as a misfeature.
+12:43 pdurbin       SEJeff_work: let it out, man. it's ok
+12:43 SEJeff_work   Well you are much more fluent with perl than I. I'm asking your take
+12:43 pdurbin       gotta bike to work. brb
+12:43 SEJeff_work   k
+12:46 pdurbin       shoot. quote truncated! "Lately, ignoring or actively opposing compatibility with earlier versions of Perl has come into vogue. Sometimes, a change is proposed which wants to usurp syntax which previously had another meaning. Sometimes, a change wants to improve previously-crazy semantics. Down this road lies madness." -- http://perldoc.perl.org/perlpolicy.html#BACKWARD-COMPATIBILITY-AND-DEPRECATION
+12:47 pdurbin       madness!!
+12:47 pdurbin       ok, really going now :)
+12:58 SEJeff_work   Is perl 6 100% backwards compatible with perl 5.x?
+13:01 shuff         not to my knowledge
+13:01 shuff         but let me find something more authoritative
+13:03 shuff         http://perlcabal.org/syn/Differences.html
+13:03 shuff         http://perlgeek.de/en/article/5-to-6
+13:04 shuff         so, in brief, oh hell no
+13:04 SEJeff_work   Ha
+13:05 shuff         "String concatenation is now ~, the dot . is used for method calls."
+13:05 SEJeff_work   Ha
+13:05 SEJeff_work   Can't wait for pdurbin to get back in
+13:33 pdurbin       what, what?
+13:34 pdurbin       perl 6 is a different language! they should have called it perl++ or whatever
+13:37 SEJeff_work   :)
+13:37 SEJeff_work   So perl makes backwards compat serious business
+13:37 SEJeff_work   Like python :)
+13:38 SEJeff_work   which deprecates features generally over several releases
+13:39 pdurbin       there's no convincing the perl 6 guys to rename the language, from what i understand
+13:39 pdurbin       so it's up to guys like to explain that it's a different language
+13:39 pdurbin       guys like me
+13:39 SEJeff_work   python 3 is the same
+13:40 pdurbin       so you feel my pain
+13:55 Pax           hey folks, I'm working a problem, and i'm kinda wrestling with it, and also feel like I might be reinventing the wheel a bit, I figured I'd spit ball it with you all.
+13:56 Pax           So, I've got an apache module, and as part of it, I have two definition and create namevirtualhosts and virtual hosts
+13:57 Pax           most of the magic is actually in the template that they both use, now I've added Allow/Deny's to the definitions, but now need to add Allow/Deny's to *subdirectories* that are different from what the virtual host gets
+14:02 Pax           ug
+14:02 Pax           did any of that come through?
+14:02 pdurbin       gets... http://irclog.perlgeek.de/crimsonfu/2012-05-04#i_5540326
+14:03 pdurbin       gets what? what?
+14:03 pdurbin       we are hanging on your every word ;)
+14:03 Pax           LOL
+14:03 Pax           So I need to be able to have Allow/Denies in the Vhost definition and the subdirectories that are different
+14:04 pdurbin       Pax: you know, i have a checkout of your code somewhere. . . have you committed already?
+14:05 Pax           so one thought I had was to just create a new value in the Vhost definition, something like apache::Vhost { 'foo': htaccess =&gt; array} and have array be path/ip's, and loop through that in a template, but that only works for 1 subdirectory
+14:05 Pax           then I thought, maybe I needed a custom type… but I may be over thinking
+14:05 Pax           pdurbin, let me check in my in progress stuff to dev
+14:06 pdurbin       bleh. svn ;)
+14:06 Pax           not all of us are as cool as RC :p
+14:07 pdurbin       http://blog.mattynick.com/blog/2012/02/08/moving-puppet-from-subversion-to-git-in-15-minutes-while-adding-dynamic-environments/
+14:07 shuff         fwiw, we're also squaring off against a similar issue over here
+14:07 shuff         (the vhost stuff, not the svn/git)
+14:07 pdurbin       and i really need some apache vhost management so i'm interested
+14:09 Pax           well, I kinda like what i've hot for ghost management, I think  that those two definitions in there could actually be a single one, since they both use the same template anyway
+14:09 Pax           all checked in btw
+14:10 pdurbin       "Store password unencrypted (yes/no)?"
+14:10 pdurbin       geez, no, i guess
+14:10 Pax           I'm a little worried that I've duct taped and bubble gummed myself into a corner, but on the other hand it would be really cool to either create per &lt;directory&gt; Allow/Deny's in the ghost definition
+14:11 Pax           so the stuff I checked in works for (1)  adding allow/denies to the virthost itself, and a single subdir, so like www/docroot/ and www/docroot/foo
+14:11 Pax           but not for www/docroot/foo and www/docroot/bar
+14:12 pdurbin       should i see "dev" after an `svn up`? "branches" is empty #svnnoob
+14:12 Pax           by "dev" is trunk
+14:12 Pax           and I merge into tags/production
+14:13 Pax           so trunk/modules/unsg_apache
+14:14 pdurbin       r1328?
+14:16 Pax           yup
+14:20 Pax           I know I could create a totally separate definition to manage additional file, but it would be nice to be able to pass everything i need inside the Vhost definition of each Vhost
+14:24 ironcamel     did i hear someone say perl was ugly?
+14:24 ironcamel     SEJeff_work: http://www.slideshare.net/xSawyer/perl-dancer-for-python-programmers compare slide 11 to slide 12
+14:24 ironcamel     and tell me which you think is uglier
+14:25 shuff         oh dancer, you're so dreamy! &lt;swoon&gt;
+14:25 SEJeff_work   ironcamel, /me never was a huge fan of flask
+14:25 ironcamel     i like how python fanboys like to slam perl
+14:25 ironcamel     but when you compare actual code side by side
+14:25 ironcamel     that does the same thing
+14:25 SEJeff_work   I never slammed perl
+14:26 ironcamel     python doesn't look that great
+14:26 SEJeff_work   We were discussing forever backwards compat
+14:26 pdurbin       guys guys
+14:26 SEJeff_work   pdurbin said perl does it
+14:26 SEJeff_work   it doesn't :)
+14:26 ironcamel     perl does bend over backwards to keep compatibility, to a detrement, imo
+14:27 SEJeff_work   A noble goal truthfully
+14:27 shuff         oh, believe you me, if you're on an "enterprise" distribution it's not a detriment
+14:27 agoddard      https://twitter.com/#!/anthonygoddard/status/198214366624092161 &lt; and pdurbin's inbox was finally ok again
+14:27 ironcamel     ruby for example will break shit to advance their language, which is good for the language
+14:27 SEJeff_work   but to a detrement
+14:27 pdurbin       SEJeff_work: i wanted to counter the "10 different ways" thing at http://irclog.perlgeek.de/crimsonfu/2012-05-04#i_5540044 with http://git.greptilian.com/?p=wellington.git;a=blob;f=t/perlcriticrc;hb=HEAD
+14:27 shuff         ironcamel: that's putting it mildly
+14:27 Pax           Hmmm hashes.. may I could use hashes and have the template just loop through em
+14:27 SEJeff_work   Oh thats nice
+14:28 SEJeff_work   pdurbin, But from someone who has done enough perl to be dangerous, I grew very weary of learning a new programming language (practically) every time I had to read someone else's perl who tried to be clever
+14:28 SEJeff_work   I don't hate perl, I don't love python.
+14:28 Pax           SEJeff_work I agree with the learning a new language for each new person!
+14:28 SEJeff_work   I use python as I can type code just about as fast as I can think of problems. It makes sense to the way my mind things, simply :)
+14:28 SEJeff_work   Exactly!
+14:28 ironcamel     SEJeff_work: i enjoy using a tool where i'm always learning new things about it, learning new ways to do the same thing
+14:28 pdurbin       if you include a perlcriticrc file in your test suite, you can enforce the way you like your code across the project. see also http://perlcritic.com
+14:29 ironcamel     SEJeff_work: i learned python in a week
+14:29 ironcamel     never learned anything new about it since then
+14:29 SEJeff_work   ironcamel, You've not learned python then :)
+14:29 ironcamel     similar to vim, i'm always learning new vim things
+14:29 SEJeff_work   I taught myself python (and perl) for work
+14:29 SEJeff_work   sure
+14:29 ironcamel     SEJeff_work: i have been getting paid for the last 6 or so years to write python
+14:30 ironcamel     there is not much to it
+14:30 SEJeff_work   pdurbin, Thats awesome, I was unaware of perlcritic. Like you said though, it is a cultural / philosophical thing. Python does a lot of that at the language level.
+14:30 SEJeff_work   nope
+14:30 ironcamel     SEJeff_work: python is a subset of perl
+14:30 ironcamel     lacking many language features
+14:30 SEJeff_work   I see them as different problems
+14:30 SEJeff_work   perl 5.x's OO is bolted on at best
+14:30 SEJeff_work   Perl has good OO
+14:31 ironcamel     SEJeff_work: perl has the most advanced OO system of any language
+14:31 SEJeff_work   meh, python
+14:31 ironcamel     perl OO = Moose
+14:31 SEJeff_work   Sure
+14:31 SEJeff_work   And C has gobject and the linux kernel has kobject
+14:31 SEJeff_work   But as part of the core language, OO is not amazing in perl.
+14:32 ironcamel     perl took the best OO ideas from java, python, smalltalk, etc and built Moose
+14:32 SEJeff_work   Perl was written for text processing. It excels at that. Python was written as a sort of glue language. It excels at that.
+14:32 ironcamel     glue language?
+14:32 SEJeff_work   I won't disagree with that
+14:32 ironcamel     it sucks at that!
+14:32 SEJeff_work   ha
+14:32 ironcamel     making system commands from python sucks
+14:32 ironcamel     os.command() is deprecated
+14:33 SEJeff_work   subprocess.Popen, but you knew that
+14:33 ironcamel     and all that popen crap sucks
+14:33 ironcamel     from an interface point of view
+14:33 SEJeff_work   I guess I see it as you should use the best tool for the job
+14:33 ironcamel     system "do some cool shit";
+14:33 ironcamel     vs
+14:33 pdurbin       yes, use the right tool for the job.  i wrote https://github.com/fasrc/api/blob/master/modules in python because python has "batteries included", though i suppose ack-standalone (written in perl) has batteries included too. . . can just wget http://betterthangrep.com/ack-standalone . . .
+14:34 SEJeff_work   I can just about code in python as fast as I can think, so for me python is often the best tool for the job. When I was writing against the bluecat api (which is perl) perl was the best tool for the job
+14:34 SEJeff_work   ack is good stuff
+14:34 ironcamel     Popen ... omg, why the hell do i need to do all this crap
+14:35 ironcamel     SEJeff_work: but as a glue language, python is NOT the best tool, not even close
+14:35 SEJeff_work   It could be said that in perl 5.x, why do I need to use Moose to have OO that is good?
+14:35 SEJeff_work   I've never written a C module for perl
+14:35 ironcamel     SEJeff_work: that is fair
+14:35 ironcamel     a fair complaint
+14:35 SEJeff_work   Python's core language OO &gt; Perl 5.x's core language OO
+14:35 SEJeff_work   that is what I was talking about
+14:35 SEJeff_work   Perl 6 looks pretty awesome
+14:35 ironcamel     but the perl philosophy is that CPAN is the language, and perl is the virtual machine
+14:36 SEJeff_work   Right
+14:36 ironcamel     SEJeff_work: one huge advantage that perl has is that it can evole via 3rd party modules
+14:36 SEJeff_work   And python has the standard lib, batteries (and warts) included
+14:36 ironcamel     so the language is advancing and evolving much faster than other languages
+14:36 SEJeff_work   How is that different than pypi or gem?
+14:36 ironcamel     like python on java, that require changes to their core to advance
+14:36 SEJeff_work   Huh?
+14:37 SEJeff_work   You mean jython?
+14:37 ironcamel     no
+14:37 ironcamel     jython?
+14:37 SEJeff_work   &lt;ironcamel&gt; like python on java, that require changes to their core to advance
+14:37 SEJeff_work   Sorry I don't follow
+14:37 ironcamel     SEJeff_work: https://metacpan.org/module/Test::Class::Sugar
+14:37 ironcamel     https://metacpan.org/module/MooseX::Declare
+14:37 ironcamel     look at that last link
+14:37 ironcamel     that module allows you to write OO
+14:38 ironcamel     just like java
+14:38 SEJeff_work   Honestly, you can write OO in any language just like you can write C in bash or python or perl
+14:38 ironcamel     this just can't happen via a python 3rd party module
+14:38 shuff         sell it a little harder, why don't you :)
+14:38 SEJeff_work   it doesn't really matter to me as much as it seems to matter to you :)
+14:38 ironcamel     what?
+14:38 shuff         i am familiar with MooseX::Declare
+14:39 shuff         but for me at least "just like java" is… not an inducement :)
+14:39 SEJeff_work   _at all_
+14:39 ironcamel     shuff: the point i am making is that you can't do the same thing in python
+14:39 SEJeff_work   No OO in python is also silly
+14:39 shuff         yes, yes
+14:39 SEJeff_work   private methods aren't private
+14:39 SEJeff_work   They just have underscores
+14:39 ironcamel     SEJeff_work: so there are things you don't like about python OO. too bad. you are stuck.
+14:40 SEJeff_work   Every language sucks, some suck less for specific tasks
+14:40 ironcamel     in perl, the community can improve it
+14:40 ironcamel     via 3rd party modules
+14:40 SEJeff_work   Which makes it look like a different language
+14:40 ironcamel     yes
+14:40 SEJeff_work   double edged sword
+14:40 ironcamel     as i said, the language is continually evolving
+14:40 SEJeff_work   I see it as neither good or bad
+14:41 SEJeff_work   Again, you're clearly a big fan. I do not hate perl, I just don't work in a place that it makes sense to use as my last 2 jobs have used python for anything non-perf critical
+14:42 SEJeff_work   And I actually kind of loathe flask
+14:42 ironcamel     SEJeff_work: flask is the closest you are going to get to a sinatra like dsl web framework
+14:42 ironcamel     SEJeff_work: because python sucks for creating dsl's
+14:42 * SEJeff_work is not a fan of dsls
+14:42 SEJeff_work   I had a coworker that used to solve every problem with regex
+14:43 ironcamel     i notice that python users are not big fans of things that python can't do :)
+14:43 SEJeff_work   He was incredible with regex, but a bad sysadmin
+14:43 ironcamel     they are also not fans of functional programming
+14:43 SEJeff_work   You are incorrect
+14:43 SEJeff_work   I love erlang
+14:43 SEJeff_work   Please do not assume
+14:43 ironcamel     sorry :)
+14:43 SEJeff_work   assuming breeds arrogance and condescending. Lets keep this friendly and technical
+14:43 SEJeff_work   no worries
+14:44 ironcamel     lets keep it technical. python's lack of anonymous functions, lack of variable scope, and broken support for closures make it not suited for programming in the functional paradigm
+14:45 SEJeff_work   100% agree
+14:45 ironcamel     \o/
+14:45 SEJeff_work   Guido is very stubborn and stupid at times
+14:45 SEJeff_work   The GIL
+14:45 SEJeff_work   I HATE python for some things because of the GIL
+14:45 SEJeff_work   anything that needs multicore or lots of concurrency. You can use a single threaded mainloop model, which will work around the problem, but that makes sad pandas
+14:46 SEJeff_work   So for that, python is not the best tool for the job.
+14:46 ironcamel     it is fine for networking type stuff
+14:46 ironcamel     where IO is the bottleneck
+14:46 SEJeff_work   And the multiprocessing module. Using multiprocessing.Pool for distributing work amongst different cpus (to work around the GIL) is gross
+14:47 SEJeff_work   I really hate that
+14:48 Pax           eureka!!  I think using hashes totally solved it!! Oh, hashes how i love your key value pairs!
+14:48 ironcamel     SEJeff_work: i think if you took the time to actually LEARN perl, you may like it as much as python. everything you can do in python, you can do in perl.
+14:48 ironcamel     but the opposite is not true
+14:49 SEJeff_work   Python isn't really amazing at any 1 thing except for being simple and easy to understand / write. I spent 2 years working in perl and never adored it.
+14:49 ironcamel     it does take a MUCH larger time investment to actually LEARN perl though
+14:49 SEJeff_work   Although I do like Data::Dumper quite a bit more than pprint.pprint()
+14:49 ironcamel     it will payoff in the long run though, imo
+14:49 ironcamel     there is Data::Dump from CPAN, which i like better
+14:49 ironcamel     dd $foo
+14:50 ironcamel     is much easier to type than
+14:50 ironcamel     print Dumper($foo)
+14:50 SEJeff_work   ironcamel, Well a lot of the projects I work with and contribute to are all python. Again, best tool for the job. I learned python because most of my coworkers already knew / used it.
+14:50 SEJeff_work   If we had anyone here that did perl, I would have continued using perl instead of learning a new language. I'm a pragmatist
+14:51 ironcamel     i see
+14:51 SEJeff_work   I don't pretend to be an expert in either as that would be lies
+14:51 SEJeff_work   But I'm not stupid and know linux better than most
+14:54 SEJeff_work   ironcamel, question for you
+14:56 SEJeff_work   How come (it appears) that so much of the new open source code is not perl, or even perl 6, but ruby or python or $some_other_crack_like_javascript
+14:58 ironcamel     SEJeff_work: perl is not hip enough i guess
+14:58 ironcamel     why is there so much php out there
+14:58 ironcamel     because it is easy
+14:58 SEJeff_work   amen
+14:58 shuff         because PHP is the working man's language
+14:58 ironcamel     just like it was easier for you to pick up python and go with it
+14:58 Pax           ironcamel: why is it important that perl roxxors that much? who cares? Can't we all just get along :)
+14:58 Pax           I'll totally bring cookies!
+14:59 SEJeff_work   ironcamel, But you know there is something to be said about RAD. I'm more productive if I can prototype faster
+14:59 ironcamel     Pax: i am crazy about perl, sorry
+15:00 ironcamel     SEJeff_work: you could prototype just as fast in perl
+15:00 ironcamel     if you knew perl
+15:00 ironcamel     as well as whatever language you are referring to
+15:00 SEJeff_work   So because I know C I can prototype just as fast in C?
+15:00 ironcamel     no
+15:00 SEJeff_work   I actually disagree :)
+15:00 ironcamel     i assumed you meant php or python
+15:01 ironcamel     when you made a reference to RAD
+15:01 SEJeff_work   php is a weird language that loosely wraps C
+15:01 SEJeff_work   I can write perl faster than php. Perl *is* very consistent if you write it with discipline
+15:02 SEJeff_work   it also has great scoping (unlike python)
+15:04 ironcamel     my favorite quote from Larry Wall: "True greatness is measured by how much freedom you give to others, not by how much you can coerce others to do what you want."
+15:04 ironcamel     the inventor of Perl
+15:04 SEJeff_work   ironcamel, truthfully, I think this boils down to I was coerced into maintaining very very bad perl
+15:04 SEJeff_work   I know who larry wall is
+15:04 ironcamel     SEJeff_work: that is a common story
+15:05 ironcamel     seems to be the reason perl has a bad reputation in a lot of cases
+15:05 SEJeff_work   To play devil's advocate, you don't hear that often with python
+15:05 ironcamel     "i had to maintain shitty perl"  ... &lt;- now that person things perl is shitty
+15:05 SEJeff_work   Nah, just annoying
+15:05 ironcamel     s/things/thinks
+15:06 SEJeff_work   Some would say that not hearing that often in python is a feature of python as it is designed to be a subset
+15:06 SEJeff_work   as you said
+15:07 ironcamel     the flexiblity of perl that allows you to write such obfuscated code, also makes it possible to write code that looks much better, than other languages that are more coercive
+15:07 SEJeff_work   100% agree
+15:07 SEJeff_work   Perl is incredibly concise
+15:08 SEJeff_work   but it isn't near as concise as K. If you've never had to write K you should thank the gods
+15:09 ironcamel     print "name: $name age: $age"  is much nicer imo that print "name: " . "age: " . str(age)
+15:09 ironcamel     even nicer than the %s way
+15:09 ironcamel     i forgot a . name . in there
+15:13 SEJeff_work   ironcamel, python's moving towards: the '{name}'.format(name="foo") style
+15:13 SEJeff_work   which is a bit strange, but powerful
+15:14 ironcamel     a bit ugly, imo
+15:15 SEJeff_work   yes
+15:15 SEJeff_work   or you can use indexes instead of named arguments, but still ugly
+15:15 ironcamel     this conversation DID start with "perl is ugly"
+15:15 ironcamel     08:41 &lt; SEJeff_work&gt; Absolutely. Perl lets you do things 10 different ways,  which results in impressively ugly code often.
+15:15 SEJeff_work   I will stand by that :)
+15:16 pdurbin       i hope you guys are behaving yourselves. busy doing real work. will read later
+15:16 ironcamel     pdurbin: we are trying
+15:16 SEJeff_work   And I will for the record state that perl's _core language_ OO is not the most pleasant to deal with
+15:16 SEJeff_work   Although moose looks very nice
+15:16 ironcamel     SEJeff_work: did you know that perl's built in oo was copied from python?
+15:17 SEJeff_work   I would like to see the source of that statement
+15:17 ironcamel     SEJeff_work: one sec ...
+15:17 SEJeff_work   And python does things like private or protected methods wrong or not at all. Not the best OO impl to copy
+15:18 SEJeff_work   If you recall, I never said python was amazing zomg great. I said it is simple
+15:18 SEJeff_work   You can pick up someone else's code and run with it quickly. Doing that with perl, even for an advanced user, is not always as easy.
+15:19 SEJeff_work   https://github.com/languages Thats why I think you see perl at 4% on github, which is sad
+15:20 ironcamel     i think 4% on github is respectable
+15:20 SEJeff_work   It is, just sad that it isn't higher
+15:21 ironcamel     "I don't really know much about Python. I only stole its object system for Perl 5. I have since repented."
+15:22 ironcamel     -- Larry Wall
+15:22 ironcamel     http://www.perl.com/pub/2007/12/06/soto-11.html
+15:22 ironcamel     SEJeff_work: it IS as easy with perl, IF you know perl
+15:22 ironcamel     it is hard reading russian as well
+15:22 ironcamel     if you don't know russain
+15:22 ironcamel     *russian
+15:23 SEJeff_work   I have written perl
+15:24 SEJeff_work   Never anything &gt; 400 or so LOC
+15:24 SEJeff_work   systems management scripts as you called them
+15:24 shuff         so, guys
+15:24 pdurbin       ironcamel, SEJeff_work: a little bird tells me you are NOT behaving yourselves. . .
+15:24 shuff         this discussion has grown extremely long
+15:25 SEJeff_work   ironcamel, Lets agree to disagree on perl is amazing vs all programming languages suck
+15:25 shuff         and has been repeatedly recapitulated elsewhere on the net :)
+15:25 pdurbin       how about you guys both write blog posts a la http://crimsonfu.github.com/2012/01/30/introducing-crimsonfu.html
+15:25 SEJeff_work   you being the former and me being the latter :)
+15:27 ironcamel     pdurbin: in what way are we not behaving?
+15:27 SEJeff_work   Probably just too much OT chatter
+15:27 ironcamel     OT?
+15:27 SEJeff_work   off topic, a common phrase used in IRC
+15:28 ironcamel     discussing merits of core sysops/dev tools is OT?
+15:28 SEJeff_work   I dunno, other people don't want to hear this convo so we can do it over PM to spare other the pain if you wish?
+15:28 SEJeff_work   s/other/&amp;s/
+15:28 ironcamel     i want everyone to feel the pain :)
+15:29 shuff         ironcamel: c'mon, this argument is entirely circular
+15:29 ironcamel     shuff: it is not an argument
+15:29 shuff         there is no world in which you will convince any group of more than two geeks to all say "ok, this is the optimal &lt;foo&gt;"
+15:29 ironcamel     shuff: i was explaining how perl oo was copied from python
+15:29 ironcamel     as SEJeff_work asked about
+15:30 shuff         with minor digressions into CPAN culture, web frameworks, and suitability for functional programming :)
+15:30 shuff         perhaps we could move to vi vs. emacs or linux vs. bsd next?
+15:30 ironcamel     SEJeff_work: it was copied, but it is more raw and low level in perl than python
+15:31 ironcamel     SEJeff_work: which made it easier for people to build better OO systems on top of it. such as Moose.
+15:31 ironcamel     shuff: is CPAN culture and web frameworks OT for this channel?
+15:32 pdurbin       ironcamel: i don't know if you are misbehaving or not. i'm relying on shuff here. will read later to decide for myself :)
+15:32 ironcamel     pdurbin: please do
+15:32 shuff         i dunno about OT for this channel
+15:33 pdurbin       "On topic: ConfiguRatIon Management of Systems Or Network kung FU, Linux, scripting, automation, security, best practices" -- http://crimsonfu.github.com
+15:33 pdurbin       send in pull requests from http://github.com/crimsonfu/crimsonfu.github.com
+15:33 shuff         but nonstop discussion from 10:24 to 11:33 is a bit painful
+15:33 ironcamel     i think perl discussions fall under scripting
+15:34 pdurbin       help us define ourselves
+15:34 pdurbin       could even open an issue :) https://github.com/crimsonfu/crimsonfu.github.com/issues
+15:34 ironcamel     pdurbin: i am happy with the topic as is
+15:35 ironcamel     if i have a misinterpretation of it
+15:35 ironcamel     please let me know
+15:35 ironcamel     i didn't know there was a time limit per discussion
+15:36 ironcamel     i was enjoying the discussion with SEJeff_work. i think shuff could use an attitude check though.
+15:38 pdurbin       shuff's a good guy
+15:39 pdurbin       i have a vm to build, but i'll read all this later
+15:43 pdurbin       we should all do a google hangout some day
+19:03 pdurbin       chatty chatty!
+19:04 pdurbin       ironcamel, SEJeff_work: great discussion. keep up the good work
+19:04 pdurbin       shuff: relax :)
+19:05 shuff         ok, ok, you're right
+19:05 shuff         have a good weekend, all!
+19:06 ironcamel     pdurbin: thanks
+19:06 ironcamel     hope shuff is not mad
+19:06 pdurbin       ironcamel: he's not. we had lunch
+19:07 pdurbin       everyone should meet shuff. you'll love him
+19:07 ironcamel     i'm sure
+19:07 ironcamel     that was not sarcasm, just to make clear :)
+19:07 pdurbin       yep yep
+19:08 pdurbin       and look he knows how to relax: http://search.cpan.org/~shuff
+19:08 pdurbin       he has a hammock
+19:08 ironcamel     oh wow
+19:08 ironcamel     shuff++
+19:09 ironcamel     a fellow CPAN'er
+19:09 * pdurbin     wonders if shuff has re-implemented how he used to monitor jabber for mentions of his name in irc and get an sms or what have you
+19:12 pdurbin       ironcamel: you kind of made the same rant to me the other day. i'm glad it's linkable now :)
+19:13 SEJeff_work   pdurbin, :)
+19:14 SEJeff_work   I try to surround myself with people as smart or smarter than me
+19:14 SEJeff_work   and smart is interchangable with skilled. ironcamel and you both taught me something new today. So it has been a good day
+19:14 pdurbin       +1
+19:16 pdurbin       so far i've been happy enough with python
+19:16 ironcamel     thanks SEJeff_work
+19:16 SEJeff_work   Both are good enough, but when I left an all perl shop 4 years ago, I learned python
+19:41 pdurbin       i just left an all perl shop
+19:41 * pdurbin     waves at shuff and whorka
+19:41 pdurbin       and here we use everything :)
+19:42 pdurbin       this annoys me a bit: "New in version 2.3. . . Deprecated since version 2.7" -- http://docs.python.org/library/optparse.html
+19:42 * whorka      waves back at pdurbin
+19:42 whorka        today I tried Perl::Critic. thanks!
+19:43 pdurbin       whorka: you can add Perl::Critic to perlNazi! :)
+19:44 whorka        I am slowly removing the obscene variables and filenames from our infrastructure. but I like the idea.
+19:44 pdurbin       does the perl code still refer to the death of another language which shall not be named?
+19:45 whorka        oh, that I'll keep. ;)
+19:45 pdurbin       i look forward to when you open source it :)
+19:47 whorka        speak of which, anyone here know where in github I submit patches to rpmforge packages?
+19:48 pdurbin       whorka: please see "How can I contribute?" at http://repoforge.org/faq/
+19:49 whorka        gotcha
+19:50 pdurbin       so regarding optparse vs. argparse, if there should be one-- and preferably only one --obvious way to do it in python, it would be nice if it wouldn't change :)
+19:51 SEJeff_work   pdurbin, Completely agree
+19:51 SEJeff_work   Luckily it is very easy to go between the two
+19:52 pdurbin       oh good. i didn't even look at argparse as i'm targeting whatever python is stock on the latest release of RHEL
+19:55 pdurbin       and i think i just convinced one of our django guys to do the same :)
+19:55 SEJeff_work   Yes that is good advice
+19:56 SEJeff_work   As they are all python and so similar, you can install argparse in older python
+19:56 SEJeff_work   Just like you can get the subprocess module for older python. I do agree that it is annoying to use just like ironcamel lamented however.
+19:56 pdurbin       hmm.  and it works? is it in core RHEL?
+19:57 SEJeff_work   If not, it would be in epel
+19:57 pdurbin       gotcha
+20:04 * pdurbin     runs `svn up`. Pax must have fixed his issue somewhere between 1328 and 1331
+20:07 SEJeff_work   Do you work with Pax?
+20:08 pdurbin       sort of. i met Pax and rhce training
+20:08 pdurbin       turns out he works at harvard too
+20:09 pdurbin       Pax: maybe you should change your page on http://crimsonfu.github.com/members to Pax. . .
+20:10 pdurbin       incidentally, the username you choose is meaningful: https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_config.yml#L5 for blog posts anyway
+20:12 pdurbin       SEJeff_work: i just made you an owner. no pull request needed anymore. please make a member page if you are so inclined
+20:12 SEJeff_work   max makes me think of grsecurity
+20:12 SEJeff_work   Pax, cooincidence?
+20:12 SEJeff_work   pdurbin, word
+20:44 pdurbin       Pax: i just committed a query-the-xmlrc-interface of cobbler script: https://github.com/crimsonfu/code/blob/master/cobbler.pl i *think* this is along the lines of what you were looking for yesterday: http://irclog.perlgeek.de/crimsonfu/2012-05-03#i_5535846
+20:45 Pax           hey very cool!
+20:47 pdurbin       myserver1 CentOS-6.0-x86_64-vm eth0: ip: 10.10.1.1 mac: 00:16:3e:6b:ca:2d bridge: br123 virt_file_size: &lt;&lt;inherit&gt;&gt;
+20:47 pdurbin       output should be something like that
+20:48 pdurbin       code could be better, of course
+20:48 pdurbin       but hey, at least now we have a code repo
+20:48 pdurbin       so let's see some more code :)
+20:52 SEJeff_work   pdurbin, Here is one for you I wrote awhile ago
+20:52 SEJeff_work   http://www.digitalprognosis.com/opensource/scripts/nhs
+20:54 SEJeff_work   Nothing fancy, just a quick and dirty python script to get hosts out of cobbler
+20:54 pdurbin       actually, come to think of it, the same code (basically) is wellington: http://git.greptilian.com/?p=wellington.git;a=blob;f=lib/Wellington.pm;h=2e4734239ba23244626697531357ee4198e62315;hb=HEAD#l39
+</pre></body></html>

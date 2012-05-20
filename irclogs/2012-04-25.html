@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+12:59 pdurbin     i just emailed a Mr. Thomas McGonagle ( http://www.meetup.com/Boston-DevOps-Meetup/members/20695341/ ), asking him if he'd like to join us here in #crimsonfu. I had exchanged emails with him about Puppet a while back. looks like he's on github too, and using vagrant: https://github.com/mcgonagletom/puppet_nist
+13:03 pdurbin     wow, this "Smashing the Stack in 2012: A brief tour of exploit mitigation techniques, and how to beat them" talk tonight at 7pm sounds great: https://lists.hcs.harvard.edu/pipermail/hcs-announce/2012-April/000490.html
+13:04 pdurbin     the speaker also gave a talk called "Breaking out of KVM": http://blog.nelhage.com/2011/08/breaking-out-of-kvm/
+13:06 SEJeff_work Oh those look very fun
+13:06 SEJeff_work totally envious
+13:08 pdurbin     the problem is that i'm afflicted with children ;) who are far to young to attend such talks with me, and who need to be picked up from day care :)
+13:15 SEJeff_work Ha
+13:15 SEJeff_work The smashing the stack talk is clearly a play on the *classic* article from Phrack
+13:15 SEJeff_work http://insecure.org/stf/smashstack.html
+13:16 SEJeff_work That was a long long time ago
+13:19 pdurbin     i feel like i should mention why i hestiated to put /var/named under version control (git).  I was listening to a git talk by Randal Schwartz and he says (on slide 4) that git is "not for... tracking file permissions and ownership" http://www.slideshare.net/RandalSchwartz/introduction-to-git-11451326 .  he says for stuff in /etc, he uses RCS instead
+13:20 pdurbin     so i'm unclear if using git the way i am is a problem. . . i don't think it is. . .
+13:27 pdurbin     anyway, it seems to be working fine.  the way i expect.  i'll report back if i encounter any problems
+13:41 SEJeff_work pdurbin, git does not preserve file permissions or ownership. That is correct
+13:41 SEJeff_work Randall is a bit odd. He is in #salt often as RandalSchwartz
+13:42 SEJeff_work Really seasoned admin, but a little too unix beardy for my tastes. We've went out a few times for drinks as he works with some of my friends here in Los Angeles
+13:44 pdurbin     i met him *very* briefly, as i mentioned previously: http://irclog.perlgeek.de/crimsonfu/2012-04-12#i_5432840
+13:45 shuff       hey folks
+13:45 shuff       it's good to be back :)
+13:46 pdurbin     hey shuff.  anyway, git is becoming a "go to" tool for me. if it does what i need i'm not going to go learn rcs
+13:50 pdurbin     the way i've got /var/named in git is pretty much the way cobbler does it
+13:51 SEJeff_work pdurbin, If you don't care about commit messages, you could also use rsnapshot
+13:51 SEJeff_work Which is really nice software for what it does
+13:51 pdurbin     yeah, we use rsnapshot, but i *do* want commit messages, even if they're all as the same git author
+13:52 pdurbin     (i'm referring to /var/lib/cobbler/.git . the git author is always "API update")
+13:53 pdurbin     anyway, i should have put /var/named in git months ago. i'm way less grumpy about tweaking DNS now :)
+13:55 pdurbin     imagine that. a grumpy sysadmin
+13:55 agoddard    pdurbin: why not use config. management for DNS?
+13:55 pdurbin     agoddard: would love to. do you?
+13:56 agoddard    node[:dns][:zones].each do |zone| &lt; yup :D
+13:56 pdurbin     is it on github?
+13:57 agoddard    chef already knows the fqdn of all the nodes it manages, and their IPs, so I wrote a recipe that dumps that into the DNS config. Then additional records (CNAMES etc) are just k-&gt;v pairs in attributes
+13:57 agoddard    https://github.com/mbl-cli/cli-legacy-cookbooks/blob/master/maradns/recipes/primary.rb#L34
+13:58 agoddard    (disclaimer, I hate maradns, swapping it out when we have time in an iteration)
+13:58 agoddard    https://github.com/mbl-cli/cli-legacy-cookbooks/blob/master/maradns/templates/default/zone.erb
+14:01 * pdurbin   looks at http://en.wikipedia.org/wiki/MaraDNS
+14:01 agoddard    (the k-&gt; pairing is stored in git too, but it's private )
+14:01 pdurbin     agoddard: thanks. very interesting
+14:02 pdurbin     agoddard: swapping out maradns for what?  BIND?
+14:03 agoddard    pdurbin: probably BIND. Haven't thought about it much, but will be trivial to take this template and make it work for any other DNS server
+14:07 agoddard    pdurbin: how heavily do you guys use puppet?
+14:07 pdurbin     pretty heavily! despite my playing with salt, i love puppet
+14:08 agoddard    schweet
+14:09 shuff       there are a bunch of modules on the forge tagged as "dns"; i haven't yet looked through all of them
+14:10 pdurbin     oh hey! "@philipdurbin I'm not going to discuss that 140 chars at a time. Please contact me by email. My address is all over the web. :)" -- http://twitter.com/merlyn/status/195145984257429504
+14:11 SEJeff_work pdurbin, You know...
+14:11 SEJeff_work We asked Mike for that feature eons ago
+14:11 SEJeff_work That specific feature
+14:12 pdurbin     who's mike?
+14:12 SEJeff_work Maybe 3 years ago we asked him to back it with git, but it is slow, you need fast storage for that feature
+14:12 SEJeff_work Michael Dehaan is the guy who wrote cobbler. Used to work for redhat
+14:12 SEJeff_work As one of his bigger users at the time, we worked quite closely with him
+14:13 pdurbin     i don't understand. . . our cobbler is in git. i just had to flip some bit in /etc
+14:13 SEJeff_work http://hastebin.com/gubudehasu.vhdl
+14:13 SEJeff_work ^^ /etc/cobbler/settings
+14:14 pdurbin     "scm_track_enabled: 1"
+14:15 SEJeff_work We asked for that feature in specific as we have 3 admins in 2 offices making changes and it was getting a bit harder to see what was going on. Longer term... I wrote this thing that talks to cobblerd's xmlrpcapi, and puts every system record into a database daily and then emails out a pretty unified diff of every added, modified, or removed system. I might be able to convince work to let me oss that
+14:15 pdurbin     ok, so all your saying is that you requested that feature. thanks! i love it!
+14:15 SEJeff_work yes
+14:16 SEJeff_work Mike is one of those rare project maintainers who is really good about being on IRC most of the time
+14:16 SEJeff_work So you can bounce ideas off him which lead to results very quickly
+14:17 pdurbin     sounds like thomas hatch, the lead developer of salt
+14:35 SEJeff_work Pretty much, yes
+14:35 agoddard    favorite (re)tweet of the week: https://twitter.com/#!/miller_joe/statuses/176815604869758977
+14:37 pdurbin     agoddard: heh. yeah, i saw that. awesome :)
+15:25 pdurbin     just linked a user to http://wiki.greptilian.com/mysql/mysql_secure_installation/
+15:34 pdurbin     i guess i'm going to that "smashing the stack" talk tonight, if anyone wants to meet me there
+15:36 pdurbin     i can't wait to have more to worry about
+15:48 SEJeff_work Have more children then. Should solve the problem
+15:51 pdurbin     -1
+15:52 shuff       having more children protects you against buffer overrun attacks?  i think you lost me there :)
+15:54 ironcamel   children++
+15:54 ironcamel   pdurbin: what is "smashing the stack" ?
+15:55 SEJeff_work ironcamel, &lt;pdurbin&gt; wow, this "Smashing the Stack in 2012: A brief tour of exploit mitigation techniques, and how to beat them" talk tonight at 7pm sounds great: https://lists.hcs.harvard.edu/pipermail/hcs-announce/2012-April/000490.html
+15:57 ironcamel   ah
+16:06 pdurbin     ironcamel: too bad you aren't local
+16:43 SEJeff_work Any taskwarrior fans here?
+16:52 pdurbin     shuff is: http://irclog.perlgeek.de/crimsonfu/2012-04-12#i_5432337
+17:02 ironcamel   A friend and I just released App::Notes https://metacpan.org/module/notes
+17:03 ironcamel   the neat thing is that it is backed by git, so you can create a gist for example, then run notes init uri_of_your_gist
+17:03 ironcamel   and you get a free web interface to your notes
+17:03 pdurbin     sounds like ikiwiki
+17:03 ironcamel   a new note is just a new file in your gist
+17:04 ironcamel   notes add and notes edit open up vim for you for you to edit your note
+17:04 ironcamel   unless you are piping in stdin, in which case it just uses the content of stdin
+17:05 pdurbin     i'll have to play with it
+17:05 ironcamel   pdurbin: sudo cpanm notes
+17:05 ironcamel   to install it
+17:05 ironcamel   or sudo cpan App::Notes
+17:05 pdurbin     ok. for ikiwiki, http://wiki.greptilian.com is backed by http://git.greptilian.com/?p=wiki.git
+17:08 ironcamel   neat. the cool thing about apps backed by git is you get history for free.
+17:09 pdurbin     absolutely. forget mysql as a backend. just use git
+17:09 ironcamel   make a mistake, just git reset blahblahblah
+17:11 pdurbin     yep
+18:07 pdurbin     ironcamel: have a sample git repo? for App::Notes?
+20:06 pdurbin     looking at http://git.fedorahosted.org/git/?p=linux-pam.git;a=blob;f=modules/pam_access/access.conf;hb=HEAD
+20:07 SEJeff_work pdurbin, If you use rhel, don't use pam_access
+20:08 SEJeff_work If you use RHEL 6.x or 5.7+, you have sssd
+20:09 SEJeff_work And sssd has the simple auth provider, which replaces pam_access. Ironically, I asked sgallagh, the sssd project lead, to add group support to it so we could phase out pam_access entirey: http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/config-sssd-domain-access.html
+20:11 SEJeff_work pdurbin, you do a lot of similar stuff that I do. Maybe if we're ever in the same area, we can pick eachother's brains
+20:12 SEJeff_work http://linux.die.net/man/5/sssd-simple
+20:17 shuff       SEJeff_work: wait, what? we're using pam_access on rhel6 and ubuntu lucid over here, and it appears to work just fine
+20:17 shuff       but i'll take a look at that simple auth
+20:17 SEJeff_work shuff, Oh it does work just fine, it is just a bit annoying
+20:17 SEJeff_work or I &lt;3 sssd more overall
+20:17 shuff       pdurbin: i can toss you the puppet module that we use to manage pam_access if you so desire
+20:18 shuff       it will be on the forge eventually
+20:22 pdurbin     shuff: i have some pam_access config that came from Pax, originally, I think. i dunno
+20:23 pdurbin     SEJeff_work: yes, beers some day. and i'll look at sssssssd.  thanks
+20:23 SEJeff_work If you use authconfig or anaconda to configure ldap and or krb in RHEL, you already use it
+20:24 pdurbin     this is the thing when you start a new job. you have to get up to speed with how things are done there
+20:25 pdurbin     which is always slightly different than the last shop
+20:27 pdurbin     shuff: did we use pam_access at hmdc? i guess whorka would know
+20:28 pdurbin     this is what i was looking for, by the way: http://git.fedorahosted.org/git/?p=linux-pam.git;a=blob;f=modules/pam_access/access.conf;hb=HEAD#l45
+20:29 pdurbin     "To avoid problems with accounts, which have the same name as a group..."
+20:29 pdurbin     just wanted to make sure i understood the syntax
+20:34 Pax         hey folks!  I was just looking over the red hat docs for sssd simple for access control, does it do network based control as well? Or just user /group controls?
+20:34 SEJeff_work Pax, What do you mean network access control?
+20:35 SEJeff_work It supports standard netgroups similar to normal ldap or nis
+20:35 SEJeff_work but if you use their IPA server, it supports their HPAC, which is more flexible than netgroups.
+20:36 Pax         so, part of what I initially liked about pam_access was that it had the sort of tcpwrappers like ability to allow user foo from network 1.2.3.0/24 and only allow them access from that net
+20:36 Pax         so like +: foo : 1.2.3.0/24
+20:37 SEJeff_work Oh touche! sssd doesn't do that, but you could do it with netgroups / hbac
+20:37 SEJeff_work Not near as easy as pam_access for that however
+20:39 Pax         gotcha!  I wouldn't have been surprised if sssd had been able to do it though, I feel like i've only touched the surface of it's awesomeness
+20:39 Pax         er and by gotcha I mean "I follow what your saying"
+20:40 Pax         geez it really is the end of the day huh?
+20:42 pdurbin     shuff: is there an easy way to get a border around a PHP Markdown Extra table? http://michelf.com/projects/php-markdown/extra/#table  just in markdown. no css, i mean
+20:42 shuff       uhhhhhhhhhhh
+20:42 shuff       i have no idea whatsoever :(
+20:42 pdurbin     :) that's ok. i need to run anyway
+20:42 shuff       i have avoided having anything to do with any of the markdown table implementations
+20:44 pdurbin     i've changed our markdown processor 3 times already. whatever jekyll uses, then Text::Markdown, now discount
+20:44 pdurbin     i think i'm done. really
+20:44 SEJeff_work Pax, yup, that entire team (redhat's IPA / sssd) team is full of smart guys. Worked with them (on sssd) since pre-1.0. It is fantastic software when compared to pam_ccreds or nscd's bag o fail
+20:45 pdurbin     the only thing discount doesn't have is the github-flavored markdown "don't squish newlines together" feature
+20:45 SEJeff_work What does gruber use?
+20:45 shuff       he disdains the vile table
+20:45 Pax         SEJeff_work re: nscd OMG truer words were never spoken
+20:45 pdurbin     "The biggest difference that GFM introduces is in the handling of linebreaks" -- http://github.github.com/github-flavored-markdown/
+20:46 SEJeff_work Pax, infinite negative caching what!
+20:46 pdurbin     i basically want discount to implement github-flavored markdown
+20:46 SEJeff_work pdurbin, You know gfm is in a github repo, right?
+20:46 SEJeff_work You can just steal it and use it :)
+20:46 pdurbin     can ikiwiki use it?
+20:46 SEJeff_work https://github.com/github/github-flavored-markdown
+20:47 SEJeff_work it is software, you can make software do anything. They probably wouldn't integrate without some love, but it might be possible.
+20:47 pdurbin     amen. ok. gotta go
+</pre></body></html>

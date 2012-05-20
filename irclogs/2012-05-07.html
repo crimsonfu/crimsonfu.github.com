@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+04:36 pdurbin_m dotfiles https://github.com/hinrik/dotfiles/blob/master/link-files
+04:39 pdurbin_m http://search.cpan.org/dist/File-LinkDir/
+10:45 pdurbin   so, to manage symlinks of my dotfiles to a git repo, i looked at https://github.com/technicalpickles/homesick and https://github.com/jim/briefcase but i'm pretty sure i like https://github.com/mrmuskrat/File-LinkDir/blob/master/bin/link-files even better. i had to make a tiny patch is all: http://git.greptilian.com/?p=dotfiles.git;a=commitdiff;h=da809d44440b501af8339019cfcba9a1c166e989
+13:37 pdurbin   explaining newgrp to users
+13:53 pdurbin   changed title of this ticket to "Using newgrp, chmod, and umask to set up directories fit for collaboration" and linked to http://en.wikipedia.org/wiki/Setgid#setuid_and_setgid_on_directories
+13:54 pdurbin   i don't know how many times i've written this email. probably time to add it to http://wiki.greptilian.com
+14:15 pdurbin   SEJeff (and anyone else who might be interested): discussing a weird problem i'm having with salt: http://irclog.perlgeek.de/salt/2012-05-07#i_5553599
+14:16 pdurbin   ironcamel: and yes, of course i'm using nopaste :)
+14:16 pdurbin   ironcamel: does your nopaste service give you permalinks for each line?
+14:17 pdurbin   hmm, apparently not, judging from http://danceb.in/2v3IzWyW4RGVoDPIl9DNYg
+14:17 pdurbin   i guess a github gist would give me permalinks per line. i haven't gotten around to playing with github gists yet
+14:22 SEJeff    pdurbin, Salt uses yum
+14:22 SEJeff    assuming you installed via yum
+14:23 pdurbin   SEJeff: right. yes. but can you explain the strange behavior? (we should probably take this to #salt)
+14:23 SEJeff    ok
+15:13 * pdurbin reads "never underestimate the power of a genome pig" at http://blog.jcuff.net/2012/05/never-underestimate-power-of-genome-pig.html which is all about "a parallel implementation of gzip for modern
+15:13 pdurbin   multi-processor, multi-core machines" http://zlib.net/pigz/
+15:14 pdurbin   "it took only 4 mins to compress nearly 34GB into 10GB which would have taken over an hour and a half with a single thread"
+16:39 SEJeff    pdurbin, Also see snappy (google's algo for this) and pbzip2
+17:21 pdurbin   snappy - A fast compressor/decompressor - http://code.google.com/p/snappy/
+17:21 pdurbin   Parallel BZIP2 (PBZIP2) - http://compression.ca/pbzip2/
+17:21 pdurbin   SEJeff: thanks!
+17:27 SEJeff    pdurbin, One final one to look at is xz: http://tukaani.org/xz/ lzma tends to be slower, but the absolute best compression of anything out there
+17:28 SEJeff    """ With typical files, XZ Utils create 30 % smaller output than gzip and 15 % smaller output than bzip2."""
+17:29 ironcamel just found out from magoo that you can embed perl straight into your nginx configs :) http://wiki.nginx.org/Configuration#Embedded_Perl_examples
+17:30 ironcamel not sure if you guys use nginx. i have been defaulting to it for everything recently.
+17:31 SEJeff    thats cool!
+17:32 pdurbin   ironcamel: i'm still using apache for everything. lazy, i guess
+17:32 SEJeff    For low memory vps's or for static media only, nginx is much better. If you don't care, apache is great
+17:36 pdurbin   "just because i don't care doesn't mean i don't understand!" :)
+17:37 pdurbin   i love that this guy uses that quote: http://twitter.com/jonahbishop
+17:40 pdurbin   fixed "err: Could not run Puppet configuration client: Could not retrieve local facts: Cannot allocate memory" by upgrading facter from 1.5.9 to 1.6.8. thanks, sjoeboo
+17:51 SEJeff    pdurbin, How did you fix that?
+17:54 pdurbin   hmmm? `apt-get update facter` or whatever
+17:54 pdurbin   of course, now i'm getting "nscd : Depends: libc6 (&gt; 2.11) but it is not going to be installed"
+17:54 pdurbin   it's like ubuntu is taunting me
+17:56 pdurbin   "E: Unable to correct problems, you have held broken packages."
+17:59 pdurbin   oh look, apt-get has a --fix-broken option
+18:05 mattdm    be careful with --fix-broken. It'll tear apart your whole system if it thinks it has to do that to get to a consistent state.
+18:59 pdurbin   "This APT has Super Cow Powers"
+19:00 pdurbin   http://superuser.com/questions/43715/what-are-super-cow-powers-and-why-doesnt-my-aptitude-have-them
+19:01 pdurbin   at least mine has them
+19:42 pdurbin   hmm: gnutls-cli --print-cert -p 636 ldap.server.com  . from [ubuntu] ldap client doesn't know CA?! - Ubuntu Forums - http://ubuntuforums.org/showthread.php?t=1031467
+20:20 pdurbin   /etc/alternatives/editor: symbolic link to `/bin/nano' bleh! #pdurbinlearnsubuntu
+20:26 pdurbin   great title: HandsomePlanet » un-ubuntuing visudo: how to make visudo use vi instead of nano - http://www.handsomeplanet.com/archives/60
+20:27 pdurbin   ubuntu should make a nanosudo
+20:27 shuff     you switched to /bin/ed, i presume?
+20:28 pdurbin   shuff: what does the vi in visudo mean?
+20:28 shuff     i had always thought that vipw/vigr/visudo etc were references to vi
+20:29 pdurbin   exactly
+20:29 shuff     but ed is the standard text editor!
+20:32 pdurbin   does visudo use vi on debian?
+20:33 shuff     hm
+20:33 shuff     the older debianesque box to which i have access has /etc/alternatives/editor pointing to /bin/nano
+20:34 shuff     so i'm guessing no
+20:35 pdurbin   yikes
+20:37 shuff     all around us, civilizations sink into degeneracy and decadence
+20:37 shuff     \/bin/nano indeed
+21:03 SEJeff    pdurbin, update-alternatives --config editor
+21:03 SEJeff    Oh and you might want to install the vim-full package
+21:15 magoo     this reminded me of our conversation from the other day
+21:15 magoo     https://wiki.archlinux.org/index.php/Pacman_Rosetta
+21:18 ironcamel the arch wiki is so badass :)
+21:19 SEJeff    Isn't Arch like what Gentoo was before Daniel Robinns left and all heck broke loose?
+21:23 ironcamel not sure, but i started using arch a week ago and i love it
+21:24 SEJeff    Thats what I've heard universally about it. Really need to check it out
+21:24 SEJeff    Does it have awesome or openbox&gt;
+21:24 SEJeff    ?
+21:36 ironcamel SEJeff: neither. i installed openbox though.
+21:37 ironcamel i don't think it comes with any WM or DE, but i could be wrong
+21:37 ironcamel SEJeff: and my friend told me about archbang, which is arch + openbox
+21:38 ironcamel gotta go coach soccer now, later
+21:38 SEJeff    later
+</pre></body></html>

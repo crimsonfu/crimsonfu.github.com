@@ -1,0 +1,182 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+00:29 ironcamel     pdurbin: don't tell people the url? pull requests and feature requests are welcome.
+01:10 pdurbin       ironcamel: maybe i'll just use yours :)
+01:10 pdurbin       at least until you start putting ads on it :)
+01:13 ironcamel     pdurbin: if you want to use http://danceb.in proper, make sure to install App::Nopaste::Service::Dancebin and export NOPASTE_SERVICES=Dancebin in your .bashrc, if you want nopaste to default do it
+01:13 ironcamel     or you can do nopast -s Dancebin
+01:13 ironcamel     alias dancepaste='nopaste -s Dancebin'
+13:02 pdurbin       dinking with python a bit has got me thinking about exceptions. reading this: perl - Are there disadvantages to autodie? - Stack Overflow - http://stackoverflow.com/questions/3941632/are-there-disadvantages-to-autodie
+13:04 pdurbin       "Perl's system calls don't automatically throw exceptions, but you can use autodie to do that." -- Perl traps for Python Programmers | brian d foy [blogs.perl.org] - http://blogs.perl.org/users/brian_d_foy/2011/10/perl-traps-for-python-programmers.html
+13:06 pdurbin       heh. "In Perl-land you have to explicitly ask for new/better/saner/nowadays behaviour, as by default you get (very/excessive || superb, depending on the job) strict backwards compatibility." -- http://blogs.perl.org/users/brian_d_foy/2011/10/perl-traps-for-python-programmers.html#comment-65856
+13:07 SEJeff_work   pdurbin, Exceptions are very nice
+13:07 pdurbin       huh. i've seen a lot of language comparison sites like this but not this one before, i don't think. . . http://hyperpolyglot.org
+13:07 SEJeff_work   I get angry when I see python code which just does the equiv of: sys.stderr.write("TEH INTERNETS ARE BROKE!\n"); sys.exit(1)
+13:08 SEJeff_work   when an exception would do just fine and can be gracefully caught
+13:08 pdurbin       SEJeff_work: from what i understand, guido practically invented python because we wanted exceptions so much
+13:08 pdurbin       s/we/he/
+13:09 pdurbin       i guess we all want exceptions :)
+13:09 SEJeff_work   It seems like exceptions are a first class thing in python
+13:09 SEJeff_work   like regex are a first class thing in perl
+13:09 SEJeff_work   and ruby
+13:09 pdurbin       yeah. good analogy. exceptions are in python's dna
+13:09 * SEJeff_work thinks they are a very nice part of the language
+13:10 SEJeff_work   Even if they did decide to deprecate BaseException.message *after* people start using the message attribute *grumble*
+13:10 pdurbin       eh? link?
+13:10 pdurbin       or are you gonna make me google?
+13:11 SEJeff_work   hold please
+13:11 SEJeff_work   I referenced it this morning
+13:11 SEJeff_work   pdurbin, http://www.python.org/dev/peps/pep-0352/#transition-plan
+13:11 pdurbin       thanks. also: [Python-Dev] deprecating BaseException.message - http://mail.python.org/pipermail/python-dev/2007-April/072542.html and http://stackoverflow.com/questions/1272138/baseexception-message-deprecated-in-python-2-6
+13:13 SEJeff_work   Yup, the proper way now is to just cast the exception to a string via str(exc), or use print, which calls repr() on the exception, which in turn calls __unicode__() which in turn calls __str__() or something vaguely like that I believe
+13:17 SEJeff_work   pdurbin, Any chance you could find the convo that ironcamel, yourself, and I had about perl's Dancer web framework where he was saying boo Flask yay Dancer?
+13:17 SEJeff_work   I also hate Flask and want to show someone that presentation that compared Flask vs Dancer. Dancer looked a lot nicer in the example given
+13:18 pdurbin       http://irclog.perlgeek.de/search.pl?channel=crimsonfu&amp;nick=&amp;q=flask
+13:18 pdurbin       http://irclog.perlgeek.de/crimsonfu/2012-05-04#i_5540416
+13:19 SEJeff_work   danke
+13:21 pdurbin       i can't stand slideshare though
+13:22 SEJeff_work   Yeah it works poorly under chromium on Linux
+13:22 pdurbin       SEJeff_work: do you have chromium working on, say centos 6?
+13:23 SEJeff_work   No, I don't run old lame distros on Desktops :)
+13:23 SEJeff_work   I tend to keep real data on a NAS and have $config_management setup to rebuild the boring part of my desktop config every 6 months or so
+13:24 SEJeff_work   Around Fedora or Ubuntu release-time, whatever I'm deciding. It has been all Fedora since Unity though (Ubuntu &gt; 10.10) as Unity is meh
+13:25 pdurbin       i'm running fedora on my laptop at home. . . maybe i should switch to fedora for my workstation at work. . .
+13:26 pdurbin       i guess i'm running rhel/centos on my workstation at work because that's what i've always done. /cc shuff, whorka
+13:26 SEJeff_work   I'm making the plunge and am going to put the Beefy Miracle Beta on a 2nd machine here at work today
+13:26 shuff         eating your own dog food?
+13:26 pdurbin       shuff: don't talk to me. you're all mac now ;)
+13:27 SEJeff_work   communist
+13:27 shuff         it appears i do not love dog food :)
+13:33 pdurbin       oh, these days shuff would probably rather run ubuntu
+13:45 * pdurbin     wonders if whorka has upgraded yet
+13:50 pdurbin       man, i was bragging up how virsh live migrate "just works" the other day, but now i'm debugging something along these lines. . .
+13:57 pdurbin       oh, i bet it's this stupid thing again. [libvirt-users] Problem to migrate virtual machine between two hosts wit - https://www.redhat.com/archives/libvirt-users/2011-August/msg00084.html
+13:58 SEJeff_work   yucky
+13:59 SEJeff_work   pdurbin, Do you use anything like sheepdog?
+13:59 pdurbin       "two hosts with same uuid". actually, maybe not. ok. going to dig and and quit annoying you all :)
+13:59 SEJeff_work   http://www.osrg.net/sheepdog/
+13:59 pdurbin       "Sheepdog is a distributed storage system for QEMU/KVM. It provides highly available block level storage volumes that can be attached to QEMU/KVM virtual machines. Sheepdog scales to several hundreds nodes, and supports advanced volume management features such as snapshot, cloning, and thin provisioning."
+13:59 pdurbin       hmm. nope. . .
+14:02 pdurbin       i guess we'll use swift if i ever get openstack going. "Swift is a highly available, distributed, eventually consistent object/blob store." http://swift.openstack.org
+14:03 pdurbin       agoddard: Sheepdog versus iSCSI for KVM - Server Fault - http://serverfault.com/questions/361732/sheepdog-versus-iscsi-for-kvm
+14:04 SEJeff_work   pdurbin, One is eventually consistent and an object store. One is block level storage. Those can't be directly compared
+14:05 SEJeff_work   You can't have a live backup that is eventually consistent. Doesn't work that way :)
+14:06 pdurbin       agoddard has mentioned iscsi a couple of times: http://irclog.perlgeek.de/crimsonfu/2012-03-26#i_5353956 http://irclog.perlgeek.de/crimsonfu/2012-04-04#i_5394462
+14:07 SEJeff_work   glusterfs is also good for vms
+14:07 SEJeff_work   And in upstream kernel.org, FUSE just gained O_DIRECT support
+14:07 SEJeff_work   which means gluster could be a lot faster
+14:07 pdurbin       SEJeff_work: cool, cool. baby steps :)
+14:17 pdurbin       i don't believe i've ever linked to this kvm / libvirt "States that a guest domain can be in" graphic, which i love: http://wiki.libvirt.org/page/VM_lifecycle#States_that_a_guest_domain_can_be_in
+14:24 pdurbin       "As mentioned above, libvirt will not touch configuration files during migration by default. The virsh command has two flags to influence this behaviour. The --undefine-source flag will cause the configuration file to be removed on the source host after a successful migration. The --persist flag will cause a configuration file to be created on the destination host after a successful migration. The following table summarizes the configuration file
+14:25 SEJeff_work   Nifty graphic
+14:25 pdurbin       although on my man page for virsh it says --persistent
+14:25 pdurbin       anyway, i think that's my problem
+14:26 SEJeff_work   Someone just linked me to this hilarious talk on ruby and javascript. Someone in here might find this as hilarious as I do: http://www.youtube.com/watch?v=kXEgk1Hdze0
+14:29 pdurbin       later maybe. and maybe i'll read this later too (via #salt): Why should I have written ZeroMQ in C, not C++ - 250bpm - http://www.250bpm.com/blog:4
+14:29 SEJeff_work   Yeah thats interesting
+14:30 pdurbin       in case people have never seen this, it's a classic: Linus Torvalds on C vs C++: http://lwn.net/Articles/249460/
+14:31 SEJeff_work   Linus torvalds on svn is my personal fav
+14:31 SEJeff_work   "svn users are stupid and ugly" - Actual Linus Torvalds quote
+14:31 pdurbin       definitely a classic too :)
+14:31 SEJeff_work   http://www.youtube.com/watch?v=4XpnKHJAok8 Source of that quote
+14:32 pdurbin       related, saw this on twitter last night but didn't get a change to read it: Chistory - http://cm.bell-labs.com/who/dmr/chist.html - The Development of the C Language*
+14:32 SEJeff_work   nice
+14:33 pdurbin       via Twitter / @CodeWisdom: An essay on the developmen ... - https://twitter.com/CodeWisdom/status/200241238631391232
+15:08 SEJeff_work   What is the best way to find out where a cpan module was installed? The equiv ideally of python's modulename.__file__
+15:11 pdurbin       if you *only* use RPMs, this is pretty easy :)
+15:12 * pdurbin     **cough** ironcamel
+15:19 pdurbin       SEJeff_work: do any of these work? How do I find which file Perl loaded when I use a module? - Stack Overflow - http://stackoverflow.com/questions/341484/how-do-i-find-which-file-perl-loaded-when-i-use-a-module
+15:22 SEJeff_work   pdurbin, Well you and ironcamel forced me to check out mojolicious
+15:22 SEJeff_work   and for just grabbing parts of webpages, it beats curl + sed + awk any day
+15:22 SEJeff_work   really cool little cli app
+15:28 pdurbin       mojo get http://search.cpan.org/dist/App-SerializeUtils/ 'table' all | tr " " "\n" | grep 2 | tail -12 | tr "\n" " "
+15:28 pdurbin       dd2json dd2php dd2yaml json2dd json2php json2yaml php2dd php2json php2yaml yaml2dd yaml2json yaml2php
+15:29 pdurbin       i'm sure there's a better way to use `mojo get` there. . .
+15:29 pdurbin       but the point is
+15:29 pdurbin       SEJeff_work: if you like mojo, check out json2yaml et al. at http://search.cpan.org/dist/App-SerializeUtils/
+15:31 SEJeff_work   well for pretty printing json, I always pipe to python -mjson.tool
+15:31 SEJeff_work   http://hastebin.com/gukuvafabo.dos for instance
+15:31 pdurbin       SEJeff_work: but how do you convert json into yaml and back?
+15:33 SEJeff_work   Never had a need to do that
+15:34 pdurbin       but without these handy tools, how are you going to answer questions like this? :) Yaml hierarchical data - Stack Overflow - http://stackoverflow.com/questions/6353615/yaml-hierarchical-data/8452255#8452255
+15:35 ironcamel     SEJeff_work: perldoc -l Data::Dumper will show you where Data::Dumper is installed
+15:36 SEJeff_work   ironcamel, You're a gentlemen and a scholar.
+15:36 SEJeff_work   thanks
+15:36 ironcamel     SEJeff_work: you can pipe to json_pp ... easier to type than python -mjson.tool :)
+15:36 pdurbin       ironcamel: i was holding my tounge about that :)
+15:36 ironcamel     haha
+15:36 SEJeff_work   ironcamel, *shrug* i have a shell alias called jpp
+15:36 pdurbin       or however you spel it
+15:37 SEJeff_work   alias jpp='python -mjson.tool'
+15:37 SEJeff_work   but thanks. More tools are never a bad thing
+15:37 ironcamel     pdurbin: for data munging on the command line, look at https://metacpan.org/module/App::p
+15:37 * SEJeff_work needs to clean up and post my ~/.bashrc
+15:37 SEJeff_work   Up to 316 lines now
+15:37 ironcamel     for going between json/yaml/xml etc
+15:39 pdurbin       ironcamel: +1
+15:41 pdurbin       of course, speaking of easy to type, json2yaml is pretty easy ;)
+15:41 ironcamel     pdurbin: p 'p yd jl io("http://cpantesters.org/distro/J/JSON-XS.json")-&gt;all'
+15:42 ironcamel     that's an example of using App::p. you read it from right to left
+15:42 pdurbin       curl -s http://cpantesters.org/distro/J/JSON-XS.json | json2yaml
+15:42 pdurbin       way better :)
+15:42 ironcamel     pdurbin: p 'p xd jl io("http://cpantesters.org/distro/J/JSON-XS.json")-&gt;all'
+15:44 ironcamel     pdurbin: p 'uniq map $_-&gt;{os_text} @{ io("http://cpantesters.org/distro/J/JSON-XS.json")-&gt;all }'
+15:45 pdurbin       ironcamel: christ almighty. let me finish with this vm first
+15:45 pdurbin       i need --undefinesource too
+15:47 ironcamel     that was wrong. the correct command would be:
+15:47 ironcamel     p 'dd uniq map $_-&gt;{osname}, @{ jl io("http://cpantesters.org/distro/J/JSON-XS.json")-&gt;all }'
+15:47 ironcamel     that takes the json document which shows the test results for the JSON::XS module
+15:47 ironcamel     and prints all the unique operating systems that the tests were run on
+15:48 ironcamel     can json2yaml do that :)
+15:49 ironcamel     by the way, does everyone know that when you release a module to cpan, your tests that you include get run on a matrix of hundreds of machines
+15:49 ironcamel     of various architectures, operating systems, different versions of the linux kernel, differen versions of perl ...
+15:49 pdurbin       ironcamel: stand by
+15:50 pdurbin       whorka: i have a correction for http://irclog.perlgeek.de/crimsonfu/2012-05-03#i_5534219 which doesn't "just work" quite the way i wanted
+15:50 ironcamel     pypy or rubygems doesn't have anything like that afaik
+15:50 ironcamel     http://www.cpantesters.org/distro/D/Dancer.html#Dancer-1.3095
+15:50 pdurbin       virsh migrate --live --verbose --persistent --undefinesource $DOMAIN_TO_MIGRATE qemu+ssh://$TARGET_KVM_HOST/system
+15:50 SEJeff_work   pypy != pypi
+15:50 ironcamel     that is an example of the test results for Dancer
+15:50 SEJeff_work   ironcamel, Those two are very different things
+15:50 pdurbin       that one works. el6
+15:50 ironcamel     SEJeff_work: sorry :)
+15:51 pdurbin       ironcamel: shuff is well aware of the matrix of tests. i haven't uploaded to cpan. . . yet! :(
+15:51 SEJeff_work   Thats very nifty however that CPAN does that. Who funds it?
+15:52 ironcamel     SEJeff_work: it is community driven, people volunteer to have those tests run on their own servers
+15:52 ironcamel     so its a mish mash of peoples servers
+15:52 SEJeff_work   Best way to do it.
+15:55 whorka        thx for the update pdurbin
+15:55 pdurbin       much like irc :)
+15:57 pdurbin       whorka: sure
+15:57 pdurbin       whorka: i tried your fastcgi thingy. didn't just work :( spent *very* little time on it though #busybusy
+15:59 whorka        tested fine on my workstation. patches welcome. :)
+16:00 pdurbin       whorka: how about you write me some config files: http://git.greptilian.com/?p=salt.git;a=tree :)
+16:02 whorka        oh, actually, did you rebuild the rpm from the spec I pushed, or were you just using rpmforge?
+16:02 pdurbin       i grabbed the copy from rpmforge
+16:02 pdurbin       also, i'm on el6...
+16:03 whorka        ah, then I think you got mod_fastcgi-2.4.6-1 if they haven't rebuilt it yet.
+16:04 whorka        I haven't tested RHEL6 either
+16:05 pdurbin       no worries. i'll report back
+16:06 whorka        I updated the blog post to note the minimum version. thanks for the feedback.
+16:08 pdurbin       sure
+16:08 pdurbin       ironcamel: holy crap. App:p is awesome. and way to squat on that namespace
+16:11 ironcamel     :)
+16:43 pdurbin       my adventures with virsh this morning, if anyone is interested: http://git.greptilian.com/?p=wiki.git;a=blob;f=libvirt/virsh.mdwn;hb=ba99ad28df6ac82fae96dcfe2ae88c9f7f87b9e2
+16:43 pdurbin       this might become another of my "answer my own question" on a stack exchange site
+16:43 pdurbin       a la fedora - Can I prevent "Disable touchpad while typing" from affecting mouse movements? - Unix and Linux - http://unix.stackexchange.com/questions/37962/can-i-prevent-disable-touchpad-while-typing-from-affecting-mouse-movements
+16:44 pdurbin       though in that case, the developer did write me back and encourage me to open a ticket in red hat's bugzilla
+18:41 SEJeff_work   pdurbin, re your crosspost from #salt. I think a zeromq lib written in erlang would be really nifty
+19:33 pdurbin       hmm, i seem to have found a reproducible way to crash thunderbird :(
+19:33 pdurbin       SEJeff_work: cross post? erlang?
+19:34 SEJeff_work   &lt;pdurbin&gt; later maybe. and maybe i'll read this later too (via #salt): Why should I have written ZeroMQ in C, not C++ - 250bpm - http://www.250bpm.com/blog:4
+19:36 pdurbin       oh oh. got it
+23:47 pdurbin       SEJeff|away: as it turns out, that "Why should I have written ZeroMQ in C, not C++" article is all about exception handling! :)
+23:54 pdurbin       wow and the "Gary Bernhardt WAT" video was great :)
+23:54 SEJeff|away   pdurbin, Yes, that is one that is worth spreading to all. It was hilarious in how it made fun of javascript silliness
+23:55 SEJeff|away   Ok leaving for the day now. Evening sir-s
+</pre></body></html>

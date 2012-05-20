@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+14:04 pdurbin     just updated http://modules.rc.fas.harvard.edu/api/1/avail/
+15:16 pdurbin     looking at http://pkgs.repoforge.org/icinga/ http://en.wikipedia.org/wiki/Icinga and https://www.icinga.org/nagios/feature-comparison/
+15:16 SEJeff_work Why icinga?
+15:20 pdurbin     well, i'm thinking we can manage it with core Puppet commands, since Puppet natively supports nagios. and unlike nagios, icinga has an API, which would be useful for reporting and such
+15:20 SEJeff_work pdurbin, You're correct on both of those. We are migrating from zenoss to icinga
+15:21 pdurbin     interesting. i though i heard good things about zenoss though. . . why are you migrating away?
+15:22 SEJeff_work ZenOSS is great if you're a pointy clicky not so much automation company
+15:22 pdurbin     huh. ok
+15:23 SEJeff_work Or if you don't use config management and know exactly what is on all of your systems
+15:23 SEJeff_work It's autodiscovery is pretty good
+15:23 SEJeff_work But we found any non-trivial customizations difficult and that it often gets in our way
+15:24 pdurbin     ok, so maybe good if you really want autodiscovery
+15:24 SEJeff_work ie: we have lots of services we have active failover for using keepalived + vrrp. ZenOSS can't monitor the virtual ip provided by keepalived because it sees that ip on a system it already monitors
+15:24 SEJeff_work You can make it do it, but it is a real pain and doesn't deal with failovers very well
+15:25 SEJeff_work I think zenoss is a decent product. Some of the concepts it has like device classes and it's concept of groups are ill conceived
+15:25 SEJeff_work But it was either too difficult to mold, or too smart (got in the way) more than it stayed out of our way
+15:25 SEJeff_work We can templatize / script around nagios much easier and icinga is nagios with an active upstream and great api. It just makes more sense for us
+15:26 pdurbin     right. yeah, i'm basically thinking along the same lines
+15:26 SEJeff_work The IcingaMQ stuff is actually something we were going to build in-house until we saw they were building it themselves
+15:27 pdurbin     well if MQ is what i think it is. . . sensu was built from the start with messaging
+15:28 SEJeff_work Think of it basically like nrpe (run things remotely) but securely and over zeromq
+15:28 SEJeff_work A message bus is just well suited to the problem more so than something
+15:28 pdurbin     cool. i've barely used nrpe. can get a lot of mileage out of checks over the network
+15:29 SEJeff_work pdurbin, Look at using gearmand + mod_gearman until icingamq is a bit farther along
+15:29 SEJeff_work mod_gearman + icinga is solid
+15:30 pdurbin     icinga seems to have nice docs: https://wiki.icinga.org/display/howtos/Icinga+with+mod_gearman+on+RHEL+and+Debian
+15:31 SEJeff_work Careful with the docs, some of them are horribly out of date
+15:31 SEJeff_work Like the ones for enabling the REST api don't really work for the most recent release.
+15:32 pdurbin     ok
+15:33 SEJeff_work But they are really helpful in #icinga as well
+15:34 pdurbin     cool. yeah, icinga seems to have a strong community
+15:35 SEJeff_work nagios upstream is a bit butthurt over it though
+15:35 SEJeff_work if you mention icinga in #nagios, it is like asking Ubuntu questions in #debian-devel
+15:36 pdurbin     heh
+18:35 pdurbin     hmm, there's http://augeas.net/docs/references/lenses/files/dhcpd-aug.html but nothing for bind/named...
+18:45 SEJeff_work pdurbin, Perhaps you can get a variant of: https://www.redhat.com/archives/augeas-devel/2011-July/msg00011.html
+18:48 pdurbin     SEJeff_work: thanks, good find
+18:49 pdurbin     i've also been tracking http://serverfault.com/questions/276995/bind-http-api and http://serverfault.com/questions/168144/managing-zone-files/179747#179747
+18:50 SEJeff_work I helped write the augeas python bindings but if you ask, I'll lie and say I didn't
+18:50 SEJeff_work http://git.fedorahosted.org/git/?p=python-augeas.git;a=blob;f=augeas.py;h=7105cd01e9ccd208713e08e06a38ebc8d75209da;hb=HEAD#l16
+18:50 SEJeff_work Why not just use powerdns or the bind zone files in ldap patches? Which are the default in RHEL I believe
+18:51 pdurbin     powerdns?
+18:51 SEJeff_work backed my mysql
+18:52 SEJeff_work Use it for the authoritative dns server and then bind for caching and recursing everywhere else
+18:54 SEJeff_work pdurbin, It might be easier than sed over a named.conf
+18:54 pdurbin     looks like pdns is in epel
+18:55 pdurbin     SEJeff_work: have you used cobbler?
+18:55 SEJeff_work hehe
+18:55 SEJeff_work Thats like asking a Linux admin if he has used bash
+18:55 SEJeff_work I use cobbler almost every day
+18:55 SEJeff_work Actually for sure every day
+18:55 pdurbin     i'm in love with all the interfaces cobbler provides
+18:55 pdurbin     command line
+18:55 pdurbin     xmlrpc
+18:55 pdurbin     web
+18:56 pdurbin     does powerdns have all this?
+18:56 SEJeff_work powerdns is pretty scriptable
+18:56 SEJeff_work but ultimately, it is in a mysql db
+18:56 SEJeff_work So really easy to administer programatically
+18:57 pdurbin     i'm listening :)
+18:57 SEJeff_work pdurbin, And yes, I've got: server = xmlrpclib.ServerProxy("http://%s/cobbler_api" % cobbler_server) in muscle memory
+18:57 SEJeff_work pdurbin, Well I've not directly admin'd powerdns, but I know some people do swear by it.
+18:58 SEJeff_work What distro do you use? Is it safe to say RHEL?
+18:58 pdurbin     centos mostly
+18:59 SEJeff_work I was *very* close to using bind-sdb + ldap + django-ldapdb to build a dns management console, but the guy decided to not pay me
+18:59 SEJeff_work s/build/&amp;ing/
+19:02 pdurbin     SEJeff_work: so are there scripts? for powerdns?
+19:03 pdurbin     braiotta: don't you have some experience with infoblox dns?
+19:03 braiotta    I do!
+19:04 pdurbin     is it awesome?
+19:04 braiotta    (to those that don't know me I work in the HUIT NOC Systems group)
+19:04 braiotta    we switched over to Infoblox for DNS around 18 months ago I think
+19:04 pdurbin     for those that don't know, HUIT stands for Harvard University IT (i think)
+19:04 braiotta    for now it does anyway
+19:04 SEJeff_work pdurbin, You work for the harvard research computing hpc cluster stuff? Isn't that right?
+19:05 SEJeff_work At work we use bluecat, an infoblox competitor
+19:05 braiotta    former UIS for the most part
+19:05 braiotta    we've found Infoblox to be mostly worthwhile for us, with some headaches
+19:05 braiotta    it has an API that mostly extends everything the GUI does
+19:06 braiotta    and a CLI environment for one-linerish things
+19:06 SEJeff_work pdurbin, There are various projects you'll find ontop of powerdns like this: https://github.com/devel/PowerDNS-API
+19:06 SEJeff_work nice!
+19:06 pdurbin     SEJeff_work: this is me: http://rc.fas.harvard.edu/about-rc/research-computing-staff/philip-durbin/
+19:06 braiotta    pluses on infoblox:
+19:07 braiotta    * It's proven very stable, and HA is built in.
+19:07 braiotta    * By extending a scriptable API and not storing data in a flat file, the system's allowed us to extend self-service DNS in a way we never could in the BIND days, where one typo could blow a whole zone loading.
+19:07 braiotta    * the built in sanity checks take a big load off of us.
+19:07 braiotta    minuses:
+19:07 braiotta    * much of the value for us was the API. If you don't have a scripter on staff (and it has to be perl, at that), you don't get much benefit out of that.
+19:07 braiotta    * it's EXPENSIVE, and forecasting the cost has proved challenging: the Infoblox folks suggest hardware for our environment and expected load, it winds up being underpowered, we spend more for the next level of hardware.
+19:07 braiotta    * the lack of flat fileness has its downsides: it used to be if we had a bulk operation, we work on the file, rehup BIND, and blammo. Done. Now we're either dealing with the built in GUI (which is...better than it was, but not great) or putting together an API script. Again, there are the gains noted above, but it's not all win.
+19:07 braiotta    * The API (and the GUI to a degree) are slooooooooooow. So slow that some scheduled bulk procedures we used to run in the BIND days had to be abandoned. The time to carry out the operation exceeded the frequency we needed it done.
+19:07 braiotta    * It doesn't run on commodity hardware, but dedicated appliances. That makes a lot of things easier, but of course that means once an appliance is out of date, it's useless. You can get a license for hardware I think, but there're no real cost savings.
+19:07 braiotta    * It's tough to have a test environment that matches the production environment due to cost. So testing things like version interoperability/etc are easy. Testing ability to handle a specific load of querys is difficult, since that depends on having a large "grid." And we don't want to test bringing down our production grid. That hasn't caused a problem yet, but of course when you're testing you REALLY want to test, right?
+19:07 pdurbin     (+1 for sanity checks. cobbler commands give me this.)
+19:08 pdurbin     braiotta: i strongly suggest a copy/paste going on... ;)
+19:08 pdurbin     er. suspect, i mean
+19:08 braiotta    I'll never tell!
+19:10 SEJeff_work braiotta, Have you used bluecat?
+19:10 SEJeff_work We chose bluecat over infoblox after a week or so comparison
+19:11 SEJeff_work infoblox has a really gross java swing gui where bluecat has a nice, albeit slightly clunky web ui that works in any modern browser
+19:11 SEJeff_work both have crappy perl apis :)
+19:11 SEJeff_work bluecat supports csv imports
+19:11 braiotta    I haven't used bluecat, but I think others here have
+19:11 braiotta    I won't argue that the Infoblox GUI is a BEAST
+19:11 braiotta    it's gotten marginally better with each release
+19:11 SEJeff_work Very very slow. Thats what turns us off from the product
+19:11 braiotta    yep
+19:11 braiotta    also true
+19:11 SEJeff_work bluecat's gui might require a lot of clicks, but it is fast and lightweight overall
+19:11 SEJeff_work We're quite pleased with it
+19:12 SEJeff_work And it works well on my Linux desktop, infoblox was a bit painful for that
+19:12 braiotta    I wasn't involved in the decision to go with Infoblox, so I can't say what the exact calculus was
+19:12 SEJeff_work Yeah for big environments, both are better than bind
+19:13 SEJeff_work We were manually editing isc dhcpd configs for office dhcp as we wanted static mac address assignment (4 offices on 3 continents)
+19:13 braiotta    I can tell you that the Infoblox GUI is spares no clicking itself
+19:13 SEJeff_work It got hairy quickly!
+19:13 SEJeff_work So now we have bluecat doing dhcp + dns for our offices
+19:13 braiotta    for the most part we've found homegrown websites that leverage the API are our best option
+19:13 braiotta    although the slowness is only mitigated
+19:13 SEJeff_work and our helpdesk guys can pointy / clicky to manage dhcp records with a nice audit trail
+19:14 braiotta    yeah that's what we use our api-enabled web apps for
+19:14 SEJeff_work Sure, thats how most shops with smart people do it anyways
+19:14 SEJeff_work Yup
+19:14 SEJeff_work Thats one of the reasons we use cobbler for other stuff
+19:14 SEJeff_work like pdurbin said, it is so insanely easy to script and tie into existing stuff
+19:17 pdurbin     yeah, speaking of audit trail, i only just now got around to putting /var/named under version control
+19:17 pdurbin     baby steps
+19:17 SEJeff_work This shiney is distracting me: http://square.github.com/cubism
+19:17 SEJeff_work Trying to figure out where best to use it and have a few ideas
+19:18 SEJeff_work native graphite integration &lt;3
+19:18 braiotta    whoa that is neat
+19:18 SEJeff_work Reminds me a lot of rickshaw: http://code.shutterstock.com/rickshaw/examples/extensions.html
+19:19 SEJeff_work then realized that both use D3
+19:19 * pdurbin   tries to find the recent shiny http://www.highcharts.com example on our new website...
+19:19 braiotta    I'm just about done with an HTML5/Canvas graphing solution for DHCP utilization; once Infoblox is able to deliver more up-to-date stats might have to switch to that
+19:19 SEJeff_work nic
+19:19 SEJeff_work e
+19:20 pdurbin     this thing: http://rc.fas.harvard.edu/mri/
+19:21 * pdurbin   backs away from the shiny. ready for more on dns
+19:21 SEJeff_work jquery ui with the smoothness theme!
+19:21 SEJeff_work Love it
+19:22 pdurbin     so i guess i'll give powerdns a try. it's in epel
+19:27 SEJeff_work pdurbin, Might also be worth a shot at checking this out: https://gist.github.com/1065061
+19:28 pdurbin     man, where is ironcamel! it uses Dancer! https://github.com/devel/PowerDNS-API/blob/master/bin/pdnsapi_manage
+19:28 pdurbin     oh, nevermind. . . converted to mojolicious: https://github.com/devel/PowerDNS-API/commit/f3d984bf0052816f70c63aba473b6eab5c544bc8
+20:41 pdurbin     ok, just added a comment, linking back here :) http://serverfault.com/questions/168144/managing-zone-files/179747#comment393562_168149
+20:42 pdurbin     'cause i'm definitely going to want to review this chatter
+20:43 SEJeff_work You do love your irc logs
+20:49 pdurbin     like colonel homer i want to crack all your heads open and scoop out the songs^h^h^h^h fu: http://www.snpp.com/episodes/8F19.html
+20:53 SEJeff_work :)
+20:53 SEJeff_work It might take awhile, I've got tons of Stargate SG1 trivia^W^W^Wtips
+</pre></body></html>

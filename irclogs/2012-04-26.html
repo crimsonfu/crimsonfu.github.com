@@ -1,0 +1,517 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+00:54 ironcamel     pdurbin: sorry, i pointed App::Notes to a private gist, which is normally what you would do, unless you wanted your notes to be public
+00:55 ironcamel     pdurbin: but just imagine a gist, with multiple files. each new note you make creates a new file in the gitst.
+00:55 ironcamel     pdurbin: a nice side effect of this is that if you name your note foo.md, the file in the gist on github will get nice markdown formatting if you include markdown in the gist.
+00:56 ironcamel     pdurbin: or if you name your note foo.pl, it will get perl syntax hilighting, etc.
+01:33 pdurbin       ironcamel: fancy syntax highlighting is certainly something i haven't pursued with ikiwiki... yet
+01:41 pdurbin       so i went to that "smashing the stack" talk and it was great
+01:42 pdurbin       i think shuff had pointed me to this project by the guy who gave it: https://github.com/nelhage/reptyr
+01:43 pdurbin       http://stuff.mit.edu/iap/2009/exploit/ is full of interesting tidbits
+01:43 pdurbin       including an older version of his slides: http://stuff.mit.edu/iap/2009/exploit/stack.pdf
+01:43 pdurbin       and this is full of fun: http://stuff.mit.edu/iap/2009/exploit/stack.tgz
+01:46 pdurbin       unfortunately, i got there a little late and missed at least 20 minutes :(
+01:47 ironcamel     reptyr looks great
+01:47 ironcamel     its for when you forget to start a screen and wish you had, it seems like
+01:47 ironcamel     though now i never do anything outside of screen
+01:47 ironcamel     even locally
+01:49 pdurbin       yeah, i love screen
+01:49 pdurbin       oh and nelhage works at ksplice, which shuff and whorka will appreciate
+01:50 pdurbin       ironcamel: you'll appreciate that http://stuff.mit.edu/iap/2009/exploit/stack.tgz is full of perl :)
+01:50 ironcamel     cool
+01:50 pdurbin       perl: the hacker's best friend
+01:51 pdurbin       i told my five year old that i was going to a talk tonight and she asked what it's about
+01:51 pdurbin       "hacking"
+01:51 pdurbin       "daddy, what is hacking?" :)
+01:52 ironcamel     my daughter asks me what do i do all day at work, type in that black screen? haha
+01:54 pdurbin       i think my greatest achievement was my daughter asking me, "daddy, do you even use a mouse?"
+01:54 ironcamel     hahaha, awesome
+01:55 pdurbin       oh, i came across this definition the other day and love it: "hacker: A person who delights in having an intimate understanding of the internal workings of a system, computers and computer networks in particular." -- http://tools.ietf.org/html/rfc1983
+01:56 ironcamel     pdurbin: do you have an opinion about using arch linux as a desktop os?
+01:56 pdurbin       on this laptop i'm on now. . . sure. it's mine
+01:57 ironcamel     you are running arch right now?
+01:57 pdurbin       when i switched jobs i decided i really, really wanted my own laptop that's mine. that i can do whatever i want with
+01:57 pdurbin       nope. fedora
+01:57 pdurbin       i *could* run arch
+01:57 pdurbin       of course, that sounds like work :)
+01:58 * pdurbin     reads http://en.wikipedia.org/wiki/Arch_Linux
+01:58 ironcamel     i bought a laptop finally to replace my dying desktop. i tried install debian stable, but the kernel of that is still 2.x which doesn't have the wifi drivers i need. i need a 3.x kernel.
+01:59 ironcamel     i bought a laptop from system76, which came pre-installed with ubuntu.
+01:59 ironcamel     so i made sure to buy a linux friendly laptop.
+01:59 pdurbin       pacman, huh? do you like pacman?
+01:59 ironcamel     i have never used it
+01:59 ironcamel     don't know anything about it
+01:59 ironcamel     but am willing to learn :)
+02:00 pdurbin       so, thomas hatch, who keeps coming up because he's the guy behind salt, is a core dev of arch, i think
+02:00 ironcamel     and i think i read arch is a rolling release distro
+02:00 ironcamel     which is nice
+02:01 pdurbin       i like fedora as a concept
+02:01 pdurbin       and i'm not damning with faint praise. i think it's a good model
+02:01 ironcamel     i don't like fedora/rhel package management
+02:02 pdurbin       no?
+02:02 ironcamel     don't you agree apt* is better?
+02:02 ironcamel     i remember using fedora and it taking forever each time i did any yum command
+02:02 pdurbin       i barely know what i'm doing with ubuntu. see http://wiki.greptilian.com/ubuntu/
+02:03 ironcamel     because it talked out to the internet and had to update itself each time
+02:03 pdurbin       and see http://irclog.perlgeek.de/crimsonfu/2012-04-18#i_5461430 (ventz teaching me ubuntu)
+02:04 pdurbin       ironcamel: that's what rpm(1) is for, for local operations
+02:04 ironcamel     i started with fedora, and switched to ubuntu around the time of Feisty Fawn, and remember package management was hugely better, and so i stuck with ubuntu until last year
+02:05 ironcamel     when they decided they wanted to pull that unity ui crap
+02:05 pdurbin       and now you're on. . . what?  i forget
+02:05 pdurbin       debian, right?
+02:05 ironcamel     well, my work latop was linux mint debian edition
+02:06 ironcamel     which is pretty nice
+02:06 ironcamel     but i figured i would be more hard core and go with plain debian
+02:07 ironcamel     pdurbin: so you are using gnome shell? isn't that terrible?
+02:07 pdurbin       yeah, i've been meaning to try plain debian
+02:07 pdurbin       i'm using gnome shell right now. it's killing me
+02:07 pdurbin       but i'm sooooo lazy
+02:07 ironcamel     LMDE did a really cool thing
+02:07 ironcamel     they use gnome3
+02:07 ironcamel     but not gnome shell
+02:07 ironcamel     they use cinammon
+02:07 pdurbin       i'd rather complain about gnome 3 than do anything about it ;)
+02:08 ironcamel     which is a traditional gnome feel, but uses the gnome3 goodness
+02:08 ironcamel     gnome shell is beautiful, but broken from a usability standpoint
+02:08 ironcamel     cinammon keeps the beauty, and makes it usable
+02:09 pdurbin       i guess i'm kinda hoping fedora figures something out. 'cause gnome 3 isn't doing it for me and probably a lot of people
+02:09 ironcamel     it's really gnome shell that you don't like
+02:09 ironcamel     gnome3 is just the underpinnings
+02:09 pdurbin       you're right. i should be more precise
+02:10 pdurbin       i should try cinammon. i've been told this before. even here in #crimsonfu, i believe
+02:10 ironcamel     pdurbin: google fedora cinnamon
+02:10 pdurbin       but maybe, just maybe, gnome shell will be gone or better in the next version of fedora :)
+02:10 ironcamel     that's what i hoped about unity ui and ubuntu :)
+02:11 pdurbin       i'm a pretty patient person
+02:11 pdurbin       patient/lazy
+02:11 ironcamel     but they just doubled down instead
+02:11 pdurbin       i don't think 2012 will be the year of the linux desktop
+02:12 ironcamel     sadly you are most likely right
+02:12 pdurbin       i wonder how many businesses use rhel for desktops
+02:12 pdurbin       probably not many
+02:12 pdurbin       but can you imagine when rhel 7 comes out
+02:13 ironcamel     no
+02:13 pdurbin       and all the poor desktop users scream "WTF?"
+02:13 ironcamel     what is special about rhel 7?
+02:14 pdurbin       will rhel 7 have gnome shell? i hope not! or i hope it's better
+02:15 ironcamel     i know at rackspace the majority of devs are running ubuntu, from what i could see
+02:15 ironcamel     by the way, i am going to be working for crowdtilt.com starting monday
+02:16 pdurbin       nice. congrats!
+02:17 ironcamel     thanks
+02:17 pdurbin       (so the link work: http://crowdtilt.com )
+02:17 pdurbin       works
+02:17 ironcamel     did you have a doubt :)
+02:17 pdurbin       it's a kickstarter, basically
+02:18 ironcamel     yep
+02:18 ironcamel     a kickstarter for normal human beings
+02:18 pdurbin       i mean it's not linkable from http://irclog.perlgeek.de/crimsonfu/2012-04-26#i_5496963 or gnome-terminal
+02:19 pdurbin       some guy left my organization a few years ago. said he was going to "myspace for old folks"
+02:19 pdurbin       or maybe it was "facebook for old folks"
+02:19 pdurbin       either way, i'm not sure if his company is still around...
+02:19 ironcamel     heh
+02:20 pdurbin       "powered by perl dancer"!!
+02:20 ironcamel     yes!
+02:20 pdurbin       ok, it all makes sense now
+02:20 ironcamel     :)
+02:20 pdurbin       duke leto is doing some interesting startup. hold on
+02:21 ironcamel     is it the one about teaching kids programming?
+02:21 pdurbin       Twitter Commerce - http://chirpify.com
+02:21 ironcamel     i may be thinking of chromatic
+02:22 ironcamel     that looks interesting
+02:22 pdurbin       somehow i know duke leto as the guy behind http://search.cpan.org/dist/Math-GSL/
+02:22 pdurbin       maybe i heard him on a podcast or something
+02:23 ironcamel     i think of him as one of the main perl6 guys
+02:24 pdurbin       yet he's on the jekyll (ruby) mailing list. anyway
+02:24 ironcamel     i follow him on twitter. though i don't pay attention to twitter anymore since i started using g+
+02:25 pdurbin       twitter's killer feature is the @reply
+02:25 ironcamel     i don't have enough bandwidth :)
+02:25 ironcamel     how so?
+02:25 pdurbin       i can write
+02:25 ironcamel     doesn't every tool on the internet have @reply
+02:25 pdurbin       @ironcamel check out this cool thing...
+02:25 ironcamel     every social type app has that feature
+02:25 pdurbin       and pretty much no one will see it, unless they are following you too
+02:26 ironcamel     no, not even if they were following me
+02:26 ironcamel     only if they were following you
+02:27 pdurbin       i'm not being clear. i had a name for this. twitter allows eavesdropping, basically, which is cool
+02:27 pdurbin       people can @reply back and forth and not bother anyone. but others can listen in if they want to
+02:28 ironcamel     wouldn't you have to be following all participants in order to listen in?
+02:29 pdurbin       here. compare Philip Durbin - Google+ - This is for +Naveed Massjouni per… - https://plus.google.com/107770072576338242009/posts/TbK2cGSfN73
+02:29 ironcamel     and why would you care about listening in to a shallow conversation, which is all that twitter allows
+02:29 pdurbin       to (hold on)
+02:30 ironcamel     i have been involved in epic conversations on g+, with people who were extremely thoughtful and intelligent, which showed in bascially the essays the would write in their responses
+02:30 pdurbin       Twitter / @philipdurbin: @ironcamel i have a vague ... - http://twitter.com/philipdurbin/status/178517701797494784
+02:30 ironcamel     i like the first example because it is self contained
+02:31 pdurbin       but it's not about containment
+02:31 ironcamel     we can use it to collaborate on a certain topic
+02:31 ironcamel     and everything about it can be found in that thread
+02:31 pdurbin       for me, the main difference is that eveyone who is following me on g+ sees the g plus post
+02:31 ironcamel     instead of shotgunned throughout twitter
+02:31 pdurbin       but on twitter, only the people who are following both you and me see the tweet
+02:32 ironcamel     you can control who sees your posts very easily on g+
+02:32 pdurbin       yeah, but i'm a "when in doubt, make it public" guy
+02:33 pdurbin       i don't want to lock up content in any walled garden, even g+, generally
+02:33 ironcamel     yeah, i default to public as well
+02:33 pdurbin       so with twitter, at least i can message someone semi-privately. less broadcast-y
+02:34 pdurbin       i @replied at the guy who have the security talk: http://twitter.com/philipdurbin/status/195321399110410241
+02:35 pdurbin       but almost no one will see it. he may not either
+02:35 ironcamel     wouldn't everyone who follows you see it?
+02:35 pdurbin       but at least there's a little public record of me thanking him :)
+02:35 pdurbin       no, that's the thing. that's the point, exactly
+02:35 ironcamel     please explain
+02:36 pdurbin       once upon a time, when twitter was new, there was no concept of @replies
+02:36 pdurbin       the @ character was like any other
+02:36 pdurbin       but the company noticed that users had adopted the @ convention
+02:37 pdurbin       users would write:
+02:37 pdurbin       @ironcamel, we should have lunch
+02:37 pdurbin       and everyone would see it
+02:37 pdurbin       everyone who is following me, that is
+02:37 pdurbin       but then twitter flipped a switch
+02:38 pdurbin       and made is so if i typed the same thing
+02:38 pdurbin       @ironcamel, we should have lunch
+02:38 pdurbin       the only people who see it are people who are following both me and you
+02:39 ironcamel     interesting, i was not aware of that new behavior
+02:39 ironcamel     so if you @reply multiple people
+02:39 ironcamel     statisticly, very few or 0 other people will see it?
+02:39 ironcamel     since they would have to be following all of the people that you @replied?
+02:40 pdurbin       so what matters is how the tweet begins
+02:41 ironcamel     ah
+02:41 pdurbin       so this one for example:
+02:41 pdurbin       "@ironcamel i have a vague notion of rewriting @lastminuteplans on @github with @perldancer on @openshift. want to help? http://builditwith.me/idea/7bK0"
+02:42 ironcamel     i still don't see it as a huge win. just seems like a side effect of an outdated technology.
+02:42 pdurbin       heh. fine
+02:42 ironcamel     a technology that won't go away because of the mindshare it has acquired
+02:42 pdurbin       but what other service let's me do this
+02:42 pdurbin       ?
+02:43 ironcamel     i'm not sure, but if i told you there is an email service that had this exact feature
+02:43 pdurbin       but email isn't public...
+02:43 ironcamel     but your emails could only be 140 chars long. would you sign up for this service?
+02:44 ironcamel     imagine it was a new type of email that had this exact property, hybrid public/private messages
+02:44 pdurbin       it's not about the character length. it's about having it be public, having it be "of the web"
+02:44 pdurbin       having a permalink for the message i send to someone
+02:44 pdurbin       having it be indexable by google
+02:44 ironcamel     permalinks to shallow thoughts are not a big win in my book
+02:45 ironcamel     not accusing you of being shallow
+02:45 pdurbin       meh. i dunno. it's data. it's signal
+02:45 ironcamel     but saying the limitation of the technology by definition causes that
+02:46 pdurbin       but someone could build a service with the same @reply behavior. . . and have as many characters as you want
+02:47 pdurbin       but only twitter has this behavior
+02:47 pdurbin       (i'd be happy to be proven wrong)
+02:47 ironcamel     sure, they could
+02:48 ironcamel     but people most likely are not clamoring for this feature
+02:48 ironcamel     most people probably are not aware of this feature
+02:48 pdurbin       heh. certainly not
+02:48 ironcamel     just as i was not
+02:48 ironcamel     not saying it's not a cool feature :)
+02:49 pdurbin       oh good, i was looking for this: Twitter Blog: How @replies work on Twitter (and how they might) - http://blog.twitter.com/2008/05/how-replies-work-on-twitter-and-how.html
+02:51 pdurbin       "The beauty of this is that I can feel free to @reply Veronica without worrying about the fact that only a subset of my followers also follow Veronica, so they won't know what I'm talking about. My followers will only see my update if they follow both of us (if they have their setting on the default)."
+02:51 pdurbin       (that setting is now gone, by the way. they had to remove it for performance reasons, as i understand it.)
+02:52 ironcamel     if you @reply @ironcamel for example, could people who don't follow me but follow you still be able to see that tweet somehow? how?
+02:52 pdurbin       sure, if they went to http://twitter.com/philipdurbin
+02:52 pdurbin       or if they subscribed to the rss feed of my tweets
+02:52 ironcamel     but it wouldn't show up in their stream when it happened right?
+02:52 pdurbin       exactly!
+02:52 ironcamel     i see
+02:53 ironcamel     what if you wanted it to show up in everyone's stream?
+02:53 pdurbin       so it's a cool feature. and unique to twitter
+02:53 pdurbin       then, then!
+02:53 ironcamel     how would you @reply me?
+02:53 pdurbin       you type this
+02:53 pdurbin       .@ironcamel, you da man
+02:53 ironcamel     .?
+02:53 pdurbin       or any character
+02:53 ironcamel     space?
+02:53 pdurbin       hmm, i guess
+02:53 ironcamel     cool
+02:53 pdurbin       the magic is in @ being the first character
+02:54 pdurbin       and!
+02:54 pdurbin       when i do this
+02:54 pdurbin       .@ironcamel foo
+02:54 pdurbin       this is no longer an @reply
+02:54 pdurbin       it's an @mention
+02:54 pdurbin       :)
+02:55 pdurbin       i was looking at this tweet the other day: "@Cisco is looking to hire #Linux kernel hackers for high performance networking work. Interested? Ping me." -- https://twitter.com/jsquyres/status/192583814554451968
+02:56 pdurbin       and thought to myself, "this guy doesn't know how @replies work"
+02:56 ironcamel     hahaha
+02:56 ironcamel     you are a twitter snob :)
+02:56 pdurbin       "shoulda put a dot at the beginning..."
+02:56 pdurbin       heh
+02:56 pdurbin       the funny thing is...
+02:56 pdurbin       i follow that guy!
+02:56 pdurbin       but i didn't see that tweet because i don't follow @cisco
+02:56 ironcamel     so how did you see that?
+02:57 ironcamel     you happened to view his stream?
+02:57 pdurbin       'cause this guy retweeted it: https://twitter.com/brockpalen
+02:57 pdurbin       i could find you a permalink to his specific retweet. it's possible. but meh. trust me
+02:58 ironcamel     i trust you
+02:58 pdurbin       Twitter / @danchoi: my ideal social network is ... - https://twitter.com/#!/philipdurbin/status/147197198550040578
+02:59 pdurbin       that's an example of a permalink to a retweet
+02:59 pdurbin       "my ideal social network is where everyone maintains plain text files in a git repo and friends can pull the diffs periodically"
+02:59 ironcamel     hehe
+02:59 ironcamel     man, but what about conflicts
+03:00 ironcamel     merge conflicts
+03:00 pdurbin       lol
+03:01 pdurbin       anyway, i guess i should type up my git/rcs question thing. or go to sleep
+03:02 ironcamel     what is rcs?
+03:02 pdurbin       heh
+03:02 ironcamel     tell me that and then go to sleep :)
+03:02 pdurbin       http://en.wikipedia.org/wiki/Revision_Control_System
+03:03 pdurbin       Initial release 1982; 30 years ago
+03:03 ironcamel     ah
+03:03 pdurbin       see yesterday's #crimsonfu log for more :)
+03:06 ironcamel     pdurbin: you may get a couple new people from crowdtilt joining this channel
+03:07 ironcamel     i recommended it to them
+03:07 * dsog        works at Crowdtilt :)
+03:10 dsog          westmaas: yo yo
+03:12 ironcamel     westmaas is a lurker :)
+03:12 dsog          I see how it is.. :p
+13:52 pdurbin       dsog: welcome! please feel free to introduce yourself if you like. or don't. up to you :)
+15:35 dsog          pdurbin: Thanks :).
+15:35 dsog          My name is Khaled and I work at Crowdtilt. I used to work with westmaas and ironcamel at Rackspace before starting Crowdtilt.
+15:36 dsog          I've heard nothing but great stuff about you guys and would love to hang out here and talk geek stuff or whatever other stuff people talk about :).
+15:38 westmaas      dsog: !
+15:38 westmaas      :)
+15:40 dsog          Yo .. how is it going man?
+15:41 westmaas      doing good
+15:41 pdurbin       dsog: you are welcome to be a geek with us :)
+15:43 pdurbin       i happy to have more non-Harvard people here. i want more diversity, generally
+15:43 pdurbin       s/i/i'm/
+15:45 dsog          Is the majority here Harvard people?
+15:48 * SEJeff_work is in finance
+15:48 SEJeff_work   The "high frequency trading" space
+15:52 pdurbin       dsog: yeah, the majority. . . right now anyway
+15:53 pdurbin       tell your friends to join :)
+15:54 SEJeff_work   http://seattle.craigslist.org/sno/cto/2977737272.html Random OT, but best car ad on craigslist eva
+15:54 dsog          pdurbin: I know that you'll get about 2-3 guys from Crowdtilt.
+15:54 pdurbin       dsog: let's just not make it too perl-heavy :)  though i love perl...
+15:54 pdurbin       SEJeff_work: no fun allowed
+15:55 dsog          pdurbin: It probably won't be too perl-heavy. I can see it being more about networking .. deployments .. etc.
+15:55 dsog          For me .. I am just here for the lolz ;).
+15:55 pdurbin       Stack Overflow: Where We Hate Fun « Blog – Stack Exchange - http://blog.stackoverflow.com/2010/01/stack-overflow-where-we-hate-fun/
+15:55 SEJeff_work   pdurbin, No fun? boo
+15:55 SEJeff_work   what kind of SA are you?
+15:56 pdurbin       a grumpy one
+15:56 SEJeff_work   Well thats the only kind to be! Quickly solved with beer
+16:07 dsog          pdurbin: magoo_ is another Crowdtilt hacker.
+16:07 dsog          magoo_: meet everyone :)
+16:08 magoo_        hey guys!
+16:10 pdurbin       magoo_: welcome! this is me: http://crimsonfu.github.com/members/pdurbin
+16:11 magoo_        pdurbin: damn, nice directory :)
+16:35 SEJeff_work   pdurbin, Oh fyi tom did some insane bugfixing in salt
+16:35 SEJeff_work   And it going to release 0.9.9 this weekend
+16:36 SEJeff_work   It has some serious minion / master bugfixing for large environments. All of the hangs and disconnect issues *should* be fixed. There are a ton more unti tests now as well
+16:54 pdurbin       SEJeff_work: awesome. thanks for the heads up. /cc sjoeboo
+16:54 SEJeff_work   pdurbin, sjoeboo The point of the 0.9.9 release really was bugfixing for bigger deployments
+16:55 SEJeff_work   And some nice new features as usual
+16:55 pdurbin       at ~1700 hosts, are we big?
+16:55 SEJeff_work   Mid-sized
+16:55 pdurbin       \o/
+16:56 SEJeff_work   We have a 3800 host deployment which /me thinks is our biggest at $does_not_want_to_be_named_company
+16:57 sjoeboo       but do they have 18K+ cores?
+16:57 SEJeff_work   heh
+16:57 SEJeff_work   They have closer to 40k cores
+16:58 sjoeboo       bah
+17:57 ironcamel     I found a new love. I installed arch linux on my laptop last night. Installation was a breeze and everything just worked. I had been hesitant to try it because I was afraid it would have been hard.
+17:58 dsog          ironcamel: How long did it take?
+17:58 ironcamel     And I have the latest greatest of everything by default, perl 5.14.2 , kernel 3.3.3.1 ...
+17:58 dsog          The installation I mean .. last time I tried it and it was compiling everything from scratch .. it took sometime.
+17:58 ironcamel     dsog: are you thinking of gentoo?
+17:58 dsog          maybe ;)
+17:58 ironcamel     AND it's a rolling release distro
+18:00 ironcamel     dsog: it took a good 4 hours, since i was learning a lot along the way, to get installed and get set up in a workable state
+18:00 ironcamel     and reading wiki's, etc. they have tons of great documentation and step by step tutorials
+18:04 ironcamel     pdurbin: did you try App::Notes yet?
+18:05 SEJeff_work   ironcamel, Other than it isn't a rolling distro, the same can be said for fedora
+18:06 SEJeff_work   Fedora 17 beta: perl-5.14.2-211.fc17.x86_64.rpm, kernel-3.3.0-1.fc17.x86_64.rpm
+18:06 SEJeff_work   But arch is good stuff
+18:06 ironcamel     SEJeff_work: cool, i didn't know fedora was that bleeding edge
+18:06 SEJeff_work   Yes, very
+18:07 SEJeff_work   ironcamel, For Arch, may I point out: https://github.com/thatch45/archback if you want to manage your own arch repos
+18:07 ironcamel     fedora was my first linux distro. what turned me away from it was it's package management
+18:07 SEJeff_work   rpm is superior to deb as a format.
+18:07 ironcamel     yum would take forever to do anything. it would go out and talk to the internets for every command
+18:08 SEJeff_work   yum is superior to apt, but slower
+18:08 ironcamel     in what way is yum superior?
+18:08 SEJeff_work   Hello deltarpm (yum presto plugin), yum-fastestmirror
+18:08 SEJeff_work   to name a few
+18:08 SEJeff_work   multarch
+18:08 SEJeff_work   which neither apt or deb as a format really support yet
+18:08 SEJeff_work   I can go on :)
+18:09 magoo_        plus I'm a big fan of yum provides x
+18:09 magoo_        maybe you can do that with apt
+18:09 SEJeff_work   The only thing meh about yum is that it does the equiv of "apt-get update" every single time before you do any operations
+18:09 ironcamel     apt has a nice feature, when you delete a package, it can delete its deps for you, as long as others also are not depending on them. can yum do that?
+18:10 SEJeff_work   ironcamel, package-cleanup in the yum-utils package does that
+18:10 ironcamel     i mean when you delete a specific package
+18:10 SEJeff_work   automatically, no
+18:10 ironcamel     apt will do the cleanup then
+18:10 SEJeff_work   apt really only has 2 things over yum at all
+18:11 SEJeff_work   updating the repo metadata is a separate operation so it *appears* faster for those that don't do yum -C
+18:11 ironcamel     the whole "apt-get update" every single time is a big pain don't you agree?
+18:11 SEJeff_work   deb as a format has optional dependencies
+18:11 SEJeff_work   thats awesome
+18:11 SEJeff_work   rpm doesn't
+18:11 SEJeff_work   ironcamel, alias yum="yum -C"
+18:11 SEJeff_work   problem solved, I've moved on :)
+18:11 ironcamel     ah, neat
+18:11 agperson      SEJeff_work: thanks for the tip
+18:12 SEJeff_work   but those are the only two areas apt is better. Overall apt and dpkg are far inferior to yum/rpm.
+18:12 SEJeff_work   agperson, I get paid to do this. Just try to share my knowledge with others if it is helpful.
+18:12 SEJeff_work   ironcamel, Then when you do want to update your metadata, you can do: yum makecache
+18:12 SEJeff_work   functional equiv of apt-get update
+18:13 SEJeff_work   And if I blabber, just tell me to shutup. It won't be scene as offensive
+18:13 SEJeff_work   seen even
+18:14 ironcamel     don't worry, i like to learn as much about package management as i can
+18:14 agperson      having never packaged a .deb, i can't disagree with you :)
+18:14 ironcamel     i have packaged lots of rpms
+18:14 dsog          SEJeff_work: This is very helpful .. thanks :).
+18:15 SEJeff_work   agperson, oh wow... Packaging a debian package is pain, just pain
+18:15 ironcamel     and i it is a pretty ugly process imo
+18:15 SEJeff_work   glad to help :)
+18:15 ironcamel     have never created debs though
+18:15 magoo_        do either of you know if there's an apt equivalent to 'yum provides */somefile'
+18:15 SEJeff_work   dget, dch, dput, dpkg-buildpackage, pbuilder... vs rpmbuild and tar
+18:15 SEJeff_work   magoo_, apt-file
+18:15 ironcamel     magoo_: what does yum provides do again?
+18:15 SEJeff_work   install apt-file then do sudo apt-file update and apt-file search */somefile
+18:15 magoo_        ha! cool
+18:15 SEJeff_work   yum ftw there
+18:15 ironcamel     i was learning pacman (from arch) last night and it seems decent as well
+18:15 magoo_        it tells you teh package that owns the file
+18:16 magoo_        ironcamel: ^
+18:16 magoo_        very handy
+18:16 SEJeff_work   magoo_, and rpm -qf $(which somecommand)
+18:16 SEJeff_work   vs dpkg -S, which doesn't really work 1/2 the time
+18:16 magoo_        if it's installed
+18:16 ironcamel     magoo_: oh, you can do that with dpkq-query i believe
+18:16 SEJeff_work   right
+18:16 ironcamel     dpkq-query -Sf
+18:16 magoo_        ironcamel: if it's installed
+18:16 SEJeff_work   apt-file does it :)
+18:16 magoo_        regardless, I didn't know about either command
+18:16 magoo_        so thanks :)
+18:16 SEJeff_work   I do like apt-cache madison $package
+18:17 SEJeff_work   very weird name, but useful. I don't think there is a simple yum equiv
+18:17 ironcamel     magoo_: is it a big deal if you have to install it?
+18:17 SEJeff_work   what if you don't know the package name
+18:17 SEJeff_work   thats the point of doing it with yum :)
+18:17 ironcamel     i have never had to install dpkq-query that i can remember, its usually there, but i could be wrong
+18:17 magoo_        yes, this is the scenario
+18:18 magoo_        you don't know the package but you know the file it would provide
+18:18 magoo_        I run into this many times
+18:18 SEJeff_work   Isn't dpkg-query equiv to dpkg? You can do dpkg -Sf
+18:18 magoo_        ironcamel: so to answer your question, not a big deal to install it, if you know what to install
+18:19 SEJeff_work   looks like no it isn't. ironcamel I didn't know dpkg-query -Sf. Thanks!
+18:19 ironcamel     magoo_: btw, it is just dpkg-query -S
+18:19 ironcamel     dpkg-query -S /etc/vim/vimrc
+18:19 SEJeff_work   Another thing. rpm -V is very handy when you have a messed up package and want to see what has changed at a glance
+18:19 SEJeff_work   debsums will do the md5, but nothing else
+18:19 ironcamel     SEJeff_work: looks like dpkg -S /etc/vim/vimrc works as well :)
+18:20 SEJeff_work   Yeah but it is more vague
+18:20 SEJeff_work   sometimes returns multiple packages or a "best guess"
+18:20 SEJeff_work   On the LPIC-1 a few years ago, I got 100% on package management
+18:20 SEJeff_work   Errr almost 4 years ago when I took that
+18:22 magoo_        ironcamel: sweet, that works. did you understand the scenario i was talking about though?
+18:22 magoo_        about to try out apt-file
+18:22 SEJeff_work   apt-file update requires root
+18:22 SEJeff_work   apt-file search does not
+18:22 ironcamel     magoo_: yeah, that is exactly what i use dpkq-query -S for
+18:23 ironcamel     the other command i use is dpkq-query -L
+18:23 magoo_        but dpkg operates on installed packages
+18:23 ironcamel     to list files of a package. it is kinda the reverse of -S
+18:23 SEJeff_work   dpkg -L is equiv to rpm -ql
+18:23 SEJeff_work   and dpkg -l is rpm -qa
+18:24 ironcamel     yeah, i use rpm -qa and rpm -qf a lot
+18:24 SEJeff_work   indeed
+18:24 SEJeff_work   rpm -qf $(which foo) &lt;3
+18:24 magoo_        right, the scenario I'm referring to is that you don't have a package installed that provides x, you don't know what the package is called, but you know what x is called
+18:24 magoo_        that's when i use yum provides
+18:24 SEJeff_work   magoo_, If you find a way outside of apt-file to do that on debian-ish systems please let me know. I would be interested in learning it.
+18:24 ironcamel     magoo_: ah. and dpkg cant do that for you?
+18:24 magoo_        and apt-file is what provides that
+18:24 SEJeff_work   yes
+18:25 magoo_        ironcamel: i can't imagine it could
+18:25 magoo_        since it'll only operate on _installed_ pkgs
+18:25 SEJeff_work   ironcamel, it only operates on locally installed packages
+18:25 ironcamel     magoo_: apt-file will do that for you?
+18:25 SEJeff_work   yes
+18:25 ironcamel     cool
+18:25 magoo_        yeah, i'm about to try it too
+18:25 magoo_        took forever to update the cache
+18:27 magoo_        ie. apt-file search /usr/bin/tcpflow
+18:27 magoo_        tcpflow: /usr/bin/tcpflow
+18:27 ironcamel     sweet
+18:27 magoo_        yeah, this is awesome - i've realy missed this command from yum
+18:28 ironcamel     magoo_: what are you running in production?
+18:28 ironcamel     ubuntu?
+18:28 magoo_        yes
+18:29 ironcamel     magoo_: is that the main thing you missed from yum?
+18:29 magoo_        yeah
+18:30 magoo_        everything else translated mostly
+18:31 magoo_        i tend to remember file names more than package names so I relied on that command quite a bit in redhat/fedora
+18:32 SEJeff_work   apt-file search /usr/bin/cowsay
+18:32 magoo_        btw, the tcpflow command, in the example I gave above is the best thing since sliced bread
+18:32 magoo_        just sayin :)
+18:32 ironcamel     tcpflow is the best thing?
+18:32 ironcamel     what does it do?
+18:33 ironcamel     or apt-file search is the best thign?
+18:33 magoo_        tcpflow
+18:34 magoo_        it wraps tcpdump and separates out individual streams of communication into separate files for the criteria you specify (src port, interface, etc)
+18:35 ironcamel     nice
+18:36 ironcamel     apt-file takes forever to build its cache, it just finished
+18:36 pdurbin       sorry, not following closely (doing real work), but a nice trick with yum is `yum install /usr/bin/screen`
+18:36 ironcamel     neat
+18:36 pdurbin       in this case, the package is also called "screen", so it's a dumb example.  but if you know the path to a file owned by a package, that's all you need to install it
+18:36 magoo_        wha?
+18:36 magoo_        you can just provide the file?
+18:37 magoo_        nice
+18:37 pdurbin       don't take my word for it :)
+18:37 pdurbin       are there any answered "can yum do x" questions?
+18:38 SEJeff_work   Someone should do that in the style of: http://whygitisbetterthanx.com
+18:38 pdurbin       heh
+18:39 pdurbin       ironcamel: i love that you care so much about package management when choosing your distro. i think decent package management is one of linux's best innovations
+18:40 ironcamel     pdurbin: thanks. yeah, package management is the main difference between distros isn't it?
+18:40 ironcamel     that, and maybe philosophy/community
+18:41 pdurbin       check this out. my old college roommate and good friend, a windows developer, discovering linux package management: http://devlicio.us/blogs/billy_mccafferty/archive/2009/10/29/the-horn-project-bringing-quot-apt-get-install-quot-to-net-projects.aspx
+18:41 pdurbin       "looks to see what dependencies the application has, downloads the latest of all of them, and installs them as well before installing the target application.  It does all of that with just one command line"
+18:41 pdurbin       it's like a miracle :)
+18:42 pdurbin       i should get him in #crimsonfu. more diversity. a windows guy
+18:42 ironcamel     SEJeff_work: the "Easy to learn" item on http://whygitisbetterthanx.com/ i just WRONG :)
+18:42 ironcamel     s/i just/is just/
+18:43 magoo_        pdurbin: it'll just make him sad
+18:43 ironcamel     haha
+18:43 SEJeff_work   heh, thats not a discussion I'd want to get into
+18:43 SEJeff_work   git is easy enough for a smart person to learn, however it has a higher learning curve than hg, svn, or bzr
+18:44 agperson      its not as easy as saying "ilke subversion (or CVS) but X", though
+18:44 SEJeff_work   Nope
+18:44 SEJeff_work   http://www.digitalprognosis.com/pics/unix-editor-learning-curve.png
+18:44 SEJeff_work   git is like vi ^^
+18:45 agperson      at least its not like emacs!
+18:45 SEJeff_work   Once you use git rebase -i or git bisect run, git will solve world hunger
+18:45 SEJeff_work   s/use/learn/
+18:45 pdurbin       heh. great graphic
+18:45 SEJeff_work   Yup I try to save funny ones from the internets there
+18:46 ironcamel     they should make a learning curve graph for scripting languages ... python would have the Notepad learning curve
+18:46 SEJeff_work   ha
+18:46 ironcamel     perl would be more like the emacs one :)
+18:46 SEJeff_work   that would be lisp I'd think
+18:47 ironcamel     yes
+18:47 SEJeff_work   emacs is lisp too so thats fitting
+18:50 pdurbin       qemu-img convert -O qcow2 -o preallocation=metadata /var/lib/libvirt/images/pdurbin1-disk0 /var/lib/libvirt/images/pdurbin1-disk0.qcow
+18:50 pdurbin       qcow ftw
+18:55 pdurbin       ironcamel: i haven't tried App::Notes yet
+18:57 pdurbin       the guy at the security talk highly recommended this paper. great title. Hovav Shacham: The Geometry of Innocent Flesh on the Bone - http://cseweb.ucsd.edu/~hovav/papers/s07.html
+19:00 pdurbin       i just heard the new ubuntu is out
+19:06 ironcamel     pffft
+19:13 SEJeff_work   http://xkcd.com/178/
+19:15 SEJeff_work   pdurbin, Thats one of my favs ^
+19:16 ironcamel     am i missing something about pokemon and ubuntu?
+19:32 pdurbin       no one cares?
+19:35 pdurbin       Ubuntu 12.04 (Precise Pangolin) released! - https://lists.ubuntu.com/archives/ubuntu-announce/2012-April/000159.html
+20:06 magoo_        well, I'll probably upgrade my htpc... but that's about the extent of it
+</pre></body></html>

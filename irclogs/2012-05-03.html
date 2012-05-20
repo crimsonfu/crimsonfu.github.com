@@ -1,0 +1,216 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:50 pdurbin   this is really cool. shows pep8 (python style guide) violoations: http://jenkins.saltstack.org/job/pep8/violations
+12:51 pdurbin   see also http://irclog.perlgeek.de/salt/2012-05-03#i_5532745
+12:57 pdurbin   westmaas: it's too bad https://jenkins.openstack.org requires login
+12:57 SEJeff    It requires a launchpad.net login, which is free fwiw
+12:59 pdurbin   SEJeff: sure, but it's nice that http://jenkins.saltstack.org is open
+13:00 SEJeff    indeed
+13:01 pdurbin   i love the rain clouds: http://jenkins.saltstack.org/static/71a03e0e/images/32x32/health-00to19.png
+13:01 SEJeff    This is one of my favs: http://cloud.github.com/
+13:02 pdurbin   heh. nice
+13:02 SEJeff    Move your mouse around. It uses the jquery parallax plugin. Super fancy stuff
+13:06 pdurbin   yep. very nice
+15:59 mattdm    Your ideas are intriguing to me and I wish to subscribe to your newsletter.
+16:03 SEJeff    Doh!
+16:05 mattdm    Right. :)
+16:05 mattdm    Anyway, I'm Matthew Miller from Academic Computing at SEAS. I may have met some of y'all before.
+16:05 mattdm    And this does look very cool.
+16:07 pdurbin   mattdm: welcome!
+16:08 pdurbin   now we've talked about seas on two days :) http://irclog.perlgeek.de/search.pl?channel=crimsonfu&amp;nick=&amp;q=seas
+16:09 mattdm    that seems to include today :)
+16:09 pdurbin   yep :)
+16:09 pdurbin   but we think about you often ;)
+16:09 pdurbin   oh oh
+16:10 pdurbin   and not everyone here knows what seas is
+16:10 pdurbin   crimsonfu is not a harvard thing
+16:10 mattdm    i thought we were world famous and stuff
+16:10 pdurbin   despite the name
+16:10 mattdm    SEAS is Harvard School of Engineering and Applied Sciences
+16:11 pdurbin   mattdm: thanks
+16:11 mattdm    the Academic Computing group that I work for is separate from the IT group; we do everything (?) related to instruction and research
+16:11 mattdm    with some infrastructure where we had to build it ourselves to support that.
+16:11 pdurbin   here, for E-Z clicking from the logs: http://seas.harvard.edu
+16:12 mattdm    Goal is to do less infrastructure, more cool stuff.
+16:12 pdurbin   less infrastructure!
+16:13 pdurbin   don't join ##infra-talk then ;)
+16:13 pdurbin   actually do. some great people there
+16:14 mattdm    Right I'm not opposed to infrastructure. Sommmmeone has to do it. :)
+16:14 pdurbin   that's what puppet is for ;)
+16:15 mattdm    yeah.
+16:15 mattdm    http://acops.seas.harvard.edu/puppet-presentation/slides.html#slide1
+16:15 mattdm    (first part of that is a generic puppet overview; second part is what we're doing)
+16:15 pdurbin   hmm! haven't seen that link before
+16:16 pdurbin   why is "Academic Computing" in quotes? :)
+16:16 mattdm    Oh! And in keeping with the radical transparency notions that this group is all about:
+16:16 mattdm    https://code.seas.harvard.edu/puppet
+16:17 pdurbin   reminds me of the "Blog" of "Unnecessary" Quotation Marks - http://www.unnecessaryquotes.com
+16:17 shuff     yay!  very nice
+16:17 mattdm    https://code.seas.harvard.edu/puppet/puppet/trees/develop
+16:18 mattdm    I think it's in quotes because of some sort of markup language fail
+16:18 * pdurbin runs git clone git://code.seas.harvard.edu/puppet/seas-puppet-core.git
+16:18 pdurbin   hmm. `ack -f -a | wc -l` is 15 but it's a start!
+16:18 mattdm    Presentation was written in restructured text. Lars has an unhealthy love for restructured text.
+16:19 pdurbin   i've open sourced my configs for my home stuff: http://git.greptilian.com/?p=salt.git
+16:20 mattdm    The seas-puppet-core package is not the interesting part.
+16:20 pdurbin   not to steal shuff's thunder but he linked to http://forge.puppetlabs.com/huit/pam_access yesterday
+16:20 mattdm    Take a look at the second URL up there:
+16:21 mattdm    git clone http://code.seas.harvard.edu/git/puppet/puppet.git
+16:21 SEJeff    Anything interesting in your fork?
+16:22 mattdm    is not a fork. is collection of puppet modules we use to build our stuff.
+16:22 pdurbin   mattdm: 576 files! that's more like it. thanks!
+16:22 pdurbin   mmmm kvmcluster
+16:23 mattdm    yeah; speaking of infrastructure :)
+16:24 pdurbin   mmmm gmond
+16:24 mattdm    We're working on moving everything possible, including HPC compute, over to running under kvm
+16:24 pdurbin   me too!
+16:24 pdurbin   well, not really
+16:24 pdurbin   but sunsetting vmware anyway
+16:25 SEJeff    mattdm, Really? HPC compute under KVM? Do you use paravirt clocks and io?
+16:25 mattdm    For almost all of our use the flexibility is more important than io performance, and for situations where that's not the case the answer is usually heyyyyy, we know this other thing at harvard.....
+16:25 SEJeff    And you don't have problems with too many cs impacting overall system perf?
+16:25 SEJeff    Ah gotcha
+16:26 * SEJeff  works in a HPC-like low latency environment where perf is _everything_
+16:26 SEJeff    we take latency over throughput, power efficiency, or cost always
+16:27 mattdm    Absolutely. And there's definitely stuff that needs that (including here), but for the majority other considerations are bigger.
+16:27 SEJeff    Gotcha
+16:27 mattdm    And for CPU-bound workloads, the performance hit is only a few percent, which is pretty clearly a win overall.
+16:27 SEJeff    Academia would be interesting. /me works in finance
+16:28 SEJeff    Yes absolutely
+16:28 mattdm    So how do I get myself on http://crimsonfu.github.com/members/ ? Is there a secret initiation?
+16:28 SEJeff    What is the flexiblity win, do you use sheepdog or anything fancy like that for replication? lxc is starting to really come of age. The first serious user namespace patches *finally* hit lkml a few months ago
+16:28 pdurbin   jeez, we just met
+16:28 pdurbin   send us a pull request ;)
+16:29 mattdm    pdurbin: heh ok.
+16:29 pdurbin   you too, SEJeff
+16:29 pdurbin   though i'm warming up to you
+16:29 mattdm    SEJeff: ability to deploy different compute environments for different users.
+16:30 SEJeff    pdurbin, Nah I'm an acquired taste. Typical Sysadmin really who now codes more than does ops work.
+16:30 mattdm    We have a lot of peculiar, "interestingly-written" code which people want to run.
+16:30 SEJeff    mattdm, And containers aren't an option? Just curious. Those types of environments are fun to build
+16:31 mattdm    Containers might be an option. What we really want to do, though, is build a generic environment which can run on our KVM _or_ our new OpenStack deployment _or_ whatever wider Harvard infrstructure _or_ be pushed into EC2.
+16:32 pdurbin   westmaas: ^^ openstack
+16:32 SEJeff    kvm makes a lot of sense then. Good stuff
+16:33 SEJeff    Kind of like what richard jones (the febootstrap and virt-* redhat guy) was doing with the virt-sandbox stuff
+16:33 SEJeff    run 1 binary in a thin provisioned kvm vm or lxc container: http://fedoraproject.org/wiki/Features/VirtSandbox
+16:34 pdurbin   speaking of kvm, whorka seemed a bit surprised that live migration "just works" on stock centos: virsh migrate --live --verbose $DOMAIN_TO_MIGRATE qemu+ssh://$TARGET_KVM_HOST/system
+16:34 pdurbin   no downtime. works great
+16:35 pdurbin   i'm sure rhev is more slick though
+16:35 pdurbin   and oVirt, etc.
+16:35 SEJeff    :)
+16:35 SEJeff    oVirt is good stuff
+16:35 SEJeff    Did anyone here (other than me) go to the oVirt workshop in San Jose?
+16:36 pdurbin   SEJeff: we're on the wrong coast, unlike you
+16:36 SEJeff    sadness
+16:37 pdurbin   was it awesome? i'll take your answer offline. going to lunch
+16:37 mattdm    I just submitted a request to go to LinuxCon in San Diego in August, though....
+16:37 SEJeff    The cisco campus is really impressive actually. Much better than the MIT media lab for the GNOME boston summit imo.
+16:37 SEJeff    Yeah it was a great mini-con
+16:37 mattdm    SEJeff: hey I know you from LWN comments :)
+16:38 SEJeff    indeed. It is a unique name. I'm an ass on lwn at times as well :)
+16:39 mattdm    I always think you must be related to SELinux in some way
+16:39 SEJeff    You are a wise one
+16:39 mattdm    so it is?
+16:39 SEJeff    Security Enhanced Jeff. Comp Sec / penetration testing is how I learned 'nix
+16:39 SEJeff    Yes
+16:39 mattdm    very nice
+16:40 mattdm    anyway. i have a meeting. lunch meeting, alledgly, but it's running out of lunchtime. see you all later.
+16:40 * SEJeff  waves
+17:47 * pdurbin looks for skype in pidgin. slides over to a mac
+18:01 SEJeff    A gem from mdehaan, the cobbler and ansible author: http://slipsum.com
+18:41 pdurbin   woof. too long for me to really absorb, but cool that openstack has their meetings in public: http://eavesdrop.openstack.org/meetings/openstack-meeting/2011/openstack-meeting.2011-06-14-20.03.log.html
+19:23 teancom   I'm having a problem moving from puppet 2.6 -&gt; 2.7. I've been finding plenty of places in my configs where I was not wrapping variables in curly braces ( foo-$var-bar vs foo-${var}-bar ), but I don't think this is the same problem. My configs and error output at https://gist.github.com/2587908
+19:25 pdurbin   teancom: do you have a "template" directory?
+19:25 teancom   Yes
+19:25 teancom   templates (with an S), that is
+19:25 teancom   And I should say, this works just fine under 2.6.9
+19:25 teancom   2.7.14, not so much
+19:26 pdurbin   in our code we have template with no s
+19:26 pdurbin   but i'm not our puppet guru. . .
+19:26 teancom   Weird, I thought that was a built-in, like 'manifests' or 'files'.
+19:29 pdurbin   hmm, i see templates at https://code.seas.harvard.edu/puppet/puppet/trees/develop/templates but template at https://code.seas.harvard.edu/puppet/puppet/trees/develop/modules/template
+19:30 pdurbin   teancom: you could clone their repo if you want to poke around: http://irclog.perlgeek.de/crimsonfu/2012-05-03#i_5534116
+19:30 pdurbin   (this channel is logged, by the way)
+19:31 teancom   Well, I don't *think* this is a problem of a mis-named directory. The error shows that it is parsing the erb template, and then having an error. It isn't failing to find the template at all (which is what I would expect in that case).
+19:34 pdurbin   so the thing you changed was upgrading puppet from 2.6.9 to 2.7.14
+19:35 pdurbin   i went to a talk by a puppet dev and he recommended sticking with whatever version of puppet is in their "enterprise" product
+19:36 pdurbin   which i guess is 2.7.12, based on what i'm seeing at http://yum.puppetlabs.com/enterprise/sources/2.5.1/source/el/6/SRPMS/ . so you're not *too* far ahead. . .
+19:39 pdurbin   teancom: can you parse the erb template outside of puppet? with just ruby?
+19:40 teancom   Yeah. We have pre-commit hooks for all .erb files that run them through erb -T.
+19:41 pdurbin   i guess i would try downgrading puppet
+19:42 pdurbin   maybe back it down to 2.7.12 first, since that's what's in enterprise
+19:42 pdurbin   for what it's worth, we're on 2.7.13
+19:43 teancom   I'll give that a shot, if what LinuxJedi suggested in #salt doesn't work out.
+19:47 pdurbin   http://irclog.perlgeek.de/salt/2012-05-03#i_5535308 . right. http://stackoverflow.com/questions/6765576/puppet-best-way-to-collect-data-from-custom-types-to-be-used-in-templates . ok, well, please report back here too
+19:57 shuff     teancom: i've just taken a quick look at your gist, and nothing is immediately jumping out at me
+19:57 shuff     but stepping back a moment
+19:57 shuff     if you're managing RedHatish systems, let me suggest http://forge.puppetlabs.com/razorsedge/network rather than managing your static routing by yourself
+19:58 shuff     and since i see /etc/sysconfig/network-scripts i suspect you are :)
+19:59 teancom   Hrrm.
+19:59 teancom   Interesting!
+20:05 shuff     i've been using this module for a little while now; it's solid
+20:13 SEJeff    Not too too the salt horn _too_ much, but we just had a really impressive network module for rh-ish systems contributed
+20:14 SEJeff    Example states, it does some really intense stuff: https://github.com/saltstack/salt/blob/develop/salt/states/network.py#L12
+20:14 SEJeff    ethtool, routes, interfaces, bonding, etc
+20:29 teancom   SEJeff: you know if I could use salt, I would be...
+20:54 Pax       shuff: Question about the raxorsedge network module…  So I'm using cobbler as my pseudo cmdb and I'm wondering if it might not be preferable to just write some calls to cobbler to present interface info as facts?
+20:56 shuff     i don't think that's an either/or proposition
+20:56 shuff     i think they'd work together really well
+20:56 shuff     for example, here's an example of a node config for our (non-cobblerized) environment:
+20:57 SEJeff    Pax, Ironically, I did something very similar to that for $real_job, but can't open source it. I can however point you in the right direction for the cobbler api if you have any questions
+20:57 shuff     node "stomp.unix.fas.harvard.edu" {
+20:57 shuff     class {
+20:57 shuff     "stomp_server":
+20:57 shuff     net_static       =&gt; {
+20:57 shuff     "eth0"         =&gt; {
+20:57 shuff     "macaddress" =&gt; $macaddress_eth0,
+20:57 shuff     "ipaddress"  =&gt; "10.255.19.245",
+20:57 shuff     "netmask"    =&gt; "255.255.255.0",
+20:57 shuff     "gateway"    =&gt; "10.255.19.1",
+20:57 shuff     }
+20:57 shuff     },
+20:57 shuff     environment =&gt; "shuff";
+20:57 shuff     }
+20:57 shuff     }
+20:58 SEJeff    Can you get that data out programatically from puppet, or do you just apply that manifest and then use facter?
+20:58 shuff     there's no reason why those ipaddress, netmask, gateway params shouldn't instead be, i dunno, $ipaddress_eth0
+20:58 SEJeff    gotcha
+20:59 Pax       yeah exactly what I was thinking actually! Calling the XMLRPC and creating $IP_bond0 or whatever
+20:59 shuff     yup
+20:59 SEJeff    Pax, Are you ok with python?
+20:59 Pax       cause re-defining  it in another place seems cumbersome, and I'm lazy
+20:59 Pax       SEJeff: I love me the python
+21:00 Pax       oh…god… I actually said that *shame*
+21:08 SEJeff    You could have said ADA, clojure, or something more obscure and easier to ridicule you for
+21:09 shuff     who doesn't love erlang?  can i get an amen?
+21:10 SEJeff    Actually you can
+21:10 shuff     i should mention that i am thrilled with rabbitmq and couchdb
+21:11 Pax       I broke up with erlang a while back
+21:11 shuff     but much like C, i am glad that other people like to write erlang so that i don't have to
+21:12 SEJeff    Riak &lt;3
+22:09 pdurbin_m riak sounded cool from the floss weekly episode. couchdb too. I've at least touched couchdb
+22:09 SEJeff    couchdb is awesome for small stuff
+22:10 SEJeff    but it was never designed for massive zomg scale. Just look at the reasoning behind why Canonical is dropping it for Ubuntu One
+22:10 SEJeff    Riak was designed for that size stuff from the get go
+22:10 SEJeff    But as a shooting buddy with a former basho employee, I might be biased.
+22:21 pdurbin_m right. reliability too, from what I understand. clustered out of the box
+22:22 SEJeff    pdurbin_m, Thats probably one of the coolest things about it. It is similar to elasticsearch
+22:22 pdurbin_m I don't really have use case for either one... yet
+22:22 SEJeff    You configure a new node to point to the existing cluster, it joins and everything rebalances automatically
+22:22 SEJeff    Sure
+22:23 pdurbin_m maybe I could store my tweets in couchdb. it's already JSON from the twitter API
+22:25 pdurbin_m I was gonna just throw them in git: http://git.greptilian.com/?p=data-liberation.git
+22:25 SEJeff    http://www.h-online.com/open/news/item/Canonical-dropping-CouchDB-from-Ubuntu-One-1382809.html if you're interested
+22:25 SEJeff    Or why not just mirror them to a statusnet install or ident.ca?
+22:27 pdurbin_m will statusnet pull in old tweets?
+22:30 pdurbin_m of course, I already have this for old tweets: http://thinkup.greptilian.com/?v=tweets&amp;u=philipdurbin&amp;n=twitter
+22:38 pdurbin_m hmm, via that article: U1DB, a synchronized database https://blueprints.launchpad.net/ubuntu/%2Bspec/desktop-p-u1db
+22:39 SEJeff    tweets are extra entrophy for a rng
+22:39 SEJeff    not much else
+23:55 pdurbin   the problem with twitter is all the tweets
+</pre></body></html>

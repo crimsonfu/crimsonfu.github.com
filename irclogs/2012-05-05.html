@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+04:38 pdurbin   ok, i tried cinnamon but i switched back to gnome 3. i found a solution to my *real* problem: http://unix.stackexchange.com/questions/37962/can-i-prevent-disable-touchpad-while-typing-from-affecting-mouse-movements/37963#37963
+05:11 pdurbin   sent a friendly email to the guy who made this "Add touchpad tab to the mouse capplet" commit: http://git.gnome.org/browse/gnome-settings-daemon/commit/plugins/mouse/gsd-mouse-manager.c?id=4eb9bd09219afbb56f114a2d10bc585e24db803e
+15:48 ironcamel last night my coworker registered the domain name danceb.in (pronounced dance bin), created a nopaste service, open sourced it, and deployed it. just on a whim. we had mentioned earlier in the day it would be cool to have our own paste bin.
+15:49 ironcamel http://danceb.in/
+15:50 ironcamel this paste shows the code it is running: http://danceb.in/2v3IzWyW4RGVoDPIl9DNYg
+15:51 ironcamel pdurbin: here is the App::Nopaste plugin https://metacpan.org/module/App::Nopaste::Service::Dancebin
+15:52 ironcamel pdurbin: you would export NOPASTE_SERVICES=Dancebin in your ~/.bashrc if you wanted to use that service by default
+15:52 ironcamel it's running on a 256mb slice for right now, so it might be slow
+17:33 pdurbin   ironcamel: very cool
+17:34 pdurbin   just stood this up: http://munin.greptilian.com
+</pre></body></html>

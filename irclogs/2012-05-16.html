@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+10:08 pdurbin     I really wish I could go to this tonight: Boston OpenStack User Group Meetup Wednesday, May 16, 2012 6:30 PM, Harvard University, Maxwell Dworkin Building, Rm 119, 33 Oxford St, Cambridge, MA http://www.meetup.com/Openstack-Boston/events/63106082/
+10:09 pdurbin     maybe someone can go and report back here how it was :)
+11:49 pdurbin     "The distutils modules is part of the standard library and will be until Python 3.3. . . Unfortunately, the distutils module is riddled with problems, which is why a small group of python developers are working on distutils2. However, until distutils2 is complete. . . [blah blah]. . . distutils will be removed from the standard library." -- http://guide.python-distribute.org/introduction.html#current-state-of-packaging
+11:49 pdurbin     via ( f o o b a r . l u ) » Blog Archive » A comprehensive guide through Python packaging (a.k.a. setup scripts): http://foobar.lu/wp/2012/05/13/a-comprehensive-step-through-python-packaging-a-k-a-setup-scripts/
+11:50 pdurbin     i kind of expected python to be more organized than this. to have one true way, etc.
+14:44 pdurbin     i'm being asked about best practices for rolling back RPMs. any thoughts on this?
+14:45 SEJeff|away pdurbin, Not supported
+14:45 SEJeff|away It will have to be very manual
+14:45 SEJeff|away check the rpms with rpm -q --scripts $packagename
+14:45 SEJeff|away manually undo anything they did
+14:45 SEJeff|away if necessary
+14:46 SEJeff|away The only package manager that supports rollbacks is conary, that dreadfully slow one (it makes yum without -C look like a mclaren F1 supercar) and the thing with zfs in opensolaris
+14:46 SEJeff|away yum downgrade was deprecated I think.
+14:46 pdurbin     i thought yum or rpm has or had a rollback. will google
+14:48 SEJeff|away pdurbin, It is deprecated
+14:48 pdurbin     "yum history rollback" is listed at https://wiki.archlinux.org/index.php/Pacman_Rosetta
+14:48 pdurbin     "Rolls entire packages back to a certain date or checkpoint."
+14:52 pdurbin     SEJeff|away: citation needed :)
+14:52 SEJeff|away Well it was officially removed from RHEL4
+14:52 SEJeff|away Let me go see if Seth Vidal, the guy who wrote yum is up
+14:52 SEJeff|away I'll ask him
+14:53 pdurbin     access.redhat.com | How to use yum history to roll back an update in Red Hat Enterprise Linux 6? - https://access.redhat.com/knowledge/solutions/64069
+14:55 pdurbin     Re: [rhelv6-beta-list] yum/rpm repackage and rollback - https://www.redhat.com/archives/rhelv6-beta-list/2010-June/msg00056.html
+14:56 SEJeff      pdurbin, http://hastebin.com/dunukaqefo.xml
+14:57 SEJeff      Seth Vidal is the yum maintainer who works for redhat
+14:59 pdurbin     SEJeff: cool
+15:00 pdurbin     he's welcome to join the channel if he is so inclined!
+15:03 SEJeff      pdurbin, Oh and: http://hastebin.com/miluwaqaku.xml
+15:03 SEJeff      told you, yum / rpm doesn't really do it :)
+15:04 SEJeff      There is a snapshot plugin however that will take lvm / btrfs snapshots before doing any transactions via yum
+15:04 SEJeff      but no rollback functionality for that plugin yet
+15:04 pdurbin     i thought he said history is not a plugin :)
+15:05 SEJeff      pdurbin, Not the same thing, let me find it
+15:05 SEJeff      It was written a few fedora releases ago
+15:06 SEJeff      pdurbin, For reference: https://fedoraproject.org/wiki/Features/SystemRollbackWithBtrfs and the associated yum plugin: http://lists.baseurl.org/pipermail/yum-devel/2009-December/006347.html
+15:08 SEJeff      Now conary does true rollbacks: http://wiki.rpath.com/wiki/Conary:conary_rollback
+15:10 pdurbin     i've never even heard of conary
+15:10 SEJeff      You've got much to learn my friend :)
+15:10 pdurbin     used by this, i guess. . . Foresight Linux - Because Your Distro Should be Cool! - http://www.foresightlinux.org/
+15:10 pdurbin     SEJeff: i absolutely have much to learn
+15:11 SEJeff      Yeah Ken Vandine is the guy who got me contributing to GNOME. He made Foresight. conary was actually written for rpath linux. Foresight was the first independent distro to use it.
+15:11 pdurbin     "the future is here" -- http://www.foresightlinux.org
+15:12 SEJeff      RPath is one of those companies you want to succeed that fails over and over again unfortunately
+15:12 pdurbin     i haven't heard of them either. . .
+15:12 pdurbin     http://en.wikipedia.org/wiki/RPath
+15:13 SEJeff      Founded by some high level redhatters many moons ago before the "JEOS" movement was born
+15:13 SEJeff      They sort of created JEOS
+15:13 SEJeff      they being rpath
+15:14 SEJeff      http://en.wikipedia.org/wiki/Just_enough_operating_system Now that you have Fedora, Ubuntu, AND SUSE doing JEOS rebuilds, rpath's business prospects are not so great
+15:17 SEJeff      conary is like more or less running recursive diff over your entire filesystem. It is dreadfully slow
+15:24 pdurbin     huh. ok
+15:25 pdurbin     yeah, rollbacks are definitely highlighted at http://en.wikipedia.org/wiki/Conary_%28package_manager%29
+15:32 pdurbin     puppet does downgrades somehow. . . not sure how. . . Feature #2866: Yum package provider does not allow downgrade - Puppet - Puppet Labs - http://projects.puppetlabs.com/issues/2866
+15:34 magoo       any of you with experience doing a 'backport' in ubuntu?
+15:35 magoo       I want to backport perl 5.14 from debian sid to work with ubuntu 10.04
+15:36 magoo       pretty sure that's possible and that that is the preferred approach but I'm a complete noob with a lot of the deb package mgmt stuff
+15:38 pdurbin     magoo: i don't really have a solution for you, but this came across my radar recently: How do you update your system Perl? | brian d foy [blogs.perl.org] - http://blogs.perl.org/users/brian_d_foy/2012/05/how-do-you-update-your-system-perl.html
+15:46 pdurbin     from what i can tell, puppet does a `yum downgrade`.  that's the "operation" it feeds to yum: https://github.com/puppetlabs/puppet/blob/2be44d40dbccbb54d5ac730cf852d6e067b8c523/lib/puppet/provider/package/yum.rb#L69
+15:50 pdurbin     magoo: does the latest ubuntu have the perl you want? an lts just came out..
+15:55 pdurbin     `yum downgrade` is highly voted up here: http://superuser.com/questions/290596/how-do-i-downgrade-packages-easily-with-yum
+15:58 pdurbin     `yum history undo` is mentioned at 4.2.6. Working with Transaction History - http://docs.fedoraproject.org/en-US/Fedora/16/html/System_Administrators_Guide/sec-Yum-Transaction_History.html
+15:59 pdurbin     "If possible, this command will also attempt to downgrade all updated packages to their previous version, but these older packages may no longer be available. If you need to be able to restore the system to the state before an update, consider using the fs-snapshot plug-in described in Section 4.4.3, “Plug-in Descriptions”. " http://docs.fedoraproject.org/en-US/Fedora/16/html/System_Administrators_Guide/sec-Plugin_Descriptions.html
+15:59 pdurbin     which is pretty much what SEJeff was saying :)
+16:14 SEJeff      yum downgrade is weaksauce
+16:14 SEJeff      A large number of rpm install / uninstall scriptlets are not designed for this
+16:14 SEJeff      I'm just letting you know
+16:48 magoo       pdurbin: thanks for the link... the reason I was asking is that the biggest chunk of time taken in our build process is in compiling perl. This discourages frequent rebuilding in Vagrant which is, of course, not a good thing. I think I'm going to roll my own vagrant and ec2 images with it preinstalled from source
+16:50 pdurbin     magoo: cool. that works
+16:52 magoo       i'm really surprised 5.14 hasn't made it as the core perl until this latest release
+16:54 pdurbin     i've got perl 5.10 on my centos 6 box
+17:02 pdurbin     "Sputnik is part of an effort by Dell to better understand and serve the needs of developers in Web companies. . . And what better way to do that than beginning with a laptop that is both highly mobile and extremely stylish, running the 12.04 LTS release of Ubuntu Linux." -- http://bartongeorge.net/2012/05/07/introducing-project-sputnik-developer-laptop/
+17:03 magoo       read about that the other day. The 'profiles' is a good idea imo - hopefully they pull it off as well as they make it sound
+17:12 pdurbin     SEJeff: where is it written that `yum downgrade` is deprecated? i can't find it
+17:12 SEJeff      pdurbin, I can't either, I either imagined it or misread something somewhere
+17:12 SEJeff      I saw something about it on a mailinglist a few years back
+17:13 pdurbin     ok
+17:13 pdurbin     i've long been wary of rolling back packages anyway
+17:13 SEJeff      But I do stand by my statement re: install scripts totally breaking
+17:13 gridiron    I recall reading about it as well so you are not insane...well...not mis remembering within your insanity any way.
+17:13 SEJeff      as they often magically upgrade things
+17:13 SEJeff      but don't downgrade
+17:14 SEJeff      gridiron, thanks. I wish I could find it.
+17:14 pdurbin     sometimes our puppet rpm (on clients) gets updated but puppet seems to downgrade the rpm just fine
+17:17 SEJeff      I do wish I could find Jesse's source on this: http://comments.gmane.org/gmane.linux.redhat.fedora.devel/43389
+17:19 SEJeff      """You are arguing that Yum should support RPM downgrades which the Yum developers dont think in a good idea.""". Jesse was the first FPL I believe and is responding to a troll
+17:19 gridiron    so...poking around about this I found this: http://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/
+17:20 gridiron    netstat? Really?
+17:20 SEJeff      ss!
+17:20 SEJeff      ss way &gt; netstat
+17:21 pdurbin     huh
+17:21 SEJeff      ss is the only app that will show you connections and how much memory their socket buffers are using
+17:22 SEJeff      http://linux.die.net/man/8/ss
+17:24 SEJeff      When troubleshooting apps with thousands or hundreds of thousands of connections and you need to bump up the socket buffers, ss can be a lifesaver
+17:24 SEJeff      "why don't my apps have enough memory?"
+17:30 gridiron    Interesting... will save keystrokes.
+17:32 gridiron    OK... Initial toying says ss is the dogs... but in the CLI way, not the Germany WWII era way
+17:33 SEJeff      -EDOESNOTCOMPUTE
+19:20 pdurbin     need to convert some VM's from vmware to kvm. looks like there's some vmware2libvirt script at http://bazaar.launchpad.net/~ubuntu-virt/virt-goodies/trunk/annotate/7?file_id=vmware2libvirt-20080527122344-8h0gi0yqx3erefum-4 via http://blog.loftninjas.org/2008/09/08/converting-a-vmware-image-to-kvm/
+19:22 SEJeff      pdurbin, qemu-img can convert vmdk vmware files I believe
+19:23 SEJeff      I've not done that in 4 years, but it does work
+19:28 pdurbin     right. but what about the xml? shall i hand craft it lovingly?
+19:28 pdurbin     for `virsh define /path/to/foo.xml` that is
+19:28 SEJeff      Yeah always a mess :/
+19:28 pdurbin     or is there some way to look at some vmware thing and make an xml file out of it?
+19:28 SEJeff      xml and lovingly don't go int the same sentence
+19:28 pdurbin     exactly :)
+19:28 SEJeff      There is a vmware file, but yeah. that sucks
+19:30 pdurbin     someone in here has the fu
+19:30 * pdurbin   taps foot
+19:36 pdurbin     everyone with the fu has left early for drinks before the boston openstack meetup ^^, apparently :)
+</pre></body></html>

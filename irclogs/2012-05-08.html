@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+02:11 pdurbin     magoo: nice link. better than https://help.ubuntu.com/community/SwitchingToUbuntu/FromLinux/RedHatEnterpriseLinuxAndFedora
+02:15 pdurbin     i like this "Specific technology readiness for use in distributed systems" at http://www.bluebox.net/news/2012/04/distributed-systems-design-part-44/ . mysql, postgres, memcache, apache, nginx, passenger, unicorn, derby, ha-nfs, cdns, reeds, hadoop, risk, mongo, rails
+12:59 magoo       pdurbin: great links! really like the last one
+13:01 pdurbin     reeds? i meant redis :)
+13:02 SEJeff      pdurbin, Agreed! /me adds all 4 to his reading list for this evening: http://www.bluebox.net/news/category/distributed-systems
+13:02 pdurbin     i really need to get that mojo client working, so i can just grab all the h2 tags off a page or whatever
+13:03 SEJeff      Can't you do that with lwp?
+13:03 SEJeff      since you're a perl fan :)
+13:04 pdurbin     oh, probably. but i watched a mojolicious screencast and it looked like the work was already done for me
+13:04 * pdurbin   googles
+13:13 pdurbin     here. `mojo get http://mojolicio.us 'h1, h2, h3' text` from http://search.cpan.org/~sri/Mojolicious-2.93/lib/Mojolicious/Guides/Cookbook.pod#Command_line
+13:14 SEJeff      Oh *that* is cool
+13:14 pdurbin     i'm pretty sure this is the corresponding screencast: Mojolicious Mojocast #5: Mojo::UserAgent - http://mojocasts.com/e5
+13:14 SEJeff      I was completely ignorant of people really doing this sort of thing with perl. It makes me happy someone is.
+13:17 pdurbin     see also "show me mice!" at. . . And Perl Happens :3 - http://cat.eatsmou.se
+13:32 * pdurbin   runs perl -MCPAN -Mlocal::lib -e 'CPAN::install(Mojolicious)'
+13:34 pdurbin     mojo get http://www.bluebox.net/news/2012/04/distributed-systems-design-part-44/ 'h2' text | tr "\n" " "
+13:34 pdurbin     MySQL PostgreSQL Memcache Apache / Nginx / Passenger / Unicorn DRBD / HA-NFS CDNs and other caching technologies Redis Hadoop, Riak, and other “eventually consistent” cloud technologies Mongo Rails
+13:34 pdurbin     that's better. and way less prone to human error
+13:35 pdurbin     redis is even spelled right :)
+13:42 SEJeff      Anyone ever used meteor.js + any of the perl stuff with it?
+13:43 SEJeff      A coworker was tinkering with it showing me how he would edit html on the server and it updates on the clients in realtime
+13:52 pdurbin     "we built our own. A perl-based HTTP server written from the ground up to support high concurrency and longevity of connections" -- http://meteorserver.org . interesting
+14:00 SEJeff      pdurbin, Also see: http://meteor.com/ Take a look at the page source. They certainly do seem to dogfood
+14:03 pdurbin     SEJeff: http://meteor.com doesn't work in elinks. :)
+14:04 SEJeff      Ha unsurprising
+14:51 pdurbin     shuff: "Farewell Icinga API
+14:52 pdurbin     https://www.icinga.org/2011/08/05/farewell-icinga-api/ via http://tweetree.com/posts/199857428144197632
+14:52 SEJeff      wha!?
+14:53 pdurbin     SEJeff: i haven't really had time to absorb it
+14:53 SEJeff      Oh thats mostly old news
+14:53 SEJeff      If you're using the new icinga-web (which is very purty)
+15:20 ironcamel   pdurbin: see new comment on https://plus.google.com/u/0/107770072576338242009/posts/fu9wVpuDdzy
+15:27 ironcamel   pdurbin: with cpanm you can just do cpanm -l ~/perl5 Mojolicious
+15:27 ironcamel   you don't even need the -l if you already configured the shell environment variables using local::lib
+15:27 ironcamel   much easier than typing perl -MCPAN -Mlocal::lib -e 'CPAN::install(Mojolicious)'
+15:30 ironcamel   that mojo stuff is really nice. i should start using that. instead of curl blah | vim - ... and then searching
+15:34 pdurbin     mojo get is super nice. and the author is glad we like it: http://twitter.com/kraih/status/199860499171647488
+16:04 ironcamel   pdurbin: danceb.in now with anchor links as you requested :) http://danceb.in/TrDpBSeZ4RGhLyZl9DNYg
+16:04 ironcamel   https://github.com/throughnothing/Dancebin/pull/1
+16:05 pdurbin     ironcamel: wow! i love it!!
+16:05 pdurbin     i might need help setting up a paste.greptilian.com
+16:05 ironcamel   sure
+16:05 ironcamel   it is super simple to deploy
+16:06 pdurbin     is there an rpm? :)
+16:06 ironcamel   nope
+16:07 pdurbin     maybe shuff will make one for me :)
+16:07 ironcamel   don't be such a weenie
+16:07 pdurbin     heh
+16:07 ironcamel   git clone ...
+16:07 ironcamel   cd Dancebin
+16:07 ironcamel   cpanm --installdeps .
+16:07 ironcamel   done
+16:07 pdurbin     as root?
+16:08 ironcamel   as root, or via local::lib
+16:08 pdurbin     i'd rather have an rpm
+16:08 ironcamel   cpanm -l ~/perl5 --installdeps . # as a regular user
+16:08 ironcamel   then perl -Mlocal::lib ./bin/app.pl
+16:09 ironcamel   to run it, if you are using a local::lib
+16:09 pdurbin     ironcamel: don't you want to be able to tell people, "just run `yum install perl-Dancebin`"?
+16:09 pdurbin     (or apt-get)
+16:09 ironcamel   but how will it get into the yum repos?
+16:09 ironcamel   i have no control over that
+16:09 pdurbin     sure you do. anyone does
+16:10 ironcamel   really?
+16:10 pdurbin     this is how i can (ultimately) run `yum install ikiwiki` (another perl project): https://admin.fedoraproject.org/pkgdb/acls/name/ikiwiki
+16:11 pdurbin     in short, your app just need to be added to fedora
+16:11 ironcamel   who is the gatekeeper for that?
+16:12 pdurbin     New package process for existing contributors - FedoraProject - http://fedoraproject.org/wiki/New_package_process_for_existing_contributors
+16:12 pdurbin     Packaging:ReviewGuidelines - FedoraProject - http://fedoraproject.org/wiki/Packaging:ReviewGuidelines
+16:12 ironcamel   15 steps!?
+16:13 ironcamel   ridonkulous
+16:13 pdurbin     if you don't want to bother with the fedora project, it could be added to http://repoforge.org
+16:14 ironcamel   it is easier to just use the cpanm package manager :)
+16:14 pdurbin     sure
+16:15 pdurbin     back to the fedora project for a second. . . here's a package "review request" example: Bug 773470 – Review Request: muffin - Window and compositing manager based on Clutter - https://bugzilla.redhat.com/show_bug.cgi?id=773470
+16:15 pdurbin     which lead to https://admin.fedoraproject.org/pkgdb/acls/name/muffin
+16:16 pdurbin     it's all very transparent
+16:16 pdurbin     repoforge has *much* less ceremony :)
+16:27 whorka      speak of which, I just got my update to mod_fastcgi accepted there, per http://whorka.github.com/blog/2012/02/08/apache-mod_fastcgi-suexec-php-apc-rhel.html
+16:30 pdurbin_m   whorka: \o/ I've been meaning to nag you about that post! you filled it in!
+16:31 pdurbin_m   I'm totally setting this up on my home server
+16:32 whorka      yeah, I was a little less kind to the mod_fcgid developers in my abbreviated comment in the .spec, but i hope the extended explanation at the bottom of the blog post makes up for it.
+16:32 whorka      nothing wrong with mod_fcgid, just different design decisions
+17:05 Pax         is there anyone in chat thats using anchors for ordering?
+17:05 Pax         in puppet?
+17:20 pdurbin     Anchor Pattern - Puppet - Puppet Labs - http://projects.puppetlabs.com/projects/puppet/wiki/Anchor_Pattern ?
+17:25 gridiron    Pax: I will check with my house mate, he is the puppet master. Though a bit of a slum lord, too.
+17:26 pdurbin     gridiron: i think you're new here... welcome!
+17:26 gridiron    I am... I am Pax's house mate. :)
+17:26 Pax         pdurbin: yup! I'm working on an update to my iscsid and multipath modules, and I'm trying to decide if I need anchors, or if stages will be enough
+17:27 Pax         gridiron: already calling me a slumlord.. sheesh…
+17:27 pdurbin     wow. house of geeks. i haven't turned my daughters into geeks. . . yet!
+17:28 gridiron    Already? Where have you been?
+17:32 gridiron    I do have a current hunch with files descriptors, so if it does crash today during your shift check out the FS descriptors
+17:32 gridiron    Damn it... Windows focus does not  follow eyes. Can we work on that?
+17:32 SEJeff      Get a kinect?
+17:43 pdurbin     "if you try to use an opcode cacher with mod_fcgid, you end up with a cache per processes which nullifies the point of the opcode cache." -- Re: [users@httpd] Optimizing mod_fcgid - http://mail-archives.apache.org/mod_mbox/httpd-users/201003.mbox/%3C20100324193501.GA2363@bitz.org%3E via http://whorka.github.com/blog/2012/02/08/apache-mod_fastcgi-suexec-php-apc-rhel.html
+17:49 pdurbin     Puppet Camp 2012: Boston, Massachusetts - Friday, June 22, 2012 from 9:00 AM to 5:00 PM (ET) Cambridge, MA -- http://puppetcampboston.eventbrite.com
+17:49 pdurbin     "Puppet Camp is a community oriented gathering of Puppet users and developers. You’ll have the opportunity to network with a diverse group of Puppet users, benefit from insightful lectures delivered by prominent community members, and be able to share experiences and discuss potential implementations of Puppet during our attendee generated breakout sessions."
+18:27 pdurbin     here i go asking users if i can reboot their VM like a sucker. didn't realize i can just allocate more ram and ask the user to reboot whenever
+18:33 pdurbin     huh. i didn't know fedora was on arm. . . http://fedoraproject.org/wiki/Architectures/ARM via http://irclog.perlgeek.de/salt/2012-05-08#i_5560123
+18:34 SEJeff_work Fedora on arm was recently (a 3-4 weeks ago) almost promoted to a primary supported arch
+18:34 SEJeff_work But it still needs a bit more love before that happens
+18:35 SEJeff_work http://fedoraproject.org/wiki/Architectures/ARM/Planning/Primary
+20:19 pdurbin     heh. mailman says "subscribees". google says "Did you mean: subscribers"
+20:36 whorka      would the list itself be the subscribee?
+23:05 SEJeff_work Anyone here play with openflow?
+</pre></body></html>

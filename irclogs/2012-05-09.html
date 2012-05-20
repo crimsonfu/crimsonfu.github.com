@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+11:31 pdurbin     Language War Propaganda: Perl vs. Python vs. Ruby - https://plus.google.com/107770072576338242009/posts/PWMTfdiWe35 :)
+14:12 pdurbin     55.000+ Twitter usernames and passwords leaked - http://www.airdemon.net/hacker107.html
+14:15 SEJeff_work :/
+14:15 SEJeff_work anyone want me to check the lists? Mine isn't in that
+14:15 SEJeff_work thank goodness
+14:18 pdurbin     http://pastebin.com/raw.php?i=Kc9ng18h http://pastebin.com/raw.php?i=vCMndK2L http://pastebin.com/raw.php?i=JdQkuYwG http://pastebin.com/raw.php?i=fw43srjY http://pastebin.com/raw.php?i=jv4LBjPX
+14:29 SEJeff_work No one I am following or any of my followers are compromised. Just checked.
+14:29 SEJeff_work good
+14:30 pdurbin     SEJeff_work: so do you think it's legit. a lot of the accounts seem spammy. similar usernames and passwords
+14:30 SEJeff_work pdurbin, Most twitter accounts are spammy :)
+14:30 SEJeff_work A lot of them look like the passwords were created using pwgen. Most likely they were
+14:30 pdurbin     noise for random number generators, like you said before :)
+14:32 SEJeff_work Who's not shocked? &lt;-------- This guy!
+14:33 pdurbin     :)
+15:03 pdurbin     fu! :) from /usr/lib/ruby/1.8/fileutils.rb:243:in `fu_mkdir'
+15:12 pdurbin     hacking on ruby by sjoeboo
+15:35 pdurbin     hmm, no answers here. . . Ben Humphreys • Is there something like Perl Critic for Ruby? Ruby... - http://blog.benhumphreys.co.uk/post/321296406/is-there-something-like-perl-critic-for-ruby-ruby
+15:36 pdurbin     looks like there are various tools to check out: Can anyone recommend a Ruby source code analyzer (something like pylint) - Stack Overflow - http://stackoverflow.com/questions/286564/can-anyone-recommend-a-ruby-source-code-analyzer-something-like-pylint
+15:42 agoddard    ^ I haven't used before.. there's on specific to chef, but not for general ruby stuff, that answer looks good though
+15:42 pdurbin     agoddard: which answer? have you heard of any of these ruby tools?
+15:43 agoddard    pdurbin: I've heard of a bunch of them (flay,flog, reek) but never used. Both of the top two answers have more info than I know
+15:45 pdurbin     i'll try flay, flog, or reek first then. thanks
+15:46 pdurbin     i've been happy with pep8 and pylint http://wiki.greptilian.com/python
+15:46 pdurbin     and perlcritic i simply love
+15:49 pdurbin     handy links: http://ruby.sadi.st/Flay.html http://ruby.sadi.st/Flog.html http://silkandspinach.net/2008/09/23/reek-a-code-smells-detector-for-ruby/
+20:39 SEJeff_work For anyone writing / debugging ruby code, this might be of use: https://github.com/tmm1/rbtrace
+21:12 ironcamel   https://plus.google.com/u/0/102499719144563443986/posts/fnqZGySsFL2 - Simple. Git-based. Notes.
+21:15 shuff       yeah, i saw that - it looks *awesome*
+21:16 ironcamel   shuff: tried it yet?
+21:16 shuff       not yet - actually, Dancebin is higher on my list of things to take a look at
+21:16 ironcamel   shuff: let me know if you have any questions or ideas for features, etc
+21:16 shuff       since i already have some notetaking solutions that work pretty well for me
+21:16 ironcamel   http://danceb.in has really turned into something nice
+21:16 shuff       but i do not have a good pastebin solution
+21:17 ironcamel   shuff: you have App::Nopaste ?
+21:17 ironcamel   it's a command line tool, nopaste
+21:17 ironcamel   lets you nopaste file.txt
+21:17 ironcamel   or echo hello | nopaste
+21:17 shuff       right now i'm working on packaging dependencies for Dancer::Plugin::DBIC
+21:17 shuff       nice
+21:17 shuff       i'll take a look
+21:18 ironcamel   shuff: if you install App::Nopaste::Service::Dancebin as well, and put export NOPASTE_SERVICES=Dancebin in your .bashrc, it will default to using http://danceb.in
+21:19 ironcamel   by default i think it uses pastie.com or something like that
+21:19 shuff       a synergy :) honestly, though, i'd want to run my own pastebin rather than using a public one
+21:19 ironcamel   it comes with like 8 or so built in services
+21:19 ironcamel   ah, yes
+21:19 ironcamel   danceb.in would be great for that
+21:19 ironcamel   and you can set an env variable
+21:19 ironcamel   so that App::Nopaste::Service::Dancebin will use your private pastebin
+21:19 shuff       i figured
+21:20 ironcamel   and dancebin is super easy to deploy. let me know if you need help.
+21:20 shuff       i will, thx
+21:20 ironcamel   as long as you are not a stickler like pdurbin and need to yum install everything :)
+21:20 shuff       i am a worse stickler than pdurbin
+21:20 ironcamel   oh no
+21:21 shuff       he uses local::lib
+21:21 shuff       plus i am running el5 with geriatric perl at home
+21:21 shuff       but i have a functional Dancer stack
+21:22 shuff       once i get the DBIC squared away it should be fine
+21:22 ironcamel   you will need el6 at least, pretty sure it requires perl 5.10
+21:22 shuff       i'll let you know how it goes
+21:23 shuff       if i have to backport 5.8 support, i'll send you a pull request
+21:24 ironcamel   sure, should be no problem to make it 5.8 compatible
+21:32 shuff       anyway, i'm out - see you all tomorrow
+23:49 pdurbin     ironcamel and shuff: you guys are cracking me up :)
+23:49 pdurbin     can't wait for that rpm :)
+23:50 pdurbin     ooooooh dancebin 'cause it's dancer + pastebin
+23:51 pdurbin     so, assuming i stand up a dancebin service, how do i keep people from spamming it? or storing stolen twitter passwords in it?
+23:52 pdurbin     and shuff, you should absolutely install nopaste right now, right now
+23:52 pdurbin     http://search.cpan.org/dist/App-Nopaste/
+</pre></body></html>

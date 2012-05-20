@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+03:41 ironcamel  http://broadcast.oreilly.com/2012/04/the-new-desktop-paradigm-blame.html
+15:15 pdurbin    wondering if i should use homesick, briefcase, or something else to keep by dotfiles in sync: https://github.com/technicalpickles/homesick http://technicalpickles.com/posts/never-leave-your-dotfiles-behind-again-with-homesick/
+17:21 pdurbin    whoops, forgot to link to http://jim.github.com/briefcase . see also: Keeping dot files synched across machines? - Stack Overflow - http://stackoverflow.com/questions/169574/keeping-dot-files-synched-across-machines
+17:24 * agoddard thinks dropbox with Symlinks?
+17:27 pdurbin    agoddard: yeah, that's pretty much what i do now. but these tools manage the symlinks for you. homesick especially. i haven't looked at briefcase much
+17:31 agoddard   pdurbin: SLIQ
+17:31 pdurbin    briefcase seems to me focused on protecting secrets
+17:32 pdurbin    s/me/be/
+17:57 agoddard   ^ me or be both kinda work there ;)
+18:45 pdurbin    agoddard: heh. touche
+19:04 magoo_     i could use some dpkg foo right about now
+19:05 magoo_     I've got a package in -rF state
+19:05 magoo_     but I can't uninstall it either because the pre-removal script is erroring out
+19:05 shuff      hmm
+19:08 shuff      can you pass —force-reinstreq?
+19:08 shuff      what is borking up the script?
+19:09 shuff      sorry, that's —force-remove-reinstreq, i think
+19:10 magoo_     Removing postgresql-9.1 ...
+19:10 magoo_     .: 9: Can't open /usr/share/postgresql-common/maintscripts-functions
+19:11 magoo_     the force-remove didn't work
+19:11 shuff      —force-all ?
+19:11 shuff      that's a double-dash
+19:11 magoo_     right, I got that
+19:12 shuff      and is postgresql-common installed?
+19:13 magoo_     well, it was, I passed the whole list in for removal and this one is left
+19:13 magoo_     perhaps it got the ordering wrong
+19:14 shuff      not unheard-of
+19:14 shuff      maybe do an `apt-get —reinstall install postgresql-common` and then try removing it?
+19:18 magoo_     no luck... tons of dependency errors
+19:27 shuff      hm
+19:27 shuff      maybe throw the errors up on a pastebin somewhere, so that we can look at them?
+19:29 agperson   nuke it from orbit, its the only way to be sure
+19:35 magoo_     shuff: I'm in a bit of a rush (and it's staging) so I'm just rechefing
+19:36 magoo_     so I guess I'm 'nuking from orbit'!
+19:36 shuff      sounds like a better solution :)
+20:13 agperson   glad i could help! ;)
+20:17 Pax        pdurbin: do you have the "born on" fact script somewhere on crimsonfu?
+20:36 pdurbin    date --date=@`rpm -q --qf '%{INSTALLTIME}' basesystem` +%F
+20:41 pdurbin    i thought sjoeboo had blogged about it, but i can't find it now
+20:41 sjoeboo    don't think i did...
+20:42 sjoeboo    date = `rpm -q --qf '%{INSTALLTIME}' basesystem`
+20:42 sjoeboo    born_on = `date --date=@#{date} +%F`.chomp
+</pre></body></html>
