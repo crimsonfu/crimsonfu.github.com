@@ -8,7 +8,7 @@ Some web browsers implement the [SPNEGO](http://en.wikipedia.org/wiki/SPNEGO) me
 
 For the browsers I have at hand, this consisted of telling them to permit negotiation with hosts that match some sort of wildcard expression.  I use Harvard-specific examples here; adjust appropriately for your environment.
 
-!! Firefox
+## Firefox
 
 1. In your browser, open `about:config`.
 1. Set **network.negotiate-auth.delegation-uris** to `harvard.edu`.
@@ -16,7 +16,7 @@ For the browsers I have at hand, this consisted of telling them to permit negoti
 
 That's it! These settings should immediately take effect.
 
-!! Chrome
+## Chrome
 
 Pass the following command-line arguments to Chrome/Chromium:
 
@@ -26,10 +26,10 @@ Pass the following command-line arguments to Chrome/Chromium:
 
 Setting up a means of automatically passing these arguments to Chrome varies by platform, and is universally annoying.
 
-!! Safari
+## Safari
 
 Once your Mac is configured to be able to obtain a Kerberos ticket, Safari requires no additional configuration to use SPNEGO.  Hooray!
 
-! Why?????
+# Why?????
 
 The significant advantage of doing so is that you can then talk to Kerberized web services, which means less typing/pasting/[LastPass](https://lastpass.com/)ing in credentials to various little authentication prompts (and ideally fewer cheesy `admin`/`passw0rd` credentials) and more getting work done.
