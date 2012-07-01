@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+12:47 pdurbin  hmm. need to monitor mysql replication. in the past, we've checked Seconds_Behind_Master by running SHOW SLAVE STATUS \G . maybe there's a better way...
+13:04 ventz    is this in a mysql cluster
+13:04 ventz    or just some manual hack? :)
+13:04 pdurbin  well
+13:05 pdurbin  it's a simply master/slave relationship, i think...
+13:05 pdurbin  i didn't set up the replication. but that's my understanding
+13:05 pdurbin  i'm just thinking about monitoring the replication
+13:05 ventz    funny you mentioned this today, i am trying to build a new mysql solutikon here and i don't want to create another cluster (as for FAS -- seems an overkill for security) so trying to figure out a good way to do it
+13:06 ventz    i am thinking a cron that just does a mysqldump and imports on a dedicated "fail safe" system
+13:06 pdurbin  huh. dump and import? why not use master/slave replication?
+13:06 SEJeff   pdurbin, For anything mysql, you can't go wrong with percona. They *wrote* the High Performance MySQL book
+13:06 SEJeff   Yeah mysqldump doesn't make sense for that
+13:07 SEJeff   http://www.percona.com/doc/percona-monitoring-plugins/nagios/pmp-check-mysql-replication-running.html
+13:08 pdurbin  SEJeff: that pmp-check-mysql-replication-running nagios plugin looks pretty good.  thanks!
+13:08 SEJeff   pdurbin, And the percona guys are the real deal. We had them come here for some mysql tuning and increased insert throughput almost a perfect 2x
+13:09 SEJeff   http://www.amazon.com/High-Performance-MySQL-Optimization-Replication/dp/0596101716 Baron Schwartz is one of the Percona founders
+13:09 pdurbin  SEJeff: cool. but i don't need to hire them do i? i can just use their nagios plugin, right?
+13:09 ventz    SEJeff: for us, it's just for a redundant site though
+13:10 SEJeff   pdurbin, Right. I'm just pointing out, they are legit
+13:10 SEJeff   I can say from experience they are
+13:10 pdurbin  ok
+13:11 pdurbin  ventz: i'm still wondering if you have something against mysql replication :)
+13:11 SEJeff   pdurbin, http://www.percona.com/doc/percona-monitoring-plugins/index.html
+13:12 ventz    i saw iffy results with it a while ago, but i think it has greatly improved since
+13:13 SEJeff   Yeah a long time ago. Not the case more recently
+13:13 pdurbin  ventz: ok. mysql replication has a tendency to fall over, in my experience (rhel 5, mostly). there's a reason i'm interested in monitoring it! :)
+13:14 pdurbin  kind of a pain to reinitialize the mysql slaves when replication gets pretty broken
+13:18 pdurbin  SEJeff: yum! "You can download the Percona Monitoring Plugins from the Percona Software Downloads directory, including our APT and Yum repositories"
+13:20 SEJeff   :)
+13:20 SEJeff   Glad to share some fu with you
+13:21 pdurbin  glad to be back :)
+13:21 pdurbin  you guys can feel free to talk amongst yourselves when i'm on vacation ;)
+13:24 SEJeff   heh
+13:24 SEJeff   I'll be moving to another big city in the 2nd week of July
+13:24 SEJeff   might be quiet then
+13:26 pdurbin  how dare you
+13:30 shuff    vacation?
+13:46 pdurbin  shuff: see my "phil durbin" google plus posts for pictures and such
+13:47 pdurbin  actually, i can't help linking to this one. :) Phil Durbin - Google+ - castle and throne - https://plus.google.com/109940583958656614840/posts/LTgDzpxRWMo
+13:50 shuff    !!!
+13:50 shuff    outstanding
+13:51 pdurbin  :)
+13:54 SEJeff   Is your throne made of real porcelain?  That looks really nice
+13:55 pdurbin  SEJeff: you'd have to ask the owner of the inn, but yes, i believe it was porcelain
+13:56 SEJeff   looks like you had some fun
+13:56 SEJeff   I've not had a chance to put pics online, but was in Cabo, Mexico for 7 days
+13:56 pdurbin  yep. the kids too
+13:56 pdurbin  cool
+14:48 pdurbin  westmaas: is this true? "AFAIK you cannot use Swift storage as a Nova volume backend" -- [CentOS-virt] Basic shared storage + KVM - http://lists.centos.org/pipermail/centos-virt/2012-June/002943.html
+14:51 westmaas pdurbin: hm, I'm not 100% sure on that. let me ask around.
+14:52 pdurbin  westmaas: thanks. i thought the point of swift was that it would take away all my storage problems. :) that swift would handle all the scaling for me
+14:54 westmaas all your object storage
+14:54 westmaas not necessarily block storage
+14:54 westmaas but at the same time, I can't imagine this not being a goal
+14:55 pdurbin  well, i thought the vm images were abstracted away into objects or whatever
+14:55 pdurbin  i need to do some reading, obviously
+14:55 westmaas yeah, the projects aren't tied that closely together yet.
+14:56 pdurbin  bummer
+14:56 pdurbin  agoddard had a great internal reply to that centos-virt thread. about iSCSI options
+14:57 pdurbin  i don
+14:57 pdurbin  't see him online but i'll have to ask if he minds if i copy and paste his reply back to the list
+17:35 pdurbin  shuff: some guy is writing an API for RackTables! [racktables-users] writing a restful API in php for Racktables - racktables-users - FreeLists - http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables
+17:35 shuff    neat!
+17:35 pdurbin  i updated my post to link to this new thread: https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+</pre></body></html>

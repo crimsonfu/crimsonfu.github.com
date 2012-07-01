@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+13:56 pdurbin     heh. "Text by Jeff, typos by iPhone"
+13:57 pdurbin     (i added the salt mailing list to gmane: http://dir.gmane.org/gmane.comp.sysutils.salt.user )
+13:57 pdurbin     good stuff, but i'm pretty glad crimsonfu doesn't have a mailing list :)
+14:12 SEJeff|away :P
+14:13 pdurbin     still want an api for racktables: http://irclog.perlgeek.de/crimsonfu/2012-01-30#i_5077167
+14:13 shuff       you and i both
+14:14 pdurbin     maybe we'll write one
+14:15 pdurbin     it's actively developed: RackTables-0.19.12.zip 2012-04-12
+14:20 pdurbin     hmm. SourceForge.net: Project Hosted Application mantisbt: racktables - 0000544: Quiet modes support - Mantis - http://sourceforge.net/apps/mantisbt/racktables/view.php?id=544 via [racktables-users] Re: Simple HTML interface for API-based calls? - racktables-users - FreeLists - http://www.freelists.org/post/racktables-users/Simple-HTML-interface-for-APIbased-calls,7
+14:20 pdurbin     'For "quiet=2", only errors/warnings/notices are displayed, and all remaining contents is omitted. This mode is useful for API calls from external apps.'
+14:33 pdurbin     "A operations database for managing hardware inventory and high-level system configuration with a snazzy web UI, REST/XML web services API, and command-line client which can be used to define configurations in other tools and processes such as software builds, cfengine/puppet/etch configuration, Nagios configuration, etc." -- nVentory - Ruby on Rails Datacenter Inventory Manager http://sourceforge.net/apps/trac/nventory/wiki/Introduction
+14:33 pdurbin     nVentory is the one i've been thinking of trying
+14:34 pdurbin     nVentory demo server: http://nventory.slacklabs.com guest/guest
+14:37 pdurbin     "As long as you have the Ruby nVentory client otherwise installed and working the puppet_node_classifier script should just plug in and work." -- PuppetIntegration – nventory - http://sourceforge.net/apps/trac/nventory/wiki/PuppetIntegration
+14:41 SEJeff      pdurbin, Sounds vaguely like rundeck
+14:41 SEJeff      with a silly name
+14:42 pdurbin     rundeck, huh?
+14:42 * pdurbin   googles
+14:42 SEJeff      http://rundeck.org/
+14:42 pdurbin     "Rundeck is an open-source process automation and command orchestration tool with a web console.
+14:42 pdurbin     Dispatch shell commands and scripts across all your physical or virtual nodes from a web-based or command-line interface. Automate ad-hoc and routine procedures. Use the API and plugins to integrate with other services. Use your LDAP/AD for authentication, and configure extensive access control.
+14:43 SEJeff      Ah, not quite the same thing
+14:43 pdurbin     yeah, not really
+14:43 SEJeff      A rundeck-like UI is what salt eventually wants
+14:43 pdurbin     we use racktables to keep track of where all our physical stuff is: which datacenter, which row, which rack, which rack units
+14:43 SEJeff      but done in javascript on the frontend and cyclone.io on the backend
+14:43 SEJeff      Right
+14:44 SEJeff      We use hostname to denote datacenter and autoset the LCD on boot
+14:44 SEJeff      With these cruddy excel spreadsheets for actual RU allocation level stuff. It isn't purty
+14:44 pdurbin     racktables would be fine if it had an api: Build a RESTful API for RackTables at Philip Durbin / HarvardProjects - https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+14:45 pdurbin     when i worked with shuff and whorka we had a database. home grown. worked pretty well
+14:46 SEJeff      Yup, we have the same thing here
+14:46 SEJeff      The api is django + django-piston (rest lib) works like a champ
+14:48 pdurbin     "Piston is a Django mini-framework creating APIs." -- https://bitbucket.org/jespern/django-piston/wiki/Home . cool
+14:49 pdurbin     SEJeff: so we need you to open source your inventory thing :)
+14:49 SEJeff      Yeah it is (c) my company. Can't unfortunately. I might eventually rewrite the non-company specific bits from scratch
+14:50 SEJeff      It is nice
+14:51 pdurbin     there's definitely a need for this
+14:52 pdurbin     but wait, i though you said you're using cruddy spreadsheets
+14:52 pdurbin     why isn't the rack unit info in your django app?
+14:52 SEJeff      It isn't :)
+14:52 SEJeff      Because we don't care
+14:52 SEJeff      we set the LCD on boot
+14:53 pdurbin     fair enough
+14:53 SEJeff      We have consistent hostnames so the general area is known based on the hostname
+14:53 SEJeff      general area and datacenter is deduced from the hostname
+15:01 pdurbin     huh, i expected http://nventory.slacklabs.com/nodes.xml to show my what datacenter and rack each of the nodes are in. from http://sourceforge.net/apps/trac/nventory/wiki/GetNodes
+15:06 pdurbin     for the chefs: Chef Cookbook: nventory - Opscode Community - http://community.opscode.com/cookbooks/nventory
+15:07 pdurbin     via Installing nventory on Amazon AWS | Three Drunken SysAds - http://www.threedrunkensysadsonthe.net/2011/10/installing-nventory-on-amazon-aws/
+17:12 magoo       can anyone point me to a good ruby debugging 101?
+17:12 magoo       as in stepping debugger
+17:12 magoo       i tried -rdebug earlier and it caused a failure loading modules from rubygems
+17:12 magoo       so maybe there's something newer/better
+17:12 SEJeff      Isn't there a fancy ide gem for that?
+17:12 SEJeff      Let me try to find it
+17:13 SEJeff      https://github.com/astashov/vim-ruby-debugger
+19:13 magoo       SEJeff: just got back around, thanks for the link
+19:34 pdurbin     https://github.com/Wikia/racktables-api
+</pre></body></html>

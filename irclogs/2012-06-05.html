@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+13:02 pdurbin  so all the perl people here love perlbrew, right? http://search.cpan.org/dist/App-perlbrew/ . perl on os x snow leopard is so broken i threw it on there
+13:04 pdurbin  but now i guess i have to change all my shebangs from #!/usr/bin/perl to #!/usr/bin/env perl
+13:06 SEJeff   pdurbin, You should do that for portability anyways :)
+13:06 pdurbin  i guess
+13:07 pdurbin  SEJeff: you do #!/usr/bin/env python ?
+13:10 SEJeff   I do
+13:10 SEJeff   As some of my scripts run on Solaris, HP-UX, and / or Linux
+13:10 SEJeff   Then I often use virtualenv, which futzes the pythonpath stuff and $PATH locally for that virtual environment
+13:11 pdurbin  i feel like i've seen people write #!perl but i get "bad interpreter"
+13:11 pdurbin  right, i've been meaning to try virtualenv
+13:12 shuff    so, i hesitate to poke the bears with a stick
+13:12 shuff    but what problems have you all been having with the stock perl on snow leopard?
+13:14 pdurbin  shuff: XS modules won't build on snow leopard
+13:14 shuff    i cannot agree with so categorical a statement :)
+13:14 shuff    i build tons of xs modules on snow leopard
+13:14 pdurbin  with the system perl?
+13:15 shuff    yup
+13:15 pdurbin  hmm
+13:15 pdurbin  shuff: you use "env perl" as well, anyway?
+13:16 shuff    nope; #!/usr/bin/perl
+13:19 shuff    i have perl 5.8.8 installed via fink for testing, but i primarily use the stock perl 5.10.0
+13:20 SEJeff   shuff, Do you prefer fink or homebrew? I've heard people using and swearing by both
+13:26 shuff    fink, far and away, but i am biased
+13:27 SEJeff   why
+13:27 * SEJeff isn't an OS X user, but likes to know these things for the occasional time he has to be
+13:31 shuff    honestly, the main reason is that it's what i'm used to - i know how to package software for fink, and so when i need some third-party software, that's what i reach for
+13:31 shuff    it leverages my existing familiarity with deb/apt
+13:32 shuff    and in addition a lot of the verbiage coming out of the homebrew community back when i first became aware of it really rubbed me the wrong way
+13:33 pdurbin  shuff: the verbiage? :)
+13:33 shuff    oh yeah
+13:34 shuff    lots and lots of "i tried to use fink/macports, but it wanted to install all this crap i didn't need"
+13:34 pdurbin  what, did the homebrew guys say, "hey fink and macports, you're doing it wrong!"
+13:34 pdurbin  well... it's truthy...
+13:34 shuff    i understand the idea of trying to use the native libraries as much as possible
+13:34 shuff    but the problem with the native libraries is that Apple can change them under your feet
+13:35 pdurbin  i guess. in practice, homebrew hasn't given me any trouble
+13:35 shuff    yet :)
+13:35 pdurbin  i'll let you know
+13:36 shuff    excellent
+13:37 SEJeff   Thanks for the info gents
+13:38 shuff    np
+18:51 pdurbin  heh. http://joeyh.name/languages/ascountry/python/
+19:37 shuff    :)
+19:39 SEJeff   http://joeyh.name/languages/ascountry/ruby/
+19:42 pdurbin  that's a good one too
+</pre></body></html>

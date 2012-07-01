@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:51 pdurbin      "it is possible, using koan, to specify which libvirt pool a given vm should end up in? or should I just point it at the directory directly?" -- [cobbler] using koan with libvirt pools... - https://fedorahosted.org/pipermail/cobbler/2012-June/007785.html
+12:51 pdurbin      inquiring minds want to know, including me and sjoeboo
+12:58 westmaas     pdurbin: http://docs.openstack.org/essex/openstack-compute/install/yum/content/
+12:59 westmaas     also, I can't find anyone in rackspace land with the info you guys want about iscsi backed volume storage, but there is a thread ongoing on the mailing list about it
+12:59 pdurbin      yeah? link?
+13:00 westmaas     https://lists.launchpad.net/openstack/msg13009.html
+13:00 pdurbin      westmaas: this is awesome. "You have a collection of compute nodes, each installed with a supported Linux distribution: Fedora 17, Ubuntu Server 12.04, RHEL 6.2, Scientific Linux 6.1 or CentOS 6 + CR distributions (continuous release ( CR ) repository)." -- http://docs.openstack.org/essex/openstack-compute/install/yum/content/assumptions.html thanks!
+13:00 westmaas     np :)
+13:05 pdurbin      agoddard: it sure sounds like openstack supports iSCSI... "* create an LVM pool  * create a volume in this pool (with nova command or horizon UI)  * share it with an iscsi target (the compute/volume node)  * attach it with an iscsi initiator (the VM)"
+13:06 SEJeff       pdurbin, I suspect no wrt koan
+13:06 SEJeff       Ask on #cobbler though
+13:06 SEJeff       jimi is normally pretty decent about answering
+13:06 pdurbin      i believe sjoeboo asked in #cobbler last night
+13:08 pdurbin      "iSCSI support for Compute/Nova. Nova currently supports persistent volumes using ATA-over-Ethernet (AoE). This is to discuss adding iSCSI support as an alternative." http://wiki.openstack.org/IscsiBlueprint
+13:10 westmaas     yikes, that was updated 2010
+13:11 pdurbin      we have a bunch of iSCSI devices. Dell MD3000i's. wondering if OpenStack would work well with them
+13:12 pdurbin      heh. first hit in google for 'openstack md3000i" is #crimsonfu chat logs :)
+13:15 pdurbin      "Volumes must be pre-allocated on the iSCSI server, and cannot be created via the libvirt APIs." http://libvirt.org/storage.html
+13:15 pdurbin      i think agoddard has been telling me this over and over :)
+13:20 agoddard     ohai
+13:21 pdurbin      agoddard: so xenserver manages your iscsi for you? it creates luns for your guest VMs and such?
+13:21 agoddard     so, my understanding is that nova-volume takes a volume and then shares it out over iSCSI/LVM to nodes - but what I don't know is whether you can just bypass the nova-volume node and tell openstack to build LV's on a big iSCSI LUN itself
+13:22 agoddard     pdurbin: yep, we pass big LUNs from the SAN to XenServer, it then throws LVM on them and when we ask for a disk, it carves us a new LV
+13:22 pdurbin      that's pretty sweet
+13:23 agoddard     the difficult part of that, I believe, is that with LVM, only one node can be making the changes, so XenServer manages this by doing all the storage operations with one node (the master) I *assume*
+13:23 pdurbin      hmm. right
+13:23 agoddard     otherwise if you accidentally the LVM by modifying VG's or LV's on different nodes at the same time, you could fjuk it up
+13:23 pdurbin      i want openstack or whatever to manage my iscsi devices for me. create luns and whatnot
+13:24 agoddard     the other way is to use CLVM, which keeps LVM metadata synced across the nodes, but then you lose stuff like snapshotting
+13:24 pdurbin      hmm. ok
+13:24 pdurbin      i mean, we may use this iSCSI hardware for something else anyway. i can probably let openstack just manage some other hardware the way it wants to
+13:25 agoddard     I think openstack will manage some iSCSI devices, if you have a SAN that supports it, this would mean the SAN would need an API which openstack is a client of, it would tell the SAN to create a new LUN and then attach it to a machine - that would be totally killer, but I don't think the PowerVault's do that
+13:26 agoddard     one way would be provisioning a LUN to a nova-volume box and having the nova-volume box re-share it as LVM over its own iSCSI connection to the compute nodes, but this seems a little backasswards
+13:26 * agoddard   has never actually used OpenStack btw, so this is all just assumptions
+13:26 pdurbin      cool, cool. i'll keep thinking about it
+13:27 agoddard     I wonder whether you could set it up with nova-volume and then just tell the nodes that their iSCSI host is the SAN and not the nova-volume host.. but I dunno
+13:27 agoddard     I'm also installing openstack in prod today, so I
+13:27 pdurbin      sjoeboo: look at that, i linked to the patch from the ticket: Issue #79: koan --virt-image-type ? · cobbler/cobbler - https://github.com/cobbler/cobbler/issues/79#issuecomment-5873608
+13:27 agoddard     * will have more answers
+13:27 pdurbin      agoddard: cool. please keep us posted
+13:27 agoddard     pdurbin: definitely
+14:48 pdurbin      https://github.com/fasrc/cobbler/commits/qcow2_fix
+14:55 agoddard     in puppet...
+14:55 agoddard     if you have two nodes, let's say you want their mysql innodb memory to be relative to their total memory or something.. how would you go about it?
+14:55 * agoddard   has never used puppet, is a chef fanboi
+15:07 agoddard     westmaas: I totally missed this message the other day: http://irclog.perlgeek.de/crimsonfu/2012-06-07#i_5694456 might have some questions for you after we stand up some boxes today - imma use the rackspace cloud builders cookbooks
+15:16 westmaas     cool
+15:36 westmaas     agoddard: you guys a chef shop only?  One of the guys that used to work for me is building puppet manifests for fedora now that he works at redhat, if that would be useful
+15:38 agoddard     westmaas: yep just chef
+16:06 pdurbin      if i want to write a little web app that has an api is django a good choice?
+16:07 * pdurbin    googles
+16:08 SEJeff       pdurbin, What do you want to do with said api?
+16:08 * SEJeff     has done this 3-4 times with django
+16:08 SEJeff       and once with flask
+16:08 pdurbin      "it looked like Django coupled with Piston was the quickly becoming the defacto standard for developing new API's in Python" Creating a very basic API using Python, Django and Piston | RobertShady.com - http://www.robertshady.com/content/creating-very-basic-api-using-python-django-and-piston
+16:08 SEJeff       pdurbin, FYI piston was abandoned for the better part of a year or two
+16:09 pdurbin      oh. bummer
+16:09 SEJeff       just recently was picked up with a new maintainer, who has merged a few patches and not done a ton
+16:09 SEJeff       However, piston is very stable and good software
+16:09 pdurbin      in perl i'd probably use dancer
+16:09 SEJeff       If you've never done piston before, I would point you towards tastypie
+16:09 SEJeff       much better
+16:09 SEJeff       And sing Tiny Dancer the entire time
+16:09 SEJeff       http://tastypieapi.org
+16:10 SEJeff       pdurbin, I can help you do a piston api as I maintain snowy
+16:10 SEJeff       http://git.gnome.org/browse/snowy which happens to be a very big api service ontop of oauth + openid + piston + rest
+16:10 pdurbin      SEJeff: so you agree with this answer for tastypie: http://stackoverflow.com/questions/656979/django-and-restful-apis/9519849#9519849
+16:10 SEJeff       Yes I do
+16:11 SEJeff       I've heard very good things about django-rest-framework as well, but tastypie has the most traction and it has the guy who wrote django-haystack behind it
+16:11 SEJeff       He is a legend in the django community
+16:11 SEJeff       His tag is funny too: toast driven development
+16:11 SEJeff       making fun of TDD
+16:12 pdurbin      http://django-tastypie.readthedocs.org/en/latest/tutorial.html#installation Python 2.4+ Django 1.0+ . reasonable requirements
+16:13 SEJeff       Yup
+16:13 SEJeff       The guy that wrote bitbucket.org (jespern is his online handle) wrote piston
+16:13 SEJeff       It is fantastic
+16:13 SEJeff       very complete
+16:14 SEJeff       But when github started spanking bitbucket more or less, he was pulled to other things and piston lagged for years
+16:14 SEJeff       Thats why both tastypie and django-rest-framework were created
+16:14 SEJeff       pdurbin, If you need any help with any django stuff I'm game
+16:17 pdurbin      SEJeff: this is pretty much the problem space. what the webapp would address: How do large organizations with large turnover and many systems perform account provisioning? - Server Fault - http://serverfault.com/questions/198389/how-do-large-organizations-with-large-turnover-and-many-systems-perform-account-provisioning
+16:18 pdurbin      i just want to make sure it has an api
+16:18 pdurbin      "Do not implement any product that does not provide an API." -- http://blog.websages.com/2010/12/10/jameswhite-manifesto/
+16:19 SEJeff       Very very wise advice ^^
+16:19 SEJeff       Being in crimsonfu, I can assume you're a systems engineer
+16:19 SEJeff       but often system admins (more jr ones) are basically just lego builders
+16:19 SEJeff       unable to make custom blocks if the ones they have don't fit
+16:20 SEJeff       I see python as one of the best glue languages just like I see perl as one of the best text processing langauges
+16:20 SEJeff       Which makes python exceedingly good for cobbling together things in an api
+16:21 pdurbin      yeah, and i don't want to force people to write perl. it's too hard ;)
+16:21 SEJeff       Ha
+16:21 SEJeff       perl isn't that bad
+16:22 SEJeff       just reading other people's "optimized" perl is
+16:22 SEJeff       I was able to go from 0 perl to a script that did xmlrpc in &lt; 1 week and have it work
+16:22 * pdurbin    *coughs* SHUUUUFFFF #optimized
+16:23 SEJeff       Yeah every perlmonger knows what I'm talking about
+16:23 SEJeff       guido made a conscious choice (right or wrong doesn't matter here) to not allow that sort of thing in the language's syntax
+17:33 agoddard     pdurbin: SEJeff I'm late to the party here, but I'm a big fan of Sinatra (but s/python/ruby) ;)
+17:34 SEJeff       agoddard, Yeah there is def some really good ruby chops here in #crimsonfu
+17:34 SEJeff       sinatra is good stuff
+17:34 * SEJeff     is a huge fan of gdash for graphite metrics
+17:34 SEJeff       And it is sinatra
+17:35 agoddard     +1 for gdash
+17:42 pdurbin      crimsonfubot: lucky gdash
+17:42 crimsonfubot pdurbin: http://www.devco.net/archives/2011/10/08/gdash-graphite-dashboard.php
+17:43 pdurbin      oooo, pretty
+17:44 SEJeff       Yeah we configured some stock stuff and handed that to management
+17:44 SEJeff       for app level metrics. They &lt;3 it
+17:51 pdurbin      SEJeff: on what level do you want to help with the python stuff? are you suggesting an open source app?
+17:51 SEJeff       pdurbin, If you want to write an api in python + django
+17:51 SEJeff       I've done that several times over
+17:52 SEJeff       and will help you along if you have questions
+17:52 SEJeff       s/api/REST ^/
+17:52 SEJeff       gah
+17:52 SEJeff       s/api/REST &amp;/
+17:56 pdurbin      heh
+17:59 pdurbin      SEJeff: i'm sure to have questions
+19:06 pdurbin      Team Based » Archive » Top Ten Project Success Factors - http://teambasedapproach.com/02/top-ten-project-success-factors/
+</pre></body></html>

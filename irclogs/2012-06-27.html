@@ -1,0 +1,220 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+11:25 pdurbin      agoddard: i posted your iSCSI + libvirt thing: [CentOS-virt] Basic shared storage + KVM - http://lists.centos.org/pipermail/centos-virt/2012-June/002946.html
+12:43 pdurbin_m    half of stock trades on rhel
+12:49 SEJeff       ?
+12:56 pdurbin_m    according to paul cormier at the red hat summit. he's wearing red hat cuff links :)
+12:58 pdurbin_m    he's talking all about openshift
+13:01 SEJeff       Stock trading and virt do *not* go together. I can speak on that as someone who works for a large "designated market maker" wall st firm
+13:01 SEJeff       However that statement for the most part is true. A majority of banks and exchanges are all infiniband + RHEL
+13:02 SEJeff       Some freebsd, some solaris, no one of any significance uses windows to trade. The latency just isn't there.
+13:04 pdurbin_m    yeah, he did not argue for virt + trading :)
+13:04 SEJeff       Oh I thought all of the open* from redhat was virt. Forgive my ignorance then
+13:05 pdurbin_m    he does seem to argue you should ditch netapp and emc and run linux servers for storage
+13:05 SEJeff       Thats actually a shock
+13:06 SEJeff       With no filesystem supporting online grow/shrink and any decent block level replication solution at least
+13:06 pdurbin_m    whorka ran/runs netapp so well I'm a big fan
+13:06 SEJeff       Yeah, I run netapps as well
+13:06 SEJeff       Big fan
+13:07 SEJeff       The only real downside of netapps is that they are cpu based (unlike a Bluearc)
+13:07 SEJeff       So when you hit the performance peak, performance will quickly go through the floor and it is awful
+13:07 pdurbin_m    CPU based?
+13:07 SEJeff       but WAFL is incredibly convenient and there isn't much of anything in the industry that is better than snapmirror, netapp's replication technology
+13:08 SEJeff       pdurbin_m, How familar are you with a netapp?
+13:08 pdurbin_m    meh. kinda
+13:08 SEJeff       OnTap (netapp's prop OS) is a BSD based derivative. Their only serious claim to fame is a filesystem they dub WAFL and a raid 6-ish derivative they call RAID-DP
+13:08 pdurbin_m    I've heard of wafl :)
+13:09 SEJeff       The magic all happens in software, so all of the filesystem stuff and all of the deduplication or whatnot happens on the systems cpu
+13:09 SEJeff       A low end netapp runs a celeron proc
+13:09 SEJeff       Here let me see what one of our beefier ones runs
+13:10 SEJeff       pdurbin_m, On a bit beefier filer: http://hastebin.com/dotiyajoba.coffee
+13:10 pdurbin_m    what is there besides CPU based?
+13:10 SEJeff       ASIC based
+13:10 SEJeff       So with a netapp, when you hit the top end of the performance curve, the cpu can't keep up
+13:10 pdurbin_m    ah
+13:11 SEJeff       Since the magic in a netapp is all in the filesystem... If the cpu can't keep up, the performance will actually drop through the floor and you are stuck with a real mess for awhile until the IO slows down
+13:11 SEJeff       pdurbin_m, With a bluearc, that aspect of things is all ASIC based and performance is a (very high) straight line that is steady up until the maximum hardware limit.
+13:12 pdurbin_m    cool. I hear we used to have a bluearc
+13:13 pdurbin_m    we're mostly an emc shop. and build it yourself
+13:13 SEJeff       pdurbin_m, NetApp gave themselves a bit of breathing room when they bought Spinnacer and integrated it all into OnTap 8. Spinnacer was the only vendor to truly solve the active/active clustered storage problem, so you can chain up to 12 beefy netapp filers (with ontap 8) and get the almost combined throughput of all of them together
+13:13 SEJeff       Yeah we have a few mill worth of emc. Can't stand emc myself. Overpriced garbage
+13:14 SEJeff       but bluearc uses ndmp as their "replication" tech. For that use case, ndmp is complete crap
+13:15 SEJeff       Linux had one thing that was vaguely close to competing with netapp, http://zumastor.org, but that project died when google fired the lead developer and our company hired (then fired) him as well.
+13:15 pdurbin_m    whorka set up good replication and disaster recovery for us. snapmirror and such
+13:15 pdurbin_m    heh
+13:15 SEJeff       Yes snapmirror is the best. It is trivial to quiesce/break a snapmirror, flip the relationship, and then start it back when performing an entire datacenter failover. Ticketmaster bet their entire DR strategy around that sadly unique feature that only netapp has
+13:16 pdurbin_m    a couple times we flipped over to our other data center
+13:17 pdurbin_m    sap guy talking now. do I want sap?
+13:17 SEJeff       pdurbin_m, Now if you were using anything such as a bluearc which uses ndmp for that... When you flip the relationship, it requires a full resync over the wan of 100% of the data vs netapp which just copies over the incremental snapshot differences
+13:17 SEJeff       I dunno
+13:18 pdurbin_m    I don't think so :)
+13:18 SEJeff       and 100% of the data is re-re-copied when you fail back and reverse the replication direction yet again
+13:18 SEJeff       ha
+13:19 pdurbin_m    yeah, that bluearc replication sounds not so good
+13:20 SEJeff       Right. I have a feeling that netapp has a patent or something on the way they do replication. Sadly, it is the most obvious way to do it properly
+13:22 pdurbin_m    death to software patents
+13:26 SEJeff       here here
+13:28 pdurbin_m    dr. richard hackathorn? srsly? great name :)
+13:31 SEJeff       win
+13:31 SEJeff       Hackathorn's Hackathon
+13:41 pdurbin_m    heh, "quants" (sp?). I first hear this term from my brother, who works for goldman
+13:41 SEJeff       Not all HFT is quant
+13:41 SEJeff       Our company is strictly arb and the variants thereof
+13:42 SEJeff       market making is good for the markets as a whole
+13:42 SEJeff       quant can cause things like the flash crash
+13:42 pdurbin_m    crimsonfubot: google hft
+13:42 crimsonfubot pdurbin_m: High-frequency trading - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/High-frequency_trading&gt;; Harbor Freight Tools – Quality Tools at Discount Prices Since 1977: &lt;http://www.harborfreight.com/&gt;; Houston Federation of Teachers - Home: &lt;http://tx.aft.org/hft/&gt;; Hartford Federation of Teachers - Home: &lt;http://www.hft-1018.org/&gt;; High-Frequency Trading (HFT): (1 more message)
+13:42 pdurbin_m    right right
+13:43 pdurbin_m    arb?
+13:44 SEJeff       crimsonfubot, google wikipedia arbitrage
+13:44 crimsonfubot SEJeff: Arbitrage - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Arbitrage&gt;; Arbitrage betting - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Arbitrage_betting&gt;; Arbitrage (film) - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Arbitrage_(film)&gt;; Risk arbitrage - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Risk_arbitrage&gt;; (2 more messages)
+13:44 SEJeff       nice!
+13:44 pdurbin_m    :)
+13:44 SEJeff       in simple terms, it is the possibility of a risk-free profit at zero cost.
+13:44 SEJeff       arb is the only guaranteed way to make money in the markets with 1 caveaut
+13:45 SEJeff       You have to be the fastest in the specific market you are in to make money doing it. If you are a "market maker" you often make new markets that no one else is trading in, so... you convince other people to join and you make money
+13:45 SEJeff       very very rough not so great description ^^
+13:46 pdurbin_m    accenture guy up now. they have 40,000 java devs
+13:47 pdurbin_m    I'll run it past my brother :)
+13:48 SEJeff       pdurbin_m, Ask him about market makers / designated mms and how them + their strats fit into the market.
+13:51 pdurbin_m    I sent him a link :)
+13:53 pdurbin_m    red hat ball caps on every seat in here. hundreds of them
+13:55 pdurbin_m    picked up a pint glass last night: https://mobile.twitter.com/philipdurbin/status/217770666420748290
+13:56 SEJeff       Ha
+13:56 SEJeff       check your pm as well
+14:49 pdurbin_m    crimsonfubot: google glusterfs swift ufo
+14:49 crimsonfubot pdurbin_m: Fedora 17, OpenStack Essex &amp; Gluster 3.3: All Smushed Together ...: &lt;http://blog.jebpages.com/archives/fedora-17-openstack-and-gluster-3-3/&gt;; Chapter 13. Managing Unified File and Object Storage: &lt;https://docs.redhat.com/docs/en-US/Red_Hat_Storage/2/html/User_Guide/chap-User_Guide-UFO.html&gt;; Index of /pub/gluster/glusterfs/LATEST/UFO: (2 more messages)
+15:22 pdurbin_m    gluster chooses consistency over performance
+15:31 pdurbin_m    iPhone battery 45% :(
+17:57 pdurbin_m    live migration of virtual machine disk between storage domains... I'm at a RHEV 3.1 talk
+18:01 pdurbin_m    some kind of gluster support as a tech preview
+18:03 pdurbin_m    funny that vm snapshots are a new feature. we're doing this with qcow2 disk images with basic libvirt
+18:04 pdurbin_m    RHEV is definitely its own thing. I'm much more used to basic libvirt/KVM
+18:05 pdurbin_m    the main thing is the GUI, of course. and high availability, which we don't have
+18:06 pdurbin_m    nice that with RHEV there seems to be feature parity across the GUI, the cli, and the rest API
+18:09 pdurbin_m    interesting that by a show of hands 80% or more in this room are running VMware. maybe 120 people
+18:10 pdurbin_m    room 105 RHEV campground, so I don't forget :)
+18:35 pdurbin_m    was one of two people to boo at hearing "you don't need perl" :)
+18:36 pdurbin_m    guy was talking about RHEV vs KVM
+18:36 sjoeboo_     nice perl joke
+18:36 pdurbin_m    how you have to do more heavy lifting yourself with just KVM
+18:37 sjoeboo_     scripts...? which i don't mind
+18:37 sjoeboo_     then yo uknow whats going on..
+18:37 pdurbin_m    bummer the distributed file system talk filled up
+18:37 pdurbin_m    the guy behind me is asleep :)
+18:38 sjoeboo_     yeah, a few 100 people in front of me even! so much for pre-registering being worth anything
+18:38 pdurbin_m    turned around to look at his name tag and he woke up :)
+18:39 sjoeboo_     haha
+18:39 sjoeboo_     report him!
+18:39 pdurbin_m    lol
+18:40 sjoeboo_     these reports sound like ganglia
+18:40 sjoeboo_     only via the hypervisor
+18:40 sjoeboo_     neat?
+18:40 pdurbin_m    in the last RHEV talk you could see they're using iSCSI
+18:40 sjoeboo_     interesting
+18:40 pdurbin_m    I'm pro reports
+18:41 sjoeboo_     i can't can't see the backend managinf of volumes being awesome..maybe they have more secret sauce/better iscsi deployments
+18:41 sjoeboo_     yeah yeah, reports ftw
+18:41 pdurbin_m    they also made noise about better gluster support coming in future versions of RHEV
+18:42 sjoeboo_     nice, yeah, i mean, out EL6 kvm hosts are keen to talk ot gluster as a pool type
+18:44 sjoeboo_     a unified interface w/o X11 to livirt would be great like this...
+18:44 * sjoeboo_   searches for centos 6 ovirt pkgs
+18:46 pdurbin_m    yes. we are kind of cobbling together our own tools...  and we have a heavy dependence on X11
+18:47 sjoeboo_     i don't mind, but, i know others do
+18:47 sjoeboo_     being open and all..
+18:47 pdurbin_m    but promise we we'll buy RHEV before we write some webapp on top of jboss! :)
+18:48 pdurbin_m    isn't it hilarious that live snapshots are a new feature?
+18:48 sjoeboo_     yeah yeah
+18:48 pdurbin_m    imagine! live! no need to shut down the vm! it's the future! ;)
+18:48 sjoeboo_     no, we can get ovirt up
+18:48 sjoeboo_     might take some effort
+18:49 sjoeboo_     but it can be done
+18:50 pdurbin_m    the RHEV guys are more bullish on putting kvm disk images on gluster than the gluster guys are :)
+18:51 sjoeboo_     yeah yeah
+18:53 pdurbin_m    got to ask my question about configuring gluster with replication or not
+18:53 sjoeboo_     obvioulsy storage for this is a big deal
+18:53 sjoeboo_     we're not alone
+18:54 sjoeboo_     ooo, hotplug
+18:54 pdurbin_m    gluster guys don't recommend replication for this use case, right? KVM images on gluster...
+18:54 sjoeboo_     i wa suprised that DIDNT work
+18:54 sjoeboo_     they didn't recommend it..
+18:54 sjoeboo_     i think its dependant on the vm
+18:54 sjoeboo_     like, website, prob okay
+18:54 sjoeboo_     eol-app servers doing lots of writes...not so much
+18:55 sjoeboo_     and all the issues seemed around recovery from loosing a brick
+18:55 pdurbin_m    agoddard: ^^ :)
+18:55 sjoeboo_     not "normal" operation
+18:55 sjoeboo_     ha
+18:56 pdurbin_m    I mean, you want replication, right? I would think so
+18:56 sjoeboo_     i do
+18:56 sjoeboo_     yeah
+18:56 sjoeboo_     well...it would be nice
+18:56 pdurbin_m    sure, set up raid too but redundancy at many levels
+18:56 sjoeboo_     yeah yeah, all gluster we do is ontop of raid 5 or 6 already
+18:57 pdurbin_m    as we talked about, we can set up a storage pool backed by gluster and have a bake off vs nfs :)
+18:57 sjoeboo_     yep
+18:57 sjoeboo_     thats the idea with the m3000i's + gfs01-06
+18:57 sjoeboo_     just need to get vms off vmware THEN 04-06 first
+18:58 pdurbin_m    this direct LUN stuff is what agoddard wants. for performance
+18:58 sjoeboo_     yeah
+18:58 sjoeboo_     they can do that now
+18:58 sjoeboo_     we just don't have build scripts etc for it currently
+18:58 sjoeboo_     or storage for them
+18:59 pdurbin_m    true
+18:59 sjoeboo_     well, maybe we do, i don't know the grounds of whatever agreement/relationship there is in terms of whats free/etc
+19:00 sjoeboo_     live snaps are new cause its from upstream kvm, which, is what we run :-)
+19:02 pdurbin_m    heh. right
+19:02 pdurbin_m    RHEV guys talking about live storage migration
+19:03 sjoeboo_     mm
+19:03 sjoeboo_     we could use that...now...but this would require all our stuff already being RHEV :-(
+19:04 pdurbin_m    tweeting to the gluster guys we've met, linking back here: https://mobile.twitter.com/philipdurbin/status/218056394262319104
+19:05 pdurbin_m    yeah, live storage migration would be great
+19:06 pdurbin_m    sometimes I feel like RHEV (or ovirt) is more what we want than openstack
+19:06 sjoeboo_     yep
+19:06 sjoeboo_     i'm onboard with that
+19:06 pdurbin_m    westmaas: sorry :)
+19:07 sjoeboo_     i mean, yes, the ability of our users to fire up a vm/instance when they want would be nice
+19:07 pdurbin_m    but maybe that's just because we're coming from a VMware background
+19:07 sjoeboo_     but this sounds nicer to me!
+19:07 sjoeboo_     yeah, speak for yourself!
+19:08 pdurbin_m    openstack is more of an alternative to amazon aws than VMware
+19:08 sjoeboo_     exactly
+19:08 pdurbin_m    with all the i
+19:08 pdurbin_m    with all the images and what not
+19:09 sjoeboo_     mmm
+19:10 sjoeboo_     the port mirroring for IDS is neato, not sure we'd use that...maybe for hrci stuff, but neat nevertheless
+19:11 pdurbin_m    yeah
+19:13 pdurbin_m    crimsonfubot: google vdsm
+19:13 crimsonfubot pdurbin_m: Category:Vdsm - oVirtWiki: &lt;http://ovirt.org/wiki/Category:Vdsm&gt;; VDSM Overview: &lt;http://www.ovirt.org/wp-content/uploads/2011/11/ovirt-vdsm.pdf&gt;; Vdsm - Virtual Desktop and Server Management Daemon KVM ...: &lt;http://www.linux-kvm.org/wiki/images/6/66/Vdsm.pp.pdf&gt;; VDSM - Acronyms - The Free Dictionary: &lt;http://acronyms.thefreedictionary.com/VDSM&gt;; vdsm-devel Info Page: (1 more message)
+19:15 pdurbin_m    this hook thing is pretty cool. allows for some flexibility
+19:15 sjoeboo_     yeah yeah
+19:15 sjoeboo_     snap whenever a shutdown is sent
+19:15 sjoeboo_     etc
+19:16 sjoeboo_     (just snap, not standalone disk image)
+19:16 pdurbin_m    that's the thing with basic libvirt. we can do whatever we want
+19:16 sjoeboo_     sometimes i think doing lots of the quick, tiny in-image snapshots might be better than doing all the disk-splits...about 1000% less io heavy
+19:16 pdurbin_m    enough rope to hang ourselves :)
+19:16 sjoeboo_     yep!
+19:17 pdurbin_m    hmm, yeah, maybe
+19:18 pdurbin_m    need this quota stuff. and the ability for users to spin up their own VMs ...
+19:18 sjoeboo_     yeah, the thin provisioning stuff is shady
+19:18 sjoeboo_     oversubscribe stuff quickly
+19:20 sjoeboo_     yes yes no fibre channel
+19:20 sjoeboo_     ha
+19:20 pdurbin_m    hee hee
+19:21 sjoeboo_     9 minutes of battery left, made it
+19:22 pdurbin_m    I guess I want to ask... does RHEV give me more or less flexibility with regard to storage vs basic libvirt...
+19:22 pdurbin_m    3% battery left on this iPhone :(
+19:22 sjoeboo_     more managment/oversight i think would be the answer
+19:22 pdurbin_m    I've added enough noise to the Internet today :)
+19:23 sjoeboo_     i think the libvirt felxability would still be there, this would all just sit on top to make a bunch of things easier/point+click
+19:23 sjoeboo_     okay, talk over
+19:25 westmaas     pdurbin_m: some day
+19:25 westmaas     some day you are gonna be so sad you have to spin up all the instances yourself
+19:25 westmaas     !
+</pre></body></html>

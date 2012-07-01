@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+02:39 jimi_c_        @pdurbin_m: yep, just got back from fenway :)
+02:39 crimsonfubot   jimi_c_: Error: "pdurbin_m:" is not a valid command.
+10:41 pdurbin        jimi_c: shoot! i was looking for you. wanted to introduce you to "rackerhacker": http://twitter.com/philipdurbin/status/218539485405777920
+10:42 pdurbin        westmaas: i hear you know him :) http://twitter.com/rackerhacker/status/218554535499665409
+10:46 jimi_c         i was in line for the picture at home plate for a while :)
+10:49 pdurbin        me too. are you messing with crimsonfubot? :)
+10:50 pdurbin        crimsonfubot: google cobbler maintainer
+10:50 crimsonfubot   pdurbin: Bug #705436 “cobbler not lintian clean (lot's of warnings)” : Bugs ...: &lt;https://bugs.launchpad.net/bugs/705436&gt;; lp:~maas-maintainers/maas/packaging - Launchpad Code: &lt;https://code.launchpad.net/~maas-maintainers/maas/packaging&gt;; “cobbler-enlist” package : Ubuntu: &lt;https://launchpad.net/ubuntu/+source/cobbler-enlist/&gt;; Ubuntu -- Details of package python-cobbler in precise: (2 more messages)
+10:50 pdurbin        mmm, lintian clean
+10:53 pdurbin        had a nice chat with openshift developer adam miller after a talk: http://fedoraproject.org/wiki/User:Maxamillion
+10:55 pdurbin        the talk was give by Grant Shipley: http://twitter.com/gshipley
+10:56 pdurbin        they seemed happy to hear what mattdm and i had to say... our initial impressions of openshift
+10:57 pdurbin        i mentioned this at https://plus.google.com/107770072576338242009/posts/HsdHDyn3mkp and to adam too that i was surprised by how much emphasis red hat has put on openshift at the summit
+10:58 pdurbin        i thought maybe it was a fun side project, google labs style
+10:58 pdurbin        but the c level execs were talking it up in all their talks
+10:58 pdurbin        no pressure :)
+11:04 jimi_c         i'm looking forward to the PaaS talk this morning
+11:04 jimi_c         i got origins up and running on a test system at home, but it was a bear
+11:04 jimi_c         very little documentation at this point
+11:05 jimi_c         I thought it would be cool to "cobblerize" the process, since their howto guide is quite long
+11:06 jimi_c         basically turn all of that into a series of cobbler commands to achieve the same thing
+11:06 pdurbin        looks like i first started making noise about openshift in late december last year, a while ago...
+11:06 pdurbin        jimi_c: to play with openshift... they have a live cd, i hear
+11:07 jimi_c         i wanted a durable boot
+11:07 pdurbin        Build Your Own Paas from the OpenShift Origin LiveCD using liveinst | OpenShift by Red Hat: https://openshift.redhat.com/community/wiki/build-your-own-paas-from-the-openshift-origin-livecd-using-liveinst
+11:07 jimi_c         you can do live cd's with cobbler, but it's a bit of a pain
+11:07 pdurbin        sure. me too
+11:07 pdurbin        but for playing
+11:08 jimi_c         ooohh... https://openshift.redhat.com/community/wiki/build-multi-node-paas-from-scratch
+11:08 jimi_c         i have been waiting for that
+11:08 jimi_c         i looked 3 days ago and that wasn't there
+11:08 pdurbin        jeez, i gotta get these kids our the door.  see ya
+11:08 jimi_c         cya
+12:49 SEJeff|away    jimi_c, livecd's with cobbler are a pain?
+12:49 SEJeff|away    How so?
+12:49 SEJeff|away    livecd-to-pxeboot from livecd-tools, cobbler distro add... and away you go :)
+12:50 SEJeff|away    Might need some custom hacking, but I've done that extensively
+12:51 * rackerhacker waves at pdurbin
+13:08 pdurbin_m      rackerhacker: thanks for the tweet! https://mobile.twitter.com/rackerhacker/status/218688305208897536
+13:25 jimi_c         @SEJeff: i was going by the wiki page, it looked more painful than it was worth
+13:25 crimsonfubot   jimi_c: Error: "SEJeff:" is not a valid command.
+13:25 jimi_c         easier just to do a regular kickstart based on the openshift wiki
+13:25 jimi_c         i can revisit it
+13:25 * jimi_c       goes to summit sessions
+13:26 SEJeff         jimi_c, IRC != twitter. You don't need to preface names with @ :P
+13:26 jimi_c         yes i do!
+13:27 jimi_c         it's habit damnit
+13:27 SEJeff         And no, it isn't super hard, I did it ~3.5-4 years ago and have been using a variant of it since to build a distro
+13:27 SEJeff         noooooooooooo!
+13:27 jimi_c         i'll check it out and update the docs
+13:28 SEJeff         Now if you don't have a read-only root fs and fill it up, dmsnapshot will cause a kernel oops and it will get really ugly
+13:28 SEJeff         So you pretty much need to guarantee / won't fill up or mount it up ro. You generally have to hack up the iso slightly, but it isn't hard if you know what you're doing. Not one bit.
+13:28 jimi_c         cool
+13:28 * jimi_c       goes for real this time
+13:28 SEJeff         peace
+14:17 pdurbin_m      jimi_c: sorry, crimsonfubot is tripping you up :( this is why (responds to @): http://git.greptilian.com/?p=salt.git;a=blob;f=server1/home/supybot/crimsonfubot.conf;h=1939480dbbae91dacd6808b3c0041c6faced5fad;hb=37f66eb0c0f608ce046d00f7610b466dd8068a41#l278
+14:19 pdurbin_m      I've been meaning to write a FAQ for this channel :/
+14:27 pdurbin_m      more disks = more concurrency, better throughput for random I/O on gluster... thinking about using gluster for KVM disk images: https://mobile.twitter.com/philipdurbin/status/218703642474196992
+14:30 sjoeboo        yeah, we need to bring this up, our stuff is all one large brick per server
+14:31 sjoeboo        gluster guys were talking about this being generally better, more io paths, but, they didn't have solid testing for recommended setups/ratios
+14:36 pdurbin_m      "need networking horsepower to make gluster perform well"
+14:37 pdurbin_m      separate gluster and non gluster traffic
+14:39 sjoeboo        on what we have for gluster so far, this is....sort of the case
+14:39 sjoeboo        they don't do much non0glsuter
+14:40 sjoeboo        i mean, puppet+yum updates..but, i doubt thats enough traffic to mater
+15:06 pdurbin_m      right
+15:18 pdurbin_m      "Group" in an rpm spec file is deprecated. who knew?
+15:58 westmaas       pdurbin: yessir, major is pretty cool
+15:59 westmaas       usually
+16:11 jimi_c         pdurbin_m: yeah i'll just stop using @ :)
+16:30 pdurbin_m      https://fedorahosted.org/epylog/
+16:33 jimi_c         checkout time, i'll catch you when i get back to STL :)
+16:33 jimi_c         cya
+20:19 pdurbin        ahhhhh, full sized keyboard
+20:22 pdurbin        within hours (minutes?) of its announcement, our users asked how we can tie in with Google Compute Engine :)
+20:23 SEJeff         haha
+20:24 * SEJeff       suspects google will do a better job of managing it than Amazon has with EC2
+20:25 pdurbin        i haven't had a chance to even read about it. just the tweets
+20:26 SEJeff         Some medical research beta client did a batch job on it that used 770000 cpu cores
+20:26 SEJeff         Something that used to take 10 minutes now takes seconds or something to that affect
+20:27 pdurbin        cool
+20:27 SEJeff         http://cloud.google.com/products/compute-engine.html
+20:28 pdurbin        thanks
+20:28 pdurbin        you know i luv the E-Z clicking
+20:29 pdurbin        "I was wondering if it's possible to use Emacs' tramp mode"
+20:29 pdurbin        back at my desk finally. seeing what our users have been asking for
+20:30 SEJeff         tramp mode
+20:30 SEJeff         hahaha
+20:30 SEJeff         Does that give you a lower back tatoo?
+20:30 SEJeff         *tattoo
+20:32 pdurbin        :)
+20:33 pdurbin        i must say, i like our users. they have interesting problems :)
+</pre></body></html>

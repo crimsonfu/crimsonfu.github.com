@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+13:13 pdurbin SEJeff: regarding mysql query output -&gt; html tables. . . http://irclog.perlgeek.de/crimsonfu/2012-05-31#i_5664626
+13:13 SEJeff  yes?
+13:13 pdurbin (echo -e "Host|User|Password\n---|---|---"; mysql -u root -e "SELECT Host,User,Password FROM mysql.user" | tr "\t" "|" ) | markdown
+13:13 pdurbin you could try something like that
+13:14 pdurbin which takes advantage of PHP Markdown Extra tables: http://michelf.com/projects/php-markdown/extra/#table
+13:14 pdurbin using discount: http://www.pell.portland.or.us/~orc/Code/discount/#flags
+13:15 pdurbin "second line contains a mandatory separator line between the headers and the content" i.e. --- | --- | --- . that's the only annoying part...
+13:29 pdurbin SEJeff: i'm being lazy and just duplicating the header row, but i hope you get the idea
+13:30 SEJeff  Yeah something like that has potential and is exactly what I was thinking of
+13:30 SEJeff  Thankyou
+13:31 pdurbin sure
+13:31 pdurbin i love me some markdown
+13:31 pdurbin well
+13:31 pdurbin it's the best thing available, i guess
+13:31 pdurbin would be nice if it had an actual grammar
+13:32 pdurbin i have shuff to blame for getting me into markdown. of course, it's everywhere anyway. . . github, stackoverflow
+13:34 pdurbin i'm sure there's a way to insert that separator line in the right place, at the second line. with sed or whatever
+13:36 pdurbin mysql -u root -e "SELECT Host,User,Password FROM mysql.user" | tr "\t" "|" | sed '2i---|---|---' | markdown
+13:37 pdurbin via How do I insert a line at a specific row in multiple files on Unix? - Stack Overflow - http://stackoverflow.com/questions/1232909/how-do-i-insert-a-line-at-a-specific-row-in-multiple-files-on-unix/1232922#1232922
+13:37 SEJeff  pdurbin, It is quite easy to insert lines with sed: http://hastebin.com/gefoxojono.tex
+13:37 SEJeff  Oh ha! I just noticed you posted how
+13:38 SEJeff  Yeah I knew that already. Easy as pie
+13:38 SEJeff  http://sed.sourceforge.net/sed1line.txt Best sed reference on the internet
+13:38 SEJeff  http://www.pement.org/awk/awk1line.txt Best awk reference on the internet
+13:38 SEJeff  Same guy wrote both fyi
+13:39 pdurbin +1
+13:39 SEJeff  pdurbin, So in fedora, what package provides *bin/markdown?
+13:40 pdurbin http://pkgs.repoforge.org/discount :)
+13:40 SEJeff  python-markdown does!
+13:41 pdurbin "Authority: shuff" https://github.com/repoforge/rpms/blob/master/specs/discount/discount.spec
+13:42 shuff   damn right
+13:42 shuff   i am the AUTHORITY
+13:43 SEJeff  Like a bawss
+13:43 pdurbin i still need to ask the discount guy to add in github flavored markdown
+13:44 SEJeff  Better, send him a pull request :)
+13:44 SEJeff  or a patch
+13:45 pdurbin yes, that would be better. also unlikely
+13:45 shuff   oh, patch == writing C :( :(
+13:46 SEJeff  Yeah do not want
+13:48 pdurbin "One thing we don’t like, however, is its current lack of an API. We can query the db directly, but thats kinda clunky. So, the other ngiht I had an idea. A few hours later, it was basically done. A YAML api (well, a cheap mans api) for racktables!" -- http://blog.mattynick.com/blog/2012/05/31/getting-racktables-location-info-into-puppet/
+13:49 pdurbin sjoeboo: should we send a link to the racktables mailing list? http://www.freelists.org/archive/racktables-users
+13:49 sjoeboo sure!
+13:49 pdurbin i should like to it from https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/ too
+13:50 pdurbin link
+13:52 SEJeff  pdurbin, markdown doesn't support tables?
+13:52 pdurbin SEJeff: vanilla markdown does not
+13:52 SEJeff  gah
+13:55 pdurbin gruber "disdains the vile table" --shuff http://irclog.perlgeek.de/crimsonfu/2012-04-25#i_5494652
+13:56 SEJeff  Gruber is amusing
+14:11 sjoeboo storeconfigs has been populating with location data….acl still blocking about 75% of things that COULD get their location data….sigh
+14:30 pdurbin sjoeboo: bit by bit :)
+14:33 SEJeff  pdurbin, I actually came up with a odd, but useful way of doing this
+14:34 SEJeff  pdurbin, http://dbpedias.com/wiki/MySQL:Exporting_-_Dynamic_Scripting_with_Select_._._._Into_Outfile
+14:34 SEJeff  Scroll to the bottom for basically what I did
+14:34 pdurbin posted: [racktables-users] RESTful API for RackTables - racktables-users - FreeLists - http://www.freelists.org/post/racktables-users/RESTful-API-for-RackTables
+14:35 pdurbin SEJeff: ok, so you're doing it all in SQL
+18:32 SEJeff  http://www.h-online.com/open/news/item/Critical-vulnerability-derails-Ruby-on-Rails-1588773.html rails fail
+18:39 pdurbin SEJeff: thanks for the heads up
+19:35 SEJeff  hilarious comment on LWN about that RoR vuln: https://lwn.net/Articles/499760/
+19:40 pdurbin "Pretty odd that the vulnerability itself wasn't used to push the fix to GitHub, that's usually how these things are done." :)
+19:53 SEJeff  You recall the last time this happened and the guy used the hack itsself to add himself to the RoR project on github, right?
+19:53 pdurbin yep
+19:56 pdurbin last time it was github's fault: http://irclog.perlgeek.de/crimsonfu/2012-03-05#i_5248753
+19:57 pdurbin and we all uploaded new ssh keys to github, etc.
+20:12 SEJeff  yup
+</pre></body></html>

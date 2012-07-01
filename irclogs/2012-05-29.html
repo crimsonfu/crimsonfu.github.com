@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:43 pdurbin      http://fedoraproject.org/static/images/counter/en/fedora17-countdown-banner-1.en.png
+13:05 pdurbin      hmm, maybe i need to stop using "unlimited scrollback" in gnome-terminal... Bug 667539 – "Too many open files" error when opening terminal - https://bugzilla.redhat.com/show_bug.cgi?id=667539
+13:05 pdurbin      465 from `lsof | grep ptmx | wc -l`
+15:15 pdurbin      looked like fedora 17 is out: http://fedoraproject.org/en/get-fedora-options
+15:15 pdurbin      http://mirror.seas.harvard.edu ftw :)
+15:54 magoo        anyone seen aggodard?
+15:55 agoddard     someone accidentally two gg's and it didn't popup :D
+15:56 magoo        ha, well hey there
+15:56 agoddard     hey hey :)
+15:56 magoo        i was just about to modify chef-client recipe have the option of irc-snitch
+15:56 magoo        couldn't find anything already done and no response in #chef
+15:57 magoo        have you done anything with this already?
+15:58 agoddard     for report handling?
+15:59 agoddard     @portertech rocks that, you could use his gem in the chef-client recipe: https://github.com/portertech/chef-irc-snitch
+15:59 magoo        to report run failures to my irc room
+15:59 agoddard     ya, that'd be all levels of siqness
+16:00 agoddard     I'd recommend checking out @portertech's gem and going from there
+16:02 magoo        yup, that's the one I was looking at. I'll have to publish my modded chef-client when I'm done with it
+16:03 agoddard     awesome, looking forward to checking it out
+17:03 pdurbin      magoo: what irc server are you running?
+17:03 magoo        pdurbin: inspircd
+17:04 pdurbin      http://inspircd.github.com thanks
+17:47 PaxIndustria hi folks, anyone out there using hiera or extlookups?
+17:51 shuff        extlookoups extensively
+17:51 shuff        no hiera
+17:56 PaxIndustria So just to throw this to the group, I've got a question about if I should use a lookup VS making something a fact, and for my use case, it was pointed out collective can use fact's not lookups, so in this case, I think thats my answer
+17:56 PaxIndustria collective == mcollective
+18:05 pdurbin      a lookup sounds more expensive. but i don't know
+19:40 magoo        agoddard: are you using irc-snitch?
+19:41 agoddard     magoo: nope, we don't use IRC :(
+19:41 magoo        ok, I'm having trouble getting it to work at all... you might not be missing much atm
+20:23 agoddard     magoo: what's it doing?
+</pre></body></html>

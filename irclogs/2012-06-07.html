@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+15:21 pdurbin_    takes a while for request tracker to pull down all its dependencies during installation
+15:26 agoddard    any of y'all using openstack or cloudstack?
+15:31 pdurbin_    hoping to stand up openstack some day!
+15:34 pdurbin     agoddard: we had talked a bit about openstack vs. cloudstack at http://irclog.perlgeek.de/crimsonfu/2012-04-04
+15:35 pdurbin     "14:57 agoddard  my thoughts with cloud vs. open at the moment are basically - we need something with a nice API, preferably one that someone's already written a  knife plugin for, and we need something that'll rock iSCSI storage for our VMs"
+15:36 pdurbin     agoddard: what's your latest thinking?
+15:37 agoddard    ya, basically that still. I did some research into both last night, the key point is still the storage stuff
+15:37 pdurbin     so sjoeboo was kinding with iSCSI a bit yesterday
+15:37 agoddard    it looks like with OpenStack, I need to create an iSCSI target on a node even if I have hardware iSCSI, which kinds sucks
+15:38 pdurbin     kinding? dinking. sheesh
+15:38 agoddard    with CloudStack, I can provision LVMs directly, backed by iSCSI.. but only with XenServer as a hypervisor
+15:39 pdurbin     right now KVM mounts NFS storage for VMs. but that storage is ultimately delivered over iSCSI. thinking about trying to hit the iSCSI directly...
+15:39 agoddard    ya, that's what I'd like to do
+15:39 agoddard    another option could be to use the NFS storage for the VM's system drive and then have the VM mount an iSCSI LUN directly when fast storage is needed
+15:40 agoddard    that would cut out all the middlemen and persist across migrations, as long as all the networking was consistent across the hosts
+15:41 pdurbin     hmm, in general we've been trying to have our VMs only use one disk image. simpler that way...
+15:42 agoddard    ya, but if you have a machine you need quick disk on, there's not many other options.. maybe passing a local block device straight to it..
+15:43 pdurbin     yeah. in general we haven't been using virtualization for high performance stuff. this may change, however, as we virtualize more and more...
+15:43 agoddard    using XenServer as a hypervisor would be good for the iSCSI stuff, but then we have to deal with modified kernels and the fact that all the CPUs need to be the same, not only for live migration (which isn't that important) but to join the resource pool (which I think is kinda stupid)
+15:45 pdurbin     is cloudstack working on better iSCSI support for KVM hypervisors?
+15:46 agoddard    not sure, or whether openstack would be closer 'cause of the Dell support
+15:46 pdurbin     westmaas: any thoughts on this? ^^
+15:47 agoddard    like, the SANs we use are part of Dell's openstack reference architecture, even though you afaik can't actually use them as you would a traditional SAN in a traditional iSCSI/LVM setup
+15:48 pdurbin     agoddard: do you have a link to the bit in the docs you're talking about?
+15:48 agoddard    the direct access to block devices isn't always black and white anyway I guess, we had 6x better performance on MySQL when it was really busy (during data loading) on qcow2 backed KVM machines than we did on iSCSI/LVM backed XEN machines (I think maybe 'cause of a bug, but whatever it was it was slooow)
+15:48 pdurbin     wow. 6x
+15:49 westmaas    so you are looking at volumes attached to VMs?
+15:50 agoddard    westmaas: ya, either directly provisioning machines using LVM backed by iSCSI (ideally and what we do with XenServer at the moment), or just thin provisioning machines and then attaching iSCSI LUNS directly to the guests I guess..
+15:51 westmaas    agoddard: have you looked at any of the volume work being done? to be honest I haven't been involved in that enough yet to be intelligent, but I'm happy to find the people to get you any answers you need
+15:52 pdurbin     i'm not so much interested in having volumes attached to VMs... more like... having KVM not access the VM images over NFS like we do now... but have KVM access the VM disk images over iSCSI instead
+15:52 sjoeboo     here here
+15:52 westmaas    there's some volumes work in nova right now, that let you boot straight from those volumens, or attach them after the fact
+15:52 westmaas    gotcha
+15:52 pdurbin     (not that i've even really looked for docs about this)
+15:53 westmaas    OK, let me go find someone smarter about these things to get an answer for you
+15:53 agoddard    if KVM is accessing the disk images over iSCSI, it'd need an API to the SAN, or it'd need to use LVM, then there's CLVM which doesn't support snapshots and gerrrgghhh
+15:55 agoddard    westmaas: awsiq :) are you using something*stack at the moment?
+15:56 westmaas    agoddard: I work at rackspace, we are rolling out openstack for our public cloud
+15:56 agoddard    westmaas: aw nice!
+15:57 westmaas    I might be biased :D
+15:57 agoddard    westmaas: a lot of smart people have said good things about openstack :)
+15:58 westmaas    and none about cloudstack!
+15:58 westmaas    ok ok, maybe thats not true
+15:59 westmaas    we are rolling out a custom volume service with the same API at rackspace, and I just need to find out the reasons why and see if that might be to get around some of the issues that you have
+16:03 pdurbin     agoddard: please check your email for "Subject: kvm vm on nfs -&gt; iscsi" from sjoeboo
+16:04 pdurbin     i'm happily impressed that this works :) good job, sjoeboo (who just stepped out for a meeting)
+16:05 pdurbin     basically, he did a live migration of a VM from one hypervisor with storage mounted over NFS to another hypervisor with the same storage mounted over iSCSI
+16:06 pdurbin     so this will eliminate a single point of failure for us (the NFS server that's currently serving up the iSCSI storage)
+16:06 agoddard    damn, siq!
+16:06 * agoddard  keeps clicking "get mail"
+16:06 pdurbin     now the question is... how do we eliminate the iSCSI storage array as a single point of failure
+16:07 pdurbin     SEJeff_work: yes, yes, sheepdog, i guess. or something
+16:07 pdurbin     maybe swift from openstack in the future, assuming i can get that working
+16:07 agoddard    pdurbin: I'd be keen to work on a proof of concept with you if you want..
+16:08 SEJeff_work pdurbin, Ironically, my friends at metacloud are not impressed with swift
+16:08 SEJeff_work They are working on making Ceph talk directly to keystone so they can rip out Swift
+16:08 agoddard    we were looking at moving from gluster to ceph a few months back, but never got back to it
+16:09 SEJeff_work Not impressed with gluster?
+16:15 agoddard    SEJeff_work: we had some early issues, probably resolved in the newer versions, we liked the look of ceph for what we're doing though
+16:15 pdurbin     agoddard: i'll send you a picture of our whiteboard :)
+16:15 agoddard    pdurbin: siq
+16:16 SEJeff_work agoddard, I attended you a talk with Sage Weil (ceph author) last year and he said Ceph is good stuff, but that they don't backport the client code at all
+16:16 agoddard    pdurbin: http://www.referencearchitecture.org/ &lt; ha, it's from rackspace ;)
+16:16 pdurbin     i guess to make the iSCSI storage more fault tolerant, i could just use linux software raid
+16:16 SEJeff_work So if you want really good Ceph clients, you'll need very new kernels as he develops in the open in upstream kernel.org
+16:17 agoddard    SEJeff_work: ah sweet, good to know. We had a call with some DreamHost folk about it, but they mostly did sales pitches :/
+16:17 agoddard    pdurbin: in that ref. arch, under hardware is Dell MD3200i
+16:17 SEJeff_work Yeah dreamhost uses Ceph + xfs from speaking with them
+16:17 agoddard    pdurbin: we have a bunch of 3220i's w/ 1220 shelves
+16:17 SEJeff_work agoddard, You know that Sage broke off mostly from dreamhost and started a company around Ceph, right? They are in downtown los angeles
+16:17 SEJeff_work They still fund his work, but...
+16:17 agoddard    SEJeff_work: ah nice, didn't know that
+16:18 SEJeff_work http://www.internetnews.com/ent-news/ceph-inc-changes-name-to-intank-to-commercialize-open-source-storage.html
+16:18 SEJeff_work agoddard, ^^
+16:18 SEJeff_work Suse should buy that, to differentiate themselves from Redhat
+16:24 agoddard    pdurbin: sjoeboo's email no arrive :(
+16:36 pdurbin     agoddard: whoops. he only sent it to me. i'll forward with the picture of the whiteboard i just took
+16:37 agoddard    pdurbin: thanks :)
+16:55 pdurbin     agoddard: sent. to rcops-list. sorry. busy whiteboarding :)
+17:10 agoddard    pdurbin: looks good!
+17:52 pdurbin     we have 3000i's, not 3220i's but i assume they're similar
+18:08 pdurbin     hee hee!  i just installed RT for the first time. i've always had to play with someone else's RT. i'm still talking about Request Tracker, of course
+18:10 SEJeff_work Holy lots of perl module dependencies batman
+18:10 SEJeff_work ditto for bugzilla
+18:11 pdurbin     yeah, but in this vm i'm just doing it ironcamel's way. . . become root and worry not about where files are written
+18:11 SEJeff_work cpan?
+18:12 SEJeff_work That way works, but makes config management difficult
+18:12 pdurbin     right. no rpms. but i think whorka might have RPMs for RT somewhere...
+18:12 SEJeff_work pdurbin, rt is in fedora
+18:12 SEJeff_work Should be very easy with mockchain to backport all of the deps if they aren't already in EPEL (they likely are)
+18:17 pdurbin     hmmm, it is?
+18:17 SEJeff_work If you manage RHEL and RHEL-ish systems, mock + mockchain are very good tools to know. Well provided you are comfortable with managing your own yum repos.
+18:18 pdurbin     Fedora Package Database -- Invalid Package Name - https://admin.fedoraproject.org/pkgdb/acls/name/rt
+18:18 SEJeff_work pdurbin, https://admin.fedoraproject.org/pkgdb/acls/name/rt3 :)
+18:19 pdurbin     um. is anyone patching it?
+18:19 SEJeff_work pdurbin, FYI: http://dl.fedoraproject.org/pub/epel/testing/6/x86_64/rt3-3.8.13-1.el6.1.noarch.rpm
+18:20 pdurbin     Sat Jun 02 2012 Ralf Corsépius &lt;corsepiu@fedoraproject.org&gt; - 3.8.13-1 http://pkgs.fedoraproject.org/gitweb/?p=rt3.git;a=blob;f=rt3.spec;hb=HEAD
+18:22 pdurbin     hmm. i was kind of hoping for RT 4.  but i guess that isn't very enterprisey of me :)
+18:32 pdurbin     huh. Enoch Root. somehow i never noticed that before
+19:13 tychoish    15:12 &lt; evangoer&gt; RT @Pinboard: Proud to reassure my users that Pinboard passwords are not only hashed and  salted, but pan-seared and dusted with a saffron quince reduction
+19:15 pdurbin     heh
+20:08 pdurbin     HTML9 Responsive Boilerstrap JS - http://html9responsiveboilerstrapjs.com
+20:24 magoo       for those in here using aws, are you just assigning an elasticip to every node? I ask because I recently noticed that internal/external IPs change on reboots
+20:25 pdurbin     um. we only have one host on aws and i always use a hostname to ssh to it, so i'm not sure
+20:26 magoo       i haven't paid attention to it but since the hostname is created from the ip, I need to find out if the hostname also changes on rebott
+20:36 shuff       back when i was using AWS we did not believe in reboots :)
+20:36 shuff       we just clobbered the instance and provisioned another
+20:44 magoo       shuff: i don't either but my concern is an instance going down and coming up with a different ip which means updating chef data to point everything correctly
+20:44 magoo       maybe i'm overthinking this
+</pre></body></html>

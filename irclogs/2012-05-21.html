@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:52 pdurbin   "The pam_namespace PAM module sets up a private namespace for a session with polyinstantiated directories. A polyinstantiated directory provides a different instance of itself based on user name, or when using SELinux, user name, security context or both." -- http://linux.die.net/man/8/pam_namespace
+12:52 pdurbin   "LXC (Linux Containers) is an operating system-level virtualization method for running multiple isolated Linux systems (containers) on a single control host. LXC does not provide a virtual machine, but rather provides a virtual environment that has its own process and network space." -- http://en.wikipedia.org/wiki/LXC
+12:54 pdurbin   i'm halfway through listening to FLOSS Weekly 211 about OpenShift - http://twit.tv/show/floss-weekly/211
+12:54 pdurbin   openshift runs on amazon web services. and it uses pam_namespace and linux containers to put several dozen or hundred "gears" (webapps) on a single VM
+12:55 pdurbin   i can't recommend this floss weekly episode enough. very interesting stuff
+12:55 pdurbin   westmaas: the guy says he'd like to see openshift deployed on top of openstack
+12:56 westmaas  yeah, think thats one of goals
+12:56 pdurbin   also, they released the code recently: openshift (OpenShift Origin) - https://github.com/openshift
+12:57 pdurbin   and they hope to put it into fedora
+13:01 pdurbin   i like how the guy talks about efficiency, what we at work call green computing
+13:02 pdurbin   how you want your VMs to be running as many gears as it can
+13:02 pdurbin   i.e. lots of idle gears or fewer busy gears
+17:30 SEJeff    Probably old news here, but perl 5.16.0: https://lwn.net/Articles/498034/
+18:04 pdurbin   SEJeff: yay, perl :)
+18:05 pdurbin   i was just messing around with cpan and modules(1) this morning. but i'm limited in what i can install 'cause i'm on perl 5.8
+18:05 pdurbin   unrelated:
+18:05 pdurbin   was just looking at this
+18:05 pdurbin   'NFS4 with Kerberos is indeed the "proper" solution for this, as nobody can access another home directory without their Kerberos ticket. -- sudo users with nfs home directories - Ars Technica OpenForum - http://arstechnica.com/civis/viewtopic.php?f=16&amp;t=1121199
+19:19 pdurbin   'NFSv4 with kerberos supports authentication. A big disadvantage of nfsv3 was that root user can “su – ”, get the remote user's home directory automounted and delete/modify his files. This is a big security risk in bigger enterprises if they have 1000s of systems. In the above example, this problem is solved. If root on a system do “su - ” and can get his home directory automouted, he can't delete or modify the files without getting a t
+19:19 pdurbin   -- What I Know About Linux That You May Not Know: How to configure nfsv4 with kerberos in RHEL? - http://sadiquepp.blogspot.com/2009/02/how-to-configure-nfsv4-with-kerberos-in.html
+19:39 pdurbin   "What is happening is that user jim has set the permissions on his data to 0700 meaning only he, the owner, should get access. But someone on the NFS client with knowledge of the super-user password can become root (user id 0), and then become jim and circumvent jim's protections." -- http://nfsworld.blogspot.com/2006/02/real-authentication-in-nfs.html
+19:42 pdurbin   this might be good but it's a 404: http://blog.delouw.ch/2011/12/25/identity-management-with-rhel-6-2-part-ii-kerberized-nfs-service/ Identity Management with RHEL 6.2 Part II – Kerberized NFS service
+20:25 pdurbin   http://www.nfsv4bat.org/Documents/nasconf/2003/eisler.pdf (since it's a 404 at http://nfsworld.blogspot.com/2006/02/real-authentication-in-nfs.html )
+20:25 pdurbin   even more at http://www.nfsv4bat.org/Documents/nasconf/2003/
+20:32 pdurbin   ironcamel: i'm mad with power. became root. installed perl modules all over the place. messy but now i (and our users) have (most of) my favorites. too bad it's only perl 5.8.8 #enterpriselinux
+20:32 ironcamel pdurbin++
+20:33 ironcamel it's not messy :) it's all installed cleanly in your site_perl folder
+20:33 pdurbin   we use "modules" for this. module(1)
+20:34 ironcamel and managed perfectly via cpan* (your favorite CPAN package manager)
+20:34 pdurbin   Modules -- Software Environment Management - http://modules.sourceforge.net/
+20:35 ironcamel pdurbin: now that you can install whatever, make sure to try App::Notes
+20:35 ironcamel cpanm notes
+20:35 pdurbin   "hpc/perl5mods - perl 5 modules, miscellaneous add-on modules to the default perl installation" -- `./modules --whatis | grep perl5mods`
+20:35 pdurbin   https://github.com/fasrc/api/blob/master/modules
+20:35 ironcamel you know perl 5.16 just got released
+20:35 pdurbin   SEJeff linked it above ^^
+20:36 ironcamel cool
+20:36 ironcamel you guys are up to speed :)
+20:36 pdurbin   i tried cpanm briefly. back to cpan for now
+20:36 ironcamel other than the fact that you are still on 5.8
+20:36 pdurbin   5.8.8
+20:36 ironcamel which has been deprecated for 2 cycles now
+20:36 pdurbin   i was thinking i could make a module(1) called perl5latest
+20:37 pdurbin   or something
+20:37 ironcamel but perlbrew to the rescue
+20:37 ironcamel cpanm perlbrew
+20:37 pdurbin   yeah, i guess
+20:37 pdurbin   whatever works with module(1), which seems to be more or less everything...
+20:37 ironcamel perlbrew install perl-5.16.0
+20:38 pdurbin   will have to look another day. take care, all
+20:39 pdurbin   (though i have played with perlbrew on snow leopard, where i can't install XS modules because the perl apple shipped is so broken)
+20:47 ironcamel not sure what this modules business is
+20:48 ironcamel doesn't look very appealing
+21:24 SEJeff    http://nmap.org/6 NMAP 6.0 released!
+</pre></body></html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:08 SEJeff       pdurbin, Are you asking the xfs question in gest or seriously?
+12:32 pdurbin      SEJeff: dead serious. but maybe it's an iSCSI or network problem. i haven't found the root cause of the failure yet
+12:33 pdurbin      i haven't really looked, though. busy weekend
+12:34 pdurbin      i was just thinking about where i want to squirrel away logs and such.  should i make the RT ticket bloated by attaching logs? should i save the log somewhere on our nfs server. should i throw them in a git repo?  i often default to git these days
+12:42 SEJeff       pdurbin, from my professional experience...
+12:42 SEJeff       xfs lacks a lot of limitations of ext3
+12:43 SEJeff       such as the 32k files per directory limit
+12:43 SEJeff       xfs is also extremely fast, however, xfs is very very poor at fault tolerance
+12:44 SEJeff       Meaning if you are writing to xfs and you pull the plug on the server, the filesystem has a high chance of corruption. Often repairable with fsck, but I am always wary of xfs as it has bitten me several times
+12:44 SEJeff       We used to use xfs on our Fusion IO cards
+12:44 SEJeff       never more
+12:47 SEJeff       And in general don't ever use xfs on our large volumes
+13:02 pdurbin      but "xfs is for lots or large"
+13:04 pdurbin      "If you have large or lots, use XFS" -- Val Aurora, LCA 2007 - page 2 of XFS: Adventures in Metadata Scalability http://xfs.org/index.php/Image:Xfs-scalability-lca2012.pdf
+13:05 SEJeff       2007 != 2012 :)
+13:05 SEJeff       Val isn't a kernel dev anymore sadly.
+13:05 SEJeff       She is a women's rights advocate for the ADA Foundation.
+13:08 pdurbin      crimsonfubot: lucky ada foundation
+13:08 crimsonfubot pdurbin: http://www.ada.org/applyforassistance.aspx
+13:08 pdurbin      crimsonfubot: google ada foundation
+13:08 crimsonfubot pdurbin: ADA Foundation: &lt;http://www.ada.org/applyforassistance.aspx&gt;; ADA Foundation hires new executive director - American Dental ...: &lt;http://www.ada.org/news/6017.aspx&gt;; ADA Foundation accepting applications for Harris Fund grant ...: &lt;http://www.ada.org/news/6884.aspx&gt;; Scholarships &amp; Loan Repayment - American Dental Association ...: &lt;http://www.ada.org/2904.aspx&gt;; ADA Foundation - American (1 more message)
+13:15 pdurbin      crimsonfubot: lucky ada initiative wikipedia
+13:15 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/Ada_Initiative
+13:20 shuff        google mechanical turk
+13:20 crimsonfubot https://www.mturk.com/mturk/welcome
+13:20 shuff        nice
+13:20 pdurbin      whoa! you don't have to address crimsonfubot?
+13:20 pdurbin      lucky crimsonfu
+13:21 pdurbin      shuff: how are you doing that?
+13:21 shuff        direct message to crimsonfubot
+13:21 pdurbin      so... /query? or /msg?
+13:22 shuff        \/msg
+13:22 shuff        google irc commands
+13:22 crimsonfubot http://www.ircbeginner.com/ircinfo/ircc-commands.html
+13:23 pdurbin      but i'm getting the response as a message... not in #crimsonfu...
+13:26 shuff        interesting!  i wonder why
+13:26 shuff        why????
+13:28 pdurbin      shuff: can you just type for me exactly what you're typing?
+13:28 shuff        '/msg crimsonfubot google irc commands'
+13:31 pdurbin      huh. i have no idea why the output doesn't stay in the channel for me. i'm using irssi, if it matters
+13:33 SEJeff       pdurbin, http://adainitiative.org
+13:40 pdurbin      You have successfully registered for 2012 Red Hat Summit &amp; JBoss World. Please return to this site to view your current Event Summary or make changes to your registration at any time: https://www.redhatsummit2012.com
+13:46 pdurbin      anyone else going?
+13:47 shuff        hmmm
+13:47 shuff        i should see about that; i would like to go
+13:48 shuff        now that i am working in an environment with RHDS, i would like a bit more information about RHDS vs. RHIPA
+13:51 pdurbin      are you thinking about switching to RHIPA?
+13:51 shuff        i am thinking that i don't know enough to evaluate the options
+13:52 pdurbin      ok :)
+13:53 pdurbin      https://github.com/akoumjian/salty-vagrant
+14:08 shuff        google a/b testing
+14:08 crimsonfubot http://en.wikipedia.org/wiki/A/B_testing
+14:51 magoo        hoping someone can help shed some light on my provisioning weirdness this morning. One of our devs and myself went to rebuild our environment in vagrant and every debian package that is to be installed will fail with Hash Sum mismatch.
+14:55 magoo        this wasn't the case last week. Here's where it gets weird though: I can log onto the box and run apt-get update and then start the provisioning back up and it will move past the last package that didn't work but then fail on another package with the same error. Then I repeat the process all over to move past that one.
+15:00 pdurbin      magoo: i assume you don't have these problems with a vanilla vagrant debian/ubuntu base box
+15:04 magoo        pdurbin: yeah, it's only after chef starts running
+15:04 pdurbin      kiss the cook. blame the chef
+15:05 magoo        The odd thing is that I don't generally specify package versions in my cookbooks and the version is automatically added like so apt-get -q -y install couchdb=0.10.0-1ubuntu2
+15:06 magoo        if i pull off the version and do it manually, it's fine
+15:06 magoo        or I can run apt-get update and rerun the provisioning and it'll also work
+15:06 magoo        I'll go harrass the #chef guys now
+15:11 pdurbin      :) ok
+15:11 pdurbin      reading about xfs write caches: http://xfs.org/index.php/XFS_FAQ#Q%3a_What_is_the_problem_with_the_write_cache_on_journaled_filesystems.3F
+15:44 magoo        agoddard: you mind provisiong your vagrant chef box and seeing if you get similar results to above?
+15:46 magoo        i based my chef vm on street-chef so I imagine you will also run into these errors
+15:58 SEJeff       shuff, RHDS is a subset of RHIPA
+15:58 SEJeff       RHDS == the 389 directory server
+15:58 SEJeff       RHIPA == the 389 directory server with freeipa ontop. I have a good amount of experience with that team
+15:58 SEJeff       if you have any questions I might be able to help. fwiw, our company has the earliest big deployment of sssd... long before it was 1.0 and I was lead on that project
+15:59 SEJeff       maybe 2 or 3 years ago
+16:01 SEJeff       Both are derived from the netscape directory server codebase that redhat bought for 14 mill or so and subsequently open sauced
+16:05 magoo        agoddard: n/m, Ubuntu repos are having issues right now and they are aware of it
+17:26 pdurbin      o=NetscapeRoot
+</pre></body></html>

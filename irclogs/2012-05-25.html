@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:01 pdurbin   having a pleasant conversation with ironcamel about coffeescript, macruby, source filters, bridges, etc. https://plus.google.com/102499719144563443986/posts/DaCzRZmPZU9
+13:46 pdurbin   was just talking with people about the importance of having a second "channel" for alerts. sms vs. email, for example
+13:47 pdurbin   i wonder if it would work well to set up a statusnet instance for alerts
+13:47 pdurbin   since it uses the twitter api, there should be plenty of clients
+13:47 pdurbin   but i'm not sure it's "push" enough
+14:10 SEJeff    Well SMTP by design is a non-realtime protocol
+14:10 SEJeff    While it is most often used for alerts, it isn't an idea method for that
+14:44 pdurbin   mkdir /tmp/foobar &amp;&amp; xorriso -osirrox on -indev /tmp/virtio-win-0.1-22.iso -extract / /tmp/foobar
+14:45 pdurbin   Re: Linux, ISOFS, multi-extent files: what's the status? - http://lists.debian.org/cdwrite/2010/01/msg00074.html &lt;-- this was super helpful for that xorriso command ^^
+14:45 pdurbin   kept search for "how do i extract the files from an iso on linux" and such
+14:46 pdurbin   now to write an RPM spec file
+14:49 SEJeff    pdurbin, If it works, you should write a crimsonfu blog post on how you went about the entire thing
+14:49 SEJeff    And your previous novel of links doesn't count
+14:49 pdurbin   meh
+14:49 pdurbin   that sounds like work
+14:49 pdurbin   how about i put the spec file on github?
+14:50 SEJeff    Good call
+14:50 SEJeff    with a tutorial of how to extract the files and what they are good for
+14:50 pdurbin   kinda like how i did for https://github.com/pdurbin/anyconnect
+14:51 pdurbin   i couldn't find anything on xorriso at http://www.commandlinefu.com
+14:51 pdurbin   ironcamel: did you ever get your account working?
+14:51 pdurbin   if so, maybe i'll sign up
+14:52 pdurbin   SEJeff: i got xorriso from your favorite repo: repoforge ;)
+14:55 pdurbin   it's in fedora, at least. still need to switch to fedora from this centos box
+14:55 SEJeff    :)
+14:56 SEJeff    I don't hate repoforge. I just have very bad experience using it
+14:57 ironcamel pdurbin: i did
+14:57 pdurbin   ironcamel: link?
+14:58 ironcamel pdurbin: i contacted the owner of the thing on twitter
+14:58 ironcamel he green lighted me
+14:58 ironcamel and a series of others he had in the queue
+14:58 ironcamel pdurbin: you are talking about http://www.commandlinefu.com right?
+14:59 pdurbin   ironcamel: yeah. is there a link to your account? i want to see the fu
+14:59 ironcamel http://www.commandlinefu.com/commands/by/ironcamel
+14:59 pdurbin   awesome. thanks
+15:00 pdurbin   everyone should go create an account
+15:00 SEJeff    Is that a site to show off your nifty 1 liners?
+15:00 pdurbin   yep
+15:00 SEJeff    Their search box says: type here to grep the archive...
+15:00 SEJeff    &lt;3
+15:10 pdurbin   wait a minute. . . there's no "amd64/Win2008" in this iso. . . error from yeterday: http://irclog.perlgeek.de/crimsonfu/2012-05-24#i_5633300
+15:40 pdurbin   $RPM_BUILD_ROOT or %{buildroot} ?
+15:41 pdurbin   "You can use $RPM_BUILD_ROOT instead of %{buildroot}. Both are acceptable, but just be consistent." -- http://fedoraproject.org/wiki/How_to_create_an_RPM_package#SPEC_templates
+16:27 pdurbin   weird. had to run `virsh pool-destroy tranferimages &amp;&amp; virsh-pool start transferimages` to resolve virt-v2v: WARNING: Storage volume my-vm_my-vm already exists on the target. NOT copying it again. Delete the volume and retry to copy again. libvirt error code: 38, message: cannot open volume '/var/lib/libvirt/transferimages/my-vm_my-vm': No such file or directory
+16:27 pdurbin   even though i moved the file aside
+16:28 pdurbin   anyway, running now
+16:28 pdurbin   takes ~18 minutes to error out: http://irclog.perlgeek.de/crimsonfu/2012-05-24#i_5633300
+16:44 pdurbin   virt-v2v: my-vm configured with virtio drivers.
+16:44 pdurbin   \o/
+16:45 pdurbin   my spec file still needs work
+16:45 pdurbin   i had to run: cp -r /usr/share/virtio-win/Win7/amd64 /usr/share/virtio-win/drivers/amd64/Win2008
+16:46 pdurbin   but i'll probably put it on github soon. probably under https://github.com/fasrc
+16:47 SEJeff    sweet!
+19:07 pdurbin   ok so ~/rpmbuild/BUILD is %{_builddir} per http://fedoraproject.org/wiki/How_to_create_an_RPM_package#Macros
+19:34 pdurbin   uh. install(1) can do `cp -r`, right? looking at http://www.gnu.org/software/coreutils/manual/html_node/install-invocation.html#install-invocation
+19:41 SEJeff    Perhaps instead of install, you use ln(1) and make a symlink for the Win2008 dir
+19:41 SEJeff    so it more accurately reflects reality
+19:41 pdurbin   yeah
+19:41 pdurbin   i might just do cp -r for now #lazy
+19:42 SEJeff    cp -r is easier than ln -s ?
+19:42 pdurbin   maybe shuff will send me a pull request :)
+19:42 SEJeff    Y U SO SILLY?
+19:42 pdurbin   :)
+19:43 SEJeff    This is for your virtio-win rpm, correct? The thing where you're copying the Win7 dir to Win2008 to fake out the windows installer or whatnot for virt-v2v?
+19:44 pdurbin   SEJeff: right, the missing "/usr/share/virtio-win/drivers/amd64/Win2008" directory i mentioned yesterday
+19:45 SEJeff    Yeah a symlink seems more proper
+19:45 SEJeff    Follows the principal of least surprise principal
+19:45 pdurbin   yeah, probably
+20:41 pdurbin   sjoeboo just showed me this. had never heard of it. very cool. "hardlink is used to create a tree of hard links. It's used by kernel installation to dramatically reduce the amount of diskspace used by each kernel package installed." -- https://admin.fedoraproject.org/pkgdb/acls/name/hardlink
+20:42 sjoeboo   far, keep our mirror host about 1.2 as full as it normally would be with all our static/locked clones of cents at various points in time for cluster compute nodes
+21:01 pdurbin   ironcamel: no unicode support? some ascii art fish i just noticed in one of our user's signatures: http://danceb.in/FphvM6ym4RGycl7bl9DNYg
+21:02 ironcamel ewww
+21:02 pdurbin   the raw version looks fine
+21:02 ironcamel we'll have to fix that
+21:03 pdurbin   if anyone needs a reminder or how to point nopaste to a different service: http://irclog.perlgeek.de/crimsonfu/2012-05-10#i_5568015
+21:04 pdurbin   of
+21:09 ironcamel pdurbin++ spreading the nopaste love :)
+21:11 pdurbin   :)
+21:25 pdurbin   \o/ i think my spec file is working
+21:25 pdurbin   a little funny this time. . . had to dink around in Device Manager and scan for the right driver
+21:26 pdurbin   "Red Hat VirtIO" driver
+21:26 pdurbin   but it found it. gave this windows box a static ip and it can ping its route, run nslookup, etc. seems ok
+21:26 pdurbin   might as well throw my spec file on github
+21:27 pdurbin   so you guys can patch it for me :)
+21:33 pdurbin   ok, here it is: https://github.com/fasrc/virtio-win/blob/master/virtio-win.spec
+</pre></body></html>

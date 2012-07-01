@@ -1,0 +1,214 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+03:32 ironcamel pdurbin: unicode issues with http://danceb.in should be fixed now
+03:33 ironcamel pdurbin: let me know if you still have issues
+13:04 pdurbin   ironcamel: the fish i posted to http://danceb.in/FphvM6ym4RGycl7bl9DNYg is gone. http://irclog.perlgeek.de/crimsonfu/2012-05-25#i_5639032 . i guess stuff expires...
+13:19 pdurbin   posted a new one: http://danceb.in/EHXZtGux4RGZD62l9DNYg . some weird red boxes. . .
+13:23 pdurbin   BIND security problem: Handling of zero length rdata can cause named to terminate unexpectedly | Internet Systems Consortium - http://www.isc.org/software/bind/advisories/cve-2012-1667
+13:26 pdurbin   had beers with mattdm yesterday and now i'm looking at https://code.seas.harvard.edu/openstack
+13:26 pdurbin   huh. maybe they're actually running devstack... "A tool to rapidly deploy an openStack instance. By default only works on Ubuntu, but we have a branch to get it working on CentOS 6 in progress."
+13:28 pdurbin   mattdm had mentioned openstack here: http://irclog.perlgeek.de/crimsonfu/2012-05-03#i_5534205
+13:34 ironcamel pdurbin: the default is for posts to expire in 1 week
+13:35 ironcamel set DANCEBIN_EXP if you want to change the default https://metacpan.org/module/App::Nopaste::Service::Dancebin
+13:35 pdurbin   "Running in EC2, we're using AMI "ami-3ecd1e57", a CentOS 6.2 64-bit image.  Using "OpenStack" security group, with a "m1.small" image size." -- https://code.seas.harvard.edu/openstack/devstack/blobs/master/README-SEAS.txt
+13:37 pdurbin   ironcamel: cool. this actually makes me worry less about spammers attacking my dancebin installation (if i were to stand one up). i assume there's a way i could remove pastes manually as well
+13:37 ironcamel pdurbin: the red boxes are due to the language detection
+13:37 pdurbin   ironcamel: do you see the red boxes too? http://danceb.in/EHXZtGux4RGZD62l9DNYg
+13:37 ironcamel if you set the language to text, they go away
+13:37 ironcamel nopaste -l text
+13:38 pdurbin   DANCEBIN_EXP=never:1  # Never Expire
+13:38 ironcamel pdurbin: of course you can remove them. its just stored in a database. if you know sql, then you will be able to remove them, haha
+13:39 pdurbin   ah. looks perfect with -l text: http://danceb.in/VEP4rW6x4RGZD62l9DNYg  thanks! good job on the unicode support
+13:40 pdurbin   ironcamel: but you'll write a script to make deleting spam super easy, right? :)
+13:41 ironcamel sure
+13:42 ironcamel throughnothing fixed the unicode thing last night
+13:42 pdurbin   good job, throughnothing
+13:52 pdurbin   right. and various openstack packages in epel: http://dl.fedoraproject.org/pub/epel/6/x86_64/repoview/letter_o.group.html
+13:53 pdurbin   openstack-nova-2012.1-7.el6.noarch . i guess that's newish...
+13:53 pdurbin   i bet there's newer stuff at https://admin.fedoraproject.org/pkgdb/acls/name/openstack-nova
+13:54 pdurbin   yep. Wed Jun 06 2012 Pádraig Brady &lt;P@draigBrady.com&gt; - 2012.2-0.2.f1 http://pkgs.fedoraproject.org/gitweb/?p=openstack-nova.git;a=blob;f=openstack-nova.spec;hb=HEAD
+13:59 pdurbin   huh. i guess 2012.1 is essex https://launchpad.net/nova/essex/2012.1 . and 2011.3 is diablo https://launchpad.net/nova/diablo/2011.3
+14:01 pdurbin   "OpenStack releases are numbered using a YYYY.N time-based scheme. For example, the first release of 2012 will have the 2012.1 version number. During the development cycle, the release is identified using a codename." http://wiki.openstack.org/ReleaseNaming
+14:04 pdurbin   ok and 2012.2 is folsom: https://launchpad.net/nova/folsom . er. will be, i guess. again, the 2 means the second release of 2012. ok. starting to make sense :)
+14:06 pdurbin   and the latest fedora spec file has http://launchpad.net/nova/folsom/folsom-1/+download/nova-2012.2~f1.tar.gz as Source0, which is https://launchpad.net/nova/folsom/folsom-1 . "This is another milestone (folsom-1) on the road to Nova 2012.2"
+14:06 * pdurbin wonders which version he should try
+14:07 pdurbin   westmaas: any advice? ^^ or are you going to tell me to use ubuntu? :)
+14:30 pdurbin   heh. "Status: Dormant" http://distrowatch.com/bulinux
+14:38 pdurbin   "Set this option if you would like to use Qpid instead of RabbitMQ. Qpid is set as the default in the Fedora OpenStack packages." http://fedoraproject.org/wiki/OpenStack_devstack
+14:39 pdurbin   Apache Qpid™: Open Source AMQP Messaging - http://qpid.apache.org
+14:40 sjoeboo   weird, cause i think activemq is apache as well
+14:40 sjoeboo   i could be wrong though
+14:40 pdurbin   "Nova requires the QPID messaging server to be running." Getting started with OpenStack on Fedora 17 - FedoraProject - http://fedoraproject.org/wiki/Getting_started_with_OpenStack_on_Fedora_17
+14:43 pdurbin   hmm, ActiveMQ ( http://en.wikipedia.org/wiki/Apache_ActiveMQ ) implements Java Message Service (JMS): http://en.wikipedia.org/wiki/Java_Message_Service
+14:44 SEJeff    sjoeboo, Redhat wrote qpid for their MRG product and wanted qpid to become the _de facto_ standard
+14:44 SEJeff    They failed
+14:47 pdurbin   reading the conclusion of "Understanding the Differences between AMQP &amp; JMS" http://www.wmrichards.com/amqp.pdf
+14:48 pdurbin   looks like MGR means Messaging, Realtime, Grid: http://www.redhat.com/products/mrg/
+14:49 SEJeff    The latest activemq with nio is actually insanely fast
+14:52 pdurbin   i guess my takeaway is that AMQP is newer and more interoperable than JMS. of course, zeromq is newer still. :)
+14:52 SEJeff    pdurbin, Did you watch the video interview about ZeroMQ by the guy who created AMQP for JPMorgan?
+14:52 SEJeff    Really informative
+14:56 pdurbin   SEJeff: you mean the floss weekly interview, right? i listened to it
+14:56 pdurbin   ah, here's the seas openstack readme: https://code.seas.harvard.edu/puppet/puppet/blobs/feature.openstack/modules/openstack/README.md
+14:57 SEJeff    yes
+14:57 pdurbin   so does anyone have any opinions about rabbitmq vs qpid?
+14:57 SEJeff    rabbitmq doesn't do acls
+14:58 SEJeff    which SUCKS for a lot of use cases AMQP was written for
+14:58 SEJeff    You can use a hack called rabbitcage ontop of rabbitmq, but activemq does them properly
+14:58 pdurbin   heh. rabbitcage
+14:58 SEJeff    rabbitmq is easy to setup and low memory footprint, but isn't that great
+14:58 SEJeff    qpid runs MRG, so you've got redhat fully behind it
+14:59 SEJeff    I use rabbitmq for celery (http://celeryproject.org/), and it works great. But I wouldn't use it for much else
+14:59 pdurbin   huh. what do you use celery for?
+15:00 pdurbin   (i can't believe i just wrote that)
+15:03 pdurbin   ah. "What kinds of things should I use Celery for?" http://docs.celeryproject.org/en/latest/faq.html#what-kinds-of-things-should-i-use-celery-for
+15:06 pdurbin   'finish the web request as soon as possible, then update the users page incrementally. This gives the user the impression of good performance and “snappiness”, even though the real work might actually take some time.' sure. makes sense. general messaging goodness
+15:06 pdurbin   heh. "Celery does not depend on Django anymore" :)
+15:11 SEJeff    pdurbin, I use celery as a distributed task queue
+15:12 SEJeff    "various things" can http post to a url (django backed api really) and will get a uuid
+15:12 SEJeff    they can then poll a url with that UUID and see the job status
+15:12 SEJeff    when it is done, they then request the url with the results giving the uuid as a query argument and get the data. The jobs take from 1 to 20 minutes
+15:20 pdurbin   SEJeff: interesting. thanks
+15:21 * SEJeff  wrote a pexpect based network management framework
+15:21 SEJeff    I've used tcl/expect and it is ok, and perl's expect module in the past
+15:21 pdurbin   man, maybe i should try pexpect. i was struggling with Expect.pm last week
+15:21 SEJeff    Wrote this one to learn python's pexpect and it is the most friendly of them all. Perl's expect module is gross
+15:22 SEJeff    Yeah it is the worst expect implementation I've used
+15:22 SEJeff    This was my first foray into tcl and expect: http://www.digitalprognosis.com/opensource/scripts/change_pass.exp it was reasonable enough
+15:22 pdurbin   cool. any pexpect code?
+15:22 SEJeff    It kills me!
+15:23 SEJeff    I've worked 3 years on this amazing network management app
+15:23 SEJeff    work won't let me open source it
+15:23 SEJeff    It is the awesome
+15:23 SEJeff    I'll eventually rewrite it all from scratch
+15:24 pdurbin   SEJeff: so you *have* slung some perl :)
+15:24 SEJeff    I worked at ticketmaster man
+15:24 SEJeff    100% perl shop
+15:24 SEJeff    Arguably one of the biggest perl shops on the internet
+15:24 SEJeff    And they funded mod_perl 2.0 entirely by hiring the mod_perl developer
+15:24 pdurbin   ticketmaster is always held up as a perl shop, sure
+15:28 SEJeff    How about this
+15:28 SEJeff    I am comfortable with storing my credit card and password with ticketmaster
+15:28 SEJeff    The reason...
+15:29 SEJeff    One of my first projects when joining the company
+15:29 SEJeff    They have this thing called an Ingrian which is essentially a hardware credit card encrypter.http://www.secureconsulting.net/2009/05/ingrian_data_secure_lives_on_a.html
+15:30 SEJeff    They have these archives of datafiles that contain customer information. Your credit card is never once written to disk _ever_ before being encrypted with a key that is retrieved via xmlrpc from that Ingrian datasecure
+15:30 SEJeff    that is required by PCI
+15:30 SEJeff    I then wrote a script which gets a separate key (that rotates every XX time) and encrypts the entire archive. That is above and beyond PCI
+15:31 SEJeff    It is a perl script which does this that I wrote so I know with a certainty the data is safe and doubly encrypted
+15:31 SEJeff    So I might not be some perl expert like ironcamel, but I certainly am comfortable with perl
+15:32 pdurbin   awesome
+15:33 pdurbin   oh oh. speaking of TCL. at the bar last night one of our network engineers was telling me that cisco's ios (how annoying that i have to differentiate that these days) supports some sort of embedded TCL
+15:33 SEJeff    The systems engineering team wanted us to encrypt that data because they know what they're doing. PCI is more checking of boxes than real security
+15:33 SEJeff    pdurbin, Have you seen the stuff the Arista switches support? You can manage hundreds of switches with...
+15:33 SEJeff    wait for it...
+15:33 SEJeff    XMPP! aka jabber
+15:33 pdurbin   Cisco IOS Scripting with Tcl - Cisco Systems - http://www.cisco.com/en/US/docs/ios/12_3t/12_3t2/feature/guide/gt_tcl.html
+15:34 SEJeff    https://eos.aristanetworks.com/2011/08/management-over-xmpp/
+15:34 pdurbin   i know what xmpp is. sheesh ;)
+15:34 SEJeff    Yeah doesn't mean everyone else does
+15:34 SEJeff    or googles since this is all logged
+15:34 pdurbin   yeah yeah. and if it were me i'd probably link to the wikipedia page or something
+15:35 pdurbin   westmaas used to call me "linky" when we worked together
+15:36 SEJeff    I bet you write great docs though
+15:37 westmaas  haha
+17:09 pdurbin   i'm trying to put docs here but it's a bit of a mess: http://wiki.greptilian.com ... a work in progress
+17:41 pdurbin   bleh. it's either install something newer than perl 5.8.8 on our cluster or re-write `unless ($repo ~~ @projects)`
+18:13 mattdm    http://actech.seas.harvard.edu/2012/06/science.html
+18:15 pdurbin   science!
+18:21 pdurbin   coffee!
+18:21 pdurbin   decaf?!
+18:23 pdurbin   hmm, Academic Computing Technical Blog: Virtualization with KVM - http://actech.seas.harvard.edu/2012/05/virtualization-with-kvm.html
+18:23 pdurbin   mmm, future directions.... 'We can offer "Platform-as-a-Service" (PaaS) using Red Hat's OpenShift project.'
+18:24 pdurbin   oh, cool, you're on github: https://github.com/seasac-ops
+18:26 pdurbin   hmm, workshops on python and git: http://acops.seas.harvard.edu/workshops
+18:29 mattdm    :)
+18:30 SEJeff    python is evil
+18:30 pdurbin   i guess you could suggest the new github windows tool instead of msysGit at http://acops.seas.harvard.edu/git-workshop/workshop.s5.html
+18:30 SEJeff    just ask #crimsonfu
+18:30 * SEJeff  ducks
+18:30 mattdm    I am not involved in the windows software. :)
+18:32 mattdm    I think the choice of msysgit was largely for our ssh instructions, which currently are a putty-centered mess for windows, and "just do this" for mac and linux.
+18:33 mattdm    with msysgit, it becomes "install msysgit; now, see the mac and linux instructions"
+18:33 pdurbin   SEJeff: i think our libwww-perl is broken on the cluster. :( i'm about ready to rewrite http://git.greptilian.com/?p=scripts.git;a=blob;f=grgit.pl;hb=HEAD in python :(
+18:33 pdurbin   mattdm: sure. command line instructions ftw
+18:34 SEJeff    Y NO LWP?
+18:34 SEJeff    Is lwp old school?
+18:34 pdurbin   KISS :) LWP::Simple! :)
+18:35 SEJeff    Yeah thats what I've used
+18:36 SEJeff    is libwww-perl different than LWP?
+18:36 pdurbin   nope http://search.cpan.org/~gaas/libwww-perl/lib/LWP.pm
+18:36 SEJeff    Ah ok
+18:36 SEJeff    Yeah I like that
+18:36 SEJeff    I really like the xmlrpc stuff in perl. It is equally as simple as the python version, but makes more sense in my head
+18:38 pdurbin   is that my cue to plug this again? https://github.com/crimsonfu/code/blob/master/cobbler.pl
+18:40 SEJeff    Or mine to plug this :P  http://www.digitalprognosis.com/opensource/scripts/nhs
+18:44 pdurbin   onall?
+18:47 SEJeff    http://www.digitalprognosis.com/opensource/onall which is a lightly patched version of: http://code.google.com/p/onall/downloads/detail?name=onall-2.11.tar.bz2
+18:47 SEJeff    onall is the best parallel ssh implementation that exists period. Oh and it is written in perl
+18:47 pdurbin   ah. you need to work on your seo
+18:47 SEJeff    The director of systems engineering @ ticketmaster wrote it
+18:47 SEJeff    It isn't my project
+18:47 pdurbin   ok :)
+18:47 SEJeff    and they took code.ticketmaster.com down when 1/2 of us left the company
+18:48 SEJeff    but it is still open source :)
+18:48 SEJeff    I've been meaning to start a github project for onall actually. Would you be interested in it?
+18:48 pdurbin   um. have you heard of salt? ;)
+18:49 SEJeff    Different use case
+18:49 SEJeff    ssh is still useful
+18:50 pdurbin   sure. gsh is the one i'm most familiar with: http://outflux.net/unix/software/gsh/
+18:50 SEJeff    why does that url sound familar?
+18:50 SEJeff    Is that kees cook's domain?
+18:50 pdurbin   yep
+18:51 SEJeff    ha! Eidetic memory ftw
+18:51 SEJeff    onall is written by a unix admin for unix admins
+18:52 SEJeff    I use it something like nhs ... args to filter | grep | foo | onall -qy -t 5 "uptime" for instance
+18:52 SEJeff    or more often just nhs -args | onall ...
+18:53 pdurbin   hmm, no mention of onall here: http://stackoverflow.com/questions/243750/how-can-i-automate-running-commands-remotely-over-ssh/245114#245114
+18:53 SEJeff    Feel free to add it if you want
+18:53 SEJeff    I recommend you trying it out
+18:53 SEJeff    You'll like it given your leanings
+18:53 SEJeff    The perl ssh libs are crap on old perl versions so it forks ssh in threads
+18:53 pdurbin   ok. we use pdsh here
+18:53 SEJeff    We had to make it support rhel3
+18:54 SEJeff    Yeah onall is just a single perl script too. Simple to hack on
+18:55 pdurbin   cool
+19:53 SEJeff    pdurbin, I stand corrected, this is better: https://github.com/ticketmaster/onall
+19:53 SEJeff    didn't realized they moved it all to github
+19:54 pdurbin   "Seriously, who puts underscores in command line options?" it says :)
+19:54 SEJeff    Yeah thats from Ryan
+19:54 SEJeff    he is hilarious
+19:54 SEJeff    That guy was employee #22 @ redhat
+19:54 SEJeff    helped build akamai before I even knew what Linux was
+20:00 pdurbin   so he's in boston?
+20:22 SEJeff    He is in CA right now
+20:22 SEJeff    works for Mozilla as a developer
+20:22 pdurbin   ok
+20:22 SEJeff    https://github.com/rtilder
+20:22 pdurbin   oh, SEJeff, you should listen to dave winer talk about xmlrpc on the stack exchange podcast
+20:23 SEJeff    link?
+20:23 SEJeff    I prefer rest strongly over xmlrpc
+20:23 SEJeff    but don't mind using it when I have to
+20:23 pdurbin   http://blog.stackoverflow.com/2011/11/se-podcast-27-dave-winer/
+20:23 pdurbin   we need a bot
+20:24 pdurbin   look at me googling and copying and pasting like a sucker
+20:24 SEJeff    Our bot is named pdurbin
+20:25 pdurbin   not anymore. someone write us a bot
+20:25 SEJeff    supybot
+20:26 SEJeff    http://www.theswellesleyreport.com/2012/06/wellesley-high-grads-told-youre-not-special wow
+20:26 pdurbin   this one? http://sourceforge.net/projects/supybot/
+20:27 SEJeff    Yeah it is one of the more commonly used bots
+20:27 SEJeff    google: github supybot and look at all of the plugins
+20:27 pdurbin   ok. i'm still an irc noob
+20:38 pdurbin   https://github.com/code4lib/supybot-plugins http://supybot.com
+20:40 pdurbin   Supybook - the Supybot handbook http://supybook.fealdia.org/
+20:46 pdurbin   yeah, all i want is `google lucky` http://supybot.fr.cr/doc/use/plugins/google.html#google-lucky-snippet-search
+21:00 SEJeff    Oh that has google calc nice!
+21:00 * SEJeff  uses google calc every single day
+21:01 SEJeff    Love to convert from nano/micro/and milliseconds
+</pre></body></html>

@@ -1,0 +1,238 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+03:04 pdurbin      westmaas: well, oVirt/RHEV allows you to specify users who have the power to spin up VMs
+03:04 pdurbin      or so the power point slides say, at least
+03:05 pdurbin      or maybe it's coming in RHEV 3.1. i can't be bothered to check at the moment
+03:05 pdurbin      what i do want to talk about is iSCSI with RHEV/oVirt
+03:06 pdurbin      sjoeboo and I chatted with Dan (Dmitry) Yasny, Product Manager - Virtualization and Cloud at Red Hat: http://www.linkedin.com/in/dyasny
+03:07 pdurbin      he was super nice and very helpful
+03:07 pdurbin      explained a lot that would have taken a lot in a few minutes that would have taken a lot of reading
+03:08 pdurbin      in a nutshell, RHEV/oVirt deals with a lot of the dirty details of iSCSI for you
+03:08 pdurbin      basically, you present it a LUN and it can start using it for VM disk image storage
+03:09 pdurbin      under the hood it's using LVM
+03:09 pdurbin      and if you need more space, you just feed it another LUN
+03:10 pdurbin      (a lot of this applies to fibre channel SANs too, not just iSCSI)
+03:12 pdurbin      anyway, to put this in the context of agoddard's wonderful dissertation on iSCSI + libvirt ( http://lists.centos.org/pipermail/centos-virt/2012-June/002946.html ), this model that RHEV/oVirt uses is "5) large iSCSI LUN with LVM, with LVM operations managed by a single host"
+03:12 pdurbin      except that you could add in more LUNs later if you need to
+03:13 pdurbin      now, the "single host" in this case, that does all the LVM logical volume creation, deletion, etc. is called the Storage Pool Manager (SPM) in RHEV/oVirt: http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Technical_Reference_Guide/sect-Technical_Reference_Guide-Storage_Architecture-Role_The_Storage_Pool_Manager.html
+03:14 pdurbin      in theory, i wouldn't need to worry about how all this works
+03:15 pdurbin      i would just use some command line tool or language bindings to create VMs with disk images of a certain size
+03:16 pdurbin      all in all, it sounds pretty slick
+03:17 pdurbin      of course, the Storage Pool Manager (SPM) is going away in future versions of RHEV/oVirt
+03:18 pdurbin      i think this is because it's a single point of failure?
+03:19 pdurbin      anyway, i'm sure it'll be replaced with something that has the same role: to manage the LVM logical volumes for you... create, resize, and delete them for you
+03:20 pdurbin      i'm starting to feel like we should give oVirt a try. it's supposed to be nicely packaged in fedora 17
+03:21 pdurbin      this is not at all to say that we should stop looking at OpenStack
+03:23 pdurbin      to repeat what i said around http://irclog.perlgeek.de/crimsonfu/2012-06-27#i_5763589 , i see RHEV/oVirt as a replacement for traditional VMware.  and OpenStack is a replacement for Amazon AWS
+03:24 pdurbin      different use cases
+03:24 pdurbin      i mean, i'm sure VMware is getting more "cloudy"
+03:24 pdurbin      and maybe Amazon AWS is getting more "enterprisey"
+03:25 pdurbin      but people typically use them for different things
+03:25 pdurbin      and right now we're basically trying to build a platform that's like traditional VMware
+03:26 pdurbin      i think we've made a good choice with libvirt/KVM
+03:27 pdurbin      but if we want certain features in the future (automatic failover, a web gui, etc), we might want to look at RHEV/oVirt
+03:29 pdurbin      now, i think we also want to offer AWS-style VMs. . . let people spin up their own.  have base images and all that
+03:30 pdurbin      and OpenStack seems like a good choice for this. definitely worth trying
+03:31 pdurbin      bascially, we can run both :) libvirt/KVM with or without RHEV/oVirt for enterprisey stuff. and OpenStack (or CloudStack??) for the AWS-style VMs
+04:06 pdurbin      ok, i thought i was done, but one more thought. . .
+04:07 pdurbin      what's wrong with what we have now? the new libvirt/kvm platform we built?
+04:07 pdurbin      well, no automatic failover for one.  if a hypervisor goes down, the VMs that were on it go down too
+04:08 pdurbin      and that would be unfortunate, but in practice it shouldn't be too hard to start them up on another hypervisor
+04:08 pdurbin      what other problems?  well, we're using NFS for shared storage
+04:08 pdurbin      "Important: This example uses NFS to share guest images with other KVM hosts. Although not practical for large installations, it is presented to demonstrate migration techniques only. Do not use this example for migrating or running more than a few guests." -- http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Administration_Guide/shared-storage-nfs-migration.html
+04:09 pdurbin      that quote continues with "iSCSI storage is a better choice for large deployments. Refer to Section 11.1.5, “iSCSI-based storage pools” for configuration details."
+04:11 pdurbin      but to manage iSCSI you need some tools. again, agoddard lays this out very well at [CentOS-virt] Basic shared storage + KVM - http://lists.centos.org/pipermail/centos-virt/2012-June/002946.html
+04:11 pdurbin      one such tool for managing iSCSI for libvirt is RHEV/oVirt
+04:12 pdurbin      so that's what's driving my thinking here. . . the fact that i'm concerned that NFS won't scale for us with regard to VM disk image hosting
+04:12 pdurbin      i guess time will tell
+04:12 pdurbin      but i want to have some ideas in case we start seeing performance problems
+04:13 pdurbin      i do love that NFS "just works"
+04:13 pdurbin      it's so simple
+04:31 pdurbin      ok, one more thought
+04:32 pdurbin      i feel like i'm making iSCSI (plus some way to manage it, i.e. RHEV/oVirt) out to be a perfect solution
+04:32 pdurbin      it should give you better performance than NFS
+04:33 pdurbin      but what about fault tolerance?  what if a LUN suddenly goes away?  what happens to the VMs?
+04:34 pdurbin      they get paused until the LUN is back
+04:34 pdurbin      so the VMs are down, basically
+04:35 pdurbin      because the LUN in part of a LVM volume group. and that LVM volume group doesn't like having physical volumes missing
+04:35 pdurbin      is part
+04:36 pdurbin      so you still have to worry about making those LUNs highly available somehow
+04:37 pdurbin      now, RHEL 6.3 is supposed to have RAID built in to LVM, and I asked Dan Yasny if oVirt plans to use this
+04:37 pdurbin      and he said they'd like to look into it, but haven't yet
+04:37 pdurbin      that would probably solve a lot of problems
+04:38 pdurbin      since LVM underlies so much of the strategy with LUNs. if LVM is set up for RAID it would be very nice
+04:42 pdurbin      of course, there's still gluster to consider for VM image storage, but when I brought this up to Jeff Darcy, he called this use case "random I/O", which gluster is not ideal for
+04:42 pdurbin      anyway, again, libvirt lets you define multiple storage pools, so we can play with some of these options...
+04:43 pdurbin      but clearly, there are a lot of questions about vm image storage. i wasn't the only one asking questions at the talks today :)
+13:20 agoddard     here's some other history on the matter - https://www.redhat.com/archives/libvirt-users/2011-February/msg00013.html
+13:20 agoddard     (unanswered, I think I ask questions the wrong way or something :-/)
+13:21 agoddard     I asked around a bunch of places ages ago
+13:21 agoddard     Ganeti? check - http://groups.google.com/group/ganeti/msg/f2e7dc6c542c70bd
+13:21 agoddard     Archipel? check - http://groups.google.com/group/archipelproject/browse_thread/thread/1c99f827fafe0875
+13:22 agoddard     OpenStack last year? check - http://lists.openstack.org/pipermail/openstack-operators/2011-November/000411.html
+13:22 agoddard     OpenNebula? yep - http://lists.opennebula.org/pipermail/users-opennebula.org/2010-December/003547.html
+13:22 agoddard     ^ december 2010!! I need a new hobby
+13:23 pdurbin_m    very interesting. thanks!
+13:24 agoddard     re the above discussion (HA etc) you can do multipathing on the hosts for iSCSI HA, and then the LUNs can be built from RAIDs
+13:24 agoddard     but if you do lose a LUN, your filesystems will go read-only etc..
+13:25 agoddard     We had this happen recently, on an iSCSI backed LVM Xen cluster, we weren't multipathing and we lost the storage switch, when we replaced the switch, everything bounced, fsck'd and was happy
+13:25 pdurbin_m    right so how do you fix that? with lvm when it supports raid within itself?
+13:26 pdurbin_m    (to not worry about losing a LUN)
+13:27 agoddard     multipathing would fix the switch issue, redundancy in the controllers etc + RAID on the SAN should solve the hardware issue.. but I suppose you could do some crazy madness where you RAID two LUNs from separate SANs? :-/
+13:27 agoddard     I guess you could RAID two LUNs and then put LVM on top of it (though I imagine that's got issues of its own)
+13:28 agoddard     "A plurality is not to be posited without necessity" :D
+13:31 pdurbin_m    so, with rhel 6.3, just released, you can do raid within lvm. no need for traditional Linux software raid (mdadm)
+13:31 agoddard     nice, so you can make the LVM across two devices and it manages the RAID within LVM?
+13:32 pdurbin_m    yes
+13:32 agoddard     nice
+13:33 pdurbin_m    "The expanded RAID support in LVM is now fully supported in Red Hat Enterprise Linux 6.3. LVM is now capable of creating RAID 4/5/6 logical volumes and supports mirroring of these logical volumes. The MD (software RAID) modules provide the backend support for these new features."
+13:33 pdurbin_m    https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.3_Release_Notes/storage.html
+13:34 pdurbin_m    hmm, so they're still using md...
+13:34 agoddard     madness
+13:35 pdurbin_m    I mean, wouldn't that be the way to do it? if it works?
+13:37 pdurbin_m    maybe I'm not thinking straight
+13:42 pdurbin_m    distracted by video by intel about how they built their fab in Arizona
+13:43 pdurbin_m    brian stevens from red hat up now
+13:45 pdurbin_m    (cto of red hat)
+13:49 pdurbin_m    talking about Facebook's open compute initiative:  http://opencompute.org
+13:50 pdurbin_m    rhel-certified open compute hardware
+13:53 tychoish     heh, I'm friends with the guy who writes the LVM manual for redhat
+13:56 sjoeboo      morning all
+13:56 pdurbin_m    hi!
+13:57 pdurbin_m    cool how gluster can replicate "hot data" (popular data) to more nodes, to spread out the load
+13:58 pdurbin_m    i.e. a popular song on pandora
+13:59 pdurbin_m    tychoish: cool
+14:01 sjoeboo      yeah, very very
+14:02 pdurbin_m    westmaas: he's talking openstack now
+14:08 pdurbin_m    crimsonfubot: google open vswitch
+14:08 crimsonfubot pdurbin_m: Open vSwitch: &lt;http://openvswitch.org/&gt;; Documentation | Open vSwitch: &lt;http://openvswitch.org/support/&gt;; Download | Open vSwitch: &lt;http://openvswitch.org/download/&gt;; FAQ | Open vSwitch: &lt;http://openvswitch.org/faq/&gt;; Features/Open vSwitch - FedoraProject: &lt;http://fedoraproject.org/wiki/Features/Open_vSwitch&gt;; Nicira Open vSwitch inside vSphere/ESX « ipSpace.net by @ioshints: (1 more message)
+14:11 pdurbin_m    I'm still confused about what cloudforms is...
+14:15 SEJeff       openvswitch is driving much of the "openflow" movement
+14:17 pdurbin_m    CloudForms is part of the Red Hat IaaS stack comprimised of Red Hat Enterprise Linux, Enterprise Virtualization, JBoss Enterprise Middleware and Red Hat Storage stack.  CloudForms is based on the company’s open source DeltaCloud APIs but will incorporate full support for Red Hat’s OpenStack distribution.
+14:17 pdurbin_m    -- http://m.zdnet.com/blog/open-source/red-hat-carefully-repositions-cloudforms-as-open-hybrid-cloud-management-platform/11165
+14:17 sjoeboo      yeah
+14:18 sjoeboo      in the "building an open hybrid cloud" talk yesterday (if i never here the word cloud again...)
+14:18 sjoeboo      they showed how openshift was build
+14:18 sjoeboo      about 30 redhat products all stacked on each others
+14:18 sjoeboo      could forms was somewhere between rhev and openstack
+14:18 sjoeboo      or maybe on top of openstack, but under openshift and another thing..
+14:19 sjoeboo      phi, you rebase the pupept repo, or do a clean pull yet?
+14:20 agoddard     pdurbin_m: sorry stepped out, but by "madness" I meant "sweeeeet"
+14:20 sjoeboo      its still big as that big blob for ssh is in there (sigh), but, its MUCH smaller now
+14:20 sjoeboo      oh, i'm building a fedora 17 x86_64 mirror for us now
+14:21 agoddard     we have a cloudstack instance now with a /23 of public IPs, my plan is to keep that rockin for a while, but rebuild our infra so it's easy to move, either to a nicer network setup with cloudstack, or openstack
+14:22 agoddard     and 'cause we have 2x DCs, about to potentially become 5x, then we might end up be best using what's already in prod at other DCs (cough cough openstack @ RC.. ) :D
+14:25 sjoeboo      time to head to my rpm talk, see if i can't get a seat near power...
+14:30 SEJeff       agoddard, *only* 5 dcs/
+14:30 SEJeff       ?
+14:30 SEJeff       We have 42 :/
+14:31 agoddard     ha, nice
+14:31 agoddard     but you don't have the center of the internet..
+14:31 agoddard     128.128.128.128
+14:31 agoddard     so I got y'all beat there ;)
+14:32 SEJeff       touche! You win sir
+14:32 * SEJeff     bows to agoddard's awesomeness
+14:32 agoddard     lulz
+14:32 agoddard     it would be awesome if we actually hosted something there
+14:32 agoddard     it's probably a printer or something #tooManyIPsToKnowWhatToDoWith
+14:32 SEJeff       "You have reached the middle of the internet. Welcome to the eye of the storm"
+14:32 SEJeff       ha
+14:32 agoddard     we should run a competition
+14:33 SEJeff       agoddard, And you could at least give it a funny rdns entry
+14:33 * agoddard   calls the network guys :)
+14:33 SEJeff       win
+14:35 SEJeff       Surprisingly good overview of what and how to setup anycast DNS: http://vincent.bernat.im/en/blog/2011-dns-anycast.html
+14:35 SEJeff       For geo-locational based global load balancing. Thats how the googles and facebooks do it
+14:37 agoddard     awwwwyeah :D
+14:37 SEJeff       That is the guy who wrote lldpd too. If you don't run lldp on your 'nix servers... stop what you're doing and do it!
+14:38 SEJeff       It is so nice to wonder what port a server is plugged into on a switch, just run: sudo lldpctl $interface and get the lldp info from the switch or in reverse, to login to a switch and see all of the hosts with their proper fqdn hostnames in the output of: show lldp nei
+14:39 agoddard     holy shiz that's awesome
+14:39 SEJeff       agoddard, Let me get you and example, hold one
+14:39 * agoddard   makes a note to add it to a cookbook
+14:40 pdurbin_m    agoddard: are you using deltacloud? to keep portability between cloud providers?
+14:40 SEJeff       agoddard, From sudo lldpctl eth0: http://hastebin.com/lehirecuce.coffee
+14:40 SEJeff       agoddard, https://github.com/vincentbernat/lldpd
+14:41 agoddard     pdurbin_m: nope, planning on it all being awesome re-provisioning and fast data recovery
+14:41 agoddard     so moving and DR are the same thing
+14:41 agoddard     maybe a pipedream, but it'll be fun trying
+14:42 pdurbin_m    basically, you're using chef for portability?
+14:43 agoddard     ya
+14:44 agoddard     "Your Prime Constraint should be the time it takes to restore your application data"
+14:50 agoddard     (ftw)
+14:51 agoddard     SEJeff: that's so awesome! I wish I knew about it on monday
+14:51 agoddard     when I was googling how to get VLAN info off an interface
+14:51 SEJeff       agoddard, :)
+14:51 SEJeff       crimsonfu++
+14:51 SEJeff       We help eachother
+14:52 SEJeff       agoddard, Note that you'll need to make sure that lldp is enabled on the switches as well, but it is universally supported everywhere
+14:52 agoddard     SEJeff: cool, I'm pretty sure it would be here, our network admin doesn't mess around.. he's off the chain
+14:53 SEJeff       Yeah our guys are pretty nuts too
+14:53 agoddard     42 DCs? I can imagine they would be :)
+14:53 SEJeff       Yup and only 3 'nix admins
+14:53 SEJeff       for a lot of servers :D
+14:54 agoddard     we have 2x, going to be 1x later in the year :(
+14:54 SEJeff       Easier to deal with though
+14:54 agoddard     impossible w/out config management (obviously..) :)
+14:55 SEJeff       For our env? Yes absolutely
+14:55 agoddard     +1
+14:55 SEJeff       We use puppet at work as we have ~6k LOC in our manifests
+14:55 SEJeff       but I'm a comaintainer of the salt stack project, which also does config management ironically
+14:55 agoddard     nice
+14:56 SEJeff       salt's config management is actually quite good. We have a lot of users, but I'd like to see more unit tests and for it to bake in.
+14:57 SEJeff       Speaking of... The great salt sprint is on the 30th. Would anyone have any interest in joining via online or from LA/Seattle/Salt Lake City?
+14:57 SEJeff       Or and one in Portland I think
+14:57 SEJeff       s/Or/Oh/
+15:08 pdurbin_m    red hat is working on openstack rpms for rhel
+15:11 pdurbin_m    oooo live openstack demo
+15:11 SEJeff       Not surprising, that is one area that Ubuntu is spanking them handily
+15:12 SEJeff       Ha
+15:13 pdurbin_m    glance add ... nova image-list
+15:50 sjoeboo      rpm talk/hand on was good...a bit super-entry level, but, helpful
+15:51 SEJeff       sjoeboo, What conf are you gents at?
+16:23 SEJeff       Any Arista switch users? Funny easter egg: http://blog.firedaemon.com/2012/06/28/arista-networks-switch-easter-egg/
+16:53 sjoeboo      we're @ the redhat summit
+17:02 SEJeff       totally jealous :)
+17:03 SEJeff       Is anyone here in #crimsonfu near Santa Monica CA, Portland OR, or Salt Lake City UT?
+17:37 agoddard     Cape Cod :(
+17:37 agoddard     wait.. Cape Code :)
+17:37 agoddard     wait
+17:37 agoddard     Cape Cod :)
+17:38 agoddard     there we go.. that was weird... :-/
+17:38 agoddard     aaaanyhoo.. wondering how big y'all usually make your VM base images?
+17:39 SEJeff       agoddard, You're in Cape Cod?
+17:39 agoddard     ya
+17:39 SEJeff       I'm friends with the couple that own this: http://www.sweetwaterforest.com
+17:39 agoddard     crimsonfu folk always welcome to visit when the weather is nice :)
+17:39 SEJeff       Big big fan
+17:40 SEJeff       Cape Cod is beautiful
+17:40 agoddard     that place looks cool. Brewster is where Thoughtbot run http://capeco.de
+17:40 SEJeff       Ah nice
+17:41 SEJeff       Beautiful area
+17:41 agoddard     ya, we're pretty lucky over here
+17:41 agoddard     where u @?
+17:41 * SEJeff     is currently in Santa Monica CA
+17:41 agoddard     nice!
+17:41 SEJeff       About to move to Chicago... originally raised on a horse farm in Ky
+17:41 agoddard     cool!
+17:41 agoddard     I'm originally from.. Australia :D
+17:59 SEJeff       Well g'day mate :)
+19:15 agoddard     :D
+19:16 SEJeff       I work with our Sydney, AU office quite a bit
+19:17 SEJeff       And have a very good friend who married a kiwi
+19:21 SEJeff       http://www.h-online.com/open/news/item/Perl-web-framework-Mojolicious-reaches-3-0-1628419.html
+20:05 pdurbin_m    I just installed openstack on rhel :) in a lab
+20:06 pdurbin_m    now another openstack talk by https://mobile.twitter.com/markmc_
+21:44 pdurbin_m    had never heard of https://fedoraproject.org/wiki/SoftwareCollections
+21:45 pdurbin_m    "The concept of Software Collections allows multiple versions of software to be installed at the same time without interfering in any negative way with the standard versions provided by the system."
+21:45 SEJeff       Does it use alternatives?
+21:45 * SEJeff     assumes it does
+23:01 jimi_c       howdy :)
+23:42 pdurbin_m    jimi_c: hi! you're the cobbler guy?
+23:44 pdurbin_m    if so, you must meet sjoeboo. he'll be at the summit tomorrow. he keeps our cobbler patched and happy
+23:45 pdurbin_m    and you already know SEjeff...
+</pre></body></html>

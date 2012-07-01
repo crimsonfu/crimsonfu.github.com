@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+14:10 pdurbin  i love it when language designers talk about why they designed a language. in this case, Rob Pike on Go: http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html
+14:14 agoddard &lt;eek&gt; I ended up just installing cloudstack 'cause our iteration has some huge dependencies on provisioning
+14:15 pdurbin  agoddard: you like the cloudstack provisioning story?
+14:15 agoddard the openstack install/configuration process was a little too 1998 for us, and the community cookbooks are in flux, so we'll probably have another crack at it later, but cloudstack install was super quick (though now I have VLAN issues with it)
+14:16 agoddard pdurbin: if you go with flat networking, CS is like 10min and you have a private cloud
+14:16 pdurbin  cool
+14:16 pdurbin  oh good, my cloudstack notes are still online: http://pastie.org/3727369
+14:16 agoddard technically, swapping from CS to OS to AWS *should* be simple if we're doing things right, so I'm not too worried about making the wrong decision
+14:17 agoddard pdurbin: awesome, thanks for notes
+14:18 pdurbin  gotta run to a meeting, but are you using a cloud api abstraction? something like deltacloud?
+14:24 agoddard chef/knife-CS, so I guess fog is the answer ther
+14:24 agoddard e
+15:45 agoddard if you're not already watching http://velocityconf.com/velocity2012/public/content/video
+16:10 pdurbin  agoddard: heh. would like to! too busy shuffling VMs from vmware to kvm
+16:11 SEJeff   pdurbin, Why the move? Do you want to move to something more open sauce or just a general frustration against vmw?
+16:11 pdurbin  mmm, open sauce
+16:12 pdurbin  we like free stuff
+16:13 SEJeff   me too
+16:24 magoo    i asked this in chef but haven't gotten a response
+16:24 magoo    apparently this is always true: if defined?(node[:pictures_consumer][:branch])
+16:24 magoo    even if i've never set this variable, I think evaluating it defines it
+16:25 magoo    not sure how to say what i mean in ruby
+16:28 pdurbin  magoo: your boy agoddard is offline, but i'll ping him when he's back :) i'm no rubyist
+16:35 magoo    thanks
+16:38 magoo    apparently i have to say defined?(var).nil?
+16:38 magoo    ugh
+17:04 agoddard hazzah
+17:04 agoddard I don't think checking if it's defined will define it.. but if it isn't defined, the former will be false the latter will be true
+17:09 agoddard oh wait, defined?(node[:crank]) =&gt; "method"
+17:10 agoddard oh ya, so I think it'll return true 'cause the key is a method on the hash, so maybe you wanna do 'has_key'?
+17:10 agoddard node.has_key? :crank =&gt; false
+17:11 agoddard node[:crank] = 'action' =&gt; "action"
+17:11 agoddard node.has_key? :crank =&gt; true
+17:11 agoddard siq
+17:29 agoddard any of y'all using CloudStack? :/
+17:52 SEJeff   agoddard, I know one of the executives on a first name basis there
+17:52 SEJeff   before vmware^Wcitrix ate them
+17:52 SEJeff   He is still there too
+17:53 agoddard SEJeff: aw nice
+17:53 SEJeff   Mark Hinkle. Super super cool guy
+17:57 pdurbin  SEJeff: yeah, he did the welcome at the cloudstack event i attended: http://pastie.org/3727369
+17:57 pdurbin  can't say i remember much about him though.  all the presenters were good
+17:58 SEJeff   David Nalley is also good people
+17:58 SEJeff   Yeah
+17:58 SEJeff   I worked with him a LOT when he was @ ZenOSS
+17:58 SEJeff   and the now community manager @ opscode
+17:58 SEJeff   Matt Ray
+19:09 agoddard oh ya, mrhinkle.. name rings a bell
+19:10 agoddard ah ya, an email from when he cancelled his DevopsDays ticket at the last minute
+19:17 pdurbin  agoddard: did you organize a devops days?
+19:18 agoddard ya, Austin
+19:48 SEJeff   Nice
+19:56 pdurbin  "helper for configuring approval workflow in RT" -- http://search.cpan.org/dist/RTx-WorkflowBuilder/
+20:10 pdurbin  whorka: for your account request approvals
+21:32 danchoi  hello pdurbin!
+21:36 danchoi  lastlog
+</pre></body></html>

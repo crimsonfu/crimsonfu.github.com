@@ -1,0 +1,178 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+13:30 pdurbin    played with vagrant for the first time last night. i'm sold
+13:30 pdurbin    agoddard: http://crankstations.com/vagrant was helpful. thanks
+13:30 agoddard   pdurbin: awesome, glad to hear it :)
+13:31 pdurbin    looking for a centos base box. i guess i could build my own: Creating a CentOS 6.2 base box for Vagrant | Ricbra's Blog - http://blog.vandenbrand.org/2012/02/21/creating-a-centos-6-2-base-box-for-vagrant/
+13:31 agoddard   ^ use veewee (what I should have blogged about next)
+13:31 agoddard   https://github.com/jedi4ever/veewee
+13:31 pdurbin    hmmmm?
+13:32 agoddard   also, now you got the vagrant crankin, you can have a play with a test instance of sensu :D https://github.com/sensu/sensu-chef/blob/master/examples/Vagrantfile
+13:32 pdurbin    mmm, sensu. yum. still haven't looked at it
+13:33 agoddard   ^ (you'll need to clone that repo and vagrant up in the examples directory 'cause it needs the cookbook)
+13:33 pdurbin    veewee vbox define 'myubuntubox' 'ubuntu-10.10-server-i386'
+13:33 pdurbin    that veewee looks pretty simple
+13:33 pdurbin    https://github.com/jedi4ever/veewee/blob/master/doc/vagrant.md
+13:33 agoddard   ya, it's awesome
+13:33 pdurbin    agoddard: do you ever use vagrant with window vm's?
+13:34 * agoddard shudders
+13:34 agoddard   ;) nope
+13:34 pdurbin    ok
+13:35 SEJeff     http://blog.chromium.org/2012/05/tale-of-two-pwnies-part-1.html This is a really impressive hack
+13:35 pdurbin    vagrant does headless by default. i assume i can still use virtual box to make a windows vm independent of vagrant
+13:36 agoddard   ya, and you can also make it not headless
+13:38 pdurbin    i'll keep playing with it
+13:38 pdurbin    still need to set up this fedora box and switch from the centos box i'm typing on
+13:39 pdurbin    SEJeff: "With these two bugs Pinkie was able to install and run his own NPAPI plug-in that executed outside the sandbox at full user privilege". scary
+13:42 SEJeff     pdurbin, Yes, but look at the effort it took
+13:42 SEJeff     Clearly Chrome is a step above the competition
+13:42 SEJeff     They use proactive vs reactive security
+13:42 SEJeff     which is one of my primary reasons for saying Redhat/Fedora (and variants) is better on a server than Debian (and variants)
+13:55 pdurbin    SEJeff: here we go with the holy wars again ;)
+13:56 SEJeff     Like before, I backed it up 100% with technical reasons that were not refuted by anyone :)
+14:02 pdurbin    :)
+14:02 pdurbin    Issue #79: koan --virt-image-type ? · cobbler/cobbler - https://github.com/cobbler/cobbler/issues/79#issuecomment-5873608
+14:03 pdurbin    still want this
+15:15 gridiron   So...when you work for a company that was put on a "hit list" by a group of 14 year old children using LOIC... would it be immoral to set up a varnish server that redirects all the problematic IP's back to their IRC server?
+15:15 SEJeff     gridiron, Thats hilarious
+15:16 SEJeff     You might setup a few perhaps load balance the varnish servers with keepalived or something
+15:16 gridiron   I am tempted...
+15:16 SEJeff     How did you draw the wrath of anonymous^Wpre-pubescent bored males
+15:17 gridiron   No idea. I think we are fairly innocuous compared to say...BOA
+15:18 gridiron   but then... most governments are small next to them
+15:18 SEJeff     touche
+17:33 * pdurbin  had to google for http://en.wikipedia.org/wiki/Low_Orbit_Ion_Cannon
+17:39 SEJeff     LOIC wasn't near as bad until they added hive mode or whatever they call it
+17:39 * SEJeff   doens't have a windows box to run LOIC on nor would I
+17:40 SEJeff     The script kids were also using this service named gigaloader, but it was taken down when it was used to take down scientology
+17:58 pdurbin    "Razor is the first solution to dynamically provision hardware using auto-discovered, real-time inventory data, eliminating inefficient, error-prone manual processes and speeding the delivery of deployed applications for DevOps environments." -- http://puppetlabs.com/company/news/press-releases/puppet-labs-announces-next-generation-provisioning-solution/
+18:06 pdurbin    http://forge.puppetlabs.com/puppetlabs/razor
+18:07 SEJeff     Much better post: http://nickapedia.com/2012/05/21/lex-parsimoniae-cloud-provisioning-with-a-razor/
+18:07 SEJeff     I love how it conveniently doesn't support RHEL/Cent*/Fedora, or any of the derivatives
+18:08 pdurbin    SEJeff: yes. thanks. huh, it runs on node.js
+18:08 SEJeff     And with this release it fully supports VMware’s ESXi 5, Centos 6, openSUSE 12, Ubuntu Oneiric &amp; Precise, and Debian Wheezy with our first release.
+18:08 SEJeff     and mongodb. Makes me think they couldn't figure out how to make ruby scale
+18:08 SEJeff     Kind of sad looking at it so far
+18:08 pdurbin    SEJeff: you'll switch from cobbler
+18:09 SEJeff     doubtful
+18:09 pdurbin    :)
+18:10 pdurbin    had lunch with ventz the other day. told him about how you equated cobbler with bash :) http://irclog.perlgeek.de/crimsonfu/2012-04-24#i_5488902
+18:10 SEJeff     Remind me who ventz is?
+18:11 SEJeff     cobbler has plenty of warts no doubt. I can name a large number of them, but it does what it was designed to do very well.
+18:12 pdurbin    ventz: you just lurking again?
+18:18 pdurbin    those security guys are pretty quiet
+18:19 pdurbin    that reminds me. i just started following these guys on twitter: http://masshackers.org https://twitter.com/masshackers
+18:33 pdurbin    i like cobbler well enough. but per above, i think vagrant is the way for now for quick testing with VMs
+18:33 pdurbin    but cobbler for real deployments. absolutely
+18:33 SEJeff     Yeah different beast altogether
+18:33 pdurbin    and maybe razor some day. who knows
+18:33 SEJeff     cobbler is too much for local machine testing
+18:33 SEJeff     Yup
+18:34 pdurbin    there's even a vagrant rpm :)
+18:34 pdurbin    which works fine on fedora 16 anyway
+18:34 pdurbin    http://downloads.vagrantup.com/tags/v1.0.3
+18:34 pdurbin    windows installer. crazy!
+18:35 SEJeff     Well virtualbox runs on every platform under the sun
+18:35 pdurbin    yeah
+18:35 SEJeff     Innotek did a really good job
+18:35 pdurbin    can i run virtualbox and kvm on my fedora laptop?
+18:35 pdurbin    or is that just a terrible idea?
+18:35 SEJeff     They both try to use the HW virt extensions
+18:36 SEJeff     which only 1 can use at a time
+18:36 SEJeff     I think kvm just says no thanks
+18:37 pdurbin    in practice i didn't uninstall anything. i just ran `service libvirtd stop`
+18:44 ventz      hmm?
+18:44 ventz      (sorry, really busy today -- what's up?
+18:47 pdurbin    ventz: SEJeff was wondering you are :)
+18:48 pdurbin    ventz: didn't you say you have some open source code? a git server or something?
+18:50 ventz      git.vpetkov.net
+18:50 ventz      enjoy everything - don't hold me responsible for anything
+18:50 ventz      SEJeff: hi, i am ventz :)
+18:51 SEJeff     hi :)
+18:52 ventz      i work in the security group btw, and before that i worked in the unix group
+18:52 ventz      you?
+18:53 pdurbin    so it's linkable from the irc log: http://git.vpetkov.net
+18:53 ventz      pdurbin: here's some more: https://svn.vpetkov.net/projects/
+18:53 pdurbin    ventz: thanks
+18:53 SEJeff     Systems Engineer for a "High Frequency Trading" finance firm. I &lt;3 Linux and most things open source
+18:53 pdurbin    ventz: don't forget, crimsonfu is not a harvard thing :)
+18:53 ventz      ss = squadron scramble game (in svn)
+18:53 ventz      ghost = ghost letter game
+18:54 ventz      this is my beautiful nqueens solution: https://git.vpetkov.net/?p=projects.git;a=tree;f=nqueens;h=f0e5bdff8671855ccb4d9fc98da51daf69c428c8;hb=HEAD
+18:54 ventz      :)
+18:56 SEJeff     ventz, You know... startssl.com will give you free *valid* ssl certs for 1 year. I've worked with them a lot.
+18:56 pdurbin    SEJeff: fine, but how much after that?
+18:56 SEJeff     free
+18:56 SEJeff     and free
+18:57 pdurbin    so free for a year and free forever
+18:57 SEJeff     It is legit. I've spoken on the phone for their CTO to verify my Class 2 registration
+18:57 SEJeff     for 1 year
+18:57 SEJeff     If you want &gt; 1 year validity on your certs, you need a Class 2
+18:57 SEJeff     http://www.startssl.com/?app=1
+18:58 SEJeff     ventz, You familar with the digitanotar ssl CA hack?
+19:00 ventz      i am not
+19:00 SEJeff     http://www.informationweek.com/news/security/attacks/231601037
+19:00 ventz      SEJeff: i use self-signed b/c i am usually the only one who access these. I have some amazing deal via godaddy for $10 ssl certs, but just not point
+19:01 SEJeff     Well long story short... A 1/2 dozen SSL Cert Authorities were hacked by some state sponsored hackers. Comodo called out Iran and said that they were behind it all. They issued themselves valid ssl certs for domains like gmail, twitter, hotmail, etc to put down dissidents
+19:01 SEJeff     StartSSL was on the list of orgs to be hacked, but they foiled it even after the hackers managed to get inside their network. It is a good read
+19:05 pdurbin    shuff has some ssl solution he likes, but he's on here today apparently
+19:05 SEJeff     You can't beat intense israeli security (it is in their dna) and free ssl certs for 1 year at a time. I've worked with Eddy Nigg, for GNOME
+19:06 SEJeff     They gave GNOME free wildcard certs after we got 1 person (me) to validate to class 2 and the organization verified, which required everything but fingerprints from the executive director. It was a 6 week process with all of the back and forth
+19:46 pdurbin    s/on/not/ #crazyweek
+20:14 pdurbin    wow this actually works: virsh -c 'esx://vmwarehypervisor1.example.com' list
+20:15 pdurbin    just need port 443 open, as i was making noise about yesterday: http://irclog.perlgeek.de/crimsonfu/2012-05-22#i_5623929
+20:17 SEJeff     libvirt ftw
+20:19 pdurbin    no kidding!
+20:19 pdurbin    one step closer to virt-v2v
+20:22 ventz      pdurbin: ohh yea
+20:22 ventz      this is how i manage everything :)
+20:23 pdurbin    ventz: i though you used that ubuntu thing. not virt-v2v
+20:24 pdurbin    virt-goodies from ubuntu
+20:26 ventz      oh i was commenting about virsh -c 'esx://...'
+20:26 ventz      we have a vmware env. here (for somethings, you need vmware -- stats is one)
+20:27 ventz      the lab i pushed to have kvm
+20:27 ventz      which makes sense since we don't have to pay, and we don't need stats/live storage vmotion/etc...
+20:30 SEJeff     ventz, What exactly do you mean by stats?
+20:30 pdurbin    yeah but kvm is catching up :)
+20:31 ventz      SEJeff: vmware (imo) is good (and better for "enterprise") in only 2 ways
+20:31 ventz      1.) vcenter
+20:31 ventz      2.) massive stats -- as in historical data on cpu, mem, networking, bursting, etc...
+20:31 SEJeff     You know ovirt was released by redhat not so long ago, right?
+20:31 ventz      there are some tools for kvm, and a ton of home grown things, but nothing is as complete and as nice
+20:31 ventz      :nod:
+20:31 ventz      but it's not there just yet
+20:32 ventz      (oh, the other thing, storage vmotion -- kvm needs this really badly)
+20:38 pdurbin    no storage vmotion for kvm, huh? sadness
+20:45 SEJeff     ventz, oVirt (aka RHEVM 3.x) supports live migration
+20:45 SEJeff     I'm not familar with storage vmotion
+20:45 SEJeff     But think you're likely right
+20:46 ventz      live migration or storage?
+20:47 ventz      ex: host A &amp; host B --&gt; both on NFS, i move VM from one to the other
+20:47 ventz      vs
+20:47 ventz      only host A, -&gt; NFS and local disk, i need to move a VM from nfs to local
+20:47 SEJeff     Ah nice
+20:47 SEJeff     the latter
+20:47 ventz      hmm
+20:47 ventz      that's interesting
+20:47 ventz      wonder how they are doing it
+20:47 ventz      i mean they have to come out with something
+20:47 SEJeff     http://ovirt.org
+20:47 SEJeff     They have it :D
+20:48 ventz      i really like in KVM the ability to force restrict mac + IP to prevent VM from spoofing
+20:48 ventz      for that feature you need a whole suite of tools in vmware
+20:48 SEJeff     Can't you also do that with svirt?
+20:48 SEJeff     And just label all network traffic coming out of that vm using SELinux?
+20:48 SEJeff     Which is well integrated with libvirtd
+20:59 ventz      :nod:
+20:59 ventz      the mac address functionality is the "coolness" factor basically
+20:59 ventz      you can also do this with iptables and some extension (some mac guard thing)
+20:59 ventz      but it was dirty
+21:07 ventz      http://forums.pinstack.com/content/5387-xbox_360_banned_u_s_violating_patents.html
+21:07 ventz      ^^ ignore "insecure" warning. Someone was posting spam in the forums and it 'blacklisted' the site
+21:07 ventz      anyway, i wanted to point out, clearly that judge has never played on an xbox
+</pre></body></html>

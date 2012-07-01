@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+10:14 pdurbin     hmm, this might work for me: edit-csv-as-yaml - http://git.veekun.com/pokedex.git/blob/HEAD:/bin/edit-csv-as-yaml
+10:14 pdurbin     i mean, it works
+10:15 pdurbin     but i changes my CSV files a bit. different than how open office saves them
+11:17 pdurbin     i'm pretty obsessed with this idea of storing data in plain text, in version control, in a parseable format
+11:18 pdurbin     sometimes my data is "square", it's tabular, so CSV is a good fit
+11:18 pdurbin     but it's a pain to edit CSV, if the fields are long, from my $EDITOR
+11:19 pdurbin     so i've been using openoffice to edit my CSV files
+11:19 pdurbin     but i'd really prefer to edit them from vim somehow
+11:20 pdurbin     or maybe there's something besides CSV i could use to store tabular data in plain text
+11:42 pdurbin     holy animated gif screencast: http://www.256bit.org/~chrisbra/csv.gif via csv.vim - A Filetype plugin for csv files. : vim online - http://www.vim.org/scripts/script.php?script_id=2830
+11:45 pdurbin     ok, not to take away from my main point (tabular data in plain text), but this is awesome: How to create animated GIF images of a screencast? - Ask Ubuntu - http://askubuntu.com/questions/107726/how-to-create-animated-gif-images-of-a-screencast
+13:17 pdurbin     running: virt-v2v -ic 'esx://my-vmware-hypervisor.example.com' -os default --network default my-vm
+13:19 pdurbin     disk size is sloooowly growing, based on output of this: qemu-img info /var/lib/libvirt/images/my-vm_my-vm
+13:32 SEJeff      If it was that simple, that is pretty much magical
+13:38 pdurbin     disk size: 1.7G
+13:38 pdurbin     so slow though. i think it's going to be 20 GB
+13:38 pdurbin     at least, that's the size when i `ls` the disk image
+13:39 pdurbin     but still, yes, if it "just works" i'm going to be thrilled
+13:39 pdurbin     SEJeff: thanks again for reminding me about virt-v2v
+13:39 pdurbin     also, if this works. . . how is this different than vmotion storage or whatever?
+13:40 pdurbin     oh well, i guess i did shut down the vm i'm moving. that's pretty different :)
+13:41 SEJeff      pdurbin, If you use sheepdog, I'm not sure if vmotion is as good: http://www.osrg.net/sheepdog/
+13:42 pdurbin     SEJeff: right, you've mentioned sheepdog before and i still haven't tried it. do you use it?
+13:42 SEJeff      Nope, one of my buddies swears by it however
+13:42 pdurbin     ok. cool
+13:42 SEJeff      Says it is much better than DRBD, which isn't all that surprising since DRBD is only for 2 nodes
+13:42 SEJeff      sheepdog is for +N really
+13:42 pdurbin     i mean, down the road, maybe i won't be working a this low a level. maybe we'll deploy openstack or ovirt or something
+13:43 SEJeff      For simple kvm vm management, Ganetti is good
+13:43 pdurbin     but that said, i've been amazed how much mileage i'm getting out of stock el6
+13:43 SEJeff      Lance Albertson swears by it
+13:43 SEJeff      http://www.lancealbertson.com/2010/05/creating-a-scalable-virtualization-cluster-with-ganeti/
+13:44 pdurbin     purple link. i guess i've been here before. . . ganeti - Cluster-based virtualization management software - Google Project Hosting - http://code.google.com/p/ganeti/
+13:45 pdurbin     "Enter Ganeti, an open source virtualization management platform created by Google engineers"
+13:47 shuff       oh hey, on this general topic, don't forget ConVirt: http://www.convirture.com/products_opensource.php
+13:48 pdurbin     "ConVirt Open Source is the leading open source product for managing Xen and KVM" sold! ;)
+13:48 shuff       just like ed is the standard text editor :)
+13:48 pdurbin     heh
+13:48 pdurbin     oh, shuff. SSL
+13:49 pdurbin     go look at yesterday's irc log
+13:49 pdurbin     and tell us about your ways
+13:51 pdurbin     disk size: 2.2G #slow
+13:51 SEJeff      shuff, Funny you mention Convirture, those guys came to present @ ticketmaster before they formally announced Convirture as a company
+13:51 SEJeff      It was called Convirt at the time and there was no company
+13:52 SEJeff      was not impressed with how they re-invented libvirt even after knowing about libvirt, but that was about 5 years ago, so their product has grown a lot since
+13:52 shuff       yup
+13:53 shuff       let me disclaim: we use vCenter over here
+13:53 shuff       but if were were not on ESX i would be looking at ConVirt
+13:53 SEJeff      There is another one, let me try to remember
+13:54 SEJeff      http://www.proxmox.com/products/proxmox-ve
+13:54 shuff       oh yeah, i remember that
+13:54 SEJeff      I know it is fantastic for setting up containers
+13:54 magoo       thought I'd share: http://www.ispsd.com/05/25-hd-cool-linux-wallpapers/
+13:55 shuff       on and re: yesterday's SSL discussion, i have found https://www.cacert.org/ a good fit for my needs
+13:55 SEJeff      This is my current one, just because it makes me laugh: http://www.meh.ro/original/2010_04/meh.ro3824.png
+13:56 magoo       hahaha, and now it's mine
+13:56 SEJeff      But cacert isn't trusted by a lot of browsers and startssl is free :)
+13:56 SEJeff      startssl is trusted by all major browsers. However, cacert is doing good things
+13:56 pdurbin     cacert is not trusted by my browser
+14:19 pdurbin     my-vm_my-vm: 100% [====================================]D 0h17m35s
+14:20 pdurbin     that was never five minutes
+14:20 pdurbin     er, 17 minutes
+14:20 pdurbin     more like an hour and a half
+14:20 pdurbin     and virt-v2v still hasn't returned
+14:21 pdurbin     i know you guys are on the edge of your seats :)
+14:21 pdurbin     ah, disk size is increasing rapidly now
+14:22 pdurbin     was stuck at 2.6 GB for a long time. now 8.9 GB
+14:22 pdurbin     9.7 GB
+14:30 pdurbin     disk size: 15G
+14:30 pdurbin     SEJeff: that is a funny background
+14:34 pdurbin     10:34:14 up 57 days, 17:48,  2 users,  load average: 27.01, 19.15, 10.79
+14:34 pdurbin     virt-v2v is kind of killing this hypervisor. glad i picked one that isn't hosting anything critical
+14:35 pdurbin     public apology to web developer eric: yes, your dev vm is important :)
+14:46 pdurbin     disk size: 20G
+14:47 pdurbin     come on, virt-v2v, i know you want to return!
+14:48 SEJeff      pdurbin, If speed isn't an issue, next time try ionice -c3 nice -n +19 virt-v2v ...
+14:49 pdurbin     virt-v2v: No root device found in this operating system image.
+14:50 pdurbin     i need to use a separate storage pool. it's what the docs recommend anyway
+14:57 pdurbin     ran yum install libguestfs-winsupport
+14:57 * pdurbin   kicks self
+15:00 pdurbin     "If you attempt to convert a virtual machine using NTFS without the libguestfs-winsupport package installed, the conversion will fail." -- http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/V2V_Guide/sect-V2V_Guide-Configuration_Changes-Configuration_Changes_for_Windows_Virtual_Machines.html
+15:01 SEJeff      Oh sadness
+15:06 pdurbin     "No package virtio-win available." from `yum install virtio-win` on centos 6. . .
+15:06 SEJeff      I think you have to download that separate
+15:06 SEJeff      I've seen someone else chat about that. Something about having to get msft to sign their driver for it
+15:06 pdurbin     SEJeff: have to rebuild it myself?
+15:07 pdurbin     some discussion here: [CentOS-virt] virtio-win for c6? - http://lists.centos.org/pipermail/centos-virt/2011-July/002491.html
+15:07 SEJeff      Ah nice
+15:07 SEJeff      Surprised that isn't in epel
+15:08 SEJeff      At least some easier way to install it
+15:08 pdurbin     yeah. i need an SRPM or some such
+15:10 SEJeff      http://www.linux-kvm.com/content/latest-windows-virtio-drivers
+15:10 SEJeff      Looks like you can get them from the comments of that page
+15:10 pdurbin     "The virtio-win component is only available via the Red Hat Network, and is not included on the physical Supplementary CD for Red Hat Enterprise Linux 5.4" -- http://www.centos.org/docs/5/html/5.4/release-notes/
+15:11 SEJeff      http://rghost.net/3412907
+15:25 pdurbin     some more info on this Windows business: Paps the Virtualization/Cloud Plumber: Setting up RedHat Virtio Drivers for Windows Guest on KVM - http://rcritical.blogspot.com/2011/01/seeting-up-redhat-virtio-driver-for.html
+15:25 pdurbin     heh. paps
+15:29 pdurbin     and more: www.centos.org - Forums - CentOS 6 - General Support - KVM with VIRTIO.. argh! - http://www.centos.org/modules/newbb/viewtopic.php?topic_id=36117&amp;forum=55
+15:35 pdurbin     "For a Windows guest, it is necessary to install the latest virtio drivers into the guest OS" -- http://wiki.libvirt.org/page/Virtio links to http://www.linux-kvm.org/page/WindowsGuestDrivers/Download_Drivers links to https://github.com/YanVugenfirer/kvm-guest-drivers-windows links to http://www.linux-kvm.org/page/WindowsGuestDrivers
+15:37 pdurbin     holy long thread here: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00082.html
+15:37 pdurbin     "I tried migrating a physical Windows host last night using virt-p2v CD.  It ran for 3 hours and then died.  I’ll get details later from the log but as I think about it, I’ll bet it died because I never installed virtio-win in my Fedora migration server."
+15:40 pdurbin     "The RHEL virtio-win RPM installs just fine in Fedora; I hope Fedora will find a way to officially include it soon." -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00148.html
+15:43 pdurbin     `yum install virtio-win` doesn't work on my fedora 16 box. "No package virtio-win available" just like this guy with fedora 14: Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00092.html
+15:45 pdurbin     "I've had good luck using F14 as a P2V server" -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00099.html
+15:46 shuff       people on the internet are making contradictory statements?  the deuce you say!
+15:46 pdurbin     wait, what is p2v. i though i was running virt-v2v
+15:47 pdurbin     virt-p2v-server      (1)  - Receive data from virt-p2v
+15:50 pdurbin     ok, at least this guy has some virt-v2v in the output he's posting. and says "The Fedora documentation says we need to do yum install virtio-win, but no such package apparently exists." -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00117.html
+15:52 pdurbin     a decent summary and "what do folks without a RHEL subscription do?  (Spend some money and buy one?)" -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00118.html
+15:54 pdurbin     oh good. "libguestfs-winsupport is only applicable to RHEL 6.  Support for Windows is built directly into the base libguestfs packages everywhere else." Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00122.html from this guy: http://et.redhat.com/~rjones/virt-p2v
+15:57 pdurbin     greg scott making progress, guess. . installed virtio-win rpm from el6 onto fedora 16. but further dependency problems, unsurprisingly -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00119.html
+15:58 pdurbin     "firstboot.bat is supposed to be distributed with v2v, but wasn't at some point due to a packaging bug. The other 2 are distributed with RHEL. If you have access to RHEL, the simplest thing to do would be to extract them from v2v RPM and copy them into the same place (rpm2cpio will be your friend here)."  -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00121.html
+15:59 pdurbin     special builds from a red hat engineer: Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00124.html
+15:59 pdurbin     all this talk of a "fedora conversion server"
+16:01 pdurbin     heh. rjones says "don't do that" Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00131.html
+16:02 pdurbin     "No. The missing files can't be distributed with Fedora. You'll need to extract them manually from a V2V rpm from RHEL." -- Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00134.html
+16:04 pdurbin     "We just did a successful Windows P2V using the various software pieces Matt and Richard set up.  Fredy is running this VM in a RHEV environment as I type this.  I'll start a new thread with a how-to recipe for anyone else that needs to do a Windows P2V. Note that the Fedora docs are wrong because they don't mention those v2v files that cannot be distributed with Fedora.  What's up with those files that they can't be distributed with Fedora anywa
+16:04 pdurbin     "Unfortunately the license on this file doesn't permit us to distribute it with Fedora." (rhev-apt.exe) Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00152.html
+16:05 pdurbin     hmm. "rhev-apt should be open sourced too.  Not sure why it isn't ..." Re: [Libguestfs] Virtio-win RPM? - https://www.redhat.com/archives/libguestfs/2011-November/msg00155.html
+16:05 pdurbin     end of thread! ends with Bug 624950 – No firstboot.bat and rhev-apt.exe will make Windows conversion fail - https://bugzilla.redhat.com/show_bug.cgi?id=624950
+16:09 pdurbin     [Libguestfs] Windows P2V migration temporary recipe - https://www.redhat.com/archives/libguestfs/2011-November/msg00147.html
+16:10 pdurbin     "virt-p2v converts physical machines to run on KVM. virt-v2v converts virtual machines from Xen and VMware hypervisors to run on KVM." -- http://libguestfs.org/virt-v2v/
+16:15 pdurbin     westmaas: what's the story from openstack? is windows support built in? does conversion from vmware esx just work?
+16:16 westmaas    pdurbin: windows hosts? or windows vms?
+16:17 westmaas    guests!
+16:17 * westmaas  reads pdurbin's novel
+17:35 pdurbin     westmaas: sorry for the novel
+17:36 pdurbin     installed that libguestfs-winsupport rpm. gonna re-jigger my storage pools and try migrating this windows vm again
+17:39 westmaas    pdurbin: I don't think theres anything about openstack that needs to be done special
+17:40 westmaas    however, you may need to figure out how to make sure you get scheduled onto a host that supports that os
+17:41 westmaas    that part I get a little hazy on because its a scheduler decision, and we have our own scheduler for lots of other reasons
+17:41 pdurbin     ok
+18:15 pdurbin     virt-v2v: Installation failed because the following files referenced in the configuration file are required, but missing: /usr/share/virtio-win/drivers/amd64/Win2008
+18:17 SEJeff|away Closer?
+18:17 pdurbin     SEJeff|away: different error at least :)
+20:12 pdurbin     so i'm pretty sure i can get everything i need from http://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/virtio-win-0.1-22.iso
+</pre></body></html>

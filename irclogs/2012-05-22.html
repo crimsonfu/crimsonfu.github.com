@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+02:26 pdurbin SEJeff: +1 for nmap 6.0
+02:26 pdurbin s{^\s+|\s+$}{}g foreach @array;
+02:26 pdurbin http://stackoverflow.com/questions/3192649/how-can-i-remove-leading-and-trailing-whitespaces-from-array-elements
+12:08 SEJeff  pdurbin, Nice, you know the python equiv, right? A list comprehension: [ i.strip() for i in array]
+12:09 SEJeff  or if you wanted to be overly complex: map(lambda x: x.strip(), array)
+13:43 pdurbin An Introduction to OpenStack cloud in Ubuntu 12.04 | BrightTALK - http://www.brighttalk.com/webcast/6793/47473
+13:45 pdurbin SEJeff: thanks for the python equiv
+13:46 SEJeff  np
+13:53 pdurbin looking at http://bazaar.launchpad.net/~ubuntu-virt/virt-goodies/trunk/view/head:/vmware2libvirt
+14:01 SEJeff  Can't libvirtd also manage ESX with the ESX remote api?
+14:02 SEJeff  pdurbin, http://rcritical.blogspot.com/2010/12/v2v-migrating-from-vmwarexenlibvirt-kvm.html
+14:02 SEJeff  Rob Crittenton (spelling?) is one of the top redhat virt guys
+14:06 SEJeff  pdurbin, http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/V2V_Guide/chap-V2V_Guide-Converting_Virtual_Machines_to_Run_on_KVM_Managed_by_libvirt.html
+14:07 SEJeff  And in specific: http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/V2V_Guide/chap-V2V_Guide-Converting_Virtual_Machines_to_Run_on_KVM_Managed_by_libvirt.html#sect-V2V_Guide-Converting_a_Virtual_Machine-Converting_Virtual_Machines
+14:32 pdurbin SEJeff: thanks for the links. will check them out later. that vmware2libvirt seems to work... it's spitting out some xml at least...
+15:02 pdurbin SEJeff: wow. virt-v2v. thanks
+15:03 SEJeff  pdurbin, It is written by the people who wrote and maintain libvirtd
+15:03 SEJeff  I'd trust it :)
+15:38 SEJeff  $ host -t aaaa www.facebook.com
+15:38 SEJeff  www.facebook.com has IPv6 address 2a03:2880:10:1f03:face:b00c:0:25
+15:38 SEJeff  Geeks run that company :)
+15:38 shuff   face:b00c
+15:38 shuff   nice
+15:39 pdurbin heh. yeah. very nice
+15:39 pdurbin book, b00c, potato, patata
+15:50 pdurbin "For esx:// and vpx:// the default HTTPS port is 443" -- http://libvirt.org/drvesx.html#uriformat
+15:53 pdurbin and i see port 443 as "VI / vSphere Client to ESX/ESXi Host management connection" for example, at VMware KB: TCP and UDP Ports required to access vCenter Server, ESX hosts, and other network components - http://kb.vmware.com/selfservice/microsites/microsite.do?cmd=displayKC&amp;docType=kc&amp;externalId=1012382&amp;sliceId=1&amp;docTypeID=DT_KB_1_1
+16:30 pdurbin "virsh -c  esx://esxhost/?no_verify=1" -- Re: [libvirt-users] Virt-v2v - https://www.redhat.com/archives/libvirt-users/2010-October/msg00086.html
+20:36 pdurbin "@philipdurbin Which do you use for Windows: Strawberry Perl or ActiveState Perl?" -- https://twitter.com/jonahbishop/status/204994715530170368
+20:36 pdurbin what say ye?
+20:37 SEJeff  Wouldn't activestate be the one to go with?
+20:38 SEJeff  I mean activestate supports and maintains perl for HP-UX as well
+20:39 SEJeff  Oh it looks like in newer HP-UX 11i, they went away from ActivePerl and are using the normal open source perl. About time.
+</pre></body></html>
