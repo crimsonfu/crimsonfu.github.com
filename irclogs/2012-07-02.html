@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:59 * jimi_c     is working on creating a pxe preboot environment for cobbler using tinycore linux
+03:29 pdurbin_m    see also mattdm and I talking about gPXE with an openstack dev: https://mobile.twitter.com/philipdurbin/status/218786663332192256
+03:32 pdurbin_m    https://mobile.twitter.com/philipdurbin/status/218440218049650688
+03:32 pdurbin_m    https://mobile.twitter.com/philipdurbin/status/218439072400678912
+03:33 pdurbin_m    (more of the thread. annoying it's so chopped up, but that's twitter for you)
+12:50 pdurbin      wow, my workstation is super loud this morning. fans spinning full tilt. jauth java process going nuts. this is on centos 6. i wonder if it's the leap second bug, which seems to affect java from what i've read. here's jauth: https://github.com/mclamp/jauth
+12:52 rackerhacker pdurbin: we had some java explosions over the weekend
+12:52 rackerhacker restarts of the java processes seemed to fix it permanently
+12:53 pdurbin      rackerhacker: did you see the graphic i linked to? Graphs help tell a war story - http://crimsonfu.github.com/2012/07/01/graphs-help-tell-a-war-story.html
+12:53 rackerhacker i saw that already... totally nuts
+12:53 pdurbin      i just love that graphic. . . not that i'm sure what it means exactly :)
+12:54 pdurbin      rackerhacker: so what's the fix? restart ntp or something?
+12:55 rackerhacker for our java apps, we just restarted the apps and they began behaving
+12:55 rackerhacker that was the only problem we saw
+12:56 pdurbin      Jun 30 19:59:59 beamish kernel: Clock: inserting leap second 23:59:60 UTC
+12:56 pdurbin      Jun 30 20:18:36 beamish ntpd[1701]: kernel time sync status change 6001
+13:01 pdurbin      wow, as a fix, this really works: date -s "`date`"
+13:01 pdurbin      via MySQL and the Leap Second, High CPU and the Fix | Mozilla IT - http://blog.mozilla.org/it/2012/06/30/mysql-and-the-leap-second-high-cpu-and-the-fix/
+13:02 pdurbin      immediately after running that, my fans slowed down. load dropping
+13:04 pdurbin      i guess this is as good of a write up as any: Leap second hits Qantas air bookings, while Reddit and Mozilla stutter | Technology | guardian.co.uk - http://www.guardian.co.uk/technology/2012/jul/02/leap-second-amadeus-qantas-reddit
+13:06 pdurbin      i linked to this yesterday too, but here's the patch that was made to the linux kernel to fix the leap second bug: https://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=6b43ae8a619d17c4935c3320d2ef9e92bdeed05d
+13:29 pdurbin      load still nice and low on my home server, which is also centos 6: http://munin.greptilian.com/greptilian.com/server1.greptilian.com/load.html
+13:35 SEJeff       yay munin
+13:36 pdurbin      SEJeff: i'm too lazy to use anything else at home. so easy! :)
+13:36 SEJeff       For once... that was not sarcasm
+13:36 SEJeff       I've setup munin for pretty much every little consulting gig I've done ~12-13
+13:36 SEJeff       I forget
+13:37 SEJeff       It shoots one of my boring emails spam every so often saying the load is too high or whatnot
+13:37 pdurbin      huh. i've never enabled any kind of notifications from munin. neat
+13:37 agoddard     +1 for getting slammed here
+13:38 pdurbin      agoddard: yeah? did you VMs go like this? :) http://s3.amazonaws.com/imgly_production/4822862/large.jpg
+13:39 pdurbin      your
+13:42 * agoddard   checks
+13:42 * agoddard   just got new retina MBP, setting up so doesn't know where anything is right now :D
+13:42 pdurbin      oooooo. fancy!
+13:42 agoddard     sofast!
+13:43 agoddard     seems faster than my mac pro, but maybe that's just 'cause it's got nothing on it :)
+13:47 SEJeff       agoddard, Now you just need Norton Internet Security, and Popup Blocker super pro, and another Antivirus due to paranoia, and something that scans every file just to slow things down...
+13:47 SEJeff       Oh... Thats windows. Nevermind :)
+13:48 agoddard     SEJeff: ;)
+13:48 * SEJeff     is one of those weird desktop Linux guys
+13:48 SEJeff       Fedora or Ubuntu, but more Fedora lately. Not a unity fan
+14:03 pdurbin      lots of noise on twitter about amazon aws being down over the weekend too. US east or something
+14:05 SEJeff       Thats just free marketing for google comput engine
+14:05 * SEJeff     suspects google will do a much better job than amazon
+14:06 jgenus       knock knock
+14:09 pdurbin      jgenus: welcome!
+14:09 jgenus       appreciate the oreo bread crumb, pdurbin ;)
+14:14 pdurbin      our numbers grow... :)
+14:15 SEJeff       Why I remember back in the day before #crimsonfu was 20 people
+14:21 jgenus       pdurbin's been kind enough to let me know what I'm missing by not being in Boston :-)
+14:22 pdurbin      jgenus: it sure seemed like everyone who works for red hat was at the summit. ;) surprised you weren't there
+14:23 jgenus       at last years summit, i kept getting asked if i worked for red hat.....i just gave them a puzzled looked and said no
+14:24 jgenus       pdurbin: now hearing your tales, I'm getting an inkling
+15:17 pdurbin      sjoeboo got `virsh console` working for us. i don't know how i was living without this
+15:34 SEJeff       virsh console &lt;3
+</pre></body></html>

@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+02:34 pdurbin_m    Question: Use Gluster 3.3 as KVM storage pool http://community.gluster.org/q/use-gluster-3-3-as-kvm-storage-pool/?utm_campaign=cgo&amp;utm_source=twitterfeed&amp;utm_medium=twitter
+02:46 pdurbin_m    The Podcast where DevOps chefs do battle http://foodfightshow.org
+12:57 pdurbin      "I've done tests with VM's on the replicated volume. While writes from either host to the volume are fast (as fast as to be expected on a 1Gb line), writes from within a VM are painfully slow (tests show around 9 to 16MB/s). By this I mean writing to the "local" disk of the VM, from within the VM, which is stored on the Gluster volume." -- the link above
+13:07 pdurbin      sex_OBJECTS, sex_DEPENDENCIES... these astrophysicists are having way too much fun: http://www.astromatic.net/wsvn/public/filedetails.php?repname=public+software.sextractor&amp;path=%2Ftrunk%2Fsrc%2FMakefile.in
+13:07 SEJeff       My thoughts are if you need to write software about sex, you're probably not getting any :)
+13:08 pdurbin      "Your first stop for astronomical pipeline software"
+13:09 SEJeff       Horrible pun, he
+13:09 SEJeff       heh
+13:22 pdurbin      "This is the most complicated operation we have. It isn't that bad, but does have a few steps." reading docs by sjoeboo :)
+14:13 pdurbin      SEJeff: regarding awk vs. perl for re-ordering tab delimited input, these seems to both give "bar baz (foo)"
+14:13 pdurbin      echo -e "foo\tbar\tbaz" | awk -F'\t' '{printf("%s %s (%s)\n", $2, $3, $1)}'
+14:13 pdurbin      echo -e "foo\tbar\tbaz" | perl -F'\t' -lane 'printf("%s %s (%s)\n", $F[1], $F[2], $F[0])'
+14:13 pdurbin      that is say, perl supports -F too
+14:14 pdurbin      that is to say, i mean
+14:15 pdurbin      i don't know why it bothers me that awk requires {}. it's otherwise much cleaner than the perl version
+14:17 SEJeff       pdurbin, Being a perl monger, you are supposed to &lt;3 curly brackets
+14:19 pdurbin      i guess
+14:20 pdurbin      it would be nice if `cut` let you re-order fields
+14:20 SEJeff       Not a huge fan of cut. It is only good in 1 use case
+14:20 SEJeff       -f2-
+14:21 SEJeff       Where you want to view all fields &gt; $num. You need a small for loop to do that with awk. cut also can't do multiple field separators or NF (the last field) like awk
+14:21 pdurbin      echo showonlyeightchars | cut -c-8
+14:21 pdurbin      it's not bad for that either
+14:21 SEJeff       Very true
+14:21 SEJeff       Ironically, I always used head for that
+14:21 SEJeff       | head -c8
+14:22 pdurbin      sure, but that only affects the first line
+14:22 SEJeff       those are both identical
+14:23 pdurbin      in the case i gave, yes, but not if you're cat'ing, um, say, /etc/services
+14:23 SEJeff       http://hastebin.com/nucayicugu.tex
+14:23 SEJeff       Yes they are
+14:24 SEJeff       Oh wait. I see what you're saying
+14:24 SEJeff       but cut -c8 /etc/services... why
+14:40 pdurbin      http://www.dreyou.org/ovirt/ VDSM and oVirt Engine RPM's for CentOs/Scientific Linux
+14:41 pdurbin      some docs at http://wiki.dreyou.org/dokuwiki/doku.php/ovirt_rpm_start
+14:45 shuff        oooooo
+14:58 ironcamel    pdurbin: regarding perl vs awk/sed, perl is portable
+14:59 ironcamel    pdurbin: awk/sed are different on linux vs bsd for example
+14:59 SEJeff       gawk vs awk
+14:59 pdurbin      ironcamel: yeah, good point
+15:01 pdurbin      if i can just remember that awk/gawk has printf i'll be fine :) . i do like the cleaner syntax
+15:03 SEJeff       pdurbin, You know there is also a shell printf
+15:04 pdurbin      yeah, i was looking at the bash hacker's wiki printf page
+15:04 SEJeff       and that you can set the IFS env var to set the field separator
+15:04 ironcamel    pdurbin: in your example, why did you printf instead of just interpolate?
+15:04 pdurbin      http://wiki.bash-hackers.org/commands/builtin/printf
+15:04 ironcamel    echo -e "foo\tbar\tbaz" | perl -F'\t' -lane '"$F[1] $F[2] $F[0]"'
+15:05 ironcamel    even the \n is unnecessary
+15:05 ironcamel    echo -e "foo\tbar\tbaz" | perl -F'\t' -lane 'print "$F[1] $F[2] $F[0]"'
+15:05 pdurbin      echo -e "foo\tbar\tbaz" | perl -F'\t' -lane 'print "$F[1] $F[2] ($F[0])"'
+15:05 pdurbin      ironcamel: yeah, good point. this is why we keep you around
+15:06 * ironcamel  should test his 1-liners before pasting them :)
+15:06 pdurbin      ok, back to perl. screw awk :)
+15:17 pdurbin      shuff: i'm happy to get an oooo out of you for ovirt on centos. maybe you won't have to run fedora on your server at home after all :)
+15:20 shuff        believe you me, this is gratifying
+15:22 pdurbin      i'll keep you posted on our progress
+15:23 shuff        speaking of centos, check out this rabble-rousing: http://www.ksplice.com/beta/ol/switch
+15:23 shuff        i am deeply conflicted
+15:24 pdurbin      "We're bringing Oracle Linux
+15:24 pdurbin      to you, free of charge." ?
+15:24 shuff        because i have a lot of respect for the Ksplice guys, but this seems *really* obnoxious
+15:24 shuff        yes they are
+15:24 pdurbin      i thought you have to pay for oracle linux...
+15:24 shuff        not any more
+15:24 shuff        you pay for support, but you don't pay for repository access any more
+15:25 pdurbin      as of when?
+15:25 shuff        as of this announcement
+15:25 shuff        sometime during the past few weeks
+15:25 pdurbin      this is not super official looking...
+15:26 SEJeff       They are trying yet again to undercut Redhat since redhat bought Jboss after they told them not to
+15:26 SEJeff       It doesn't seem to be working. OEL is still mostly a laughing stock among much of the SA community
+15:26 shuff        yup
+15:27 SEJeff       I'm kind of surprised Oracle hasn't tried to eat Redhat outright
+15:27 SEJeff       Given what they normally do with giant companies that compete with them (like WebLogic)
+15:27 pdurbin      SEJeff: that's kind of my biggest fear... oracle buying red hat
+15:27 SEJeff       I've got a huge feeling that they've got nasty poison pills in their agreements with executives and whatnot to prevent a hostile takeover
+15:28 shuff        pdurbin: i got an email about this on July 25, that's how recent this is
+15:28 SEJeff       But also, Redhat has been on a non-stop upward charge. They could relatively easily spin it to share holders that they're not getting a good deal unless the offer was astronomical
+15:30 pdurbin      shouldn't oracle linux being free be on http://pressroom.oracle.com ?
+15:30 shuff        the reason there is a "beta" in the url
+15:30 shuff        is that they have not made the announcement yet
+15:31 SEJeff       pdurbin, ksplice is entirely linux owned, so that wouldn't be on their website without oracle's approval
+15:31 SEJeff       s/linux/oracle/
+15:31 shuff        exactly
+15:31 pdurbin      yes, i understand
+15:32 pdurbin      beta press releases... ok... ;)
+15:32 SEJeff       pdurbin, From a whois on ksplice.com: http://hastebin.com/foroxurowi.avrasm
+15:36 pdurbin      SEJeff: yes, i know oracle bought ksplice. :) i used to use ksplice. it's great technology
+15:36 SEJeff       Agreed
+15:36 SEJeff       I'm kind of sad that it was rejected upstream
+15:37 SEJeff       But the idea is quite crack even though it works
+15:37 SEJeff       Then again, so is kexec
+15:37 pdurbin      upstream? in the kernel you mean?
+15:37 SEJeff       yup
+15:37 pdurbin      huh. yeah, that's unfortunate
+15:37 SEJeff       While it doesn't need to be in the kernel to patch the kernel's running code, they were trying to integrate it upstream at one point
+15:39 pdurbin      i didn't know that
+15:40 SEJeff       In fact, upstream (kernel.org folks) really hate ksplice. So much in fact... http://linux.derkeiler.com/Mailing-Lists/Kernel/2009-06/msg10200.html
+15:40 pdurbin      "TAINT_KSPLICE flag" wow!
+15:40 SEJeff       http://thread.gmane.org/gmane.linux.kernel/799023
+15:48 pdurbin      right. another link to the same thing. LKML: Tim Abbott: [PATCH v2 0/4] Ksplice: Rebootless kernel updates - https://lkml.org/lkml/2009/2/24/362 thanks
+18:49 pdurbin      westmaas: today i'm all keystone this, glance that
+18:50 westmaas     boom
+18:50 westmaas     talkin the talk
+18:51 pdurbin      Getting started with OpenStack EPEL - FedoraProject - http://fedoraproject.org/wiki/Getting_started_with_OpenStack_EPEL
+18:53 SEJeff       I never figured out the silliness
+18:53 SEJeff       If you are going to run &gt; 10 commands as root
+18:53 SEJeff       sudo -i and run them as root
+18:53 pdurbin      no kidding
+18:53 SEJeff       People who are afraid of root tend to not be sysadmins professionally. If they are, they scare me :)
+18:55 pdurbin      i'm in the habit of typing `sudo su -` and not `sudo -i` but i think they're the same...
+18:55 SEJeff       They are
+18:55 SEJeff       sudo -s is equiv to su root
+18:55 SEJeff       sudo -i is equiv to su - root
+18:56 SEJeff       the first doesn't load the new user's environment and the second does
+18:57 pdurbin      yep. i guess i'll try to switch to `sudo -i` #lazy
+18:57 SEJeff       lazy == less typing
+19:04 pdurbin      Starting Qpid AMQP daemon
+19:04 pdurbin      this feels so fancy!
+19:11 pdurbin      hmm, so horizon is a django app
+19:16 SEJeff       openstack is all horrible python
+19:16 pdurbin      SEJeff: you're going to hurt westmaas's feelings
+19:17 SEJeff       horrible in that it isn't perl
+19:17 SEJeff       :D
+19:17 pdurbin      good recovery
+19:17 pdurbin      speak your mind. i don't care
+19:17 SEJeff       I was joking as I know most of #crimsonfu is very very pro perl
+19:17 pdurbin      no
+19:17 pdurbin      come on
+19:17 SEJeff       As evidenced by my extended "discussion" with ironcamel and some others
+19:18 pdurbin      we welcome all comers
+19:18 pdurbin      i'm trying to learn some python
+19:18 SEJeff       Where he played the condescending card
+19:18 SEJeff       heh
+19:19 SEJeff       I'm actually in the process of learning some php. Not really by choice, but out of necessity for somethings I want to hack on
+19:19 westmaas     pdurbin: SEJeff: a lot of it is horrible python too  :?
+19:20 westmaas     even if you ignore the perl comment :P
+19:20 SEJeff       lol
+19:20 SEJeff       \o/
+19:20 SEJeff       The new Network as a service thing looks awful nifty
+19:21 westmaas     yeah, its pretty exciting
+19:21 SEJeff       Can't wait to see openflow gain critical mass to where normal switch vendors are all supporting it
+19:21 SEJeff       That is a complete game changer for the networking industry
+19:21 SEJeff       All SDN is
+19:21 westmaas     yeah, when you can just bump your network into an openstack provider
+19:21 westmaas     (or other clouds I suppose :))
+19:21 SEJeff       yup
+19:22 pdurbin      d'oh! ran `nova boot` and status went from BUILD to ERROR rather than ACTIVE :(
+19:22 westmaas     pdurbin: that's not right, just fyi
+19:23 westmaas     pdurbin: major didn't join this channel?!
+19:23 westmaas     what a slacker
+19:23 rackerhacker OY
+19:23 westmaas     oh
+19:23 westmaas     haha
+19:23 * westmaas   acts natural
+19:23 rackerhacker westmaas: stop texting me and get back to work, i can't watch dora the explorer with you now
+19:23 rackerhacker :P
+19:25 pdurbin      "Instance failed network setup"
+19:33 pdurbin      man nova
+19:33 pdurbin      whoops
+19:34 pdurbin      "NB the network range here, should *not* be the one used on your existing physical network. It should be a range dedicated for the network that OpenStack will configure."
+19:34 pdurbin      yeah, i screwed this up
+19:34 pdurbin      westmaas: how do i list the networks i created?
+19:35 pdurbin      nova-manage network list
+19:46 pdurbin      2012-07-05 15:46:04 TRACE nova.rpc.amqp Timeout: Timeout while waiting on RPC response.
+19:46 pdurbin      that doesn't sound good...
+20:12 westmaas     pdurbin: usually means you can't talk to whatever your network service talks to
+20:12 westmaas     for us that means quantum + nicira
+20:13 pdurbin      westmaas: so in this all-on-on-box install, you mean a dhcp server that should be running on the box?
+20:14 westmaas     pdurbin: hmmm. I'm not 100% sure.
+20:15 pdurbin      should i ask in #openstack? or some mailing list?
+20:15 westmaas     #openstack might be a good place to start
+20:16 pdurbin      ok. i might re-kickstart this box first, run through that fedora wiki page again
+</pre></body></html>

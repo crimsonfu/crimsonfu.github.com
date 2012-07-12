@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:15 pdurbin_m    Computational Science Beta - Stack Exchange http://scicomp.stackexchange.com
+11:12 pdurbin_m    pretty interesting questions. i.e. Best practice for storing hierarchical simulation data - Computational Science Beta - Stack Exchange http://scicomp.stackexchange.com/questions/2591/best-practice-for-storing-hierarchical-simulation-data
+11:13 pdurbin_m    some mpi4py guys were promoting this site on the RCE podcast
+11:14 pdurbin_m    http://www.rce-cast.com
+11:48 pdurbin_m    hee hee! raid with water coolers! http://www.ghen.be/raid.jpg
+14:36 Pax          morning!
+14:39 pdurbin      Pax: hey there
+14:39 gridiron     Is it? Damnations...
+14:39 gridiron     I'll have to talk to my slum lord about addressing that
+14:40 pdurbin      writing some python to query the foreman api
+14:40 Pax          @gridiron we'll be lucky if fixed the leaky roof :p
+14:40 crimsonfubot Pax: Error: "gridiron" is not a valid command.
+14:40 pdurbin      and some perl to track the various status of our migration from vmware to kvm. #longslog
+14:41 Pax          gridiron: you'll be lucky if replaces the batteries on the door lock!
+14:42 Pax          hey folks, question about modules
+14:43 Pax          are most people  downloading modules into a single module path, like dev/modules and then editing them, or keeping them "clean" in a separate module path?
+14:43 Pax          for downloaded, modules from forge for example
+14:44 gridiron     I have been putting them in the same directory but I am the bad example
+14:44 pdurbin      we tend to download a module and make it our own... throw in in modules and tweak it
+14:44 pdurbin      but this must mean we get out of sync with upstream :(
+14:45 shuff        i've been writing wrapper modules
+14:45 Pax          yeah, I've been doing that too, and kinda wondering if there's a "cleaner"  way
+14:45 shuff        and submitting patches upstream :)
+14:45 pdurbin      shuff: wrapper modules?
+14:45 Pax          whats your puppet.conf end up looking like shuff?
+14:46 pdurbin      if the upstream modules are in git, i guess we could do a git submodule...
+14:46 shuff        pdurbin: e.g. i have a fas_apache module that calls the "official" upstream apache module and then also does some other stuff
+14:46 shuff        this way i'm tracking the upstream releases
+14:46 shuff        but i can work around their deficiencies
+14:47 shuff        Pax: the relevant component is this:
+14:47 shuff        [master]
+14:47 shuff        ...
+14:47 shuff        modulepath = /etc/puppet/modules:/usr/share/puppet/environments/production/modules
+14:48 shuff        third-party mods go in /etc/puppet/modules
+14:48 shuff        in-house mods go in the per-environment directory
+14:48 shuff        e.g.
+14:48 shuff        [testing]
+14:48 shuff        modulepath=/etc/puppet/modules:/usr/share/puppet/environments/testing/modules
+14:48 shuff        but tmtowtdi :)
+14:48 Pax          *nod*nod*
+14:49 SEJeff|away  A bit OT, but really clever way google beat leap second issues without updating software that is time sensitive to care about leap seconds: http://googleblog.blogspot.com/2011/09/time-technology-and-leaping-seconds.html
+14:49 SEJeff|away  "leap smears"
+15:11 Pax          shuff: did you put /etc/puppet/modules under version control, or are you not worried about it?
+15:12 Pax          I like the wrapper idea a lot
+15:12 Pax          mostly, because, I'm super lazy
+15:12 shuff        bwahahahaha
+15:13 shuff        the contents of /etc/puppet/modules are all programmatically installed
+15:13 shuff        either using the puppet module tool
+15:13 shuff        or checkouts from github
+15:14 shuff        the /etc/puppet/modules directory is entirely ephemeral
+15:14 Pax          right, but puppet-module tool doesn't let you do a revert if say.. a lazy admin fat fingered something, just reinstall right?
+15:14 shuff        correct
+15:15 Pax          not that *i'd* ever do that *cough*rm -rf &lt;modulename&gt;*cough*
+15:15 Pax          :)
+15:15 shuff        the fix is `puppet agent —test` :)
+15:15 shuff        unlesss github has an outage
+15:16 shuff        in which case i wail and rend my garments
+15:17 Pax          I have no idea, but I know can't stop seeing you as "Sir Robin" http://www.youtube.com/watch?v=ud7YNNA0Mwo
+15:17 shuff        :)
+15:44 pdurbin      listening to tales of woe about openvpn and two factor auth
+15:48 SEJeff       pdurbin, Want to boggle your own mind? Try: openvpn --help
+15:48 SEJeff       holy insane configurability batman!
+15:49 pdurbin      SEJeff: i don't even have it installed... not my project :/
+15:49 SEJeff       Ah
+15:49 SEJeff       You academics :P
+15:49 pdurbin      we're using cisco anyconnect right now: https://github.com/pdurbin/anyconnect/blob/master/anyconnect.spec
+15:49 SEJeff       Always in your silo
+15:49 SEJeff       jk
+15:49 SEJeff       I use it for some personal and consulting stuff
+15:50 pdurbin      well, i've encouraged the guy whose project is it to jump in here and start venting :)
+15:51 SEJeff       Yeah openvpn is a bit ridiculous. The guy who wrote NetworkManager has a rant blog on it somewhere that is pretty funny
+15:51 * SEJeff     thinks his name is Dan Williams. Time to google
+15:51 pdurbin      sounds like we need a link :)
+15:51 SEJeff       Eidetic memory ftw!
+15:51 SEJeff       http://blogs.gnome.org/dcbw/2010/07/16/re-networkmanager-openvpn-option-support/
+15:52 SEJeff       The large problem is that openvpn’s dev team is absolutely spineless and apparently adds every option anyone ever requests without thinking about how they fit into the larger picture.  The larger picture is already huge:  http://blogs.gnome.org/dcbw/files/2010/07/openvpnopts.png
+15:52 pdurbin      crimsonfubot: lucky eidetic memory
+15:52 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/Eidetic_memory
+15:53 SEJeff       yup
+15:53 pdurbin      Pax: this is why crimsonfubot is barking at you (use of @): http://irclog.perlgeek.de/crimsonfu/2012-06-29#i_5768344
+15:54 pdurbin      holy openvpn --help: http://blogs.gnome.org/dcbw/files/2010/07/openvpnopts.png i see what you mean
+15:54 SEJeff       Yes!
+15:55 pdurbin      spineless! them's fightin' words
+15:56 SEJeff       Dan Williams is like the guy who wrote systemd Leonnart Pottering (sp?). He wears flame-proof underpants
+15:56 Pax          pdurbin: crimsonfubot is a harsh and cruel dictator!
+15:56 SEJeff       long live crimsonfubot!
+15:56 pdurbin      Pax: you will bow before crimsonfubot
+15:57 Pax          I am just a cog in the machine…
+15:57 pdurbin      do not anger crimsonfubot
+15:58 SEJeff       The fact that I remembered most of the blog post from memory actually creeped me out
+15:58 pdurbin      i can't even remember what i was working on. that's what alt-tab is for
+15:59 SEJeff       taskwarrior is for what you were working on
+15:59 SEJeff       taskwarrior &lt;3
+15:59 shuff        taskwarrior! :)
+16:00 pdurbin      sure, but i keep as much as possible in RT. i query its api
+16:01 SEJeff       *shudders*
+16:01 SEJeff       http://pastebin.com/VWQanDYN
+16:02 SEJeff       tw is great for boring longer term projects
+16:02 pdurbin      yeah, looks similar to the output from what i use: http://todotxt.com
+16:03 SEJeff       nice
+18:32 pdurbin      echo -e "foo\tbar\tbaz" | awk 'BEGIN {FS="\t"}; {print $2,$3,"(",$1,")"}'
+18:32 pdurbin      gives me
+18:32 pdurbin      bar baz ( foo )
+18:32 pdurbin      how do i get rid of the spaces around "foo"?
+18:32 pdurbin      perl is an acceptable solution :)
+18:36 SEJeff       pdurbin, Why are you defining FS?
+18:36 SEJeff       default is $IFS
+18:36 SEJeff       which is all whitespace
+18:37 pdurbin      SEJeff: my input is tab separated
+18:38 SEJeff       echo -e "foo\tbar\tbaz" | awk  '{printf("%s %s (%s)\n", $2, $3, $1)}'
+18:38 SEJeff       bar baz (foo)
+18:38 SEJeff       So that isn't acceptable output?
+18:38 SEJeff       echo -e "foo\tbar\tbaz" | awk -F'[\t]'  '{printf("%s %s (%s)\n", $2, $3, $1)}'
+18:38 SEJeff       Same output
+18:38 pdurbin      that's perfect. thanks!!
+18:38 SEJeff       :)
+18:38 SEJeff       -F with brackets is a not well documented super-awk feature
+18:39 pdurbin      oh, wait, let me try on my actual data
+18:41 SEJeff       $ echo 'help me, obiwan;kenobi' | awk -F'[ ,;]' '{printf("1=%s, 2=%s, 3=%s, 4=%s, 5=%s\n", $1, $2, $3, $4, $5)}'
+18:41 SEJeff       1=help, 2=me, 3=, 4=obiwan, 5=kenobi
+18:41 SEJeff       multiple field separators
+18:41 pdurbin      ok, yes, working great. thanks again
+18:41 SEJeff       I'm not the guy for hard perl questions, but know gawk quite well
+18:41 SEJeff       np
+18:41 pdurbin      and i'm digging -F too
+18:42 SEJeff       Even the most seasoned admins often miss that one
+18:42 SEJeff       I tried it just for kicks once and it worked
+18:43 SEJeff       pdurbin, What is the cleanest way in perl to do the equivalent?
+18:43 pdurbin      meh. perl -lane probably. @F and friends
+18:43 SEJeff       I could do a 1 liner for the same with python + sys.stdin + re.split, but it would be cleaner in awk or perl for a 1 liner I suspect
+18:46 pdurbin      been meaning to start a page on awk anyway: http://wiki.greptilian.com/awk
+18:46 SEJeff       pdurbin, Here is one you should link
+18:46 SEJeff       http://www.pement.org/awk/awk1line.txt
+18:47 SEJeff       And this one on sed from the same guy: http://sed.sourceforge.net/sed1line.txt
+18:48 pdurbin      done
+18:56 pdurbin      SEJeff: awk -F'\t' seems to work too. no []
+18:58 SEJeff       win
+19:13 pdurbin      gonna try this some day: DataTables (table plug-in for jQuery) - http://datatables.net
+19:15 SEJeff       pdurbin, If you need any help, I've used it a TON
+19:17 SEJeff       pdurbin, http://envisionlinux.com/blog/current-status-of-mango-django/ Look at the pics, they are all datatables
+19:17 SEJeff       powered
+19:17 SEJeff       Or this video: http://envisionlinux.com/blog/the-ants-go-marching-one-by-one-or-how-the-new-mango-is-coming-along/
+19:27 pdurbin      my django guy is telling me datatables is pretty standard
+19:28 pdurbin      SEJeff: oh, you're using it for png's. i was more thinking of just having sortable html tables
+19:28 SEJeff       huh?
+19:28 SEJeff       pngs/
+19:28 SEJeff       ?
+19:29 SEJeff       http://envisionlinux.com/blog/wp-content/uploads/2011/04/mango-user-management.png
+19:36 pdurbin      SEJeff: i understand now. you have png's of your sortable tables :)
+19:36 SEJeff       yes
+19:36 SEJeff       and a video of the live filter in action
+19:37 SEJeff       http://www.youtube.com/watch?feature=player_embedded&amp;v=AxgMkIum0LU
+19:42 pdurbin      meh. video. i believe you :)
+20:46 pdurbin      Twitter / jamesdotcuff: when users go bad: 16:4 - https://twitter.com/jamesdotcuff/status/220256294500708352 when users go bad: 16:42:12 up 147 days, 14:46, 2 users, load average: 1399.96, 1706.70, 1769.09
+</pre></body></html>

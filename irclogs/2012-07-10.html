@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+03:23 jimi_c   cobblerization of keystone/glance done, on to nova...
+03:31 jimi_c   http://pastie.org/4229476
+12:42 pdurbin  jimi_c: interesting stuff!
+12:43 pdurbin  just finished this. worth listening to: Episode 8: Back to the Kernel with Greg Kroah-Hartman - Food Fight - http://foodfightshow.org/2012/04/episode-8-back-to-kernel-with-greg.html
+12:43 jimi_c   thanks, seems to work well so far
+12:43 jimi_c   i bought a linux kernel book a little while back, got about 1/3 of the way through it and just haven't picked it back up yet :/
+12:44 pdurbin  interesting how when they asked him about dtrace he said 1. dtrace is in linux now. 2. perf is awesome and can do many of the same things: https://perf.wiki.kernel.org
+12:44 SEJeff   dtrace can do full user through kernel space and back to userspace tracing. perf is the hw counters from modern x86 processors (the PMU I think is the name of the hw) and some kernel level stuff like ftrace
+12:45 pdurbin  jimi_c: in that episode they recommended Amazon.com: Linux Kernel Development (3rd Edition) (9780672329463): Robert Love: Books - http://www.amazon.com/Linux-Kernel-Development-implementation-Developers/dp/0672329468 .  good show notes, by the way
+12:45 SEJeff   perf can not do userspace probes. A severely limited form of uprobes (which does user space tracing) was *just* merged in upstream kernel.org
+12:45 SEJeff   But without utrace, again, the version of uprobes that was merged is very limited overall. However... Eventually a marriage of ftrace, perf, and uprobes will give Linux dtrace-like abilities
+12:45 jimi_c   pdurbin: I believe that's the one I have
+12:45 pdurbin  SEJeff: any opinions about systemtap? Greg Kroah-Hartman was kind of lukewarm about it
+12:46 SEJeff   Well dtrace's real claim to fame is impactless monitoring for the most part
+12:46 jimi_c   and then there's libtrace...
+12:46 SEJeff   tap files compile to loadable kernel modules and insert themselves into the core. If they are busted, they can blow up the kernel despite what the systemtap developers will tell you
+12:46 jimi_c   not sure if that's even still around
+12:47 SEJeff   https://lwn.net/Articles/499190/ &lt;--- Uprobes are in Linux 3.5 (as of yet unreleased)
+12:47 SEJeff   But to have full dtrace-like abilities, Linux needs perf + ftrace + uprobes + utrace
+12:47 pdurbin  there's a guy who's actively working with systemtap on our cluster and seems to be getting some good mileage out of it
+12:47 SEJeff   It is now only lacking utrace
+12:48 jimi_c   stap is cool, but it is just a pain to get working, and a little arcane
+12:48 jimi_c   you can definitely get some good info out of it
+12:48 SEJeff   pdurbin, systemtap isn't bad honestly, but it is a long shot from dtrace. It would be like comparing a sharpened spade shovel to a katana
+12:48 SEJeff   one is still going to be crap for cutting bamboo
+12:49 * jimi_c has to go
+12:49 jimi_c   damn day job...
+12:49 * SEJeff waves
+12:49 SEJeff   I'm quitting my day job... Today!
+12:50 pdurbin  congrats? :)
+12:50 SEJeff   Yes
+12:50 jimi_c   o rly?
+12:50 jimi_c   no more insane cobbler setup? ;)
+12:50 SEJeff   jimi_c, You will still have chjohnst :)
+12:51 jimi_c   heh
+12:51 * jimi_c goes for real now
+14:32 agoddard SEJeff: woah, everyone's changing jobs at the moment
+14:32 agoddard SEJeff: going to github? ;)
+14:33 SEJeff   agoddard, ;)
+14:33 SEJeff   github would be awesome, but my ruby skills don't come close to yours, let alone jason dixon (newest gh hire, big graphite guy) or any of theirs
+14:33 SEJeff   Another high frequency trading company. This one in Chicago.
+14:36 agoddard nice. Ya, Jason has some pretty mad skillz
+14:36 SEJeff   indeed, tasseo is good stuff
+14:37 agoddard you moving or going remote?
+14:39 SEJeff   Moving
+14:39 agoddard nice
+14:40 SEJeff   But I'm going from a Sr Systems Engineer to a Software Engineer. Totally stoked to do what I've been doing the last 3 years but in title too
+14:40 SEJeff   Focusing on systems automation
+14:40 agoddard perfect!
+14:40 agoddard adding some salt I imagine
+14:40 SEJeff   If it fits, sure
+14:40 SEJeff   If not, nope
+14:41 SEJeff   I do need to play with chef. I'll confess I have seen it, but never set it up or futzed with it myself just to see what it can or can't do.
+14:41 agoddard it's magic, it does everything!! :D
+14:41 SEJeff   heh
+14:42 SEJeff   I see chef as the perfect tool for ruby shops
+14:42 SEJeff   Not convinced outside of ruby shops, but I do know that jacob kaplan moss swears by it
+14:42 SEJeff   he is one of the 3 founders of this little python project named django :)
+14:42 agoddard ha, nice!
+14:43 SEJeff   But if salt fits, you can bet I'll push it hard as the #2 developer on the project :D
+16:18 pdurbin  just now i suddenly found myself talking to a couple dozen people about my Account Provisioning Engine (APE) idea: http://git.greptilian.com/?p=account-provisioning-engine.git;a=blob;f=readme.md;hb=HEAD
+16:19 pdurbin  heh. "Planned features".  more like promise-ware :/
+16:37 agoddard pdurbin: your VM templates are 10G by default ya?
+17:06 pdurbin  agoddard: that's right
+17:17 pdurbin  perl -F'\t' -lane 'print "$F[3] $F[0] ($F[2]) - $F[4]"'
+17:17 pdurbin  soooooo happy with -F :)
+19:10 pdurbin  "Trigger is a robust network engineering toolkit written in Python that was designed for interfacing with network devices and managing network configuration and security policy. It increases the speed and efficiency of managing large-scale networks while reducing the risk of human error." -- http://trigger.readthedocs.org
+19:10 pdurbin  i happened to glance over at ##infra-talk
+19:11 pdurbin  Trigger currently officially supports devices manufactured by the following vendors: ... Cisco Systems...     All router and switch platforms running IOS
+</pre></body></html>

@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:59 pdurbin      westmaas: you've used SQLAlchemy. what do you think of these warnings from `openstack-db --init --service nova`? http://danceb.in/jM3zrnHH4RGrbzXkl9DNYg
+14:22 jimi_c       If I had to bet, I'd say a table was missing from the schema
+14:24 pdurbin      jimi_c: i guess. it seems to be only a warning, so i'm moving on
+14:26 * jimi_c     goes back to working on cobbler documentation
+14:26 pdurbin      based on the history of the Getting started with OpenStack EPEL page ( https://fedoraproject.org/w/index.php?title=Getting_started_with_OpenStack_EPEL&amp;action=history ) i guess it looks like Pádraig Brady from Red Hat ( https://fedoraproject.org/wiki/User:Pbrady ) has made some recent edits
+14:27 pdurbin      i think this was tripping me up yesterday: '2/ The sudoers setup is a bit brittle because it assumes things about your /etc/sudoers ("must include /etc/sudoers.d")' -- nova_sudoers is brittle, often out of date, and too permissive https://bugs.launchpad.net/ubuntu/+source/nova/+bug/681774
+14:29 pdurbin      jimi_c: this one should be a quick fix :) Issue #1: Community page for Cobbler mailing list and IRC channels · cobbler/cobbler.github.com - https://github.com/cobbler/cobbler.github.com/issues/1
+14:29 jimi_c       yeah i saw that and replied :)
+14:29 jimi_c       that's a quick fix
+14:30 pdurbin      yeah. was glad you agree :) i was pretty sure you guys were on freenode... would be nice to make that obvious
+14:31 jimi_c       just putting the twitter link on there has helped - sadly i now have as many followers as tweets :)
+14:31 jimi_c       or maybe that's a good thing
+14:33 pdurbin      jimi_c: very good follow cost: http://followcost.com/cobblerista
+14:34 jimi_c       never seen that before
+14:35 pdurbin      #crimsonfu is good for that :)
+14:53 pdurbin      2012-07-06 10:51:54 INFO nova.virt.libvirt.connection [-] [instance: 3b1f1695-7b2f-4563-aa28-f969ecc58feb] Instance spawned successfully.
+14:53 pdurbin      \o/
+14:53 pdurbin      the fix: echo '#includedir /etc/sudoers.d' &gt;&gt; /etc/sudoers
+15:40 pdurbin      westmaas: you'd be proud of me. making noise in http://eavesdrop.openstack.org/irclogs/%23openstack/%23openstack.2012-07-06.log
+15:40 pdurbin      they need clickable anchors per line in their irc logs like we've got :)
+15:53 westmaas     pdurbin: nice!
+15:53 westmaas     I'm glad someone is in there to be helpful :)
+15:54 westmaas     well
+15:54 westmaas     attempt to be helpful
+15:55 pdurbin      westmaas: do you have any idea why i can't ssh to the VM?
+16:11 pdurbin      cool, here's openstack on rhel guide I was using last week: Red Hat Essex Preview Lab Guide, Red Hat Summit - 2012 Edition: http://fedorapeople.org/~russellb/openstack-lab-rhsummit-2012/
+16:12 pdurbin      via https://twitter.com/russellbryant/status/219836588757229568 . also taught by Derek Higgins https://twitter.com/bethehokie
+16:13 pdurbin      Red Hat Quietly Joins the OpenStack Effort - http://www.readwriteweb.com/cloud/2012/01/red-hat-quietly-joins-the-open.php
+16:13 pdurbin      heh, red hat is not so quiet about it now!
+16:33 SEJeff       pdurbin, Have you seen this? https://github.com/aaalex/Dancer-Plugin-REST
+16:33 SEJeff       just curious
+16:33 SEJeff       https://github.com/sukria/Dancer-Plugin-REST This one actually
+16:33 pdurbin      looks awesome
+16:33 pdurbin      but i'm hoping to use tastypie with django i guess
+16:34 pdurbin      since i'm the only perl guy :(
+16:34 SEJeff       tastypie is good stuff
+16:38 pdurbin      hmm. "When converting a Windows virtual machine from VMware ESX, ensure that VMware Tools is not installed on the virtual machine. The VMware Tools must be uninstalled prior to the conversion process. If a virtual machine is converted with the VMware Tools installed, it will not function correctly." -- V2V Guide - http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html-single/V2V_Guide/index.html
+16:39 pdurbin      but we're seeing problems using virt-v2v on a *linux* box (rhel 4) that had vmware tools installed
+16:39 pdurbin      eth0 nic not recognized, etc.
+16:40 pdurbin      we've migrated a lot of linux boxes over with virt-v2v and they've been fine
+16:42 pdurbin      seems kinda related: Bug 787734 – virt-v2v does not remove VMware guest tools RPMs - https://bugzilla.redhat.com/show_bug.cgi?id=787734
+16:43 pdurbin      SEJeff: i should tell you that the other day a guy on our team wrote "I have to say, it's actually pretty amazing how easy it is to migrate
+16:43 pdurbin      these VM's over."
+16:43 pdurbin      and i replied with "thanks to sejeff for reminding me about virt-v2v" :)
+16:45 jimi_c       pdurbin: modprobe.conf issue? might have the drivers hard-coded to vmware's
+16:46 SEJeff       :)
+16:46 SEJeff       pdurbin, glad to help
+16:46 SEJeff       Sometimes I wish there was a simple way to dump all of my experience into digital form so I could share it with other people. Perhaps put it on github and accept pull requests to learn more?
+16:46 SEJeff       That would be outstanding
+16:50 pdurbin      meh. that's pretty much what this channel is for :)
+16:50 SEJeff       heh
+16:50 SEJeff       dump /dev/brain
+18:04 pdurbin      rackerhacker: do you know who is in charge of the irc logging at http://eavesdrop.openstack.org ? i don't need names. i'm just curious :)
+18:11 rackerhacker IIRC it's the feller sitting next to me
+18:12 pdurbin      please show him http://moritz.faui2k3.org/en/ilbot and what http://irclog.perlgeek.de/crimsonfu/2012-07-06 looks like
+18:22 rackerhacker haha, i can
+18:39 pdurbin      westmaas: do you have an image i can import into openstack that you know the root password for?
+18:40 pdurbin      derekh in #openstack thinks that maybe the root ssh key injection isn't working
+19:31 jimi_c       pdurbin: Added pages for community/who's using cobbler
+19:33 pdurbin      http://cobbler.github.com/community.html and http://cobbler.github.com/users.html . looks great!
+19:35 jimi_c       not sure if that users page is 100% accurate anymore, i copied the data out of the old fedorahosted.org wiki page
+19:35 jimi_c       hopefully no companies send me a nastygram...
+19:35 pdurbin      details ;)
+19:36 pdurbin      i'm able to ssh to an openstack vm now. derekh was super helpful: http://danceb.in/yraw5qDH4RGnzXkl9DNYg
+19:37 pdurbin      see especially this bit standing up a tty_linux vm he posted: http://pastebin.com/hYbJTzuj
+20:03 pdurbin      so as i was just telling sjoeboo... i'm glad i'm using http://fedoraproject.org/wiki/Getting_started_with_OpenStack_EPEL to get openstack stood up but as /usr/bin/openstack-demo-install (from openstack-utils-2012.1-1.el6.noarch) says, that doc's purpose is to "Install and Enable all OpenStack services on a single node, for testing/demonstration purposes."
+20:04 pdurbin      a lot gets done for you
+20:04 pdurbin      http://fedorapeople.org/~russellb/openstack-lab-rhsummit-2012/ (the lab i went through last week) is a much better doc for helping you understand the underlying components better
+20:05 pdurbin      especially set up of users, roles, and services (with keystone)
+20:05 pdurbin      (whenever i hear keystone, all i can think of is keystone light)
+20:06 pdurbin      "Keystone Light, introduced 1989, found with a blue label" -- http://en.wikipedia.org/wiki/Keystone_%28beer_brand%29
+20:06 pdurbin      The "Light" and "Ice" versions of the beer are far more prevalent and readily available for retail across the United States. Though Keystone Premium exists, it appears much less than its "Light" variety on liquor store shelves. "Dry" and "Amber Light" varieties were discontinued in the late 90s.
+20:06 pdurbin      god bless you, wikipedia
+20:07 pdurbin      i think i'm getting punchy from all this openstack nonsense
+20:08 pdurbin      westmaas: i blame you
+20:16 westmaas     pdurbin: keystone had an implementation which was subsequently replaced with keystone light
+20:17 pdurbin      nice
+20:18 pdurbin      Active Instances: 5 Active Memory: 8GB This Month's VCPU-Hours: 11.68 This Month's GB-Hours: 310.63
+20:18 pdurbin      this is kinda cool
+20:18 pdurbin      i guess
+20:30 pdurbin      :)
+20:33 rackerhacker happy friday: http://www.reddit.com/tb/w4xu2
+22:17 westmaas     pdurbin: haha
+</pre></body></html>

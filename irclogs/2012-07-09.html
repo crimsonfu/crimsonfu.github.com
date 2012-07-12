@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+12:31 SEJeff   You know... This isn't all that surprising
+12:32 SEJeff   If you follow David Ascher and his blog, you'd have seen it coming for a bit.
+12:50 pdurbin  SEJeff: i haven't been following his blog. i was for a while but not for a year at least
+12:51 pdurbin  i guess an official blog post is supposed to come out today
+12:51 SEJeff   It has been obvious for a long time that mozilla messaging is the bastard child at mozilla
+12:52 SEJeff   and isn't given enough resources to complete their mission. Quite sad really.
+12:52 pdurbin  yeah. i think mozilla messaging is no more anyway... folded back into mozilla proper
+12:53 pdurbin  but anyway, yeah, thunderbird doesn't get much attention. like a middle child :)
+12:54 pdurbin  agoddard: you'd be happy to know i'm working my way through these chef podcasts. just finished listening to Episode 6: Cookbook Reusability with Nikolay Sturm - Food Fight - http://foodfightshow.org/2012/03/episode-6-cookbook-reusability-with.html
+12:54 pdurbin  the audio quality on this one is particular atrocious
+12:54 pdurbin  ly
+12:55 pdurbin  but i'm glad the chef community cares about reusable code
+12:55 pdurbin  to be clear, i'm not anti puppet (which we use). i'm just not aware of a puppet podcast
+12:55 pdurbin  and this one covers a lot of the same ground :)
+12:57 pdurbin  oh, this is completely off topic, but... kittens! :) Two kittens have joined our family - http://thedurbins.com/phil/blog/2012/07/08/two-kittens-have-joined-our-family.html
+12:58 pdurbin  i mean, how often do you get to bring home kittens? :)
+13:02 agoddard pdurbin: nice! foodfight is pretty cool. I have a cameo on an episode in May =)
+13:02 pdurbin  reaaaaally
+13:02 pdurbin  i'll let you know when i get to it
+13:02 agoddard k :)
+13:02 pdurbin  your accent should be pretty easy to spot :)
+13:03 agoddard haha
+13:03 pdurbin  "RT @portertech: A #puppet podcast would be great! A very cool ecosystem, lots to talk about." -- http://twitter.com/philipdurbin/status/209438101087584258
+13:03 pdurbin  that tweet was from only a month ago.  again, puppet needs a podcast
+13:04 agoddard u building your openstack cluster w/ puppet?
+13:05 pdurbin  agoddard: eventually... i'm sure
+13:05 SEJeff   perhaps you should ask the puppet guys
+13:05 pdurbin  right now i'm just getting it working at all
+13:05 SEJeff   I doubt they read logs of #crimsonfu :)
+13:05 SEJeff   Even if they should
+13:05 agoddard :D
+13:05 pdurbin  SEJeff: everyone reads the logs of #crimsonfu!
+13:05 SEJeff   hahaha
+13:06 pdurbin  actually, i noticed that the red hat guy who taught the lab i attended and who helped me out on friday is committing to some puppet openstack stuff. one sec
+13:07 agoddard so openstack has flat networking and then VLAN based crazy networking? is that right? That's how CloudStack cranks it
+13:07 pdurbin  yeah, all kind of puppet/openstack goodness: https://github.com/derekhiggins
+13:08 pdurbin  openstack has a lot of flexibility in its networking. and more all the time, i think. active development
+13:11 pdurbin  Adjusting the way Thunderbird is managed | The Mozilla Thunderbird Blog - http://blog.mozilla.org/thunderbird/2012/07/adjusting-the-way-thunderbird-is-managed/
+13:12 SEJeff   s/managed/mis-&amp;/
+13:12 agoddard I think a large part of success here is going to be how easily we could switch between CS and OS, if our config. management is good enough to make this a seamless process, we're doing things right*
+13:12 agoddard *we're not yet doing this ;)
+13:13 pdurbin  agoddard: heh
+13:22 pdurbin  "Today, we’re launching the Thunderbird Up For Grabs program. The idea is really simple: there are plenty of features we would love to add to the Thunderbird roadmap but we badly lack the resources to complete them." -- http://blog.mozilla.org/thunderbird/2012/05/up-for-grabs/
+13:23 pdurbin  "the Thunderbird Up For Grabs program".  so sad
+13:23 SEJeff   This is a really nice way of saying they are dumping the tbird project
+13:24 sjoeboo  "UFG are all listed in the Thunderbird UFG repository [link here]."
+13:24 sjoeboo  ha
+13:24 SEJeff   In the typical "We don't want to maintain this so we are dumping it as open source" corporate model. The only difference is that this already was open source but it still applies.
+13:32 pdurbin  maybe i should try evolution again. it's been years and years
+13:34 SEJeff   It is still pretty awful
+13:34 SEJeff   but is much faster
+13:37 Pax      morning sportsracers
+13:37 pdurbin  Pax: mornin'
+13:38 Pax      you guys see that python for IOS is free in the app store now?
+13:40 pdurbin  huh. no... link?
+13:41 Pax      http://slickdeals.net/f/4858108-Python-for-iOS-used-to-be-2-99-now-Free
+13:42 Pax      also http://itunes.apple.com/us/app/python-for-ios/id485729872?mt=8
+13:42 pdurbin  cool, i guess, but why do i want this?
+13:42 Pax      so you can program in Python on/for your IOS device
+13:43 Pax      I know, it's not perl… :P
+13:43 pdurbin  ok, but what would you write? inspire me
+13:47 Pax      well my one grand opus for a mobile device was a cab finder, but someone wrote one already! http://www.cab4me.com/
+13:48 Pax      buy how about a ganglia front end, or maybe a nagios front end?
+13:50 pdurbin  Pax: you just don't want to learn objective c ;)
+13:51 Pax      LOL
+15:04 Pax      so i'm working with hieradata, which is awesome, any thoughts on best practices for importing it, what I mean is, currently I'm doing a declaration in a common module and then directing other modules to use $::common::data rather then declaring it per module.
+15:05 Pax      I'm not sure thats the best way to go, but it does keep everything easily findable, but I worry that it's an extra "step"
+15:05 Pax      anyone have any thoughts?
+15:08 agperson what do you have to declare in order to use it?
+15:08 agperson its not just $blah = hiera(blah) ?
+15:11 agperson or are you just saying you want to keep all of your lookups in one place?
+15:17 Pax      so I do all my hiera declarations so $blah = hiera(blah) all in a common module and then just call $foo = $::common::blah from other modules
+15:22 agperson got it. keeps them all in one place, and easy to see them all at a glance.  but if you want to change/remove one you still have to figure out where you used it.
+15:22 agperson so grep is necessary regardless ;)
+15:23 Pax      exactly, and I've just started working on a radiator module, which will have some pretty large arrays, so I thought a) I'd give it it's own YAML or JSON config file, but that got me thinking, if it gets it's own config file, maybe I should call it directly in the radiator::params class
+15:24 agperson which also makes it more portable for when you put it up on the forge!
+15:25 Pax      also correct!
+15:26 Pax      I mean, for some stuff, it mades perfect sense (to me) to track back to the common module, stuff like "radiator check pw" for the nagios/monitoring user, since that *does* get used by two modules
+15:26 Pax      but stuff like tunnel configs, which are going to be kind large arrays, and *probably* only used by the radiator module, is it worth it?
+15:27 Pax      ok, I think I've talked myself into putting radiator ($application) specific stuff in a dedicated hiera config file, and calling it from params
+15:28 agperson and if you ever for some reason end up using it somewhere else, you can move it into a common module so as to be nice and DRY...
+15:28 agperson or somethin'
+15:29 agperson I've been spending some time trying to figure out how to use upstart for a bunch of stuff, and now i hear that Red Hat is going to replace it with something called systemd in RHEL 7.
+15:30 agperson (estimated arrival: late 2013)
+15:33 Pax      wow.. it feels like they just released rhel6!
+15:33 SEJeff   Well they know that the RHEL5 --&gt; RHEL6 releases were way too far apart
+15:34 SEJeff   If they had released EL6 sooner, it wouldn't have allowed Ubuntu to make so many inroads in places that wanted things like up to date php and python
+15:34 SEJeff   perl too!
+15:35 agperson yeah, and RHEL 6 is stuck on ruby 1.8.7...
+15:46 Pax      true enough!
+19:03 pdurbin  huh, tried to do this but messed it up. oh well. maybe i'll play around with this in a sandbox later... How do I edit git's history to correct an incorrect email address/name - Server Fault - http://serverfault.com/questions/12373/how-do-i-edit-gits-history-to-correct-an-incorrect-email-address-name
+19:12 SEJeff   pdurbin, Yeah that should work. I've done that once before
+19:12 SEJeff   when I accidentally committed using a work email and not a private email
+19:13 pdurbin  SEJeff: cool. this looks handy too: https://help.github.com/articles/changing-author-info
+19:13 SEJeff   That is likely better tested
+20:42 pdurbin  cool that this is so easy: encryption - Create a public SSH key from the private key? - Server Fault - http://serverfault.com/questions/52285/create-a-public-ssh-key-from-the-private-key
+21:15 SEJeff   Ooh nifty
+</pre></body></html>
