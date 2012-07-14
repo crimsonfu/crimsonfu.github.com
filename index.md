@@ -2,25 +2,30 @@
 layout: default
 title: crimsonfu - sysadmins who code
 ---
-On topic: **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU**, Linux, scripting, automation, security, best practices
+<a href="https://github.com/crimsonfu/crimsonfu.github.com/blob/master/images/crimsonfu-logo.svg"><img src="http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=48" alt="crimsonfu logo, patches welcome!"></a>
+`{"crimsonfu": "ConfiguRatIon Management of Systems Or Network kung FU"}`
 
 ## Guiding principles
 
-* none of us is as smart as all of us
-* open source by default
-* [when in doubt, make it public](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)
+* None of us is as smart as all of us
+* Open source by default
+* [When in doubt, make it public](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)
 
-## Publicly-logged IRC channel: #crimsonfu on freenode
+## On topic
 
-A [publicly-logged IRC channel][logs] (#crimsonfu on http://freenode.net ) is our primary means of communication.
+{% include topics.yaml %}
 
-We [log our channel][logs] because "we live in a world of infinitely searchable micro-content, and every contribution, however small, enriches all of us." -- http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html
+See also http://crimsonfu.github.com/topics
 
-Our [IRC logs][logs] can be found at http://irclog.perlgeek.de/crimsonfu and we sometimes back them up to our [irclogs](irclogs) page with [a script](bin/logfetch.pl).
+## Publicly-logged IRC channel: #crimsonfu on Freenode
 
-If you enjoy the [things we talk about][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu
+\#crimsonfu, a publicly-logged IRC channel on [Freenode](http://freenode.net), is our primary means of communication.
 
-http://irc.tc/freenode/crimsonfu provides a nice graph of our user count history over time.
+Our IRC logs can be found at http://irclog.perlgeek.de/crimsonfu
+
+We log our channel because "[we live in a world of infinitely searchable micro-content, and every contribution, however small, enriches all of us.](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)"  Sometimes back them up to our [irclogs](irclogs) page with [a script](bin/logfetch.pl).
+
+If you enjoy the [topics](topics) [we talk about][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu
 
 ## Articles
 
@@ -39,14 +44,6 @@ See our [members](members) page and https://github.com/crimsonfu
 Crimson is the color associated with the school where the founders met (as staff members), but **we welcome all comers**!  We will avoid insularity and hope to slowly attract a diverse membership.
 
 Fu is a nod to http://commandlinefu.com and http://catb.org/jargon/html/F/suffix-fu.html
-
-## About our logo
-
-This thing?
-
-<img src="http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=128" alt="crimsonfu logo">
-
-Patches welcome! https://github.com/crimsonfu/crimsonfu.github.com/blob/master/images/crimsonfu-logo.svg
 
 ## Updating this website
 
