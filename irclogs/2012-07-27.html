@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+01:02 pdurbin_m      The Future Is Now — Ansible - SSH-Based Configuration Management &amp; Deployment http://ansible.github.com  http://en.m.wikipedia.org/wiki/Ansible_(software) . from the guy who wrote cobbler. competes with puppet, chef, salt, cfengine, etc.
+01:02 pdurbin_m      the chef guy mentioned it in his interview on floss weekly
+01:03 pdurbin_m      http://twit.tv/show/floss-weekly/219
+01:11 pdurbin_m      "Not only is Ansible very simple and easy to learn/extend, it’s configuration management, deployment, and ad-hoc tasks all in one app. And I think that makes it pretty powerful. It hasn’t really been done before." -- http://ansible.github.com/faq.html . salt did this first, right?
+01:28 pdurbin_m      some good chat about ansible at http://irclog.perlgeek.de/salt/2012-03-19#i_5319298
+01:31 pdurbin_m      some of the "why ansible" https://groups.google.com/forum/m/#!msg/ansible-project/sx-xF8Omqrw/HirTTeHdws0J
+09:25 oliver         the "30 mins to get something up and running" before people lose interest is a good point
+09:26 oliver         I'm having a bad time with cfengine3 which has such a complex config language I have trouble working out where to start
+09:26 oliver         and also, no confidence in what it's doing matching my intention
+09:27 oliver         I'm using it because a few other teams here are, and I used cfengine2 in the past. but I feel right now there's no way my colleagues are going to buy into cfg mgmt if it's done with cfengine3 :-/
+09:30 oliver         (we're a network team not a pure sysadmin team)
+12:52 pdurbin        oliver: i find salt's configs to be pretty readable.  they're in yaml. here's how i configure my home server: http://git.greptilian.com/?p=salt.git;a=blob;f=server1/server1.sls;h=52c5e339e22d91c56bb148d57f17a3735b186a11;hb=HEAD
+12:54 oliver         pdurbin: thanks. more intuitive, I agree
+12:58 pdurbin        i've never played with cfengine. i hear version 3 is better than 2
+12:58 oliver         it is, much. an impressive system which can do a whole lot of useful things
+12:58 oliver         sadly not a nice config language, that's all
+12:59 pdurbin        did you know chef was written in perl originally?
+12:59 oliver         no I didn't :)
+12:59 pdurbin        but adam jacob couldn't make a nice dsl with perl
+12:59 oliver         heh
+12:59 oliver         yeah, cfengine's is almost like writing C
+12:59 pdurbin        certainly making dsl's is more common is ruby. i wonder if perl isn't up to the task
+13:00 pdurbin        anyway, this was in the podcast i linked above: http://twit.tv/show/floss-weekly/219
+13:01 oliver         I used to follow TWiT stuff a lot - don't have as much time recently, it seems
+13:01 oliver         thanks, I'll bookmark that one at least
+13:01 pdurbin        in the end, he says uses ruby the most but that his favorite scripting language is still perl. mostly because of the attitude and the community
+13:02 oliver         sounds about right. and I can imagine the issues Perl would present in a DSL
+13:03 pdurbin        he said he couldn't get away from people haven't to think that they're writing in perl
+13:03 oliver         *nods*
+13:03 oliver         it's a toolsmith's language, really. it doesn't always scale from tools to apps.
+13:03 pdurbin        he said that by writing chef in ruby, he could get people to not have to think they are writing in ruby
+13:04 oliver         and cfg mgmt might be more of an app - where the end user shouldnt be thinking about the app but the end results
+13:04 oliver         or, what you said :)
+13:05 oliver         http://london.pm.org/pipermail/london.pm/Week-of-Mon-20110530/020824.html
+13:05 oliver         one has to be pragmatic about these things
+13:06 pdurbin        wow, Simon Cozens is a big fan of drupal, apparently
+13:13 oliver         I think he was just saying he wanted to pick something off the shelf to do what he wanted, and it was Good Enough
+13:14 oliver         personally I don't really like any programming language as a DSL
+13:15 oliver         it's a bit like using programming languages in templates, eventually it becomes code with a bit of data, rather than the other way around
+13:22 pdurbin        i guess C is a pretty good language to write a DSL in... yielded perl, php, python, ruby, etc. :)
+13:22 oliver         heheh :)
+13:39 pdurbin        how can shuff be on vacation or whatever when i have icinga questions
+14:05 semiosis       happy sysadmin day everyone
+14:09 pdurbin        semiosis: you too! welcome to crimsonfu!
+14:21 semiosis       i see the acronym in the /topic and i can't help but wonder if it's not a backronym honoring a particular institution of higher learning
+14:28 pdurbin        semiosis: "Crimson is the color associated with the school where the founders met (as staff members), but we welcome all comers!" -- http://crimsonfu.github.com
+14:29 pdurbin        "Historically, we have released security patches and current OS.  We have released security patches for just the prior OS as well.  Leopard has not received a standard security patch since Lion's release last year."  --some guy from apple. when i worked at berklee, we had a "no food in the server room" rule. no apples
+14:32 JoeJulian      A rule that it appears rackerhacker has decided to adopt.
+14:32 * rackerhacker wuts
+14:34 * semiosis     reads the github page
+14:34 JoeJulian      Since you're here, rackerhacker... rackspace / openstack-guest-agents-unix doesn't build in CentOS. Do you guys just build the tarball in another distro?
+14:36 pdurbin        crimsonfubot: lucky openstack-guest-agents-unix
+14:36 crimsonfubot   pdurbin: https://launchpad.net/openstack-guest-agents
+14:37 JoeJulian      Code hosting for this project has been split into 2 different repos hosted on github:
+14:37 rackerhacker   i haven't actually built it, either
+14:38 rackerhacker   we have two guys here who are experts on it
+14:38 * JoeJulian    thought rackerhacker knew all...
+14:39 rackerhacker   haha, hardly!
+14:39 rackerhacker   i'm knee deep in corosync/pacemaker/drbd today
+14:39 JoeJulian      Ew.. be careful. You're likely to lose a toe in drbd.
+14:40 rackerhacker   i hardly have toes left from previous experiences
+19:24 agoddard       just updated it mountain lion.. restart to being back in my browser - 15min
+19:25 agoddard       #thatsCrazy
+20:37 pdurbin        i was thinking i'd do a fresh install. like i always do. need media though
+20:37 pdurbin        have a good weekend, all
+21:26 agoddard       ya, I always do fresh install, this box is basically brand new, so I might give it a little while and then do a reinstall in 6 months to clean it out a bit. I think you can do the upgrade, then boot into the recovery partition and redo it, would probably be the quickest way. Have a great weekend
+23:35 jimi_c         started playing with jenkins - it is pretty sweet
+</pre></body></html>

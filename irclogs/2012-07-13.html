@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+10:33 pdurbin      "Kanban is a method for developing software products and processes with an emphasis on just-in-time delivery while not overloading the software developers. It emphasizes that developers pull work from a queue, and the process, from definition of a task to its delivery to the customer, is displayed for participants to see." -- Kanban (development) - Wikipedia, the free encyclopedia: http://en.wikipedia.org/wiki/Kanban_(development)
+10:34 pdurbin      hearing about kanban in the context of this, basically: Kanban Process Management | Atlassian: http://www.atlassian.com/software/greenhopper/overview/kanban
+10:35 pdurbin      this is about 23 minutes in. from Episode 11: Etsy Examined - How the Best Do Their Business - Food Fight: http://foodfightshow.org/2012/05/episode-11-etsy-examined-how-best-do.html
+12:02 rackerhacker pdurbin: we do a kanban/agile mix here
+12:02 rackerhacker it's a loosely timeboxed kanban basically
+12:11 pdurbin      rackerhacker: cool. here's a quote from the podcast episode above:
+12:12 pdurbin      "Kanban is a way of working, a workflow if you will.  It came from, I believe it was, Toyota a while ago.  And what they said was is that you take small pieces from a big project, and you work on just that piece until it's done, and then you grab another bit and another bit.  Essentially it is breaking bigger projects into smaller tasks and focusing in on just those tasks to get more work done. . .  better transparency as well as more efficiency
+12:12 pdurbin      they call their four lanes... hopper, backlog, in process, done
+12:27 rackerhacker we have more lanes than that since we have to stage stuff prior to production
+13:09 pdurbin      rackerhacker: i had never even heard of kanban. i wonder if i can make RT do kanban :)
+13:10 pdurbin      interesting to hear the etsy guys talk about their "blameless culture"
+13:10 pdurbin      jimi_c: they use cobbler
+13:10 pdurbin      and centos exclusively... retired their other flavors of linux
+13:10 pdurbin      f5 hardware load balancers
+13:13 pdurbin      sjoeboo: here's my new dotfiles repo i was telling you about: http://git.greptilian.com/?p=dotfiles.git
+13:14 pdurbin      for the vim stuff i'm using this: Synchronizing plugins with git submodules and pathogen - http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/
+15:22 sjoeboo      but, do you have nested submodules?!?!?!
+15:22 sjoeboo      ha
+15:23 pdurbin      you can do that??
+15:25 sjoeboo      yeah
+15:25 sjoeboo      for instance, my dot files repo has a vim submodle
+15:25 sjoeboo      which has all sort of some modules for bundles
+15:26 * pdurbin    looks at https://github.com/sjoeboo/dotfiles
+15:26 pdurbin      neat!
+15:27 sjoeboo      still working out the kinks though
+15:28 pdurbin      it's good for your soul, having your dotfiles in order
+17:28 pdurbin      code available from the guy who's working on an api for racktables: http://cache.gmane.org//gmane/comp/misc/racktables/user/1766-001.bin
+17:29 pdurbin      that's what he's calling "api.php" in his message at writing a restful API in php for Racktables - http://thread.gmane.org/gmane.comp.misc.racktables.user/1730/focus=1766
+17:34 pdurbin      had to grab it from there as i don't believe freelists saves the attachment: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,11
+17:54 pdurbin      meh. gave it a quick test but couldn't get it working. my report: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,12 :)
+18:01 pdurbin      updated my "i wish racktables had an api log": https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+18:38 pdurbin      hey, this api.php for racktables DOES work: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,15 "go go go" --me :)
+19:39 pdurbin      sjoeboo: this is the dashboard i was talking about: https://github.com/etsy/dashboard . supports Ganglia, Graphite, Cacti, NewRelic, and FITB out of the box.  that page doesn't do it justice.  sounded like a nice tool for pulling out the stuff you really care about from ganglia.  and for organizing by topic or whatever
+19:40 sjoeboo      neato
+19:42 pdurbin      maybe it's better explained by this video: John Allspaw on selecting what to dashboard at Etsy on Vimeo - http://vimeo.com/25542367 (haven't watched it)
+19:45 pdurbin      ok, i'm very happy the racktables api writer is interating quickly (new version at http://article.gmane.org/gmane.comp.misc.racktables.user/1771 ) but it's time for him to put it on github :)
+19:45 pdurbin      iterating
+19:57 pdurbin      talking about if you could talk to siri... and she'll add stuff to puppet for you
+19:57 pdurbin      agoddard: or chef
+20:14 pdurbin      "Anyway, my point is, everyone else is an idiot." -- Michael Orlitzky { resizing a kvm or qemu disk image } - http://michael.orlitzky.com/articles/resizing_a_kvm_or_qemu_disk_image.php
+20:40 pdurbin      "has_problems": "no", #racktablesAPI
+</pre></body></html>

@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:29 pdurbin      raprasad: welcome!
+13:29 raprasad     thanks!
+13:32 pdurbin      raprasad: some django chatter in here... http://irclog.perlgeek.de/search.pl?channel=crimsonfu&amp;nick=&amp;q=django
+13:34 raprasad_    I see the tasty pie references:)
+13:34 pdurbin      i haven't had much time to play with it... but it seems awesome
+13:36 pdurbin      cool, this still works: http://server1.greptilian.com:8000/api/poll/?format=json
+13:37 raprasad     somehow this django app has been running since 2006 (3 sql tables), in much need of features/etc
+13:37 raprasad     http://www.newhavencrimelog.org/
+13:42 raprasad     from non-sys-admin:  Are these instructions valid for installing an SSL cert on a unix.fas VM?
+13:42 raprasad     http://www.tc.umn.edu/~brams006/selfsign_ubuntu.html/
+13:42 raprasad     the VM is Ubuntu 10.04.4 LTS
+13:47 pdurbin      raprasad: that doc looks reasonable
+13:47 raprasad     thanks
+14:42 pdurbin      making noise on the dell linux poweredge list... Monitoring hardware RAID: LSI SAS 2008 controller, OMSA - http://lists.us.dell.com/pipermail/linux-poweredge/2012-July/046801.html
+14:54 pdurbin      "I just updated to Mountain Lion on my Mac and now I'm having trouble..." [DELETE]
+14:54 pdurbin      just kidding!
+15:26 agoddard     pdurbin: what shared filesystem were you using for OS recently? (at least.. I think you were using one? :/)
+15:53 pdurbin      agoddard: are you talking about gluster?
+15:55 agoddard     pdurbin: I said OS but I meant KVM :) for VM storage
+15:56 pdurbin      our kvm disk images are on an EMC, shared up over NFS
+15:56 pdurbin      4 storage pools like this
+15:56 pdurbin      we're thinking of adding a 5th storage pool backed by gluster, for testing
+15:57 agoddard     awsiq
+15:58 pdurbin      JoeJulian is using gluster with kvm: http://irclog.perlgeek.de/crimsonfu/2012-06-30#i_5771081
+15:59 agoddard     I'm thinking about testing GFS2 or something on an iSCSI LUN for KVM
+16:00 pdurbin      we're basically dismantling the GFS2 setup we had
+16:05 agoddard     no good?
+16:05 pdurbin      if we're going to use iSCSI, i think we want oVirt to manage all the iSCSI stuff
+16:06 pdurbin      agoddard: GFS2 was before my time
+16:06 pdurbin      don't let me dissuade you :)
+16:10 agoddard     will let you know how I go :)
+16:15 pdurbin      agoddard: curious if you've looked at crowbar - "Crowbar is a platform for server provisioning and deployment from bare metal. It provides server discovery, firmware upgrades, and operating system installation using PXE Boot. It deploys applications on top of functioning operating systems using chef." -- Home · dellcloudedge/crowbar Wiki - https://github.com/dellcloudedge/crowbar/wiki/
+16:16 pdurbin      was reminded or crowbar because i was wondering if dell users hang out on irc. i guess the crowbar people use freenode and skype
+17:12 JoeJulian    Indeed, I am using gluster with kvm. I have been for more than a year, managed by puppet using libvirt. Just got OpenStack working, too, yesterday.
+17:14 Pax          mountain lion upgrade… so far so good :)
+17:16 pdurbin      JoeJulian: nice! openstack has taken a back seat to monitoring for now
+17:20 pdurbin      i told the gluster guys i met at the red hat summit that i'd see them in #gluster. but i haven't been hanging out there. busy busy
+18:46 PaxIndustria ok, I have to say, mosh, pretty cool
+18:46 PaxIndustria I have it in dev, and I jumped IP's and it popped me right back online
+19:06 pdurbin      cool
+19:06 pdurbin      perl -MData::Dumper -e 'sub A{map{@_&gt;1?[A(@_)]:@_}1..shift};print Dumper A(3,4,5,"foo")'
+19:08 ironcamel    pdurbin: what are you trying to do?
+19:09 pdurbin      make a buddy's subroutine dump out something
+19:09 pdurbin      he's a perl golfer
+19:14 ironcamel    is the output correct?
+19:15 pdurbin      yep. yields 3x4x5 foo's :)
+19:21 ironcamel    not for me
+19:22 ironcamel    oh, you mean 3 4x5 foos
+19:22 ironcamel    yeah, it does
+19:23 ironcamel    pretty clever
+19:28 pdurbin      :)
+</pre></body></html>

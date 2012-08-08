@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+08:11 oliver    does anyone have a better term than "physical server" or "bare-metal" for a non-virtualised server?
+08:12 oliver    most of our servers are virtualised but we have a small number of standalone boxes but these terms are all a bit crap, I feel.
+08:12 oliver    there must be something more obvious.
+12:20 pdurbin   "bare-metal" works for me
+13:38 pdurbin   new! https://github.com/fasrc/module-usage
+13:55 pdurbin   finally got around to getting a gravatar on there too
+13:55 pdurbin   of *course# there's already a gravatar at https://github.com/crimsonfu :)
+14:01 pdurbin   this is not as bad as it sounds: "Listen to a couple old dudes complain that they don’t like PHP anymore." -- Episode 1: What We Hate About PHP - /dev/hell - http://devhell.info/post/2011-12-10/what-we-hate-about-php/
+14:02 pdurbin   i've used the twitter app (spaz) by one of the guys (@funkatron)
+15:14 oliver    anyone cooked up a good layout for the set of files used by cfg mgmt (puppet, etc) ?
+15:15 oliver    I've done this several times but never felt it was right
+15:15 oliver    sparse filesystem, I guess, but it can be done &lt;service&gt;/etc/cron.d/&lt;service&gt; or /etc/cron.d/&lt;service&gt;, etc
+15:16 oliver    I found http://room101.wikidot.com/puppetcfg:layout
+15:16 oliver    which seems a very good start, but wondered if folks had any other links
+15:24 pdurbin   oliver: you might be interested in https://code.seas.harvard.edu/puppet/puppet/trees/develop
+15:25 oliver    pdurbin: thanks I'll have a borwse of that
+15:25 pdurbin   see also http://irclog.perlgeek.de/crimsonfu/2012-05-03#i_5534083
+15:25 pdurbin   (it's not mine)
+15:26 oliver    ta
+15:30 pdurbin   scaring the hell out of myself with backticks and CGI.pm
+15:34 oliver    oh dear :)
+15:36 pdurbin   so easy to introduce arbitrary code execution
+15:41 pdurbin   curl 'http://example.com/cgi-bin/my.cgi?foo=bar%20%3bls%20/tmp'
+15:42 pdurbin   then just look up the proper codes: http://en.wikipedia.org/wiki/Percent-encoding
+15:51 oliver    and of course http://bobby-tables.com/
+15:53 oliver    perl's \Q\E regex escapes (and quotemeta()) are a good help too
+15:53 oliver    afk
+16:02 pdurbin   oliver: right. http://perldoc.perl.org/functions/quotemeta.html should work in my case...
+16:03 pdurbin   thanks
+16:05 pdurbin   bar\ \;ls\ \/tmp
+16:05 pdurbin   yes, that's *much* better
+16:10 pdurbin   CGI Programming with Perl, 2nd Edition: Chapter 8: Security - http://oreilly.com/catalog/cgi2/chapter/ch08.html
+16:13 pdurbin   i mean, this isn't perl's fault is it?  anything that runs a shell command and allows user input is suspect
+17:28 ironcamel pdurbin: wow, that code is so freaking outdated. we should petition oreilly to remove all traces of that book from existence.
+17:28 pdurbin   :)
+18:19 pdurbin   dear posterity:
+18:20 pdurbin   if `lspci | grep -i lsi` shows " 02:00.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2008 PCI-Express Fusion-MPT SAS-2 [Falcon] (rev 03) "
+18:20 pdurbin   and you want to monitor the hardware raid on it
+18:20 pdurbin   go to LSIFusionMPTSAS2 – HWraid - http://hwraid.le-vert.net/wiki/LSIFusionMPTSAS2
+18:21 pdurbin   you will find sas2ircu in /tmp/sas2ircu_linux_x86_rel/sas2ircu after you download it from http://www.supermicro.com/support/faqs/data_lib/FAQ_9633_SAS2IRCU_Phase_5.0-5.00.00.00.zip
+18:22 pdurbin   sas2ircu 0 DISPLAY
+18:22 pdurbin   run that or other commands per the wiki page above and look for State: Optimal (OPT)
+18:28 pdurbin   will have to try this out: Nagios Exchange - check_sas2ircu - http://exchange.nagios.org/directory/Plugins/Hardware/Storage-Systems/RAID-Controllers/check_sas2ircu/details
+21:01 sjoeboo   Tim you in here?
+21:16 pdurbin   new! https://github.com/fasrc/sas2ircu
+</pre></body></html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+00:20 agoddard  pdurbin: :D
+13:56 pdurbin   happy i can use `top -b -n1 -a` on centos 6. sad -a (sort my memory usage) doesn't work on centos 5
+13:57 pdurbin   oh, that reminds me. i no longer feel guilt for running centos rather than rhel, thanks to this 2 minute video by red hat's ceo: https://plus.google.com/107770072576338242009/posts/9cRCh94fN7p
+13:57 pdurbin   from Red Hat CEO Likes CentOS Linux.  Oracle Linux, Not So Much - InternetNews. - http://www.internetnews.com/blog/skerner/red-hat-ceo-like-centos-linux-oracle-linux-not-so-much.html
+14:34 pdurbin   oddjob-mkhomedir has never really been on my radar before... "This package contains the oddjob helper which can be used by the pam_oddjob_mkhomedir module to create a home directory for a user at login-time." --`rpm -qi oddjob-mkhomedir` oddjob: Threat or Menace? - http://git.fedorahosted.org/cgit/oddjob.git/plain/doc/oddjob.html?p=oddjob.git;a=blob_plain;f=doc/oddjob.html https://admin.fedoraproject.org/pkgdb/acls/name/oddjob
+15:03 * oliver  beats cfengine3 into submission
+15:04 pdurbin   oliver: and your team is accepting the tool? :) thought you were concerned about that...
+15:08 oliver    rehi
+15:08 oliver    it's a proof of concept at the moment
+15:08 oliver    but if we don't go for cf3 I'm not sure chef/puppet/anything-else will take off
+15:09 oliver    the cf3 config is a nightmare but I've managed to wrangle it into a reasonably sane form. adhering to the practice of cfg mgmt, well... :)
+15:10 oliver    I just had my first server reboot with koan/cobbler and cfengine itself post-install. I feel like a new dad.
+15:24 pdurbin   heh
+15:24 pdurbin   jimi_c: cobbler ^^
+15:28 oliver    pdurbin: next step is to take the PoC on a roadshow around the department's teams. probably have a show and tell in one of the meeting rooms one afternoon.
+15:29 oliver    and make sure all the docs are in place so that anyone can get stuck in if the interest takes them, one day.
+15:30 pdurbin   sounds like good stuff
+15:33 * pdurbin was wondering why cfengine and looked it up :) http://irclog.perlgeek.de/crimsonfu/2012-07-27#i_5851258
+15:34 oliver    heh
+15:35 oliver    yeah that was a low point in struggling to understand the cf3 config
+15:36 oliver    I won't go into the boring reasons for not selecting anything else. I don't particularly have a preference, except for something which works :)
+15:37 pdurbin   working code builds consensus
+15:37 oliver    aye
+15:39 pdurbin   just put this into production: https://github.com/fasrc/nagios-plugins-check_sas2ircu
+15:40 pdurbin   hmm, i should link back to this post of mine: Monitoring hardware RAID: LSI SAS 2008 controller, OMSA - http://lists.us.dell.com/pipermail/linux-poweredge/2012-July/046801.html
+15:40 oliver    we've just purchased Opsview Enterprise - I'm looking forward to crowbaring out some of our older monitoring systems.
+15:41 pdurbin   shuff: opsview!! ^^
+15:41 shuff     o rly?
+15:41 pdurbin   lol
+15:41 shuff     did somebody say opsview?
+15:41 shuff     and you think i don't pay attention to the channel :)
+15:42 shuff     oliver: let me know how it works out for you
+15:42 shuff     i spent quite a while wrangling with opsview in recent years
+15:43 oliver    shuff: I've been a community edition user for a few years a $old_job and ran a version here to show it off
+15:44 shuff     nice
+15:45 * pdurbin pushes to https://github.com/fasrc/sas2ircu
+15:45 shuff     we went the other direction; we bought OE initially, but eventually decided to switch back to community to save money
+15:45 oliver    shuff: yes it's not cheap, for what it is, IMO. but did you notice they pulled many features from the community ed. ?
+15:46 shuff     boooooo
+15:46 shuff     i'm probably about a year out of date with development in the opsview world
+15:47 oliver    yeah they gutted the community edition - removed distributed monitoring (slaves), HA, SNMP Traps, and their new Dashboard is only in the enterprise ed.
+15:47 shuff     !!!
+15:47 shuff     wow
+15:47 oliver    there might be other little things they took out, I can't remember OTTOMH
+15:47 shuff     that's really abusive
+15:47 shuff     three out of those four features were must-haves for us
+15:48 pdurbin   next vendors will make you pay for MIBs ;)
+15:48 oliver    shuff: *nods* many in the same situation
+15:51 oliver    I would have bought enterprise ed. anyway - I make a point to try for commercial support of open source we use, where possible
+15:51 oliver    this just made it essential rather than desirable :)
+16:03 pdurbin   wait a minute... all the work... if i upgrade to omsa 7 it might "just work" ?!? OMSA 7.0 on linux with PERC H200 - no controllers found - Systems Management Forum - Servers - Dell Community - http://en.community.dell.com/support-forums/servers/f/177/t/19459798.aspx
+16:03 pdurbin   http://linux.dell.com/repo/hardware/OMSA_7.0/
+16:12 pdurbin   oliver: but... the red hat ceo says it's ok if i use centos, per above ;)
+16:15 oliver    I meant for selfish support reasons rather than altruistic :) i.e. having a throat to choke when it goes belly-up.
+16:18 pdurbin   ah, yes. i am pro support. and pro altruism :)
+16:19 oliver    same here :) I forget this is logged and I should be more clear :)
+16:19 pdurbin   :)
+16:19 pdurbin   it's in the /topic. you've been warned! :)
+17:35 agperson  ll
+19:50 pdurbin   bah! still can't get it to work, even with OMSA 7.0: http://en.community.dell.com/support-forums/servers/f/177/p/19459798/20158674.aspx#20158674
+23:37 pdurbin_m huh. it's after 7 but http://irclog.perlgeek.de/crimsonfu/today is still http://irclog.perlgeek.de/crimsonfu/2012-08-07  .  some time change, maybe
+</pre></body></html>

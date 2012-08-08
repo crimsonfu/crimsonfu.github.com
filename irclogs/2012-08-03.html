@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+11:48 agoddard       pdurbin:  (HA-Worker-3:work-9) VM state transitted from :Stopped to Starting) &lt; CS High Availability in action
+12:43 pdurbin        agoddard: what is that? pulling the power cord on a hypervisor and watching cloudstack move VMs around automatically?
+12:45 agoddard       just killing the VM on KVM and watching cloudstack see it's gone and bring it up again. I only just added a HA service offering, so can't test it properly by killing a whole host yet, but it should behave the same
+12:46 pdurbin        ok. but that's the holy grail, right?  power cut.  another hypervisor takes over. vmware does this.  we're losing this by going to bare bone kvm
+12:47 pdurbin        for a little context for others, see agoddard's tweet which traces back to me talking about 43 VMs went down when we lost a hypervisor yesterday: https://twitter.com/anthonygoddard/status/231356077516660736
+12:48 pdurbin        shuff: the irony is not lost on my that as that hypervisor rebooting itself, we were discussing high availability of cisco's linux thing over lunch
+12:49 pdurbin        Cisco becomes a major Linux server vendor overnight | The Open Road - CNET News - http://news.cnet.com/8301-13505_3-10370165-16.html
+12:49 pdurbin        UCS: http://en.wikipedia.org/wiki/Cisco_Unified_Computing_System
+12:50 pdurbin        Cisco Unified Computing System
+12:50 agoddard       ya, libvirt/KVM do what they do well, then we need another layer on top to manage clusters,resources,provisioning,HA,storage, etc..
+12:51 pdurbin        agoddard: right, and you're happy enough with cloudstack? how much effort to get it up and running well? be honest :)
+12:51 agoddard       so I think the best approaches have always tools which work with the libvirt api, so they don't have overreach and let libvirt do its job - plus it means you have a familiar env with libvirt/kvm.
+12:52 pdurbin        absolutely. i'm for tools that use libvirt as a foundation. i'm very happy with libvirt
+12:52 agoddard       CS is really quick to install, quicker than OS for sure - it's all a big monolithic java app.. and it's very flexible with Networking
+12:52 pdurbin        it's not like i'm surprised this happened. i never planned for high availability or automatic failover in this iteration of our kvm/libvirt platform
+12:53 pdurbin        OS being openstack, of course
+12:55 pdurbin        as we've discussed a couple times, i took some notes during a cloudstack presentation: http://irclog.perlgeek.de/crimsonfu/2012-06-26#i_5759658
+12:57 pdurbin        oh good. the tar.gz expands to a bunch of RPMs: http://www.cloudstack.org/download.html  would make an install on centos easy
+12:58 agoddard       BUT... the UI is slow to navigate, error reporting sucks (errors in the API/UI are terrible and the logging can be so verbose it's hard to track them down).. and I hit a really annoying bug the other day where I had to modify the DB to get machines provisioning again
+12:58 agoddard       also, the community just isn't there yet..
+13:00 agoddard       I think KVM snapshots only work with centos, but that's not doc'd
+13:01 agoddard       so I make a CS agent, and it doesn't work.. the one click install does 70% of the work, but now I have a long bash script to get the other 30% done, all stuff that's documented in random forum posts, sometimes linking to bug reports which have no info, or link to other trackers that require logins..
+13:06 pdurbin        can you tell us how you really feel? ;)
+13:06 pdurbin        so you don't do kvm snapshots at all?
+13:08 agoddard       http://www.youtube.com/watch?v=XFf8HV_OPdw&amp;t=2m5s &lt; ;)
+13:08 agoddard       I've done a few, have only been using CS for a few weeks.. I switched to CentOS hosts for my last two clusters
+13:08 pdurbin        we have been doing snapshots with `qemu-img snapshot` on qcow2 disk images but recently, to my horror, i discovered that the disk images are getting corrupted according to `qemu-img check`.  working on a nagios check to detect this.  and will be going through each disk image that's corrupt and fixing it
+13:09 pdurbin        this is how i remove the corruption: qemu-img convert -f qcow2 -O qcow2 /vm_storage02/images/git2-disk0 /tmp/git2-oneoff
+13:10 pdurbin        qemu-img snapshots are lost, but that's ok. i'm just happy the disk is clean then, according to `qemu-img check`
+13:11 pdurbin        i don't know why the corruption is happening. or why some of our disk images are ok. maybe the problem is that we're hosting these qcow2 images on NFS
+13:11 agoddard       we're looking at our whole backup setup this iteration, I really want to focus as much as possible on backing up data only and being able to rebuild fast - then using snapshots where we must.. knowing that data only + rebuild isn't going to be ideal in some places
+13:12 agoddard       but being able to recover fast also means being able to migrate to new infra fast, between clouds fast, etc..
+13:12 pdurbin        but anyway, we disabled these qemu-img snapshots for now. may re-introduce them slowly on a few test VMs because it was such a nice feature
+13:13 pdurbin        for a while we were even splitting off the snapshots into their own disk images, which was nice because you could just drop the disk image in place over the current one to do a restore. very simple. just shut down the vm and do a cp
+13:14 agoddard       ya, and maintaining small VM images is definitely key..
+13:15 pdurbin        the thing is, a lot of our VMs are special snowflakes. not easy to rebuild because we didn't even build them
+13:15 agoddard       we have some hosts which are built 100% by chef, and nobody ever logs in to, state is never stored on, so rebuilding them with chef is the fastest recover possible. takes a 10 minutes to re-provision a dozen machines with the cloudstack plugin
+13:16 pdurbin        maybe we need to evangelize more to our users that they should plan how they would rebuild their VMs...
+13:16 agoddard       pdurbin: yeah we have that issue too.. but thankfully we're moving away from it reasonably well
+13:17 pdurbin        agoddard: i'll just point our users to you.  "look at this guy. use chef or whatever. rebuild your VMs like he does" :)
+13:17 agoddard       in some cases, we manage their apps with chef and if they want a change, they can send a pull request.. but that obviously doesn't work for all users.. and then it comes down to levels of service they can expect.. If they want 100% control of an instance, and manually install everything, maybe we can't support it, but we could do snapshots for them for example
+13:17 agoddard       pdurbin: :D
+13:18 agoddard       pdurbin: I've got some stuff migrated off a host which I want to install OS on again. When I did the CS install it was 'cause time was short, and some Euro collaborators of ours were testing it too, but I think it'd be awesome if RC &amp; us rocked the same orchestration
+13:19 pdurbin        None of us is as smart as all of us
+13:20 agoddard       pdurbin: +1000
+13:21 pdurbin        it's one of our guiding principles, of course: http://crimsonfu.github.com
+13:21 pdurbin        i'm starting to think another one should be "please tell me when i'm doing something stupid"
+13:21 pdurbin        but people are kind of naturally good at that
+13:22 pdurbin        i mean, is qcow2 over NFS insane? i don't know
+13:23 pdurbin        if we're dropping the qcow2 snapshots anyway i guess we could switch to raw
+13:23 agoddard       what caused the crash?
+13:24 pdurbin        i haven't even looked yet. 15 year anniversary. babysitter last night
+13:25 agoddard       oh man, that sucks!!
+13:25 pdurbin        yeah. not the best timing
+13:26 agoddard       though.. congrats by the way!
+13:26 pdurbin        thanks :)
+13:27 pdurbin        anyway, trying to keep a few tickets and other things in motion. then i'll look at logs, i guess
+13:27 agoddard       storage is the other problem I wanna solve for our VM stuff, then networking..
+13:27 pdurbin        we had another one of these Dell PowerEdge C6145's mysteriously reboot itself the other month. never could figure out why
+13:27 agoddard       yergh
+13:28 agoddard       we have some R710's that take down switch stacks when they kernel panic. awesome :|
+13:28 pdurbin        yeah, we have the NFS traffic spread out across 4 NFS servers at least. but still i'm worried it's not a good solution. the red hat docs say as much. "don't use this in production" to paraphrase
+13:29 agoddard       :D
+13:31 pdurbin        "This example uses NFS to share guest images with other KVM hosts. This example is not practical for large installations, this example is only for demonstrating migration techniques and small deployments. Do not use this example for migrating or running more than a few virtualized guests." -- http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html-single/Virtualization/index.html#sect-Virtualization-KVM_live_migration-Share_storage_exam
+13:32 pdurbin        JoeJulian will lead me to the land of milk, honey, and glusterfs
+13:32 agoddard       CS seems happy with it.. I still wanna find a good iSCSI solution though
+13:32 pdurbin        i think oVirt would manage iSCSI for us well...
+13:35 agoddard       with CLMV?
+13:35 agoddard       CLVM
+13:36 pdurbin        hmm, that sounds familiar, but i don't know
+13:42 * pdurbin      wonders if there's a gitweb for the ovirt-docs: http://wiki.ovirt.org/wiki/Documentation#Source_Control
+13:44 agoddard       my gut at the moment says to go with OpenStack 'cause the community seems to be collecting around it, and maturing quick... it's always a trade off though.. oVirt and ProxMox would give us some nice storage out of the box with KVM, but we'd need to write the tooling around them for chef provisioning integration etc.. and I'd imagine with the turnkey storage we'd make tradeoffs for flexibility
+13:45 agoddard       one thing I still haven't tested is provisioning iSCSI LUNs directly to guest OS's for places where fast storage is needed, though that could be tested on any KVM setup..
+13:45 pdurbin        westmaas: and we have you on our side :) #openstack
+13:46 agoddard       ..and there's that :D
+13:46 pdurbin        in the short term, open stack seems like a great way to have your own ec2. but ec2 is pretty different than traditional vmware. vsphere i guess you'd call it.  where VMs are not so ephemeral
+13:47 pdurbin        at the red hat summit it was interesting to see how red hat is talking up both ovirt/rhev and openstack. sort of a portfolio of virtualization offerings
+13:48 agoddard       agreed, I like the idea of architecting for ephemeral VMs and persistent storage
+13:48 agoddard       though it's not as easy, I think it's the right move in the long run
+13:49 westmaas       woo!
+13:49 westmaas       :)
+13:49 westmaas       sorry I've been absent from here so much, just had a big release :)
+13:49 pdurbin        agoddard: you can read out iscsi and ovirt at http://www.ovirt.org/w/images/a/a9/OVirt-3.0-Installation_Guide-en-US.pdf
+13:50 westmaas       I know I was a staple before! :p
+13:50 pdurbin        westmaas: congrats
+13:50 westmaas       thanks
+13:51 westmaas       I can now confirm that openstack can be in production on thousands of compute nodes (not sure that I can say exactly how many thousands!)
+13:51 pdurbin        agoddard: the problem is that many of our users are *not* architecting for ephemeral VMs. you are the exception.  they want their VMs to be persistent
+13:52 pdurbin        and openstack is working on persistent VMs but they're optimized for ephemeral VMs at the moment. hence, red hat is advocating ovirt/rhev for persistent VMs right now. ideally RHEV, from their per$pective :)
+13:52 agoddard       westmaas: saw the rackspace announcement, that's awesome :)
+13:53 pdurbin        link?
+13:53 agoddard       a few links in this post: http://www.openstack.org/blog/2012/08/celebrating-an-openstack-milestone/
+13:54 westmaas       including a spam link!
+13:55 westmaas       I guess this is our official post: http://www.rackspace.com/blog/the-open-rackspace-cloud-better-faster-more-affordable/
+13:56 agoddard       lulz.. didn't see that spam link ;)
+13:56 pdurbin        thanks
+13:57 pdurbin        "Today OpenStack marks another milestone in its young existence". that's the thing. it *is* young
+14:01 pdurbin        nice post
+14:01 * pdurbin      wonders how much rackerhacker is involved in ops for rackspace open cloud
+14:02 rackerhacker   deeply
+14:02 rackerhacker   :)
+14:02 pdurbin        heh
+14:02 westmaas       only if I keep yelling at him
+14:02 westmaas       rackerhacker: do more things
+14:03 * rackerhacker rattles his chains
+14:04 pdurbin        oh, semiosis will help with the gluster fu too
+14:12 ventz          Anyone know of a good "gui" client for kvm management
+14:13 ventz          i do everything via the xml files/by hand and it's getting difficult
+14:13 pdurbin        ventz: virt-manager
+14:13 ventz          specifically -- when having to add drives/change boot order, etc...since that requires a decent modification of xml
+14:13 ventz          pdurbin: the thing i am afraid w/ virt-manager is that it doesn't create the proper xml files on the backend
+14:14 pdurbin        sure it does
+14:14 ventz          i still want to keep all the extra settings (like extended drivers, and block to prevent IP + arp spoofing)
+14:14 ventz          as in, if i create the xml template, will virt manager just modify what i do w/ it from that point on (ex: add CD drive, image, boot from it -- vs creating a new template)
+14:15 pdurbin        as a child, were you burned by microsoft word fscking up your loving hand crafted html?
+14:15 ventz          heh
+14:15 ventz          also, another question -- anything web based?
+14:15 ventz          my server is running on a system w/ no X
+14:15 pdurbin        in my experience, virt-manager is pretty non-invasive. please let me know if it destroys your xml, takes out stuff and what not
+14:15 ventz          yes, i can forward, but prever something web based anyway
+14:16 pdurbin        i've got nothin'
+14:17 ventz          there's this: http://www.linux-kvm.org/page/Management_Tools
+14:17 ventz          but some are half broken
+14:17 ventz          looked at:
+14:17 ventz          http://www.convirture.com/community.php
+14:17 ventz          and
+14:17 ventz          http://www.ovirt.org
+14:17 ventz          ovirt being "rhel" centric is annoying -- yes you can build for debian/ubuntu, but it's a pain
+14:18 agoddard       http://archipelproject.org always looked kinda neat
+14:18 agoddard       ovirt is built by the RHELV guys I think
+14:18 pdurbin        ovirt is upstream for rhev
+14:18 agoddard       rhev..
+14:18 agoddard       ya
+14:18 pdurbin        fedora is upstream for rhel, etc.
+14:19 pdurbin        crimsonfubot: lucky RHEV
+14:19 crimsonfubot   pdurbin: http://www.redhat.com/products/virtualization/
+14:20 ventz          pdurbin: looks like i found it: https://www.webvirtmgr.net
+14:22 ventz          there's also: http://karesansui-project.info
+14:23 pdurbin        ventz: cool. please let us know how they work out
+14:23 ventz          will try and let you know
+14:25 pdurbin        thanks
+14:54 semiosis       did somebody say gluster?
+15:02 pdurbin        :)
+15:05 agoddard       we were gonna upgrade our gluster today, but now we can't access it for some reason 0_o
+15:05 * agoddard     calls network admin
+16:19 semiosis       java devs: http://timberglund.com/blog/2012/08/03/the-maven/
+17:47 pdurbin        sigh. [Mrusers-list] CBSCentral - https://lists.hcs.harvard.edu/pipermail/mrusers-list/2012-August/000794.html
+18:19 pdurbin        yay, it's back alive
+18:43 agoddard       https://groups.google.com/forum/#!topic/comp.protocols.time.ntp/vhVlH4ENsJQ
+19:14 pdurbin        agoddard: "WARNING: someone's faking a leap second tonight" huh?
+19:29 pdurbin        ha! a co-worker just said to me, "hey, perl, i mean, phil" :)
+19:30 pdurbin        i answer to both :)
+20:06 agoddard       semiosis: that maven poem is awesome
+20:14 pdurbin        to time to read it but i like the idea :)
+21:02 pdurbin        other people are reporting the same qemu-img corruption i mentioned above: qemu-img snapshot qcow2 problem - http://forum.proxmox.com/threads/7109-qemu-img-snapshot-qcow2-problem
+21:03 pdurbin        i just cleaned up a disk image and it didn't help the vm boot
+21:03 pdurbin        i may have to re-migrate it from vmware
+21:03 pdurbin        or forget about all this kvm business and pay for vmware :)
+21:04 pdurbin        ok, my kids aren't going to pick themselves up. have a good weekend, all
+</pre></body></html>

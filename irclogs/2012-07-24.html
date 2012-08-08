@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+03:31 * jimi_c__ was playing with cobbler + mysql today
+03:32 jimi_c     had a proof of concept working pretty quickly
+03:38 jimi_c     of course it means using mysql as a key/value store...
+12:53 pdurbin    jimi_c: oh? you don't like how cobbler stores its data in json?
+13:07 pdurbin    i love me some json
+13:15 jimi_c     i love json :) I was just saying in order to avoid having to use a database schema mysql would be kind of bastardized to just store a key/value - the value being json
+13:15 jimi_c     there's always been a demand for database support
+13:16 pdurbin    interesting
+13:16 pdurbin    facter is key/value. strings only. we're starting to shove json into the value :)
+13:16 pdurbin    agoddard: yes, i know ohai is json already :)
+13:17 jimi_c     i'm really interested in postgres9.2 when it drops, since it has a native json field type
+13:18 pdurbin    oh yeah. i heard about that...
+13:18 pdurbin    some of the nosql databases use json, right?
+13:18 jimi_c     yes, i have a beta serializer already for mongodb
+13:19 jimi_c     mdehaan had made one back in the day for couchdb also - but i'd call it alpha quality
+13:19 jimi_c     more of a POC
+13:19 jimi_c     http://cobbler.github.com/manuals/2.2.3/5/18_-_Alternative_Storage_Backends.html
+13:35 pdurbin    "Today, cobbler ships two such modules alternate backends: MongoDB and CouchDB"
+13:36 pdurbin    crazy! so i guess the default is flat files, like we're using
+13:36 pdurbin    oh. it says as much :)
+13:36 pdurbin    no mention of git on that page, and how well it works with the flat files
+13:41 jimi_c     that's a different section :)
+13:42 pdurbin    oh :)
+13:43 jimi_c     although it's not filled out...
+13:43 jimi_c     5.20
+13:43 jimi_c     so it _will_ be a different section :)
+13:43 jimi_c     a guy has been hitting me up for git help via email, he's wanting to help contribute to the docs
+13:44 jimi_c     I am more than willing to do some hand holding to get help in the docs :)
+13:44 pdurbin    "coming soon" :) -- Data Revision Control - http://cobbler.github.com/manuals/2.2.3/5/20_-_Data_Revision_Control.html
+13:45 pdurbin    it works great. we use the heck out of it
+13:45 pdurbin    though it only covers /var/lib/cobbler and not /etc/cobbler, so i put that in git on my own
+13:46 jimi_c     right, i think you were the one who first pointed that out to me
+13:54 pdurbin    you asked me to make a ticket but i'm a slacker
+13:57 jimi_c     heh
+14:02 pdurbin    though honestly, i'm not sure how you'd accomplish that with git... tracking /var/lib/cobbler and /etc/cobbler in the same repo.  maybe it's best to just have two repos, like i have.  maybe there's some git submodule trickery you could do, but i've only recently scratched the surface with git submodules
+14:03 jimi_c     yeah, it wouldn't be one repo
+14:03 jimi_c     i don't think you can do it with two directory trees
+17:54 Pax        hey gang
+18:06 pdurbin    Pax: hey
+19:27 pdurbin    Expression Quantitative Trait Loci web server
+19:27 pdurbin    everyone should have one
+21:14 pdurbin_m  http://phabricator.org - some bug tracker thing from Facebook
+</pre></body></html>

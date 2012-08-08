@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+11:53 Pax          morning sports racers
+12:45 pdurbin      Pax: mornin'
+13:16 Pax          hey phdurbin, what kind of stuff are you finding your using salt for? I've been thinking about examples to give to our team or why we would use tools like salt/mcollective and putting some real world examples up on our doc site
+13:16 Pax          I've got stuff like "inventory" "update a package" "check status of service/package"
+13:17 pdurbin      we use it to mount/umount nfs shares in a hurry.  otherwise this is handled by puppet
+13:17 Pax          but I was interested in hearing what other folks were doing with these tools :)
+13:17 pdurbin      we use salt to restart services
+13:18 pdurbin      at hmdc we used gsh (which is similar) to patch all our servers
+13:19 pdurbin      kinda nice to patch stuff in real time in case something goes south.  as opposed to having puppet do it whenever it feels like it
+13:21 sjoeboo      salt is a second class citizen to push in our shop at the moment
+13:21 sjoeboo      the master falls over all the time, but I've had no time to dig into it
+13:24 Pax          I was thinking I might suggesting we use it to "push" updates to resources, so we have a bunch of radiator servers that we create tunnels on, I was thinking that from the web site we could have mcollective call a job (maybe ralsh) to update the tunnel config in near realtime on many servers.
+13:24 pdurbin      sjoeboo: hmm, closed 17 days ago: Issue #891: Salt-master stops responding · saltstack/salt - https://github.com/saltstack/salt/issues/891
+13:24 Pax          I also see a bunch of docs on using this stuff for monitoring, and was interested in bouncing that around
+13:26 pdurbin      crimsonfubot: google ralsh
+13:26 crimsonfubot pdurbin: ralsh(8) - Linux man page: &lt;http://linux.die.net/man/8/ralsh&gt;; On Ruby: Puppet and Ralsh: &lt;http://on-ruby.blogspot.com/2008/11/puppet-and-ralsh.html&gt;; Master of Puppets #1: ralsh | Digg About: &lt;http://about.digg.com/blog/master-puppets-1-ralsh/&gt;; Tools — Documentation — Puppet Labs: &lt;http://docs.puppetlabs.com/guides/tools.html&gt;; Feature #3390: Add a --format (json/yaml/text) flag to (1 more message)
+13:27 pdurbin      ralsh, the Ruby Abstraction Layer SHell
+13:31 pdurbin      Pax: radiator is a radius server? http://en.wikipedia.org/wiki/Radiator_RADIUS_server
+13:32 Pax          ahh yes, sorry, it's a commercial radius server written in Perl
+13:32 Pax          http://www.open.com.au/radiator/
+13:33 Pax          Wow! I love that the crimsonfubot can google stuff, thats hella cool!
+13:33 pdurbin      crimsonfubot: lucky crimsonfubot
+13:33 crimsonfubot pdurbin: http://irclog.perlgeek.de/crimsonfu/2012-06-09
+13:34 pdurbin      nice. it found its first appearance :)
+13:38 pdurbin      Pax: it think you'll always going to want a tool to push out changes right now, right now. as opposed to waiting for puppet to do it
+13:38 pdurbin      i think, i mean
+13:40 pdurbin      people keep reinventing these tools to execute commands across a bunch of servers for a reason
+15:09 pdurbin      Pax: out of curiosity, do you use puppet to configure cisco switches? would you ever do something like "mac address foo gets vlan bar"?
+15:11 * pdurbin    runs `svn up` on Pax's repo
+15:15 Pax          We don't currently, and I'm not sure if we would or not, while I could see how that might be useful, there are an awful lot of tools out in that space already, and Cisco as far as I can tell creates standards based on the moods of the devels crossed by the air speed velocity of a swallow.  I had talked with a friend who was using CFEngine3 in that way, so I think there' certainly the possibility of doing it, but on the other hand does it
+15:15 Pax          get you more then something like Rancid, Opsware or NetMRI? (Well Cost for sure on the last two)
+15:15 pdurbin      ok
+15:15 pdurbin      but do you have a place where you keep that mapping?
+15:15 pdurbin      mac address foo gets vlan bar
+15:15 pdurbin      or do you just put the config in the switch
+15:16 pdurbin      and do backups of the config
+15:16 pdurbin      i'm thinking it would be nice to express the desired state
+15:16 pdurbin      in puppet or wherever. a database i guess
+15:17 Pax          so at the moment, I'm creating facts based off huis (internal tool) for that, though I think you could also use something like the API off netmri or other tools for that
+15:18 Pax          it's a pretty sticky wicket though
+15:18 pdurbin      is netmri an internal tool?
+15:19 Pax          yeah, it's a network configuration management tool similar to tools like opsware, but it has a nice XML/JSON API
+15:20 Pax          I've been using it to build Nagios Configs, since it'll tell me things like "This device is a Switch/Router/Firewall" without me having to maintain lists of OID's or some such
+17:47 pdurbin      Pax: this is the script i was telling you about: http://git.greptilian.com/?p=scripts.git;a=blob;f=tsv2yaml
+17:47 pdurbin      it does json too, but i commented it out
+17:52 pdurbin      just what i was looking for: javascript - How can I send a JSON response from a Perl CGI program? - Stack Overflow - http://stackoverflow.com/questions/435442/how-can-i-send-a-json-response-from-a-perl-cgi-program
+17:52 pdurbin      so satisfying to upvote stuff
+18:44 oliver       pdurbin: what does "mac address foo gets vlan bar" do on a Cisco switch, out of interest?
+18:44 * oliver     delurks, btw
+18:57 pdurbin      oliver: oh, i'm just thinking out loud. as i am wont to do.  i'm just talking about the idea of configuring a cisco switch with puppet
+18:57 pdurbin      a different group than mine configures the switches, so it's kind of moot
+18:58 pdurbin      but i'm just thinking about where i would record what vlan i want a certain mac address to be on
+18:58 oliver       pdurbin: oic righto
+18:59 oliver       yeah some systems like netmri (IIRC) have "audit and enforce policy" features
+19:00 oliver       i.e. pull config, check against template, re-apply template if not matching
+19:00 pdurbin      yeah, Pax was talking about netmri above
+19:02 oliver       imo it's an attitude the network community needs to embrace - automation and policy enforcement
+19:02 oliver       most are still in the world of Expect scripts - which is kinda part way there, I guess
+19:03 pdurbin      heh. sure
+19:05 pdurbin      yeah, there's this "trigger" thing i linked to: http://irclog.perlgeek.de/crimsonfu/2012-07-10#i_5803286
+19:06 oliver       oh very interesting...
+19:27 oliver       fascinating. I'm the author of Perl's equiv. of about 1/3 of what Trigger does. really interesting to see an independent invention of the same thing, and in a different language too.
+19:36 pdurbin      oliver: cool! link? :)
+19:37 oliver       https://metacpan.org/module/Net::Appliance::Session which is a wrapper around https://metacpan.org/module/Net::CLI::Interact
+19:39 oliver       the former simple adds helper methods for network devices to the latter, which is more CLI agnostic
+19:39 oliver       and the whole thing is merely a shinier Expect ;-)
+19:43 pdurbin      wow. this looks awesome
+19:43 * pdurbin    wishes he had some network gear to play with
+19:45 oliver       thanks :)
+19:46 oliver       one of the interesting things which Trigger adds is the parallelisation of making changes.
+19:47 oliver       related to this, there's a nice thing you can do with Arista switches which is getting them to listen on an XMPP group chat, and send commands in the group which they each run.
+19:47 oliver       (XMPP, as in Jabber, for the benefit of the logs)
+19:48 pdurbin      cool
+19:53 oliver       I s'pose that's Yet Another way to do the remote command dance, as was mentioned before.
+20:00 ironcamel    oliver: Net::Appliance::Session looks very cool!
+20:00 oliver       thanks :)
+20:03 oliver       got to dash...
+</pre></body></html>

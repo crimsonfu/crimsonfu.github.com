@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:37 pdurbin      almost all caught up on the /dev/hell podcast. it's pretty good. i'm part way through Episode 17: This Show Is Terrible - /dev/hell - http://devhell.info/post/2012-07-24/this-show-is-terrible/
+12:38 pdurbin      only took me two weeks: http://irclog.perlgeek.de/crimsonfu/2012-07-20#i_5830373
+14:28 pdurbin      Nagios Service Check Acceptor... NSCA is an addon that allows you to send passive check results from remote Linux/Unix hosts to the Nagios daemon running on the monitoring server. -- http://nagios.sourceforge.net/docs/3_0/addons.html#nsca . so not through NRPE...
+14:30 pdurbin      Nagios Remote Plugin Executor. i keep wanting to call it NPRE...
+14:31 shuff        NSCA == how Nagios scales for performance
+14:31 pdurbin      i don't know if we're using NSCA or not... looking
+14:31 shuff        how many Nagios servers do you have?
+14:32 pdurbin      one
+14:32 shuff        i will be quite surprised if you are using NSCA somewhere
+14:32 pdurbin      well, that's not true. we have an old one too. and one on amazon
+14:32 shuff        oho
+14:32 shuff        does the one on amazon feed its results back to your local server?
+14:32 pdurbin      nope. all are standalone
+14:33 shuff        ok
+14:33 shuff        then prolly no NSCA
+14:33 pdurbin      so i want to run a command on a server other than the nagios server
+14:33 pdurbin      and feed the results into nagios... probably as a passive check, i guess...
+14:34 pdurbin      i guess i could have nrpe execute it...
+14:34 pdurbin      might be easier
+14:34 shuff        do you want Nagios to initiate the command? then NRPE, or an active check that uses SSH or SNMP or some other remote access
+14:35 pdurbin      i'm ok with the nagios server initiating the command, but i don't want it to run every 10 minutes or whatever. once a day is enough
+14:35 shuff        that's fine; you can set the check period appropriately in the nagios config
+14:36 pdurbin      ok. i was hoping
+14:36 pdurbin      i can just do this on a per-check basis?
+14:38 shuff        set a different check period per check?  yes, you can
+14:39 pdurbin      do you have the syntax handy? or a doc?
+14:39 pdurbin      hmm, maybe it's called interval
+14:40 shuff        http://nagios.sourceforge.net/docs/nagioscore/3/en/activechecks.html
+14:40 shuff        When Are Active Checks Executed?
+14:40 shuff        Active check are executed:
+14:40 shuff        •	At regular intervals, as defined by the check_interval and retry_interval options in your host and service definitions
+14:40 shuff        •	On-demand as needed
+14:43 pdurbin      thanks. looks like the value is in minutes
+14:44 pdurbin      huh. it's "time units" apparently
+14:44 pdurbin      'check_interval: This directive is used to define the number of "time units" to wait before scheduling the next "regular" check of the service.' - Object Definitions - http://nagios.sourceforge.net/docs/nagioscore/3/en/objectdefinitions.html#service
+14:45 pdurbin      "Unless you've changed the interval_length directive from the default value of 60, this number will mean minutes."
+14:46 pdurbin      Google Compute Engine: http://blog.jcuff.net/2012/08/gce-ftw.html
+14:47 pdurbin      "This thing is going to change the world yet again!!"
+14:50 pdurbin      Google Compute Engine - http://cloud.google.com/products/compute-engine.html
+14:50 crimsonfubot http://cloud.google.com/compute/
+15:17 pdurbin      "Full Virtual Machines Kernel-hosted virtual machines running either Ubuntu or CentOs. Launch 1, 2, 4, or 8 virtual core instances with 3.75GB of memory per virtual core." -- http://cloud.google.com/files/GoogleComputeEngine.pdf
+15:22 pdurbin      "While Google Compute Engine users have root access, Google Compute Engine kernels do not allow any modification or customization code to run at the kernel level" -- https://developers.google.com/compute/docs/instances
+15:23 pdurbin      "Google Compute Engine is an Infrastructure-as-a-Service product offering flexible, self-managed virtual machines hosted on Google. Google Compute Engine includes Linux based virtual machines running on KVM, local and durable storage options, and a simple REST based API for configuration and control." -- https://developers.google.com/compute/docs/faq#whatisgooglecompute
+16:38 pdurbin      "The Debian developers work closely with us to ensure that their packages are up to date... If any of the other packagers contact us, we're happy to extend them the same courtesy." -- Best Practical: Upgrading to RT 4 - http://blog.bestpractical.com/2011/07/upgrading-to-rt-4.html
+16:40 whorka       I am currently packaging all the RT 4 dependencies for RHEL5, since epel is still on RT 3.
+16:41 pdurbin      right, i was just looking at https://admin.fedoraproject.org/pkgdb/acls/name/rt3
+16:41 pdurbin      at least they're on the latest 3.8
+16:41 pdurbin      but whorka
+16:42 pdurbin      are you open sourcing your spec files?
+16:42 pdurbin      please please please please please
+16:42 whorka       yep
+16:42 pdurbin      \o/
+16:42 whorka       they'll be at http://mirror.hmdc.harvard.edu/HMDC-RT/el5/SRPMS/
+16:42 pdurbin      cool. and we can rebuild them for el6
+16:42 whorka       and if I find the time I'll push them to repoforge too
+16:43 pdurbin      that's fine
+16:43 pdurbin      whorka: had you considered contacting the maintainers of https://admin.fedoraproject.org/pkgdb/acls/name/rt3 ?
+16:44 pdurbin      asking them if they plan to build rt4 packages?
+16:44 whorka       not especially, since they're release cycle is pretty slow.
+16:44 whorka       I suppose it couldn't hurt to ask though.
+16:44 pdurbin      slow? what do you mean?
+16:45 pdurbin      like i said, they have the latest rt 3.8
+16:45 pdurbin      http://pkgs.fedoraproject.org/gitweb/?p=rt3.git;a=blob;f=rt3.spec;hb=HEAD
+16:45 pdurbin      %changelog
+16:45 pdurbin      * Sat Jul 21 2012 Fedora Release Engineering
+16:46 whorka       yeah I meant the RT 4 release
+16:47 whorka       although the RHEL5 build of RT3 has been out of date for a while too http://dl.fedoraproject.org/pub/epel/5/x86_64/repoview/rt3.html
+16:48 whorka       some thought was given to targeting RHEL6 for the upgrade, but we haven't ported the base of our configuration management yet.
+16:48 pdurbin      sure. that makes sense
+16:49 whorka       we do have someone actively working on starting clean with puppet for our RHEL6 management
+16:49 pdurbin      anyway, i always go to the fedora pkgdb first. since that's what goes in fedora, rhel, and epel
+16:50 pdurbin      whorka: cool. we use puppet too. love it
+16:55 pdurbin      whorka: any plans to contribute to epel some day?
+16:58 pdurbin      this keeps coming up :) http://irclog.perlgeek.de/crimsonfu/2012-05-18#i_5609330
+17:53 pdurbin      spowers: racktables api coming to github: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,26
+18:33 pdurbin      http://blog dot jamesdotcuff dot net: GCE part II - fun with the API - http://blog.jcuff.net/2012/08/gce-part-ii-fun-with-api.html
+18:34 pdurbin      Module of the Week: pupplabs/node_gce - Google Compute Engine Plugin | Puppet Labs - http://puppetlabs.com/blog/module-of-the-week-puppetlabs-node_gce-google-compute-engine-plugin/
+19:14 pdurbin      shuff: i get -v and -vvvv out of the box with http://search.cpan.org/~tonvoon/Nagios-Plugin-0.36/lib/Nagios/Plugin/Getopt.pm
+19:15 pdurbin      -v 5 doesn't work, but i can live with that
+19:18 agperson     to the room: do you use a datacenter designation in your hostnames?
+19:19 pdurbin      nope. i think sejeff said he does/did
+19:19 pdurbin      i miss sejeff :(
+19:22 pdurbin      agperson: we're storing the data center location in puppet facts, pulled from racktables
+19:22 agperson     i've been populating the puppet fact from the hostname ;) — but that's obviously backwards
+19:24 pdurbin      to each his own :)
+19:25 agperson     pdurbin: well, i'm trying to decide on Yet Another Naming Convention (™)
+19:25 pdurbin      trees
+19:25 pdurbin      dwarves
+19:25 pdurbin      birds
+19:29 pdurbin      shuff: is it overkill to use Nagios::Plugin when writing an nrpe check script?  from this it looks like I can just return a code and print a message: Nagios and OP5 – writing a nrpe check script | KMG Group - http://www.kmggroup.ch/?p=126
+19:33 shuff        it is never overkill to use Nagios::Plugin when writing checks :)
+19:33 shuff        that was easy
+19:33 pdurbin      yeah, there's some handy stuff in there
+19:33 pdurbin      $np-&gt;nagios_exit( 1, "foo" );
+19:34 shuff        aka $np-&gt;nagios_die( "foo" );
+19:34 pdurbin      # nagios_die() is just like nagios_exit(), but return code defaults
+19:34 pdurbin      #   to UNKNOWN
+19:34 pdurbin      right
+19:34 shuff        no, i am not right
+19:35 shuff        that would be 3, not 1
+19:35 pdurbin      oh, right. 1 is WARNING
+19:35 pdurbin      WARNING i say
+21:19 whorka       wow RT has a lot of prerequisites http://mirror.hmdc.harvard.edu/HMDC-RT/el5/SRPMS/
+21:22 whorka       if you're going to use those srpms, pdurbin, beware that although they're tagged "noarch" some may actually be x86_64
+21:23 whorka       sorry, the rpms rather
+21:34 pdurbin      whorka: that's fine. we're all x86_64
+21:34 pdurbin      no rt4 rpm itself... YET! :)
+21:35 whorka       hopefully tomorrow it will be there
+21:36 pdurbin      \o/
+21:36 whorka       to answer your earlier question I haven't thought much about contributing to epel. I thought my contributions to rpmforge would've put me on an auto blacklist there or something. :)
+21:36 pdurbin      heh
+21:38 shuff        no no, you'll get the same bureaucratic hurdles as anybody else :) let me know when you've found another packager willing to sponsor you
+21:39 whorka       do we have any authorized epel packagers in the room?
+</pre></body></html>

@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+14:09 pdurbin    anyone here do snapshots of qcow2 disk images? with `qemu-img snapshot -c mysnapshot`?  on your KVM virtualization platform?
+14:12 tychoish   no.
+14:12 tychoish   haha, sorry :)
+14:12 tychoish   I switched IRC clients and so I've not yet mastered ignoring all the channels I used to ignore
+14:15 pdurbin    tychoish: you can check out my handy guide on how to avoid letting irc distract you :) http://wiki.greptilian.com/irssi
+14:15 tychoish   I'm switching from IRC :p
+14:15 tychoish   err
+14:15 tychoish   irssi
+14:16 pdurbin    to what?
+14:34 tychoish   erc+znc
+14:36 semiosis   znc \o/
+14:40 tychoish   ooh
+14:40 tychoish   maybe you can answer my questions
+14:40 tychoish   how does connecting multiple times with different clients affect PM mesage delivery?
+14:40 tychoish   message
+14:44 semiosis   never really tried that, but we can do a test right now... let me connect another client
+14:45 semiosis   ok i have two clients connected.  pm me
+14:47 * pdurbin  reads http://en.wikipedia.org/wiki/ERC_%28software%29 and http://en.wikipedia.org/wiki/ZNC . emacs...
+15:03 tychoish   how'd that work?
+15:06 semiosis   i got the pms on both clients
+15:10 pdurbin    one of you guys needs to write up an irc survival guide for us :)
+15:12 semiosis   i dont get fancy with irc, beyond using znc which was pretty simple.  i just have Konversation connected to ZNC and very rarely ever use a 2nd client -- only when i'm on the road (very rare)
+15:14 semiosis   interesting, though not surprising, observation: messages to channel from one client appear in channel on the other client, but messages in pm to tychoish from one client aren't echoed back to the other client
+15:14 pdurbin    i just keep irssi running in a screen session on a server
+15:15 pdurbin    and occasionally use irc999 on iphone or andchat on android
+15:15 semiosis   pdurbin: i used to do that back in the days with bitchx
+15:15 semiosis   also... screen?  not tmux?
+15:16 semiosis   i still use screen too, but seems like all the cool kids have switched to tmux
+15:16 pdurbin    even for a newbie like me, setting up the #crimsonfu channel wasn't hard. i documented it here: crimsonfu freenode IRC channel setup - http://crimsonfu.github.com/2012/02/06/crimsonfu-freenode-irc-channel-setup.html
+15:16 pdurbin    i've heard of tmux :)
+15:18 tychoish   tmux includes some extra special memory leak features
+15:18 tychoish   so you can be sure that you're getting full use out of your system
+15:18 tychoish   pdurbin
+15:19 tychoish   I used to do the irssi-screen thing, and I'm not opposed, I just... find it clunky on some connections
+15:19 pdurbin    and i could use gentoo if i really wanted to get the full use out of my system ;)
+15:19 tychoish   it's great if you're sitting still all day, but yeah...
+15:19 tychoish   there is that
+15:19 semiosis   tychoish: heard of mosh?  http://mosh.mit.edu/
+15:19 tychoish   yeah
+15:19 tychoish   I have
+15:20 tychoish   that doesn't really fix the underlying problem
+15:20 tychoish   I mean, a little
+15:20 semiosis   oh i thought it would be great for just that situation
+15:20 tychoish   it probably would
+15:20 tychoish   I've played with it a little, and it didn't feel too rebust
+15:24 tychoish   and I already have a vpn/server/etc set up so it's not super critical, I guess
+15:24 tychoish   we'll see
+15:24 tychoish   adjustment is hard
+15:47 tychoish   semiosis what do you do about twitter?
+15:48 semiosis   twitter.com &amp; the twitter android app
+15:52 * tychoish nods
+17:43 JoeJulian  I use znc a lot (people were getting annoyed with me having 3 different nicks in #gluster so I could stay logged in all the time). I use xchat on my linux boxes and AndChat on my android devices (not a recommendation though, just haven't taken the time to try anything else).
+17:51 tychoish   yeah I feel like there's never a good time to change these things
+17:52 pdurbin    exactly
+17:56 tychoish   ironically the thing this was supposed to do off the bat, it had the inverse effect
+17:58 tychoish   which is to say, it's made me more attached to my laptop and not less
+18:17 pdurbin    perl perl perl. time for a late lunch!
+18:23 tychoish   heh
+18:41 pdurbin    my ($stdout, $stderr, $success, $exit_code) = capture_exec( @cmd );
+18:41 pdurbin    from http://search.cpan.org/dist/IO-CaptureOutput/ via How do you capture stderr, stdout, and the exit code all at once, in Perl? - Stack Overflow - http://stackoverflow.com/questions/109124/how-do-you-capture-stderr-stdout-and-the-exit-code-all-at-once-in-perl
+18:42 pdurbin    maybe python and ruby do this out of the box. i don't know
+18:46 pdurbin    it's funny, i started by dinking with printf and thinking "let's see, how should i make this output look" and then i decided to just make the output YAML instead
+18:48 tychoish   thus begins the road to maddnes
+18:48 pdurbin    nah
+18:48 pdurbin    yaml and json are all good
+18:51 tychoish   at the very least, they're minimally bad
+18:54 pdurbin    tychoish: this opened by eyes to yaml and json: http://search.cpan.org/~sharyanto/App-SerializeUtils-0.02/lib/App/SerializeUtils.pm
+18:54 pdurbin    ironcamel: and http://search.cpan.org/dist/App-p
+18:59 ironcamel  pdurbin: what about it?
+19:00 pdurbin    love it love it. that is all :)
+19:01 agoddard   nice boat https://twitter.com/anthonygoddard/status/230366092684582912
+19:02 ironcamel  pdurbin: thanks :)
+19:03 pdurbin    agoddard: jealous
+19:03 ironcamel  agoddard: how do you know Eric Schmidt?
+19:05 agoddard   I wish I knew him, I'd ask him for a boat :) it's just docked at work
+19:05 ironcamel  and why does his both look like it's built out of plastic legos
+19:05 ironcamel  i thought you guys work at Harvard
+19:06 pdurbin    no no
+19:06 pdurbin    everyone is welcome
+19:06 ironcamel  agoddard: where do you work, if you don't mind saying
+19:09 agoddard   ironcamel: Woods Hole Marine Biological Lab
+19:12 ironcamel  wow, sounds like a super interesting place to work
+19:12 agoddard   ironcamel: http://www.mbl.edu &lt; I was gonna *not* send that link 'cause the new website is to ghetto ;)
+19:13 shuff      woods hole!  awesome :)
+19:13 agoddard   ya, it's works :)
+19:26 agoddard   ship metrics https://twitter.com/anthonygoddard/status/230383835362246656
+19:39 pdurbin    agoddard: nice
+19:58 ironcamel  btw, I like using http://p3rl.org/Capture::Tiny for capturing stdout and stderr in one shot
+20:01 ironcamel  that is generic. it captures stdout regardless of where it comes from.
+20:02 ironcamel  http://p3rl.org/IPC::Run for running system commands and dealing easily with stdin,stdout,stderr
+20:05 pdurbin    ironcamel: huh. also from dagolden. no exit code though
+20:05 ironcamel  $?
+20:07 ironcamel  This module was, inspired by IO::CaptureOutput, which provides similar functionality without the ability to tee output and with more complicated code and API. IO::CaptureOutput does not handle layers or most of the unusual cases described in the "Limitations" section and I no longer recommend it.
+20:15 pdurbin    ironcamel: huh. thanks!
+20:19 pdurbin    left a comment at http://stackoverflow.com/questions/109124/how-do-you-capture-stderr-stdout-and-the-exit-code-all-at-once-in-perl#comment15594788_109672
+20:22 shuff      ironcamel: App-p looks nifty :)
+20:22 pdurbin    shuff: it's amazing
+20:23 shuff      just finished packaging it (and a few missing dependencies) for Fink
+20:27 pdurbin    shuff: i see perl-Capture-Tiny in repoforge but not epel
+20:28 shuff      alas
+20:28 shuff      no repository is perfect
+20:28 shuff      YET
+20:30 pdurbin    :)
+20:30 pdurbin    "This program provides a simple REST-like interface to Nagios" -- https://github.com/xb95/nagios-api
+20:31 pdurbin    Dependencies include: diesel, greenlet and python-openssl bindings
+20:37 pdurbin    spowers: we're trying out writes to the new racktables api. seems to be working!
+20:38 spowers    oooooo
+20:41 pdurbin    we're just looking at the example from the mailing list
+20:42 pdurbin    this one: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,16
+20:42 pdurbin    just make sure you get the latest version of api.php. the one he attached to that message
+20:42 pdurbin    might need to go to gmane to grab it
+20:45 spowers    so add_object seems to do the trick? that's great
+</pre></body></html>

@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+09:30 * oliver     tries to find a file templating engine which can load data from YAML or .ini and comes with a CLI app to run
+09:30 oliver       any suggestions?
+09:31 oliver       oh, and doesn't use $ as the directive token
+10:38 oliver       I think python-jinja2 with j2 cli script could be a winner
+10:39 oliver       using python as the config dsl ain't so bad, I guess.
+12:30 jimi_c       @rackerhacker: I disagree with that regex image. I think you could apply that to a lot of programming - a tiny change and things no longer work. Regex gets maligned, because it can be abused and often is, but it has its place
+12:30 crimsonfubot jimi_c: Error: "rackerhacker:" is not a valid command.
+12:30 rackerhacker teehee
+12:31 jimi_c       I use egrep daily for log searchin when I'm not sure what i'm looking for or to condense searches into one
+12:31 rackerhacker jimi_c: i wasn't making a statement with it, just chucking
+12:31 jimi_c       heh
+12:31 rackerhacker s/chucking/chuckling/
+12:33 jimi_c       btw, I wish you guys were hiring in Boston, I'd apply in a heartbeat
+12:34 jimi_c       not really looking to relocate to Texas though
+12:36 rackerhacker jimi_c: we do have remote spots ;)
+12:36 rackerhacker you'd just need to ask the recruiter which ones are open to that
+12:39 jimi_c       infrastructure roles aren't typically remote :)
+12:40 rackerhacker there are two folks on my team who are remote
+12:41 rackerhacker and we're on the opsy side of the devops org
+12:42 jimi_c       Interesting, i'll take a look at your job postings again
+12:43 rackerhacker we're hiring in quite a few areas right now
+12:43 rackerhacker i think the only openings on my team are for junior eng, though
+12:48 oliver       rackerhacker: you work where?
+12:49 rackerhacker according to the puppy linux forums i work for the CIA
+12:49 rackerhacker but i actually work for rackspace :P
+12:49 jimi_c       lol, that was hilarious
+12:49 oliver       heh :)
+12:49 rackerhacker jimi_c: the conspiracy theorist guy who doesn't know how the internet works made me laugh initially
+12:49 rackerhacker but then i was a bit grumpy
+12:49 rackerhacker oliver: if you're not in on the story, i can link you to something laughable ;)
+12:50 oliver       please
+12:51 rackerhacker oliver: http://rackerhacker.com/2012/08/04/privacy-and-icanhazip-com/
+12:52 oliver       heheh amusing :)
+12:55 * jimi_c     off to work
+12:55 jimi_c       later all
+12:56 oliver       getting hit by a bus &gt; "bus error" is also a favourite phrase of mine to describe the danger of not documenting
+12:56 oliver       e.g. "if you were to suffer a bus error..."
+13:44 pdurbin      rackerhacker: loved the flap over puppy linux :)
+13:44 rackerhacker yeah, that was an interesting exchange there
+13:44 rackerhacker sigh
+13:46 pdurbin      oliver: are you looking for http://search.cpan.org/dist/App-p/bin/p from our own ironcamel?
+13:46 pdurbin      p - Steroids for your perl one-liners
+13:46 pdurbin      reads YAML. works great
+13:46 pdurbin      ironcamel is even fixing bugs i'm reporting :) https://github.com/ironcamel/App-p/commit/2b9fdebb6ebc22182c9d8a1630532a76c525bb12
+13:48 pdurbin      oliver: of course, i may be misunderstanding what you're looking for
+13:52 oliver       pdurbin: App::p is a neat trick... but probably not what I'm after
+13:52 pdurbin      :)
+13:52 oliver       I was after a templating language and some support from a cli app
+13:54 pdurbin      oliver: Liquid::Template.parse(template).render 'products' =&gt; Product.find(:all) http://liquidmarkup.org
+13:54 oliver       ta, I'll look
+13:54 pdurbin      we use liquid at https://github.com/crimsonfu/crimsonfu.github.com
+13:54 oliver       I found Jinty2 in Python and a support script called j2, which seems v similar
+13:54 pdurbin      which is to say, it's used by jekyll and github pages
+13:56 pdurbin      jinja2, you mean. right. salt uses it: http://docs.saltstack.org/en/latest/topics/tutorials/starting_states.html#understanding-the-render-system
+13:57 oliver       er, yes :)
+13:57 oliver       any system which uses $-variables itself will confuse the hell out of my colleagues
+13:58 pdurbin      such as?
+13:58 oliver       cheetah
+13:59 pdurbin      crimsonfubot: lucky cheetah template
+13:59 crimsonfubot pdurbin: http://www.cheetahtemplate.org/
+14:00 pdurbin      ok
+14:21 agoddard     watching the chaos in #wikimedia is kinda funny.. from the outside looks like so many people just jabbering to themselves
+14:21 agoddard     (though, I feel bad for them too, sucks to be down :( )0
+14:22 * agoddard   has no idea why he accidentally did some kinda weird frog emoticon.
+15:00 pdurbin      agoddard: "It's just you. http://en.wikipedia.org is up." -- http://www.downforeveryoneorjustme.com/http://en.wikipedia.org ;)
+15:04 pdurbin      various fixes for garbage collection - What does the error-message 'java.lang.OutOfMemoryError: GC overhead limit exceeded' mean in Java? - Stack Overflow - http://stackoverflow.com/questions/1393486/what-does-the-error-message-java-lang-outofmemoryerror-gc-overhead-limit-exceeded
+15:04 pdurbin      domain.xml.save:    &lt;jvm-options&gt;-XX:MaxPermSize=192m&lt;/jvm-options&gt;
+15:05 pdurbin      domain.xml:        &lt;jvm-options&gt;-XX:MaxPermSize=512m&lt;/jvm-options&gt;
+15:16 agoddard     pdurbin: nawww it was definitely everyone :D http://twitter.com/#!/search/%23wikipedia
+15:17 agoddard     or specifically.. Request: GET http://en.wikipedia.org/, from 10.64.0.136 via cp1014.eqiad.wmnet (squid/2.7.STABLE9) to ()
+15:17 agoddard     Error: ERR_CANNOT_FORWARD, errno [No Error] at Mon, 06 Aug 2012 14:10:30 GMT
+15:17 agoddard     :p
+15:51 pdurbin      domain.xml.save:    &lt;jvm-options&gt;-Xmx512m&lt;/jvm-options&gt;
+15:51 pdurbin      domain.xml:        &lt;jvm-options&gt;-Xmx2048m&lt;/jvm-options&gt;
+15:51 pdurbin      that too, increased the java heap size
+15:52 pdurbin      i'm pretty out of my element with java apps
+17:14 pdurbin      "The CS50 Run Client is a reusable widget that, along with the CS50 Run Server, allows for sandboxed execution of code." -- https://github.com/cs50/run50-client
+17:36 pdurbin      "Julia is a high-level, high-performance dynamic programming language for technical computing, with syntax that is familiar to users of other technical computing environments. It provides a sophisticated compiler, distributed parallel execution, numerical accuracy, and an extensive mathematical function library." http://julialang.org
+18:22 pdurbin      hmm, 250,160 context switches per second seems like an awful lot...
+18:23 pdurbin      my little home server has never crossed 100 context switches per second: http://munin.greptilian.com/greptilian.com/server1.greptilian.com/interrupts.html
+18:25 pdurbin      but like this says, probably just a symptom... linux - How many Context Switches is "normal" (as a function of CPU cores (or other))? - Server Fault - http://serverfault.com/questions/14199/how-many-context-switches-is-normal-as-a-function-of-cpu-cores-or-other
+18:26 pdurbin      "Could he be running a lot of IO bound threads?"
+18:38 agoddard     hrm.. I have an old collectd instance that instead of writing rrd files, it's writing epoch,value to a csv.. but I don't see anything about that in the conf.. anyone know if that was ever the default?
+18:39 agoddard     the "value" colums also seems to be incrementing always, which seems odd. Ergh.
+18:41 agoddard     hrmm.. maybe this *is* an RRD file.. I guess I've never looked at one in plain text.. :-/
+19:40 agoddard     ^ it was the write_csv plugin, but it's still in funkytown format.
+20:17 pdurbin      agoddard: what are you going on about? :)
+20:17 pdurbin      give us a link to the plugin at least :)
+20:42 pdurbin      oh, before i go, was listening to http://foodfightshow.org again and some guy was saying devops is a culture, not a job title. that you should try the word "hip hop" (which is also a culture) in place of "devops" to see if it works. someone, probably the same guy, made this point here: https://groups.google.com/d/msg/devops/12ceSIv_z14/AJ3CJlcGF5EJ
+20:42 pdurbin      agoddard: i see you're in that thread a few posts down :)
+20:46 agoddard     pdurbin: :D someone set a legacy box to record to CSV instead of RRD in collectd... so I'm busy trying to decipher the format of the csv.. and it looks like it's all about http://collectd.org/wiki/index.php/Data_source
+22:23 pdurbin_m    the cool kids seem to like collectd
+22:26 pdurbin_m    oh, I did watch The Maven. funny. http://irclog.perlgeek.de/crimsonfu/2012-08-03#i_5872163
+22:32 pdurbin_m    http://pretty-rfc.herokuapp.com
+</pre></body></html>

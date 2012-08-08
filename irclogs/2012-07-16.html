@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:06 pdurbin      "HUIT Gitorious provides infrastructure for hosting Harvard community and open-source projects that use Git. The central entity in Gitorious is the project, which contains one or more top-level repositories and any repositories managed by the project's contributors." -- http://git.huit.harvard.edu/about
+13:08 gridiron     Not sure how many people here use Varnish or have an interest in HTTP/2.0 but this perfectly sums up my thoughts.
+13:08 gridiron     http://lists.w3.org/Archives/Public/ietf-http-wg/2012JulSep/0172.html
+13:09 pdurbin      crimsonfubot: lucky HTTP/2.0
+13:09 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/HTTP_2.0
+13:10 pdurbin      so new and fancy!
+13:11 gridiron     And kinda not ...what was the term? bass ackward?
+13:11 gridiron     :P
+13:13 pdurbin      oh good, he talks about spdy
+13:14 pdurbin      nice quote: "Always throw the prototype away and start over, because you will throw it away eventually, and doing so early saves time and effort." -- Frederick P. Brooks
+13:17 pdurbin      well, i'm guess i'm glad there are wizards staying up late fretting over these things. i don't really have anything constructive to add
+13:20 gridiron     Me either, but it was an interesting read
+13:23 pdurbin      gridiron: also a good read - Where Wizards Stay Up Late: The Origins Of The Internet (9780684832678): Katie Hafner: Books - http://www.amazon.com/Where-Wizards-Stay-Up-Late/dp/0684832674
+13:24 gridiron     Oh...that does look good.
+13:27 gridiron     WTF? Kindle version more expensive than hardcover?!?!? Now, I know that extra money is not going to Katie or Matthew
+13:47 agoddard     pdurbin: how's the OpenStack install coming along?
+13:54 pdurbin      agoddard: woof. i haven't really touched it since i stood it up "all on one box" per http://fedoraproject.org/wiki/Getting_started_with_OpenStack_EPEL and http://fedorapeople.org/~russellb/openstack-lab-rhsummit-2012/
+13:56 pdurbin      i have a cirros image working (with an ssh password). and some tty_linux image working with ssh key injection
+13:56 pdurbin      i mean, it works. i just need to spend more time on it
+13:57 pdurbin      at the moment though, i'm working on a doc to resize qcow2 images and the lvm partitions within it
+14:01 agoddard     awnice
+14:02 agoddard     I have password injection &amp; bulk provisioning working with CloudStack, it's been pretty awesome, I'm waiting on OpsCode's new cookbooks to crank an OpenStack install
+14:03 pdurbin      cool. as i've mentioned before, there are puppet cookbooks for openstack as well, but i haven't looked at them yet
+14:03 pdurbin      i like doing it by hand to start
+14:05 pdurbin      speaking of puppet, i listened to all 3 episodes of Puppetcast over the weekend. it's good, worth a listen: http://puppetlabs.com/puppet-labs-podcast/
+14:05 pdurbin      i don't feel very plugged in to the puppet community, but it seems like it won't be hard
+14:07 agoddard     ha, os x autocorrect - datadir/matador. I'm just gonna leave it as matador from now on.
+14:11 pdurbin      :)
+14:11 gridiron     Heh... thats bull. :P
+14:57 pdurbin      interesting. `qemu-img info /tmp/git2-disk0.bigger.qcow2` hung for a while the first time i ran it. now it's fast again
+15:41 pdurbin      "Unfortunately, the GParted (also known as Gnome Partition Editor) tool described in Part 1 of this series does not support resizing LVM partitions. Therefore, the easiest way to add space to your volume group is to create a new partition in the free space and add it as a new physical volume to your existing volume group." -- http://www.ibm.com/developerworks/linux/library/l-resizing-partitions-2/
+15:42 pdurbin      gparted live CD can't resize a partition? - Unix and Linux - http://unix.stackexchange.com/questions/37900/gparted-live-cd-cant-resize-a-partition/37935#37935
+15:44 pdurbin      "the partition (which is managed by LVM, since it is a CentOS guest) is displayed with a lock icon, and I can't resize it."
+15:47 pdurbin      "GNU Parted does not support LVM and software RAID in full"  -- Parted User's Manual - 7. LVM and RAID - http://www.gnu.org/software/parted/manual/html_chapter/parted_7.html
+16:41 pdurbin      ok. doc done. convert the qcow2 disk to raw, append 5 GB more raw, create new primary partition, set type to lvm, reboot, pvcreate /dev/vda3, vgextend vg_git2 /dev/vda3, lvresize --extents +100%FREE /dev/mapper/vg_git2-lv_root
+20:21 agoddard     if you have a filesystem formatted as ext3 on a qcow2 disk, can you resize it and then magically grow the ext4 partition somehow? I'm guessing that's a no
+20:21 agoddard     pdurbin: ^
+20:24 pdurbin      agoddard: well, i'm using lvm in this case.  are you talking about non-lvm?  raw partitions?  in that case, you can just use gparted and resize the raw partition
+20:27 agoddard     awwwwyeah, gonna crank that. I should have used lvm
+20:28 pdurbin      they both require a reboot. the non-lvm feels a little cleaner to me. no need to muck with fdisk
+20:29 pdurbin      i found myself staring a cylinder numbers and thinking, "ok start this new partion one up from the last cylinder of the previous partition"
+20:33 * pdurbin    puts this in **bold** in his doc
+20:33 agoddard     :D
+</pre></body></html>

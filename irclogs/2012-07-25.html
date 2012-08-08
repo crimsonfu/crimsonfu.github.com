@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+11:38 jimi_c       pdurbin: https://github.com/jimi1283/cobbler/tree/mysql
+11:38 jimi_c       ^ from yesterday
+11:38 jimi_c       the schema: http://pastie.org/4329642
+11:41 jimi_c       oh, and you'll probably need to add a 'cobbler'@'localhost' user too, I never understood why % doesn't cover that...
+11:41 jimi_c       maybe /me needs to reread the mysql docs
+13:03 pdurbin      jimi_c: from MySQL :: MySQL 5.5 Reference Manual :: 6.3.2 Adding User Accounts - https://dev.mysql.com/doc/refman/5.5/en/adding-users.html ...
+13:03 pdurbin      Two of the accounts have a user name of monty and a password of some_pass. Both accounts are superuser accounts with full privileges to do anything. The 'monty'@'localhost' account can be used only when connecting from the local host. The 'monty'@'%' account uses the '%' wildcard for the host part, so it can be used to connect from any host.
+13:03 pdurbin      It is necessary to have both accounts for monty to be able to connect from anywhere as monty. Without the localhost account, the anonymous-user account for localhost that is created by mysql_install_db would take precedence when monty connects from the local host. As a result, monty would be treated as an anonymous user. The reason for this is that the anonymous-user account has a more specific Host column value than the 'monty'@'%' account and t
+13:04 pdurbin      whoops. cut off
+13:04 pdurbin      The reason for this is that the anonymous-user account has a more specific Host column value than the 'monty'@'%' account and thus comes earlier in the user table sort order. (user table sorting is discussed in Section 6.2.4, “Access Control, Stage 1: Connection Verification”.)
+13:08 pdurbin      mysql -e "SELECT Host,User,Password FROM mysql.user"
+13:08 pdurbin      jimi_c: you could use that to look at your user table ^^
+14:49 Pax          what are people using out there for to keep track of devices you can't build/manage? i.e netbotz or small appliances like that? I know some folks use rack tables, but I was thinking of using cobbler, since you *have* to go there to build a system, it seems like kinda a natural place to put other $stuff, and the API makes it pretty easy to do thinks like, build nagios configs(for example)
+14:50 pdurbin      we use racktables. and now that racktables is getting an api, we're getting more into it
+14:50 Pax          so something like "build a nagios server on cobbler with puppet, have puppet push out a script that runs nightly that hits the cobbler api and builds nagios configs for non-puppetized devices"
+14:50 pdurbin      racktables api: https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+14:50 Pax          do you think you'll have rack tables push configs into cobbler?
+14:51 pdurbin      hmm, i guess we could...
+14:52 pdurbin      we need a way to correlate hosts/systems/servers across the various tools we use: puppet, racktables, nagios, cobbler, etc.
+14:52 pdurbin      but what you're saying makes sense... put it all in cobbler.  the mac addresses for each device (netbotz or whatever) will be unique
+14:53 Pax          I *think* cobbler has a unique ID for each device too, even if you don't have something like MAC entered
+14:54 pdurbin      "uid": "MTMzMDcxNDI5MS45NTM3OTc2MzcuMjg5NzQ",
+14:54 pdurbin      yep. each "system" in cobbler has a uid.  you can see it in the json
+18:33 pdurbin      tsocks git push -u origin master
+18:33 pdurbin      stupid firewall
+18:34 pdurbin      anyway, new! https://github.com/fasrc/nagios-plugins-check_sas2ircu
+18:53 pdurbin      "status-json duplicates the output of status.cgi in JSON format to make it easier for other applications/services to use Nagios data" -- http://exchange.nagios.org/directory/Addons/APIs/JSON/status-2Djson/details
+19:02 pdurbin      everyone here is content with his or her monitoring system
+19:03 pdurbin      move along. move along
+19:42 spowers      pdurbin: do you know if ian bettinger has made any more progress on the racktables rest api?
+19:44 pdurbin      spowers: no idea. someone was nagging him on the list :)
+19:45 pdurbin      "I'm just wondering what you think the ETA" --Chubby Wl http://www.freelists.org/post/racktables-users/REST-API
+19:46 pdurbin      i do hope ian puts his code on https://github.com/racktables
+19:46 pdurbin      er, forks or whatever
+19:46 pdurbin      maybe he has and i haven't noticed
+19:48 spowers      i've stalked and found nothing
+19:49 spowers      he posted something on the list that I think was a good start
+19:49 spowers      i am planning to use the API to pull info from racktables into other systems
+19:50 spowers      i guess i could just query, but I think that bypasses a whole layer of decent validations
+19:51 pdurbin      i'm using the initial file he sent. seems to be working
+19:52 spowers      could stand to be fleshed out a little bit, but I am happy with it so far
+19:52 pdurbin      these methods work for me: http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,15
+19:52 pdurbin      http://racktables.foo.com/apiv0.php?method=get_depot for example
+19:52 spowers      that's good enough for most things i think
+19:52 pdurbin      yeah
+19:52 pdurbin      i'm fine with read only for now
+19:52 pdurbin      we can update via the web gui
+19:53 spowers      eventually I'd like to post data to racktables from my xenserver pool
+19:54 spowers      it has its own database tying IPs to hostnames, and other meta
+19:54 spowers      but read only is enough to push info to zenoss, observium, i figure even dns
+19:57 pdurbin      sure
+20:00 pdurbin      crimsonfubot: google observium
+20:00 crimsonfubot pdurbin: Main Page - Observium: &lt;http://www.observium.org/&gt;; Observium Demonstration: &lt;http://demo.observium.org/&gt;; Installation - Observium: &lt;http://www.observium.org/wiki/Installation&gt;; Observium - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Observium&gt;; Observium : Project Summary - Ohloh: &lt;http://www.ohloh.net/p/observium&gt;; Install Observium: &lt;http://www.blah- (1 more message)
+20:01 spowers      i think observium is really cool
+20:01 pdurbin      cool
+20:01 spowers      it's like cacti but without all the tedium of plugging in endless SNMP OIDs
+20:01 spowers      also it's way more than cacti
+20:01 pdurbin      we should add it to https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_includes/topics.yaml
+20:02 pdurbin      i have big plans for that yaml file
+20:02 pdurbin      BIG PLANS
+20:03 spowers      ha
+20:03 spowers      yeah, i have big plans for api.php, i don't know if it will ever come to anything
+20:04 spowers      https://dl.dropbox.com/u/621532/reconplan.png
+20:05 spowers      just some brainstorming for what to do with a racktables api
+20:05 pdurbin      NICE
+20:05 spowers      my plan is to package it up as a virtual appliance
+20:05 spowers      like, racktables and all that other crap
+20:06 pdurbin      spowers: if you're looking for a place to blog about this, consider https://github.com/crimsonfu/crimsonfu.github.com/tree/master/_posts
+20:06 spowers      that wouldn't be a bad idea
+20:07 spowers      do i send you a pull request or something?
+20:07 pdurbin      yep
+20:07 spowers      yay, i get to send a pull request
+20:07 pdurbin      :)
+20:08 pdurbin      please note you'll need to add yourself as an author in https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_config.yml
+22:17 jimi_c       pdurbin: ok, so i'm not doing something wrong :) I had always done both % and localhost, but wasn't sure if there was a better way
+</pre></body></html>
