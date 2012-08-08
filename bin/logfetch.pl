@@ -21,12 +21,18 @@ Readonly my $EXPECTED_IN_CWD => '_config.yml';
 #my $file = '/tmp/index.html';
 #my $index_tree = HTML::TreeBuilder->new->parse_file($file);
 
+croak "Please cd to root of repo. Couldn't find $EXPECTED_IN_CWD: $OS_ERROR"
+  unless -f $EXPECTED_IN_CWD;
+
+# NB: not Y3K compliant
+my @local_logs = glob("$LOG_DIR/2*");
+s{^$LOG_DIR/}{}g foreach @local_logs;
+s{\.html$}{}g    foreach @local_logs;
+my $newish_local_log = $local_logs[-3];
+
 my $index_content = get $INDEX_URL
   or croak "Couldn't download index page: $OS_ERROR";
 my $index_tree = HTML::TreeBuilder->new->parse($index_content)->eof;
-
-croak "Please cd to root of repo. Couldn't find $EXPECTED_IN_CWD: $OS_ERROR"
-  unless -f $EXPECTED_IN_CWD;
 
 my @dates_with_activity = get_dates_with_activity();
 ## @dates_with_activity;
@@ -40,9 +46,13 @@ open my $fh, '>', "$LOG_DIR/index.md" or croak $OS_ERROR;
 print {$fh} $index_page;
 close $fh or croak $OS_ERROR;
 
-# FIXME: don't download old, unchanging chat logs. we already have them.
-# do a checksum on a few recent ones instead
 for my $date (@dates_with_activity) {
+
+    # skip dates for logs we already have
+    next if $date lt $newish_local_log;
+
+    #print "$date is greater than $newish_local_log\n";
+
     #print $date, "\n";
     my $chat_content = get "$BASE_URL/text.pl?channel=$CHANNEL_NAME;date=$date"
       or croak "Couldn't download chat content for $date: $OS_ERROR";
