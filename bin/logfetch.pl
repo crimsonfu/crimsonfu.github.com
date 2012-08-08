@@ -74,10 +74,7 @@ sub build_index_page {
 
 sub get_dates_with_activity {
     my @dates;
-    for my $date_with_activity (
-        $index_tree->look_down( class => 'calendars' )->look_down( _tag => 'a' )
-      )
-    {
+    for my $date_with_activity ( $index_tree->look_down( class => 'calendars' )->look_down( _tag => 'a' ) ) {
         my $href = $date_with_activity->attr('href');
         my ($date_only) = $href =~ m{^/$CHANNEL_NAME/(\d\d\d\d-\d\d-\d\d)$}sm;
         push @dates, $date_only;
