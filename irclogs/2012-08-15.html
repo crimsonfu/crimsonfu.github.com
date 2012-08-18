@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+13:27 pdurbin   i &lt;3 cobbler. have a server with extra NICs (fiber) and eth0 from kickstart became "rename4".  defined all the eth devices in cobbler, re-kickstarted, and everthing "just works". eth devices right where i want them
+13:33 jimi_c    the advantage of using MACs :) it is a pain in the ass to figure out all the data before building a system, but it in the end it gives you a system exactly how you want it without being at the mercy of whatever kernel-based naming scheme the system might use
+13:34 jimi_c    it is an item on my todo list to create a pxe preboot environment that would scan your system for you and upload all the info to cobbler to create a system entry - just pxe once, reboot and pxe again and the system would build
+13:35 pdurbin   jimi_c: right, i guess i could call the fiber ports whatever i want
+13:35 pdurbin   i went with eth0 and eth1 as the two onboard copper ports
+13:35 pdurbin   with the two fiber ports being eth2 and eth3
+13:36 jimi_c    i do think that'd work, though i've never tried it - i think it will use whatever is defined in the ifcfg file
+13:36 pdurbin   05:00.0 Ethernet controller: Intel Corporation 82599EB 10-Gigabit SFI/SFP+ Network Connection (rev 01)
+13:36 jimi_c    it does not object to using eth0 though em0 is the new standard
+13:36 pdurbin   that's one of the extra ports, a fiber port
+13:37 pdurbin   yeah, i see em0 on my fedora laptop, i think
+13:37 jimi_c    right, on my systems those show up as p1pX or p2pX
+13:37 jimi_c    pci 1, port 1... etc
+13:37 pdurbin   i don't know what "em" stands for
+13:37 jimi_c    ethernet/motherboard
+13:37 jimi_c    means it's an on-board nic
+13:37 pdurbin   ah, ok. thanks
+13:37 pdurbin   on my system the fiber ports showed up as eth0 and eth1
+13:38 jimi_c    they didn't go unix/bsd style, naming the nic after the driver, they're using hardware regions (for a better term)
+13:38 pdurbin   which is why i couldn't ssh to the box. again what *was* eth0 was renamed to "renamed4"
+13:38 pdurbin   so what should i call the fiber ports?
+13:38 jimi_c    yeah that happens when there's a name conflict
+13:38 pdurbin   seems like i can easily rename them from eth2 and eth3 if i want
+13:38 jimi_c    you can name them whatever you want, you could call them f1/f2...
+13:39 pdurbin   i'm not even sure what part this exactly...
+13:39 jimi_c    by default, on rhel6 they should come up as p1pX, which I am not a fan of
+13:39 pdurbin   yeah, they didn't in my case...
+13:39 jimi_c    assuming they're on pci-e bus 1 that is
+13:39 pdurbin   well, centos6, but same difference
+13:40 jimi_c    on a dell 710, I have p1pX/p2pX, but on a 910 it's p1pX and p3pX
+13:40 jimi_c    yep
+13:40 jimi_c    is it 6.3? I did hear they reverted to the older naming style instead of the new udev one
+13:40 pdurbin   funny that it's different depending on the dell model
+13:40 jimi_c    or centos may have just made that the default for themselves
+13:41 pdurbin   yes, centos 6.3
+13:41 jimi_c    i haven't been building systems at work anymore as an architect, so i'm out of the loop as to what is the most recent
+13:41 jimi_c    too many meetings... skills and knowledge starting to erode...
+13:41 * jimi_c  considers management
+13:42 pdurbin   heh. i heard some term for this recently... "post technical" i think :)
+13:42 jimi_c    heh
+13:45 pdurbin   part number XNPKX i guess... Card, Network, Peripheral Component Interconnect Express, Small Form Factor Pluggable, Dell Plus, Intel, Loop
+13:45 jimi_c    I love when multiple people jump on a mailing list question I really didn't want to respond to, basically because my response was going to be "works for me"
+13:46 pdurbin   i'm not sure what intel calls that card. or what dell calls it when you order it
+13:47 pdurbin   i guess from the lspci output... Intel® 82599EB 10 Gigabit Ethernet Controller - http://ark.intel.com/products/32207/Intel-82599EB-10-Gigabit-Ethernet-Controller
+13:49 * pdurbin looks at http://en.wikipedia.org/wiki/10-gigabit_Ethernet
+13:50 jimi_c    intel always goes by the model #
+13:50 jimi_c    so it's an 82599EB
+13:51 pdurbin   "SFP+ modules use an SFI interface"
+13:52 pdurbin   "enhanced small form-factor pluggable (SFP+)" http://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver#SFP.2B
+13:56 * pdurbin wonders if SFI really stands for "SerDes Framer Interface" http://en.wikipedia.org/wiki/SerDes_Framer_Interface
+13:57 pdurbin   jimi_c: glad you didn't have to reply to an email you didn't want to :)
+14:01 pdurbin   Features/ConsistentNetworkDeviceNaming - FedoraProject - https://fedoraproject.org/wiki/Features/ConsistentNetworkDeviceNaming
+14:01 pdurbin   "ensure postinstall udev uses biosdevname in udev rules to name LAN-on-Motherboard network ports from ethX to em[1234] and PCI cards to p&lt;slot&gt;p&lt;port&gt;_&lt;vf&gt;"
+14:03 pdurbin   via http://lists.us.dell.com/pipermail/linux-desktops/2011-February/003757.html via Eth0 no more? | Hacker News - http://news.ycombinator.com/item?id=2254604
+14:04 jimi_c    it's not that I didn't want to per se, just that I didn't think I'd be able to answer their question and not wanting to frustrate them
+14:11 pdurbin   jimi_c: so for my card... 05:00.0 ( http://irclog.perlgeek.de/crimsonfu/2012-08-15#i_5900272 ) it looks i could call it p5p0... if i want to be oriented toward this new standard from fedora. does that sound right? and my other device is 05:00.1 so p5p1
+14:57 * pdurbin reads about "active-backup or 1" mode at http://www.kernel.org/doc/Documentation/networking/bonding.txt
+14:58 pdurbin   usually we use mode 4... IEEE 802.3ad Dynamic link aggregation
+15:05 pdurbin   right, can cat /proc/net/bonding/bond0 to see the bonding mode. via HOW TO : Check status of bond interface in Linux | Kudithipudi.Org - http://kudithipudi.org/2010/07/30/how-to-check-status-of-bond-interface-in-linux/
+15:06 pdurbin   a nice guide from someone who used to work here: How to configure network bonding in Linux | Backdrift - http://backdrift.org/howtonetworkbonding
+18:21 JoeJulian http://joejulian.name/blog/what-i-want-to-do-with-openstack/
+18:21 JoeJulian rackerhacker: I figured out the 404 problem... I had somehow set a publishing date in the future.
+19:01 pdurbin   oh, _ilbot is back
+19:01 pdurbin   JoeJulian: nice post. i should ask my network guy to hang out in here...
+19:02 JoeJulian Yes, I'm about to ask that later tonight.
+19:02 pdurbin   the more the merrier!
+19:19 pdurbin   "You can change various options of the bonding module on the fly by simply putting them into /sys/class/net/bond0/bonding/--option--" -- From the Engine Room: Bonded NICs in Linux - http://datasilo.blogspot.com/2011/03/bonded-nics-in-linux.html
+19:32 pdurbin   interesting, when i `rmmod bonding` changes in /etc/modprobe.d/local.conf are picked up, according to /sys/class/net/bond0/bonding/mode . changing "options bonding mode=4 miimon=100" to "options bonding mode=1 miimon=100" for example
+19:33 pdurbin   Speed: 10000 Mbps. yeah baby
+20:36 pdurbin   jimi_c: that's interesting... from `facter -p` the value of macaddress matches macaddress_eth2, not macaddress_eth0. it's like puppet still wants that fiber port to be the default mac address
+21:12 jimi_c    that is odd, most likely generated the fact data before the name switch - you might want to blow it away and let it regenerate
+21:13 jimi_c    at least i think there's a yaml file out there somewhere that gets generated... google isn't helpful so maybe not?
+21:13 jimi_c    maybe it's reading something directly from /proc or /sys that hasn't changed despite the rename?
+</pre></body></html>

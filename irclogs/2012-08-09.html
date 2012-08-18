@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:36 pdurbin_m    How I do vm management using Puppet, KVM, and GlusterFS on RHEL/CentOS http://joejulian.name/blog/how-i-do-vm-management-using-puppet-kvm-and-glusterfs-on-rhelcentos/
+12:52 pdurbin      JoeJulian: nice post
+13:58 pdurbin      so glad sjoeboo is here. helping me out with his puppetdb fu
+13:59 pdurbin      Resources in the population: 3,098,972
+14:13 pdurbin      confused by " When backup is complete, merge the image into itself" -- http://wiki.qemu.org/Features/Snapshots2
+14:31 pdurbin      agoddard: you indicated you don't do a lot of kvm snapshots: http://irclog.perlgeek.de/crimsonfu/2012-08-03#i_5871287
+14:33 pdurbin      "There doesn’t seem to be a reliable way of backing up a live KVM VM at the moment, as you can’t guarantee the VM filesystem is in a consistent state." -- http://cassjohnston.wordpress.com/2012/05/02/lvm-snapshot-backup-of-kvm-vm/
+14:44 pdurbin      "Live snapshotting of virtual machines running on virtualization hosts with QEMU 1.1 or higher is now supported" -- http://wiki.ovirt.org/wiki/OVirt_3.1_release_notes
+14:45 * pdurbin    wonders what HSM stands for in oVirt
+14:46 agoddard     I used to love snapshots, but my need for them is definitely decreasing
+14:46 pdurbin      agoddard: consider yourself lucky :)
+14:46 agoddard     though, I just inherited a box where my.cnf is: /usr/local/mysql-5.5.15-linux2.6-x86_64/my.cnf
+14:47 agoddard     I would happily snapshot THAT box before messing with it..
+14:47 pdurbin      agoddard: heh. fun! ;)
+14:47 agoddard     and apache? /usr/local/websupport/etc/httpd/httpd.conf &lt; grrr.
+14:50 pdurbin      in oVirt land, HSM is apparently "Host Storage Manager" - http://ovirt.org/meetings/ovirt/2012/ovirt.2012-02-07-14.00.log.html
+14:50 pdurbin      a link under live storage migration: http://wiki.ovirt.org/wiki/Features/Design/StorageLiveMigration#VDSM_HSM
+14:54 pdurbin      right, and SPM is "Storage Pool Manager" http://irclog.perlgeek.de/crimsonfu/2012-06-28#i_5764951
+15:22 agoddard     crimsonfubot: lucky ovirt fog
+15:22 crimsonfubot agoddard: http://cloudprovisioning.wordpress.com/
+15:32 JoeJulian    http://aws.amazon.com/solutions/case-studies/nasa-jpl-curiosity/
+15:32 JoeJulian    For a government entity, I'm impressed.
+</pre></body></html>

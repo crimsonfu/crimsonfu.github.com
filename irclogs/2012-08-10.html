@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+04:19 jimi_c    well this can't be good...
+04:19 jimi_c    [368450.424333] VFS: Busy inodes after unmount of 0:40. Self-destruct in 5 seconds.  Have a nice day...
+04:19 jimi_c    [368450.435413] BUG: unable to handle kernel NULL pointer dereference at 0000000000000148
+04:31 jimi_c    my laptop has not yet self destructed mission impossible style... what a let down
+13:34 pdurbin   sjoeboo: here's the "Notes from the Mystery Machine Bus" by Steve Yegge where he says software engineering has its own political axis, ranging from conservative to liberal (fred or shaggy). it's long and i'm not done reading it, but it's quite good: https://plus.google.com/110981030061712822816/posts/KaSKeg4vQtz
+14:58 pdurbin   `git gc` ftw! repo down from 60 MB to 7.8 MB! :)
+14:58 pdurbin   was just looking at this: git gc - Do I ever need to run git gc on a bare repo? - Stack Overflow - http://stackoverflow.com/questions/3532740/do-i-ever-need-to-run-git-gc-on-a-bare-repo
+16:08 pdurbin   pretty interesting post, with numbers: "I have 2 similar servers. Since upgrading one from CentOS 5.5 to 6, disk write performance in kvm guest VMs is much worse" -- [CentOS-virt] CentOS 6 kvm disk write performance - http://lists.centos.org/pipermail/centos-virt/2012-August/002961.html
+16:55 semiosis  pdurbin: do you use ext4 or xfs for your glusterfs bricks?
+16:55 semiosis  or sjoeboo ^^
+17:46 sjoeboo   no no, xfs only
+18:23 pdurbin_m saw you guys were talking in #gluster about problems with ext4
+18:29 semiosis  bullet dodged
+18:43 jimi_c    pdurbin: I don't see his test numbers for different caching options
+18:43 jimi_c    also, is he doing deadline on the guest, host, or both?
+18:43 jimi_c    lots of questions on that, but overall i'm not surprised
+18:43 jimi_c    rhel/centos 6 probably went with a more conservative tuning option
+18:44 jimi_c    not sure if they implemented it yet, but they were talking about a vm host setting for tuned
+18:44 jimi_c    and one for guests
+18:52 jimi_c    yeah, Wagner mentioned it in his summit presentation: http://rhsummit.files.wordpress.com/2012/03/wagner_network_perf.pdf
+18:53 jimi_c    they should be available in rhel 6.3 according to his presentation
+18:55 JoeJulian https://plus.google.com/113457525690313682370/posts/BEM2wzDfvqn
+</pre></body></html>

@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+02:10 JoeJulian &lt;sigh&gt; Maybe I should just try oVirt. I get the feeling that nobody really understands OpenStack networking.
+02:49 pdurbin   it's interesting that cisco is involved in both oVirt and OpenStack
+02:50 pdurbin   oVirt 3.1 "narrows gap" with proprietary virtualisation - The H Open: News and Features - http://www.h-online.com/open/news/item/oVirt-3-1-narrows-gap-with-proprietary-virtualisation-1667025.html
+14:49 pdurbin   */60 * * * * root su apache -l -s /bin/sh -c '/usr/local/bin/modules2json &gt; /var/www/modules/api/1/avail
+14:51 semiosis  */60 ?
+14:51 pdurbin   semiosis: am i doing it wrong?
+14:51 semiosis  seems like that would mean "every 60th minute"
+14:52 semiosis  which is what would happen if you put any single number there
+14:52 pdurbin   i should just change it to @hourly. pretty sure this old box supports that
+14:52 semiosis  or just put any number there and it would run on that minute of every hour
+14:53 pdurbin   yeah, good point
+14:53 semiosis  "man 5 crontab" when in doubt
+14:53 pdurbin   i think at the time i was running it every 2 minutes or whatever. while i was working on the script
+14:54 pdurbin   anyway, just sent that to a web developer as a "run a cron job as apache" example. happy to have feedback :)
+14:54 JoeJulian I'm not even sure it would ever hit that...
+15:18 pdurbin   Aug 16 11:00 /var/www/modules/api/1/avail
+15:18 pdurbin   it works. but i'm glad i posted it. silly the way i'm doing it
+15:19 semiosis  JoeJulian: don't ask why, but that reminds me... https://twitter.com/yourmombot
+15:21 pdurbin   "Follow me, and I'll sometimes @ reply you with hilarious nonsensical mom jokes."
+15:21 pdurbin   semiosis: i guess i am usually nonsensical... :)
+15:40 pdurbin   finding myself linking to http://nfsworld.blogspot.com/2006/02/real-authentication-in-nfs.html again. the whole "root access plus NFS home directories means you can su to someone else and get at their files" thing, as i discussed at http://irclog.perlgeek.de/crimsonfu/2012-05-21#i_5619792 . if anyone has cracked this nut, please let me know
+16:08 pdurbin   i feel like #crimsonfu would benefit from an "unsolved problems" area. i guess i could just post this to http://serverfault.com
+16:40 semiosis  Writes detailed README file.  No one reads it. http://www.quickmeme.com/meme/3qidwv/
+17:23 pdurbin   :)
+18:03 JoeJulian "It CAN'T have stopped working right! NOTHING has changed on that box!" - Me, for three days now trying to figure out why it's not working right.
+18:27 pdurbin   JoeJulian: try samhain. to see if anything changed :) http://la-samhna.de/samhain/
+18:50 JoeJulian That's cool. I've checked though, and truly nothing has changed. pam ldap is failing occasionally for the last three days for cron events on one particular (fedora 6!) box, but every test says it's working fine. It's driving me nuts (and it didn't have far to go to begin with).
+18:51 pdurbin   fedora 6!
+18:51 JoeJulian Yeah, it has a special kernel for running Microfocus COBOL.
+18:51 pdurbin   cobol!
+18:51 JoeJulian :)
+18:52 pdurbin   this gets better and better
+18:52 JoeJulian Doesn't it.
+</pre></body></html>

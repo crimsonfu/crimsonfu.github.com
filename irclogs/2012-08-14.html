@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+13:52 pdurbin        "The rel=vcs-* microformat allows a page to indicate the location of a Version Control System repository related to that page. Tools can parse the microformat and use it to determine how to check out / clone from the VCS." -- http://joeyh.name/rfc/rel-vcs/
+14:07 westmaas       pdurbin: you see redhats guides yet?
+14:07 * westmaas     beats rackerhacker to the punch
+14:07 westmaas       https://dl.dropbox.com/u/1143344/Red_Hat_OpenStack_Preview-1-Getting_Started_Guide-en-US.pdf
+14:07 westmaas       https://dl.dropbox.com/u/1143344/Red_Hat_OpenStack_Preview-1-Release_Notes-en-US.pdf
+14:08 rackerhacker   whee
+14:08 * rackerhacker is installing it at the moment
+14:22 pdurbin        Revision 3-0
+14:22 pdurbin        Mon Aug 13 2012
+14:22 pdurbin        you guys are one the ball. thanks!
+14:23 pdurbin        newer than the version i talked about at http://irclog.perlgeek.de/crimsonfu/2012-07-06#i_5791229
+14:30 rackerhacker   ugh, their subscription portal is driving me nuts
+14:31 rackerhacker   you'd think i could get an entitlement for free :|
+14:32 rackerhacker   well i just discovered -&gt; https://www.redhat.com/apps/store/developers/rhel_developer_suite.html
+14:32 rackerhacker   $99
+14:42 pdurbin        "The sixth field of a line in a crontab file is a string that is executed by the shell at the specified times. A percent character in this field (unless escaped by \) is translated to a NEWLINE character." -- % http://fahdshariff.blogspot.com/2009/05/percent-sign-in-crontab.html
+14:44 JoeJulian      rackerhacker: I thought the reason you paid Red Hat for free software was for support... If it's self-support, what's the point?
+14:44 rackerhacker   well you can't ask them to configure apache for you but you can report a bug for them to fix
+14:45 rackerhacker   and you get the up to date packages
+14:45 rackerhacker   w/backported security fixes
+14:45 rackerhacker   and centralized management
+14:48 pdurbin        Bug 733143 – libvirt use of qemu-img snapshot risks data loss - https://bugzilla.redhat.com/show_bug.cgi?id=733143
+14:48 JoeJulian      I report bugs on bugzilla all the time, and they (usually) get fixed. Early access to the packages may have some value, I'll admit, though for development I'd probably rather track fedora. And you already use puppet. :P
+14:49 rackerhacker   yup
+16:33 pdurbin        rackerhacker: centralized management? i guess you mean RHN (Red Hat Network)
+16:34 rackerhacker   si
+16:34 pdurbin        yeah, i've never used RHN's capabilities much.  just register the system so i can patch it, basically
+16:35 pdurbin        and now i'm all centos. pretty much
+16:38 pdurbin        JoeJulian: i'm off to lunch but i'm curious about your thoughts on this... i have a pile of hardware. 6 servers and 10 disk arrays. could put gluster on it to host KVM disk images. OR... could install ovirt on it and start using LVM for disk images rather than files (i.e. qcow2)
+16:38 pdurbin        semiosis: you too :)
+16:41 JoeJulian      lvm disk images isn't going to let you do live migrations, so oVirt + GlusterFS would be my take. I've been trying to make openstack do what I want, and it's not going well. I may give oVirt a spin as well.
+17:23 pdurbin        JoeJulian: wait wait wait wait. now live migrations with ovirt? "The oVirt Project is an open virtualization project for anyone who cares about Linux-based KVM virtualization. Providing a feature-rich server virtualization management system with advanced capabilities for hosts and guests, including high availability, **live migration**, storage management, system scheduler, and more." -- http://www.ovirt.org
+17:24 pdurbin        "Allows for running virtual machines to be moved seamlessly from one host to another within an oVirt cluster." -- http://wiki.ovirt.org/wiki/OVirt_3.0_Feature_Guide#Live_migration
+17:30 pdurbin        "Very specialized use of LVM... we introduced clustering layer on top of it... unique to oVirt" -- http://wiki.ovirt.org/wiki/Storage_-_oVirt_workshop_November_2011
+17:32 pdurbin        so... oVirt + LVM should allow for live migrations...
+17:32 JoeJulian      hmm, interesting.
+17:32 pdurbin        i mean... gluster (like NFS) should allow for live migrations too... shared file system
+17:33 pdurbin        but there's some magic in ovirt, apparently, to manage the LVM bits for you... to give you live migration capability
+17:33 JoeJulian      Personally, I'd still do glusterfs for the fault tolerance, but if you needed native disk performance within your vm, that might be an option.
+17:33 pdurbin        sure, that make sense
+17:33 pdurbin        ovirt has a whole page on gluster support: http://wiki.ovirt.org/wiki/Features/Gluster_Support
+17:34 pdurbin        LVM for better performance. i'm pretty sure i've seen this in the qemu wiki
+17:34 JoeJulian      Yeah, being Red Hat's target product, they definitely wanted strong integration with Red Hat Storage (GlusterFS).
+17:35 JoeJulian      They seem to be betting a lot of marbles on providing turnkey systems for cloud providers.
+17:42 pdurbin        JoeJulian: yes. i agree
+17:43 pdurbin        "QEMU supports a wide variety for storage formats and back-ends. Easiest to use are the raw and qcow2 formats, but for the best performance it is best to use a raw partition" -- http://www.linux-kvm.org/page/Tuning_KVM &lt;-- that's what i was thinking of.  raw partition for better performance. versus a disk image like raw or qcow2
+17:44 pdurbin        westmaas: you'll help JoeJulian will all of this openstack issues, right? :)
+17:44 pdurbin        his
+17:45 JoeJulian      Odd, on the one hand they say no single point of failure, but http://sources.redhat.com/cluster/clvm/faq.html suggests otherwise.
+17:47 pdurbin        JoeJulian: right, so where does the redundancy come in for the LVM partition?
+17:55 pdurbin        i guess the ovirt guys are thinking about using the new raid capabilities of lvm with ovirt: http://irclog.perlgeek.de/crimsonfu/2012-06-28#i_5765058
+17:59 JoeJulian      Ah, right! I remember someone talking about that at dinner. The way I understood it, lvm doesn't use md as a layer, but rather incorporates the md routines internally.
+18:00 pdurbin        JoeJulian: right: http://irclog.perlgeek.de/crimsonfu/2012-06-28#i_5765654
+18:00 JoeJulian      If that's the case, I've tried creating a raid using md with iscsi luns and it was great... until I had to bounce one of the disk servers..
+18:00 pdurbin        "The expanded RAID support in LVM is now fully supported in Red Hat Enterprise Linux 6.3. LVM is now capable of creating RAID 4/5/6 logical volumes and supports mirroring of these logical volumes. The MD (software RAID) modules provide the backend support for these new features." -- https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.3_Release_Notes/storage.html
+18:01 pdurbin        JoeJulian: did the server not come up right? md wasn't started in time or something?
+18:02 JoeJulian      The lun was marked as failed and had to be added back in manually and resync. :(
+18:02 pdurbin        sounds pretty familiar...
+18:03 JoeJulian      Yeah, but resyncing a TB drive in a raid5 or 6 array over a network connection sucks hard.
+18:03 pdurbin        i bet
+18:06 JoeJulian      That's one of the reasons I like to just use small images for my VMs. 6 gig allows me to install pretty much anything I want, and leaves some room for swap and logs (I'm still not doing centralized logging). Then I mount a GlusterFS volume for any data that I might need for that VM, whether it's my mysql server, web sites, bzr repo, etc.
+18:08 pdurbin        yep. we do this too, more or less
+</pre></body></html>
