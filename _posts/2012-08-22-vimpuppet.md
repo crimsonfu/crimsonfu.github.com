@@ -5,7 +5,7 @@ layout: default
 ---
 Ideally, all the Puppet code you write should conform to the [style guide](http://docs.puppetlabs.com/guides/style_guide.html).  The benefits are many: it's easier for others to work with your code and for you to work with others' code, it's easier to spot mistakes, it's easier to read, and so forth.  However, writing compliant code can be laborious if you don't have a working environment set up to make it easy.
 
-There are any number of tools that can make this task easier.  Here are some tips for setting up [Vim](http://www.vim.org) for Puppet editing.  Note: you'll need a recent version of Vim.  Use something from the 7.3 series if possible, but if not, you'll need to be somewhere in the 7.x series.
+There are any number of tools that can make this task easier.  Here are some tips for setting up [Vim](http://www.vim.org) for Puppet editing.  Note: you'll need a recent version of Vim.  Use something from the 7.3 series if possible, but if not, you'll need to be using the 7.1 series or later (no joy for RHEL5 users, unfortunately).
 
 ## Basic Tips
 
