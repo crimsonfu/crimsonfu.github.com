@@ -19,13 +19,13 @@ See also http://crimsonfu.github.com/topics
 
 ## Publicly-logged IRC channel: #crimsonfu on Freenode
 
-\#crimsonfu, a publicly-logged IRC channel on [Freenode](http://freenode.net), is our primary means of communication.
+http://irclog.perlgeek.de/crimsonfu/today
 
-Our IRC logs can be found at http://irclog.perlgeek.de/crimsonfu
+Our primary means of communication is an IRC channel on [Freenode](http://freenode.net) called #crimsonfu that we log publicly because "[we live in a world of infinitely searchable micro-content, and every contribution, however small, enriches all of us](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)."
 
-We log our channel because "[we live in a world of infinitely searchable micro-content, and every contribution, however small, enriches all of us.](http://www.codinghorror.com/blog/2007/04/when-in-doubt-make-it-public.html)"  Sometimes back them up to our [irclogs](irclogs) page with [a script](bin/logfetch.pl).
+If you enjoy the [topics](topics) you see in [our logs][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu but most of us use desktop IRC clients such as [irssi](http://www.irssi.org), [Pidgin](http://www.pidgin.im), or [Adium](http://adium.im) or mobile IRC clients such as [IRC999](http://itunes.apple.com/us/app/irc999/id360698285?mt=8) or [AndChat](https://play.google.com/store/apps/details?id=net.andchat&hl=en).
 
-If you enjoy the [topics](topics) [we talk about][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu
+From time to time, we run a [a script](bin/logfetch.pl) to back up our logs to http://crimsonfu.github.com/irclogs which means they'll be included in a git clone of our website repo for easy offline searching.
 
 ## Articles
 
