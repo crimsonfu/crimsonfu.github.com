@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+15:19 pdurbin    whorka: i'm curious what you think about http://mirror.hmdc.harvard.edu/HMDC-RT/el5/SRPMS/rt-4.0.6-1.HMDC.RHEL5.src.rpm vs. http://corsepiu.fedorapeople.org/packages/rt4.spec
+15:28 larsks     Hey, do either of those repositories actually have all Perl dependencies?
+15:28 larsks     In the past I've had to build a zillion Perl RPMs to support the RT installation.
+15:29 pdurbin    larsks: do you guys run RT?
+15:30 pdurbin    whorka has very nicely packaged up a bunch of perl RPMs, RT dependencies: http://mirror.hmdc.harvard.edu/HMDC-RT/el5/SRPMS/
+15:30 larsks     Cool.
+15:31 pdurbin    also, on ubuntu and debian, RT 4 is only an `apt-get install request-tracker4` away...
+15:32 pdurbin    see also: http://irclog.perlgeek.de/crimsonfu/2012-08-01#i_5866507
+15:32 whorka     pdurbin: I think the fedora packager has been very thorough in his specfile design.
+15:32 pdurbin    whorka: i haven't even looked at yours yet... sorry!
+15:36 pdurbin    i forget if we're blocked on any perl rpm dependencies. need to check with sjoeboo
+15:36 sjoeboo    need to revisit that later, but yeah, there was something i hadn't found a good srcrpm/spec for yet
+15:36 pdurbin    ok. i think whorka
+15:37 pdurbin    is saying that between his repo, epel, and repoforge, we should have everything
+15:37 pdurbin    though we do use a couple extra modules we might need to package ourselves... the rt via email thing and the api thing
+17:27 agperson   Anyone have any preference between Red Hat's and Ubuntu's methods of configuration Apache (i.e. layout of /etc/apache2 or /etc/httpd)?
+17:28 pdurbin    agperson: i prefer red hat's but only because of greater familiarity
+17:29 shuff      the Puppet Labs apache module works *much* better with ubuntu-style
+17:29 agperson   shuff: that makes sense, the Debian/Ubuntu style does seem well-built for automated management
+17:29 pdurbin    i was annoyed by this on a red hat system though: http://serverfault.com/questions/325812/why-are-chinese-traditional-big-5-fonts-served-up-by-apache-garbled
+17:30 agperson   pdurbin: ha, asked and answered!
+17:30 pdurbin    sigh
+17:30 shuff      there is something to be said for keeping your vhost configs separate from the little config files that RPMs drop into place (e.g. ssl.conf, php.conf etc.)
+17:32 pdurbin    shuff: you blog posts to http://crimsonfu.github.com have not gone unnoticed
+17:32 pdurbin    your
+17:33 shuff      oh boy
+17:33 agperson   the panopticon has noticed!
+17:34 pdurbin    oh, i fixed up my "download the #crimsonfu logs" script. faster and smarter now. just like shuff
+17:38 pdurbin    shuff: next i'd like you to write a blog post entitled "from zero to http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xAD5402518477B706 ... setting up your PKI keys"
+17:40 * pdurbin  checks notes
+17:40 pdurbin    i guess there's http://fedoraproject.org/wiki/Creating_GPG_Keys
+18:14 * semiosis prefers the debian way
+18:18 sjoeboo    perl(Plack::Middleware::Test::StashWarnings) was the perl pkg for rt4 rpms on el6 i was stuck on
+18:26 pdurbin    sjoeboo: huh. yeah, i don't see it in repoforge. whorka?
+18:30 pdurbin    so http://search.cpan.org/dist/Plack-Middleware-Test-StashWarnings/
+18:31 JoeJulian  Warning: Your stash is approaching '70s porn...
+18:32 JoeJulian  Yeah, I know the spelling's wrong, but that's where my brain went.
+18:32 shuff      huh
+18:32 shuff      dependencies don't look too hairy
+18:32 pdurbin    go shuff go!
+18:32 shuff      that's a runtime dependency?
+18:32 pdurbin    dunno. sjoeboo?
+18:33 sjoeboo    its a build dep
+18:33 sjoeboo    based not the spec i'm using
+18:33 sjoeboo    on*
+18:33 shuff      i figured :)
+18:33 pdurbin    sjoeboo: you're still working off http://corsepiu.fedorapeople.org/packages/rt4.spec right?
+18:34 sjoeboo    yes
+18:34 sjoeboo    rt4-4.0.5-0.20120206.1.fc17.src.rpm
+18:34 sjoeboo    rather
+18:34 pdurbin    one thing about that spec file... RT 4.0.6 is out... whorka's has that version
+18:34 sjoeboo    yes, i'm hoping to rev it once i get it built
+18:34 pdurbin    i mean, we can just bump the version to stick with the epel one
+18:35 sjoeboo    but, with all the projects going on, this is pretty low on the list
+18:42 shuff      ok, just pushed a spec for that perl mod
+18:44 pdurbin    shuff: thanks! https://github.com/repoforge/rpms/commit/148a3f442aecdabb8acde23193c4c574296bac17
+18:45 shuff      https://github.com/repoforge/rpms/blob/master/specs/perl-Plack-Middleware-Test-StashWarnings/perl-Plack-Middleware-Test-StashWarnings.spec is a (slightly) more human-friendly way of finding it
+18:45 shuff      and with that, it's meeting time
+18:48 pdurbin    hmm, on centos 6.3 we have perl-Devel-StackTrace-1.22 but it wants perl-Devel-StackTrace-1.23
+18:49 pdurbin    er, rather, `yum install 'perl(Plack::Request)'` a build dep, does
+18:55 pdurbin    "This requires Devel::StackTrace 1.23" -- http://cpansearch.perl.org/src/MIYAGAWA/Plack-1.0001/Changes
+18:57 pdurbin    looks like repoforge has 1.26: https://github.com/repoforge/rpms/blob/master/specs/perl-Devel-StackTrace/perl-Devel-StackTrace.spec
+18:58 whorka     that's the one I used
+18:58 pdurbin    whorka: ok. thanks
+19:01 whorka     and I don't have perl(Plack::Middleware::Test::StashWarnings). RT 4.0.6 on RHEL5 doesn't seem to require it.
+19:07 pdurbin    whorka: interesting. el5 vs. el6 i guess
+19:08 pdurbin    sjoeboo: http://pkgs.repoforge.org/perl-Devel-StackTrace/
+19:08 sjoeboo    whorka: where is your spec file again? I'd like to try from that...
+19:08 pdurbin    sjoeboo: scroll up :)
+19:08 pdurbin    http://mirror.hmdc.harvard.edu/HMDC-RT/el5/SRPMS/rt-4.0.6-1.HMDC.RHEL5.src.rpm
+19:10 sjoeboo    that actually got to build
+19:10 sjoeboo    but failed
+19:10 sjoeboo    + make install DESTDIR=/builddir/build/BUILDROOT/rt-4.0.6-1.HMDC.RHEL.x86_64
+19:10 sjoeboo    Can't locate CPAN.pm in @INC (@INC contains: /usr/local/lib64/perl5 /usr/local/share/perl5 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5 .) at ./sbin/rt-test-dependencies line 525.
+19:10 sjoeboo    BEGIN failed--compilation aborted at ./sbin/rt-test-dependencies line 525.
+19:12 whorka     CPAN.pm comes in the stock perl rpm on RHEL5. /usr/lib/perl5/5.8.8/CPAN.pm
+19:12 sjoeboo    just added it to the spec...
+19:16 sjoeboo    so….no buldrequires in that spec file eh?
+19:23 whorka     not as such, but you could probably turn each Requires line into a duplicate BuildRequires.
+19:23 sjoeboo    mmm
+19:23 sjoeboo    why not ? you just assume they are all installed on your build host?
+19:23 sjoeboo    (i'd trying to do everything in mock these days)
+19:24 whorka     building all those perl deps made me think I might have been better off setting up a build env like mock... but I was doing the build on the install host.
+19:41 jmdh       Hullo. Saw a reference to here on #rt, read the crimsonfu web page, though I'd pop in.
+19:42 jmdh       I'm more often known as Dom, but that's taken here. Hello oliver.
+19:46 pdurbin    hi Dom
+19:50 pdurbin    jmdh: or should i use your nick? :) hi
+19:50 jmdh       hi :)
+19:50 DomH       let's see if this feels more comfortable
+19:50 pdurbin    heh. up to you
+19:51 pdurbin    DomH: is this you i'm seeing at http://packages.qa.debian.org/p/perl.html ?
+19:51 DomH       Nope, that's registered on t'NickServ
+19:51 jmdh       pdurbin: yes
+19:51 jmdh       Guilty as charged.
+19:51 pdurbin    cool. so you're the guy who made `apt-get install request-tracker4` happen on debian/ubuntu
+19:52 jmdh       Assuming that's a good thing, yes ;)
+19:53 pdurbin    it's a very good thing
+19:53 pdurbin    ubuntu is out backup plan. well, one of them :)
+19:53 pdurbin    our
+19:54 pdurbin    whorka: yeah, i agree with sjoeboo. these should be BuildRequire's... maybe shuff can give us a ruling :)
+19:59 jmdh       pdurbin: your primary plan being the RPMs I read about on chat log?
+19:59 pdurbin    jmdh: i'd really like to have RT 4 packaged up as RPMs
+19:59 jmdh       s/on/on the/
+20:00 pdurbin    i did a similar thing with ikiwiki: http://wiki.greptilian.com/ikiwiki/
+20:04 pdurbin    jmdh: is perl just better supported on debian/ubuntu? is that where the perl people hang out?
+20:10 jmdh       I'm not sure I have enough visibility of the communities to answer objectively
+20:11 pdurbin    fair enough :)
+20:11 jmdh       I get the impression that plenty of core perl devs use RH and derivatives, but then they might just want to brew their own perls
+20:11 pdurbin    i just know i felt like the first person to install ikiwiki (also perl) on centos
+20:11 jmdh       I think Debian is just bigger, sint
+20:11 jmdh       isn't it?
+20:11 jmdh       to some extent it's pure chance whether a given thing is well supported there
+20:12 jmdh       ikiwiki is written by a Debian developer, so it's not surprising that Debian is better for that
+20:14 pdurbin    i wish i could get ironcamel to care about packaging. hmm. don't see him on IM. maybe not here to defend himself
+20:14 * jmdh     last supported RH systems in 2005. That feels a bit limiting in terms of keeping up to speed with other stuff, but as a developer I have quite a lot of personal investment in the thing. IYSWIM
+20:15 pdurbin    jmdh: sorry, confused. invested in which?
+20:15 jmdh       Debian
+20:16 pdurbin    like i said, we'll run RT on debian or ubuntu, maybe. we're just a centos shop, primarily
+20:17 pdurbin    rpmbuild -ba ~pdurbin/rt/hmdc/rt.spec 2&gt;&amp;1 | grep -v ^err | awk '{print $1}' | xargs yum install -y
+20:17 pdurbin    installing 224 packages. still not done!
+20:21 pdurbin    whorka: fyi there is no perl-Encode on el6. it's part of the perl rpm itself
+20:24 pdurbin    same with URI, apparently
+20:25 pdurbin    whoops! ignore me perl-URI-1.58-1.el6.rfx.noarch
+20:27 whorka     yeah, the perl rpm provides perl(Encode) on RHEL5 too, but not a new enough version. fortunately rpmforge has it.
+20:28 pdurbin    perl(HTML::Mason) &gt;= 1.43 is needed by rt-4.0.6-1.HMDC.RHEL.noarch
+20:28 pdurbin    i have perl-HTML-Mason-1.42-2.el6.noarch
+20:29 pdurbin    repoforge has 1.45 spec... https://github.com/repoforge/rpms/blob/master/specs/perl-HTML-Mason/perl-HTML-Mason.spec
+20:29 whorka     rpm too http://pkgs.repoforge.org/perl-HTML-Mason/perl-HTML-Mason-1.45-2.el6.rf.noarch.rpm
+20:30 pdurbin    huh. wonder why yum isn't pulling down the latest..
+20:32 pdurbin    interesting... perl-HTML-Mason-1.45-2.el6.rf.noarch.rpm: does not update installed package
+20:34 pdurbin    huh, the path is different. /usr/share/perl5/HTML/Mason for what i have installed and /usr/share/perl5/vendor_perl/HTML/Mason for that newer one
+20:34 pdurbin    oh. i have the one from epel. hmm
+20:34 pdurbin    this might be a mess :)
+20:38 pdurbin    whorka: does yum install 'perl(Log::Any)' work for you?
+20:39 pdurbin    hmm, there's an epel package... https://admin.fedoraproject.org/pkgdb/acls/name/perl-Log-Any
+20:41 pdurbin    built ok from http://pkgs.fedoraproject.org/cgit/perl-Log-Any.git/plain/perl-Log-Any.spec
+20:42 pdurbin    ok, able to install perl-HTML-Mason-1.45-2.el6.rf.noarch.rpm now
+20:45 pdurbin    bah! upgrading from perl-libwww-perl-5.837-3.el6 to perl-libwww-perl-6.04-1.el6 is going to be a pain
+20:54 whorka     oh. yes. I hit a big branch there falling down the dependency tree.
+20:57 pdurbin    before i can install perl-libwww-perl-6.04-1.el6.noarch i need perl(HTTP::Status) &gt;= 6.0 and perl(HTTP::Negotiate) &gt;= 6.0 and perl(HTTP::Cookies) &gt;= 6.0 ...
+20:57 pdurbin    and i have to go :(
+21:05 whorka     HTTP::Status is in perl-HTTP-Message, and I put SRPMS for all three in the HMDC-RT repo (somehow I overlooked perl-HTTP-Negotiate but I just added it now).
+21:19 semiosis   jr devops just nuked the production database :(  fml
+21:20 semiosis   fortunately it's the production database for a system no customers are using yet
+21:20 semiosis   but still, this does not inspire any faith
+22:10 JoeJulian  ouch
+</pre></body></html>

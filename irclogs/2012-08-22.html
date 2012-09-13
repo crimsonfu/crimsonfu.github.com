@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+11:20 pdurbin   JoeJulian: already fav'd your tweet, but nice post
+11:21 pdurbin   listened to http://qconlondon.com/dl/qcon-london-2012/slides/DanNorth_DecisionsDecisions.pdf http://qconlondon.com/london-2012/presentation/Decisions,%20decisions on the ride in this morning, via http://huffduffer.com/tags/programming
+11:22 pdurbin   i love the bit about not drowning
+13:02 pdurbin   Automatically purge old configuration from Nagios deployed by Puppet - http://www.mnxsolutions.com/linux/automatically-purge-old-configuration-from-nagios-deployed-by-puppet.html
+13:03 pdurbin   "You can purge Nagios resources using the resources type, but only in the  default file locations. This is an architectural limitation."
+13:26 pdurbin   huh, in ack i can use 'foo\s' but in vim i need '/foo\(\n\|\s\)'? woof. http://stackoverflow.com/questions/680022/is-there-a-decent-vim-regexp-or-command-what-is-the-best-way-to-find-mismatched http://vimregex.com/#alternations
+13:32 shuff     do you know about the various levels of magic in vim regexes?
+13:32 pdurbin   shuff: no. please educate me
+13:32 shuff     from your vim session, in command mode, run :help magic
+13:32 shuff     i'm serious :)
+13:33 * pdurbin reads
+13:33 pdurbin   so is there a better way?
+13:33 pdurbin   'the following chars in the pattern are "very nomagic"'
+13:33 pdurbin   very nomagic?
+13:33 shuff     not very magic?
+13:33 shuff     that's not the same :)
+13:34 pdurbin   tychoish: is this easier in emacs?
+13:38 pdurbin   or any other $EDITOR? i'm not religious about vim
+13:45 shuff     here are some suggestions for using PCRE in vim: http://vim.wikia.com/wiki/Perl_compatible_regular_expressions
+13:53 shuff     pdurbin: this plugin seems to work reasonably well https://github.com/othree/eregex.vim
+13:56 pdurbin   shuff: perldo is very interesting. thanks! so some reason \s is matching underscores...
+14:07 pdurbin   my "if you think experts are expensive you should see how much amateurs cost" tweet seems to have touched a nerve: https://twitter.com/philipdurbin/status/238221068467306496 . i heard that in the podcast i mentioned above
+15:30 * pdurbin re-reads http://docs.puppetlabs.com/guides/inventory_service.html
+15:35 pdurbin   hmm, this kind of covers what i want, which foreman has... the ability to return fact values from a fact search in addition to the hostnames: Feature #7426: Inventory Service API should provide a list of all available facts and all values for a specific fact - Puppet - Puppet Labs - http://projects.puppetlabs.com/issues/7426
+15:39 pdurbin   i.e. curl -s 'http://foreman:3000/fact_values?search=fact+%3D+ipaddress++and+value++~+1.2.3&amp;format=json'
+15:40 pdurbin   shows me the hostnames and the fact i queried
+17:06 pdurbin   App::Nopaste::Service::ssh - copies files to your server using scp - metacpan.org - https://metacpan.org/module/App::Nopaste::Service::ssh
+</pre></body></html>

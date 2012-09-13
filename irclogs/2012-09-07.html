@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:39 pdurbin_m    ah, here it is. it ends with "no pressure though" http://archive.boasas.com/?c=1066
+13:22 pdurbin      semiosis: does this help explain what i mean by autovivification? http://danceb.in/PH04me344RG1w6gl9DNYg
+15:09 pdurbin      hate to change topics (where is semiosis?) but this was handy: All Codes (by Rajnish Bhatia): Active Directory userAccountControl Values - http://rajnishbhatia19.blogspot.com/2008/11/active-directory-useraccountcontrol.html see also How to use the UserAccountControl flags to manipulate user account properties - http://support.microsoft.com/kb/305144
+15:10 pdurbin      oh, and check out my new bullets as favicons: http://greptilian.com :) https://github.com/pdurbin/pdurbin.github.com/commit/f3f12212f6808e679432ee39c8519dc05f0927e1
+15:11 pdurbin      (yes, there's a crimsonfu favicon) :)
+15:55 ventz        http://vpetkov.net/cgi-bin/bs.cgi
+15:55 ventz        (took the list of words from here: http://www.dack.com/web/bullshit.html)
+16:03 pdurbin      "strategize efficient vortals" :)
+16:04 pdurbin      crimsonfubot: lucky vortal
+16:04 crimsonfubot pdurbin: http://www.webopedia.com/TERM/V/vortal.html
+16:16 ironcamel    semiosis, pdurbin, here is my autovivification contribution :) with ruby/python/perl example http://danceb.in/xC8SzAX54RGIgggl9DNYg
+17:13 pdurbin      ironcamel: very useful example. thanks. looks like ruby and python require more typing than perl
+17:15 ironcamel    pdurbin: yes, but only when the structure of your data is dynamic
+17:16 pdurbin      mmm, dynamic languages
+17:17 ironcamel    sometimes structures are predefined, like you know you will have a list of lists, but it could be dynamic as well, like modeling xml/html dom using native data structures
+17:18 pdurbin      for one off stuff like this i like the flexibility perl gives me to not worry about what the structure will be back when i'm declaring my variables
+17:18 ironcamel    yep
+17:20 ironcamel    you probably already know this, but you can for example do h = { "aaa": { "bbb" : 42 } } when you declare h. but as i said, that requires you to know the structure beforehand.
+17:24 pdurbin      ironcamel: do you mean this? my $h = { "aaa" =&gt; { "bbb" =&gt; 42 } };
+17:24 ironcamel    i was showing you a python example
+17:25 ironcamel    don't quote keys! you lose coolness points
+17:25 pdurbin      ah. ok. yes. works fine. that's perfectly reasonable
+17:25 pdurbin      but it doesn't work in ruby?
+17:25 ironcamel    sure it does
+17:26 ironcamel    h = { :aaa =&gt; { :bbb =&gt; 42 } }
+17:27 pdurbin      ok. awesome
+17:28 ironcamel    $h = { aaa =&gt; { bbb =&gt; 42 } } # for completeness :)
+17:28 pdurbin      :)
+17:28 pdurbin      i started with your quoting, which we need for python :)
+17:29 pdurbin      so maybe i'll all set with python and ruby hashes. not sure about arrays though...
+17:29 pdurbin      i'm
+18:58 pdurbin      always nice to get a "thanks" http://lists.centos.org/pipermail/centos-virt/2012-September/003004.html
+19:18 pdurbin      trying to give wordpress a chance but i think i hate it
+19:19 * semiosis   back
+19:21 pdurbin      semiosis: yay. write me some ruby, please. a hash of arrays from the __DATA__ above
+19:21 semiosis     haha
+19:21 pdurbin      what? :)
+19:22 semiosis     which data?
+19:24 pdurbin      http://danceb.in/PH04me344RG1w6gl9DNYg#L-171
+19:24 pdurbin      and here's the expected output: http://danceb.in/PH04me344RG1w6gl9DNYg#L-38
+19:24 pdurbin      you can output it in pretty printed JSON. will look close enough :)
+19:25 agoddard     http://danceb.in/WoxuBh354RGIgggl9DNYg &lt; but I have a lot of mixed feelings
+19:26 agoddard     I think I kinda went half way between copying the style of the original, and doing it the (right?) way in ruby? ;)
+19:27 pdurbin      agoddard: this is fascinating. thanks!
+19:28 agoddard     (I don't mean "right" was as in ruby vs. perl btw, I mean the way a real ruby developer would prolly do it (moar manipulating the object made from the input data, less repeating the same loops)
+19:28 pdurbin      sure. the pythonic way, but for ruby. whatever that's called
+19:28 semiosis     my ruby would look more like java.  agoddard wins
+19:28 semiosis     :)
+19:29 semiosis     but, if it's java you wanted  :)
+19:29 agoddard     :D it was a fun little break from my capistrano cron stuff, which ended up just needing me to step away from it for a few mins until the solution was obvious
+19:29 agoddard     :D my java would look like a (really long) stack trace
+19:29 semiosis     lol
+19:29 agoddard     http://t-a-w.blogspot.com/2006/07/autovivification-in-ruby.html &lt; that was interesting too, on the subject
+19:30 pdurbin      yikes. "On the other hand in lesser languages like Python"
+19:31 agoddard     ha.. freakin programmers..
+19:31 ironcamel    thats impressive how easy it is to add autovivifying to ruby
+19:31 pdurbin      ironcamel: but does it handle arrays?
+19:32 ironcamel    looks like it
+19:32 ironcamel    oh, nvm
+19:32 * agoddard   has to go over to the server room to check his RAID formatting.. geeerggh
+19:32 ironcamel    looks like it doesn't
+19:33 agoddard     I don't think it would be tough to implement something similar for arrays..
+19:33 agoddard     bbiab
+19:33 ironcamel    easy enough to test ...
+19:34 pdurbin      yeah. writing a vpn doc though. openconnect ftw. down with cisco anyconnect
+19:35 ironcamel    pdurbin: looks like it doesn't work with arrays
+19:35 pdurbin      right. figured...
+19:35 ironcamel    agoddard: but would it be easy to make it work for both hashes and arrays, i wonder
+19:36 ironcamel    pdurbin: have i pitched vim-script-runner to you before?
+19:36 pdurbin      maybe. would have to search
+19:36 ironcamel    makes it really easy to test this kind of stuff
+19:37 ironcamel    just write some code in a vim buffer, hit F5 (can be changed), and it runs the script and shows that output in the bottom
+19:38 pdurbin      hmm. me likely. the idea anyway
+19:38 pdurbin      sounds emacs-y
+19:39 pdurbin      ok, url and content subject to change... http://rc.fas.harvard.edu/kb/vpn/from-linux-clients/
+19:39 ironcamel    pdurbin: https://github.com/ironcamel/vim-script-runner
+19:44 pdurbin      oooo, it's an ironcamel special! you probably have mentioned it...
+19:45 pdurbin      mmm, pathogen
+20:08 larsks       b 1
+20:08 larsks       ...whoops...
+20:46 pdurbin      Twitter / jamesdotcuff: Research Computing recommends ... - https://twitter.com/jamesdotcuff/status/244174083934257152 #openconnect
+</pre></body></html>

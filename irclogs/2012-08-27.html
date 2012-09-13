@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+15:06 Pax       Hey folks
+15:07 Pax       question for the room….    what do people think about using puppet rather then cron to schedule jobs? Pro's, Con's?
+15:57 semiosis  Pax: in my experience, cron is *way* more reliable than puppet.   however, I do use puppet to schedule some things.  first though, i have cron try to start puppet every minute, so that when puppet dies, cron will start it up again.  without that, i would not trust puppet enough
+15:58 semiosis  puppet's schedule feature is nice because it can schedule resources.  i use it mainly to schedule "tidy" resources which clean up old files.
+16:00 semiosis  if you can schedule a puppet resource (other than exec) and save yourself having to maintain one more shell script, then i think it's worth it, but if you're just using puppet to schedule an exec then cron is probably a better choice
+16:03 Pax       Hmmmm… so I'm trying to sanity check the output of a script that updates configs, before restarting it. so "genconfig.py; service foo checkconfig; if ok, reload, if fail, send a notice" and i'm trying to decide if I should write a wrapper that does that, and run it out of cron, or have puppet do it. In the long term, I think the answer is have better error checking in the genconfig.py script, but I kinda want a safety net in addition to
+16:03 Pax       whatevers done in genconfig
+16:05 semiosis  Pax: curious, is there some event that you would ideally trigger execution on instead of polling with cron?
+16:05 semiosis  maybe a commit to version control?
+16:07 Pax       My thought was that should the config validation fail, to send a notice into the logs, and send an alert via send_nsca
+16:08 Pax       something that says "yo, the service is running, but the next restart is going to hork it"
+16:09 semiosis  sounds like you need a continuous integration server
+16:09 semiosis  or possibly a commit hook
+16:12 Pax       Hmmm commit hook might do it…. thats a good thought… a CI server seems a bit much for this one task.. but maybe not…
+16:15 semiosis  http://developers.slashdot.org/story/11/08/22/2031229/symbolic-violence-beats-lava-lamps-all-to-pieces
+16:15 semiosis  if my developers didn't have their own offices i would totally have one of those!
+16:16 semiosis  maybe i can rig jenkins up with the fire sprinkler system :O
+16:17 Pax       the Lava lamps are awesome!
+16:17 Pax       I totally want a pair!
+20:38 JoeJulian Anyone in the San Diego area want to go to LinuxCon? I can't get there.
+</pre></body></html>

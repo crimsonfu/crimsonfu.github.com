@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+01:41 ventz         crimsonfubot: ping
+01:41 crimsonfubot  pong
+01:41 ventz         crimsonfubot: what can you do?
+01:41 crimsonfubot  ventz: Error: "what" is not a valid command.
+01:41 ventz         crimsonfubot: help
+01:41 crimsonfubot  ventz: (help [&lt;plugin&gt;] [&lt;command&gt;]) -- This command gives a useful description of what &lt;command&gt; does. &lt;plugin&gt; is only necessary if the command is in more than one plugin.
+01:42 ventz         crimsonfubot: seppuku
+01:42 crimsonfubot  ventz: Error: "seppuku" is not a valid command.
+01:42 ventz         :)
+12:48 pdurbin       can i get a plus one? Re: Where's the weather? - https://mail.gnome.org/archives/gnome-list/2012-September/msg00005.html
+13:00 pdurbin       or is best practice to ignore?
+13:01 pdurbin       ventz: here's the config: http://git.greptilian.com/?p=salt.git;a=blob;f=server1/home/supybot/crimsonfubot.conf
+14:21 semiosis      crimsonfubot`: version
+14:21 crimsonfubot` semiosis: The current (running) version of this Supybot is 0.83.4.1+gribble (2011-06-27T14:41:49-0400).  The newest version available in the gribble git repository is 0.83.4.1+gribble (2011-08-12T18:12:56-0400).
+14:21 semiosis      crimsonfubot`: google crimsonfu
+14:22 crimsonfubot` semiosis: crimsonfu (crimsonfu) · GitHub: &lt;https://github.com/crimsonfu&gt;; crimsonfu - sysadmins who code: &lt;http://crimsonfu.github.com/&gt;; IRC log for #crimsonfu, 2012-08-22: &lt;http://irclog.perlgeek.de/crimsonfu/2012-08-22&gt;; IRC log for #crimsonfu, 2012-08-08: &lt;http://irclog.perlgeek.de/crimsonfu/2012-08-08&gt;; IRC log for #crimsonfu, 2012-08-16: &lt;http://irclog.perlgeek.de/crimsonfu/2012-08-16&gt;; (1 more message)
+14:22 semiosis      crimsonfubot`: learn meh as I'm not happy about it either
+14:22 crimsonfubot` semiosis: Error: "learn" is not a valid command.
+14:22 semiosis      crimsonfubot`: meh
+14:22 crimsonfubot` semiosis: Error: "meh" is not a valid command.
+14:22 semiosis      supybot \o/
+14:23 pdurbin       not sure how it became crimsonfubot` with a `
+14:25 semiosis      pdurbin: JoeJulian runs a supybot, glusterbot, in #gluster... it's pretty sweet
+14:25 semiosis      pdurbin: re: the nick, consider registering it with nickserv, then giving the bot's nick chanops with chanserv
+14:26 semiosis      then you can have the bot do your bidding :)
+14:29 pdurbin       uh. ok. might need a howto
+14:29 pdurbin       #ircnewbie
+14:30 semiosis      pdurbin: chanserv &amp; nickserv are services provided by freenode.  http://freenode.net/using_the_network.shtml
+14:30 semiosis      you can "/msg {chanserv,nickserv} help" too
+14:31 semiosis      try, for example, /msg chanserv access list #crimsonfu
+14:31 pdurbin       yes, i'm somewhat familiar: http://crimsonfu.github.com/2012/02/06/crimsonfu-freenode-irc-channel-setup.html
+14:31 semiosis      thats what i thought :)
+14:32 pdurbin       crimsonfubot probably deserves a blog post, maybe once i do the extra stuff you suggest
+14:32 semiosis      somewhere down on my todo list is to do the same for #logstash, though i haven't mentioned it to them yet
+14:33 semiosis      a bot could really help around there
+14:34 pdurbin       patches welcome for crimsonfubot :)
+14:53 pdurbin       git log -- path/to/file via Git: How to search for a deleted file on the project history? - Stack Overflow - http://stackoverflow.com/questions/7203515/git-how-to-search-for-a-deleted-file-on-the-project-history
+15:32 ventz         pdurbin: ping
+15:36 pdurbin       ventz: hi
+16:27 JoeJulian     pdurbin: You posted a link to that weather email that has a quote from Socrates. When I first glanced at it I read it as, "Being kind to everyone you meet is fighting a hard battle." :)
+16:29 pdurbin       JoeJulian: ha!
+17:11 larsks        .b 1
+17:11 larsks        whoops...
+17:47 pdurbin       larsks: should i add you to https://github.com/organizations/crimsonfu/settings/members so you can push your solution to https://github.com/crimsonfu/code/tree/master/katas/autovivification ?
+17:48 larsks        Sure?
+17:49 pdurbin       ( http://irclog.perlgeek.de/crimsonfu/2012-09-11#i_5977652 )
+17:50 pdurbin       done! you're welcome to make a page here too if you want: http://crimsonfu.github.com/members
+18:02 larsks        Thanks!
+18:03 pdurbin       sure :)
+18:13 ventz         pdurbin: pm
+18:24 pdurbin       ventz: sorry. many things in flight
+18:26 ventz         np, give it a shot. should be all set
+18:30 pdurbin       crimsonfubot: lucky crimsonfubot
+18:30 crimsonfubot  pdurbin: http://irclog.perlgeek.de/crimsonfu/2012-06-09
+18:30 pdurbin       that's better
+18:36 pdurbin       "This Environment Module audit at Harvard was the inspiration for this article, and I want to thank the Harvard team, particularly their fearless leader and Desperate Perl guru, Dr. James Cuff" -- http://hpc.admin-magazine.com/Articles/Auditing-Environment-Modules/%28offset%29/4
+19:43 pdurbin_m     An introduction to version control with Git: http://acops.seas.harvard.edu/workshops.html
+19:44 pdurbin_m     (at a git talk)
+19:48 pdurbin_m     huh. https://openid.seas.harvard.edu
+19:49 pdurbin_m     Atlassian CrowdID... I've never really thought of being an openid provider for our users...
+19:59 pdurbin_m     not that anyone has asked for it :)
+20:01 pdurbin_m     https://code.seas.harvard.edu
+20:08 pdurbin_m     sounds like gitorious just throws ssh keys in the git user's .ssh directory. like I'm doing manually (via puppet)
+20:09 pdurbin_m     http://gitorious.org
+20:09 semiosis      isn't that deprecated in favor of gitolite?
+20:10 semiosis      hmm seems like i'm thinking of something else
+20:11 semiosis      ah, was thinking of gitosis, nm
+20:11 semiosis      i just set up gitlab yesterday, beginning to play with it today... do you have any opinion on gitorious vs. gitlab?
+20:32 pdurbin_m     https://code.seas.harvard.edu/gitorious_installation/gitorious_installation_repo/blobs/master/Gitorious_Install_Centos6.sh
+20:32 pdurbin_m     much work went into that script apparently
+20:35 larsks        Gitorious does not use user home directories.
+20:35 larsks        "gitosis" is what people used before gitloite.
+20:35 larsks        Gitorious is more like github...but not quite as slick.
+20:36 larsks        It's substantially nicer than either gitosis or gitolite because it offers a complete self-service solution.  We're trying to take ourselves out of the critical path of people getting things done.
+20:37 larsks        We've rolled out openid because (a) lots of web applications use it "out of the box", and Harvard doesn't yet have a good federated authentication solution.  Our OpenID providers lets you use *either* FAS or SEAS credentials.
+20:37 larsks        It's more "aggragation" than "federation", but we really, really needed to be able to offer a service across both authentication domains.
+20:38 pdurbin_m     lars: a common "git" user's home dir, right?
+20:38 larsks        I've never used gitlab...
+20:39 larsks        It does manage a common "git" user's home directory, and then uses a wrapper script to control access-via-ssh in the same way it handles access-via-http. There's lots of repository metadata (collaborats and permissions and so forth) that are stored in a database.
+20:41 pdurbin_m     ok. thanks
+20:41 pdurbin_m     that's what I'm hearing
+20:42 pdurbin_m     at $work we use straight git, not unlike my own http://git.greptilian.com
+20:45 larsks        We've moved all our own stuff onto code.seas -- both because (a) we want to eat our own dogfood, and (b) because it turns out to be a lot easier than managing straight git when there are a bunch of people involved.
+20:45 larsks        We have a few things hosted on github because of the automatic-web-content-from-your-repository (e.g., acops.seas.harvard.edu is a git repository hosted on github), but not much else.
+20:46 larsks        https://github.com/seasac-ops/seasac-ops.github.com
+20:46 pdurbin_m     overheard: "they're gonna want buttons" :)
+20:47 larsks        From my perspective, the big Missing Feature in Gitorious is the lack of UI support for web hooks (e.g., like https://help.github.com/articles/post-receive-hooks).  There's support in the code, but you need backend access to set things up.
+20:48 pdurbin_m     Hmm. Ok
+</pre></body></html>

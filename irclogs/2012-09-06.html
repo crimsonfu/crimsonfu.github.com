@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+04:43 ventz      pdurbin: that's awesome
+04:43 ventz      i just upgraded to kvm-1.0 over the weekend and ubuntu 12.04
+04:43 ventz      been meaning to play around with some new options, but got a bit sick lately
+12:50 pdurbin    oh good, my plant is still alive
+12:50 pdurbin    ventz: hope you feel better
+14:45 pdurbin    The UK National e-Science Centre defines e-science as "the large scale science that will increasingly be carried out through distributed global collaborations enabled by the Internet." http://www.arl.org/rtl/eresearch/escien/
+17:24 pdurbin    Using GNU screen's multiuser feature for remote support - http://www.debian-administration.org/article/Using_GNU_screen%27s_multiuser_feature_for_remote_support
+17:29 pdurbin    http://aperiodic.net/screen/multiuser
+17:58 semiosis   pdurbin: i use screen -x all the time to train jr. devops, but i've never heard of having to "turn on multiuser".  if i'm in a screen, all anyone else has to do is run screen -x to join me
+17:58 semiosis   i guess it's on by default
+18:02 pdurbin    i use screen -x all the time but never with anyone else
+18:03 semiosis   one day i'll figure out how to add a chat window.  that would be real nice...
+18:04 semiosis   i've heard tmux can do fancy split-windows, but haven't tried setting that up and sharing with another user
+18:04 semiosis   would be sweet to have shell in one half &amp; talk in the other
+18:04 pdurbin    maybe we need a crimsonfu server to play on :)
+18:04 semiosis   surly you could space a GCE instance :)
+18:04 semiosis   s/space/spare/
+18:19 pdurbin    meh
+18:52 pdurbin    helpful: A Hash of Arrays and a Hash of Hashes in Ruby « LuckyUs - http://blog.luckyus.net/2008/11/13/a-hash-of-arrays-and-a-hash-of-hashes-in-ruby/
+18:58 pdurbin    i don't understand how #{myvar} is supposed to be better than $myvar
+19:07 semiosis   yep, you can do a lot with a hash of hashes (of hashes of ...)
+19:08 semiosis   like aggregating data points for arbitrary metrics: https://github.com/semiosis/logstash/blob/master/lib/logstash/outputs/cloudwatch.rb#L187
+19:09 semiosis   pdurbin: where's the #{myvar} ?
+19:11 pdurbin    semiosis: hmmmm?
+19:11 pdurbin    it some ruby i'm hacking
+19:12 pdurbin    in
+19:12 semiosis   oh
+19:12 * semiosis was searching that article for it, not finding it
+19:12 pdurbin    oh, sorry
+19:12 pdurbin    i'm a perl guy
+19:12 semiosis   hehe
+19:12 pdurbin    been learning some python and ruby
+19:12 pdurbin    #departmentalstandards
+19:39 pdurbin    bridges = Hash.new{|hash, key| hash[key] = Array.new}
+19:39 pdurbin    that's the thing that kind of blows my mind
+19:39 pdurbin    wondering if i really need to tell ruby what i'm going to put in my variable
+19:40 pdurbin    in perl i would just `my $bridges` and put whatever i want in it
+19:41 pdurbin    maybe ruby is trying to protect me from myself... making me define the data structure up front or something
+20:37 whorka     pdurbin asked me to share my finding's from our DDoS today, so here goes... 1) "ifconfig eth0 down" removes routing table entries that "iconfig eth0 up" does not re-add, and 2) mod_evasive is available in EPEL
+20:37 whorka     e.g. http://systembash.com/content/how-to-stop-an-apache-ddos-attack-with-mod_evasive/
+20:40 shuff      d'oh
+20:40 shuff      yeah, `service network restart` is your friend
+20:40 shuff      boooo RH
+20:41 pdurbin    huh. cool. thanks, whorka
+20:41 semiosis   pdurbin: well, ruby is dynamically typed, so technically you don't need to tell it what you're going to put in your variable.  however, it's a pure object oriented language, so any method has to be called on some object, which you're likely going to refer to as the value of some variable.
+20:42 semiosis   pdurbin: so, if you wanted to say x.push to add an item into an array x, then the variable x must contain an Array object
+20:42 pdurbin    right, i wanted to push
+20:43 semiosis   push is a method of the Array class, so x only has a push method when it contains an Array object
+20:43 semiosis   it's mind-bending at first but once you get the hang of OO it can be pretty empowering
+20:43 pdurbin    perl lets you "just do it" with autovivification http://en.wikipedia.org/wiki/Autovivification
+20:44 pdurbin    so in ruby i have to set up my objects first
+20:45 pdurbin    anyway, must run. sorry. oh. i just shared some networking fu: [CentOS-virt] [Advice] CentOS6 + KVM + bonding + bridging - http://lists.centos.org/pipermail/centos-virt/2012-September/003003.html
+20:50 semiosis   ttyl
+20:55 ironcamel  pdurbin: you should post side by side comparisons of updating nested datastructures in ruby and perl. i am curious how it would look like in ruby.
+20:55 semiosis   ironcamel: did you see the example i gave earlier in the link to my github?
+20:55 ironcamel  s/updating/creating
+20:56 ironcamel  semiosis: i did not
+20:56 semiosis   i dont have a side-by-side for perl though
+20:56 semiosis   aggregating data points for arbitrary metrics: https://github.com/semiosis/logstash/blob/master/lib/logstash/outputs/cloudwatch.rb#L187
+20:57 ironcamel  semiosis: that is just like perl. whats all that stuff pdurbin was doing with Array.new, etc
+20:58 semiosis   not exactly, in perl @foo means access foo as an array (roughly, iirc) but in ruby @foo means get the variable named foo from the object instance scope
+20:58 ironcamel  i know. i didn't mean exactly.
+20:58 semiosis   oh, sorry :)
+20:59 ironcamel  15:39 &lt; pdurbin&gt; bridges = Hash.new{|hash, key| hash[key] = Array.new}
+20:59 semiosis   he wanted an array of hashes, as described in the article he posted earlier: http://blog.luckyus.net/2008/11/13/a-hash-of-arrays-and-a-hash-of-hashes-in-ruby/
+21:00 semiosis   so i suppose he wanted to call push on an array that was stored at some key in a hash
+21:00 ironcamel  that link just shows "Error establishing a database connection
+21:01 semiosis   wow
+22:16 pdurbin_m  actually, I was making a hash of arrays, but whatever. more on ruby's way: http://stackoverflow.com/questions/9526210/ruby-hash-initializers
+22:19 pdurbin_m  I dunno, I still say perl's autovivication is hella useful
+22:21 pdurbin_m  stuff your data wherever you want it without having to tell the language beforehand the exact structure you end up using
+22:28 pdurbin_m  manipulexity and whipuptitude: http://perl.org.il/presentations/larry-wall-present-continuous-future-perfect/transcript.html via http://www.shlomifish.org/humour/fortunes/show.cgi?id=larry-wall-big-divide Larry Wall gave a similar talk at Harvard a few years ago
+22:29 pdurbin_m  right, here was my tweet about it: https://mobile.twitter.com/philipdurbin/status/1427771757
+22:32 pdurbin_m  that's a pity my link to a specific cartoon (from Larry's talk) at http://www.boasas.com doesn't work anymore
+22:33 pdurbin_m  the first guy said something like "so what's next" and the other guy said "everything"
+</pre></body></html>

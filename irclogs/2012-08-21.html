@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:50 pdurbin      When is "Free" Linux more expensive? When you have an enterprise to run.
+12:50 pdurbin      It sounds logical--running your IT infrastructure on non-paid community Linux distributions can save your organization money, right? Think again.
+12:50 pdurbin      When organizations select a solution that is not commercially supported, they become less efficient and experience operational costs and risks that quickly add up. Lower staff productivity. More downtime. More helpdesk issues. The software may be “free,” but the impact on IT efficiency and the costs that result are real. The good news is that Red Hat can help.
+12:51 pdurbin      via 'Is "Free" Linux putting your IT efficiency at risk?' from email@engage.redhat.com
+12:56 pdurbin      sjoeboo: this is the vim plugin i've used for puppet: https://github.com/rodjek/vim-puppet/
+12:59 sjoeboo      yeah, thats what i use….the  &gt; auto indent stopped working for me @ some point ...
+12:59 pdurbin      i need to start using it again... switched up my dotfiles recently
+13:02 pdurbin      still banging away at RT packaging. stumbled upon this last night: http://search.cpan.org/dist/carton/ carton - Perl module dependency manager (aka Bundler for Perl)
+13:06 pdurbin      Encode &gt;= 2.39 ...MISSING
+13:07 pdurbin      hmm, i'm getting 2.35 from /usr/lib64/perl5/Encode.pm provided by perl-5.10.1-127.el6.x86_64
+13:08 pdurbin      right, no el6 package. http://pkgs.repoforge.org/perl-Encode/ hmm
+13:10 pdurbin      so http://pkgs.repoforge.org/perl-Encode/perl-Encode-2.39-1.rf.src.rpm build cleanly on el6 but (naturally) lots of conflicts with perl-5.10.1-127.el6.x86_64 when i go to install...
+13:12 pdurbin      "Dependency resolution note: Some of this package's dependencies will not install cleanly via yum due to the fact that they conflict with files owned by system packages. These packages must be downloaded manually and installed with --force:  perl-File-Temp perl-Sys-Syslog perl-Encode perl-CGI" -- whorka's spec file, regarding el5. ain't that the truth
+13:14 pdurbin      ran `rpm -Uvh --force perl-Encode-2.39-1.el6.x86_64.rpm` and now... "All dependencies have been found.` from `rpmbuild -ba rt.spec` (whorka's el5 spec)
+13:15 pdurbin      /usr/bin/install -c -m 0755 -o bin -g bin -d /n/home06/pdurbin/rpmbuild/BUILDROOT/rt-4.0.6-1.HMDC.RHEL.x86_64/usr/local/rt/etc
+13:15 pdurbin      /usr/bin/install: cannot change owner and permissions of `/n/home06/pdurbin/rpmbuild/BUILDROOT/rt-4.0.6-1.HMDC.RHEL.x86_64/usr/local/rt/etc': Operation not permitted
+13:24 pdurbin      jmdh: when you build the debian package for RT, do you have to build it as root?
+13:25 pdurbin      whorka: your rt.spec file works if i run rpmbuild as root but i HATE running rpmbuild as root
+13:27 jmdh         pdurbin: usually Debian packages are built with a utility called fakeroot which takes care of things like changing permissions
+13:27 jmdh         so no
+13:28 pdurbin      right, sjoeboo was using `mock` yesterday. i'm doing without mock
+13:28 jmdh         ah, mock rings a bell from the last time I was involved in red hat stuff
+13:28 sjoeboo      its nice
+13:28 jmdh         that was helping out with fedoralegacy.org
+14:42 pdurbin      ok, i linked to my rt 4 rpm, srpm, etc. from here: http://wiki.greptilian.com/request-tracker/
+14:42 pdurbin      now to see if it works! :)
+14:47 rackerhacker interesting stuff -&gt; http://royal.pingdom.com/2012/08/21/report-social-network-demographics-in-2012/
+14:57 rackerhacker question for you guys, if you wanted to migrate MySQL data from an old server to a new one with little downtime, how would you do it?
+14:57 rackerhacker we have some ideas here but i'm curious to know if you guys know something creative
+14:57 rackerhacker and we have about 1200 nodes hitting the db that can't get their configs flipped simultaneously :P
+15:00 pdurbin      rackerhacker: maybe have the new server take over the ip of the old server
+15:00 rackerhacker that was the leading idea here
+15:00 pdurbin      \o/
+15:00 rackerhacker set up master/slave and then have the slave take the master's IP
+15:00 rackerhacker then tickle puppet to use the new IP
+15:01 pdurbin      yeah, sounds reasonable...
+15:01 pdurbin      maybe in the future we won't have this problem. databases won't be so tied to a single host
+15:02 jmdh         first, get a time machine...
+15:02 pdurbin      heh
+15:02 pdurbin      i've been meaning to play with riak for this
+15:03 pdurbin      i mean, if you're building a new app in 2012. green field. do you put your data in mysql?
+15:03 pdurbin      do you bake in a single point of failure
+15:03 rackerhacker pdurbin: i'd rather use foxpro
+15:03 pdurbin      :)
+15:04 pdurbin      oh, whorka, your rt 4 rpm seems to work fine. thanks!!
+15:04 pdurbin      from what i can tell. not really an rt guru...
+15:04 whorka       glad to hear it.
+15:05 pdurbin      i had to build the rpm as root :(
+15:05 whorka       yeah, RT's Makefile does chowns
+15:06 pdurbin      should i report this to the rt devs?  is it a bug?
+15:06 whorka       I believe they intend you should build it as root. Though I suppose you might be able to ./configure it to use your username for all file ownerships.
+15:07 pdurbin      ... and then fix the ownership in the %files section of the spec file?
+15:07 whorka       yeah
+15:07 pdurbin      yeah, that makes sense...
+15:07 pdurbin      i wonder if the rt3 spec file from fedora builds as non-root...
+15:10 pdurbin      whorka: would this be a non-issue if you and i were using mock?
+15:10 whorka       perhaps? I've never tried.
+15:11 pdurbin      yesterday i emailed the guy who maintains https://admin.fedoraproject.org/pkgdb/acls/name/rt3 and http://corsepiu.fedorapeople.org/packages/rt4.spec but i haven't heard back
+15:12 pdurbin      i took a quick swing at getting it to build. but i'm sticking with yours for now. again, it seems to work
+15:14 pdurbin      and i'll know that at least one other group is actively using it :)
+15:27 pdurbin      whorka: via #rt: 11:25 &lt; trs&gt; specifying --with-my-user-group to configure will make every user/group `id -un` and `id -gn`
+15:27 whorka       there you go
+15:28 pdurbin      trs said "ugh" to "Comment out the Makefile trying to change groups/owners" -- http://pkgs.fedoraproject.org/cgit/rt3.git/tree/rt3.spec#n320
+15:31 pdurbin      they says 4.0.7 is coming out soon
+15:53 pdurbin      no changelog that i can find but release candidates will be announced on the dev list
+15:58 pdurbin      whorka: think we can use the same spec file? i made a few changes. mostly by adding BuildRequires. and now i'm thinking about trying that --with-my-user-group thing. should we put the spec file on github?
+16:00 whorka       please!
+16:00 pdurbin      :)
+16:01 pdurbin      i guess we could stick it under https://github.com/crimsonfu . or wherever...
+16:02 pdurbin      unless you want to get it in repoforge...
+16:03 pdurbin      my main interest is a common, working spec file under source control in public
+16:20 pdurbin      "The Bourne Again Shell (a.k.a. Bash) Framework attempts to deliver a more robust, modular, and object-oriented[-ish] approach to shell scripting." -- http://www.neuroinfo.org/bash_framework.php
+16:26 semiosis     http://lab.madscience.nl/oo.sh.txt
+16:26 pdurbin      oo bash. yikes
+17:06 pdurbin      perl '-V:.*site.*' | grep ^install ; perl '-V:.*vendor.*' | grep ^install ... for installsitearch, installsitelib, installvendorarch, installvendorlib, etc. see also How do I find the standard site_perl directory for Perl? - Stack Overflow - http://stackoverflow.com/questions/964898/how-do-i-find-the-standard-site-perl-directory-for-perl
+17:09 pdurbin      right. perl '-V:.*' to see everything
+17:10 ironcamel    perl -V:^site.*
+17:10 ironcamel    no, that's not what you want
+17:11 ironcamel    perl -V:^install.*site.*
+17:11 ironcamel    perl -V:^installsite.*
+17:11 pdurbin      i'm still wondering who packaged HTML::Mason correctly, EPEL or Repoforge: http://irclog.perlgeek.de/crimsonfu/2012-08-20#i_5913486
+17:12 ironcamel    whoever puts it in vendor_perl did it right
+17:12 pdurbin      ironcamel: ok. thanks :)
+17:13 pdurbin      repoforge it looks like, since i was installing perl-HTML-Mason-1.45-2.el6.rf.noarch.rpm
+17:15 pdurbin      see also http://fedoraproject.org/wiki/Packaging:Perl
+18:14 pdurbin      huh. i had heard of gerrit but not this: Take the pain out of code review | Review Board - http://www.reviewboard.org
+19:16 pdurbin      mock -r rc6-plus rt-4.0.6-1.HMDC.RHEL.src.rpm
+19:16 * pdurbin    plays with mock for the first time
+19:16 pdurbin      file /usr/share/man/man3/Getopt::Long.3pm.gz conflicts between attempted installs of perl-Getopt-Long-2.38-1.el6.rfx.noarch and perl-4:5.10.1-127.el6.x86_64
+19:17 pdurbin      bleh
+19:20 larsks       Just passing through: mock is a *great* idea, because it forces you to get your dependencies right :).
+19:58 pdurbin      larsks: amen
+19:58 pdurbin      Red Hat | Red Hat Announces Preview Version of Enterprise-Ready OpenStack Distribution - http://www.redhat.com/about/news/press-archive/2012/8/red-hat-announces-preview-version-of-enterprise-ready-openstack-distribution
+19:59 pdurbin      http://www.redhat.com/tryopenstack
+20:02 pdurbin      Getting Started Guide - Red Hat Customer Portal - https://access.redhat.com/knowledge/docs/en-US/Red_Hat_OpenStack_Preview/1/html/Getting_Started_Guide/index.html
+20:03 pdurbin      Release Notes - Red Hat Customer Portal - https://access.redhat.com/knowledge/docs/en-US/Red_Hat_OpenStack_Preview/1/html/Release_Notes/index.html
+20:03 pdurbin      http://www.redhat.com/openstack/FAQ/
+20:23 pdurbin      "Instructions for how to get started with OpenStack by configuring a single node environment."
+20:25 pdurbin      westmaas: oh. you linked to these already... http://irclog.perlgeek.de/crimsonfu/2012-08-14#i_5897210
+20:26 pdurbin      i guess it didn't feel very real. some PDFs on some dropbox account
+20:26 westmaas     haha
+20:26 westmaas     blame rackerhacker
+20:26 * pdurbin    shakes fist at rackerhacker
+20:26 rackerhacker what did i do?
+20:27 westmaas     you put getting started guides in a shadey looking dropbox account
+22:54 JoeJulian    I'm ready for a nap... http://joejulian.name/blog/half-a-day-wasted-chasing-nat-tranlations/
+</pre></body></html>

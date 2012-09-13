@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+12:36 pdurbin fascinating how the guys at github control so much of their infrastructure via a chat bot: ChatOps at Github with Jesse Newland - Food Fight - http://foodfightshow.org/2012/08/chatops-at-github-with-jesse-newland.html
+12:53 pdurbin HUBOT - http://hubot.github.com/ this is what they use. they do almost everything through this. deploys, etc.
+13:23 pdurbin mmm, netcat
+14:48 pdurbin finding myself linking to this again: Graphs help tell a war story - http://crimsonfu.github.com/2012/07/01/graphs-help-tell-a-war-story.html
+14:48 pdurbin proding our network guru to post something :)
+14:48 pdurbin oooh, a new post from shuff: Using Vim to edit Puppet code - http://crimsonfu.github.com/2012/08/22/vimpuppet.html
+14:49 pdurbin no mention of http://puppet-lint.com ?!?
+15:13 pdurbin nice! we have a fix for this - [libvirt-users] Problem to migrate virtual machine between two hosts wit - https://www.redhat.com/archives/libvirt-users/2011-August/msg00084.html
+15:13 pdurbin as previously discussed here: http://irclog.perlgeek.de/crimsonfu/2012-05-10#i_5570111
+15:13 pdurbin i.e. how to change the service tag on a Dell PowerEdge C6145 to allow for live migration between hypervisor blades that share a chassis
+16:40 pdurbin jeez, was so excited about an anyconnect rpm (packaging of cisco's opaque binaries) http://irclog.perlgeek.de/crimsonfu/2012-02-13#i_5143886 http://irclog.perlgeek.de/crimsonfu/2012-02-14#i_5147725 but it turns our openconnect (free and open source) "just works" on my fedora 17 box
+16:40 pdurbin "There's no way to create a VPN connection from the network menu in Gnome Shell 3.2, but if you open the network manager connection edit directly (nm-connection-editor) then you can add them and they will appear in the gnome-shell network menu to use after that" at http://superuser.com/questions/389393/how-do-i-setup-a-gnome-3-2-vpn-connection-fedora-16
+16:40 pdurbin was super helpful
+16:41 pdurbin as was "Using OpenConnect and Network Manager with UC Berkeley's VPN Service" http://afs.berkeley.edu/~jeblair/openconnect/
+16:42 pdurbin time to update https://github.com/pdurbin/anyconnect to advise people to simply use openconnect
+16:43 pdurbin i.e. `yum install NetworkManager-openconnect` or equivalent
+18:43 pdurbin error: Unsafe migration: Migration may lead to data corruption if disks use cache != none
+18:43 pdurbin from this: virsh migrate --live --verbose --persistent --undefinesource $DOMAIN_TO_MIGRATE qemu+ssh://$TARGET_KVM_HOST/system
+18:52 pdurbin probably new with centos 6.3: Re: [libvirt] [PATCH v2 4/4] qemu: Forbid migration with cache != none - http://www.redhat.com/archives/libvir-list/2012-February/msg00974.html
+18:53 pdurbin "Migrating domains with disks using cache != none is unsafe unless the disk images are stored on coherent clustered filesystem."
+18:53 pdurbin JoeJulian: they must mean gluster :)
+18:54 pdurbin virStorageFileIsClusterFS. whatever that is
+18:57 pdurbin our VMs are set to "default" right now. other options are: none writeback writethrough. can make it "non" like this: &lt;driver name='qemu' type='qcow2' cache='none'/&gt;
+18:58 pdurbin i guess i need to read up on what the default is
+19:04 pdurbin "In some cases libvirt may refuse to migrate the domain because doing so may lead to potential problems such as data corruption, and thus the migration is considered unsafe. For QEMU domain, this may happen if the domain uses disks without explicitly setting cache mode to "none". Migrating such domains is unsafe unless the disk images are stored on coherent clustered filesystem, such as GFS2 or GPFS. If you are sure the migration is safe or you j
+19:04 pdurbin whoops, cut off..
+19:04 pdurbin "If you are sure the migration is safe or you just do not care, use --unsafe to force the migration." -- virsh(1)
+19:06 pdurbin i love that. "if you just don't care" :)
+19:13 pdurbin hey, that guy i linked to from the libvir-list post is one of us. trying to use gluster to store his kvm disk images
+19:14 pdurbin oh, wait. i didn't link it yet. here: [rhelv6-list] RHEL6.3 virt-manager and live migration options. - https://www.redhat.com/archives/rhelv6-list/2012-June/msg00041.html
+</pre></body></html>

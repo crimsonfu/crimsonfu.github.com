@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:04 ventz        pdurbin: i am
+01:13 GitHub19     [code] agoddard pushed 1 new commit to master: https://github.com/crimsonfu/code/commit/411158f4e3eb75059daf3f394479e1b10310128c
+01:13 GitHub19     [code/master] an example using classes - Anthony Goddard
+01:13 agoddard     pdurbin: ^
+01:17 pdurbin_m    look at those OBJECTS! very cool. thanks!
+01:18 agoddard     :D
+01:19 pdurbin_m    I could see reaching for this some day
+01:20 pdurbin_m    I could also see sticking with less typing with perl for quick one off things
+01:22 pdurbin_m    i betcha you could write perl the same way. with moose or whatever
+01:22 pdurbin_m    ironcamel could
+01:24 pdurbin_m    please keep the solutions coming, guys. let's see some Haskell. and more katas :)
+01:24 agoddard     ya, I think each solution has a right tool, but there's no one tool for every solution..
+01:25 agoddard     the objects make it a lot easier to add more functionality (with less typing) but might be overkill depending on the use case
+01:26 agoddard     ok enough from me, I gotta go watch a movie :) catch ya tomorrow
+01:28 ironcamel    did somebody summon me?
+01:30 ironcamel    ah, https://github.com/crimsonfu/code/tree/master/katas/autovivification ... cool :)
+01:37 pdurbin      ironcamel: do it! :)
+01:38 pdurbin      agoddard: enjoy your movie. but please try to make you code pass `prove`
+01:38 pdurbin      you'll need to add your script to https://github.com/crimsonfu/code/blob/master/katas/autovivification/t/go.t
+01:38 pdurbin      before you run `prove`
+01:39 pdurbin      (more in the readme: https://github.com/crimsonfu/code/blob/master/katas/autovivification/readme.md )
+01:39 pdurbin      ironcamel: finally, some code out of this group ;)
+01:41 pdurbin      anyway, this autovivification kata clearly plays to perl's strengths. i'd be happy to see other katas that other languages are very well suited toward. python has built in support of xml processing, for example. the whole "batteries included" thing
+01:43 larsks       I don't know; for XML processing with Python I usually install lxml...which isn't any more native than the various XML processing modules for perl.
+01:45 pdurbin      crimsonfubot: lucky lxml
+01:45 crimsonfubot pdurbin: http://lxml.de/
+01:46 pdurbin      ah, libxml2
+01:46 pdurbin      for performance, i presume
+01:52 larsks       Mostly for the ehanced elementtree module with full xpath parsing...
+01:52 larsks       ... import lxml.etree as et; et.parse(...) ...
+02:01 larsks       For kicks: "pdurbin.pl" from https://github.com/crimsonfu/code/tree/master/katas/autovivification as a Python script: https://gist.github.com/3695375
+02:07 ironcamel    I really have fun using https://metacpan.org/module/XML::Smart, it lets you treat an xml document as basically a native hash data structure
+02:08 ironcamel    so you can do stuff like $addr = = $XML-&gt;{server}{address}
+02:44 GitHub175    [code] agoddard pushed 3 new commits to master: https://github.com/crimsonfu/code/compare/411158f4e3eb...21de8b1d195d
+02:44 GitHub175    [code/master] no need for extra array wrapping data4 - Anthony Goddard
+02:44 GitHub175    [code/master] fixed order for data3 - Anthony Goddard
+02:44 GitHub175    [code/master] added agoddard.rb to tests, prove passing - Anthony Goddard
+03:16 pdurbin      larsks: this is very cool, but can it operate on a file? i can get somewhat familiar output from `cat t/input.txt | ./larsks.py` but not the "expected" output: https://github.com/crimsonfu/code/blob/master/katas/autovivification/t/expected.txt
+03:17 pdurbin      prove does this: `./$solution t/input.txt | python -m json.tool` per https://github.com/crimsonfu/code/blob/21de8b1d195d73348bc9e7d00cec1bb49fff77ef/katas/autovivification/t/go.t#L21
+03:18 pdurbin      in the past i'm used python's "fileinput" for this
+03:19 pdurbin      agoddard: you got `prove` to pass! https://github.com/crimsonfu/code/commit/21de8b1d195d73348bc9e7d00cec1bb49fff77ef well done. :)
+03:26 pdurbin      ironcamel: i've used XML::Simple for that (a hash from XML) but i see from the docs that XML::Smart makes several improvements. thanks
+14:16 pdurbin      crimsonfubot: google libvirtd dead but pid file exists
+14:16 crimsonfubot pdurbin: Re: [libvirt-users] What can cause "libvirtd dead but pid file exists.": &lt;https://www.redhat.com/archives/libvirt-users/2012-August/msg00118.html&gt;; [libvirt-users] What can cause "libvirtd dead but pid file exists.": &lt;https://www.redhat.com/archives/libvirt-users/2012-August/msg00077.html&gt;; [fedora-virt] libvirtd log file location: (2 more messages)
+14:17 * pdurbin    considers running `/etc/init.d/libvirtd ... ` condrestart? reload? try-restart?
+14:22 pdurbin      "Will restarting the libvirt daemon stop my virtual machines? NO, as of version 0.6.0 (Jan 2009). Versions older than this will kill VMs if the libvirtd daemon is stopped, so beware." http://wiki.libvirt.org/page/FAQ#Will_restarting_the_libvirt_daemon_stop_my_virtual_machines.3F
+14:22 ventz        pdurbin: should be fine
+14:23 ventz        ah, and you posted answer :)
+14:23 ironcamel    pdurbin: XML::Simple use is discouraged, see /msg perlbot xml
+14:55 pdurbin      ironcamel: hmm, "xml::simple factoid" too. thanks! see also http://www.nntp.perl.org/group/perl.beginners/2012/08/msg121531.html
+14:56 pdurbin      oh, and restarting libvirtd was fine. my VMs are still up :)
+17:02 pdurbin      sjoeboo: SchemaSpy is the thing we should ran against racktables to see the relationships between tables: http://schemaspy.sourceforge.net/sample/relationships.html via http://irclog.perlgeek.de/crimsonfu/2012-08-31#i_5948354
+17:03 pdurbin      spowers: right? :)
+17:04 * semiosis   looks around for sjoeboo
+17:04 pdurbin      we have "issues" :) asking for the issue tracker at https://github.com/ibettinger/racktables at http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,33
+18:23 pdurbin      hmm, we're running 188 VMs
+18:41 pdurbin      d'oh! http://sourceforge.net/apps/mediawiki/schemaspy/index.php?title=Main_Page#SchemaSpy_doesn.27t_detect_any_.22real.22_relationships_in_my_MySQL_database_but_the_relationships_exist._Why.3F
+18:52 pdurbin      cool, it works: http://server1.greptilian.com/tmp/SchemaSpy-racktables-All-Relationships_1347389207223.png
+18:55 pdurbin      java -jar schemaSpy_5.0.0.jar -dp /usr/share/java/mysql-connector-java-5.1.12.jar -t mysql -host localhost -db racktables -u rackuser -p $PASSWORD -o /tmp/out
+18:55 pdurbin      something like that. we might see a blog post
+18:56 * pdurbin    realizes he doesn't have a good place to throw images...
+</pre></body></html>
