@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:02 pdurbin      jimi_c: i see you closed this: koan --virt-image-type ? · Issue #79 · cobbler/cobbler - https://github.com/cobbler/cobbler/issues/79#issuecomment-8594687
+13:02 pdurbin      "Just merged in more work to the master branch, which implements a virt driver type (one of 'raw', 'qcow', 'qcow2', 'vmdk'), so I will consider this closed."
+13:03 pdurbin      that's awesome, we'll have to go look at master
+13:09 jimi_c       yep
+13:10 pdurbin      any releases planned?
+13:11 jimi_c       i've been moving things into the 2.4 branch, and consider it to be beta
+13:11 jimi_c       i'd like to get import signatures in that as well, but would like more testing
+13:12 pdurbin      crimsonfubot: lucky cobbler import signatures
+13:12 crimsonfubot pdurbin: https://bugs.launchpad.net/bugs/974460
+13:12 pdurbin      jimi_c: for ISOs?
+13:13 jimi_c       nope, not that
+13:13 jimi_c       https://github.com/jimi1283/cobbler/tree/signature
+13:14 jimi_c       basically, the idea is to move all import logic to a new module that reads a signature file, so adding support for new distros should (hopefully) mean only updating the signature file
+13:14 jimi_c       https://github.com/jimi1283/cobbler/blob/signature/config/distro_signatures.json
+13:15 pdurbin      i don't get it. but don't worry about it :)
+13:17 jimi_c       http://pastie.org/4753511
+13:18 jimi_c       right now, all of the distros/os versions are hard-coded into cobbler, so for instance when fedora 18 comes out you'll have to update cobbler to a newer version if you'd want to use that
+13:18 jimi_c       with the signatures work, all you'd do is update your signature JSON - no need to update all of cobbler + what that entails
+13:18 pdurbin      so a signature is like a release? fedora 16 vs. fedora 17?
+13:19 jimi_c       yeah if you look at that json link I posted above, you'll see the definitions in there
+13:19 pdurbin      why not call them releases?
+13:20 jimi_c       because it's a lot like virus detection actually :) so the term signature seemed appropriate
+13:20 jimi_c       every release has a unique signature of files/names
+13:20 pdurbin      like an md5sum or sha1, you mean
+13:21 jimi_c       i've avoided using hashes for signatures, due to the fact that people may do a different roll of a distro
+13:21 jimi_c       ie. they may include an updated kernel rpm or something
+13:22 jimi_c       usually, it looks for file names, and sometimes it looks for regex strings inside of files
+13:22 pdurbin      i'm sure there is wisdom in your choice of the word "signature" but to me it's a release :)
+13:22 jimi_c       for example, for redhat distros, it looks for a redhat-release rpm of a certain major version
+13:23 jimi_c       well, they are release signatures to me :) internally it all used to be in codes.py
+13:24 pdurbin      i guess i don't think about viruses very much... signature updates and all that
+13:24 pdurbin      i forget what nessus calls them... the updates
+13:25 jimi_c       yeah me too
+13:25 jimi_c       anyway, long story short, i think that it will help improve things considerably
+13:25 jimi_c       no forced updates just to support new releases is good
+13:26 pdurbin      which json link? with the definition of signatures?
+13:29 jimi_c       yeah, distro_signatures.json
+13:31 pdurbin      oh, i thought you meant the definition of the term "signature"
+13:32 pdurbin      in your docs you can just say "a signature is a release" ;)
+13:37 pdurbin      anyway, very cool feature. thanks. now to tell my group it's coming!
+13:37 jimi_c       i just realized why i chose signatures - it's what they were called internally before :)
+13:37 jimi_c       if you look in any of the manage_import_* modules, you'll see an array there named signatures
+13:38 jimi_c       but yeah, terminology doesn't matter much to me
+13:38 jimi_c       making it work does :)
+13:38 pdurbin      hmm, it should, right? ;)
+13:38 pdurbin      for usability
+13:39 jimi_c       well there is that
+13:39 jimi_c       but i don't think it's confusing, if others disagree in the future it can always be changed
+13:42 pdurbin      sounds good
+13:54 pdurbin      jimi_c: so 2.2.2 at https://github.com/cobbler/cobbler/downloads . i'll keep a look out for a 2.4 release with the new features
+14:05 pdurbin      "For discussion: why is devops a cut-n-paste culture when it comes to puppet-manifests chef-cookbooks ?" https://twitter.com/dysinger/status/246795163068928000
+14:43 pdurbin      spowers: new! https://github.com/ibettinger/racktables/issues
+14:44 pdurbin      my cry was heard :) http://www.freelists.org/post/racktables-users/writing-a-restful-API-in-php-for-Racktables,33
+14:44 pdurbin      we really need chassis support from a racktables api
+14:54 pdurbin      heh. awesome. sjoeboo just opened 3 issues :)
+15:02 pdurbin      jimi_c: any pictures of your #cobbler hat online?
+15:03 jimi_c       not that I know of
+15:03 jimi_c       i may have one that I took before I left
+15:07 jimi_c       http://www.sngx.net/pictures/hat.jpg
+15:07 jimi_c       generic image, not of me wearing it
+15:09 pdurbin      heh. awesome. maybe it's time for some #crimsonfu merch. if it's not too expensive :)
+15:11 jimi_c       i think it cost me $15 on vista print, so not too bad when you compare it
+15:11 jimi_c       since I only did the one, if I set it up through cafepress or something it'd probably be cheaper
+15:12 jimi_c       my company is talking about going OEL to save money unfortunately :( so not sure if I'd be able to get back to Summit next year
+15:13 jimi_c       we'll have to see
+15:27 pdurbin      crimsonfubot: lucky company going oel
+15:27 crimsonfubot pdurbin: http://www.jeol.com/
+15:30 jimi_c       oracle enterprise linux
+15:30 pdurbin      !!
+15:31 pdurbin      Philip Durbin - Google+ - It's news to me that Oracle Linux is free... "Q: Wait,… - https://plus.google.com/107770072576338242009/posts/j2WQ7bLEFXo
+15:32 jimi_c       yeah i know, i'm in favor of going centos if they really want to save money, but being a somewhat conservative financial they want to pay someone for support - even if we never use it
+15:32 jimi_c       i think we opened 2 tickets with redhat last year
+15:34 pdurbin      in practice i find i fix stuff myself. or ask around
+15:39 pdurbin      i haven't interacted with red hat support for a few years
+15:51 pdurbin      virt-v2v: No root device found in this operating system image.
+15:51 pdurbin      hmm
+15:53 pdurbin      What does "no root device found in this operating system image" mean? http://libguestfs.org/guestfs-faq.1.html
+15:54 pdurbin      agoddard: you made us rofl :) https://twitter.com/anthonygoddard/status/248447133915701248
+15:56 agoddard     :D
+16:32 pdurbin      overheard: love me some koan -r &amp;&amp; reboot , screw pxe
+16:50 jimi_c       lol... well that's not 100% accurate...
+16:50 jimi_c       i guess technically it's not doing a pxe boot to kick things off
+16:50 jimi_c       i actually have never used --replace-self
+18:15 pdurbin      jimi_c: you should try it :)
+18:18 pdurbin      ventz: lunch was fun. whenever you're ready. i'll send you various links :)
+18:23 pdurbin      an officemate's UPS is in alarm :( so LOUD :(
+19:09 pdurbin      Apple - iOS 6 - iPhone, iPad, and iPod touch get 200+ new features. - http://www.apple.com/ios/whats-new/
+19:53 ventz        pdurbin: let's do it friday
+19:53 ventz        :)
+19:55 pdurbin      all the links are going to be back to logs for this channel :)
+19:56 pdurbin      my problems are not new :)
+19:56 pdurbin      i've actually been thinking... it would cool if we had an "unresolved problems" area...
+19:57 pdurbin      or even an instance of OSQA | The Open Source Q&amp;A System - http://www.osqa.net/
+20:09 larsks       Do you think running a local OSQA instance makes since vs. just using one of the existing StackExchange sites?
+20:09 larsks       *sense
+20:18 pdurbin      larsks: meh. i love those sites but they close my questions sometimes :( http://webapps.stackexchange.com/questions/30646/any-alternatives-to-shutterfly-classroom-websites
+20:20 pdurbin      Why HPCs hate biologists(and what we‟re doing about it) http://www.slideshare.net/c.titus.brown/2012-hpcuserforum-talk via https://twitter.com/jamesdotcuff/status/248156667525611520
+20:21 larsks       Sure.  That teaches us to write better questions :).  We thought about standing up OSQA here but it wasn't clear that (a) there were any local knowledge domains for which it would be appropriate, and (b) that there would be enough of a population to support it.
+20:21 larsks       Setting up a local analog to, e.g., serverfault just seems to be a great way of limiting the potential audience of questions.
+20:22 pdurbin      larsks: i'm ok with our osqa being upstream to serverfault. or downstream. like a bug tracker :)
+21:14 magoo        does anyone else get prompted for a passphrase when trying to ssh to a fresh ec2 instance?
+21:14 magoo        i always provision with chef so this is new to me
+21:15 semiosis     magoo: that would depend on what AMI you're using... i use ubuntu AMIs which are initialized with my keypair &amp; have passwords disabled by default
+21:16 magoo        i'm also using ubuntu
+21:17 magoo        so "ssh -i ec2-keypair.pem root@107.23.x.x" is not going to work
+21:17 semiosis     the username should be ubuntu, not root
+21:18 semiosis     but otherwise yes that should work, if you specified ec2-keypair correctly when creating the instance
+21:18 semiosis     it is possible to create an instance without a keypair
+21:21 magoo        wow, it took an interesting turn
+21:21 semiosis     ?
+21:22 magoo        i'm in a terminal window and this time it doesn't error but an osx window pops up "Enter your password for the SSH Key ..."
+21:23 magoo        i shouldn't have a passhrase, right?
+21:23 semiosis     ssh client will try to authenticate to the server using every private key it has available... if any of those are encrypted, it will prompt you for the passphrase
+21:24 semiosis     however if you're specifying a specific key with -i...
+21:25 magoo        right, and i'm specifying the keypair file - though i have three and don't know what the distinction is btw keypair and the private file
+21:25 semiosis     private file contains the whole keypair, public &amp; private, appologies if i'm being confusing with the terms
+21:26 magoo        what's in the keypair file then? you can ONLY help seeing as how lost I am lol
+21:29 semiosis     if you mean the keypair file generated by ec2, that has the public/private key pair you can use to log in to your instances (assuming your instances were configured to use that keypair)
+21:29 semiosis     so you'd first have generated a keypair, and given it a name... then when you launch instances you choose which one of those, by name, you want to provide to the instance
+21:30 semiosis     ubuntu at first boot will configure the default ubuntu user to allow authentication with that key
+21:30 magoo        ok, so this is definitely a key problem then
+21:30 magoo        i'm going to recreate the server with a new key
+21:30 semiosis     did you launch the instance using command line tools, web console, or API?
+21:31 semiosis     web console will make you choose a key, but iirc command line tools will allow you to forget that
+21:32 magoo        web console
+21:32 magoo        i specifically chose the ec2-keypair key
+21:32 magoo        but i created that a very long time ago
+21:32 semiosis     magoo: just as a sanity check... whats the AMI ID you used to launch?
+21:32 magoo        when i provision with knife, it uses its own keypair
+21:32 magoo        ami-c7b202ae
+21:41 magoo        so i created a new keypair and was only provided one private key
+21:41 magoo        i thought I was supposed to recieve more than that
+21:48 semiosis     magoo: nah thats it.  when you create a keypair you get one file which contains the private key and public key
+21:48 semiosis     you can extract the public key using ssh-keygen -yf private-key-file
+21:50 magoo        wow, i don't remember doing any of this - thanks for clearing this up for me :)
+21:51 magoo        chef has completely spoiled me
+21:52 magoo        finally! i'm in
+21:52 semiosis     sweet
+22:27 pdurbin      post-outage beer and pizza was fun. among other things, talked about... Artisan's Asylum: Hackerspace Startup Building a 2500+ lb. Rideable Hexapod Robot Named Stompy | Hizook - http://www.hizook.com/blog/2012/05/02/artisans-asylum-hackerspace-startup-building-2500-lb-rideable-hexapod-robot-named-st
+</pre></body></html>

@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:37 GitHub84     [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/f2b4572bc98dc8e9a04c1a1d57d1b8617ca58cd0
+01:37 GitHub84     [crimsonfu.github.com/master] grabbed latest irc logs - Philip Durbin
+01:39 pdurbin      hmm, an SSL exploit coming: http://security.stackexchange.com/questions/19911/crime-how-to-beat-the-beast-successor/19914#19914
+12:44 pdurbin      in vim, ctrl-k &gt;&gt; for » ( http://en.wikipedia.org/wiki/%C2%BB ) from RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK at http://vimdoc.sourceforge.net/htmldoc/digraph.html#digraph-table . see also http://vimdoc.sourceforge.net/htmldoc/digraph.html#digraphs-use
+12:49 pdurbin      ironcamel: i'm listening to http://perl.org.il/presentations/larry-wall-present-continuous-future-perfect/transcript.html via http://irclog.perlgeek.de/crimsonfu/2012-09-06#i_5968555
+12:50 pdurbin      '[Question from the audience: "How do you type it?"] How do you type it? With your keyboard? Do you use vi or Emacs? In vi it's Ctrl+K &gt;&gt;. You can also write it with two regular greater-than's ("&gt;&gt;"). We're getting to the age of Unicode, and we want to make Unicode programming possible, so we're trying to shove people a little bit in that direction.'
+12:57 semiosis     https://twitter.com/fhemberger/status/243338303464685568 - UTF-8 is twenty years old this week. Finally �mlauts work everywhere.
+14:32 pdurbin      semiosis: heh. yep. saw that :)
+15:38 pdurbin      the slides from the talk i attended yesterday: ABCD WWW » Faras Sadek, Gitorious - http://harvardwww.com/2012/07/faras-sadek-gitorious/
+15:43 larsks       harvardwww.com?  Ow, my brain hurts.
+17:21 Pax          morning
+17:21 Pax          -ish
+17:53 semiosis     in case anyone's interested... this is the screening checklist i'm going to use on linux sysadmin/devops applicants: http://dpaste.org/g2Kob/
+17:54 semiosis     if anyone cares to give me feedback i'd really appreciate it :)
+17:56 semiosis     also fwiw if anyone's interesting in a sweet devops gig in miami pm me :D
+17:56 semiosis     s/interesting/interested/
+18:26 pdurbin      semiosis: seems reasonable from a glance
+18:35 pdurbin      "Vyatta is open source router software based on linux that takes advantages of modern processing power to control your data movement" -- http://twit.tv/floss131
+18:36 pdurbin      shuff: vyatta sounded familiar...
+19:25 ventz        pdurbin: vyatta?
+19:25 * ventz      -&gt; knows more about vyatta than he wishes
+19:27 ventz        cat config.boot | wc -l
+19:27 ventz        904
+19:42 pdurbin      ventz: awesome
+19:43 pdurbin      whorka: you could use vyatta instead of your vpc thing maybe
+19:43 pdurbin      dunno if it's supported
+19:55 pdurbin      ventz: could we use vyatta with Google Compute Engine? http://blog.jcuff.net/2012/08/gce-ftw.html
+19:55 pdurbin      whorka: can you explain your setup at all? the vpc thing?
+19:58 ventz        idk what GCE is
+19:58 ventz        pdurbin: get cuff to join this channel
+19:58 ventz        or the jabbers (from a network that's reachable by other servers :))
+20:03 pdurbin      ventz: GCE eq Google Compute Engine
+20:04 pdurbin      cuff was in this channel once...
+20:04 ventz        :nod: but not sure what it does -- is it yet another paas?
+20:05 pdurbin      http://irclog.perlgeek.de/crimsonfu/2012-03-02#i_5237495
+20:05 pdurbin      i need whorka to explain
+20:05 pdurbin      or shuff. it was his idea
+20:06 pdurbin      idle for 35 minutes. oh well
+20:24 * ventz      eyes shuff and his auto-channel selection ;)
+20:28 pdurbin      ventz: auto-channel selection? is shuff in #windowsfu? ;)
+20:28 shuff        no no, the problem is that i am NOT in #geeknight
+20:29 ventz        exactly! :)
+20:29 pdurbin      whorka: openauth so far... https://github.com/fasrc/openauth-puppet
+20:29 ventz        pdurbin: i figured, i would give him a hard time about it until he updates his conf file to include that
+20:43 whorka       pdurbin, we are using Amazon VPC essentially to make a persistent VPN tunnel to an unrouted subnet of EC2 nodes
+20:43 whorka       http://docs.amazonwebservices.com/AmazonVPC/latest/UserGuide/VPC_VPN.html
+20:46 whorka       do you think it would be possible to run an OTP token generator as a web script (protected by PIN auth) for our non-smartphone users?
+20:46 pdurbin      whorka: uh. we just use native (and nice looking) mobile clients
+20:47 whorka       yeah, but I just had our security compliance plan vetted by the security office, and they want all our users with access to confidential data to use two-factor auth.
+20:47 pdurbin      Google Authenticator - Android Apps on Google Play - https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en
+20:47 crimsonfubot https://plus.google.com/112876949103794517392/posts/cgv5RS5UseZ
+20:47 pdurbin      App Store - Google Authenticator - http://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8
+20:48 pdurbin      yes... this is 2 factor auth...
+20:49 whorka       I just don't think it would be reasonable for us to require all users have a smartphone, so I'm looking for a workaround.
+20:49 pdurbin      ah! ok
+20:49 pdurbin      yeah, i don't know if blackberry even works, honestly...
+21:01 shuff        perhaps it would be more reasonable to supply each user with a Yubikey: http://static.yubico.com/var/uploads/pdfs/Howto_GmailYubiKey.pdf
+21:10 semiosis     those are pretty cool
+21:10 pdurbin_m    whorka: is a desktop client good enough?
+21:10 whorka       hmm, I guess what I'm trying to work around is the "Something the user has" part of multi-factor auth, which would make it not multi-factor auth at all, just multi-password auth. http://en.wikipedia.org/wiki/Multi-factor_authentication
+21:10 pdurbin_m    we have jauth
+21:10 whorka       a desktop client would be great!
+21:12 pdurbin_m    https://github.com/mclamp/JAuth
+21:22 whorka       that could work... although I'm having a hard time seeing how providing this auth token proves anything more than that the user was able to access the OTP generator... is there a key built into the app or something?
+21:24 whorka       With SecurID, you know that whoever has the OTP had access to the physical device that generated it... but with JAuth what's to prevent an attacker from stealing a copy of the app?
+</pre></body></html>

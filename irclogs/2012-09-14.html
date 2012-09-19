@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:12 larsks       Coming late to the party...but SecurID has the same problem when using software tokens (and honestly, the way FAS has distributed the software keys makes it mostly a joke).
+00:14 larsks       We are seriously looking at Google Authenticator as a replacement for SecurID.
+00:33 pdurbin_m    whorka: nothing, but the rsa secureid software works the same way, as I understand it
+00:36 pdurbin_m    larsks: that's what our solution is built on https://github.com/fasrc/openauth-puppet
+00:37 pdurbin_m    Time-based One-time Password (TOTP) algorithm specified in RFC 6238, using the google-authenticator PAM module
+00:42 larsks       Cool.
+00:44 pdurbin_m    Boo. Could not prettify this RFC The source XML for this RFC isn't available, therefore it can't be reformatted. http://pretty-rfc.herokuapp.com/RFC6238
+00:48 pdurbin_m    http://crypto.stackexchange.com/questions/2220/what-are-the-advantages-of-totp-over-hotp
+12:09 pdurbin      for Google+ users... "Add Hangouts to your meetings... We use it inside Google all the time." https://plus.google.com/+YonatanZunger/posts/gcr2mFHUy3k
+15:36 gridiron     Whoa! This is genius. https://github.com/videlalvaro/gifsockets
+15:38 semiosis     back in the late 90s i set up a webcam stream on an sgi indy which was delivered by an endless animated gif
+15:38 semiosis     worked like a champ even back then
+15:40 gridiron     I never would have thought about it
+15:46 * semiosis   wonders if that would fill the browser's cache until the disk was full
+17:00 ironcamel    pdurbin: Bug #79648 for App-p: Integrate Data::DPath to App::p https://rt.cpan.org/Public/Bug/Display.html?id=79648 ... what do you think?
+17:57 pdurbin      gridiron: that's nuts. i love it
+17:59 pdurbin      ironcamel: so... p ' dd ((xl r "/etc/xml/xml-core.xml") ~~ dpath "//catalog" )'
+17:59 pdurbin      it take it dpath is like xpath?
+17:59 pdurbin      crimsonfubot: google Data::DPath
+17:59 crimsonfubot pdurbin: Data::DPath - search.cpan.org: &lt;http://search.cpan.org/perldoc?Data::DPath&gt;; Steffen Schwigon / Data-DPath - search.cpan.org: &lt;http://search.cpan.org/dist/Data-DPath/&gt;; Steffen Schwigon - search.cpan.org: &lt;http://search.cpan.org/~schwigon/&gt;; App::DPath - search.cpan.org: &lt;http://search.cpan.org/perldoc?App%3A%3ADPath&gt;; dpath - cmdline tool around Data::DPath - metacpan.org: (2 more messages)
+18:00 pdurbin      heh. "Data::DPath - DPath is not XPath!" :)
+18:00 pdurbin      "XPath is for XML. DPath is for data structures, with a stronger Perl focus." mmm
+18:00 pdurbin      ironcamel: ship it
+19:02 pdurbin      http://xiki.org - Xiki: A shell console with GUI features. Xiki does what shell consoles do, but lets you edit everything at any time. It's trivial to make your own commands and menus to access other tools.
+19:08 gridiron     Been playing around with that. It sits on emacs
+19:08 gridiron     They need documentation help if you have time
+19:10 pdurbin      only just hit my radar
+19:11 pdurbin      tychoish: emacs! ^^ docs! :)
+19:47 pdurbin      right... so i just changed a host's subnet from 255.255.255.0 to 255.255.255.128 and i can still reach it. i forget why this works or what it's called
+19:56 whorka       128 dec is 10000000, so you just widened the subnet mask by one bit.
+19:58 comptona     pdurbin: the netmask is just used to tell the tcp stack which hosts are considered local for routing purposes
+19:58 comptona     you could make the netmask 255.255.255.252 on one of the machines, and if the IP addresses fit properly it'd still work
+19:59 pdurbin      "If your ISP has assigned your organization multiple contiguous subnets, see if you can determine the network prefix they use for routing to you by entering the top and bottom IP addresses you own, then widening the network mask until they are on the same subnet" -- http://www.ipprimer.com/subnet.cfm
+20:01 whorka       If we were writing in CIDR notation it would be /24 vs /25 as per http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks
+20:01 pdurbin      comptona: hmm. thanks. unfortunately, the ip i'm using doesn't fit in the /26 subnet
+20:01 pdurbin      so i can't test it. but i believe you guys :)
+20:02 pdurbin      i guess people just call this "widening the subnet", like whorka said
+21:32 ventz        Why spotify didn't exist in the 80s: http://www.youtube.com/watch?v=ZSxEm8LGWuA
+21:32 ventz        :)
+21:47 semiosis     pdurbin: if DST_HOST &amp; NETMASK == SRC_HOST &amp; NETMASK, then the remote host is local and an ARP request is sent to find its mac address.  otherwise an ARP is sent for the mac addr of the default gateway (or specific gateway if there is a route for the specific network)
+21:48 semiosis     &amp; is bitwise AND
+21:51 semiosis     a problem i like to present to subnetting n00bs is to give them an odd numerical range of IPs and ask them to find the optimal set of CIDR-subnets to match that range
+22:02 semiosis     like 10.0.0.17 - 10.0.0.67
+22:34 semiosis     possibly a good interview question... hmmm
+</pre></body></html>

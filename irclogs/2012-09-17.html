@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:29 jimi_c_      I have been looking for something like that...
+13:04 pdurbin      semiosis: thanks for for chiming in on my (ongoing) discussion of how to best curate clips from podcasts: https://plus.google.com/107770072576338242009/posts/EaycNBRDx6x
+15:02 pdurbin      so, we have various data sources for information about server: Puppet facts, Racktables for physical location, Cobbler helps us keep IP unique (and we're starting to keep metadata in there: description, owner, etc.)
+15:02 pdurbin      BUT
+15:02 pdurbin      i feel like i want to use DNS as a data source as well
+15:03 pdurbin      BIND has an API, i believe
+15:03 pdurbin      i think I want to hit the BIND API and dump to JSON or whatever the entire contents of our zones
+15:03 pdurbin      any thoughts on this?
+15:05 dotplus      hm. the metathought is "have a single authoritative source for information and generate config for all tools based on that". It could be that you store such data in TXT/SRV records (and secure it as necessary with views).
+15:08 pdurbin      dotplus: i've made peace with the fact that no single system is the authoritative upstream source of data. i do want a single system to *aggregate* all the data ( http://git.greptilian.com/?p=wellington.git;a=blob;f=readme.md;hb=HEAD ) but i'm really talking about the various API's that the aggregator pulls from. i want to use BIND's API, i think
+15:12 dotplus      I'm willing to accept that sometimes "single" is a little optimistic, but it's a good goal nonetheless:)
+15:16 pdurbin      Chapter 12 BIND API(s) - http://www.zytrax.com/books/dns/ch12/
+15:20 dotplus      I've never used the bind api, but you might find that it's less work to take XFR and dump to zone files because there are lots of existing parsers for those in whatever language you want to use.
+15:21 pdurbin      dotplus: cool. pointers to any existing parsers would be most appriciated. i just want the data that comes out on the other side to be organized
+15:21 dotplus      what language do you want to use?
+15:22 pdurbin      dotplus: perl python or ruby
+15:22 dotplus      http://search.cpan.org/~mschilli/DNS-ZoneParse-1.10/lib/DNS/ZoneParse.pm
+15:22 pdurbin      mmm. DNS::ZoneParse - Parse and manipulate DNS Zone Files. thanks
+15:23 dotplus      but there are bound to be parsers available in the others as well. I'd bet real money on it.
+15:24 pdurbin      seems a little shabby to parse the zone files themselves if there's a nice stable API i can use
+15:25 dotplus      I'm not trying to discourage you from using the API, if it's quick/easy enough for you to do so. I just think that it's possible that that approach might take a lot longer
+15:26 pdurbin      meh. maybe :)
+15:31 pdurbin      previous discussion on BIND... more about using puppet to update BIND configs though: http://irclog.perlgeek.de/crimsonfu/2012-04-24#i_5488807
+15:36 dotplus      I'd like to pay some more attention to this. I have a need to deal with dns and provisioning, but it's not pressing enough (yet) for me to have researched the current tools/approaches and determine whether they'll do for me. At the moment ni $dayjob dns is more or less by hand and the initial automation effort went into libvirt/kickstart/puppet.
+15:39 pdurbin      dotplus: sadly, i'm still waiting for this guys BIND/git magic: https://twitter.com/philipdurbin/status/180763979310837761
+15:41 pdurbin      dotplus: dns here is by hand but at least we back it up to git now: http://serverfault.com/questions/383628/should-i-avoid-using-git-to-track-individual-files-with-separate-history-such-as-in-var-named
+15:53 pdurbin      i shouldn't say dns by hand. it is by hand on the primary but our secondary dns has some stuff in puppet related to how it transfers zones. and some other config
+15:53 dotplus      heh, randal is always quite opinionated.
+15:55 pdurbin      dotplus: his grumpy tweet at me :( https://twitter.com/merlyn/status/195702294677950465
+15:58 dotplus      yes, I make distinction between 1ary and 2ary as well. 1ary is sort of by hand, 2aries are all IXFR and their configs are puppetized.
+15:59 dotplus      btw, are you crimsonites aware of LOPSA?
+16:00 pdurbin      i am
+16:01 pdurbin      do they have a publicly logged irc channel?
+16:01 dotplus      I don't think it's publicly logged, but #lopsa
+16:02 dotplus      in fact I think that the informal policy is that logging is permitted (indeed how could it be prevented?) but that it's not to be posted. but I'm not sure about that.
+16:03 pdurbin      there's also ##infra-talk, of course, but they don't log either
+16:04 dotplus      oh yes, forgotten about that one.
+16:05 pdurbin      was just tweeting to @kbsingh about it this morning: https://twitter.com/philipdurbin/status/247644029951569920
+16:06 pdurbin      rackerhacker: i see you going on and offline on IM. are you around?
+16:06 rackerhacker pdurbin: yeah! which IM? gtalk?
+16:06 rackerhacker i wonder if it's my phone futzing around
+16:06 pdurbin      gtalk has been flakey for me this morning
+16:07 rackerhacker perhaps that's it
+16:07 pdurbin      anyway, i'd like your professional opinion on something
+16:08 pdurbin      how grumpy to datacenter clients get when 75% of their gear is powered off? https://plus.google.com/107770072576338242009/posts/TRots9ZCniv
+16:11 pdurbin      s/to/do/
+16:16 agoddard     what's the idea behind UPS maintenance on a Saturday?
+16:16 pdurbin      agoddard: it was news to me
+16:18 agoddard     pdurbin: damn. seems like it'd make sense to do it at like 9am so the crew can go to battlestations if it breaks :-/
+16:18 pdurbin      it was a busy weekend
+16:20 pdurbin      "D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG and CSS" -- http://d3js.org . someone opened a ticket. wants to run this
+16:20 agoddard     d3 is siq
+16:20 agoddard     bbiab
+16:21 pdurbin      hmm, related to this apparently. cool. X Prize variant preparation: allele balance metrics - YouTube - http://www.youtube.com/watch?v=iTqmjSCCe4M
+16:27 agoddard     nice, we have some cool histograms in our LigerCat app: http://ligercat.org/articles/Durbin,%20P.
+16:27 agoddard     ^ releasing new version this week
+17:42 pdurbin      agoddard: +1 for MeSH Cloud for Durbin, P Generated from 382 articles :)
+17:43 pdurbin      "Messing around with https://github.com/allegro/ralph as an InventoryDB. A little involved to setup. Hoping for results. Stuck in discovery currently." -- https://twitter.com/jeremy_carroll/status/247452038907179008
+17:43 pdurbin      Ralph is an asset management system for your data center. It lets you see what hardware and software is installed. It also lets you keep track of who is using every device, for what, and how much it costs.
+17:43 pdurbin      Ralph's database can be accessed through a web interface, a RESTful API and through command line tools, the most important of which is the discovery command, which lets Ralph gather information about your data center automatically. You can also export and import parts of the database into different formats.
+18:37 * pdurbin    reads Class: ERB (Ruby 1.9.3) - http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html
+18:39 pdurbin      i can only assume erb(1) has a more official online man page than http://www.manpagez.com/man/1/erb/erb-1.9.2-p0.php
+18:43 pdurbin      was given this as a syntax check: erb -P -x -T '-' foo.erb | ruby -c
+18:45 semiosis     sysadmins who code, i ask you, is this an interesting in-person coding interview question?  http://dpaste.org/zAqBp/
+18:45 Pax          to my mind, no
+18:46 Pax          I'd rather spend the hour-ish getting to know the person, how they work, and if the'll fit with my team
+18:47 semiosis     how would you go about that?
+18:47 pdurbin      Pax: you don't want them to code in front of you? you at least want a code sample, right?
+18:47 semiosis     a good one (non-coding) i heard was "tell me about your home network?"  but that doesnt get at any coding
+18:48 semiosis     my hope for that subnet program would be to see how they attack the problem not necessarily that they have lots of syntax memorized
+18:48 Pax          I think sample code is nice, and I'd like to look at it, but I'm not sure an interview setting is where I'd want them to demonstrate coding skills, unless I had lots more time
+18:48 semiosis     good point
+18:49 Pax          I think I'd go about getting that information by asking, how they'd attack the problem, so maybe that question becomes more interesting as pseudo-code
+18:50 pdurbin      semiosis: having them say they'd download http://jodies.de/ipcalc would be good enough for me in case of your question :)
+18:51 semiosis     pdurbin: i like http://www.subnet-calculator.com/cidr.php but afaict there's no range-to-cidr-set conversion util out there
+18:52 semiosis     not that i've found in 5 min of googling anyway
+18:53 semiosis     ah, never mind, found one
+18:53 semiosis     :)
+18:53 semiosis     ip2cidr.com
+18:54 pdurbin      semiosis: ipcalc &lt;ADDRESS1&gt; - &lt;ADDRESS2&gt;  deaggregate address range
+18:54 semiosis     ooh is ee
+18:54 pdurbin      semiosis: did you mean 10.0.0.15/32 and not 10.0.0.15/31?
+18:55 semiosis     yeah, as you can tell i did not use one of those utilities to write the problem :)
+18:56 pdurbin      i'm just looking at the output of `ipcalc 10.0.0.15 - 10.0.0.35`
+19:00 pdurbin      semiosis: have them do one of our katas :) https://github.com/crimsonfu/code/tree/master/katas
+19:01 semiosis     ooh!
+19:01 pdurbin      larsks: no larsky.py yet?
+19:01 pdurbin      er, larsks.py. sorry
+19:02 * larsks     is home sick and not really thinking about Python at all right now :(.
+19:02 pdurbin      larsks: booo. hope you feel better
+19:03 pdurbin      larsks: hey is mattdm still with us? or has he started at red hat already?
+19:03 larsks       mattdm is in Raleigh/Durham for training even as we speak!
+19:03 larsks       In theory he will be hanging out on freenode at his new job.
+19:03 pdurbin      ok, i'm going to send something to you instead. to reply to at your leisure
+19:03 larsks       Okee dokee.
+19:04 pdurbin      nice. hope to see him here more
+19:04 pdurbin      Fwd: SNMP read only access to network gear
+19:05 semiosis     pdurbin: i only see one kata
+19:05 pdurbin      semiosis: add more!
+19:06 semiosis     hehehe
+19:07 larsks       pdurbin: Re: switch access, I had actually replied to that back in august...but apparently sent my reply to Matthew rather than to the original sender.  So now you have it.
+19:10 pdurbin      ah. i see it now. is your script open source?
+20:34 pdurbin      he asks a sick man
+20:35 pdurbin      take care, guys
+22:33 JoeJulian    Just read that about your datacenter. Bummer. My datacenter runs us on generators when they have to take the ups offline for that kind of stuff.
+</pre></body></html>
