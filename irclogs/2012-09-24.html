@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:03 pdurbin      a VM with 256MB Memory, 1 Core, 20GB Disk, and unlimited bandwidth for $5 per month: https://www.digitalocean.com/pricing
+13:03 pdurbin      semiosis: maybe we could get a vm for crimsonfu after all: http://irclog.perlgeek.de/crimsonfu/2012-09-06#i_5967928
+14:57 pdurbin      overheard: "only about 1500 hosts have checked in with it"
+15:01 pdurbin      the Dynamic Network System (DYNES), a nationwide cyber-instrument spanning about 40 US universities and 11 Internet2 connectors - http://www.internet2.edu/ion/dynes.html
+15:15 semiosis     pdurbin: interesting.
+15:16 semiosis     an ec2 tiny instance running 100% of the time for 3 years, at the 3 year reserved price, works out to about 6.50/mo
+15:18 pdurbin      semiosis: so pretty cheap. cool
+15:19 semiosis     my ec2 free tier is about to expire so i've been thinking about doing the reserved capacity thing
+15:20 pdurbin      crimsonfubot: lucky ec2 reserved capacity
+15:20 crimsonfubot pdurbin: http://aws.amazon.com/ec2/reserved-instances/
+15:20 semiosis     executive summary: you make an upfront payment which gets you a reduced hourly rate for 1 or 3 years
+15:23 pdurbin      thanks
+18:30 JoeJulian    http://www.msnbc.msn.com/id/49147152/ns/business-us_business
+18:34 pdurbin      some guy in #gluster just said he saw this bug with ovirt: Bug 835920 – 3.1 - vdsm - beta1 PosixFS: after reconstruct, data-center is UP and storage is unknown (stuck) - https://bugzilla.redhat.com/show_bug.cgi?id=835920
+19:52 pdurbin      comptona: when you get a chance, i'd love to hear more about your use case(s) for openstack. ec2-style compute? probably not a replacement for traditional vmware... http://irclog.perlgeek.de/crimsonfu/2012-09-10#i_5977256
+20:32 pdurbin      agoddard and whorka: our 2 factor auth. now on github: https://github.com/fasrc/openauth . as of a couple days ago. not sure how stable it is. if i'd consider this an official release, i mean. keep an eye on this guy: https://github.com/jabrcx?tab=activity :)
+20:35 whorka       thanks for that. I'm still a little confused though. Can you explain how this provides a second factor for authentication -- how it is something the user "has" rather than something the user "knows"?
+20:46 agoddard     pdurbin: nice :D
+21:10 pdurbin_m    whorka: it's just like Google's 2 factor auth
+21:11 pdurbin_m    the thing you have is a personalized app on your phone or laptop
+21:13 whorka       so how is that app personalized and what prevents its duplication?
+21:13 comptona     pdurbin: there's a couple of use cases we had in mind
+21:14 comptona     one was the standard physical-to-virtual migration; we have a lot of small services (wiki, issue tracker, etc.) all crammed together on various boxes
+21:14 comptona     the idea is to give each service its own VM
+21:14 comptona     the other big one was integration with our build systems
+21:16 comptona     I've written a script for Jenkins that takes generated RPMs and scp's them to a shiny new instance of whatever type is appropriate, attempts to install them, and then reports the output and exit code back to Jenkins
+21:16 comptona     I'm also working out how to tie in our puppet infrastructure so we can spin up a new instance and test any puppet changes we would make
+21:17 ventz        can someone give me real experience info behind freenas vs openfiler
+21:17 ventz        openfiler looks like the better choice for "enterprisy" NFS
+21:18 ventz        but freenas offers some better FS+compression+raid
+21:18 ventz        also, openfiler's UI is hundreds times better it looks like
+21:19 shuff        buy a NetApp, you cheapskate :)
+21:21 ventz        hehe
+21:22 ventz        shuff: we need it for very minimum NFS (home dirs for a few users)
+21:22 ventz        if anything, it would be the equallogic export head, but not work the 30K or w/e they are
+21:22 pdurbin_m    whorka: with a secret key per user that only the user knows
+21:22 whorka       AFAICT the Google Authenticator "secret key" is really the cryptographic secret involved in Google's "2 step" auth... but is there anything that bars two clients from using the same secret key, or could it in fact be intercepted and loaded onto another device?
+21:23 pdurbin_m    you should treat your secret key with the same care as your password
+21:24 whorka       ah, so that's why Google calls it "2 step" instead of "2 factor". It's just another secret piece of data. :(
+21:24 semiosis     when google sends you a one-time key via sms, that's more like 2-factor
+21:25 pdurbin_m    uhh. hard to convince you from a phone :)
+21:25 pdurbin_m    agoddard has used it
+21:26 pdurbin_m    comptona: thanks. let's pick this up later
+21:27 pdurbin_m    whorka: would you feel better if it were a key fob?
+21:28 whorka       only if the key fob had the secret data embedded by the factory, so that the possibility of duplication by MitM was negligible.
+</pre></body></html>

@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+05:02 * jimi_c     &lt;3's google analytics
+05:03 jimi_c       someone at cisco really likes reading cobbler docs :)
+12:45 pdurbin      jimi_c: yeah?
+12:48 jimi_c       yeah, like 300+ page views in the last month :)
+12:48 jimi_c       rackerhacker: in case you haven't seen this yet: http://www.slashgear.com/swiss-federal-railways-accuses-apple-of-copying-its-clock-design-21248837/
+12:48 jimi_c       good to see Jobs' legacy living on
+12:50 pdurbin      there was a great blog post about apple copying designs from some electronics company from the 80s. i forget which. braun, maybe? yeah
+12:50 pdurbin      1960s Braun Products Hold the Secrets to Apple's Future - http://gizmodo.com/343641/1960s-braun-products-hold-the-secrets-to-apples-future
+12:50 pdurbin      60s
+12:53 rackerhacker jimi_c: yeah, i caught that somewhere ;)
+13:00 rackerhacker i'm still having some hitches on android, but overall i'm kinda enjoying the experience
+13:21 * jimi_c     sends in patches for authentication for kibana: https://github.com/jimi1283/Kibana
+13:21 jimi_c       and then /me goes to dayjob
+14:47 JoeJulian    just mentioned rackerhacker and discovered he wasn't there... :(
+14:47 rackerhacker oops
+14:47 JoeJulian    I hate waking up to find that the yum-cron (nods to rackerhacker) has updated my glusterfs packages and all my servers are down. :(
+14:48 rackerhacker trying to reduce my channel count :P
+14:48 JoeJulian    I understand.
+14:48 pdurbin      rackerhacker: in irssi do something like this: /set activity_hide_targets freenode/#salt freenode/#openstack freenode/#vim freenode/##infra-talk freenode/#cobbler per http://wiki.greptilian.com/irssi/
+14:49 pdurbin      or use /ignore :)
+14:51 rackerhacker i haven't tickled activity_hide_targets before
+14:52 pdurbin      sjoeboo: so we'll use `salt -C 'G@vlan:375' test.ping` for not per http://irclog.perlgeek.de/salt/2012-09-20#i_6005457
+14:53 sjoeboo      for now
+15:10 pdurbin      i'm gonna be sad if nobody gets this reference: http://irclog.perlgeek.de/salt/2012-09-21#i_6007552
+15:15 JoeJulian    Narwhals! Narwhals!
+15:20 pdurbin      heh
+15:46 pdurbin      SNMPv2c is better than the alternative, i hear
+16:52 semiosis     rackerhacker: saw your troubles with lenovo on twitter &amp; wondering why you went with the samsung?  did you look at the asus zenbook prime?
+16:53 semiosis     (i'm looking for an ultrabook too and leaning toward the asus)
+16:54 rackerhacker semiosis: i saw pretty good reviews for the series 9 and i have a friend with one
+16:54 rackerhacker supposedly linux support is quite good
+16:54 semiosis     gotcha, thx
+16:57 rackerhacker i didn't consider the asus, actually
+17:01 semiosis     it's pretty sweet
+17:03 semiosis     though tbh linux support is not very mature yet because the hardware is so new.  things have been progressing quickly in the last couple months since it was released so it's looking better &amp; better all the time
+17:04 rackerhacker well i was really excited about lenovo but the delays were hard to deal with
+17:04 semiosis     yeah that sounded painful
+17:04 rackerhacker and you get the bait and switch after you buy
+17:04 rackerhacker they say one thing on the sales page and then you get a totally different date after purchase
+17:04 rackerhacker and the date moves all over the place
+17:05 rackerhacker my samsung laptop got caught up in a shipping delay but i hope to see it today
+17:06 semiosis     nice!  how long before you wipe it &amp; install ubuntu?
+17:08 rackerhacker well it will be wiped immediately, but fedora will probably go on it ;)
+17:08 semiosis     lol
+17:08 semiosis     i know, i know
+17:13 pdurbin      don't even talk to me about lenovo. so grumpy. thank goodness i still have a few weeks left on my warranty: https://plus.google.com/107770072576338242009/posts/Hb8qfjoRVSZ
+17:15 semiosis     all three of my laptops have been dell outlet refurbs and i've been really really happy with them
+17:16 semiosis     but next one is probably going to be the asus ux32vd, ordering from amazon :)
+17:16 semiosis     w/ aftermarket ram &amp; ssd upgrades, oh yeah
+17:16 semiosis     total macbook air killer
+17:18 pdurbin      just bought a nexus 7. made by asus. it's great
+17:19 semiosis     cool i've heard they're great
+17:19 pdurbin      i linked up my post about it the other day
+17:32 JoeJulian    I need a new laptop too. I'm still running a really old Fujitsu with a Centrino Duo. Damn thing's been bulletproof though.
+17:34 shuff        a.working.laptop.is.a.wonderful.thing
+17:35 pdurbin      shuff: shut up :)
+17:43 pdurbin      spotted: "I love the smell of collaboration"
+17:48 pdurbin      speak of the devil
+18:13 pdurbin      logstash or graylog2 + elasticsearch? http://irclog.perlgeek.de/crimsonfu/2012-04-13#i_5438597
+18:14 rackerhacker pdurbin: just put it all in mysql
+18:17 agoddard     rackerhacker: ohai :) what would the path be from, say, web server logs to mysql?
+18:17 rackerhacker agoddard: i was mainly just trolling pdurbin :)
+18:17 agoddard     rackerhacker: lulz
+18:19 rackerhacker these people with their loud cars and trucks keep making me think the UPS guy is here
+18:20 agoddard     drive around the block till you spot him and then flag him down :) it's worked for me once before
+18:20 rackerhacker the moment i do that he will show up waiting for a sig
+18:20 rackerhacker :)
+18:20 agoddard     true :)
+18:21 rackerhacker i'm still giggling about this http://www.nickwoodhams.com/post/31988005655
+18:22 agoddard     hahaha, wth
+18:23 agoddard     oops. I lol'd and then glanced over to my iphone5 box thinking I should probably figure out how to activate the thing soon ;)
+18:25 agoddard     pdurbin: you could have logstash spread out everywhere, collecting, listening on syslog, doing crazy stuff, filtering, storing archives, and then you could dump it all into graylog2, or into elasticsearch and throw kibana on top, or both, or filter it and send some stuff to graylog2, etc etc
+18:26 pdurbin      agoddard: so... use everything. ok :)
+18:26 pdurbin      PaxIndustria: aren't you trying to sell us on splunk?
+18:26 agoddard     pdurbin: or at the end you could (using logstash) just dump it all to a dot matrix printer and have all the logs pile up in a room full of paper..
+18:28 pdurbin      :)
+18:29 * pdurbin    tries to debug openauth
+18:29 pdurbin      heh. "If [redacted] Then the user is just confused and hasn't even setup openauth yet."
+18:31 PaxIndustria Not sure *sell* is the right word, we have it, we like it, it's got a huge set of features, a wonderful interface, and so far, I haven't seen anything besides cost which compels me to switch…
+18:32 PaxIndustria I love that there are other products in the space though, and I think it'll make Splunk cheaper in the long run (I sure hope)
+18:32 PaxIndustria and make all of the products better I suspect
+18:36 pdurbin      PaxIndustria: is open source vs. proprietary a consideration?
+18:37 * pdurbin    reads "Interpret the time skew issues if present."
+18:40 PaxIndustria pdurbin: Sure, but I wouldn't discount a good tool, especially if I thought it was the best in show just because it's not FLOSS
+18:41 pdurbin      PaxIndustria: yeah, me neither
+18:41 pdurbin      especially if it's paid for already
+18:45 PaxIndustria does anyone have suggestions for service for free shell accounts?
+18:47 pdurbin      PaxIndustria: http://pdurbin.freeshell.org
+18:50 pdurbin      PaxIndustria: that's hosted from here: SDF Public Access UNIX System - Free Shell Account and Shell Access - http://sdf.lonestar.org
+19:03 pdurbin      of tokens and codes #openauth
+19:19 pdurbin      huh. github redesign. so glad the icon at https://github.com/crimsonfu looks ok. need to fix the one at https://github.com/fasrc
+19:42 pdurbin      correction. of keys and codes #namechange
+19:48 shuff        pdurbin: i'm late to the party, but try http://search.cpan.org/dist/ApacheLog-Parser/ -&gt; http://search.cpan.org/dist/Log-Dispatch-DBI/
+19:48 shuff        anyway, i'm out - have a good weekend all!
+19:56 * pdurbin    reads http://code.google.com/p/google-authenticator/source/browse/libpam/README
+20:08 pdurbin      ok. i'm convinced. should be "16 character secret key" and "6 digit verification code". https://tools.ietf.org/html/rfc6238 uses the term "key". it also uses "OTP" (One-Time Password) a lot. and sometimes (confusingly) the word "token" for the OTP. google calls it a "verfication code". 6 digits
+20:10 pdurbin      that probably makes no sense :(
+20:10 pdurbin      there are two things
+20:12 pdurbin      1. a 6 digit verification code. that's what google calls it. RFC 6238 calls it a OTP (One-Time Password) a lot and sometimes a token. I think we should match google and call it a "verfication code". it's the 6 digit code your phone shows you
+20:15 pdurbin      2. a 16 character secret key. users often don't even see this or know it exists but each user ("prover" in RFC 6238) has one. it's known on the server side as well, where it's often called a shared secret or key. "K and C represent the shared secret and counter value"
+</pre></body></html>

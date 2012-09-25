@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:39 pdurbin_m    JoeJulian: 3 miles. along a river. I love it
+12:34 Pax          Morning
+12:52 pdurbin      Pax: mornin'
+12:56 pdurbin      semiosis: this app of yours is getting interesting :) https://twitter.com/pragmaticism/status/248638786806902784
+13:42 pdurbin      duh. `yum install libguestfs-winsupport` is the fix for "virt-v2v: No root device found in this operating system image.` per http://irclog.perlgeek.de/crimsonfu/2012-05-24#i_5632538
+13:42 * pdurbin    kicks self again
+13:42 * pdurbin    makes sure it's in puppet
+14:27 pdurbin      bummer... "not easily at the moment" [cobbler] Windows Installation through PXE - https://lists.fedorahosted.org/pipermail/cobbler/2012-September/008224.html
+14:57 dotplus      ironcamel: pdurbin suggested you might have input on this: I have nginx proxying to an appserver with upstream foo { server unix:/var/run/foo.sock; }, and we're occasionally seeing 502 bad gateway errors. If the appserver is not broken (i.e. a new request is handled just fine), does it suggest that I need more appserver workers? appserver is starman
+15:04 ironcamel    dotplus: i would do a simple test, just slam your app with parallel http requests until you get 502s. then up the # of starman workers and see if it helps
+15:09 dotplus      sounds reasonable, I'll try that. thanks.
+15:14 semiosis     pdurbin: :D
+15:15 pdurbin      sjoeboo in the house
+15:38 pdurbin      shuff, whorka, cperry: http://irclog.perlgeek.de/salt/2012-09-20#i_6005069 :)
+15:46 cperry       phil, we were just talking about that yesterday. " " :)
+15:48 pdurbin      put quotes around it
+15:48 pdurbin      good for what ails you :)
+15:48 semiosis     pdurbin: lmao just chatted you in #gluster by accident...
+15:48 semiosis     pdurbin: thanks again for the links to the javascript stuff
+15:49 semiosis     durbin: i started watching the yahoo guy's videos last night... it's a helpful refresher.  i made it to half way through ep. 3 (functions) and passed out :D
+15:49 semiosis     https://twitter.com/philipdurbin/status/248603220371456000 for context, in case anyone's interested
+15:49 semiosis     s/the yahoo guy/crockford/
+15:49 pdurbin      is crockford still at yahoo? i forget
+15:49 pdurbin      those videos are great. and The Good Parts is nice and slim
+15:49 semiosis     hmm seems like he was at the time
+15:50 pdurbin      yeah, we was, maybe is
+15:50 pdurbin      crimsonfubot: lucky douglas crockford
+15:50 crimsonfubot pdurbin: http://www.crockford.com/
+15:51 pdurbin      i guess he's at paypal now: http://en.wikipedia.org/wiki/Douglas_Crockford
+15:51 semiosis     lucky indeed
+15:57 dotplus      is anyone still at yahoo? :)
+15:57 semiosis     just marissa
+16:01 pdurbin      heh
+16:02 pdurbin      i heard marissa doubled the size of the flickr team
+16:29 pdurbin      i so love `virsh console`
+17:29 pdurbin      sjoeboo: so... https://github.com/saltstack/salt/blob/develop/salt/grains/extra.py via http://irclog.perlgeek.de/salt/2012-09-20#i_6005232 for our facter2grains, huh?
+17:31 sjoeboo      maybe
+17:40 pdurbin      :)
+</pre></body></html>
