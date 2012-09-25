@@ -4,6 +4,51 @@
 </head>
 <body>
 <pre>
-Time  Nick    Message
-13:03 pdurbin why does crimsonfubot keep becoming crimsonfubot`? from /home/supybot/logs/messages.log: WARNING 2012-09-24T19:33:28 supybot Ping sent at 2012-09-24T19:31:27 not replied to. WARNING 2012-09-24T19:33:28 supybot Error message from freenode: Ping sent at 2012-09-24T19:31:27 not replied to.
+Time  Nick         Message
+13:03 pdurbin      why does crimsonfubot keep becoming crimsonfubot`? from /home/supybot/logs/messages.log: WARNING 2012-09-24T19:33:28 supybot Ping sent at 2012-09-24T19:31:27 not replied to. WARNING 2012-09-24T19:33:28 supybot Error message from freenode: Ping sent at 2012-09-24T19:31:27 not replied to.
+13:09 GitHub179    [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/d0d2d0cc32b77513471b2f76f7c49548b4612283
+13:09 GitHub179    [crimsonfu.github.com/master] fetch some logs - Philip Durbin
+13:48 pdurbin      sigh. xfs_repair
+14:06 pdurbin      Q: What is the inode64 mount option for? A: By default, with 32bit inodes, XFS places inodes only in the first 1TB of a disk. If you have a disk with 100TB, all inodes will be stuck in the first TB. This can lead to strange things like "disk full" when you still have plenty space free, but there's no more place in the first TB to create a new inode. Also, performance sucks. -- XFS FAQ - XFS.org - http://xfs.org/index.php/XFS_FAQ#Q:_What_is_the_in
+14:13 pdurbin      Bug #60098 “irssi silently truncates long lines” : Bugs : “irssi-text” package : Ubuntu - https://bugs.launchpad.net/ubuntu/+source/irssi-text/+bug/60098
+14:14 * larsks     switched from irssi to weechat recently.  Seems nice.
+14:15 pdurbin      crimsonfubot: google weechat
+14:15 crimsonfubot pdurbin: WeeChat, the extensible chat client: &lt;http://www.weechat.org/&gt;; WeeChat :: download: &lt;http://www.weechat.org/download/&gt;; WeeChat :: documentation: &lt;http://www.weechat.org/doc/&gt;; WeeChat :: scripts: &lt;http://www.weechat.org/scripts/&gt;; WeeChat - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/WeeChat&gt;; WeeChat - ArchWiki: &lt;https://wiki.archlinux.org/index.php/WeeChat&gt;; (1 more message)
+14:28 pdurbin      Re: No space left on device on xfs filesystem with 1.6TB free - http://oss.sgi.com/archives/xfs/2009-01/msg01031.html
+14:29 pdurbin      Re: No space left on device on xfs filesystem with 1.6TB free - http://oss.sgi.com/archives/xfs/2009-01/msg01026.html
+14:40 pdurbin      VM: killing process xfs_db -- Re: Strange df output - http://oss.sgi.com/archives/xfs/2004-01/msg00976.html
+14:49 ventz        hrmm, weechat looks better than irssi
+14:50 ventz        i like the room list always showing
+14:50 ventz        not sure if you can do that w/ irssi
+14:51 ventz        pdurbin: http://blog.didrocks.fr/post/Moving-away-from-(screen-irssi)-to-(bip-weechat)
+14:51 larsks       Also, weechat has Python/Ruby/etc. bindings instead of just perl.
+14:52 ventz        larsks: trying to convince me not to use it? :)
+14:52 * ventz      loves perl
+14:52 larsks       So you can continue to use perl.
+14:52 ventz        although the irssi perl interface *could* use an update
+14:54 pdurbin      somebody write us an irc survival guide please: https://github.com/crimsonfu/crimsonfu.github.com/tree/master/_posts
+14:57 larsks       An IRC survival guide? We could just hand out blindfolds to people...
+17:18 pdurbin      JoeJulian: thanks for your crimsonfubot suggestions at 2012-09-25 08:02 (PDT) at http://www.gluster.org/interact/log-details/?log=2012-09 (try registering with freenode's nickserv)
+17:21 JoeJulian    Happy to help.
+17:25 pdurbin      for the record, i did switch from supybot-0.83.4.1-3.el6.noarch to supybot-gribble-0.83.4.1-8.el6.noarch on 2012-08-06. not sure if that was a factor
+17:27 JoeJulian    I used to use gribble until the limnoria folks emailed me a patch for the patch I'd submitted to gribble. My patch was never merged into gribble, but it was merged into limnoria. wfiw.
+17:32 pdurbin      i'm only using supybot because it's what sejeff (so it goes) recommended. seems to work fine usually
+17:49 JoeJulian    limnoria is supybot
+17:50 pdurbin      i should probably run ilbot, since that's what _ilbot is
+17:53 JoeJulian    I love the power of blogging wrt vendors. Even the crappy ones start responding faster when you've blogged and tweeted their faults publicly.
+17:59 pdurbin      JoeJulian: you aren't talking about Red Hat are you. someone just sent me some more FUD from Red Hat along the lines of http://irclog.perlgeek.de/crimsonfu/2012-08-21#i_5915167
+18:19 pdurbin      sjoeboo: jealous but thanks for this link. :) Can’t Make it to PuppetConf? Watch the Live Video Stream | Puppet Labs - http://puppetlabs.com/blog/watch-the-puppetconf-live-video-stream/
+18:20 sjoeboo      ear, did you register
+18:20 sjoeboo      ?
+18:20 pdurbin      nope
+18:25 * pdurbin    gives agoddard access to RT; pdurbin gives agoddard some of his tickets
+18:57 pdurbin      whorka: no RPM? http://guides.thedata.org/book/installers-guides
+19:04 pdurbin      guys, give me some, uh, endpoints, to hit. this is working: snmpwalk -v 2c -c public some-network-device SNMPv2-MIB::sysName.0
+19:22 whorka       @pdurbin DVN is targeting cross-platform compatibility over ease of installation on any single OS
+19:22 crimsonfubot whorka: Error: "pdurbin" is not a valid command.
+19:37 pdurbin      whorka: sounds like "no" :)
+19:42 JoeJulian    pdurbin: No, not Red Hat. My PCI compliance tester. Poor customer service issue. They may have something valid but they can't seem to communicate it to me.
+19:49 pdurbin      use your words
+19:52 semiosis     words FTW
+20:02 pdurbin      huh. no "-of qcow2" in our archive?? here you go: virt-v2v -ic qemu+ssh://$HYPERVISOR/system -of qcow2 -os $TARGETPOOL $VM
 </pre></body></html>
