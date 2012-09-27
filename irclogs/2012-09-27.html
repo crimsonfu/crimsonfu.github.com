@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+07:51 boegel       can you guys access http://blog.jcuff.net/ ? I can't, and James tweets it's OK for him
+09:00 boegel       nvm about James' blog, turns out our uni blocks it because some torrent site is hosted at the same IP
+12:10 pdurbin      boegel: that's hilarious :)
+12:38 boegel       pdurbin: not sure if it is :)
+12:38 pdurbin      fair enough :)
+12:40 boegel       pdurbin: are you saying our network team is overexagerating? or that it's funny that James' blog is hosted alongside torrents/warez?
+12:41 pdurbin      the latter :)
+12:41 pdurbin      but i'm kidding
+12:41 boegel       pdurbin: ah, cause I might agree with the former as well
+12:41 pdurbin      i'm quite anti-warez. i'm a boy scout
+12:41 pdurbin      well, not literally...
+12:41 boegel       pdurbin: it's probably a virtualized server, apparently 2500 sites are hosted on the same IP
+12:41 pdurbin      interesting
+12:42 boegel       pdurbin: it's just annoying that I need to connect differently to read James' blog :P
+12:42 pdurbin      no kidding
+12:42 pdurbin      you said you let james know already?
+12:44 boegel       yes, via Twitter
+12:44 pdurbin      awesome. thanks
+12:44 boegel       pdurbin: I was complaining first that his blog is down ;-)
+12:47 pdurbin      crimsonfubot: lucky down for everyone or just me
+12:47 crimsonfubot pdurbin: http://www.downforeveryoneorjustme.com/
+12:48 boegel       pdurbin: yeah, well, that's down as well :P
+12:48 pdurbin      is it?!?
+12:48 boegel       pdurbin:
+12:48 boegel       pdurbin: at least, it doesn't work from inside our uni network
+12:48 boegel       pdurbin: btw, https://twitter.com/jamesdotcuff/status/251301469310054400
+12:51 pdurbin      huh
+12:52 pdurbin      i hope your uni doesn't block all blogger sites
+12:52 pdurbin      (though i'm more of a jekyll/github pages guy)
+12:56 pdurbin      agoddard: dunno if you saw my "High Availability with MySQL" to our internal mailing list, but i'm curious about your thoughts
+12:57 pdurbin      (i linked back to some chat about Scalr at http://irclog.perlgeek.de/crimsonfu/2012-07-18#i_5824414 which is public, of course)
+12:57 Itkovian     now now
+12:57 Itkovian     let me introduce you to hakyll then pdurbin :-p
+12:57 pdurbin      ventz: were your ears burning? i also talked about the mysql cluster you set up
+12:58 pdurbin      crimsonfubot: lucky hakyll
+12:58 crimsonfubot pdurbin: http://jaspervdj.be/hakyll/
+13:00 pdurbin      Itkovian: you're a haskell hacker! sqee! please submit a solution to this kata! http://irclog.perlgeek.de/crimsonfu/2012-09-11#i_5977620
+13:02 boegel       pdurbin: I'm into Haskell too, when I find the time
+13:06 pdurbin      double sqee! squee? squee!
+13:09 ventz        pdurbin: oh yea? :)
+13:09 ventz        what about it?
+13:21 larsks       Hey, did anyone ever end up with a successful RT4 repository?
+13:47 Itkovian     pdurbin: what's the question/exercise?
+13:48 Itkovian     the autovivication ons?
+13:48 Itkovian     *one?
+14:31 Itkovian     pdurbin: challenge accepted
+14:52 pdurbin      Itkovian: \o/ #soexcited
+14:53 pdurbin      larsks: yes. http://wiki.greptilian.com/request-tracker/4/
+14:53 Itkovian     if it documented anywhere what the JSON should contain, or do I just look at the example?
+14:53 pdurbin      ventz: i'll forward it to you
+14:53 pdurbin      Itkovian: it needs to pass `prove` or it doesn't count
+14:54 Itkovian     sure
+14:54 pdurbin      so excited
+14:57 pdurbin      ventz: sent. subject: High Availability with MySQL, was Re:  Mysql.rc brutality
+14:58 pdurbin      if you can talk about your mysql cluster here that would be great
+14:58 pdurbin      or link to some public puppet manifests, ideally :)
+15:52 ventz        pdurbin: it's definitely not crazy difficult
+15:52 ventz        and yes, that's what the cluster achieves
+15:52 ventz        there are some "gotcha's" when it comes to the data type
+15:52 ventz        it's not really meant for throwing wordpress against it
+15:52 ventz        it's designed for custom applications where the dev can modify the table create statement so that it takes advantage of the cluster (2 lines)
+16:11 dotplus      http://puppetlabs.com/puppetconf-live
+16:11 agperson     watching!
+16:24 semiosis     dotplus: thanks
+16:24 semiosis     wow there's 830+ people in #puppet now... thats just crazy
+16:41 Pax          Just cross posted the link to the #splunk room on irc.efnet.org :)
+16:52 agperson     Pax: any update to this: http://forge.puppetlabs.com/thartmann/pam_access ?
+16:53 agperson     (sort of assuming that is you)
+16:56 Pax          yup!
+16:57 Pax          thats me! snuff and I did some re-writes and posted a newer version under the huit account
+16:57 Pax          http://forge.puppetlabs.com/huit/pam_access
+16:57 Pax          I should probably take down the older one
+16:57 Pax          but there a parts of it I still like, I sort of like the "gold" copy-ness of the file
+16:58 agperson     thanks
+16:59 agperson     Pax: I agree, line-by-line management makes things very flexible but lots of opportunity for problems to arise
+17:00 agperson     also puppet runs a *lot* faster that way...
+17:00 agperson     (err, the opposite…a lot slower with lots of augeas calls, faster managing full config files)
+17:02 Pax          I have to admit I am a bit of a template fan boy :)
+17:32 larsks       pdurbin: Thanks!
+17:38 pdurbin      larsks: sure
+17:38 * pdurbin    reads https://docs.rc.fas.harvard.edu/puppetconf2012/ (thanks to sjoeboo)
+17:49 pdurbin      heh. "thinks we're living in the most exciting time in IT. it sucks, but sucks way less than it used to."
+17:50 pdurbin      "Unmovable deadlines, corners cut, more shortcuts, more fragile code/applications. = Technical Debt"
+17:52 pdurbin      sjoeboo: thanks. good stuff
+17:59 pdurbin      wow. 1.6 terabytes in /mnt/lost+found/
+18:00 pdurbin      ventz: not crazy difficult? the mysql clustering? do you recommend it? any docs you can link to?
+18:06 agperson     pdurbin: it's not very useful for off-the-shelf apps unless they explicitly support it, or you want to do a lot of work
+18:07 agperson     we tried with wordpress, drupal, mediawiki…no luck
+18:07 agperson     best for custom-built apps that need those specific capabiilities it provides
+18:14 pdurbin      agperson: that's very unfortunate. what's the point?
+18:15 agperson     i gather it is supposed to be highly-available, highly-scalable, and all in-memory…but not NoSQL
+18:15 ventz        pdurbin: all this time i thought it was my script that fudged URLs
+18:16 ventz        i found a bug in the tinyurl API call
+18:16 ventz        pdurbin: about mysql cluster -&gt; more of a in-person discussion :)
+18:16 pdurbin      agperson: i'll send you the email. if i can find your address
+18:17 pdurbin      ventz: more of a geeknight thing?
+18:21 pdurbin      agperson: sent
+18:21 agperson     cheers
+18:21 pdurbin      would be great to continue the discussion here
+18:22 pdurbin      certainly on topic
+18:22 * dotplus    is planning to build a mysql "cluster" with HA in mind to run our RT systems
+18:23 pdurbin      see? :)
+18:24 pdurbin      dotplus: me too. for RT
+18:24 pdurbin      and whatever
+18:24 dotplus      so I'd love to see anything others have done recently, especially if it's puppetized. I think that that puppetlabs-mysql isn't going to be flexible enough for me (we're not using vendor rpms for mysql, won't support multimaster and various other settings)
+18:24 pdurbin      dotplus: have you looked at scalr? i linked it above
+18:25 pdurbin      well, linked to previous chat about it
+18:29 ventz        pdurbin: not necessarily that, but just too much info
+18:29 ventz        and i have a lot of stuff today
+18:30 ventz        the summary: it works, it requires someone to look after it/maintain it (that is when you add apps and such)
+18:30 ventz        it's great if you truly need 0% downtime
+18:30 ventz        it's a HUGE pain for "off the shelf" apps
+18:33 dotplus      "off the shelf" as in "cannot modify how the app interacts with/queries the db"?
+18:34 pdurbin      dotplus: please. he's busy ;)
+18:34 pdurbin      ventz: how many nodes in the cluster?
+18:39 ventz        10
+18:39 dotplus      scalr is an alternative to openstack, opennebula, cloudstack, etc.?
+18:39 ventz        you ahve 3 "types"
+18:39 ventz        you need at minimum TWO different "servers" -- not recomended
+18:39 ventz        the minimum "recommended" model is THREE "servers"
+18:40 ventz        1.) API/SQL node (front access only, 2.) STORAGE node (attached to lots of disk), and 3.) Management server
+18:40 ventz        in an ideal setup:
+18:40 ventz        10 nodes = "2 site" redundancy, with each site: 2 SQL nodes, 2 DN (data) nodes, and 1 "management server"
+18:40 ventz        out of 10 servers, you can lose 8 -- everything except 1 SQL node and 1 DN node
+18:40 ventz        and still be 100% up
+18:45 pdurbin      dotplus: no. scalr for "orchestration"
+18:45 pdurbin      ventz: thank you! :)
+18:52 pdurbin      dotplus: i'm a little confused about what "off the shelf" means myself. wordpress, sounds like
+18:52 pdurbin      not sure if RT qualifies
+18:53 pdurbin      ventz: did you say there was some book you read?
+18:53 dotplus      isn orchestration the cool new name for provisioning?
+18:53 ventz        :nod:
+18:53 pdurbin      dotplus: nope
+18:53 ventz        pdurbin: but now it's about 80% useless because they released 2 major releases
+18:53 ventz        that was the difficult part. The book gave me a lot of the basic concepts, but some of them had drastically changed by the time I started building
+18:54 pdurbin      agoddard: didn't we talk about provisioning vs. orchestration once?
+18:54 ventz        they went from v5.1,2,3 to v7
+18:54 pdurbin      ventz: hmm. ok. still worth linking to the book?
+18:54 ventz        i have the copy
+18:54 ventz        you are more than welcome to borrow it
+18:54 ventz        i even have all the sections labled
+18:56 pdurbin      crimsonfubot: google mysql cluster book
+18:56 crimsonfubot pdurbin: MySQL Clustering: Alex Davies,Harrison Fisk: 9780672328558 ...: &lt;http://www.amazon.com/MySQL-Clustering-Alex-Davies/dp/0672328550&gt;; MySQL Clustering - Alex Davies, Harrison Fisk - Google Books: &lt;http://books.google.com/books/about/MySQL_Clustering.html?id=_3nERYD9xqcC&gt;; MySQL :: MySQL Documentation: MySQL Reference Manuals: &lt;http://dev.mysql.com/doc/&gt;; MySQL Cluster Management : Part 2 | (2 more messages)
+18:57 pdurbin      "Publisher: MySQL Press; 1 edition (March 20, 2006)" that one by Alex Davies must be it
+18:59 pdurbin      ventz: we have a guy who might want to borrow it. not sure this is my project. but thanks
+</pre></body></html>

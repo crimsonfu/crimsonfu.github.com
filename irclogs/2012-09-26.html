@@ -1,0 +1,255 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:05 pdurbin      i'm only a couple clicks into the weechat website and i'm already offended by a screenshot of a woman in bondage: http://www.weechat.org/screenshots/weechat_2010-02-22_caleb.png/ terrible first impression
+01:07 pdurbin      i'm reminded of how i spent a little time on http://geekfeminism.wikia.com/wiki/FLOSS the other week. open source has a long way to go, sadly
+01:12 pdurbin      i just linked back to here and http://irclog.perlgeek.de/crimsonfu/2012-09-25#i_6017406 in #weechat and let them know i got a bad first impression
+02:49 pdurbin      you guys know who Dave Winer is, I hope. I finally tried out his "symphony of software" and wrote about it here: Philip Durbin - Google+ - As a fan of owning my own data (and data liberation) I've… - https://plus.google.com/107770072576338242009/posts/bFaQpQNfb6J
+02:49 pdurbin      ah. exited wine. might be time for a shower ;)
+12:09 boegel       hi y'all!
+12:10 pdurbin      boegel: good morning :)
+12:11 boegel       this is a room full of hard-core sysadmins? scary!
+12:11 pdurbin      heh
+12:11 boegel       Itkovian is my colleague @ HPC-UGent
+12:11 * Itkovian   ducks
+12:11 pdurbin      Itkovian: hi
+12:11 Itkovian     yeah. hi too :-p
+12:11 boegel       if EasyBuild is broken, blame him :P
+12:12 pdurbin      so you guys want to talk about my tweet? https://twitter.com/philipdurbin/status/249898230073135104
+12:12 boegel       pdurbin: sure!
+12:12 pdurbin      " use "module load" on your HPC cluster? try building with easybuild. @fasrc plans to http://hpcugent.github.com/easybuild/ "
+12:12 boegel       pdurbin: tell us how you picked up on EasyBuild, and how you like it so far
+12:12 Itkovian     I'll just lurk for a while, got work to do :-)
+12:12 pdurbin      me too :/
+12:12 boegel       don't we all...
+12:13 pdurbin      didn't one of you leave a comment on james cuff's blog?
+12:13 boegel       pdurbin: ah, yes, jgtimmer did
+12:13 boegel       pdurbin: he's not in today though
+12:13 boegel       pdurbin: we're trying to promote EasyBuild where it seems relevant
+12:13 pdurbin      anyone have a link?
+12:13 boegel       pdurbin: we've only started to make it available in public since a couple of months, and are trying to get feedback mostly
+12:14 boegel       pdurbin: the blog was down yesterday, I think
+12:14 pdurbin      here it is. from Jens: http://blog dot jamesdotcuff dot net: scientific software as a service sprawl... - http://blog.jcuff.net/2012/07/scientific-software-as-service-sprawl.html?showComment=1348407332993#c6395090447973051400
+12:15 pdurbin      i work for james. when he saw that comment, he forwarded it to us
+12:15 pdurbin      i haven't really had a chance to look at easybuild
+12:15 pdurbin      oh, did you see the recent blog post about modules from dell?
+12:15 boegel       pdurbin: no
+12:16 pdurbin      it's by Jeff Layton: Auditing Environment Modules - Home Base for HPC Professionals - http://hpc.admin-magazine.com/Articles/Auditing-Environment-Modules/
+12:16 boegel       pdurbin: your tweet seemed to suggest you looked into it and really liked it, which we were happy about
+12:16 boegel       pdurbin: we're working hard on EasyBuild v0.9, which is going to include quite a bit of changes compared to v0.8
+12:16 pdurbin      boegel: sorry to give you that impression. really i only looked at the home page
+12:17 boegel       pdurbin: so, I wanted to contact you to make sure you don't start coding like hell against v0.8, cause v0.9 will break that work
+12:17 pdurbin      heh. ok
+12:17 boegel       pdurbin: our v0.9 milestone is set for end of Sept, but it's going to have to shift a bit probably
+12:17 boegel       pdurbin: does james cuff's blog work on your end? it doesn't here...
+12:18 pdurbin      my involvement with our modules system so far has centered around exposing our list of modules as JSON and writing a little script to query it: https://github.com/fasrc/api/blob/master/modules
+12:18 boegel       pdurbin: hpc admin magazine is a Dell thing?
+12:18 boegel       pdurbin: because I did see that article, it's not the first time they've run that series on module
+12:18 pdurbin      uh. i think Jeff Layton works for dell?
+12:18 boegel       *modules
+12:18 * boegel     doesn't know
+12:19 boegel       pdurbin: LinkedIn says he does, yes
+12:19 pdurbin      ok #notcrazy
+12:19 boegel       pdurbin: so, anyway, are you guys planning to look into EasyBuild?
+12:20 pdurbin      personally... i have a lot on my plate at the moment. but i think we should
+12:20 pdurbin      other people on my team do the software building
+12:20 boegel       how are you guys handling software builds now? any framework or somesuch you're using?
+12:20 pdurbin      i'll certainly point them to this conversation
+12:21 * pdurbin    checks docs
+12:21 boegel       :)
+12:21 boegel       pdurbin: are you, or the software build guys in your team, planning to attend SC'12?
+12:21 pdurbin      i see a docs/cluster/modules/template.mdwn...
+12:22 boegel       that's a template module? or?
+12:22 boegel       ah, now, it's MarkDown probably
+12:22 pdurbin      yeah, we use ikiwiki. (i love ikiwiki)
+12:23 pdurbin      ha! "modulefile_template.very_simple is what I always use; modulefile_template.with_prereqs has some logic for auto-unloading conflicting modules, but I don't know how it works"
+12:23 pdurbin      "There's a little helper named generate_setup.sh in the hpc/rc module to make this easier and more consistent. Just run it with the -m switch and the directory you're trying to setup, and it'll search for the variables that need to be set."
+12:24 pdurbin      i'm not sure if this is helpful at all :)
+12:24 boegel       pdurbin: ok, that's for creating modules
+12:24 pdurbin      isn't that way easybuild is for? creating modules?
+12:24 boegel       pdurbin: but how about building the software packages themselves?
+12:24 Itkovian     pdurbin: creating the module files is a side effect, mostly :-)
+12:24 boegel       pdurbin: it builds and installs software in a custom path, with a specified compiler toolchain, and then also creates module files for that software, yes
+12:25 pdurbin      ok, that's what i thought
+12:25 Itkovian     no building =&gt; no module files
+12:25 boegel       pdurbin: we have a workshop paper on EasyBuild that we've submitted to the PyHPC workshop at SC'12, we can show you a preprint if that's helpful
+12:26 pdurbin      if you can make it public you could post a link on james's blog
+12:26 pdurbin      (if it's up) :P
+12:26 boegel       pdurbin: we'll, we can't make it public yet, we're awaiting the acceptance decision for the workshop
+12:27 boegel       pdurbin: but we can mail it for you (and your colleagues) to read
+12:27 boegel       pdurbin: either way, we should get the acceptance decision Oct 1st
+12:27 pdurbin      sure. if you mail it to rchelp@fas.harvard.edu it will land in our ticketing system (RT)
+12:29 boegel       is that a good idea? I don't want to give the impression we're spamming the Harvard helpdesk :)
+12:29 pdurbin      heh. no it's cool. i'll take the ticket
+12:29 pdurbin      hey, have you guys looked at this? SoftwareCollections - FedoraProject - https://fedoraproject.org/wiki/SoftwareCollections
+12:29 pdurbin      i keep meaning to add that as a comment on james's blog. the same post you commented on
+12:30 pdurbin      "The concept of Software Collections allows multiple versions of software to be installed at the same time without interfering in any negative way with the standard versions provided by the system."
+12:30 boegel       pdurbin: we briefly looked into it, well, the Red Hat counterpart at least
+12:30 pdurbin      ok. i chatted with some red hat guys about it at their summit this summer
+12:30 boegel       pdurbin: that's what EasyBuild does, but our focus in on HPC software
+12:30 Itkovian     Mind that EasyBuild development has started three years ago, when there were no SoftwareCollections :-)
+12:30 pdurbin      sure. and that's our focus as well
+12:31 boegel       pdurbin: any of you guys planning to attend SC'12?
+12:31 Itkovian     but yeah, they seem to have the same idea
+12:31 pdurbin      well, how old is modules itself? 20 years? :)
+12:31 pdurbin      i think james always goes to SC...
+12:31 Itkovian     however, it would be hard for us to rely on RPMs, since we have custom/commercial software that meeds to be installed too
+12:31 pdurbin      Itkovian: sure. us too. commercial software
+12:32 Itkovian     so yeah .. you know how that works out ...
+12:32 boegel       pdurbin: I'd love to chat with you guys at SC'12... Jens and I will be there the whole week
+12:33 pdurbin      http://blog dot jamesdotcuff dot net: disruptive things spotted so far at #SC11 - http://blog.jcuff.net/2011/11/disruptive-things-spotted-so-far-at.html
+12:34 pdurbin      boegel: i'll ask james to look for you :)
+12:34 boegel       pdurbin: I can schedule an (informal) meeting with him, if he's OK with that
+12:34 boegel       pdurbin: is he into beers? :)
+12:35 pdurbin      he's english. of course he is
+12:36 boegel       pdurbin: :D
+12:36 boegel       pdurbin: mailed our paper to the rchelp@ address
+12:36 boegel       pdurbin: maybe show it to James, and ask him if he's OK with meeting up at SC'12?
+12:37 pdurbin      sounds like a plan
+12:42 boegel       pdurbin: so, what's crimsonfu about? grouping together sysadmins who release their tools as open-source?
+12:42 pdurbin      it's an experiment of mine. not a harvard thing
+12:43 pdurbin      http://crimsonfu.github.com is my attempt to explain it :)
+12:43 pdurbin      we talk about puppet, chef, kvm, etc. you name it. you're welcome to hang out here
+12:45 boegel       pdurbin: we will :)
+12:45 boegel       pdurbin: ever heard of Quattor?
+12:45 pdurbin      crimsonfubot: google quattor
+12:45 crimsonfubot pdurbin: quattor - fabric management for grids and clouds: &lt;http://quattor.sourceforge.net/&gt;; Quattor: &lt;http://www.quattor.com.br/&gt;; Quattor - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Quattor&gt;; Quattor (company) - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Quattor_(company)&gt;; Quattor, Quattor Petroquímica S.A., Company Profiles,: (1 more message)
+12:45 pdurbin      nope. thanks
+12:45 boegel       pdurbin: it's what we use here instead of Puppet to deploy all our systems
+12:46 pdurbin      interesting
+12:46 boegel       pdurbin: right now, about 500 spread out over 5 clusters
+12:46 pdurbin      sjoeboo just arrived with his suitcase. he's off to puppet conf :)
+12:46 boegel       pdurbin: :)
+12:54 pdurbin      Science Collaboration Framework | MIND Informatics - http://www.mindinformatics.org/node/3
+12:54 pdurbin      About | Science Collaboration Framework - http://sciencecollaboration.org
+12:55 pdurbin      "The Science Collaboration Framework (SCF) is a software toolkit to establish web-based virtual team organizations for researchers in biomedicine"
+12:55 pdurbin      "eXframe - a subproject of SCF - is a reusable framework for building genomics experiments repositories" http://sciencecollaboration.org/exframe
+12:56 boegel       nice
+13:19 boegel       pdurbin: how big is the HPC support team at Harvard, including sysadmins?
+13:19 Itkovian     also, how big are the cluster(s)?
+13:20 Itkovian     large variety of software?
+13:21 pdurbin      we don't run the only cluster at harvard but http://rc.fas.harvard.edu/about-rc/research-computing-staff/
+13:22 boegel       about 15 people, ncie
+13:22 boegel       pdurbin: the systems are not university-wide?
+13:22 pdurbin      it's complicated :)
+13:22 boegel       pdurbin: it's only for the arts and sciences faculty?
+13:22 boegel       Itkovian: http://software.rc.fas.harvard.edu/ganglia/ganglia2_master/
+13:23 boegel       Itkovian: 20000 cores in total, about 1750 systems
+13:23 Itkovian     nice
+13:25 pdurbin      boegel: more on the way: http://en.wikipedia.org/wiki/Massachusetts_Green_High_Performance_Computing_Center
+13:26 boegel       pdurbin: that sounds promising :)
+13:33 pdurbin      :)
+14:23 whorka       Harvard has Google apps now: http://g.harvard.edu/
+14:23 Itkovian     Is everybody here from harvard?
+14:24 boegel       Itkovian: well, we're not :)
+14:31 Pax          Not everyone but a bunch :)
+14:37 pdurbin      Itkovian: invite your friends :)
+14:37 Itkovian     lol
+14:37 Itkovian     except for boegel, I think only jgtimmer lurks on IRC
+14:53 boegel       I'm starting to screw things up, so almost time to go home...
+14:53 pdurbin      heh. see ya
+14:53 Itkovian     I will not reply to that
+14:55 * pdurbin    reads http://techtalk.daudfam.net/mysql/mysqlinnodb-unable-to-lock-issue
+15:02 pdurbin      oh yeah, i forgot there's a http://dba.stackexchange.com
+15:19 boegel       ttyl guys
+15:19 boegel       and gals
+15:19 pdurbin      do we even have any gals? we should recruit some
+15:55 pdurbin      "got it started with innodb_force_recovery=5"
+15:57 Pax          So I'm probably the last person to have caught this.. but triggers in cobbler are cool!
+15:57 Pax          https://github.com/cobbler/cobbler/wiki/Triggers
+16:06 pdurbin      jimi_c: ^^
+16:08 pdurbin      Pax: we have /var/lib/cobbler/triggers/install/pre/clean_puppet.sh
+16:30 pdurbin      whorka: nothing under "additional services" for me :( #googleapps
+16:40 whorka       I had to set security questions and do a password change per http://g.harvard.edu/g-start.html
+16:41 pdurbin      yeah, i did that
+16:41 pdurbin      maybe i'm being punished for jumping the gun... for trying yesterday
+16:41 whorka       nah, we had people signing up yesterday too
+19:05 pdurbin      "heavy inserts"
+19:08 pdurbin      boegel: for the record, i got your paper via ticket #29067
+19:19 ventz        pdurbin: links reminder :)
+19:23 pdurbin      ventz: oh, the qcow2 corruption?
+19:23 pdurbin      ventz: here you go http://irclog.perlgeek.de/crimsonfu/2012-08-03#i_5871320
+19:24 pdurbin      related tweet: https://twitter.com/philipdurbin/status/233280438884515840
+19:25 pdurbin      which i sent to the author of this paper, whom i met at the red hat summit in july or whenever that was: The QCOW2 Image Format - http://people.gnome.org/~markmc/qcow-image-format.html
+19:25 pdurbin      nice guy. i'm sure he's busy
+19:31 ventz        pdurbin: did he ever respond to your tweet?
+19:31 pdurbin      nope
+19:32 pdurbin      in practice, we're not treating that corruption super seriously... the VMs seem fine. but i do want to clean it up. i have a half written nagios check
+19:38 pdurbin      ventz: i'm glad you've never seen this. it gives me hope
+19:48 ventz        what scares me, i have'nt seen it on the old version either
+19:48 ventz        so now the question becomes did it screw up a file somewhere and i just never noticed
+19:48 ventz        but you are saying it screws up the whole VM image
+19:55 pdurbin      `qemu-img check` says so. but again the VM seems to work fine...
+19:55 pdurbin      though snapshots are a mess. i'm sure they aren't reliable. if even accessible
+19:59 ventz        hmm
+20:02 pdurbin      ventz: but you're a fan of NFS for VM disk images?
+20:02 pdurbin      we sometimes blame NFS for the qcow2 corruption. but we really don't know
+20:02 pdurbin      and haven't looked into it deeply
+20:03 pdurbin      i wonder what oVirt does. if it does the same qemu snapshotting under the hood
+20:03 pdurbin      JoeJulian likes gluster for VM disk image storage. i think :)
+20:11 ventz        pdurbin: i am, i like NFS in general and hate iscsi
+20:11 ventz        i looked a lot into iscsi b/c of the performance mentions
+20:11 ventz        and once i read up on it I gave up (well after i did my own tests and verified the performance mentioned in some white papers)
+20:14 pdurbin      agoddard: you love iscsi. fight! fight!
+20:15 Pax          why do you hate iscsi?
+20:15 Pax          we've got lots of it, and haven't seen any performance issue.. what were you guys seeing?
+20:19 pdurbin      Pax: i think this was in ventz's basement :)
+20:19 pdurbin      ventz: no offense :)
+20:22 pdurbin      i like NFS too. easy
+20:22 pdurbin      but i worry about too many VMs on NFS
+20:25 Pax          :)
+20:26 pdurbin      don't make me link to red hat's doc again. the one that says don't use NFS for VM disk images in production
+20:26 Pax          I feel like often we "over buy" thing like storage… so we spend more on FC or high end disk when lower end, cheaper solutions perform as good, or similarly
+20:27 semiosis     i hope if you're doing vms over nfs you're at least using tcp,noac,sync
+20:27 semiosis     but it still seems dangerous
+20:27 agoddard     we've had great success with iSCSI backed LVMs backing our old xen cluster, but there's a lot of crap involved in making sure you don't corrupt Volume Groups in homegrown setups..
+20:28 agoddard     I like the idea of orchestrations tools using SAN APIs to carve out LUNs for VMs, but then it's $$ gear.
+20:28 Pax          agoddard: good, cheap or fast.. pick two :)
+20:28 agoddard     more and more I'm a fan of (insert as raw as possible, fast, shared storage) for persistent volumes, and then local LVM devices for ephemeral storage
+20:29 semiosis     pdurbin: have you heard of the work going on to make qemu talk directly to gluster (without going throuh a FUSE mount?)
+20:29 agoddard     Pax: +1
+20:29 agoddard     there's also ATAoE which seems pretty nice, but we haven't used it yet
+20:30 agoddard     Ceph Rados block devices sound cool too :D
+20:30 pdurbin      semiosis: somewhat. yes. the gluster thing
+20:31 pdurbin      comptona: you can keep telling us about ceph :)
+20:31 pdurbin      ata over ethernet, i guess? sounds like iscsi...
+20:32 pdurbin      crimsonfubot: lucky ataoe
+20:32 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/ATA_over_Ethernet
+20:37 comptona     pdurbin: is there anything in particular you'd like to know about Ceph?
+20:40 pdurbin_m    is it awesome?
+20:40 JoeJulian    Last I checked, and that was a long time ago in the area of clustered storage (and my ability to remember things) ceph had a central metadata server. Is that true today?
+20:40 pdurbin_m    are you using it in production yet?
+20:41 comptona     JoeJulian: yes, it has a central metadata server
+20:41 comptona     and yes, I'm using it in production, but at a very small scale (four nodes)
+20:41 JoeJulian    So how does it handle redundancy wrt metadata then?
+20:42 comptona     oh, I misunderstood your question
+20:43 comptona     so, the metadata service is provided by one daemon at a time
+20:43 comptona     but you can run as many of them as you want, and they talk amongst each other
+20:43 comptona     so if the current active one fails, the remainder hold an election and one of them becomes the new active service
+20:44 comptona     I'm not 100% sure of the mechanism by which the metadata servers coordinate
+20:44 JoeJulian    So it's active/passive[/passive...] Doesn't that create a bottleneck?
+20:45 comptona     possibly? I imagine the metadata is very small relative to actual data
+20:45 comptona     we don't actually use the metadata service ourselves
+20:46 JoeJulian    Oh? I thought that was a necessity in order to address your data.
+20:46 comptona     nope
+20:47 comptona     so, ceph has several different access methodologies
+20:47 comptona     you can use the librados library, which talks to the object store directly
+20:47 comptona     you'd manage metadata yourself in that case
+20:47 comptona     or you can use the kernel driver to create a block device
+20:48 comptona     which you'd have to format with a standard filesystem, and then handle metadata that way
+20:49 comptona     I think you only need the metadata service if you're using the S3-style object store or mounting a volume directly ("mount -t ceph x.x.x.x:/ /mnt/ceph")
+20:49 comptona     since we're just providing volumes to openstack instances, we don't have any file-level access directly to ceph
+20:49 JoeJulian    In the case of a block device, it's "striped and replicated across the entire storage cluster". How does it know which server to find any particular offset?
+20:50 comptona     basically a super-fancy hashing algorithm
+20:50 comptona     http://ceph.com/wiki/Custom_data_placement_with_CRUSH
+20:52 comptona     I won't pretend I understand all of the details behind the placement group stuff
+20:54 JoeJulian    Judging by the wiki, it's definately grown up a lot over the last 2 1/2 years. :D
+20:55 comptona     I just learned about it for this project, but it definitely seems impressive
+20:56 comptona     the performance is generally really good, too
+20:58 comptona     the one thing I'm running into is that there's a pretty bad dropoff of small-block write speed from the raw performance level
+20:58 comptona     everything else is about as fast as I could expect it to be
+</pre></body></html>
