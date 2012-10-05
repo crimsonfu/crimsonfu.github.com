@@ -22,4 +22,191 @@ Time  Nick         Message
 14:37 pdurbin      hmm, lots more people at https://github.com/crimsonfu?tab=members than http://crimsonfu.github.com/members
 15:19 pdurbin      crimsonfubot: lucky mpfs wikipedia
 15:19 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/Multi_Path_File_System
+15:39 GitHub38     [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/716e2471740fd37f19cba26d6db9fad4441edf13
+15:39 GitHub38     [crimsonfu.github.com/master] fetch the latest logs - Philip Durbin
+15:40 pdurbin      new! http://irclog.perlgeek.de/gluster/today
+15:57 pdurbin      ventz: http://irclog.perlgeek.de/gluster/2012-10-05#i_6038551
+17:03 ventz        Anyone who is at Harvard/around physically, if you like geeking out, come by Wednesdays for geeknight (which has turned into lunch for now)
+17:03 ventz        (join #geeknight for more info)
+17:29 pdurbin      ventz: nice public service announcement :)
+17:34 ventz        :)
+17:34 ventz        hehe
+17:34 ventz        if you weren't in #geeknight, i probably would not have sent this here
+17:34 ventz        but i figured you approve on some level :)
+17:49 pdurbin      i do approve. and may geeknights spread to every land
+17:49 agoddard     ohai
+17:50 pdurbin      agoddard: howdy, stranger
+17:50 agoddard     pdurbin: now I'm "that guy" who just shows up when he wants to know something ;)
+17:51 agoddard     pdurbin: or, that super busy guy who's always getting trolled by his todo list ;)
+17:51 agoddard     I got a RAID / LVM question I thought I'd throw out there..
+17:52 agoddard     I'm setting up a 24 disk array (500GB NL-SAS 7.2k disks) which will end up carved up as logical volumes through LVM on the host
+17:52 pdurbin      magoo: *cough*
+17:53 agoddard     I'm trying to decide if I should RAID-10 the array and present one big disk (RAID10 is kinda my instinct generally) or whether I should carve out a few RAID 10's, OR, whether I should even carve out a few RAID5's.. (I probably won't do one big RAID5)
+17:54 magoo        well hey guys!
+17:54 agoddard     I've been reading a bunch about high sequential reads being kinda useless in this use case, but then I read something else that says the more disks the better, just rock a giant raid10 (basically everything else here is RAID10 'cause of that)
+17:54 agoddard     magoo: hey hey :)
+17:54 magoo        don't need anything... just making sure everyone is having a great day ;)
+17:56 pdurbin      agoddard: what's the use case?
+17:57 pdurbin      magoo: you help us keep it friendly :)
+17:57 agoddard     the LVM volumes will end up as data volumes for VMs - a lot of solr, mysql, elasticsearch and maybe some hbase stuff
+17:58 pdurbin      VMs? JoeJulian likes VMs. so does comptona
+17:59 pdurbin      i assume raid 10 would be the fastest but what do i know
+17:59 comptona     that I do
+17:59 comptona     beats racking new servers for every little thing
+18:01 agoddard     and the i/o benefit of 24 drives would be worth it (as opposed to 2x RAID10's of 12 drives, both of which are added to the Volume Group)?
+18:01 agoddard     oh, VMs :) ya. +100000
+18:04 pdurbin      i'm not much of a storage wonk. you might want to ping our internal mailing list and report back the answer
+18:04 pdurbin      whorka knows storage but he's idle, looks like
+18:05 pdurbin      agoddard: could pop in #gluster. those guys know storage
+18:05 agoddard     pdurbin: sweet, will ping rcops, I'd ask in gluster but I'd be worried they'll be like "lul raid wut!" ;)
+18:08 pdurbin      JoeJulian: they'd never say that
+18:10 agoddard     rackerhacker: ICQ lulz.
+18:10 rackerhacker yeehee
+18:10 rackerhacker worst of all, it's a guy who is probably trying to hire me :/
+18:10 pdurbin      agoddard: openstack cluster? :)
+18:12 agoddard     rackerhacker: ha!
+18:13 agoddard     pdurbin: yep, I had enough of my cloudstack experiment so thought I'd actually sit down and read all the OS user guides, pumped about it now. Built a test cluster, demoed it to the CEO and a scientist who wants to start using it straight away 0_O
+18:13 pdurbin      westmaas: ^^
+18:14 pdurbin      agoddard: cool, i'm sending all my tickets to you. so glad you have RT access now
+18:14 agoddard     the test cluster is just an all-in-one machine, but the prod cluster I just started on is 1 controller node, then 1 cinder node (with this array) and then the project to move 216TB of gluster to swift
+18:14 agoddard     pdurbin: haha.. sweet, we should join clusters :)
+18:16 westmaas     agoddard: pdurbin: nice!
+18:16 westmaas     rackerhacker: trying to hire you?!
+18:16 pdurbin      agoddard: well, even i've set up an openstack all in one machine
+18:17 agoddard     pdurbin: I wouldn't be surprised if your laptop was an openstack all-in-one machine
+18:17 agoddard     ;)
+18:17 pdurbin      westmaas: i know. who would want to hire rackerhacker
+18:17 westmaas     haha
+18:18 agoddard     protip, don't present a new cluster idea to the CEO based on a little demo instance, when they get excited it seems to introduce unnecessary pressure :-/
+18:18 rackerhacker westmaas: it's a former racker who i'd never work for anyway :)
+18:18 westmaas     agoddard: its fine don't worry about it?
+18:18 westmaas     rackerhacker: haha
+18:18 westmaas     agoddard: did I mention we sell installation and support services for openstack clusters? :P
+18:19 pdurbin      agoddard: moving *off* of gluster for VM storage?
+18:19 agoddard     westmaas: I think I rememebr..u at Rackspace?
+18:20 westmaas     agoddard: yep yep
+18:20 westmaas     but thats not my group
+18:20 westmaas     so I'm happy to provide the services of rackerhacker for free
+18:20 agoddard     pdurbin: we don't do any VM storage on gluster at the moment, just a whole ton of storage for a giant image repository
+18:20 rackerhacker westmaas: that doesn't sound right
+18:20 westmaas     rackerhacker: don't worry about it
+18:20 agoddard     haha
+18:23 pdurbin      agoddard: ok
+18:23 agoddard     westmaas: /me checks budget.. curses, makes note to talk to boss about budget
+18:23 westmaas     lol
+18:23 westmaas     anyone making it to OS summit this year?
+18:23 westmaas     its in a week!
+18:23 westmaas     or so
+18:23 agoddard     pdurbin's boss is I think
+18:23 westmaas     managers, huh guys? buncha jerks
+18:24 pdurbin      agoddard: that sounds right
+18:24 westmaas     hmm yes its in san diego, I better go
+18:24 westmaas     pdurbin: want me to say hi to him or stay away?
+18:25 pdurbin      westmaas: please!
+18:25 pdurbin      i wanted to have something for him to demo. something openstack-y :(
+18:27 * agoddard   will be back in 5, if he's not back in 10, he's been crushed by a heavy server
+18:35 * agoddard   made it out alive
+18:35 pdurbin      phew
+18:36 pdurbin      migration-status.pl &gt; status/raw.mdwn
+18:36 pdurbin      i love ikiwiki
+18:38 agoddard     :D
+18:39 larsks       Aaaaa, I went to install ikiwiki to look at it and it's pulling in like 90% of CPAN.  My system is being perled!
+18:39 larsks       Could be worse.  Could be RT.
+18:40 agoddard     I'm one of the people who hates JIRA so much he uses it.. :-/
+18:40 larsks       Oh, I like RT; it just has a dependency list a mile long.
+18:40 agoddard     I gave up fighting against it, and now I (don't really) like it :)
+18:47 pdurbin      larsks: try my rpm: http://wiki.greptilian.com/ikiwiki
+18:47 larsks       pdurbin: I *am* install via an RPM (ikiwiki is included in F17, which is what I run on my desktop).
+18:47 pdurbin      ok
+18:47 larsks       It just wants a bunch of perl modules :).
+18:48 pdurbin      it's full of perly goodness
+18:49 pdurbin      larsks: my setup, if you're interested: http://git.greptilian.com/?p=wiki.git;a=blob;f=wiki.setup
+18:49 larsks       Thanks, I'll take a look.
+18:58 JoeJulian    wrt me liking VMs, Keeping services on separate virtual hosts allows me to do system and hardware level maintenance without service interruption.
+18:59 pdurbin      JoeJulian: sing it
+19:00 pdurbin      spotted; "ATLAS is a nasty bitch, it does auto-tuning"
+19:01 comptona     JoeJulian: plus, if people insist they need root to run their services, then you can give them a VM to screw up without bothering anybody else
+19:02 pdurbin      comptona: but then they break their vm and bring you the pieces
+19:03 comptona     at least it's fewer pieces than if they break a machine other people use too :-/
+19:03 pdurbin      oh, people break the whole cluster too
+19:03 comptona     !
+19:04 larsks       ...this is why we're playing with OpenStack.  We those people to be able to deploy their own vm and services without requiring help from us.
+19:04 pdurbin      it's ok. it's in the name of science
+19:04 comptona     yeah, I just set up openstack at $work and it's getting super popular
+19:05 JoeJulian    If the vm is broken, I just delete it and let puppet rebuild it from scratch.
+19:10 pdurbin      JoeJulian: yeah, i about to suggest to this user that we rekickstart this sick vm. we use cobbler and puppet for that
+19:10 pdurbin      don't overwrite the system python, kids
+19:14 pdurbin      s/i/i'm/
+19:24 pdurbin      agoddard: http://irclog.perlgeek.de/gluster/2012-10-05#i_6039201 ask away, i'd say :)
+19:30 boegel       pdurbin: don't overwrite the system Python kids, use EasyBuild instead! ;-)
+19:30 pdurbin      boegel: trying! is this the "quick" demo?
+19:31 boegel       pdurbin: :D
+19:32 boegel       pdurbin: it's quick in the sense that you only need three commands
+19:39 pdurbin      ah
+19:43 boegel       pdurbin: ;-)
+19:44 boegel       pdurbin: it's something like execute the commands, have a coffee (or two), and EasyBuild did the work for you
+19:50 pdurbin      i'm on my 5th coffee
+19:50 pdurbin      Process 24999 detached
+19:51 pdurbin      WARNING: Build exited with exit code 1. 2277 possible error(s) were detected in the build logs, please verify the build.
+19:51 pdurbin      :(
+19:52 pdurbin      18 MB log
+19:54 pdurbin      boegel: zips down to 556 KB. have an email I can send this to?
+19:55 boegel       pdurbin: is this the full log?
+19:56 boegel       pdurbin: those detected errors probably all are false positives
+19:56 pdurbin      18 MB sounds pretty... comprehensive for a log
+19:56 boegel       pdurbin: and yes, I have an email :)
+19:56 boegel       pdurbin: it's a debug log :)
+19:56 boegel       pdurbin: kenneth . hoste @ gmail
+19:58 pdurbin      Subject: easybuild-ATLAS-3.8.4-20121005.123157.log.gz
+19:58 pdurbin      boegel: sent
+20:03 boegel       pdurbin: oh, build failed :-/
+20:04 boegel       that's not good
+20:04 boegel       let me check the log
+20:04 pdurbin      i didn't think so
+20:05 pdurbin      thanks
+20:05 boegel       pdurbin: what processor are you building on?
+20:05 boegel       pdurbin: Intel Sandy Bridge, by any chance?
+20:05 pdurbin      qemu something..
+20:06 pdurbin      QEMU Virtual CPU version (cpu64-rhel6)
+20:07 boegel       pdurbin: hmm
+20:07 boegel       pdurbin: the real issue is this: fatal error: atlas_pthreads.h: No such file or directory
+20:08 boegel       pdurbin: but I'm not sure how that even can happen
+20:10 boegel       pdurbin: I think ATLAS is having a hard time handling your Virtual CPU...
+20:10 pdurbin      boegel: i swear i didn't fake the logs ;)
+20:11 boegel       pdurbin: I'm seeing stuff like " dmm.c:1750: Error: bad register name `%r8' " as well
+20:12 boegel       pdurbin: I think building ATLAS on a system with a virtual CPU is the real issue here...
+20:13 pdurbin      boegel: want to make me an "easy python 2.7" instead? :)
+20:13 boegel       pdurbin: well, you're going to need a toolkit first
+20:13 pdurbin      oh
+20:14 boegel       pdurbin: do you have access to Intel compilers?
+20:15 boegel       building Python will requires BLAS and possibly LAPACK support
+20:15 boegel       that's not going to work without a toolkit
+20:15 pdurbin      i thought building python required make and gcc
+20:17 boegel       pdurbin: ok, wait, if you exclude numpy/scipy, you can build Python with EasyBuild without a toolkit
+20:17 boegel       pdurbin: which is not it's intended use, but it will work
+20:18 pdurbin      boegel: might make a faster demo
+20:18 boegel       pdurbin: well, we really want to encourage people to use toolkits
+20:19 boegel       pdurbin: because that way the software you build is as independent from OS-provided stuff as possible
+20:19 pdurbin      hmm. ok. not sure what an easybuild toolkit is
+20:19 * pdurbin    has not read the docs
+20:20 boegel       pdurbin: it's basically a compiler with an MPI library and math libraries (BLAS, LAPACK, ...)
+20:20 boegel       pdurbin: it's everything you need to build most scientific software
+20:21 boegel       pdurbin: the evil thing is that you need to built the toolkit first, i.e. build GCC, ATLAS (which provides BLAS, LAPACK, ...)
+20:21 boegel       pdurbin: there are replacements for ATLAS though, which may maybe fit better in a quick demo
+20:21 boegel       pdurbin: e.g. we could use GotoBLAS+LAPACK to replace ATLAS
+20:22 pdurbin      boegel: gotcha. making more sense now. ATLAS truly is a dependency
+20:23 boegel       pdurbin: if you want to build scientific stuff, yes
+20:23 boegel       pdurbin: I can explain you how to get Python built with a toolkit, if you like
+20:23 pdurbin      and we would, in the general case
+20:23 boegel       pdurbin: you just need to copy and adjust a simple text file (easyconfig file)
+20:23 boegel       pdurbin: and then run eb with that file provided
+20:24 pdurbin      boegel: that might be useful. right now i usually go check fedora or rpmforge for newer versions of software
+20:25 pdurbin      the ikiwiki rpms i was pointed out to larsks earlier are just rebuilds of fedora srpms
+20:25 boegel       pdurbin: ok, here's how
+20:26 boegel       pdurbin: 1) copy the $EBHOME/easybuild/easyconfigs/p/Python/Python-2.7.3-goalf-1.1.0-no-OFED.eb file to $HOME/Python.eb
+20:27 boegel       pdurbin: then, edit it to use a dummy toolkit ("toolkit={'name':'dummy','version':'dummy'}" ), and remove the pkglist specification (or atleast remove numpy/scipy in that list)
+20:27 boegel       pdurbin: then, run eb while supplying that file
+20:27 boegel       pdurbin: EasyBuild will download the Python sources, built it, install it and create a module for it
+20:28 pdurbin      boegel: that's it?
+20:28 boegel       pdurbin: that's it
 </pre></body></html>
