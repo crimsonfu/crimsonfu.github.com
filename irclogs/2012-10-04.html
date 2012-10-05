@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:52 pdurbin      Itkovian: right. boegel was saying the same thing, that torque has a default scheduler
+12:52 * boegel     wakes up
+12:52 boegel       hmm?
+12:52 Itkovian     go back to sleep
+12:52 pdurbin      almost 9am here :)
+13:00 boegel       pdurbin: almost time for bed here
+13:00 boegel       pdurbin: it's 3pm here :P
+13:36 pdurbin      boegel: i was gonna say... thought it was afternoon for you :)
+13:38 pdurbin      PuppetDB 1 » Spec » Querying Nodes — Documentation — Puppet Labs - http://docs.puppetlabs.com/puppetdb/1/spec_q_nodes.html
+14:14 pdurbin      talkin' puppet 3.0 with sjoeboo
+14:27 pdurbin      huh. puppet labs is providing their own ruby rpm (1.8.7) for el5: http://yum.puppetlabs.com/el/5Server/dependencies/x86_64/
+14:30 pdurbin      bloops! spotted: "When I update the python to 2.7.3 for the server [REDACTED]. It make the yum broke."
+15:01 boegel       pdurbin: that doesn't seem so surprising, Python is really rooted into RH-based systems
+15:06 pdurbin      boegel: yeah, not surprised at all :)
+15:21 boegel       off home, ttyl
+15:57 pdurbin      oh, we shut off vmware, by the way. ~60 VMs migrated to KVM. virt-v2v ftw
+16:06 whorka       congrats!
+16:07 pdurbin      whorka: thanks :)
+16:07 pdurbin      now i'm moving vms from el5 kvm to el6 kvm
+16:08 pdurbin      32 left to go
+16:09 pdurbin      whorka: oh, i noticed Collaborative Project Centralizes Dataverse Platform | IQSS - http://www.iq.harvard.edu/announcements/collaborative-project-centralizes-dataverse-platform via https://twitter.com/iqss/status/253575389178392576
+16:11 pdurbin      time virt-v2v -ic qemu+ssh://$HYPERVISOR/system -of qcow2 -os $TARGETPOOL $VM &amp;&amp; virsh start $VM
+16:11 whorka       yes! we go live on tuesday.
+16:11 pdurbin      whorka: nice
+16:12 pdurbin      31m20.213s to migrate a 25 GB disk image
+16:12 pdurbin      i've been estimating roughly one minute per gigabyte but i guess that's somewhat optimistic
+16:19 pdurbin      ventz: yes, i'm sticking with qcow2 :)
+16:42 * dotplus    happily sends a pull request for puppetlabs-mysql to support using mysql packages from IUScommunity.org
+16:45 ventz        haha
+16:45 ventz        living on the edge :)
+16:59 JoeJulian    http://www.thinkgeek.com/product/f141/images/
+17:26 pdurbin      dotplus: link please
+17:26 pdurbin      ventz: meh. we don't do snapshots anymore. but at least we can do one off snapshots here and there if we want. in practice that's been fine
+17:32 pdurbin      huh. XDMoD Portal - https://xdmod.ccr.buffalo.edu/#main_tab_panel2:tg_summary via https://twitter.com/jamesdotcuff/status/253905574889127936
+17:32 pdurbin      crimsonfubot: google xdmod
+17:32 crimsonfubot pdurbin: XDMoD Portal: &lt;https://xdmod.ccr.buffalo.edu/&gt;; XDMoD | Free software downloads at SourceForge.net: &lt;http://sourceforge.net/projects/xdmod/&gt;; SC12 Presentation - XSEDE Metrics on Demand (XDMoD ...: &lt;http://sc12.supercomputing.org/schedule/event_detail.php?evid=bof172&gt;; XDMoD, XSEDE Metrics on Demand - SC11: &lt;http://sc11.supercomputing.org/schedule/event_detail.php?evid=bof204&gt;; Science (1 more message)
+17:33 dotplus      pdurbin: https://github.com/puppetlabs/puppetlabs-mysql/pull/121
+17:39 pdurbin      dotplus: watching! thanks. :)
+17:43 dotplus      unfortunately if you look at the commentary on the previous incarnation /120, it seems that the maintainer doesn't want to include support for alternate sources, only for different package names which nixes IUS. Well, I solved his other concerns and tried to explain why the existing functionality that he's so fond of is insufficient , so we'll see how it goes now.
+17:43 dotplus      I'd rather not maintain my own fork:)
+17:44 pdurbin      perish the thought
+17:53 pdurbin      "SDSC's Cloud Storage provides academic and research partners with a convenient and affordable way to store, share, and archive data, including extremely large data sets." https://cloud.sdsc.edu/hp/index.php
+20:20 pdurbin      “Puppet 3 Overview” contains information about Puppet 3’s new and different features. -- http://docs.puppetlabs.com/puppet/3/reference/
+20:20 pdurbin      new *and* different :)
+20:23 pdurbin      whorka: i assume you're starting new with puppet 3.0?
+20:54 * ventz      needs to setup puppet
+22:18 * comptona1  is a big puppet fan
+22:19 comptona     we use it a ton at $work
+</pre></body></html>

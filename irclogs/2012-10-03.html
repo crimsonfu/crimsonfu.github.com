@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:28 pdurbin      to collapse double spaces into one... match any number of double spaces and replace with a single space: sed 's/  */ /g'
+14:59 pdurbin      crimsonfubot: google make curl follow a redirect
+15:00 crimsonfubot pdurbin: php - Make curl follow redirects? - Stack Overflow: &lt;http://stackoverflow.com/questions/3519939/make-curl-follow-redirects&gt;; cURL - Frequently Asked Questions: &lt;http://curl.haxx.se/docs/faq.html&gt;; cURL - How To Use: &lt;http://curl.haxx.se/docs/manpage.html&gt;; How do I handle 302 redirects with curl? - Twitter Development ...: &lt;http://groups.google.com/group/twitter-development- (2 more messages)
+15:00 pdurbin      ah, curl -L
+15:01 pdurbin      thanks, crimsonfubot
+15:29 pdurbin      Itkovian: know anything about http://en.wikipedia.org/wiki/TORQUE_Resource_Manager ?
+15:29 Itkovian     pdurbin: we're using that
+15:29 pdurbin      \o/
+15:29 Itkovian     together wioth Moab
+15:31 pdurbin      linking some guys here :) hopefully they'll /join
+15:37 pdurbin      Itkovian: is it awesome?
+15:37 Itkovian     it works
+15:37 Itkovian     well, except for 4.x, there are some issues with that version :-p
+15:37 pdurbin      tell me about your troubles
+15:40 semiosis     @channelstats
+15:40 crimsonfubot semiosis: Error: "channelstats" is not a valid command.
+15:40 semiosis     :(
+15:40 pdurbin      semiosis: @ is a shortcut for crimsonfubot
+15:41 pedmon       yo
+15:41 pdurbin      pedmon: welcome!
+15:41 semiosis     yeah, and channelstats is a command for crimsonfubot, when the channelstats plugin is loaded :)
+15:41 pdurbin      semiosis: oh
+15:41 semiosis     @load channelstats
+15:41 crimsonfubot semiosis: Error: You don't have the owner capability. If you think that you should have this capability, be sure that you are identified before trying again. The 'whoami' command can tell you if you're identified.
+15:41 semiosis     crimsonfubot: i know, i know
+15:41 pdurbin      semiosis: ssh! let's talk schedulers
+15:41 crimsonfubot semiosis: Error: "i" is not a valid command.
+15:41 semiosis     haha
+15:42 semiosis     schedulers?
+15:43 pdurbin      Itkovian: you like schedulers
+15:43 pdurbin      pedmon: so do you
+15:44 Itkovian     I do?
+15:44 Itkovian     I said we use it
+15:44 pdurbin      heh
+15:45 pedmon       true schedulers are awesome... :P
+15:45 pedmon       more like a necessary evil
+15:46 pedmon       we use LSF here
+15:46 pedmon       what do other people use?
+15:47 pdurbin      "Cluster Resources, Inc. describes it as open-source" wtf. "describes it as"? from http://en.wikipedia.org/wiki/TORQUE_Resource_Manager
+15:47 pdurbin      whorka: you have a scheduler. but you're idle according to pidgin
+15:48 pdurbin      semiosis: http://en.wikipedia.org/wiki/Job_scheduler
+15:50 semiosis     right
+15:54 pdurbin      Itkovian: no plans to change schedulers, i assume?
+15:54 Itkovian     nope
+15:54 pdurbin      that's probably praise enough :)
+16:05 whorka       oh, hey. back from a meeting. Condor scheduler representing here.
+16:05 Itkovian     we're quite happy with moab
+16:05 pdurbin      whorka: you stickin' with condor?
+16:05 Itkovian     and their support is good enough
+16:05 whorka       Condor fits our present use case pretty well.
+16:08 pdurbin      i'm actually confused about moab vs. torque. but i can go look it up
+16:09 pdurbin      oh! oh! you schedulers guys should all subscribe to this podcast: RCE an HPC Podcast - http://www.rce-cast.com
+16:09 pdurbin      whorka: great name, eh? ;)
+16:10 Itkovian     pdurbin: torque is what allocates resources and it uses moab to decide which jobs to schedule at what time
+16:11 pdurbin      hmm, ok. so you pretty much need both
+16:11 whorka       oh they have a HUBzero! I wanted to try that.
+16:12 pdurbin      crimsonfubot: lucky hubzero
+16:12 crimsonfubot pdurbin: http://hubzero.org/
+17:57 pdurbin      "P.s. You are indeed a hacker -- I mean the good way. Cool!" :)
+18:56 pdurbin      boegel: you missed a bit of chatter about schedulers :) ^^
+18:58 * boegel     dives into the logs
+18:59 * boegel     is back
+19:00 boegel       pdurbin: Torque has a (dummy) scheduler too, but its rubbish
+19:00 boegel       pdurbin: there's Maui too, which is the open-source version of MOAB
+19:00 pdurbin      ah. yeah i was wondering if there was some lesser built in feature
+19:00 boegel       pdurbin: it's sufficient for small systems, where you don't need to be fancy stuff
+19:00 boegel       pdurbin: but in the end, you probably end up with MOAB
+19:00 boegel       pdurbin: I think Torque only features a FIFO scheduler
+19:01 pdurbin      hmm. ok
+19:01 boegel       pdurbin: Maui is reasonable, but badly supported
+19:02 pdurbin      it's 2012. you're a new HPC shop. you need a scheduler. what do you use? go :)
+19:04 boegel       I've never seen anything but Torque+MOAB
+19:04 boegel       so I'd go for that
+19:04 boegel       they're really good, but not free of problems
+19:05 boegel       Torque 4.x is a rewrite of 3.x, and we've had some issues with that, but it still works pretty good
+19:05 pdurbin      cool. thanks
+20:55 pdurbin      shuff: email is where knowledge goes to die according to http://bfrench.info/public/item/5994 - https://plus.google.com/107770072576338242009/posts/16X8Hoq2eGk
+23:04 Itkovian     pdurbin: actually, iirc, Torque does come with a pretty simple default scheduler or something that tries to be a scheduler -- we're using that when we had an issue with Moab on a clusters that's in pilot -- not sure if it does anything besides FIFO :-)
+</pre></body></html>

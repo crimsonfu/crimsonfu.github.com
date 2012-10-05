@@ -150,4 +150,82 @@ Time  Nick         Message
 18:56 crimsonfubot pdurbin: MySQL Clustering: Alex Davies,Harrison Fisk: 9780672328558 ...: &lt;http://www.amazon.com/MySQL-Clustering-Alex-Davies/dp/0672328550&gt;; MySQL Clustering - Alex Davies, Harrison Fisk - Google Books: &lt;http://books.google.com/books/about/MySQL_Clustering.html?id=_3nERYD9xqcC&gt;; MySQL :: MySQL Documentation: MySQL Reference Manuals: &lt;http://dev.mysql.com/doc/&gt;; MySQL Cluster Management : Part 2 | (2 more messages)
 18:57 pdurbin      "Publisher: MySQL Press; 1 edition (March 20, 2006)" that one by Alex Davies must be it
 18:59 pdurbin      ventz: we have a guy who might want to borrow it. not sure this is my project. but thanks
+19:05 GitHub95     [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/0c0f6864844ffa424a8532ae4a317bd5b12647d5
+19:05 GitHub95     [crimsonfu.github.com/master] mysql cluster fu from ventz - Philip Durbin
+19:06 ventz        does anyone know of a quick/light CLI based todo list?
+19:06 pdurbin      Todo.txt: Future-proof task tracking in a file you control - http://todotxt.com
+19:07 ventz        i am finding out that as the day goes on, stuff comes in from here and there, and eventually i either 1.) lose track of small things I have to do or 2.) there's a giant list and more and more gets added -- where i need to prioritize
+19:07 semiosis     cool!
+19:07 ventz        ohhh
+19:07 * semiosis   uses jira to keep track of things
+19:07 ventz        pdurbin++
+19:07 ventz        that's fricken awesome
+19:07 * semiosis   is not thrilled about it though
+19:08 pdurbin      dotplus: it sounds like ventz needs RT ;)
+19:09 dotplus      "quick/light" :)
+19:09 pdurbin      semiosis: i keep hearing about jira. is it free and open source?
+19:09 semiosis     sadly not
+19:09 pdurbin      pass
+19:09 semiosis     yeah i'm looking at redmine as a replacement
+19:10 boegel       semiosis: we use Trac, and I really like it
+19:10 semiosis     boss wants pivotal tracker b/c it looks good on his iphone :)
+19:10 pdurbin      semiosis: i set up https://redmine.hmdc.harvard.edu
+19:10 semiosis     i love trac too but it's not a great fit for my current needs
+19:11 pdurbin      whorka: and now it's your job to keep it alive :)
+19:11 semiosis     actually, i should re-evaluate trac, it may not be like what i remember
+19:11 pdurbin      dotplus: yes, RT not so light :)
+19:11 boegel       semiosis: what are your needs?
+19:12 semiosis     multi-project, multi-person, issue tracking, wiki documentation, scm integration, supports agile/scrum/kanban type of workflows, looks good on iphone
+19:13 pdurbin      mmm, kanban
+19:13 semiosis     oh and i forgot to mention, zero administrative overhead :)
+19:14 pdurbin      and a pony
+19:14 semiosis     you know it
+19:16 semiosis     anyone have an opinion on redmine vs. trac?
+19:16 pdurbin      haven't used trac in ... 7 years
+19:19 ventz        trac is too "cluggy"
+19:19 ventz        we used it for changemanegment at mozy
+19:20 pdurbin      heh. cluggy
+19:21 semiosis     cluggy? is that like kludgy?
+19:26 pdurbin      semiosis: is it just that you're trying to save money? doesn't jira do all that?
+19:26 semiosis     not trying to save money actually
+19:27 semiosis     jira does all that but it's kinda hard to use
+19:27 semiosis     and when it doesnt work/do what i want, it's really hard to fix
+19:31 semiosis     this is sort of related to the discussion... years ago i took over administration of a bunch of servers where there was no change/configuration management, all setup was done interactively on the servers &amp; not much was documented or even recorded about past changes
+19:31 semiosis     so first thing i did was set up a trac and wrote a nifty (imho) script to bring order to the chaos, the result of which is this cheesy &amp; poorly written (but incredibly effective) script: https://gist.github.com/3795948
+19:32 semiosis     that allowed me to make very effective use of trac's scm integration, wiki, and ticketing system
+19:32 semiosis     it was the missing link
+19:36 pdurbin      "savn -- brings version controlled order to chaotic system configurations"
+19:36 semiosis     savn -- like save + svn... get it?
+19:36 pdurbin      semiosis: it was savn you time
+19:36 semiosis     wow!
+19:36 semiosis     and sanity
+19:36 semiosis     yup
+19:37 pdurbin      savn - be born again
+19:37 semiosis     eh?
+19:38 pdurbin      have you been saved?
+19:38 pdurbin      don't answer that. off topic
+19:38 semiosis     haha
+19:58 pdurbin      semiosis: hard to fix jira in what way?
+19:59 pdurbin      i feel like i've only heard good things about jira
+19:59 semiosis     well we're using the self-hosted jira
+19:59 semiosis     and i dont have a lot of time to spend on it
+19:59 semiosis     a couple things that didn't work as expected are
+20:00 semiosis     SCM integration -- i could never get jira &amp; fisheye to work together, even after engaging support.  when they asked for remote access to the server &amp; wanted me to schedule an appointment with their engineers i gave up
+20:00 semiosis     it wasnt worth all the trouble
+20:01 semiosis     Formatting in issues/comments/etc -- supposedly there's ways to do code blocks, section headings, things like that, to format the text
+20:01 semiosis     this has never worked
+20:01 semiosis     even after i followed the instructions to "enable" the supposedly built-in feature
+20:02 semiosis     maybe once i upgrade to jira 5 things would work better
+20:02 pdurbin      semiosis: they don't use markdown in issues/comments?
+20:03 semiosis     i've not been able to get any formatting to work
+20:03 semiosis     i dont remember if it was markdown or some other thing, but i do remember the markup syntax just appearing as plaintext everywhere i tried it :(
+20:04 semiosis     with trac otoh everything that was supposed to work out of the box did, and everything i had to enable/configure myself worked exactly like the instructions said it would
+20:08 pdurbin      huh
+20:08 pdurbin      i could ask the guys if they like redmine
+20:08 pdurbin      whorka: or you could. they're down the hall for you
+20:08 pdurbin      i think they like it
+20:09 semiosis     ah, dont worry about it, but thx
+20:09 whorka       they like it well enough to keep using it
+20:09 semiosis     thats about as much as i like jira lol
+20:13 pdurbin      time for ice cream. see ya
 </pre></body></html>

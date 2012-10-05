@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:49 pdurbin      i need to show you guys my "resize a kvm disk image" doc. i'm sure i could optimize this
+12:54 JoeJulian    So it's not "qemu-img resize myimage.img +1G"
+12:55 pdurbin      JoeJulian: sigh. it's complicated. too complicated. i think i need to rethink how i'm doing this
+12:55 pdurbin      i'll post the doc. hopefully today
+12:55 pdurbin      i never know where to put this stuff
+12:56 pdurbin      i feed like i want a repo on github for our infrastructure
+12:56 pdurbin      or at least the virtualization stuff i work on
+12:56 pdurbin      then i'd enable the issues feature of github for the repo
+12:57 pdurbin      and open an issue: "doing disk images a dumb way. takes too much effort to resize"
+12:57 pdurbin      larsks: this is kind of what i mean about an OSQA installation
+12:57 JoeJulian    It's Friday. Not the best day to post anything for feedback. :) I'm outta here by 20:00GMT. What ever happened to that github clone. Weren't you trying that?
+12:58 pdurbin      a place for me to ask questions. with more room to expand on details
+12:58 pdurbin      an OSQA for crimsonfu, to be clear. for us. we can all ask and answer questions
+13:00 pdurbin      JoeJulian: these? https://git.huit.harvard.edu https://code.seas.harvard.edu . i assume you don't mean my own little personal gitweb: http://git.greptilian.com :)
+13:01 JoeJulian    I thought I remembered you were going to install http://gitlabhq.com/
+13:02 pdurbin      nah. too busy
+13:02 pdurbin      i mean, some day. maybe
+13:02 pdurbin      for now we have enough other places to point users who want private git hosting
+13:05 pdurbin      hee hee! this is newly up on github. awesome. https://github.com/fasrc/lilpsp "This is a little framework for creating simple, dynamic websites using psp (mod_python's python sever pages)"
+13:06 JoeJulian    For Q&amp;A, I have yet to successfully install it - I think just because I was trying on an older version of ubuntu (not sure if it was the "older version" or "ubuntu") - but the features and management seemed to be best from what I could tell so far. I'm hoping to try installing again this weekend.
+13:06 JoeJulian    http://shapado.com/
+13:06 pdurbin      from this guy :) http://irclog.perlgeek.de/crimsonfu/2012-01-26#i_5055421 (jabrcx)
+13:07 pdurbin      shapado is rails, right? osqa is django. somehow i have a preference for the latter...
+13:09 pdurbin      i stood up osqa once and it was easy. i'm not so good at hosting rails apps. it's on my list
+13:09 JoeJulian    Me too. Probably fine for this lot, but for gluster.org the Q&amp;A site seems to get a lot of... I don't want to call them idiots... I'll have to think on the right term for a while...
+13:10 pdurbin      JoeJulian: yeah, for a crimsonfu osqa it would be invite only. it would be for us
+13:10 JoeJulian    But management is a big deal there.
+13:10 pdurbin      making it invite only?
+13:10 JoeJulian    No, big deal for gluster.org
+13:11 pdurbin      oh, sure. big community
+13:11 pdurbin      herding a community is hard work
+13:11 JoeJulian    My blog's on Mezzanine which is a django app. I'm re-designing our web site to be an api using tastypie on django, so yeah... I'm a bit of a django fan myself.
+13:12 JoeJulian    (our being edwyse.com)
+13:12 * JoeJulian  obviously hasn't had his coffee yet.
+13:12 pdurbin      mmm. tastypie. i've been talking it up internally and have two guys using it now
+13:13 JoeJulian    Yeah, I like stuff that just plain works.
+13:14 pdurbin      one of our tastypie guys: http://irclog.perlgeek.de/crimsonfu/2012-07-26#i_5848837
+13:19 larsks       Grrr, puppet+fedora 17 == puppet + ruby 1.9.3 == fail.
+13:20 JoeJulian    Are you using the puppetlabs repo
+13:21 larsks       Puppet 2.7.x simply doesn't support ruby 1.9.x (http://docs.puppetlabs.com/guides/platforms.html#ruby-versions).  At the moment this is expressing itself as create_resources() blowing up.
+13:22 JoeJulian    I'm not having any problems with puppet-2.7.19-1.fc17.noarch and ruby-1.9.3.194-16.fc17.x86_64
+13:23 larsks       ...and are you calling create_resources?  I wasn't having any problems, either, before that.  It looks like Ruby changed some string APIs between 1.8 and 1.9, and this is making things fall over.
+13:23 larsks       There's a bug on this: http://projects.puppetlabs.com/issues/15534
+13:25 JoeJulian    Nope, I wasn't. Probably will now that I've seen it - once it works.
+13:26 larsks       The Puppet 3.x series is supposed to work with Ruby 1.9.
+13:52 pdurbin      Pax: https://github.com/sjoeboo/puppetconf2012
+13:54 pdurbin      heh. "Thoughts/Take aways: We need WAY better monitoring, and more though about what we want to monitor, how and why, not just blindly monitoring everything" true!
+13:56 pdurbin      "Thoughts/Take aways: hutbot sounds awesome. like rc_whatis but on acid to DO things not just SHOW things. love the idea of things going to chat, new guy comes on and sees all sorts of things happening. everyone sees Matt deploy some new puppet bits, or a DNS change, etc"
+13:56 pdurbin      i had made noise about hubot before. it sounds great: http://irclog.perlgeek.de/crimsonfu/2012-08-24#i_5925416
+13:59 pdurbin      i want a crimsonfubot for our internal jabber chatroom anyway. might as well look at hubot
+13:59 pdurbin      crimsonfubot: lucky hubot
+13:59 crimsonfubot pdurbin: http://hubot.github.com/
+14:02 pdurbin      Pax: talk of hiera in there. sjoeboo's notes ^^
+14:03 agperson     hubot sounds awesome
+14:03 agperson     missed the part of the talk where he said it was open source — nice
+14:03 pdurbin      agperson: i highly recommend listening to ChatOps at Github with Jesse Newland - Food Fight - http://foodfightshow.org/2012/08/chatops-at-github-with-jesse-newland.html
+14:03 agperson     similar to the talk yesterday?  will bookmark...
+14:04 pdurbin      dunno. didn't watch
+14:04 pdurbin      did the awesomeness come through?
+14:04 agperson     yeah, totally
+14:05 agperson     also happy to discuss redmine if anyone is still interested in that
+14:05 pdurbin      good. seems sjoeboo has drunk the kool-aid, which is perfect
+14:05 pdurbin      i poked around at https://redmine.hmdc.harvard.edu a bit last night. seems to be used pretty heavily, which i'm happy about
+14:05 pdurbin      lots of issues :)
+14:06 agperson     our big enterprise standardization push came down to Redmine vs Jira.  you can guess which one won...
+14:06 agperson     (hint: it has commercial suppot)
+14:07 pdurbin      heh. "See your data, form an emotional and intellectual connection with it." (sjoeboo's notes again)
+14:07 agperson     ...reading...
+14:07 pdurbin      so glad he made these public
+14:09 agperson     i was hoping for more from the monitoring talk..aat some point it devolved into R code and i lost interest
+14:09 agperson     i mean i was hoping for something more actionable that i could use today
+14:14 pdurbin      agperson: what do you use? nagios?
+14:15 agperson     zabbix
+14:17 pdurbin      heard of it
+14:18 pdurbin      agperson: do you love it?
+14:19 pdurbin      JoeJulian: i squirreled away my disk image resize thing. will try to clean it up and post later
+14:23 agperson     pdurbin: I don't love it, but it does a lot of things decently well.  All config is through the web frontend although I'm playing with the relatively new API
+14:24 pdurbin      api is a must
+14:24 agperson     anyone have any pointers for best practice on documenting puppet modules?  every module i see in the forge does it differently and the puppet best practices page doesn't seem to conform to what puppetlabs does...
+14:24 pdurbin      crimsonfubot: lucky james white manifesto
+14:24 crimsonfubot pdurbin: http://blog.websages.com/2010/12/10/jameswhite-manifesto/
+14:45 pdurbin      agperson: "thats an answered question phil, there are docs on that and the recommended header comment+comment style, for rdoc to parse it all up nice"
+14:53 agperson     pdurbin: i just grabbed the puppetdb module since it is the new hotness…it isn't done that way!
+14:53 agperson     ah well
+14:57 pdurbin      agperson: bug sjoeboo about it the next time he's in here. you can't both be right :)
+14:58 agperson     check
+15:32 jds1         I was more interested in best practices related to organization and architecture for complex environments. Any other pointers?
+16:13 pdurbin      jds1: what are your pain points?
+16:15 pdurbin      jds1: you might want to look at https://code.seas.harvard.edu/puppet by larsks and his group
+16:29 larsks       ...although we can't claim to be following any best practices w/r/t documentation :(.
+16:30 pdurbin      heh
+16:31 * pdurbin    wonders if any large puppet shops have open sourced their stuff
+16:38 pdurbin      jds1: large orgs should definitely use puppetdb. "Storeconfigs terminus... much faster storage, in much less space" -- https://github.com/puppetlabs/puppetdb
+16:39 pdurbin      "awesome, screenshot of my puppetdb resource count included in @grim_radical #puppetconf talk!" -- https://twitter.com/sjoeboo/status/251436378267725824
+16:46 pdurbin      overheard: "9.3 billion rows"
+17:51 pdurbin      correction. 1,081,716,914 rows :)
+17:55 jds1         Thanks, I have seen the presentaiton by Lars and it is quite good.  I was going to the next level of detail. If you have an environment with different types of servers with different services on them at different levels of security and want to create a meaningful flow from development through test, are there some good principles to follow beyond say using Git branches for the environments.
+17:57 pdurbin      we use environments with git branches but only for testing. then we merge back to master. not sure we're as fancy as what you're talking about
+17:59 jds1         The issue is dealing with the configuration information that will vary from level to level.  We will have at least three, perhaps four of the usual levels: development, test, stage and production. I hope we could merge test and development though.  Since the configuraiton is quite different at the levels, we will need to keep the different manifests separate.  There might even be different site.pp files.
+18:00 jds1         One other thing, almost by definition, each of the levels will be running different versions of software at the same time.
+18:00 pdurbin      sounds like a good thing to prototype in vagrant
+18:00 jds1         Hmm… thanks for the pointer. I will have to look into that.
+18:01 pdurbin      crimsonfubot: lucky vagrant
+18:01 crimsonfubot pdurbin: http://vagrantup.com/
+18:01 pdurbin      handy link for you :)
+18:02 jds1         thanks
+18:04 pdurbin      is a billion rows in mysql a lot?
+18:28 JoeJulian    Only if you have to use them.
+18:36 pdurbin      :)
+19:21 pdurbin      whorka: i use your firefox ctrl select a &lt;table&gt; all the time. just used it to grab some rows, throw it in a file, and covert it to yaml with my http://git.greptilian.com/?p=scripts.git;a=blob;f=tsv2yaml
+19:25 pdurbin      agoddard: the dns email i just sent about public vs. private ip space. policy nat, etc.
+19:42 whorka       at least HTML tables are good for something :)
+19:43 pdurbin      well, i'm using phpmarkdown extra or whatever to make what i think are pretty readable tables in plain text files
+19:43 pdurbin      ikiwiki renders them into html
+19:43 pdurbin      and i can use your trick to get the data back out into tab separated values
+19:43 pdurbin      which i can pass through my script
+19:43 pdurbin      :)
+19:44 pdurbin      if it's just me using the data i simply keep it in tab separated values. but that's not editable from the ikiwiki web guide. you're stuck (happily for me) at the command line
+19:45 pdurbin      sometimes one's data is tabular :)
+19:48 pdurbin      sometimes, you can have a hash of data that you represent as yaml (and markdown) :) http://wiki.greptilian.com/markdown/as-yaml
+19:48 pdurbin      i use that trick in this script: http://git.greptilian.com/?p=scripts.git;a=blob;f=grgit.pl
+19:49 pdurbin      (this being the yaml/markdown: http://git.greptilian.com/?p=wiki.git;a=blob_plain;f=greptilian.com/git/repos.mdwn;hb=HEAD )
+19:50 pdurbin      rendered as html: http://wiki.greptilian.com/greptilian.com/git/repos
+20:31 semiosis     they need me to fax it... what is this, 1990?
+20:46 pdurbin      no more changes late on a friday. breaking stuff. fixing. have a good weekend!
+20:48 semiosis     late?  i'm just getting warmed up :)
+20:48 semiosis     you have a good weekend too
+</pre></body></html>

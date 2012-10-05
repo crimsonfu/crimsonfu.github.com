@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:00 semiosis     found this... http://angular-ui.github.com/
+00:00 semiosis     the variety of javascript frameworks is dizzying
+00:10 semiosis     jimi_c: could you point me in the direction of how to couple those two?
+00:10 semiosis     angular &amp; bootstrap
+00:12 semiosis     n/m, gotta run
+00:12 semiosis     later
+00:19 pdurbin_m    loving the js chatter
+14:43 pdurbin      guy celebrating his office workstation being unplugged from 10 Mbps port. now on a 1 Gbps port
+14:45 pdurbin      whorka: do you still use the same mysql and postgresql backup scripts? the ones that dump to local disk and then rsync some copies to other storage?
+14:46 pdurbin      if so, do you want to open source them? :)
+14:48 whorka       um, yes, and you can have a copy if you like
+15:11 pdurbin      cool
+15:12 pdurbin      lots of chatter about database backups 'round here lately
+15:38 * semiosis   is getting 75Mb/s internet service @ home soon
+15:38 semiosis     &lt;/bragging&gt;
+15:38 pdurbin      fancy
+16:16 pdurbin      whorka: there seems to be interest in your script. especially the postgres one. if you could get it to me somehow i'd appreciate it!
+16:53 * pdurbin    gives self a crash course in postgres: http://wiki.greptilian.com/postgresql
+18:11 pdurbin      whorka: got the tarball! thanks!
+18:12 whorka       welcome. I think the pg_dump --clean is really what you need. the rest of the script just sets a schedule and creates a directory hierarchy to store a rotating set of dumpfiles.
+18:18 pdurbin      yeah
+18:33 semiosis     bad luck with the internet today... trying to get going with angular.js and their web site looks like it hasn't been updated in over a year... tried to go to the wayback machine and archive.org is down :(
+18:40 pdurbin      semiosis: that's... a bad sign...
+18:40 pdurbin      is this the javascript library of the future?
+18:41 semiosis     pdurbin: i'm chatting with the guys in #angularjs and there's something crazy going on with the site when i look at it in chrome, i see an ancient version
+18:41 semiosis     in opera i see the current version
+18:44 semiosis     pdurbin: got chrome?  when you open angularjs.org, does it look like this?  http://i.imgur.com/hJAKl.png -- that's how it looks when i open it on chromium 20 on ubuntu
+18:46 pdurbin      i'm on centos. of course i don't have chrome :(
+18:58 pdurbin      agoddard: send all the cute monkeys you want: http://140.247.232.201/content/2011/10/06/09/91129_580_360.jpg
+18:58 pdurbin      there was some study recently about how looking at cute animals is good for you
+18:59 semiosis     ok so i found out that chrome can retain an "appcache.manifest" file for a site even after completely clearing the browser's cache
+19:00 whorka       crimsonfubot: lucky study looking at cute
+19:00 crimsonfubot whorka: http://lifeinc.today.com/_news/2012/09/28/14140305-aww-looking-at-cute-pictures-could-make-you-better-at-work?lite
+19:00 pdurbin      whorka: yeah. that one. :)
+19:01 pdurbin      didn't google build some self aware computer that learned to like cat videos?
+19:01 whorka       http://www.slate.com/blogs/future_tense/2012/06/27/google_computers_learn_to_identify_cats_on_youtube_in_artificial_intelligence_study.html
+19:02 semiosis     folks in #angularjs weren't too helpful either.  someone accused me of trolling right off the bat, then they just said "clear your cache".  now they seem to be ignoring me
+19:03 semiosis     even though i informed them that an outdated appcache.manifest file on their site is causing this problem
+19:04 semiosis     for some people who happened to visit the site some time ago when that feature was used (even though it no longer is)
+19:04 semiosis     meh
+19:04 semiosis     &lt;/venting&gt;
+19:04 pdurbin      maybe i should change our tagline to "friendly sysadmins who code"
+19:06 semiosis     +1000
+19:06 pdurbin      whorka: yeah, that one
+19:07 pdurbin      semiosis: my first experience in IRC was in the pidgin channel and it didn't go well
+19:10 pdurbin      ooo! a .snapshot directory! #otherpeoplesservers
+19:13 whorka       oh, yeah, do beware of that.
+19:14 whorka       I ended up filling up a Netapp filesystem unintentionally by copying some files in one pass as a test, deleting them, then copying them again (since the deleted pointers remained allocated in the snapshot).
+19:14 pdurbin      #otherpeoplesnetapps
+19:39 pdurbin      17.5MB/s. is that good?
+19:46 pdurbin      lol. chmod 777
+19:52 * pdurbin    looks at his old rubygem-passenger... http://mirror.hmdc.harvard.edu/HMDC-Redmine/el5/SRPMS/rubygem-passenger-3.0.4-1.HMDC.src.rpm
+19:54 pdurbin      JoeJulian: forget what i was saying about rails, i guess
+19:57 JoeJulian    hehe
+19:59 pdurbin      JoeJulian: wait, was the shapado install last weekend? what day is it?
+20:04 JoeJulian    I was riding around on the race track in a Porsche GT3 all weekend. I didn't get anything done. :D
+20:07 * JoeJulian  heads to lunch.
+20:14 pdurbin      JoeJulian: slacker!! ;)
+20:19 whorka       today I learned about puppet providers. we're building our next-gen config mgmt on puppet, and plan on using native library/module management for apps that have such. e.g. rather than repackaging e.g. perl modules as rpms, using puppet to manage cpanm. same for python, ruby, emacs...
+20:20 pdurbin      whorka: no more perl RPMs?!?
+20:20 pdurbin      ironcamel: ^^
+20:20 whorka       that's the plan!
+20:20 pdurbin      cool. keep us posted
+20:20 pdurbin      larsks: just do that instead of using the RT 4 RPM :)
+20:20 semiosis     whorka: good luck with that.  btw did you know there's a new book coming out about custom puppet types?
+20:21 whorka       oh?
+20:21 semiosis     http://shop.oreilly.com/product/0636920026860.do
+20:21 semiosis     by dan bode (aka @bodepd) who i met at redhat summit in june, real nice guy
+20:23 semiosis     pdurbin: did you or sjoeboo meet him as well?  he was hanging out at the gluster lounge a bit
+20:23 semiosis     ...in the puppet labs shirt, of course :)
+20:24 pdurbin      nope, but i just sent a link around to our internal list. thanks
+20:24 semiosis     yw
+20:25 pdurbin      dunno if folks have seen this: First book to discuss: Pro Puppet | Standalone Sysadmin - http://www.standalone-sysadmin.com/blog/2012/09/first-book-to-discuss-pro-puppet/
+20:25 pdurbin      i've been meaning to read that anyway
+20:26 semiosis     it's in the o'reilly safari online library
+20:26 semiosis     but puppet 3.0 just came out so it may be getting out-dated already
+20:31 pdurbin      yeah. was published last month, too :)
+21:05 semiosis     heh, late blog... that book's been out 17 months already
+21:12 comptona     whorka: we built a custom provider for ruby 1.9 gems with the right RVM paths and such
+21:14 whorka       nice. our puppet guru says there's a native provider for ruby gems but I haven't checked it out yet.
+21:21 comptona     there is, but it supports "the system ruby" with all the standard paths
+21:21 comptona     which at the time was 1.8
+21:22 comptona     so we have package { XX: provider =&gt; gem } and package { XX: provider =&gt; gem1_9 }   :-)
+21:22 whorka       cool!
+22:01 semiosis     jimi_c: answering my own question from yesterday... combining bootstrap and angular is trivial and implicit in the angular tutorial here: http://docs.angularjs.org/tutorial/ (which i'm working my way through now)
+22:02 semiosis     at least, it's trivial at first :)
+22:04 pdurbin_m    trivial ftw
+</pre></body></html>
