@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+03:14 agoddard  pdurbin: hey hey, sorry busy day again. Yep, the responses were awesome, thanks again for putting the word out. The general gist of it confirmed that avoiding raid5 was a good idea (bad write perf + terrible read when degraded), didn't touch on raid 50/60 at all, but in my case there wasn't a huge space benefit anyway. The ideal method seems to be either one big RAID10 array backing the volume gro
+03:14 agoddard  up, or a series of RAID1's and then having LVM manage the striping on LV creation.
+03:15 agoddard  I'm going with the former, though in my case the controller only allows 16 disks/ 8 spans with RAID10, so I'm presenting two RAID10 arrays and adding them both to the Volume Group
+03:15 agoddard  At some point I'm thinking I'll play with the block sizes of them and see what difference it makes, if I ever get time to play with http://www.mysqlperformanceblog.com/2011/06/09/aligning-io-on-a-hard-disk-raid-the-theory/
+03:16 JoeJulian Have you documented your findings somewhere?
+13:16 ventz     anyone here use/have experience w/ rsnapshots
+13:17 ventz     i've been having a really annoying problem lately
+13:17 ventz     Ive been using it for &gt;10 years and until now, no issues
+13:18 ventz     I keep getting:
+13:18 ventz     /bin/cp: cannot create hard link `/backup/server/hourly.1/home/user/.vim/backup/readme.txt.bak' to `/backup/server/hourly.1/home/user/.vim/backup/readme.txt.bak': No such file or directory
+13:18 ventz     ERROR: /bin/cp failed. Perhaps this is not GNU cp?
+13:18 ventz     ERROR: Error! cp_al("/backup/server/hourly.0/", "/backup/server/hourly.1/")
+</pre></body></html>

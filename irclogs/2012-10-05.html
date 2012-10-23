@@ -209,4 +209,31 @@ Time  Nick         Message
 20:27 boegel       pdurbin: EasyBuild will download the Python sources, built it, install it and create a module for it
 20:28 pdurbin      boegel: that's it?
 20:28 boegel       pdurbin: that's it
+20:28 boegel       pdurbin: there's a reason it's called EasyBuild
+20:28 boegel       pdurbin: let me know if you run into problems there...
+20:29 GitHub41     [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/4f0cf91320264de7990ca90f8aac5ac196445510
+20:29 GitHub41     [crimsonfu.github.com/master] save the easybuild fu - Philip Durbin
+20:29 boegel       pdurbin: I haven't tested this right now, but it should work
+20:29 pdurbin      boegel: will do. later. thanks!
+20:30 * boegel     tries it on his end to verify
+20:30 pdurbin      heh
+20:32 boegel       pdurbin: you can even drop the "--robot X" part of the command, that's only required to resolve dependencies, and Python doesn't have any
+20:32 pdurbin      ok
+20:32 boegel       pdurbin: so, the command would look something like "eb Python.eb"
+20:32 boegel       pdurbin: easy, huh? ;)
+20:32 pdurbin      and -ld was what i used to see some output, to know eb is alive
+20:33 boegel       pdurbin: well, there are other ways to check it's alive, but yeah, -d for debug info, -l for logging to terminal
+20:33 pdurbin      yeah, i found strace useful ;)
+20:34 boegel       pdurbin: top works as well :P
+20:34 boegel       pdurbin: or "ps axfu"
+20:34 pdurbin      :)
+20:35 boegel       pdurbin: just tested, instructions work
+20:35 boegel       pdurbin: Python builds fine with a dummy toolkit, i.e. using the system compiler
+20:35 boegel       pdurbin: assuming you have a compiler installed :)
+20:36 pdurbin      i do. even intel. somewhere
+20:38 pdurbin      pedmon was in this channel the other day. he went to IDF a few weeks ago
+20:38 boegel       pdurbin: if you have Intel source tarballs, you can make sure EasyBuild finds them, and then make it install the ictce toolkit
+20:38 pdurbin      http://www.intel.com/idf
+20:39 pdurbin      ok. i don't know what this is but i'm sure pedmon does
+20:42 pdurbin      29 more VMs to migrate. have a good weekend, all
 </pre></body></html>

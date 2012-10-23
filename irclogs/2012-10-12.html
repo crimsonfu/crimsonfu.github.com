@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+16:01 * larsks     is liking ansible (http://ansible.cc/).  Very nifty for bootstrapping things.
+16:12 pdurbin      larsks: nice? i'm following the ansible guy (also the creator of cobbler) on twitter but i haven't tried it yet
+16:13 pdurbin      nice? i meant nice! :)
+16:13 pdurbin      crimsonfubot: lucky why huge /dev/shm on centos 6.3
+16:13 crimsonfubot pdurbin: https://www.centos.org/modules/newbb/viewtopic.php?topic_id=39226&amp;forum=57
+16:18 larsks       Yeah, it is nice.  Nothing to install on the remote system -- everything operates over ssh.  I'm thinking of using it for bootstrapping puppet :).
+16:19 pdurbin      heh
+16:19 pdurbin      larsks: have you played with salt at all? it's python... :)
+16:19 pdurbin      salt is how i manage my little home server: http://git.greptilian.com/?p=salt.git
+16:20 pdurbin      here's my main config: http://git.greptilian.com/?p=salt.git;a=blob;f=server1/server1.sls;hb=HEAD
+16:21 larsks       I'm playing with salt, too.  In fact, I'm using ansible to set up salt on a set of virtual machines.
+16:21 larsks       I use this config: https://gist.github.com/3880066
+16:22 larsks       It installs salt-minion everywhere, salt-master on the master, makes sure the services are started, etc.
+16:22 larsks       The fact that salt has built its own crypto makes me a little nervous.  I like the ansible just uses openssh.
+16:32 pdurbin      yeah, i guess. puppet has its own cryto too, no?
+16:40 larsks       we're running puppet masterless right now, so, no :)
+17:27 pdurbin      larsks: interesting. :) ok.
+17:43 pdurbin      larsks: the salt guys on crypto: http://irclog.perlgeek.de/salt/2012-10-12#i_6057124
+18:13 pdurbin      whorka: resolved! http://support.hmdc.harvard.edu/system_alerts/dataverse_network_maintenance
+18:14 whorka       \o/
+18:15 pdurbin      good job
+18:17 whorka       thank you
+18:24 pdurbin      jimi_c: are you sure em0 is the new standard ( http://irclog.perlgeek.de/crimsonfu/2012-08-15#i_5900273 ) and not em1 per http://en.community.dell.com/techcenter/b/techcenter/archive/2011/05/26/meaningful-names-for-network-devices-in-rhel-6-sp1-on-dell-systems.aspx ? this is instead of eth0
+20:28 pdurbin      heh. "need a bigger boat" #backups
+21:23 jimi_c       pdurbin: that could be, i've seen systems with em0 though and they are dells
+</pre></body></html>

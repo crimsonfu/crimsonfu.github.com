@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+00:20 pdurbin    anyone know much about SRV records and BIND? https://twitter.com/philipdurbin/status/259085983012761600
+00:20 JoeJulian  Yes, and if twitter would actually load....
+00:22 JoeJulian  Ah, no. I never use AD.
+00:23 larsks     agoddard: If you're still out there...yes, nova-volume shows up as a service when running 'nova-manage service list'.
+00:27 larsks     We're not running cinder.
+03:31 agoddard   larsks: thanks. I don't see it there, but I can list cinder volumes with nova volume-list.. then when I try to attach them to instances, nova volume-attach says it can't find them :/
+13:18 pdurbin    JoeJulian: sorry, here's a direct link: Active Directory with ISC Bind and DHCPD | EDUCAUSE.edu - http://www.educause.edu/discuss/networking-and-emerging-technologies/network-management-constituent-group/active-directory-isc-bind-and-dhcpd
+13:24 larsks     agoddard: Does your volume.log show that nova-volume is successfully connecting to your message broker?
+13:25 agoddard   larsks: cinder.openstack.common.rpc.common [-] Connected to AMQP server on 172.27.10.10:5672
+13:27 larsks     Oh well.
+13:27 agoddard   it's driving me crazy :( I'm sure it's something reasonably obvious.. grr
+13:27 larsks     And does it have the appropriate database credentials?
+13:28 agoddard   yep, and I re sync'd it yesterday
+13:28 larsks     Hmm.  Ya got me.
+13:28 agoddard   I can create volumes in hoziron and using nova on the controller too, and delete them etc.. I just can't assign them to instances, and cinder doesn't show up in the service list
+13:29 agoddard   the other thing that's drivign me crazy is nova seemingly totally ignoring "libvirt_local_images_type=lvm"
+13:56 Pax        Hey, does anyone know of an easy way to mimic irclog for xmpp? I was thinking just a jabber bot that spit results to a page
+13:57 pdurbin    Pax: you should set up hubot, please, and let us know how easy it was: http://hubot.github.com
+13:57 gridiron   Yeah Pax, you totally should.
+13:59 agoddard   larsks: fixed :) I setup a devstack instance to test - it appears that in folsom, nova-volume and cinder don't appear in the service list.
+14:00 agoddard   larsks: I'd neglected the all important "volume_api_class=nova.volume.cinder.API" conf option
+14:00 agoddard   hubot seems pretty awesome. I want to hook it into siri ;)
+14:03 pdurbin    i think it supports irc... we could have a hubot in here...
+14:03 agoddard   larsks: /dev/vdc1      1007M   18M  939M   2% /cinder &lt; awwyeah :D
+14:04 pdurbin    agoddard: confused. what was the fix?
+14:04 * agoddard wonders how many other obvious config variables he forgot.. :-/
+14:04 agoddard   pdurbin: I hadn't told nova to "volume_api_class=nova.volume.cinder.API"
+14:04 pdurbin    oh that volume_api_class thing?
+14:04 pdurbin    ok
+14:04 agoddard   ya
+14:04 pdurbin    good work
+14:04 agoddard   I spun up a folsom devstack instance to see what config options it used and it was right there
+14:05 larsks     agoddard: Woot!
+14:05 agoddard   thanks :) I wish the errors were a little more user friendly.. :-/
+14:05 agoddard   (at least, in DEBUG I wish it told you where it was making the call to, etc) but.. it works. woohoo
+14:05 larsks     *I* wish that openstack wasn't such that it often *eats* errors.
+14:06 larsks     My personal favorite is when an authentication error on the backend turned into something along the lines of a python "expected an integer" error presented to the user.
+14:06 agoddard   oh ya, horizon is a classic for that as well
+14:06 agoddard   cloudstack has the same problem
+14:06 agoddard   lolstack.
+14:07 larsks     agoddard: Did you run Essex at all?  I'm curious if Horizon has improved -- the Essex release has all sorts of issues related primarily to over-agressive caching of results.
+14:07 agoddard   larsks: I had a few test instances but never got serious with Essex, folsom is my first production cluster
+14:07 larsks     Okay.
+14:11 agoddard   I'm really liking openstack so far (although the default ubuntu horizon theme was pretty hilarious, at least it was one command to remove it)
+14:11 agoddard   for my next trick, I want to make ephemeral / instance storage LVM backed on local disk.. it's ignoring the config option at the moment, gonna give it a go in devstack
+14:14 agoddard   #crimsonfu &gt; #openstack ftw.
+14:16 * pdurbin  wonders how hard it is to set up hubot, it being written in coffeescript and nodejs and all...
+14:18 pdurbin    shuff: is nodejs one of the platforms you want to support?
+14:18 shuff      yes!
+14:19 pdurbin    openshift supports it
+14:19 pdurbin    so i guess i could stand it up for free... save the config somewhere
+14:20 ventz      pdurbin: per shuff's recomendation - checkout the redhat cloud thing
+14:20 ventz      it might be perfect for your bot
+14:20 ventz      and it's free
+14:23 pdurbin    ventz: i think that was my suggestion :)
+15:27 ventz      ahh
+15:27 ventz      pdurbin: i just mean that i had heard about it first from shuff
+15:47 whorka     anyone here set up a Juniper VPN?
+15:51 semiosis   openvpn &gt;&gt; ipsec
+15:54 whorka     this is for an Amazon VPC...
+15:56 whorka     I'm using the configfile generated by Amazon's wizard, and for some reason when the ipsec tunnel is down, it's trying to route packets through its trusted network interface with no encryption layer.
+17:49 pdurbin    whorka: i got nuthin'. i'd try ##infra-talk if i were you
+20:29 pdurbin    have a good weekend, everyone
+21:40 agoddard   you too man, thanks for the help this week guys
+23:28 whorka     seems the ipsec tunnels only appeared to be up until they tried to route traffic, at which point they were marked down and the packet took the default (unencrypted) route. Adding a new route with a null destination and a more precise netmask than the default route staunched the packet leakage. Next I need to figure out how to keep the tunnels up...
+</pre></body></html>

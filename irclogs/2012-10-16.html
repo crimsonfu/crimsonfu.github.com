@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:25 pdurbin      semiosis: +1
+14:10 JoeJulian    I wish I'd found salt before I'd implemented puppet. Even if it sucked, at least it's not ruby.
+14:11 JoeJulian    Don't you hate it when you add to a conversation and then realize you were scrolled back to a much older time....
+14:11 larsks       I've been looking at salt, ansible, mcollective, et al recently.  While I like some things about, e.g., salt, I really do like Puppet's dependency model.
+14:41 Pax          larsks: I ended up agreeing with you, and have been really please with the puppet+mcollective model
+14:41 Pax          er "really pleased"
+14:49 larsks       I'm so far tempted by the puppet+ansible model.
+14:49 larsks       What I like about ansible: nothing to install on the target systems, so it's a great bootstrapping tool.
+15:28 pdurbin      JoeJulian: you crack me up :) i maybe have to tweet that as "overheard" :)
+15:29 pdurbin      JoeJulian: so... KVM disk images on gluster... how do you back up those disk images? pause the VM and then rsync the disk image to some off site storage?
+15:59 Pax          while not being super well read on ansible,  there are a couple of things that make me a little leery… 1)  Michael DeHaan, who while really smart, it seemed like he sort of abandoned both func and cobbler,  I like func quite a bit, but it wasn't ever quite *enough*
+16:00 Pax          2) ssh -  I'm not a huge fan of having ssh access open directly to nodes from the puppet master.  I'd sort of rather use ssl endpoints
+16:02 Pax          so admittedly, the first comes from feeling a bit like Charlie Brown in the "Lucy + Football" Scenario ,  and the second is mostly personal preference on a security posture.
+16:12 larsks       Yeah, I agree with you re: the first point.  But I've probably been guilty of that myself, although on a much smaller scale.
+16:14 larsks       W/r/t ssh, we're already using it for administrative access, so using it with ansible isn't a substantial change from a security standpoint. It gives us a single point of access to focus on in terms of security.
+16:14 larsks       ...but I'm looking at ansible as more of a command-and-control tool, and less of a configuration management tool.
+17:11 pdurbin      larsks: that's the nice thing about salt. it's both. and it scales to many nodes very well
+17:15 Pax          I'm not sure I'd classify any of these tools (salt, func, mc etc..) as "config mgmt tools" but rather as "remote execution tools"
+17:16 pdurbin      Pax: salt does config mgmt: http://git.greptilian.com/?p=salt.git;a=blob;f=server1/server1.sls
+17:16 semiosis     i notice ubuntu's juju doesnt even come up in this conversation
+17:17 larsks       Pax: Salt and ansible both provide state description files and idempotent operation, which I think qualifies them as config management.
+17:17 pdurbin      crimsonfubot: lucky ubuntu juju
+17:17 crimsonfubot pdurbin: https://juju.ubuntu.com/
+17:17 pdurbin      "Juju unlocks the true potential of hyperscale computing by giving you the power to deploy, use, and control services at scale like an expert...without spending the time and resources needed to become one"
+17:17 semiosis     not that i'd endorse it, i'm a puppeteer, but it is in this space
+17:17 pdurbin      semiosis: i'm not so sure about that pitch... ;)
+17:17 Pax          larsks: thanks for the clarification, pdurbin: could you sometimes add some context to the links you send...
+17:19 pdurbin      Pax: sorry, this is how i configure server1.greptilian.com (the server that crimsonfubot is hosted on) with salt: http://git.greptilian.com/?p=salt.git;a=blob;f=server1/server1.sls
+17:19 pdurbin      westmaas used to call me "linky"
+17:20 Pax          this may be me just being pedantic, but wouldn't that be doing config mgmt with a remote execution tool?
+17:20 pdurbin      Pax: can you believe it?!? salt is both!!
+17:20 pdurbin      and so is ansible
+17:21 Pax          pdurbin: no worries, it's just helpful to better understand the point your trying to make with a bit of context :)
+17:22 pdurbin      Pax: i figured i'd go with salt in case i ever need to manage servers all the way up to server99999999.greptilian.com ;)
+17:23 Pax          I see your point though, how tools can fall into both categories
+17:23 pdurbin      mcollective was bolted on to puppet, no?
+17:24 Pax          my impression ( which may be wrong) was it was developed as a 3rd party tool to add more flexible RE using puppets existing data/facts
+17:24 Pax          that puppet labs bought/consumed
+17:26 pdurbin      Pax: yep. that's my understanding too
+17:27 pdurbin      i think if you're a puppet shop, mcollective is a godsend
+17:28 pdurbin      if you're like me, small and starting new with 1 server, ansible is probably a good choice. i'm not sure it was out though when i picked salt
+19:01 pdurbin      overheard: "other projects too precedence"
+19:20 pdurbin      "see the drop @ 14:45 or so? thats the masters starting to use puppet 3.0 to compile catalogs, good speedup"
+19:45 boegel       pdurbin: good news, our EasyBuild paper got in to the PyHPC workshop at SC'12 ! \o/
+19:49 pdurbin      boegel: nice! can you make it public now?
+19:50 pdurbin      (this is the "when in doubt, make it public" channel)
+19:54 boegel       pdurbin: well, we need to finalize the camera-ready version by the end of the month
+19:55 boegel       pdurbin: but we can make that version public without problems, yes, imho
+19:55 pdurbin      cool. i printed it out but haven't read it yet
+19:55 pdurbin      busy trying to SHOOT OUR OLD VM PLATFORM IN THE HEAD
+19:56 pdurbin      die /mnt/KVM_temp die!
+19:56 boegel       pdurbin: printing is no guarantee of reading it, been there
+19:56 boegel       pdurbin: we're working on setup.py scripts so you can install EasyBuild be just running "easy_install easybuild"
+20:48 pdurbin      boegel: you're a welcome presence in this channel. you make everything sound easy :)
+20:57 westmaas     pdurbin: haha, I always forget that till you remind me
+20:58 westmaas     pdurbin: what is your boss doing, I haven't run into him randomly yet
+21:06 boegel       pdurbin: that's the goal ;-)
+22:36 semiosis     pdurbin: s/STONITH/STOVPITH/
+</pre></body></html>

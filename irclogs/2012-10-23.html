@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+06:05 ventz        pdurbin: found issue
+06:05 ventz        https://www.redhat.com/archives/libvirt-users/2012-August/msg00086.html
+06:05 ventz        read about Ubuntu 12.04
+06:05 ventz        you have the same isue
+06:05 ventz        issue*
+06:13 ventz        summary btw: you can take live snapshots, but you cannot restore live
+12:00 pdurbin      ventz: on a related note... crimsonfubot is back!
+12:00 pdurbin      crimsonfubot: lucky crimsonfubot
+12:00 crimsonfubot pdurbin: http://wiki.greptilian.com/irc/bots/supybot/
+12:01 pdurbin      sigh. but my wiki is still down :(
+12:01 pdurbin      good old crimsonfubot
+12:46 pdurbin      larsks: thanks for posting your resize doc. here's how my attempt with fdisk went wrong: VM stuck at grub prompt after resize/fdisk mishap - http://danceb.in/5nJYwg0d4hGUBYyl9DNYg
+12:46 pdurbin      larsks: thanks also for the heads up about the salt security issue
+14:16 pdurbin      getting happier and happier with my VM disk image resize doc
+14:17 pdurbin      i even removed "here be dragons" from the top
+14:18 pdurbin      now to update my "clone a vm" doc for el6 hypervisors
+14:19 pdurbin      i tried to convince the user to have a freshly kickstarted VM instead. (latest ubuntu LTS even.) oh well
+15:00 pdurbin      "What is the lightest weight, simplest, will mostly work shared storage solution that isn't NFS ?" -- http://irclog.perlgeek.de/gluster/2012-10-23#i_6090303
+15:09 larsks       Argh, a link to a link.
+15:10 larsks       He meant: https://twitter.com/kbsingh/status/260088365351841792
+15:14 ventz        pdurbin: what is VMFS? :-D
+15:15 ventz        (to your shared solution that isn't NFS) :-D
+15:17 ventz        per Phil's request -- sharing this here
+15:18 ventz        i found out that using KVM pre 1.2.0 has issues with qcow2 -- actually, Phil first discovered this
+15:18 ventz        i doubted him since I hadn't seen it
+15:18 ventz        after some research, it turns out that v 1.2.0 fixes all this
+15:19 ventz        if you go here: http://wiki.qemu.org/ChangeLog/1.2 and look up 'qcow2' it mentions the fixes
+15:19 ventz        Sadly, Ubuntu LTS 12.04 still ships out w/ 1.0
+15:19 ventz        Ubuntu 12.10 ships out with 1.2
+15:19 ventz        RHEL -- well it might be years before it sees 1.2 ;)
+15:19 ventz        (kidding! - sort of)
+15:20 pdurbin      no kidding :)
+15:21 pdurbin      ventz: the news on our end is that sjoeboo figured out how to fix our qcow2 corruption faster than what i was doing
+15:21 pdurbin      i was converting the corrupted qcow2 file to raw. and then back again
+15:21 pdurbin      he simply tried doing a snapshot *through virsh* and that seemed to remove the corruption as well
+15:22 pdurbin      (as reported by `qemu-img check`)
+15:22 pdurbin      so our take away is to never never use the lower level qemu-img command to take snapshots. instead, always always use virsh or something that goes through the libvirt stack
+15:23 ventz        pdurbin: interesting
+15:23 ventz        i found out you can convert from qcow2 to qcow2 and it also fixes it
+15:23 larsks       pdurbin: Did you ever find out exactly what was causing the corruption?
+15:23 ventz        on v1.2.0 you can just use '-r' flag
+15:23 ventz        larsks: it's a bug in KVM -- specifically qemu
+15:23 pdurbin      oh, right. actually i think that's what i was doing too, now that you mention it
+15:23 ventz        pre vs. 1.2.0
+15:24 larsks       I'm just wondering why snapshotting via virsh -- which presumbly just talks to KVM on the backend -- solved the problem.
+15:25 pdurbin      larsks: i would say the corruption is caused by trying to make snapshots of qcow2 files of running VMs using qemu-img rather than using virsh (thus going through libvirt). note that making snapshots through virsh pauses the VM! so we haven't rolled this out yet... i think we'll give users some time to opt out...
+15:28 pdurbin      for a smallish VM (10 GB of local disk) it gets paused for a couple minutes during the snapshot
+15:30 pdurbin      being on centos 6 we're using ancient versions: libvirt-0.9.10 and qemu-kvm-0.12.1.2
+15:31 pdurbin      for posterity: a link to a link of previous discussion here: http://irclog.perlgeek.de/crimsonfu/2012-09-26#i_6020372
+15:31 pdurbin      larsks: what's wrong with a link to a link? :)
+15:31 larsks       So much clicking!
+15:32 pdurbin      yes, but jdarcy replied :)
+15:32 pdurbin      so it's worth it
+15:32 pdurbin      conversation going on right now in #gluster :)
+15:32 * pdurbin    fans flames
+15:43 * semiosis   did some stoking of that fire last week
+15:45 semiosis     but i wasnt so tactful :/
+16:02 pdurbin      mmm, nagios bot. works with stock nagios i hear... https://github.com/cluenet/cluemon/blob/master/nagios-bin/nagiosbot.py
+16:09 pdurbin      to send from nagios to irc: https://github.com/vvuksan/misc-stuff/blob/master/nagios/send_nagios_email.php
+16:12 pdurbin      Vladimir Vuksan's blog » Blog Archive » My monitoring setup - http://blog.vuksan.com/2012/09/01/my-monitoring-setup/
+16:13 pdurbin      vvuksan: welcome!
+16:14 vvuksan      hello :-)
+</pre></body></html>

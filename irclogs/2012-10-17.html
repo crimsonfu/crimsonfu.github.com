@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+02:49 JoeJulian pdurbin: KVM images on Gluster: I don't back them up at all. I have generic images that are configured by puppet. If an image gets corrupted, I just delete and let puppet recreate.
+08:12 jgtimmer  I don't know if this has been anounced here already, but the 14th quattor workshop is coming up
+08:12 jgtimmer  http://indico.cern.ch/conferenceDisplay.py?confId=196712
+13:22 pdurbin   bah! cp: writing `/sysroot/Temp/V2V/rhev-apt.exe': No space left on device at /usr/share/perl5/vendor_perl/Sys/VirtConvert/GuestfsHandle.pm line 203 at /usr/share/perl5/vendor_perl/Sys/VirtConvert/Converter/Windows.pm line 482
+13:23 pdurbin   die windows die!
+13:35 pdurbin   the C: drive has only 624 KB free
+13:49 pdurbin   i don't know what i can safely delete. asking the VM owner to free up space. hopefully, that'll fix it
+14:03 pdurbin   more space now. trying again. i'm sure you guys are fascinated by this
+14:05 pdurbin   JoeJulian: no backups of your KVM disk images, huh? i've got to say... using rsnap to back up our disk images takes a lot of space. it's not like you can do incrementals, really. the disks (naturally) change every day, so a full copy is made every night
+14:07 pdurbin   jgtimmer: i'd love to come to belgium :) #beer
+14:08 pdurbin   westmaas: i don't know where you are but my boss is in texas: https://twitter.com/jamesdotcuff/status/258330636757118976
+14:10 pdurbin   oh, for anyone googling in the future, i'm using virt-v2v to migrate this windows vm
+14:10 pdurbin   the very last vm on our centos 5 kvm infrastructure
+14:10 pdurbin   i think i mentioned already we're totally off of vmware now
+14:10 pdurbin   so soon we'll be all kvm on centos 6
+14:11 pdurbin   next up... need an api... ovirt/rhev/cloudstack/openstack ... something to make management of all this stuff easier. it's fun to write scripts and all but i want users to be able to provision their own vms
+14:12 pdurbin   and i want a better backup strategy
+14:14 pdurbin   oh, by the way we have 1708 hosts on puppet 3.0 now, thanks to sjoeboo
+14:53 pdurbin   so! freeing up space on the C: drive worked! virt-v2v was able to migrate the VM. now all of VMs are running on our new infrastructure :)
+15:34 pdurbin   "Six megawatts gets you an awful lot of equipment" -- http://photo.jcuff.net/post/33774497442/tacc
+16:06 dotplus   pdurbin: "need an api"... what are you trying to achieve? what are your goals? I'm a couple of months away from looking at how to deal with automating provisioning for network/storage/VMs and I want something simmering in the back of my mind.
+16:12 pdurbin   dotplus: well, when people want a vm... i build it for them (usually)
+16:12 pdurbin   the process isn't bad. we wrote a bunch of scripts to automate it
+16:12 pdurbin   adding the system to dns is the slowest part
+16:12 pdurbin   otherwise, a script to add it to cobbler
+16:13 pdurbin   then a script to build the vm with `koan` (kickstart over a network)
+16:13 pdurbin   it would be nice to have some self service... for users to be able to spin up their own VMs
+16:13 pdurbin   so there's that
+16:13 pdurbin   plus there's the issue of vm storage. right now we store all of our disk images on nfs, hosted by our emc
+16:14 pdurbin   backing up all those disk images is a challenge
+16:14 pdurbin   i'm kind of wondering if we should explore using lvm instead... for vm storage... a logical volume per vm
+16:15 pdurbin   but i would want something to orchestrate that... oVirt/RHEV or cloudstack or openstack or what have you
+16:15 pdurbin   i also want better fault tolerance
+16:15 pdurbin   right now if we lose a hypervisor, someone needs to go figure out which VMs were running on it (we store this as a fact in puppet)
+16:16 pdurbin   and then `virsh define` each one on some other hypervisor. and then `virsh start`
+16:16 pdurbin   something to automate all of that would be great
+16:17 pdurbin   to be clear, we're using what i'd call "bare bones" kvm. we manage it ourselves with scripts and love
+16:17 pdurbin   i think maybe we need ovirt
+16:17 pdurbin   westmaas: or openstack if you think it can do all this for us
+16:18 pdurbin   i actually just wrote up a summary of where we are... based on the goals i (voluntarily) wrote up when i started this project a year ago
+16:18 pdurbin   i'm proud of how far we've come
+16:18 pdurbin   the old system was barely in puppet
+16:19 pdurbin   the old kvm system
+16:19 pdurbin   i don't even want to talk about the old vmware system. i know so little about it
+16:19 pdurbin   may it rest in peace
+16:19 pdurbin   ... but there's still work to do... lots to improve
+16:19 pdurbin   i'm just glad the new plaform is handling our...
+16:20 * pdurbin checks
+16:20 pdurbin   183 VMs
+16:20 pdurbin   this is on 8 hypervisors. kinda inexpensive dell poweredge C6145 boxes
+16:21 pdurbin   Processorcount: 48 (per box)
+16:21 pdurbin   Memorytotal: 177.31 GB (per box)
+16:22 pdurbin   oh, we also don't have a great process for building Windows VMs
+16:22 pdurbin   those scripts i mentioned are for linux VMs
+16:22 pdurbin   jimi_c: and koan/cobbler fu for Windows VMs?
+16:23 * pdurbin reads through the email he just sent
+16:24 pdurbin   oh, better monitoring of the whole system... knowing when hypervisors are reaching capacity
+16:24 pdurbin   i'm still not sure the best way to measure capacity... how many VMs a hypervisor can host
+16:24 pdurbin   docs. need more docs. of course
+16:25 pdurbin   i think those are the main points
+16:25 pdurbin   dotplus: you might be sorry you asked :)
+16:45 jimi_c    windows support in cobbler is limited to images, but you should be able to do that today with koan/cobbler
+16:53 dotplus   pdurbin: nonono, that's exactly the sort of thing I'm interested in. in fact, I'd be happy to hear more of your experiences. can you publish anything of either your results or your process? even your docs?
+16:54 dotplus   I haven't used cobbler in years. In my brief contact with it, I seem to remember thinking that it wanted to control dns/dhcp more than I was willing to allow, but a) perhaps I was wrong b) perhaps it's changed some c) perhaps I'm more willing now.
+16:55 jimi_c    dotplus: those are optional, you don't have to let it manage those
+16:55 jimi_c    out of the box, manage_dns and manage_dhcp are disable
+16:55 jimi_c    but it does manage tftp/xinetd out of the box
+17:00 dotplus   I think I want to be able to specify a few things and have "it" create machines/VMs for me.1) grant it a/some network(s) 2) give it storage (or a storage provisioning process) 3) an installation server with kickstart files/yum repos
+17:00 dotplus   is "it" cobbler? cobbler + one of the cloud mgmt suites? just one of the cloud suites?
+17:00 jimi_c    just cobbler, koan helps you create vm's on some hypervisors, but it's not IaaS aware (yet)
+17:01 jimi_c    as an interim solution, what most people do is just deploy base images that pxe boot
+17:03 dotplus   sounds like I really need to revisit cobbler.
+17:09 pdurbin   jimi_c: do you use cobbler to manage you dns? we edit dns by hand and back up our changes to a git repo
+17:12 pdurbin   dotplus: have you already told us about how you do virtualization?
+17:18 dotplus   pdurbin: not sure. at my current employment, it's KVM, virt-install/virsh, kickstart with %post, puppetize everything I care about. storage is iSCSI LUNs from a NAS box handed to guests with virt-install ... --disk vol=foo. It's for a small linux infrastructure (a few dozen VMs, most of which are for the infrastrcuture itself) mostly supporting a heavy-duty RT environment.
+17:26 dotplus   not sure whether more automation (cobbler and/or IaaS) or more robustness ( replicated storage, multipath, multimaster db, haproxy in front of webservers/appservers, and/or failover to offsite "public" cloud or similar) should be top of the list of priorities now.
+17:51 pdurbin   dotplus: so when you want to build a new VM, is there any automation around the creation of the iSCSI LUN? in our setup with disk images (qcow2 files) we just make a tweak in cobbler to say that the vm we're building should have 20 GB of local disk instead of 10
+18:00 dotplus   no, not yet:(
+18:18 jimi_c    pdurbin: no I don't use it for dns. I run my own servers, which are both remote from cobbler. I guess I could set them both up as slaves to the cobbler server, but to be honest in my home setup I just don't deploy that many systems that would be anything other than test boxes
+18:18 jimi_c    at work, dns is MS AD, so we don't control that at all
+18:53 westmaas  pdurbin: there are definitely tools to identify which VMs are on downhypervisors, and to support live migration
+18:54 westmaas  extensions to the openstack api, and then extensinos to the client to support those server side extensions
+18:55 westmaas  pdurbin: oh I thought your boss was at openstack summit
+18:55 boegel    did I mention already that vacuum robots are cool? :)
+18:55 westmaas  nevermind!
+18:59 pdurbin   westmaas: he's speaking at CloudBeat: http://venturebeat.com/events/cloudbeat2012/speakers/
+19:02 pdurbin   jimi_c: would you recommend using cobbler to manage dns? i kind of what *something* to know what IP addresses are free, etc.
+19:06 pdurbin   oh, one last funny thing about virt-v2v with that windows 2003 vm... when i booted it up on the destination hypervisor, the clock had changed from 10:35am to 2:35pm. weird
+19:07 pdurbin   "Work got busy so I slowed down on IRC, busier so I forgot to use twitter. Now work is much harder without IRC &amp; Twitter. :-| #irony" -- https://twitter.com/anthonygoddard/status/258331816614834177
+19:07 larsks    Previous host did not use UTC time in the BIOS, maybe?
+19:08 agoddard  ^sadface :(
+19:08 pdurbin   larsks: could be. no more virt-v2v! done migrating! well, until we switch to gluster for storage...
+19:08 pdurbin   semiosis: gluster
+19:08 pdurbin   JoeJulian: gluster
+19:08 pdurbin   gluster!
+19:11 agoddard  rewriting our old backup cookbook today.. "[2012/10/17 15:10:22][message] Backup for 'Backup of DNS zone files &amp; config. (dns_config)' Completed Successfully in 00:00:00" w00t
+19:11 agoddard  although.. we don't actually.. uhh.. need to backup DNS zone files.. they're autogenerated anyway :D
+19:11 agoddard  this is me in therapy, trying to use IRC again during the day :_
+19:11 agoddard  :)
+19:12 pdurbin   KVM on gluster whiteboard - https://twitter.com/philipdurbin/status/258646361438822400
+19:12 agoddard  *not actually in therapy. *not sure if that turns out to be unintentionally bad humor. *** shutting up now
+19:13 agoddard  pdurbin: what are the md3000i's doing?
+19:13 JoeJulian I just got back to my home office after getting a store back on DSL. Had them running through my phone since yesterday morning.
+19:14 pdurbin   JoeJulian: fun
+19:14 JoeJulian It kinda was, actually.
+19:14 * pdurbin checks racktables to see how many md3000i's we have
+19:15 pdurbin   i used to punch down phone wires
+19:15 agoddard  http://twitter.com/anthonygoddard/status/258647251902140417
+19:16 JoeJulian Setting my my laptop to be an ipsec router through my Evo 4G running CM7 (damn them for not building newer versions for this perfectly adequate phone).
+19:19 pdurbin   agoddard: we have 10 md3000i's and 6 PowerEdge R610's
+19:20 semiosis  pdurbin: gluster?
+19:20 agoddard  pdurbin: nice, what the md3000's do?
+19:20 pdurbin   we're thinking 2 gluster clusters. clusters? whatever you call a separate thing
+19:20 agoddard  ah
+19:20 agoddard  isn't the i for iSCSI?
+19:20 pdurbin   agoddard: yes but we don't plan to use iSCSI
+19:21 pdurbin   this is existing hardware. the stuff i just got the last VM off this morning
+19:21 agoddard  pdurbin: ah!
+19:21 pdurbin   the first gluster cluster is for primary VM storage. holds disk images of the running VMs
+19:21 agoddard  pdurbin: we were thinking about maybe sending an md3220i up there btw..
+19:23 pdurbin   it's powered by 2 R610's in data center A and 2 R610's in data center B. these are the servers running centos. the servers for this gluster cluster have md3000's as attached storage. two md3000i's in data center A and two in data center B
+19:23 pdurbin   i hope that makes sense. half of the hardware is in each data center
+19:24 pdurbin   total hardware used for that first gluster cluster: 4 servers and 4 disk arrays
+19:24 jimi_c    pdurbin: of course I would :) lots of people do
+19:24 jimi_c    but if you have a lot of systems that are outside of cobbler, then you might want to keep it limited to a sub-domain
+19:25 jimi_c    i wouldn't try and use cobbler for general dns management
+19:25 pdurbin   jimi_c: ok, just checking. thanks :)
+19:25 agoddard  pdurbin: have you seen benchmarks yet for VM perf?
+19:26 pdurbin   agoddard: you're always on about perf...
+19:26 agoddard  lulz
+19:26 pdurbin   i mean, i care about performance but for us VMs are non performant. we use hardware for performance
+19:30 agoddard  pdurbin: hrm.. is that why one of our VMs just: CRITICAL - load average: 24.58, 19.02, 10.18
+19:31 agoddard  0-O
+19:31 agoddard  brb! :D
+19:31 pdurbin   i wasn't sure i was even still connected to this channel
+19:36 pdurbin   wee bit of a something-strange-going-on here...
+20:21 pdurbin   https://twitter.com/jamesdotcuff/status/258656300311920640
+20:26 semiosis  sounds bad
+20:29 pdurbin   i've had better days
+20:29 pdurbin   but! gluster gluster gluster. we'll get the VMs off this storage and on to gluster and it will be awesome
+20:29 pdurbin   right?
+20:29 semiosis  absolutely
+20:33 pdurbin   good
+20:33 semiosis  as long as your use-case is a good fit and your workload is well behaved ;)
+20:34 pdurbin   i didn't even talk about the plan for the second gluster cluster. basically, take the rest of the hardware, but half in each data center. use it for backups. 1 R610 in each data center. 3 md3000i's in each data center
+20:34 pdurbin   nothing 'round here is well behaved
+20:39 pdurbin   anyway, all clear, i think
+</pre></body></html>

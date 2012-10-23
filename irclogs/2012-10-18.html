@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+00:28 * JoeJulian hates ruby...
+00:28 JoeJulian   I haven't said that enough recently.
+02:01 pdurbin_m   ruby hates you
+02:40 JoeJulian   It does. I agree.
+04:24 JoeJulian   Yep, hate ruby... 6 hours to come up with https://github.com/puppetlabs/puppetlabs-firewall/pull/99
+10:03 pdurbin_m   you broke Travis: https://travis-ci.org/#!/puppetlabs/puppetlabs-firewall/builds/2835095
+10:12 pdurbin_m   JoeJulian: any update on Shapado? I was looking at OSQA again last night
+14:01 pdurbin     agoddard: you're right, i'm wrong. we *will* be using iSCSI with the dell powervault md3000i's. we have to. they only support iSCSI (which is fine)
+14:01 pdurbin     KVM on gluster whiteboard, part 2 (primary storage for disk images) - https://twitter.com/philipdurbin/status/258930375093547008
+14:02 pdurbin     (a follow up to part 1: KVM on gluster whiteboard - https://twitter.com/philipdurbin/status/258646361438822400 )
+14:02 agoddard    pdurbin: you could trunk them for 4Gbps ( I think?)
+14:02 agoddard    freakin Dyn DDos again
+14:02 * agoddard  asked for us to get a new NDS provider a year ago :-|
+14:02 agoddard    ^DNS :/
+14:04 pdurbin     here's a link to yesterday's discussion of part 1: http://irclog.perlgeek.de/crimsonfu/2012-10-17#i_6072883
+14:09 pdurbin     agoddard: the poweredge r610's (i.e. gvm01, a cluster "head node" or whatever you call it) each have 8 physical ethernet devices. so yes, we'll probably do some bonding
+14:47 * pdurbin   learns gluster terminology from glusterbot: http://irclog.perlgeek.de/gluster/2012-10-18#i_6075482
+14:54 agoddard    pdurbin: nice
+14:55 pdurbin     JoeJulian: we should drag johnmark in here
+14:55 JoeJulian   Wouldn't be hard.
+14:55 pdurbin     his eyes might bleed... looking at my whiteboarding
+15:05 pdurbin     ☢
+15:49 agperson    i like how glusterbot automatically picks up URLs and displays titles
+15:54 agoddard    any openstackers in th house?
+16:00 Pax         agoddard: I had the feeling of being at a concert just now… "Any open stackers in the house say "YEAHHHHAAAAA"
+16:03 agoddard    Pax: :D
+16:28 agoddard    nova volume-attach dbba71c5-4fba-426a-b2a5-039ca1238168 50f97fde-473d-4aac-a428-a2e9a6660913 /dev/vdb
+16:28 agoddard    ERROR: The resource could not be found. (HTTP 404)
+16:28 agoddard    I know it's there. I'm looking right at it :-|
+16:29 agoddard    ERROR: The resource could not be found. (HTTP 404) &lt; would be nice to know *which* resource.. :/
+18:47 pdurbin     westmaas: all the openstackers are at the conference, right?
+18:55 agoddard    it's a bad day to be asking q's in #openstack too :)
+19:10 pdurbin     i don't think i've used volume-attach yet. just boot, etc
+20:08 larsks      It's *always* a bad day to be asking questions in #openstack.  It's the quietest channel with &gt; 500 people I've ever seen.
+20:08 larsks      We've got volume-attach working.  Tracing down errors often involves watching *all* your logs to find out where the actual error is generated.
+20:19 pdurbin     westmaas: you're on the hook for any openstack questions. you're our guy
+20:21 larsks      Really?  Because if anyone knows why dnsmasq might stop talking to instances, I'm looking for pointers.
+20:21 pdurbin     ironcamel: you might know some openstack people too
+20:21 pdurbin     rackerhacker: you too
+20:23 JoeJulian   agperson: The only problem with glusterbot doing that is it makes it much harder to Rick-Roll people.
+20:26 pdurbin     JoeJulian: +1
+20:41 westmaas    pdurbin: I'm here too!
+20:42 westmaas    in SD
+20:42 westmaas    and yes
+20:42 westmaas    we are all here
+20:43 agoddard    larsks: thanks, I'll keep checking the logs, pretty sure I exhausted them :(
+20:44 agoddard    larsks: when you run a nova manage service list, do you see nova-volume or cinder?
+</pre></body></html>

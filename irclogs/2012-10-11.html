@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+11:54 pdurbin   ventz: we use the heck out of rnapshots but i'm not familiar with the error you posted: http://irclog.perlgeek.de/crimsonfu/2012-10-10#i_6048702 . did you ever solve your problem?
+11:55 pdurbin   agoddard: just above that you wrote up your findings about raid and lvm. thanks!
+12:11 pdurbin   hmm, openlava-2.0-209.2.x86_64.rpm via http://download.opensuse.org/repositories/home:/alescc/RedHat_RHEL-6/x86_64/ via http://hpc.admin-magazine.com/Articles/openlava-Hot-Resource-Manager
+13:13 pdurbin   hmm, *slightly* different fu made it into our internal docs than what i posted at http://irclog.perlgeek.de/crimsonfu/2012-04-03#i_5390098 ... tar -C mysource -cpf - . | tar -C /path/to/destination -xvf -
+14:06 pdurbin   dotplus: spam coming into RT. any tips on fighting it?
+14:06 pdurbin   whorka: you know about fighting spam and RT too...
+14:06 pdurbin   agperson: and don't you run RT?
+14:07 agperson  we haven't had to deal with any spam yet in our very limited deployment
+14:07 agperson  but i assume pre-filtering with something like spam assassin in the best way to go
+14:07 pdurbin   (note to self that we're talking about spam in RT #29553)
+14:08 pdurbin   yeah, we have spamassassin running
+14:08 pdurbin   anyway, i don't know a ton about how our RT is set up. just thought i'd throw this issue out there
+14:08 agperson  you can limit things like what domains to receive messages from
+14:09 pdurbin   yeah... for particularly abusive domains
+14:11 larsks    pdurbin: We run email through our normal spam filtering mechanisms, and front RT with procmail.
+14:12 larsks    So procmail eats messages marked as spam.
+14:12 pdurbin   larsks: yum. yeah, i forgot you run RT too. thanks
+14:12 agperson  yeah, i think all the decent solutions are just running standard spam interference before hitting RT
+14:12 agperson  but hey, maybe theres some cool plugin or something if you look
+14:13 pdurbin   that makes sense... nothing RT-specific. just general spam fighting
+14:15 pdurbin   larsks: did you end up using those RT 4 RPMs?
+14:19 dotplus   pdurbin: as with everything, depends on your usage. Can you take "create ticket" away from unauthenticated users? How about just from email addresses that don't already exist?
+14:20 larsks    pdurbin: Not yet.  Not sure it's really going to happen here, so I've mostly been futzing about with RT4 under Fedora just to see how it works.
+14:21 pdurbin   dotplus: can't, really. but good thoughts
+14:22 pdurbin   larsks: https://admin.fedoraproject.org/pkgdb/acls/name/rt4 is a 404 but there's a https://admin.fedoraproject.org/pkgdb/acls/name/rt3 ...
+14:22 dotplus   who are the permitted requestors? do you have to be able to accept tickets from anyone in the world? if the answer to that is "yes" which it sometimes is (and e.g. was at my my previous job, @cmu.edu), then you can't stop spam, you just have to fight the spam arms race.
+14:22 dotplus   greylisting++
+14:23 pdurbin   dotplus: yes. anyone in the world :)
+14:24 larsks    dotplus: You can still fight spam, even if you're accepting new tickets from everybody.  Our spam filters do a reasonably good job of it.
+14:25 dotplus   then there's ~nothing RT can really do to help you. depending on legit volume/spam volume, you could possibly create a "suspicious" queue that gets messages above a certain spam score, but not high enough to get quarantined/ditched by your filter
+14:25 agperson  i've had success with greylisting…except when it causes pain and confusion
+14:25 dotplus   larsks: yes, but *RT* can't really help much.
+14:25 larsks    You could then auto-expire messages in your suspicious queue after X days to prevent it from getting unwieldy.
+14:25 larsks    True dat.
+14:26 dotplus   exactly
+14:26 dotplus   trouble is you need to triage the suspicios queue to requeue good messages and put spam messages to train your filters.
+14:29 dotplus   in practice the result for us was that we got it down to a level where we went from hundreds or thousands of spam tickets/day to ~0 false positives and &lt; a couple of dozen false negatives
+14:30 dotplus   which I considered to be (temporary) victory.
+14:32 whorka    we never tuned our spam filter that tightly and erred on the side of false negatives, using the procmail+spamassassin approach, but it was easy enough to add a one-click "Report as Spam" action to RT4 for user convenience.
+14:35 pdurbin   whorka: that sounds pretty awesome. the one click action
+14:38 whorka    it's pretty easy. here's how it's done: http://people.hmdc.harvard.edu/~whorka/rt4.hmdc.actions.patch
+14:40 pdurbin   heh. reportasspam :)
+14:48 dotplus   as whorka says/shows, 1-click report as spam (meaning move to spam queue) is trivial. making the 1-click action also feed it into a spam filter trainer was a little more difficult. It's long enough ago now that I forget exactly how we did that.
+14:49 dotplus   The first thing that springs to mind was "take the original message and mail it to a special address using a filesystem-based mailstore, and cron sa-learn --spam against that directory hierarchy.
+17:37 * pdurbin reads through sjoeboo's gluster fu: http://irclog.perlgeek.de/gluster/2012-10-11#i_6052740
+</pre></body></html>

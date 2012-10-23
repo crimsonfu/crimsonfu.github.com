@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:59 * pdurbin reads - page allocation failure - am I running out of memory? - Server Fault - http://serverfault.com/questions/236170/page-allocation-failure-am-i-running-out-of-memory
+13:08 pdurbin   heh. on cleaning /tmp. :) http://cdn.memegenerator.net/instances/600x/28702594.jpg
+14:03 pdurbin   any tips on weaning myself away from gparted? would like to re-write my doc to use just parted instead when resizing a VM disk image
+14:32 larsks    pdurbin: Other than "don't use gparted"?  What sort of tips are you looking for?
+14:38 gridiron  The only thing I remember from parted is apropos partition to show me what I needed
+14:41 larsks    Also, where's your doc?
+14:46 pdurbin   larsks: this doc needs work... rewriting it
+14:47 pdurbin   so, right now i boot off a parted magic cd and use virt-manager to do my thing. i wonder if i can boot off the parted magic iso from within `virsh console`...
+14:55 larsks    I was asking about the doc because I was curious what your current process looks like.  When I resize an image, I typically extend the underlying image file on the host, run fdisk on the host to repartition, then reboot the guest instance and pvresize+lvresize.
+14:57 pdurbin   larsks: yeah, me too, but this guest has raw partitions. no LVM
+15:08 larsks    So instead of pvresize+lvresize, you just use resize2fs.  The partition changes can still happen on the host using fdisk.
+15:08 larsks    ...or parted, of course, but same idea.
+15:19 semiosis  pdurbin: no node, just had to hack a few features into a sencha touch application over the weekend
+15:20 semiosis  was pleasantly surprised how easy it was
+16:02 pdurbin   semiosis: cool. hubot is supposed to be pretty hackable, being written in coffeescript and all
+16:02 pdurbin   larsks: right, could just use resize2fs... probably
+16:20 pdurbin   larsks: so / is mounted on /dev/sda5. i already ran `qemu-img resize /path/to/my-vm.qcow2 +10GB`. from the vm i should simply be able to run `resize2fs /dev/sda5` ? because i'm getting "The filesystem is already 2496256 blocks long.  Nothing to do!"
+16:20 pdurbin   from here, i'm thinking i'll boot off a parted magic iso and run gparted (or parted)
+16:26 larsks    pdurbin: Generally, (a) resize disk image, (b) resize partition, and then finally (c) resize2fs.
+16:27 larsks    I run fdisk on the host after running qemu-img reisze.
+16:27 larsks    Without that step, the partition size hasn't changed --&gt; the block device size hasn't changed --&gt; resize2fs doesn't see any additional space.
+16:28 pdurbin   larsks: hmm, ok. what fdisk command, please?
+16:30 larsks    Are you looking for interactive or batch mode?  Because so far I've only had to do it interactively, and I'm only resizing the last partition on the disks, so the sequence is: (d)elete the partition, add a (n)ew partition, and accept all the defaults.
+16:31 pdurbin   larsks: wait, in fdisk delete sda5 where all the data is?!
+16:32 larsks    Yes.  Because you're creating a new partition starting at the same place and extending to the end of the disk.
+16:32 pdurbin   larsks: sounds a little scary
+16:32 larsks    It's the same thing as "modifying a partition", except you're more aware of what's happening.
+16:33 pdurbin   they call it parted magic for a reason :)
+16:33 larsks    It's an identical operation.  Don't believe the magic, just understand the process.
+16:33 pdurbin   heh. i'm trying. thanks for helping :)
+16:34 larsks    Remember that deleting a parition in fdisk doesn't actual change anything on disk until you write out the changes...by which time you've created the new partition.
+16:34 larsks    So it really is just an update operation.
+16:34 pdurbin   larsks: yeah, that makes sense
+16:51 pdurbin   uh oh. "error: unknown filesystem. grub rescue" maybe i'll try parted for gparted...
+16:51 pdurbin   s/for/or/
+16:51 pdurbin   i'm glad this is a vm :)
+16:54 pdurbin   virsh console doesn't work for grub :(
+17:06 pdurbin   huh. maybe i *do* need to convert this disk from qcow2 to raw... at least for the resize... gparted still sees the old size...
+17:54 pdurbin   qemu-img convert -f raw /tmp/my-vm-disk0.raw -O qcow2 /tmp/my-vm-disk0.qcow2
+17:59 pdurbin   (that's how i convert from raw to qcow2)
+18:05 pdurbin   larsks: have you ever seen this? http://michael.orlitzky.com/articles/resizing_a_kvm_or_qemu_disk_image.php
+18:10 pdurbin   ahh, good old gparted. so i definitely don't need to convert to raw. can keep it as qcow2
+18:10 pdurbin   maybe i'll take a peek at parted
+18:11 pdurbin   i wish i could run parted magic from within `virsh console` rather than virt-manager
+18:55 pdurbin   weird how pmagic-6.7.iso works for me but pmagic_2012_10_10.iso doesn't
+19:22 larsks    pdurbin: Had not seen that before.  Given that you can just run qemu-img resize, it seems unnecessarily complicated.
+19:34 pdurbin   larsks: yes, `qemu-img resize` is what i use. plus gparted: increasing the size of a VM with fixed partitions (no LVM) - http://danceb.in/VIvPln0c4hGUBYyl9DNYg
+19:34 larsks    Yo, whatever works.
+19:35 pdurbin   i'd love to get away from gparted though. would prefer to use `virsh console` rather than virt-manager
+19:35 larsks    fdisk on the host + resize2fs!
+19:35 larsks    Hey, anyone here heading to DevOpsDays NYC?
+19:35 pdurbin   larsks: yeah.. that broke everthing. grub wouldn't boot
+19:38 larsks    Then you're probably doing some other than I described.
+19:38 larsks    But like I said, whatever works is the best solution.
+19:38 pdurbin   probably. i tried. oh well
+19:40 pdurbin   the devil is in the details :)
+20:24 semiosis  interesting -- http://internettrafficreport.com/event/2.htm
+20:24 semiosis  "The target of the attack were the 13 DNS root servers, which are responsible forhelping to resolving domain names to their respective IP's. Even though 9 of the 13 servers were disabled in the attack, the remaining were able to support the additional load without any widespead problems."
+20:25 pdurbin   semiosis: "Dateline: 10/22/2002"?
+20:25 semiosis  four of the root servers are so capable they can withstand an attack that knocks out *the other 9* and still keep up with the global demand for name resolution
+20:25 semiosis  oh
+20:25 semiosis  damn it
+20:25 semiosis  didnt have time to read
+20:25 semiosis  in any case, it was still epic, even though not today
+20:26 shuff     we even had DNS back in 2002?
+20:26 semiosis  ha
+20:26 shuff     i thought back then we were still rsyncing /etc/hosts
+20:26 pdurbin   those were the days
+20:26 shuff     when you knew your upstream gateway and your DNS servers IP addresses by heart
+20:27 semiosis  i mean, yeah, lets all celebrate the 10th anniversary of resiliant architecture standing up to evil attackers!
+20:27 shuff     so say we all
+20:34 larsks    pdurbin: https://gist.github.com/3933980
+20:36 larsks    That requires nothing but console access and will work for either qcow2 or raw images.
+20:36 larsks    It does have some caveats (which are noted in the document).
+21:33 larsks    Hey, remember what I said about being leery of salt rolling their own crypto?  Now I own your salt cluster!  https://github.com/saltstack/salt/issues/2239
+21:35 semiosis  wow and the reporter suggests running a decryption service to solve it
+21:37 larsks    I just run zeromq over stunnel when I want encryption and certificate verification.
+</pre></body></html>
