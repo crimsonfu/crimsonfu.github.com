@@ -1,0 +1,146 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:04 pdurbin      i use http://twitter.com/javascripts/blogger.js on http://thedurbins.com/phil to display a few recent tweets but it stopped working recently. i was using an unversioned endpoints" as described under " Why am I getting a HTTP 404 for my timeline feed?" at https://dev.twitter.com/docs/faq . this site has a nice example of the right format to use: http://www.foxwebsolutions.co.uk/twitter-api-blogger-js/
+01:05 pdurbin      of course, from what i can tell, even that tweak will only last me until the spring. that faq page says "Properly versioned API v1 URLs will cease functioning in March 2013"
+01:06 pdurbin      at which point you'll have to use version 1.1 of the twitter api, i guess
+01:08 pdurbin      i use a different bit of javascript to display tweets at http://greptilian.com . the url is http://widgets.twimg.com/j/2/widget.js but i'm quite sure i got it from twitter's website. it's still working. no idea if i'll keep working
+01:10 pdurbin      yeah, whois says twimg.com is owned by twitter
+11:42 pdurbin      shuff: when you get in... i didn't have to make a feature request from the discount guy... he read my mind! though the apparently calls what i want "obnoxious" :) ... '"github_flavoured -- implement the obnoxious "returns are hard newlines" feature in github flavoured markdown."' -- discount/github_flavoured.c - https://github.com/Orc/discount/blob/master/github_flavoured.c
+11:43 pdurbin      now i think all i need is a flag (MKD_GFM?) as we've talked about here: request for perl-Text-Markdown-Discount · Issue #154 · repoforge/rpms - https://github.com/repoforge/rpms/issues/154
+12:54 gridiron     hmmm... memcached on 20 servers.... hit% on 19 is between 88.1% and 91.9%...one server at 59.7%...
+13:00 pdurbin      gridiron: curious
+13:01 pdurbin      crimsonfubot: lucky synology
+13:01 crimsonfubot pdurbin: http://www.synology.com/
+13:01 pdurbin      (had never heard of this NAS)
+13:14 larsks       pdurbin: Ooo, the Synology systems are nice.  I almost bought one a couple of years ago before deciding (despite my initial inclination) to just build my own system.  Again.
+13:17 pdurbin      heh
+13:21 larsks       In other news, trying to figure out exactly what MKD_NOPANTS is for has led to some entertaining browser history.
+13:21 pdurbin      heh
+13:21 pdurbin      i'm not a big fan of smartypants
+13:21 pdurbin      i like my quotes straight
+13:23 * pdurbin    installs Live HTTP Headers - https://addons.mozilla.org/en-US/firefox/addon/live-http-headers/
+13:37 pdurbin      gah! people are emailing me at my g.harvard.edu address and i haven't publicized it at all. i really don't want people using that...
+13:38 pdurbin      (sorry to get a little harvard-specific... recently this was rolled out: Google Apps for Harvard - http://g.harvard.edu )
+13:38 pdurbin      i'm sure we're not the only place that uses google apps
+13:39 pdurbin      annoyingly, when i sent mail from the google app webmail/gmail interface, my g.harvard.edu address appears in the Return-Path header. i'd prefer to hide it completely
+13:40 pdurbin      if anyone knows how to do this, please let me know
+13:48 gridiron     I had this issue when forwarding my BU email to my gmail... I thought there was a place to choose which address to respond from... let me look
+13:48 pdurbin      gridiron: there absolutely is. and i'm using it. but please go look at the mail headers
+13:49 gridiron     Mine does not show...
+13:50 pdurbin      gridiron: are you using g.harvard or generic gmail?
+13:52 gridiron     I am using my old g.bu
+13:52 gridiron     I live with a harvard admin...thats as close as I want to get. :P
+13:53 pdurbin      gridiron: ok, thanks
+13:53 gridiron     Sorry...doesn't look like I can help
+13:53 pdurbin      if anyone can test with g.harvard, please let me know
+13:58 gridiron     the memcache issue...I thought it might have been file limits of the memcached user but that was not fruitful (ulimits are tricky)...the shortage jumps machines on restart... kernels are all the same as are kernel limits
+13:58 gridiron     the fact it jumps machines makes me doubt hardware issue
+13:58 gridiron     though with memcache I suppose it could be
+14:01 pdurbin      gridiron: nothing different about that server?
+14:02 gridiron     Nope...and again...if I restart the issue jumps to a new machine
+14:06 pdurbin      oh. hmm. very strange. not that i've used memcache much
+14:07 gridiron     Yeah.... I will be sure to post the solution (providing I find one :) )
+14:07 pdurbin      awesome. thanks
+14:32 pdurbin      hmm, so salt support in vagrant. thinking i may switch to puppet or chef for my VM: http://vagrantup.com/v1/docs/provisioners.html
+14:33 pdurbin      err. i meant to write "so... NO salt support in vagrant..."
+14:35 gridiron     Ah HaI think I found the memcache issue. A TTL mismatch. memcache is not automatic cache here. You have to PUT and GET separately.
+14:36 gridiron     We have one  key that is GETted and if its a miss its not being updated
+14:37 gridiron     Just keeps GETting it even if its not there...its updated somewhere else
+14:37 pdurbin      gridiron: i'm not sure i understand but that's ok :)
+14:38 gridiron     usually there is some kind of if--else statement if a key is not found.. like "get it from the db and update cache"...thats not happening for this one key
+14:39 gridiron     So... increasing the TTL seems to have fixed it
+14:39 gridiron     We'll see how long it takes for that key to be updated and pass the issue on to R&amp;D
+14:39 pdurbin      huh. oh. so just for a certain key
+14:39 gridiron     There... I have earned my pay for the hour.
+14:40 gridiron     Yes, it's one key that was used in multiple places
+14:40 gridiron     As the key name stays the same, whenever we restarted services the error would follow that one key
+14:40 pdurbin      interesting
+14:41 pdurbin      i've heard great things about memcache. i just haven't used it much
+14:42 gridiron     It's good stuff, to be sure...but making a call to cache to create a cache key is poor developing... which is what I think this is.
+14:43 gridiron     an APC wrapper would be a better fix here
+14:43 pdurbin      i have more experience with apc :)
+14:43 gridiron     Sorry - this is kind of situational I guess.
+14:43 pdurbin      crimsonfubot: lucky alternative php cache
+14:43 crimsonfubot pdurbin: http://php.net/manual/en/book.apc.php
+14:43 gridiron     Memcached with compression has saved us a remarkable amount of resources though
+14:45 gridiron     Thats interesting...thanks
+14:48 pdurbin      whorka: you wrote this -  - http://whorka.github.com/blog/2012/02/08/apache-mod_fastcgi-suexec-php-apc-rhel.html
+14:55 ventz        pdurbin: one of the things Franklin said was that they have no plans on originating g.harvard.edu email from harvard's IP space
+14:55 ventz        which means if you ever mask with anything @harvard.edu, it will always be "semi-spammy"
+14:56 ventz        unless they add the the appropriate TXT records
+14:56 ventz        which they won't
+14:56 pdurbin      ventz: hmm. ok. just trying to figure out if i should use my g.harvard email account at all...
+14:56 ventz        i am still debating it
+14:56 ventz        but haven't had time to sit down and look at it
+14:57 pdurbin      i mean. i love gmail
+15:50 ventz        pdurbin: interested in deploying openshift here at harvard?
+15:51 ventz        i think it would be absolutely awesome
+15:51 pdurbin      ventz: would love to! i love openshift
+15:51 ventz        it's awesome
+15:51 larsks       ventz: We're looking at that, too, now that our openstack deployment seems to have stabilized.
+15:51 ventz        best PAAS i've seen so far
+15:51 pdurbin      there are some guides online for openshift on openstack
+15:51 ventz        vmware's cloud foundry sucks compared to openshift
+15:51 ventz        and also, i love how openshift implemented different languages
+15:51 pdurbin      i love the non-lock in of it
+15:51 ventz        yep
+15:52 ventz        and the git integration is simply perfect
+15:52 ventz        i only messed with perl, but wow
+15:52 pdurbin      exactly. very developer-y
+15:52 pdurbin      it dances! ;)
+15:52 ventz        :)
+15:53 larsks       Have you played with the openshift "diy" model?  You're not limited to the "supported" languages.
+15:53 pdurbin      larsks: diablo? essex?
+15:53 larsks       Essex.
+15:53 pdurbin      larsks: yes. DIY FTW
+15:53 pdurbin      westmaas: essex ^^
+15:54 larsks       Planning on a fulsom build in the near future.  We're using a flat DHCP model right now and really want to start playing with quantum, and it seems best to start with the new stuff.
+15:55 pdurbin      mmm, quantum
+15:55 pdurbin      i need to get our network guys in here to talk quantum
+15:55 westmaas     essex?
+15:55 pdurbin      westmaas: fulsom
+15:55 westmaas     hat're we talking about
+15:56 larsks       The HUIT NOC folks are interested in quantum.  Ooi has been doing some research to see how things wouldn play together with Cisco equipment.
+15:57 westmaas     we are using quantum on type of nicira at rackspace
+15:58 pdurbin      larsks: oh good
+15:58 pdurbin      crimsonfubot: lucky nicira
+15:58 crimsonfubot pdurbin: http://nicira.com/
+15:58 westmaas     now vmware :x
+15:58 pdurbin      so i see... VMware to Acquire Nicira - http://www.vmware.com/company/news/releases/vmw-nicira-07-23-12.html
+15:59 westmaas     just a billion
+15:59 westmaas     no biggie
+15:59 pdurbin      cheaper than instagram
+16:26 agoddard     larsks: we're rocking folsom but I decided against quantum for now, flat DHCP and thinking about switching to VLANs maybe in the next release
+16:26 agoddard     plus we don't have a big network team.. so I went with the simplest viable product :)
+16:29 larsks       agoddard: I might want to pick your brain about your installation at some point.  While our deployment seems to have stabilized I'm still not entirely comfortable with my understanding of how openstack networking operates.
+16:31 agoddard     larsks: no probs, Our install is pretty stable now too, but only just starting to host prod instances
+16:33 rackerhacker westmaas: get back to work
+16:33 agoddard     :D
+16:48 semiosis     trying to spec a new mac mini for software development, settled on the 2.3ghz i7-quad 8gb ram, with 256 ssd upg.  can anyone tell me if going to 16gb ram (+200) or the 2.6ghz cpu (+100) are worth it?  think those would have a noticeable impact on compile times, etc?
+16:50 agoddard     semiosis: is the RAM upgradable?
+16:51 semiosis     def. by apple, idk if it's user servicable tho
+16:52 agoddard     if it's user serviceable, I'd go the CPU upgrade, if it's not, I'd go the RAM upgrade..
+16:52 agoddard     but if you're thinking about running vagrant / VMs on it, I'd go the RAM from the beginning
+16:53 semiosis     i could do both... unless the word is that they won't make a bit of difference (shaving 1s off a 1 minute compile not worth it)
+16:53 agoddard     says me from my 2.6Ghz i7 w/ 16GB RAM ;)
+16:56 semiosis     ok next q... applecare extended warranty... worth it for 150?
+16:56 semiosis     i'm leaning toward yes
+16:56 shuff        you can easily spend more than that in a single service call if something significant breaks
+16:56 agoddard     you can decide within the next year I think?
+16:58 semiosis     yeah
+16:58 pdurbin      given all the fail with my thinkpad i bought an extended warranty the other day. i think the original 1 year warranty expires today
+16:59 agoddard     if it makes no difference to make the decision in 11 months, I'd do that. If you gotta make it now, you should buy it
+16:59 agoddard     lunchtime! :)
+17:05 pdurbin      rackerhacker: you woke up
+17:29 ventz        pdurbin: re: quantum - talk to Ooi
+17:29 ventz        he just requested a VM for it
+17:29 ventz        i think he is doing something with it, so he might be your best bet
+17:30 pdurbin      ok
+17:30 pdurbin      thanks
+17:31 westmaas     rackerhacker: I don't really do work
+</pre></body></html>

@@ -67,4 +67,114 @@ Time  Nick         Message
 16:12 pdurbin      Vladimir Vuksan's blog » Blog Archive » My monitoring setup - http://blog.vuksan.com/2012/09/01/my-monitoring-setup/
 16:13 pdurbin      vvuksan: welcome!
 16:14 vvuksan      hello :-)
+16:15 GitHub140    [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/b91a911b2ca60237604fb40e47202d98ef1eb980
+16:15 GitHub140    [crimsonfu.github.com/master] add the latest irc logs - Philip Durbin
+17:53 pdurbin      /var/log/messages hates me: failed to bind to LDAP server ldaps://ldap/: Invalid credentials: Success
+17:58 whorka       today in ambivalent return codes: http://www.hmdc.harvard.edu/ is throwing a 403 yet serving data anyway
+18:04 larsks       pdurbin: ...that word you keep using...
+18:21 pdurbin      heh
+18:21 pdurbin      playing with http://logstash.net
+18:21 pdurbin      sjoeboo just stood it up. seems very nice
+18:21 pdurbin      severity_label:"Warning"
+18:21 pdurbin      need to figure out how to get json out of this thing
+18:24 semiosis     pdurbin: i'm all about the logstash... what do you need?
+18:24 semiosis     and the #logstash channel is really good too
+18:24 pdurbin      semiosis: can i query logstash and get json out of it?
+18:24 pdurbin      i dunno... the last 20 lines of severity_label:"Warning" or something
+18:24 ironcamel    pdurbin: http://git.greptilian.com/?p=data-liberation-shapado.git gives me a 404
+18:24 semiosis     not exactly, normally you would have logstash put stuff into elasticsearch, which you can query through it's json/rest api
+18:25 semiosis     pdurbin: also there's a web frontend for the data logstash stores in elasticsearch called kibana which will be the official web frontend for logstash going forward
+18:25 pdurbin      ironcamel: ventz has some explain' to do ;)
+18:27 pdurbin      semiosis: i seem something this right now: http://logstash.net/images/screenshot.png
+18:29 semiosis     pdurbin: that is logstash-web, the original web frontend, which will be discontinued soon
+18:29 semiosis     kibana is the future
+18:29 semiosis     and present
+18:30 semiosis     logstash-web is the past
+18:30 semiosis     http://kibana.org/
+18:31 pdurbin      ironcamel: here you go: https://github.com/pdurbin/data-liberation-shapado
+18:31 pdurbin      semiosis: huh. discontinued. ok
+18:32 semiosis     it's still around but it's not going to get much attention
+18:32 semiosis     in any case, if you want to query &amp; get json responses, hit the elasticsearch api
+18:32 semiosis     if you're running the embedded es, that should be on port 9200
+18:32 semiosis     http://www.elasticsearch.org/
+18:33 pdurbin      semiosis: how do i hit the elasticsearch api? have a url for me i can tweak?
+18:34 semiosis     1 sec
+18:34 semiosis     you're running the embedded elasticsearch?
+18:34 semiosis     that would be http://&lt;hostname-of-your-logstash-indexer&gt;:9200
+18:34 pdurbin      semiosis: i have no idea :)
+18:34 semiosis     pdurbin: pastie/gist your logstash config
+18:35 semiosis     oh and we really should do this in #logstash, where others will be able to fill in the details idk about
+18:35 * pdurbin    runs `cd puppet &amp;&amp; git pull`
+18:37 pdurbin      semiosis: this one: https://github.com/simonmcc/puppet-logstash
+18:37 pdurbin      semiosis: is #logstash logged?
+18:38 semiosis     pdurbin: eh, no i dont think so
+18:38 semiosis     i did set up a supybot (logstashbot) tho, but it's not really set up to do much yet
+18:39 semiosis     asking about logging now
+18:40 pdurbin      semiosis: they can hang out here if they want :)
+18:41 semiosis     i'm going to set up the ilbot thing
+18:41 pdurbin      semiosis: host ilbot yourself or use the one hosted by moritz?
+18:42 semiosis     http://irclog.gr/#browse/irc.freenode.net/logstash
+18:42 semiosis     there's already one set up
+18:42 semiosis     i would have used the aaS one
+18:43 pdurbin      semiosis: i'm worried #gluster going to kill moritz's ilbot. so chatty you guys ;)
+18:43 semiosis     haha
+18:44 * pdurbin    needs to be careful what he wishes for
+18:51 semiosis     pdurbin: in any case, looks like that puppet module runs embedded es by default, so on the "indexer" machine, you can connect via HTTP to port 9200 and make elasticsearch API requests
+18:52 pdurbin      semiosis: ah, i'm hitting a different port for web. thanks
+18:52 semiosis     yeah 9292 for web, 9200 for the api
+18:53 pdurbin      {"tagline":"You Know, for Search","ok":true,"version":{"number":"0.19.8","snapshot_build":false},"status":200,"name":"Decay"}
+18:53 pdurbin      from this: curl -s http://logs:9200
+18:53 pdurbin      semiosis: thanks much!
+18:54 semiosis     try again
+18:55 semiosis     i got this: http://pastie.org/5104909
+18:55 semiosis     you have a much newer version
+19:00 pdurbin      nice
+19:02 pdurbin      http://logs:9200/_status
+19:03 pdurbin      http://logs:9200/_status?pretty=true
+19:03 pdurbin      oooo, pretty
+19:03 pdurbin      oh! we have kibana already
+19:03 pdurbin      http://logs:5601
+19:08 semiosis     w00t
+19:08 pdurbin      http://logs:9200/logstash-2012.10.23/_search?q=@type:syslog&amp;pretty=true
+19:08 pdurbin      logstash is very very nice
+19:09 semiosis     say that in #logstash :)
+19:10 pdurbin      semiosis: done!
+19:10 semiosis     nice!
+19:13 pdurbin      love that pretty=true
+19:13 pdurbin      saves me piping to python -m json.tool
+19:13 semiosis     elasticsearch is really cool
+19:14 pdurbin      ironcamel: though i should just use `p` for my slicing and dicing :)
+19:15 pdurbin      crimsonfubot: lucky App::p
+19:15 crimsonfubot pdurbin: http://search.cpan.org/perldoc?App%3A%3Ap
+19:24 pdurbin      http://logs:9200/logstash-2012.10.23/_mapping?pretty=true
+19:50 agoddard     log&lt;3stash
+19:50 agoddard     how many ES nodes are y'all running?
+19:57 pdurbin      agoddard: whatever was stood up an hour ago
+20:07 pdurbin      centos6bug.c:(.text+0x10e): warning: the `gets' function is dangerous and should not be used.
+20:08 agoddard     pdurbin: :D
+20:08 agoddard     you guys heading to http://monitorama.com next year?
+20:08 agoddard     just down the road!
+20:10 pdurbin      agoddard: huh. news to me. maybe!
+20:10 agoddard     schweet. register!!
+20:10 pdurbin      C coders may be interested in this. i can't reproduce this bug: this test on a CentOS 6 x64 machine often end up with incredibly many errors. But it doesn’t happen on CentOS 5 Dancebin! - http://danceb.in/Ylpw4Esd4hGr0I6yl9DNYg
+20:13 pdurbin      agoddard: $100. cheap
+20:13 pdurbin      John Allspaw. sold. http://monitorama.com/#speakers
+20:13 pdurbin      Sean Porter
+20:14 pdurbin      Jordan Sissel
+20:14 pdurbin      all of our favorites
+20:14 agoddard     ya
+20:14 agoddard     it's an awesome lineup
+20:14 agoddard     imma try to convince Sean to come to RC one day around the event
+20:15 pdurbin      agoddard: cool. i've tweeted with him a bit
+20:18 pdurbin      http://logs:9200/_cluster/state?pretty
+20:18 pdurbin      agoddard: send us some more fun elasticsearch url's please
+20:29 larsks       re: monitorama, "bring a light jacket".  Hah, those guys.
+20:34 pdurbin      :)
+20:36 semiosis     monitorama, you say?
+20:36 pdurbin      semiosis: come on up! :)
+20:37 semiosis     the price is reasonable
+20:39 semiosis     i could think of a couple things to do at the hackathon
+20:41 larsks       These $100 conferences seem like a good idea.  DevOpsDays is next week in NYC for the same price.
+20:42 pdurbin      agoddard: check your email. subject "logs? I've got your logs right here"
+21:01 ventz        pdurbin: so, i still need to clear your qcow from errors
 </pre></body></html>

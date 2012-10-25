@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+03:34 ventz      pdurbin: http://www.redhat.com/archives/libvir-list/2012-July/msg00782.html
+03:34 ventz      you will find that interesting
+04:05 ventz      pdurbin: another interesting one http://fedoraproject.org/wiki/Features/Virt_Live_Snapshots#Live_backup
+12:38 pdurbin    ventz: you're right. i do find that very interesting
+12:39 pdurbin    especially this: "Additionally, there's the --atomic option to snapshot-create-as, but it fails for guests with more than 1 snapshotable disks: 'atomic live snapshot of multiple disks is unsupported'."
+12:40 pdurbin    there's been a bit of internal debate about how much effort we should put into having VMs only have one disk image. with LVM, we could easily add a second or third disk image to a VM, but i'm sure i want all that disk image sprawl...
+13:14 agoddard   pdurbin: replied :) what happened to the splunk thang?
+13:34 pdurbin    agoddard: yes, i saw. thanks! splunk... i think a hole was poked in the firewall but i don't have an account to log in with?
+13:34 * pdurbin  searches email
+13:36 pdurbin    huh. maybe the hole got closed. timed out :(
+13:40 pdurbin    agoddard: i'm pretty interested in owning this service anyway, if that makes sense
+13:42 agoddard   pdurbin: yep
+14:12 pdurbin    to watch: logstash and other things - Jordan Sissel of DreamHost - PuppetConf '12 - http://www.youtube.com/watch?v=RuUFnog29M4
+14:13 pdurbin    oooooooo, a playlist of all the videos: All PuppetConf '12, All the Time - YouTube - http://www.youtube.com/playlist?list=PLV86BgbREluVFB73Wwqp_tCbw5Z9TMLX1&amp;feature=plcp
+14:13 semiosis   awesome
+14:16 pdurbin    "In this talk... Hubot" -- Puppet at GitHub - Jesse Newland - PuppetConf '12  http://www.youtube.com/watch?v=DH2twW0dmrM
+14:24 pdurbin    agoddard: Pax hooked me up with a login to splunk. 5.4 billion events indexed :)
+14:25 pdurbin    earliest event: march 30, 2007
+14:25 Pax        54 Billion
+14:27 pdurbin    Pax: you need to give a tech talk on this!
+14:27 Pax        sure, anytime
+14:28 pdurbin    i'm a little lost (ok a lot lost) in this interface
+14:31 Pax        Check this out, it's a pretty nice intro
+14:31 Pax        http://docs.splunk.com/Documentation/Splunk/latest/User/Startsearchingtutorial
+14:31 Pax        I defaulted your group to the "search" app
+14:32 pdurbin    Pax: awesome. thanks!
+14:32 Pax        one of my absolute favorite apps is written by a user named Luke Harris
+14:32 Pax        http://splunk-base.splunk.com/apps/22374/splunk-for-nagios
+14:33 Pax        pdurbin: because I know you love api's … http://docs.splunk.com/Documentation/Splunk/latest/Developer/RESTIntro
+14:34 pdurbin    mmm, i do, i do
+14:37 semiosis   topic
+14:37 semiosis   oops
+14:44 pdurbin    semiosis: we can add more: http://crimsonfu.github.com/topics
+14:45 semiosis   pdurbin: i need more coffee... not only did i leave off the / but i thought i was in #logstash
+14:46 semiosis   whack just did a 1.1.3 release last night but the channel topic still says 1.1.2
+14:53 ventz      pdurbin: so i upgraded the hypervisor to 1.2 and snapshots (live, atomic) now work
+14:54 pdurbin    ventz: so new and fancy!
+14:54 ventz      but deletes, and restores don't -- b/c they have not been implemented -- which makes snapshots basically useless (live that is)
+14:54 ventz      also, for the snapshot part (from virsh) it calls kvm-img which is qemu-img :)
+14:55 pdurbin    snapshots work but restores do not... ok... not promising...
+15:02 pdurbin    ventz: so if you were me... how would you implement backups of VMs?
+15:08 pdurbin    larsks: how do you back up VMs? did you tell us already?
+15:13 pdurbin    mmm, http://en.wikipedia.org/wiki/Meta_refresh
+15:13 semiosis   hah, i just showed one of my web developers that page last week
+15:13 semiosis   now he's using meta refresh all over the place :(
+15:14 pdurbin    this should only be for a day or so
+15:14 pdurbin    whorka: the redirect
+15:15 pdurbin    cool, seems to work fine: http://git.greptilian.com
+15:16 pdurbin    now to put it on this server a work. once we stop glassfish
+15:18 semiosis   http://pic.jpgdump.com/23936.jpg
+15:18 ventz      pdurbin: you need to wait
+15:18 ventz      that's sadly the answer
+15:18 ventz      1.2.0 fixes everything, but you need the next minor release for the restore+delete
+15:18 ventz      then it will all work
+15:18 ventz      i agree about having a 2nd disk/snapshot disk
+15:19 ventz      i want snapshots for checkpoint purposes, not drive extensions w/ multiple disks
+15:19 pdurbin    ventz: so... wait for centos 7? or are you thinking centos 8?
+15:20 ventz      so they said fc18 will have it, and they are not sure if it will make the cutover
+15:20 ventz      my guess is the next releast of 6x might ahve the new core
+15:20 ventz      but most likely 7 will be the "stable+functional"
+15:26 pdurbin    i like stable+functional
+15:27 pdurbin    hmm, now i need a rewrite rule for http://git.greptilian.com/foo/bar
+16:10 * semiosis needs more meta refresh
+16:11 pdurbin    so in addition to this (split across multiple lines)... &lt;IfModule mod_rewrite.c&gt; RewriteRule ^(.*)$ / [L] &lt;/IfModule&gt;
+16:12 pdurbin    i added...
+16:12 pdurbin    ErrorDocument 404 /
+16:12 pdurbin    ErrorDocument 301 /
+16:13 pdurbin    anyway, seems to work fine. catches the 404s (and any urls hopefully), and redirects them to root, the homepage, where my meta refresh is :)
+16:13 pdurbin    my git server was just for testing. this is really for http://theastrodata.org
+16:13 semiosis   pdurbin: you could just have a rewrite rule match everything and do a redirect itself
+16:14 pdurbin    semiosis: i'm sure there's a better way. please show me the fu :)
+16:14 semiosis   meta-refresh should only be needed if you can't/dont want to use apache config or server-side dynamic pages like php, etc
+16:14 pdurbin    semiosis: sure. i just need something that works though. and only until dns changes propogate
+16:15 semiosis   http://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_r
+16:15 pdurbin    semiosis: but does that handle 404's?
+16:16 semiosis   rewrite happens before apache goes to the filesystem, so if your rewrite rule really does match everything then no 404 should ever happen
+16:16 pdurbin    semiosis: i agree in theory but in practice that's not what i was seeing :)
+16:17 pdurbin    semiosis: we need a vm we both have root on :)
+16:17 semiosis   pdurbin: perhaps because you don't have rewrite loaded, so your ifmodule block gets skipped?
+16:17 pdurbin    perhaps
+16:17 semiosis   also need RewriteEngine On before the RewriteRule
+16:18 pdurbin    i iterated a bit. i posted above the combination that worked for me
+16:21 semiosis   i would just use these two lines: RewriteEngine On / RewriteRule .* http://www.lmgtfy.com [R=302]
+16:22 semiosis   and skip the ifmodule stuff
+16:22 semiosis   i mean, no ifmodule, because we *need* that module
+16:22 pdurbin    semiosis: i get you
+16:22 semiosis   so youd get a warning/error on startup or reload if the module isnt loaded
+16:24 semiosis   ooh, docs say to use R with L, so that should be [R=302,L]
+16:24 semiosis   although we're not constructing the target, so it shouldn't matter
+16:24 pdurbin    semiosis: if you're on google talk... i'll paste you the email i just sent
+16:24 semiosis   ok see pm
+16:29 pdurbin    thanks
+16:29 pdurbin    we should have some katas where the solutions are vagrant files
+16:30 pdurbin    if that makes sense
+16:30 pdurbin    because you can have vagrant configure puppet
+16:30 pdurbin    agoddard: or chef
+16:31 agoddard   :D
+16:32 pdurbin    oh, nice, karanbir (lead developer of centos) is chatting in #gluster: http://irclog.perlgeek.de/gluster/2012-10-24#i_6094478
+16:46 larsks     pdurbin: What is this "backing up" of which you speak?
+16:47 larsks     We're generally not backing up VMs. We aim to have the systems themselves redeployable via Puppet, and we store data on NFS volumes that are backed up daily.
+16:47 larsks     We pretend that VM disk images are stateless.
+16:49 pdurbin    larsks: sigh. i wish i had that luxury
+16:49 pdurbin    most of our VMs are precious snowflakes that must be preserved
+16:53 pdurbin    larsks: do you have any kind of guide on your website for people who might want to host their VM with you? i've been thinking of putting something like this on our website. to explain stuff, set expectations, etc.
+17:08 larsks     You mean...documentation?  I've heard of that.
+17:09 pdurbin    heh
+17:09 larsks     We don't have much right now. Most of our vm hosting to date has been one-offs (we  are our own biggest customer).
+17:09 larsks     If we turn openstack into a real service offering we're really going to have to address the documentation issue.
+17:09 pdurbin    yeah, us too
+17:09 pdurbin    and the rule will probably change with openstack
+17:10 pdurbin    more cloudy, more ephemeral
+17:19 larsks     In an ideal world: we want some sort of dropbox-like sync mechanism that is easy to deploy in virtual instances so that users can have persistent storage and *we* don't have to manage it.
+17:19 larsks     We've considered something like SparkleShare (http://sparkleshare.org/)...
+17:19 larsks     ...which is a git-backed dropbox clone.
+17:20 larsks     (By "not manage" I mean we don't need to create NFS volumes and manage export permissions etc. etc. etc.)
+17:20 pdurbin    that would be nice
+17:58 pdurbin    do people still use awstats for apache logs? what's super quick and easy for some analysis of existing apache logs? doesn't have to be graphical
+18:08 pdurbin    hmm, webalizer is in base centos 6. output looks fine: http://server1.greptilian.com/usage/usage_201210.html
+18:08 pdurbin    stupid baiduspider
+18:09 pdurbin    (awstats is in epel)
+18:44 pdurbin    stupid bitrot. loco page is a 404: bash - What UNIX commands support coloured output? - Stack Overflow - http://stackoverflow.com/questions/563500/what-unix-commands-support-coloured-output/668527#668527
+</pre></body></html>
