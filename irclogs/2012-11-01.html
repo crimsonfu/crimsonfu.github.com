@@ -1,0 +1,232 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:42 larsks       Grrr.  Well, I've traced through the code and I figured out where adminPass is going and the answer is its broke as hell.
+01:30 westmaas     uh oh
+01:36 larsks       westmaas: Look in nova/virt/disk/api.py.  It tries to copy /etc/passwd and /etc/shadow out of the target filesystem and put them back.
+01:36 larsks       Works great with Linux, not all with Windows.  And it tries that if when using a config_drive (which is empty, so no /etc/passwd there either).
+01:36 westmaas     ah ha.
+01:36 westmaas     doh.
+01:37 larsks       Trying to track down what commit correspond to my version of that file so that I can work up a patch.
+01:37 westmaas     that'd be awesome.
+01:56 pdurbin      http://devops-boston.eventbrite.com does look great. thanks, guys. can be hard to get away for stuff like this though.
+03:01 pdurbin      the fu to get vagrant centos base boxes to support hostonly networking (the stuff i was talking about in yesterday's log): https://github.com/phase2/veewee-boxes/blob/master/definitions/CentOS-6.0-x86_64-netboot/postinstall.sh#L33
+03:10 pdurbin      it works! so that veewee box definition was used to build this base box: http://dl.dropbox.com/u/9227672/CentOS-6.0-x86_64-netboot-4.1.6.box . and the IPs that were defined in the Vagrantfile (192.168.206.130, 192.168.100.130) now work on centos, just like how the were working on ubuntu
+03:19 pdurbin      oh good, they log their channel. here you go... the whole conversation: http://irclogger.com/.vagrant/2012-10-31#1351737777
+03:20 pdurbin      not to self: bug smerrill in about a week for a centos 6.3 base box with the proper guest additions for hostonly networking: http://vagrantup.com/v1/docs/guests.html
+03:21 pdurbin      sjoeboo: or maybe you can get me spun up on packaging base boxes. but i think you're on vacation so maybe i'll read the docs :)
+03:21 pdurbin      or see how far i can get with openstack on centos 6.0... but i suspect trouble there
+03:45 larsks       pdurbin: OpenStack + CentOS works pretty well :).
+03:46 larsks       In other news: It lives...IT LIVES!!! Patches to openstack-nova that does sane things with adminPass.  So tomorrow I should have my windows image doing the right thing.
+03:47 pdurbin      larsks: cool. just posted the fix to that github issue: https://github.com/mitchellh/vagrant/issues/997#issuecomment-9970185
+03:48 larsks       Our Puppet manifests do that on all of our CentOS 6 systems.
+03:48 larsks       That bit of udev is just too clever for its own good.
+03:53 pdurbin      heh
+03:54 pdurbin      also from #vagrant, this talk is recommended. inspiring open source story, they say: http://confreaks.com/videos/1081-cascadiaruby2012-an-open-source-story
+12:43 pdurbin      good talk. i approve
+13:28 pdurbin      fixin' django apps
+13:29 pdurbin      logging out. don't want to get *too* involved :)
+14:12 pdurbin      Learning to Scale a Public Cloud - http://vimeo.com/52266808 (openstack talk)
+14:22 pdurbin      "Bio: Gabe Westmaas manages teams at Rackspace that write software for the OpenStack nova and glance projects."
+14:22 pdurbin      westmaas: looking forward to watching!
+14:33 westmaas     pdurbin: 85% "umms"
+14:33 pdurbin      heh
+14:33 pdurbin      i've been meaning to give some tech talks
+14:37 westmaas     I need to practice more, that much is clear
+15:07 Barb___      Hello folks..first time here, just saw Philip's abcd message :)
+15:23 pdurbin      Barb___: hi!
+15:23 pdurbin      crimsonfubot: lucky harvard abcd
+15:23 crimsonfubot pdurbin: http://www.abcd.harvard.edu/
+15:24 pdurbin      Barb___: not everyone here knows what abcd is :)
+15:25 Barb___      good point!
+15:52 * pdurbin    finds himself linking someone to this nmblookup fu: http://irclog.perlgeek.de/crimsonfu/2012-05-01#i_5524882
+16:21 vvuksan      boston folks http://devops-boston.eventbrite.com/
+16:22 semiosis     hi vvuksan, i copied Wuher's message in ##infra-talk about it here yesterday :)
+16:22 vvuksan      sweet
+16:22 vvuksan      thx
+16:22 semiosis     yw, wish i could go... but i'm in miami
+16:22 vvuksan      :(
+16:54 larsks       Anyone here know if it's possible to mount a whole-disk filesystem under Windows?  OpenStack "config drives" have no partitions which at least initially seems to confuse Windows.
+16:59 gridiron     hmmm...does this help? http://serverfault.com/questions/444446/mounting-whole-disk-filesystems-in-windows-2008
+16:59 gridiron     Otherwise...I got nothin.
+17:03 larsks       gridiron: That would be the question I posted :).
+17:04 pdurbin      larsks: any docs besides this? http://docs.openstack.org/developer/nova/api_ext/ext_config_drive.html
+17:05 larsks       pdurbin: Not sure exactly what you're asking me...
+17:05 larsks       There are not many docs on the use of config drives, which is why I went spelunking through the source yesteday...
+17:05 larsks       It's a trap!
+17:05 pdurbin      westmaas: more docs please ^^
+17:08 pdurbin      ventz: "Introduction to using MySQL Master-Master in an active/passive configuration behind mysqlproxy to enable zero downtime database schema changes (and thus, zero downtime, continuous deployments)." -- http://devops-boston.eventbrite.com free! tomorrow!
+17:09 gridiron     Sorry larsks... copied the wrong tab.
+17:09 pdurbin      and a talk on foreman (which we use) for libvirt and openstack provisioning...
+17:09 gridiron     It was a link for Linux Reader...
+17:10 gridiron     and now I can't find it...grrrr
+17:11 gridiron     Anyway... The reader allows it to mount but is read only was the gist
+17:12 gridiron     you need read write I take it?
+17:12 pdurbin      huh, and a talk on orc? a language i haven't heard about... http://orc.csres.utexas.edu ... unless it's something else. "Orc, a tool for providing zero-downtime deployments of contract-compliant web applications"
+17:13 ventz        pdurbin: what time?
+17:14 ventz        ughh, whole dya
+17:14 ventz        i really want to go to this, but i have to do 1 smr. deployment + 2 calls
+17:14 pdurbin      it sounds awesome
+17:14 ventz        yea it does
+17:15 larsks       gridiron: I don't necessarily nead to write it, I guess, although I was hoping there was a solution that doesn't involve third-party software.
+17:15 larsks       I may need to teach OpenStack about "fdisk" :(.
+17:17 pdurbin      larsks: you have a lot of demand for windows VMs?
+17:17 larsks       We would like our Windows admins to be able to take advantage of OpenStack for service prototyping in the same way that we can for Linux hosted services.
+17:17 larsks       It seems like a reasonable request :).
+17:17 larsks       I'm getting a little jaded by the OpenStack code, though.
+17:31 pdurbin      i don't like the sound of that. the code thing :)
+17:33 pdurbin      ventz: so you got your splunk api code working?
+17:33 larsks       Just this particular feature seems poorly thought out.  Obviously the rest of it seems to work out okay :).
+17:35 pdurbin      larsks: and you're still thinking these VMs will be ephemeral? you have the Windows admins or whoever backup their stuff? and let them destroy and re-create their VMs at will?
+17:36 pdurbin      i promise to stop asking you this every week :)
+17:39 larsks       Maybe?  Ask me in six months.
+17:41 pdurbin      magoo: a little bird tells me you use vagrant
+17:46 ventz        pdurbin: yes
+17:46 ventz        pdurbin: i'll share it
+17:47 pdurbin      ventz: cool. i think i'm going to focus on logstash anyway but would be nice to have it handy. Pax has a good point about using python though
+17:50 ventz        one thing i've always loved about perl has been the ease of regexs. That said, the "programing" side could really use some actual "programing" instead of a layer of hacks on top of eachother
+17:50 ventz        and that's one thing I like about ruby and python
+17:50 ventz        i wish perl did this -- well v6 will, but yea, it's far far away from where it should be
+18:08 pdurbin      ahhh. `yum install puppet` on fedora gives me syntax highlighting in vim
+18:42 pdurbin      "In this test I peaked out at about 10 Gb/s" -- guy at work testing a storage array
+18:51 semiosis     OH in ##infra-talk just now: &lt;ells&gt; anyone used: http://ansible.cc/
+18:51 semiosis     wasn't someone here loving it the other day?
+18:51 pdurbin      semiosis: that was larsks
+18:52 pdurbin      semiosis: i've been meaning to ask larsks about https://github.com/larsks/crackpot
+18:53 semiosis     great name
+18:59 ironcamel    ventz: you wished perl did what?
+18:59 pdurbin      ironcamel: i was kinda hoping you hadn't seen that ;)
+19:00 ironcamel    why?
+19:00 ironcamel    i'm confused :)
+19:00 pdurbin      your love of perl is strong. even stronger than mine :)
+19:01 ironcamel    was it just trolling?
+19:01 pdurbin      no, ventz is a perl guy. it's all good :)
+19:01 ironcamel    ok, i'll move along then :)
+19:01 ironcamel    let me know if there's actually something that wanted to know how to do in perl
+19:02 ironcamel    i will show you how :)
+19:02 ventz        i love perl so much that I decided in college to take a "software dev" class, and my language choice was perl
+19:02 ventz        it was great at first -- quick parsing, modules, etc...
+19:03 ventz        half way through, i realized it had become a little harder to replicate stuff that came for "free" with other languages
+19:03 ventz        by the end, i had 80,000+ lines of code
+19:03 ventz        i learned a very valuable lesson
+19:05 pdurbin      ironcamel: we love you for this :)
+19:05 pdurbin      ventz: what language would you choose today for that?
+19:05 ironcamel    i hope the lesson you learned was to use CPAN, instead of writing 80,000 lines of code
+19:10 ventz        ironcamel: 80,000 lines were w/ almost every module i could find :)
+19:10 ventz        the annoying part at the time was writing a synchronous web server -- ended up using IO::Select
+19:11 ventz        and the other thing which was very broken at the time was the THaw/Freeze modules so that you can serialize a whole object
+19:11 ventz        i remember trying the top 3-4 and all being broken. Since another group used perl, we ended up emailing the devs and got emails along the lines "yea...some stuff doesn't work the way it should yet"
+19:12 ventz        pdurbin: i would probably use python or ruby
+19:12 pdurbin      ventz: ok
+19:12 ventz        at least 10% of the code was trying to use an object system which allowed object protection from read/write/change
+19:13 ventz        that comes by default with any half working OO language
+19:13 pdurbin      ventz: this was pre-Moose, right?
+19:13 ventz        moose was around, but it was still "iffy"
+19:13 ventz        pdurbin: one sec, let me find the code. I still have it somewhere
+19:13 ventz        this was the course I took: http://www.ccs.neu.edu/home/matthias/670-s07/
+19:14 ironcamel    ventz: how does python allow object protection from read/write/change?
+19:14 ironcamel    also, if you are implementing a web server from scratch, you are doing something really wrong, imo
+19:15 ventz        ironcamel: not web server per say - it was a custom app server for  a game we were building
+19:15 ironcamel    ah, ok
+19:15 ventz        that was what was so twisted about this class
+19:15 ventz        everything was as "generic as possible" with something that was as custom as possible
+19:16 ventz        ah, here it was:
+19:16 ventz        http://www.ccs.neu.edu/home/matthias/670-s07/Projects/13.html
+19:16 ventz        ironcamel: ^^ see for server part
+19:16 ventz        we had 7 days to write that
+19:17 ventz        server, client, and glue in between
+19:18 ironcamel    Looks like a blast. If you didn't have to get it done in 7 days.
+19:58 westmaas     ironcamel: do you highlight on perl?
+19:59 ironcamel    westmaas: do you hilight on ironcamel?
+19:59 ironcamel    westmaas: yes, i do :)
+19:59 ironcamel    if you ever need me, you know what to yell
+19:59 westmaas     perlcamel
+19:59 pdurbin      westmaas: openstack-nova-2012.2 is what i want, right?
+20:00 westmaas     you doing essex?
+20:00 westmaas     if so then yes, I believe thats correct
+20:00 westmaas     like I said I don't do major releases :)
+20:00 pdurbin      i thought 2012.2 was the latest
+20:01 pdurbin      crimsonfubot: lucky openstack release naming
+20:01 westmaas     oh yeah
+20:01 westmaas     sorry
+20:01 crimsonfubot pdurbin: http://wiki.openstack.org/ReleaseNaming
+20:01 westmaas     I got confused
+20:01 westmaas     it is
+20:01 pdurbin      westmaas: you're killing me ;)
+20:02 pdurbin      cool. so with vagrant i can go from base centos to openstack-nova-2012.2 installed in less than 7 minutes
+20:11 pdurbin      larsks|away: you linked to https://github.com/puppetlabs/puppetlabs-openstack at http://irclog.perlgeek.de/crimsonfu/2012-10-30#i_6113435 but does it support centos? it looks like not..
+20:21 pdurbin      ok, openstackers... here's my proof of concept for OpenStack on CentOS managed with Puppet on Vagrant - https://github.com/pdurbin/openstack-vagrant-centos-puppet
+20:34 pdurbin      please note that it doesn't actually do anything yet, per the readme :)
+20:34 shuff        that's fine
+20:34 pdurbin      except install folsom nova
+20:34 pdurbin      shuff: try it out! vagrant up!
+20:35 shuff        mostly what i want right now is the ability to say "hey, we already deployed CIAC, why don't you look at what the RC guys are doing with OpenStack"
+20:35 pdurbin      shuff: you know who's way ahead of us? larsks
+20:35 pdurbin      crimsonfubot: lucky harvard ciac
+20:35 crimsonfubot pdurbin: http://www.asian-studies.org/grants/main.htm
+20:36 pdurbin      shuff: CIAC?
+20:41 shuff        Cisco Intelligent Automation for Cloud
+20:41 shuff        http://blogs.cisco.com/tag/ciac/
+20:41 shuff        Cisco's private cloud offering
+21:21 comptona     pdurbin: I'm running OpenStack on CentOS 6 using the puppetlabs-openstack modules
+21:21 comptona     (just got around to scrollback)
+23:19 magoo        pdurbin: yup, proud vagrant user
+23:25 pdurbin      magoo: that's awesome. i just got the vagrant religion a week ago. love it
+23:26 pdurbin      comptona: thanks much! tweeted at you :) https://twitter.com/philipdurbin/status/264117601100238849
+23:26 magoo        it has been awesome for us. I got Crowdtilt on it from the beginning so our dev process has been simplified from the getgo
+23:27 magoo        pdurbin: do you use chef?
+23:28 comptona     pdurbin: =)
+23:28 comptona     it took me a while to work out all the kinks, hit me up if you have any questions
+23:29 pdurbin      comptona: so! what you *could* do... if you're into it... is fork my repo! and add a working config! :)
+23:29 pdurbin      comptona: this one - https://github.com/pdurbin/openstack-vagrant-centos-puppet
+23:30 comptona     pretty sure I can't contribute back any code since it's $work
+23:30 pdurbin      magoo: right? that makes sense, right? since it's vagrant-based
+23:30 comptona     but they can't stop me from talking! =)
+23:30 pdurbin      comptona: ah. bummer. that's fine. i'll figure it out
+23:31 magoo        i didn't understand that at all haha
+23:31 pdurbin      comptona: this example thing looks promising... will probably try that next: https://github.com/puppetlabs/puppetlabs-openstack/blob/master/examples/site.pp
+23:31 magoo        but sure :P
+23:31 pdurbin      magoo: ask ironcamel. he used to work on openstack :)
+23:32 comptona     pdurbin: yeah, the puppetlabs openstack modules worked great for me
+23:32 pdurbin      and no, we don't use chef, but to agoddard's dismay
+23:32 comptona     set up keystone and added service accounts, all that good stuff
+23:32 pdurbin      comptona: awesome. seems the horse to bet on
+23:32 comptona     I had to make a few changes that I'm working on getting permission to contribute, but mostly template stuff
+23:33 comptona     like changing the LDAP template so I could auth against active directory
+23:33 magoo        pdurbin: you work for Rackspace?
+23:34 pdurbin      magoo: nope. harvard
+23:36 magoo        gotcha, must have forgot what room I was in ;)
+23:37 semiosis     not everyone here is from harvard though
+23:37 pdurbin      comptona: cool. now that i look at this thing i realize i'm a little lost puppet-wise. i was expecting just a "modules" directory
+23:37 semiosis     magoo: in fact, there are some rackspace people here who aren't on the east coast at all!
+23:38 pdurbin      comptona: i have a "modules" directory here anyway... and it's what i'm used to from our puppet at work - https://github.com/pdurbin/greptilian-vagrant
+23:39 pdurbin      sjoeboo: and you, our puppet master, are on vacation. hope you're having fun! :)
+23:40 magoo        It's a small crowd out here in Blacksburg so I'm not surprised
+23:40 pdurbin      comptona: see, larsks's repo looks more the way how ours is organized: https://code.seas.harvard.edu/puppet/puppet/trees/develop/modules/openstack
+23:41 comptona     I'm sorry, I don't understand what you're asking me
+23:41 pdurbin      comptona: heh. all good. all good :)
+23:42 pdurbin      just tell me to go to puppet camp
+23:42 comptona     no, I know puppet pretty well so I can answer questions about it, I just don't follow :)
+23:42 semiosis     pdurbin: usually top level would have manifests/ and modules/ and possibly also templates/
+23:44 pdurbin      so can i make the puppetlabs-openstack repo a git submodule of my repo?
+23:44 comptona     ah, I see now
+23:44 pdurbin      i do that with the epel repo: https://github.com/pdurbin/greptilian-vagrant/tree/master/modules
+23:44 pdurbin      er. on the relavant repo too: https://github.com/pdurbin/openstack-vagrant-centos-puppet/tree/master/modules
+23:44 comptona     you could do it that way, or you could use the "puppet module install" command to grab that puppet module and all its dependencies
+23:45 comptona     the puppetlabs openstack stuff is broken out into a separate repo/puppet module for each service (keystone, swift, nova, etc.), so there's a bunch of dependencies
+23:46 comptona     what I did was ran "puppet module install puppetlabs-openstack" to get the files I needed, and then committed them into a separate "modules_external" directory that I then added to my modulepath in puppet.conf
+23:47 comptona     that's how I handle all external modules; "modules/" is just for the stuff we write ourselves
+23:48 pdurbin      comptona: ok. interesting. thanks
+23:49 pdurbin      i think i'd like to use git submodules if i can... at least in this demo repo... like i do with epel
+23:49 comptona     sure, I imagine that would work still
+23:49 pdurbin      i set  puppet.module_path = "modules"  in my Vagrantfile: https://github.com/pdurbin/openstack-vagrant-centos-puppet/blob/master/Vagrantfile
+23:52 pdurbin      semiosis: right. that's what i'm doing. top level manifests and modules
+23:53 pdurbin      "To install the released versions from the forge: puppet module install puppetlabs-openstack"
+23:54 pdurbin      i guess i'll try that
+23:54 pdurbin      oh wait. hmm. git instructions right below that. "rake modules:clone"
+23:56 pdurbin      uh oh. kids crying. and they need a bath
+</pre></body></html>

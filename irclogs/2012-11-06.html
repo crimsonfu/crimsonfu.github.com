@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+00:02 bodepd   comptona: I see what the issue is with that apache module. I think we are going to have to cut another release.
+00:05 comptona bummer
+00:29 bodepd   comptona: the apache module should be updated. Can you see if that resolves you issue?
+00:30 bodepd   it's the same version, Ryan just updated the contents of the tarball.
+00:31 comptona yep, that worked
+00:31 comptona thanks!
+00:31 comptona is there some preferred place to report issues with github-hosted modules that don't have issues enabled?
+00:38 bodepd   I turned issues on.
+00:38 bodepd   there is a redmine project for it, buts its honestly too much of a pain touse.
+00:39 comptona gotcha
+00:42 comptona interesting: err: /Stage[main]/Openstack::Compute/Resources[nova_config]: Failed to generate additional resources using 'generate': Could not parse line "[DEFAULT]" at /etc/nova/nova.conf:3
+00:44 bodepd   comptona: yeah, its a bug with the parsedfile provider.
+00:44 bodepd   its really just a warning
+00:45 bodepd   its low on my priority list at the moment.
+00:45 comptona ok, good to know
+00:45 comptona I was confused since it shows up in the puppet verbose output as "err:"
+00:45 bodepd   yep, its really a warning. or at least it doesnt cause that type to fail.
+00:46 bodepd   I should probably fix it. It should be easy :)
+00:50 comptona hm
+00:51 comptona nova::compute::libvirt.pp, libvirt_type_kvm is unspecified anywhere
+00:51 comptona I'm going to comment out that block to get things going, but I'll probably make it smart enough to only install if the variable is defined
+</pre></body></html>

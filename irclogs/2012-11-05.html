@@ -1,0 +1,196 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+13:38 pdurbin   wow, that `puppet module install` finally returned. i guess it just needed all weekend to execute :)
+15:24 pdurbin   Error: Could not retrieve catalog from remote server: Error 400 on SERVER: Puppet::Parser::AST::Resource failed with error ArgumentError: Could not find declared class keystone::config::mysql at /etc/puppet/environments/openstack/modules/openstack/manifests/all.pp:116 on node ostk01a
+15:26 pdurbin   huh, i see a modules/keystone/manifests/config/ldap.pp here but nothing for mysql... https://github.com/puppetlabs/puppetlabs-keystone/blob/master/manifests/config/ldap.pp
+15:48 pdurbin   oh, cool, there seems to be a Google Group dedicated to the Puppet Labs module for OpenStack: https://groups.google.com/a/puppetlabs.com/group/puppet-openstack
+16:04 pdurbin   ah ha! just found puppetlabs/puppetlabs-openstack_dev_env - https://github.com/puppetlabs/puppetlabs-openstack_dev_env via initial puppet openstack/folsom development environment - Google Groups - https://groups.google.com/a/puppetlabs.com/forum/?fromgroups=#!topic/puppet-openstack/Bh3K-1SL7DI
+16:05 pdurbin   this seems to be exactly what i wanted... a vagrant environment for testing the puppetlabs openstack module
+16:05 pdurbin   it's ubuntu rather than centos, but that's fine
+17:03 pdurbin   yep, https://github.com/puppetlabs/puppetlabs-openstack_dev_env works flawlessly. just like repo at https://github.com/lorin/openstack-ansible it spins up an openstack contoller and and openstack compute node and then creates a cirros VM on the compute node. using the official puppetlabs openstack module on folsom. awesome
+17:19 pdurbin   his readme doesn't exercise openstack:all so i'll probably try what he does and spin up openstack::controller first and then openstack::compute
+19:36 pdurbin   any puppet people listening?
+19:39 pdurbin   nevermind. found "--modulepath". as in `puppet module upgrade puppetlabs-openstack --modulepath modules`
+20:06 pdurbin   oh noes!! was making great progress after upgrading my modules but...
+20:06 pdurbin   Error: Could not retrieve catalog from remote server: Error 400 on SERVER: unsuported osfamily RedHat, currently Debian is the only supported platform at /etc/puppet/environments/openstack/modules/cinder/manifests/params.pp:20 on node ostk01a
+20:07 pdurbin   comptona: you don't see this, right? maybe i should use the older version you're using...
+20:07 comptona  pdurbin: you're right, I don't see that; the version I have doesn't have a separate broken-out cinder module
+20:08 pdurbin   :/
+20:08 pdurbin   ok
+20:08 pdurbin   thanks
+20:11 pdurbin   durn it. sure enough. the osfamily debian only fail: https://github.com/puppetlabs/puppetlabs-cinder/blob/1.0.1/manifests/params.pp#L20
+20:11 pdurbin   larsks: be glad you wrote your own, i guess
+20:12 comptona  boo. that means I'm going to have to patch that module myself
+20:12 pdurbin   comptona: quick! fix it :)
+20:12 comptona  on my list for this week
+20:12 comptona  although I still need to get approval to give changes back
+20:12 pdurbin   comptona: you like vagrant, right?
+20:13 comptona  I've only used it a little bit, but it seems pretty cool
+20:13 pdurbin   so here's what we could do...
+20:13 pdurbin   1. fork https://github.com/puppetlabs/puppetlabs-openstack_dev_env
+20:13 pdurbin   2. change "precise64" here to "centos" https://github.com/puppetlabs/puppetlabs-openstack_dev_env/blob/master/Vagrantfile#L3
+20:14 pdurbin   3. fix it
+20:14 pdurbin   4. test
+20:14 pdurbin   5. pull request
+20:14 pdurbin   6. profit
+20:14 comptona  I am already planning to do all of those steps except the pull request
+20:14 comptona  but I'll go but my great-grand-boss again about getting permission to distribute my changes
+20:15 comptona  s/but/bug
+20:15 pdurbin   cool
+20:15 pdurbin   westmaas: i don't *really* need cinder do i? :)
+20:15 comptona  not technically, no
+20:15 comptona  only if you're using volumes
+20:15 pdurbin   huh. ok!
+20:16 comptona  at least, I don't think initial instance creation was routed through cinder; I could be wrong
+20:16 westmaas  what comptona said!
+20:16 westmaas  nope you were right
+20:16 pdurbin   westmaas: you're confusing me
+20:16 pdurbin   oh, lookie here: "The openstack::controller class deploys the following Openstack services: * keystone * horizon * glance * nova"
+20:17 pdurbin   no cinder in openstack::controller
+20:17 pdurbin   let me switch to that from openstack::all
+20:17 westmaas  in earlier versions of openstack, you could choose between cinder and built in support for volumes in nova...but one of the first things that happened in grizzly is that the volume support was removed from nova, and cinder is a requirement if you are using volumes
+20:18 westmaas  so if you want volumes I'd recommend going with cinder as you deploy
+20:18 pdurbin   westmaas: uh. ok. do i want volumes? i don't even know
+20:18 pdurbin   and this is folsom, by the way, that i'm trying to stand up
+20:19 westmaas  right, just anticipating an upgrade at some point in the future :)
+20:19 westmaas  depends, do you want volumes? :P
+20:19 comptona  pdurbin: volumes provide durable instance storage, much like amazon EBS
+20:19 westmaas  just remote mounting of volumes via the api
+20:19 pdurbin   comptona: volumes sound pretty nice. mmm, durable
+20:19 comptona  if you don't care about having data in your instances that will survive their termination, or if you're NFS-mounting fileshares from elsewhere, then you don't need it
+20:20 pdurbin   comptona: ok, cool. like westmaas says though, it sounds like cinder will be a requirement in the future (grizzly)
+20:20 pdurbin   hopefully puppet labs will support non debian osfamily by then
+20:21 comptona  pdurbin: I imagine it will be, but it isn't yet :)
+20:22 pdurbin   comptona: (or westmaas) can you please look at this? http://forge.puppetlabs.com/puppetlabs/openstack floating_range and fixed_range? i can have both? or only one? i assume i need at least one :)
+20:24 comptona  fixed range is the internal private addresses that each VM gets when it's launched
+20:24 comptona  floating range is the default set of addresses that you can allocate floating IPs from
+20:25 comptona  basically, fixed range should be private to within your instances (so 10.x or 172.16.x is fine), and floating should be routable from the rest of your network
+20:25 pdurbin   comptona: ok. thanks
+20:38 pdurbin   oh no! the docs lie! or at least they don't tell the whole truth. openstack::controller wants to use cinder, which (again) is debian osfamily only :(
+20:38 larsks    pdurbin: One reason I wrote my own is to make sure I really understood how things fit together...but it sure took some time to reach "stable".
+20:39 pdurbin   larsks: yeah, i'm hoping the puppetlabs openstack stuff helps me deploy this quicker
+20:41 * pdurbin passes cinder =&gt; false
+20:42 pdurbin   larsks: but certainly i *do* want to understand what puppet is doing
+20:43 comptona  I found the puppet modules invaluable in getting keystone set up with all the service accounts
+20:43 comptona  doing it by hand just kept breaking my brain
+20:43 pdurbin   yeah
+20:43 pdurbin   i did run thought this a couple of times manually
+20:45 pdurbin   huh. Error: Could not retrieve catalog from remote server: Error 400 on SERVER: Invalid parameter provider at /etc/puppet/environments/openstack/modules/nova/manifests/rabbitmq.pp:26 on node ostk01a
+20:46 pdurbin   provider =&gt; 'rabbitmqctl' i guess... https://github.com/puppetlabs/puppetlabs-nova/blob/1.0.1/manifests/rabbitmq.pp#L24
+20:46 pdurbin   when i set this up manually i used qpid
+20:49 pdurbin   i gotta say, i have a *lot* more confidence in these puppet manifests due to the fact that they work in that vagrant environment i keep linking to
+20:53 pdurbin   larsks: you're sticking with your openstack module? no plans to try to use the one from puppetlabs?
+20:55 larsks    Maybe? :) I need to take a closer look at the puppetlabs module and see how much effort it will take to extract ourselves from our own module.
+20:55 larsks    I've run into problems with modules from puppetlabs not supporting RHEL environments.
+20:55 larsks    Not with OpenStack, but e.g. their libvirt module.
+20:56 pdurbin   larsks: now you tell me :)
+20:56 pdurbin   i have a half a mind to try this on ubuntu
+20:56 larsks    I did tell you I haven't looked at the puppetlabs module :).
+20:56 pdurbin   yes, yes :)
+20:57 pdurbin   does anyone understand that "Invalid parameter provider" error? ^^
+20:58 larsks    What does the manifest look like?
+20:58 pdurbin   larsks: https://github.com/puppetlabs/puppetlabs-nova/blob/1.0.1/manifests/rabbitmq.pp#L24
+20:59 larsks    It suggests that that rabbitmq_user resource doesn't accept a "provider" keyword.
+20:59 pdurbin   hmm
+21:02 pdurbin   larsks: thanks. yeah, i guess it doesn't: https://github.com/puppetlabs/puppetlabs-rabbitmq/blob/2.0.2/manifests/service.pp
+21:03 larsks    I thihnk you mean lib/puppet/type/rabbitmq_user.rb, which is where rabbitmq_user comes from, I think.
+21:03 larsks    What version of puppet are you running?
+21:03 pdurbin   3.0.1
+21:04 larsks    Hmmm.  I don't know puppet 3.  I was wondering if provider is supposed to be a meta-parameter (like require)...but maybe it's not with your version?
+21:05 pdurbin   larsks: hmm, but this file you rabbitmq_user.rb file you mention does have "provider" in it at least... https://github.com/puppetlabs/puppetlabs-rabbitmq/blob/2.0.2/lib/puppet/type/rabbitmq_user.rb
+21:06 larsks    Does it?  I can't tell.  I see it calls "provider.create" and "provider.destroy", but I don't know what that does...
+21:06 pdurbin   me neither :/
+21:06 larsks    Ask over in #puppet, maybe.
+21:07 pdurbin   larsks: yeah. lemme try something first
+21:11 pdurbin   in #puppet earlier i caught the author of most of this stuff (bodepd) before he hopped on a plane. he asked me to report bugs to https://groups.google.com/a/puppetlabs.com/group/puppet-openstack
+21:12 pdurbin   he seemed very pleased i had tried out his vagrant environment. the first feedback he'd gotten, he said :)
+21:13 pdurbin   i keep looking and his site.pp from that vagrant dev env of his, to see if i'm missing anything obvious: https://github.com/puppetlabs/puppetlabs-openstack_dev_env/blob/master/manifests/site.pp
+21:14 shuff     pdurbin: do you have the puppetlabs-rabbitmq module installed?
+21:15 pdurbin   shuff: yup
+21:18 shuff     ok
+21:19 shuff     https://github.com/puppetlabs/puppetlabs-rabbitmq/blob/master/lib/puppet/provider/rabbitmq_user/rabbitmqctl.rb indicates that this module provides a custom type 'rabbitmq_user', with a provider 'rabbitmqctl'
+21:19 shuff     hm
+21:19 shuff     is that what your puppetmaster's copy of that file looks like?
+21:20 pdurbin   shuff: like the 2.0.2 version, rather than master: https://github.com/puppetlabs/puppetlabs-rabbitmq/blob/2.0.2/lib/puppet/type/rabbitmq_user.rb
+21:20 shuff     there's your problem, i suspect
+21:21 shuff     your version of that type does not include that provider
+21:21 shuff     there hasn't been a numbered release of the rabbitmq module in a loooong time
+21:22 shuff     oh, i take it back
+21:22 shuff     three months, it looks like
+21:24 shuff     yeah, look at the sample code in the README.md on the master branch
+21:24 shuff     they have made all sorts of changes
+21:25 shuff     no, never mind, i am mistaken again
+21:26 shuff     perhaps you should not pay further attention to what i say :)
+21:26 pdurbin   JoeJulian: the latest being a pull request from you: https://github.com/puppetlabs/puppetlabs-rabbitmq/pull/28
+21:36 pdurbin   ok, i have to run. i posted my progress to the list: version 1.0.3 of http://forge.puppetlabs.com/puppetlabs/openstack - Google Groups - https://groups.google.com/a/puppetlabs.com/forum/?fromgroups=#!topic/puppet-openstack/nz8XHmEOMZs
+23:27 bodepd    comptona: question about puppet/vagrant/openstack for you
+23:27 comptona  sure
+23:34 comptona  bodepd: what did you want to ask?
+23:35 bodepd    I read the logs from here, and you mentioned you had run openstack on CentoS. I was just curious what repo you were using.
+23:35 comptona  epel for essex
+23:35 bodepd    I am going to add redhat support tothe dev_env
+23:36 comptona  I'm testing folsom right now with epel-testing
+23:36 comptona  or did you mean which puppet modules?
+23:36 bodepd    cool. The fixes for everything non-quantum should be pretty eary.
+23:36 bodepd    easy
+23:36 bodepd    sure, thats a good questions too :)
+23:36 comptona  yeah, I just had to update puppetlabs-cinder to support osfamily==RedHat
+23:37 comptona  I've been using the puppetlabs-* modules
+23:37 bodepd    any change you can send me that snippet?
+23:37 bodepd    I am going to change the Vagrantfile so that you can set an ENV var
+23:37 bodepd    to use redhat instead of ubuntu for testing.
+23:37 comptona  I ran into a little trouble this morning with the apache module; it complains about "Error: No such file or directory - /etc/puppet/modules/apache/spec/fixtures/modules/apache"
+23:37 bodepd    it should just take a few minutes. Any interest in trying it out?
+23:38 bodepd    what complains about that? The spec tests?
+23:38 comptona  "puppet module install puppetlabs-apache" (or whatever the proper name is)
+23:38 comptona  and sure; I don't have a vagrant openstack setup right now, but I can follow the instructions and build one
+23:38 bodepd    wow. that absoutely baffles me. I understand the error, but I dont understnad how the module tool cares.
+23:38 comptona  yeah, I've got nothing
+23:39 comptona  I checked out the 0.4.0 tag and build a tarball with it, and then installed that tarball, and it worked fine
+23:39 bodepd    oh shit.
+23:39 bodepd    I know what the issue is I bet. stupid module tool.
+23:39 comptona  I didn't go to the trouble of diffing my tarball with the official one, but I can if you like
+23:39 comptona  ah, nm :)
+23:39 bodepd    which tarball?
+23:40 bodepd    if you run rake spec it generates all of those files,so its possible that the testing files are gettign packaged as a part of the release.
+23:40 comptona  "git clone …puppetlabs-apache apache &amp;&amp; puppet module build apache"
+23:40 bodepd    why are you doing that?
+23:40 comptona  as for the cinder changes, I've asked permission to contribute them back but they're real sticklers here about it
+23:41 comptona  to see if the problem was in the git repo or in the deployed module tarball
+23:41 bodepd    no worries. I can sort that out as soon as I get folsom running on centos.
+23:41 comptona  is that a bad way to test such?
+23:42 bodepd    I think the problem is in the installed tarball.
+23:42 bodepd    let me ask someone about that. hold on.
+23:43 bodepd    are all of your changes confined to the params class of cinder?
+23:43 comptona  no; I had to change the scheduler.pp also
+23:44 comptona  in RHEL, the openstack-cinder package installs the api, schedule, and volume bits instead of them being separate packages
+23:45 comptona  so in my "osfamily==RedHat" branch I don't specify any of those *_package variables, and scheduler.pp was the only thing that broke
+23:45 bodepd    weird, I thought that changed in folsom, that everything was split up to be more consistent with the Debian packaging.
+23:46 comptona  presumably api.pp and volume.pp should also have "osfamily==RedHat" bits also to not bother trying to install separate packages there
+23:46 comptona  maybe?
+23:46 comptona  yum search cinder: python-cinderclient.noarch : Python API and CLI for OpenStack cinder
+23:46 comptona  openstack-cinder.noarch : OpenStack Volume service
+23:46 comptona  openstack-cinder-doc.noarch : Documentation for OpenStack Volume
+23:46 comptona  python-cinder.noarch : OpenStack Volume Python libraries
+23:46 bodepd    https://github.com/puppetlabs/puppetlabs-nova/commit/3413cbd91950b27be31a77430bccb800cfc5ebf3
+23:47 bodepd    I guess they just did it for the other services.
+23:47 bodepd    or just for nova
+23:48 bodepd    also, what is this channel for? I'd never heard of it before a few minutes ago.
+23:50 comptona  I have no idea; I stumbled on it doing a google search for something a while ago, and it seemed interesting so I started lurking =D
+23:51 bodepd    funny. pdurbin posted some irc logs in an email. I thought it was #puppet at first :)
+23:51 semiosis  it's a hangout for sysadmin/devops people
+23:51 semiosis  originally started, afaik, by some harvard sysadmins, hence the name.
+23:52 semiosis  there's a web page in the /topic that has some more info
+23:53 semiosis  bodepd: and we met at the redhat summit, in the gluster lounge :)
+23:53 semiosis  congrats on the book, i'm looking forward to reading it
+23:55 bodepd    semiosis: thanks!
+23:55 comptona  bodepd: yeah, openstack-nova-{api,scheduler,volume} packages exist
+23:55 comptona  and have since essex, I seem to recall
+23:56 bodepd    redhat is helping me add support which should be done in a week or so.
+23:56 bodepd    that is where that pull request came from
+</pre></body></html>

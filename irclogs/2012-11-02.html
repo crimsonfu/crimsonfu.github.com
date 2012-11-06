@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:26 pdurbin      ah, i see what comtona meant about the man git repos. after i run that rake task two dozen modules get cloned. most are from the puppetlabs github account (i.e. https://github.com/puppetlabs/puppetlabs-nova ) but some from other accounts such as https://github.com/bodepd/openstack-quantum-puppet
+00:29 pdurbin      modules cloned by `rake modules:clone` at https://github.com/puppetlabs/puppetlabs-openstack Dancebin! - http://danceb.in/tvI5foIk4hGcLKXUl9DNYg
+00:45 westmaas     pdurbin: when you are up and running: http://www.sandywalsh.com/2012/10/debugging-openstack-with-stacktach-and.html
+03:50 pdurbin      so, i'm stuck :(  with the openstack-vagrant-centos-puppet thing. i just updated the readme if any puppet masters want to take a look: https://github.com/pdurbin/openstack-vagrant-centos-puppet
+03:51 pdurbin      (the git submodule thing seems to work fine by the way. i just keep linking them up: https://github.com/pdurbin/openstack-vagrant-centos-puppet/tree/master/modules )
+12:16 pdurbin      hmm!
+12:17 pdurbin      sjoeboo: you're so smaht. i betcha i can not break our production puppet by simply developing in my own branch in git... since you put this in: modulepath=/etc/puppet/environments/$environment/modules
+12:17 pdurbin      i've been meaning to play around with this anyway. i usually just commit to master
+12:22 pdurbin      of course, if i'm going to switch over from vagrant to our physical servers, i need to re-kickstart them
+12:49 pdurbin      hmm, someone has already been working on these 4 servers... they're up already - Ganglia:: openstack Cluster Report - http://software.rc.fas.harvard.edu/ganglia2/ganglia2_misc/?r=hour&amp;cs=&amp;ce=&amp;s=by+name&amp;c=openstack&amp;tab=m&amp;vn=
+14:38 pdurbin      the other week i was saying that i didn't like the docs i had written on re-sizing disk images. i re-wrote them
+14:38 pdurbin      resizing a KVM disk image on VM using LVM - http://danceb.in/rBLiick4hGcLKXUl9DNYg
+14:38 pdurbin      resizing a KVM disk image on VM that uses raw partitions rather than LVM - http://danceb.in/Mq6PPgk4hGaDuW7l9DNYg
+14:39 JoeJulian    I thought that wasn't how documentation was done. From what I've been reading, documentation is done once. About half the time something in the code changes, the docs are updated. If they read poorly, everyone's supposed to complain about them but under no circumstances is anyone supposed to actually do anything to fix them.
+14:40 pdurbin      my questions... for the LVM example, is it normal/expected that I have to eyeball the output of fdisk and pick the next up cylinder (20807)? it's annoying: http://danceb.in/rBLiick4hGcLKXUl9DNYg#L-59
+14:42 pdurbin      also... can i get away from using gparted, which is a GUI tool? (this is for the non-LVM example) it "just works" so i keep using it but I'd prefer something from the command line. see my use of gparted here: http://danceb.in/Mq6PPgk4hGaDuW7l9DNYg#L-114
+14:43 pdurbin      JoeJulian: you're right. that's the usual case :)
+14:44 JoeJulian    Really? I've done this live.
+14:45 pdurbin      JoeJulian: done what live?
+14:49 larsks|away  pdurbin: Haven't we already covered alternates to gparted :)
+14:49 larsks|away  *alternatives
+14:49 pdurbin      larsks|away: kinda. but it didn't work
+14:50 larsks       I promise it does.  Those docs I wrote up are exactly what I use all the time.
+14:50 larsks       Note the caveat about only working if you're resizing the last partition on the disk...
+14:51 pdurbin      larsks: right, we both posted our examples. there was some difference i wanted to ask you about... maybe primary vs. extended partitions... anyway, the links are in this channel's log somewhere
+14:52 larsks       Yup.
+14:53 pdurbin      larsks: your way seemed just as fiddly as my way anyway
+14:54 larsks       My way doesn't require any GUI tools :)
+14:54 larsks       Besides, *any* solution is going to involve approximately the same steps.
+14:54 pdurbin      larsks++
+14:55 * pdurbin    saw people plus plussing each other in #vagrant the other day
+14:55 JoeJulian    pdurbin: resized raw lv images with the vm running.
+14:57 pdurbin      JoeJulian: sure. my lvm procedure involves shutting the vm down to get a nice clean back up of the qcow2 file before doing anything. and a reboot because `partprobe` gives a scary warning: http://danceb.in/rBLiick4hGcLKXUl9DNYg#L-95
+15:00 JoeJulian    I wish I remembered how I got around that... Something I did before I started blogging...
+15:00 pdurbin      #crimsonfu *is* my blog :)
+17:46 JoeJulian    pdurbin: Ok, how do you do the git links? I need to do that with ufopilot.
+17:55 pdurbin      git submodule add [url] path/to/where/you/want/the/checkout
+17:55 * pdurbin    loves git submodules
+17:56 pdurbin      crimsonfubot: lucky ufopilot
+17:56 crimsonfubot pdurbin: http://www.ufopilot.com/
+17:57 pdurbin      ufo is some openstack or gluster thing, right?
+17:59 semiosis     ufo is gluster's swift implementation/fork
+18:04 pdurbin      JoeJulian: the trick with git submodules is that when you got to clone the repo somewhere else, you have to run `git submodule init &amp;&amp; git submodule update` example at https://github.com/pdurbin/greptilian-vagrant
+18:07 pdurbin      actually, some output even here - https://github.com/pdurbin/openstack-vagrant-centos-puppet . still looking for ideas on vagrant openstack puppet stuff! :)
+18:08 pdurbin      as i put in the readme (and mentioned earlier) i think i need a puppet master within vagrant
+18:08 pdurbin      but that sounds like work
+18:09 pdurbin      so i'm switching gears and going to try this on physical hardware instead
+18:09 pdurbin      ( `koan --replace-self` FTW, by the way)
+18:10 pdurbin      of course, the openstack puppet code has two dozen modules. and some conflict with modules we've written (mysql, ssh)
+18:11 pdurbin      so i need to use comptona's trick, i guess, and set up an "modules_external" directory and add it to my modules path
+18:11 comptona     it works well for us
+18:12 pdurbin      sjoeboo: you'll kill me if i break puppet
+18:12 comptona     we actually have a fairly crazy system where our modules are implemented as branches of the same git repo where the host config is stored, using git subtree merges to tie it all together
+18:13 comptona     that gives us perfect knowledge about every piece of puppet code on a box just from the git hash in the log from when it was applied
+18:13 pdurbin      so i'll probably just work in a git branch, a puppet "environment", and blow away the conflicting modules (mysql and ssh). just for testing
+18:13 pdurbin      comptona: that sounds pretty cool
+18:14 comptona     it is, if I do say so myself :)
+18:15 pdurbin      if a puppet modules is using storeconfigs... is there a way to somehow take them out? convert it to some other way so you can run masterless?
+18:16 comptona     you could use puppetdb to stash storeconfigs and keep not using a master: http://puppetlabs.com/blog/introducing-puppetdb-put-your-data-to-work/
+18:18 pdurbin      huh. we use puppetdb but it's tied in with our masterful (heh) puppet setup. you're saying you can use puppetdb without having a puppet master?
+18:19 comptona     that's my understanding, although I've never tried
+18:20 comptona     one of my someday projects is to set up puppetdb and start exporting configs, and then write a nagios config generator that dumps puppetdb
+18:20 pdurbin      comptona: fork my vagrant repo and try it! :)
+18:21 comptona     so a host can say "include apache-service", and the apache-service class exports a "monitor my port 80 with nagios plzkthx!"; then the generator script grabs those notes and writes nagios configs to their effect
+18:21 comptona     haha, like I said, someday project :)
+18:21 comptona     we're doing a huge buildout right now so I'm swamped with that
+18:23 pdurbin      comptona: right. we're doing that. the nagios storeconfigs thing. with puppetdb. it's awesome. autopopulates our nagios for us
+18:23 pdurbin      sjoeboo: you da man
+18:53 semiosis     dammit gitlab.
+18:54 semiosis     your install procedure sucks
+18:54 semiosis     &lt;/venting&gt;
+19:00 pdurbin      no puppet module for it?
+19:02 semiosis     curl | sh -- can you imagine how insane it would be to write a puppet module to install that?
+19:03 semiosis     and you know how i feel about using config mgmt instead of packaging (i'm against it)
+19:03 pdurbin      sounds like a problem upstream :) . need a better install procedure
+19:03 semiosis     https://twitter.com/pragmaticism/status/245634704097824768
+19:03 semiosis     they like it that way!!!
+19:04 semiosis     ooh, lunchtime
+19:04 semiosis     bbl
+19:17 pdurbin      comptona: the git branch/puppet env thing is working fine, by the way. very handy
+19:20 larsks       westmaas (et al): got our Windows images working.  Boots up, generates random Administrator password, writes it to serial port (which shows up in OpenStack GUI in the "Log" tab) and also pulls ssh keys from metadata server.
+19:20 larsks       So now everybody is happy.
+19:20 larsks       Except for those people who are going to complain that I used server core.
+19:20 pdurbin      server core?
+19:34 pdurbin      huh. Error: Could not install module 'puppetlabs-openstack' (latest: v0.2.0) No version of 'cprice404-inifile' will satisfy dependencies. 'puppetlabs-keystone' (v1.0.1) requires 'cprice404-inifile' (&gt;= 0.9.0) . Use `puppet module install --ignore-dependencies` to install only this module
+19:34 pdurbin      comptona: did you have to use --ignore-dependencies
+19:34 pdurbin      (i'm running `puppet module install puppetlabs-openstack --target-dir modules`)
+19:43 westmaas     larsks: sweet!
+19:43 westmaas     nicely done
+19:45 pdurbin      oh i see.. only 0.3.0 is available at http://forge.puppetlabs.com/cprice404/inifile . huh. i guess that means i have to go track down 0.9.0
+19:47 pdurbin      JoeJulian: i see you're filing bugs against this too :) https://github.com/puppetlabs/puppetlabs-openstack/issues/102
+19:50 pdurbin      the weird thing is... withouth --target-dir a bunch of openstack stuff seemed to be installed (properly?) into ~/.puppet/modules ... including inifile 0.3.0 and keystone...
+19:51 JoeJulian    I do need to follow that up. The broken common/cfg.py in glance is fixed in the openstack git tree.
+19:52 pdurbin      JoeJulian: did you install this puppetlabs-openstack thing from puppetforge or git?
+19:53 JoeJulian    I filed that while Dan was at puppetconf. He's back now so I should see if I can put together a proper pull request.
+19:53 JoeJulian    forge
+19:54 pdurbin      buh? "Latest Release: 0.9.0 on November 2, 2012" dude must have just uploaded this? http://forge.puppetlabs.com/cprice404/inifile
+19:54 JoeJulian    Or at least I think I did... It's been a while.
+19:54 JoeJulian    I was actually reinstalling it now from scratch.
+19:55 pdurbin      usually sjoeboo does all the `puppet module install`. probably good that he's away so i have to do it :)
+20:03 comptona     pdurbin: I did not have to do so, but the module has changed since I installed it
+20:03 comptona     that specific module doesn't seem familiar
+20:05 pdurbin      comptona: so you're not running 0.2.0 of http://forge.puppetlabs.com/puppetlabs/openstack ? i guess you're running 0.1.0, unless some were deleted from the forge
+20:06 comptona     pdurbin: you're correct, I'm running 0.1.0 still
+20:07 comptona     I'm planning to upgrade my stack to folsom soon, so pulling in new modules will be part of that
+20:07 pdurbin      i'm surprised neither --debug nor --verbose show me download progress. i finally straced this puppet to see some life
+20:07 pdurbin      yeah, i'm trying folsom
+20:24 pdurbin      huh, "OpenStack High Availability Modules" at https://github.com/danehans/puppet-openstack via https://github.com/lorin/openstack-ansible/issues/2#issuecomment-10025861
+20:25 comptona     interesting, I'll have to check that out
+20:25 larsks       Ooo, Folsom is available for EPEL: https://lists.fedoraproject.org/pipermail/cloud/2012-November/001848.html
+20:26 pdurbin      larsks: ah. epel-testing. cool
+20:27 pdurbin      i'll just use that instead
+20:27 pdurbin      JoeJulian: ^^
+20:28 pdurbin      could http://forge.puppetlabs.com simply be overloaded? i'm on a different client now and `puppet module install` still doesn't work
+20:29 pdurbin      maybe they're blocking my ip
+20:30 pdurbin      anyway, gotta run... pick up the kids. have a great weekend, everyone
+</pre></body></html>

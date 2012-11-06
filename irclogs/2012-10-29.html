@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+02:05 pdurbin yeah, there's a reason crimsonfubot has quit... i keep rebuilding the VM it runs on: server1.greptilian.com
+02:06 pdurbin i got the vagrant religion this weekend. i'm using it (and puppet) to test reprovisioning my VM. this is how i'm doing it: https://github.com/pdurbin/greptilian-vagrant
+02:07 pdurbin stages are really cool (in puppet)
+02:08 pdurbin i do have a weird bug though... i don't think i should have to restart iptables manually at the end, as i mention in that repo's readme
+02:31 pdurbin cool, crimsonfubot is back
+02:31 pdurbin as well as my wiki
+02:32 pdurbin still some work to do but not too bad to get reprovisioned
+02:32 pdurbin i switched from salt to puppet because i didn't see salt as one of the default provisioning engines in vagrant
+02:32 pdurbin vagrant supports puppet and chef but i haven't used chef much
+02:34 pdurbin agoddard: though i am interested in porting my config to chef, as an exercise. should be easy to test in vagrant... just change config.vm.provision lines in my Vagrantfile: https://github.com/pdurbin/greptilian-vagrant/blob/master/Vagrantfile
+02:35 pdurbin part of the config, at least. :) we'll see how it goes
+02:36 pdurbin i feel like it's a lot of steps on that readme... to reprovision my VM... but actually there are fewer steps from vagrant. and it's faster in vagrant to start from scratch: vagrant destroy
+02:37 pdurbin and then test the whole config: vagrant up
+02:37 pdurbin if i want to test a change quick without a full destory: vagrant provision
+02:37 pdurbin (which for me runs puppet)
+02:37 pdurbin and if i like the change, i can just commit and push
+02:38 pdurbin so you can iterate pretty quickly
+02:38 pdurbin and the full `vagrant destroy` and `vagrant up` process to get a clean slate only takes about 5 minutes
+02:39 pdurbin i was telling ventz... i think i may start using vagrant for everything...
+02:39 pdurbin it's an easy way to give someone a demo... one they can run on their own machine
+02:40 pdurbin or a great way to demonstrate a complicated system... like's ventz's 10 node mysql cluster
+02:40 pdurbin though i haven't yet tried multiple VMs with vagrant
+02:40 pdurbin it's documented and should work
+02:42 pdurbin anyway, vagrant is awesome. i had only used it to spin up a VM quickly, which is cool, but the real power is combining it with provisioning (puppet or chef) for rapid prototyping
+16:30 dotplus so how are y'all puppetizing mysql config? surely you're not using the puppetlabs-mysql module in earnest? is everyone just writing their own or am I missing another source?
+21:40 larsks  pdurbin: You convinced me to finally try vagrant.
+21:41 larsks  pdurbin: And it whines unhelpfully about my ssh keys.  Sigh.  At first glance it looks like openstack + cloud-init will get me about the same thing (albeit remotely instead of running locally).
+</pre></body></html>

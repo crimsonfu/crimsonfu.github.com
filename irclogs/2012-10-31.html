@@ -1,0 +1,314 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+00:35 pdurbin        agoddard: captured your Cheffile and `librarian-chef install` fu: http://wiki.greptilian.com/chef :)
+13:45 pdurbin        Using Vagrant as a Team - http://www.jedi.be/blog/2011/03/28/using-vagrant-as-a-team/
+14:46 pdurbin        larsks: you were right. the version of nova was too old on Fedora 16. everything "just works" on Fedora 17 (and it's awesome!). My walk though of spinning up 2 openstack hosts (controller and compute1) and a cirros VM running on compute1: http://wiki.greptilian.com/openstack
+15:01 westmaas       nice
+15:02 pdurbin        westmaas: so easy!
+15:02 pdurbin        now to translate the ansible into puppet and put it on real hardware, i guess
+15:04 westmaas       yeah!
+15:05 pdurbin        westmaas: i have 4 physical server. how should i use them?
+15:05 pdurbin        servers*
+15:05 westmaas       pdurbin: another guy on our team ^^
+15:05 pdurbin        alaski: hi!
+15:05 alaski         pdurbin: hey hey
+15:06 westmaas       pdurbin: depends what you want to do!
+15:06 pdurbin        uh. proof of concept
+15:06 westmaas       do you want to maximize computes...do you want to worry about load balancing and HA?
+15:06 westmaas       ah
+15:07 pdurbin        i want users to be able to spin up their own VMs... to kick the tires... with the understanding that i'll probably tear it all apart and do it over again
+15:07 westmaas       I think you'd probably be best served by just doing one control node and 3 computes at that size.
+15:08 westmaas       are you doing boot from volume or streaming images through glance?
+15:08 pdurbin        ok, that works
+15:08 pdurbin        westmaas: you tell me
+15:08 westmaas       I only know about glance :)
+15:08 pdurbin        glance then :)
+15:08 westmaas       diving into boot from volume is soon
+15:10 pdurbin        westmaas: what are the best, latest docs? i'll probably try this on centos 6 and manage it with puppet
+15:10 westmaas       hmmm
+15:11 westmaas       this looks promising: http://docs.openstack.org/trunk/openstack-compute/install/yum/content/
+15:11 westmaas       no mention of puppet in there
+15:11 westmaas       but that fedora puppet repository I mentioned yesterday might be a good starting point.
+15:12 pdurbin        sure
+15:12 pdurbin        larsks: and your repo, also mentioned yesterday
+15:13 larsks         pdurbin: Maybe :).  It's never been used by anyone other than me, really, so your mileage may vary.
+15:14 pdurbin        larsks: ok :). oh , i just renamed and closed that issue - `make all` doesn't "just work" with nova package from Fedora 16 · Issue #2 · lorin/openstack-ansible - https://github.com/lorin/openstack-ansible/issues/2
+15:16 pdurbin        westmaas: so, folsom. cool
+15:16 pdurbin        westmaas: oh, wait. diablo is in EPEL, according to http://wiki.openstack.org/Packaging/RHEL :(
+15:17 westmaas       doh
+15:20 larsks         Essex is in EPEL.
+15:20 larsks         (I know, because we're running it)
+15:20 pdurbin        larsks: ok, cool
+15:20 pdurbin        westmaas: please update your docs :)
+15:20 westmaas       pdurbin: pls file a doc bug
+15:21 pdurbin        westmaas: is essex new enough?
+15:21 westmaas       I also wonder if folsom is actually there now, larsks when did you install?
+15:22 westmaas       pdurbin: its what hp cloud runs, but folsom is better
+15:22 larsks         Maybe May? June?  No Folsum right now.
+15:22 larsks         *Folsom.
+15:22 larsks         Essex packages were updated recently, though.
+15:23 pdurbin        westmaas: what's the upgrade like? from essex to folsom?
+15:24 westmaas       pdurbin: I honestly don't know, sorry.  I've heard that diablo to essex was quite painful and so more work was put into essex to folsom
+15:24 westmaas       but we run pretty close to trunk, so I never do those huuuge upgrades.
+15:25 westmaas       thats also why I don't really know much about the distro packages, etc :)
+15:25 pdurbin        (7 minutes and 18 seconds, by the way, to build that controller + compute1 + cirros VM with https://github.com/lorin/openstack-ansible from nothing with `make all` per http://wiki.greptilian.com/openstack )
+15:25 westmaas       nice
+15:25 larsks         westmaas: Where do you work?
+15:26 westmaas       larsks: rackspace
+15:26 pdurbin        rackerhacker: where do you work?
+15:26 rackerhacker   pdurbin: i'm responsible for washing westmaas' car
+15:27 pdurbin        hopefully his tires are bald these days (unlike my head)
+15:27 pdurbin        aren't i mean
+15:28 westmaas       pdurbin: quiet you
+15:28 westmaas       I have to work with these people
+15:30 pdurbin        westmaas: you were a baby back then
+15:30 pdurbin        ok, so i guess i'll use essex, since it's packages in epel
+15:30 pdurbin        packaged
+15:31 westmaas       pdurbin: my team dressed up especially scary today: http://imgur.com/wlQ31
+15:32 rackerhacker   pdurbin: i thought you already knew where i worked
+15:32 pdurbin        westmaas: my kids would have nightmares
+15:33 pdurbin        rackerhacker: you're not allowed to change jobs
+15:33 westmaas       larsks: where do you work?
+15:33 larsks         Harvard School of Engineering.
+15:33 larsks         (...and Applied Sciences)
+15:35 rackerhacker   pdurbin: i'm still at rackspace unless westmaas fires me
+15:36 * rackerhacker giggles
+15:36 westmaas       rackerhacker: you're not allowed to change jobs
+15:36 westmaas       unless you want to come work for me direct-like
+15:36 rackerhacker   we tried that before, but HR didn't like it
+16:07 JoeJulian      pdurbin: http://repos.fedorapeople.org/repos/openstack/openstack-folsom/epel-6/
+16:07 JoeJulian      In case you wanted to start there.
+16:32 JoeJulian      Hey rackspace... Can you get me any swag for a group of 30 sysadmins by Nov 6? I just realized I'll be promoting you folks when I do my Gluster presentation as I'll be doing a live deploy of 2nd gen compute nodes as part of my demo.
+16:33 JoeJulian      rackerhacker, westmaas: ^
+16:34 rackerhacker   hmm
+16:34 rackerhacker   i can ask one of our marketing folks for you but that timeline might be tight
+16:35 JoeJulian      Yeah, I just thought of it.
+16:57 larsks         Does anyone here know about Windows startup scripts?
+17:01 larsks         Don't everyone talk at once now.
+17:02 semiosis       larsks: what do you want to know?
+17:02 semiosis       about windows startup scripts
+17:03 gridiron       I vaguely recall adding startup scripts when I dealt with windows... via AD if I recall.
+17:04 gridiron       Blocked it from my memory... much like my x-wife. :P
+17:07 larsks         semiosis: Trying to get a batch script to run on startup...and failing.
+17:08 larsks         All docs say "use gpedit.msc to add the script to the local group policy"...which I have done, but still no dice.
+17:08 larsks         I have a serverfault open on it now: http://serverfault.com/questions/444116/windows-2008-startup-script-will-not-run
+17:09 ventz          any WWW::Mechanize people in here? :)
+17:09 ventz          having a problem with the $mech-&gt;credentials
+17:09 ventz          it doesn't seem to work...
+17:10 larsks         Hey, no fair, I'm trying to co-opt this channel with *my* question :)
+17:10 semiosis       shopping for one of those cheap 27" IPS korean monitors on ebay... which one should I buy?
+17:10 semiosis       :P
+17:11 semiosis       larsks: sorry, no idea about your windows thing... all i know is how to drop stuff in the startup folder &amp; the "run" registry locations... local group policy is over my head
+17:12 larsks         ...there's a Startup folder?
+17:13 gridiron       Can you run the script normally?
+17:13 semiosis       larsks: yeah under all programs on the start menu
+17:13 semiosis       maybe you need to create it, idk
+17:14 larsks         I think that may be post-login stuff.
+17:15 gridiron       If I recall ...startup scripts try to run as the user logged on... if you are running it as admin but logging on as you...that won't work
+17:15 larsks         Startup scripts (defined in the GP) run *before* anyone logs in.  They run with "local system" privileges.  Or so the Internet tells me.
+17:16 larsks         Heck if I know.  I wish there was /var/log/why-i-didn't-run-your-script, but no dice.
+17:16 pdurbin        JoeJulian: thanks for http://repos.fedorapeople.org/repos/openstack/openstack-folsom/epel-6/ !
+17:19 pdurbin        ventz: please give us a test case for your WWW::Mechanize problem
+17:25 pdurbin        larsks: i linked to your question in our chat room. nothing yet
+17:33 ventz          ok, one sec
+17:34 ventz          my $mech = WWW::Mechanize-&gt;new(ssl_opts =&gt; {verify_hostname =&gt; 0,},);
+17:34 ventz          $mech-&gt;agent_alias( 'Mac Safari' );
+17:34 ventz          $mech-&gt;credentials("$splunkapi_u", "$splunkapi_p");
+17:34 ventz          my $splunkapi_search = uri_escape('index=dhcp sourcetype=dhcp DHCPACK ON 10.220.
+17:34 ventz          244.243 * lease-duration * | head 1');
+17:34 ventz          $mech-&gt;post($splunkapi_url, 'search' =&gt; "search $splunkapi_search", 'earliest' =&gt; '-1m', 'latest' =&gt; 'now', 'output_mode' =&gt; 'csv');
+17:34 ventz          there you go
+17:34 ventz          ---------------------------
+17:34 ventz          so, the -&gt;credentials is not working it seems
+17:34 ventz          i've seen a variation of it -&gt; which requires:
+17:34 ventz          $mech-&gt;credentials("$splunkapi_host:$splunkapi_port", "/search", "$splunkapi_u"
+17:35 ventz          , "$splunkapi_p");
+17:35 ventz          ---------------------------
+17:35 ventz          pdurbin: and i knonw the search and everything else works -- already tested w/ curl
+17:35 ventz          I get this btw for error:
+17:35 ventz          Error POSTing https://splunkapi.noc.harvard.edu:8089/servicesNS/itsec-splunk/search/search/jobs/export: Bad Request at /usr/share/perl5/LWP/Authen/Basic.pm line 56.
+17:36 ventz          if you go into that Basic.pm, you will see the creds as:
+17:36 ventz          $ua-&gt;credentials($host_port, $realm, $user, $pass);
+17:36 ventz          and it specifically fails on line 56, which is: $ua-&gt;credentials($host_port, $realm, $user, $pass);
+17:37 ventz          opps, actually: $ua-&gt;credentials($host_port, $realm, $user, $pass);
+17:37 ventz          return $ua-&gt;request($request-&gt;clone, $arg, $size, $response); *
+17:40 ventz          ------------------------------------------
+17:40 ventz          pdurbin: just found this: http://code.google.com/p/www-mechanize/issues/detail?id=207
+17:40 pdurbin        larsks: answer for ya - http://serverfault.com/questions/444116/windows-2008-startup-script-will-not-run/444131#444131
+17:41 pdurbin        ventz: um, can you please use a pastebin? such as http://danceb.in by ironcamel
+17:42 ventz          sorry, doing now
+17:42 ventz          i was going to just paste 2-3 lines, but then decided to give you context
+17:43 pdurbin        :)
+17:43 larsks         pdurbin: I see there are a few there, although so far everyone is sidestepping the issue of why the existing configuration doesn't work :)
+17:43 pdurbin        so the thing that freaks me out about vagrant is that there are no official centos base boxes yet. i swear the one i've been using just changed under my feet: https://github.com/garethr/vagrantboxes-heroku/pull/24
+17:43 ventz          pdurbin: http://danceb.in/tqIkr4Aj4hGHIyl9DNYg
+17:43 larsks         Waiting for a service pack to apply right now.
+17:43 pdurbin        sjoeboo: i should use yours instead
+17:44 ventz          pdurbin: i think this is the problem though: http://code.google.com/p/www-mechanize/issues/detail?id=207
+17:49 sjoeboo        yeah, use mine!
+17:50 pdurbin        sjoeboo: on the centos base box i was using.. the hostname used to be "localhost" ... now it's "logus"
+17:53 sjoeboo        eh, i wouldn't like that
+17:53 sjoeboo        mine is vagrant
+17:53 sjoeboo        per the base box docs
+17:54 pdurbin        sjoeboo: no, see. the user is still "vagrant" but the box itself is... "logus.law.harvard.edu"? huh
+17:54 sjoeboo        yeah yeah, no, i get that, i mean, on mine, the hostname of the box if vagrant i'm pretty sure
+17:55 pdurbin        before i was using vagrant on my home network. maybe that's the only difference...
+17:56 pdurbin        ventz: i think port 8089 is firewalled off for me :(
+17:57 pdurbin        ventz: can you use WWW::Splunk::API? - http://search.cpan.org/dist/WWW-Splunk/lib/WWW/Splunk/API.pm
+17:59 pdurbin        ok, ok, the vagrant box is just using dhcp. different network. all is fine, i think. still looking forward to official centos base boxes though :)
+18:00 larsks         There's a (stale) vagrant ticket about libvirt support.  Anyone know if that ever went anywhere?
+18:00 pdurbin        larsks: the vagrant guys are definitely working on libvirt support
+18:00 larsks         ...because that would be awesome.
+18:00 pdurbin        as far as i understand, that layer has been abstracted away.. made pluggable.. now somwone needs to write the libvirt bindings
+18:01 larsks         Don't look at me; I'm still waiting for service packs to apply...
+18:01 ventz          pdurbin: that's the one that's VERY VERY broken
+18:01 ventz          it's a hack to begin with, then it's broken, and THEN splunk changed their API on the guy so now it definitely does'nt work
+18:02 pdurbin        ventz: oh
+18:15 pdurbin        bah! hitting this vagrant bug on centos: Failed configuring network interfaces after packaging · Issue #997 · mitchellh/vagrant - https://github.com/mitchellh/vagrant/issues/997
+18:15 pdurbin        sjoeboo: did you delete /etc/udev/rules.d/70-persistent-net.rules before packaging your centos base box?
+18:15 sjoeboo        negative
+18:16 pdurbin        sjoeboo: can you? :)
+18:16 larsks         KILL IT WITH FIRE.
+18:16 sjoeboo        sure, shouldn't take long to rebuild it and push it up...
+18:16 pdurbin        sjoeboo: awesome
+18:17 pdurbin        larsks: are you still talking about Windows?
+18:17 larsks         Nope, the persistent-net-rules stuff :)
+18:17 pdurbin        :)
+18:17 larsks         It's really annoying because there's not a clean way of turning it off.
+18:18 larsks         That file in /etc will get regenerated.  You can remove the udev rule under /lib/udev, but it will come back with a package update.
+18:20 pdurbin        larsks: it "just works" with ubuntu
+18:23 ventz          :)
+18:23 ventz          QOTD!
+18:23 ventz          so yea, www::mech is broken i think (when it comes to auth)
+18:23 ventz          and the underneath LWP::UserAgent is also
+18:23 pdurbin        ventz: Pax is poking holes for me :)
+18:26 pdurbin        larsks: updated to include the network interfaces for the ansible vagrant demo: http://wiki.greptilian.com/openstack
+18:26 pdurbin        192.168.100.1, 192.168.206.130, etc.
+18:29 Pax            shoo.. just re-read this page… ventz: use python? :p http://dev.splunk.com/view/splunk-python-sdk/SP-CAAAEBB
+18:30 Pax            *ducks*
+18:33 ventz          heh
+18:34 ventz          pdurbin, pax: i do'nt understand how something so popular (www:mech) can be so broken
+18:34 ventz          also, why doesn't splunk have any perl examples? their whole engine underneath is perl
+18:34 ventz          wtf
+18:35 sjoeboo        okay, pdurbin, thats up now
+18:36 ventz          Pax: can you dig up some error logs on how i am hitting you
+18:36 ventz          i need to understand what it's actually sending -- b/c from here, it's a black box
+18:37 Pax            actually Splunk is mostly C and python, they lean  pretty heavy towards python
+18:39 Pax            ventz: did you ask in the #splunk channel?  I bet someone there either has had a similar problem or could kick you in the right direction
+18:40 ventz          i haven't
+18:40 ventz          but you know what, i am going lower level and lower
+18:40 ventz          and i think i just got something successful
+18:40 ventz          so i went from WWW::Mechanize, to LWP::UserAgent, now ot HTTP::Request :)
+18:40 Pax            LOL
+18:44 pdurbin        sjoeboo: cool. thanks! will download from the same url: http://www.files.mattynick.com/vagrant-boxes/centos-6.3.box
+18:48 pdurbin        sjoeboo: wow. superfast download!
+18:48 pdurbin        [controller] Importing base box 'centos-sjoeboo'...
+18:48 pdurbin        :)
+18:51 pdurbin        much slower to boot... i wonder why...
+18:52 pdurbin        Pax: port's open now. thanks!
+18:54 pdurbin        ventz: dude, it's maintained by jesse vincent. you really thing you found a bug in his code? http://search.cpan.org/~jesse/WWW-Mechanize-1.72/
+18:56 pdurbin        think*
+18:58 larsks         Yay! Now I have a Windows image for openstack that provisions an ssh key from the metadata server just like our Linux instances.
+18:58 pdurbin        larsks: cool
+18:58 larsks         You log in via ssh, run "net user Administator &lt;password&gt;" and you've set your password.
+19:09 ventz          pdurbin: yes, and i think others have found it before me -- as per the bug post i sent
+19:10 ventz          pdurbin: was he the RT guy?
+19:11 larsks         He *is* the RT guy :).
+19:13 pdurbin        he's the pumpkin
+19:14 pdurbin        http://www.catb.org/jargon/html/P/patch-pumpkin.html
+19:15 pdurbin        sjoeboo: as we discussed, i tried your centos base box. didn't just work... didn't get those ip addresses on the vagrant vm... lots of people on that issue 997 and recent activity... should probably give up on my dream of using vagrant for this
+19:16 pdurbin        like you said, i can still puppetize the installation of the packages. and just write a setup script
+19:16 pdurbin        agoddard: that's what you do, i think you were saying
+19:18 pdurbin        oh, not anymore: http://perldoc.perl.org/perlhist.html#THE-KEEPERS-OF-THE-PUMPKIN
+19:18 pdurbin        but still :)
+19:24 pdurbin        ventz: this command works for you (with the right values)? curl -k -u admin:pass https://localhost:8089/servicesNS/admin/search/data/indexes -d name=myindexname from http://dev.splunk.com/view/sdks-apis/SP-CAAADP7?r=searchtip
+19:25 pdurbin        Pax: it takes my password but i get "You do not have permissions to access objects of user=admin"
+19:38 Pax            try servicesNS/&lt;yourusername&gt;/search/data etc
+19:38 ventz          pdurbin: b/c it's not 'admin'
+19:38 ventz          that should be your username
+19:38 ventz          the docs are very very poor
+19:38 ventz          so /servicesNS/$username/search/search  --&gt; then w/e you want
+19:39 Pax            ventz: the splunk docs are a wiki, you can update them and leave comments, they folks that troll the docs sites making sure they get better if comments/changes are entered
+19:41 ventz          Pax: for the cost, that's simply not OK
+19:41 Pax            whats not ok?
+19:41 ventz          i understand a community/doc portion, but there needs to be an "official" portion
+19:41 ventz          with tons of info and tons of examples
+19:41 ventz          i've been literally guessing my way into the API
+19:41 ventz          i finally got the full thing to work too
+19:41 ventz          now it's the damn perl side
+19:42 ventz          Pax, pdurbin: an example of something that DOES NOT work: http://www.billruppert.com/2012/08/basic-http-authentication-lwpuseragent-and-the-realm.html
+19:42 Pax            so, when I hacked on it, with the Python SDK, I didn't have a problem…  if the docs's you using aren't helping you, tell them so they can fix it
+19:42 Pax            or you can bitch in a chat room…  one of these things is productive
+19:43 Pax            I mean, clearly, they published them thinking they were ok, and if they aren't, shouldn't you mention it, in one of the many places available that could reach the ears of someone who can fix it?
+19:44 ventz          i will
+19:44 ventz          let me get an end to end working thing
+19:44 ventz          if i ever get the perl portion, i am definitely publishing it
+19:46 ventz          Pax: can you look in the logs to see what its seeing?
+19:46 ventz          now getting:  &lt;msg type="FATAL"&gt;Empty search.&lt;/msg&gt;
+19:46 ventz          so getting close :)
+19:46 Pax            sure!
+19:57 Pax            Do you get results when you use curl?
+19:58 Pax            Have you confirmed that the user can do it through the CLI, I just noticed that your user and the bot have slightly different roles
+19:58 ventz          yep yep
+19:58 ventz          :)
+19:58 ventz          this is literally 100% perl's fault now
+19:58 ventz          or LWP which every module uses
+20:00 larsks         OpenStack peeps: Does OpenStack have something like ec2-get-password?  For Windows instances, Amazon generates a random administrator password and somehow communicates it back to the user.
+20:02 semiosis       hey all you new englanders... just OH this in ##infra-talk...
+20:02 semiosis       Anyone planning on going to devopsdays nyc and is sad it was cancelled (or is otherwise interested) -- we're throwing an alternate devops conference day in Boston on Friday. http://devops-boston.eventbrite.com/
+20:02 semiosis       Let vvuksan or I know if you want to do a talk :)
+20:02 semiosis       that was by &lt;Wuher&gt;
+20:11 agoddard       ha, I just came here to say "http://devops-boston.eventbrite.com" but you beat me to it :)
+20:36 alaski         larsks: openstack gives you a password on instance creation.  And if you forget it there's a command 'nova root-password &lt;server&gt;' to generate a new one.
+20:39 agoddard       pdurbin: ^ RC folks interested?
+20:40 sjoeboo        pdurbin left for the day
+20:41 sjoeboo        i would be,but i'll be in austin for a week starting tomorrow
+20:44 larsks         alaski: It does?
+20:45 larsks         How do I retrieve it?
+20:46 alaski         larsks: I'm not sure how it works through the api, but if you use 'nova boot &lt;args&gt;' to create an instance you'll see the password
+20:46 larsks         ...I mean, from within the instance.  Is it part of the meta-data?
+20:46 alaski         oh, it only shows up on creation.  It's not stored anywhere so to 'retrieve' it you'll need to reset it
+20:47 larsks         But how does that password get injected into the instance?
+20:48 alaski         that's a little out of my knowledge, but I believe there's an agent running on the instance that it's communicated to in order to set it.
+20:48 larsks         It doesn't appear to be part of the data available from the meta-data server.
+20:48 alaski         westmaas would know more
+20:48 larsks         westmaas: You around?
+20:48 larsks         alaski: I'll try poking around on Google a bit.
+20:52 ventz          pdurbin: got it to work!
+20:53 agoddard       larsks: same with the ssh key.. there's prolly a hint in the console.log
+20:54 larsks         agoddard: The ssh key is exposed via the metadata at http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key.
+20:54 larsks         There is no similar key for the root password.
+20:54 larsks         ...unless you are aware of one that I am missing.
+20:54 agoddard       ah.. nup, I was just guessing
+20:54 agoddard       oh ya - "(BoolOpt) Inject the admin password at boot time, without an agent."
+20:55 larsks         Where is that?
+20:55 westmaas       larsks: yeah, I'm around, but here is another case where our specific implementation puts me at a disadvantage - for xen we communicate with an agent on the instance to set the password
+20:55 westmaas       are you using config drive?
+20:56 westmaas       I'm trying to remember if that is used to do the password setting kvm installs, but I'm honestly not sure
+20:57 larsks         westmaas: How does one get a config drive?  Instances I boot just have root + ephermeral disks attached.
+20:57 agoddard       oh yeah, there's nothing in the console.log
+20:58 agoddard       larsks: that was from http://docs.openstack.org/trunk/openstack-compute/admin/content/configuring-hypervisors.html
+20:58 larsks         agoddard: Yeah, just found that by searching for "openstack inject password".
+20:58 agoddard       busted :D
+20:58 larsks         Now I have to figure out what that means :).
+20:58 agoddard       in CloudStack, the image had to have tools installed in order to do it I think.. I just use keys so I dunno.. :/
+20:59 agoddard       I kinda like the idea of having keys + no root ssh access by default
+21:00 larsks         Yeah, me too.  But I'm working on a Windows image and I'm getting pressure to make it work with something other than *just* ssh keys.
+21:00 larsks         ...otherwise I have it working just like our Linux systems; log in via ssh key and set a password if you so choose.
+21:00 westmaas       larsks: our problem too :/
+21:01 westmaas       you have the windows based ssh server on the image?
+21:02 larsks         Yes.  It works great!
+21:03 larsks         But I'm getting push-back that this particular mechanism won't be "familiar" to a typical Windows administrator.
+21:03 larsks         westmaas: I have a really small cloud-init script that pulls the ssh key and otherwise configures things.
+21:04 westmaas       nice.
+21:04 westmaas       yeah, thats our instinct as well, but our product org thinks it will be pretty horrible for customers
+21:05 westmaas       and they aren't willing to skip windows
+21:05 larsks         Well, if I can find an openstack person who knows what the heck happens to the adminPass presented by "nova boot" I'll write it up :).
+21:06 westmaas       haha well we have our windows machines working under xen, I'm just useless to you
+21:06 larsks         I'll probably try the mailing list later.  Gotta run now.  Cheers!
+</pre></body></html>

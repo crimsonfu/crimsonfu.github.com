@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:57 pdurbin      http://vpetkov.net/cgi-bin/bs.cgi
+12:57 pdurbin      ventz: bs as a service? :)
+13:01 pdurbin      yeah, these are the kind of spikes we don't like to see... http://software.rc.fas.harvard.edu/ganglia2/ganglia2_nfs/graph.php?r=day&amp;z=xlarge&amp;c=nss&amp;m=load_one&amp;s=by+name&amp;mc=2&amp;g=load_report
+14:33 ventz        pdurbin: you need an url shortening bot in here
+14:37 pdurbin      ventz: meh. i can't stand url shortening. why would i want another hop?
+14:47 larsks       pdurbin: Long URLs are a PITA to copy from my IRC window.
+14:47 * larsks     votes +1 for a url shortening bot.
+14:48 pdurbin      huh. i don't have this problem. i use gnome-terminal+screen+irssi
+14:49 larsks       I use gnome-terminal+screen+weechat, and the issue is that the window is split into effectively three panes (timestamps/nicks, chat text, nick list).
+14:49 larsks       So if something wraps, it's not possible to just copy it without getting extraneous stuff from the nicklist and timestamp columns.
+14:50 larsks       There is actually sort of a solution (a URL bar), but shorter URLs are easier :).
+14:51 pdurbin      sounds noisy. i don't much care for the link shortening in #gluster
+14:52 shuff        i am pretty much universally anti-url-shortening
+14:52 shuff        but ventz's implementation (where you see the original url and also the shortened one) is the most bearable i've seen
+14:53 shuff        maybe the bot could send the shortened urls to users as private messages?  and it could be a user-configurable option?
+14:54 ventz        larsks++
+14:54 ventz        i use irssi and same issue
+14:54 ventz        shuff: that's definitely doable
+14:56 pdurbin      sound fine to me
+14:56 ventz        adding bot for example
+14:56 ventz        http://money.cnn.com/2012/10/26/technology/mobile/tracfone-free-phones/index.html
+14:56 gnbot        http://cnnmon.ie/S1969M (Who gets rich off 'free' government phones - Oct. )
+14:57 ventz        gnbot: die
+14:58 shuff        yeah, that's what i had in mind, but ideally as a private message rather than to the channel
+14:58 ventz        right
+14:58 pdurbin      +1 (for private message)
+14:58 ventz        but i would have to add a subscription somehow
+14:58 ventz        to keep track of who wants to be msged
+14:59 ventz        i am sure people will not be happy getting an IM from a bot
+14:59 ventz        :)
+14:59 shuff        does gnbot support some feature like nick registration, like the freenode nickserv bot?
+14:59 shuff        that strikes me as a good IRCish way to do it
+15:19 pdurbin      has anyone used nfswatch? http://prefetch.net/blog/index.php/2009/06/16/monitoring-nfs-operations-with-nfswatch/
+15:20 pdurbin      it seems to work like top. but top has a batch mode. i can run `top -b -n 1` to sent output to stdout. i'm wondering if nfswatch has this...
+15:21 pdurbin      i'd rather not dink around in /proc/net/rpc/nfsd if i don't have to (though this blog post does help explain it: http://blog.kamilkisiel.net/blog/2007/11/05/understanding-linux-nfsd-statistics/ )
+15:34 pdurbin      huh. so `nfswatch -clients` (or hit c after launch) seems to work well on NFSv3 but not NFSv4 :(
+15:43 ventz        shuff: it doesn't - i've been meaning to write that in, but it's a bit of a pain
+15:46 pdurbin      i will point out that links are already visually shortened by ilbot as it makes HTML. not super short, but shorter: http://irclog.perlgeek.de/crimsonfu/2012-10-26#i_6101967 (though i'd probably turn that feature off if i ran ilbot myself)
+16:04 pdurbin      for x in {b..e}; do for i in {1..6}; do dd if=/dev/zero of=/dev/mapper/vg${x}-lv${x}${i} bs=1048576 count=$((1024**2))&gt; write.lvm.24_procs_one_per_lv.1TB_each.lv${x}${i} 2&gt;&amp;1&amp; done; done; wait
+16:04 pdurbin      not my fu but i like it. a little perf test by someone on my team in preparation for setting up gluster
+17:11 pdurbin      fqdn:"www.example.com" AND response:"404"
+17:12 pdurbin      man, i'm lovin' kibana
+17:12 pdurbin      why are the kibana urls so ugly though?
+17:32 semiosis     pdurbin: example?
+17:43 JoeJulian    I imagine they look like: http://semicomplete.com/kibana/#eyJzZWFyY2giOiIiLCJmaWVsZHMiOltdLCJvZmZzZXQiOjAsInRpbWVmcmFtZSI6IjE1IG1pbnV0ZXMiLCJncmFwaG1vZGUiOiJjb3VudCJ9
+18:21 semiosis     that's base64 encoded json
+18:22 semiosis     ...after the #
+18:23 semiosis     pdurbin: ^^
+18:45 pdurbin      hmm!
+18:45 pdurbin      i have an idea
+18:46 pdurbin      JoeJulian: is *this* your card... ? {"search":"","fields":[],"offset":0,"timeframe":"15 minutes","graphmode":"count"}
+18:51 * semiosis   knows it is
+18:51 semiosis     echo eyJzZWFyY2giOiIiLCJmaWVsZHMiOltdLCJvZmZzZXQiOjAsInRpbWVmcmFtZSI6IjE1IG1pbnV0ZXMiLCJncmFwaG1vZGUiOiJjb3VudCJ9 | base64 -d  ==&gt; {"search":"","fields":[],"offset":0,"timeframe":"15 minutes","graphmode":"count"}
+18:52 pdurbin      semiosis: oh, that's way better than my silly php script. thanks!
+18:52 semiosis     :D
+18:53 semiosis     well, it's that easy on ubuntu :P
+18:53 semiosis     hope its that easy on whatever you're using.  what do you run on your desktop anyway, pdurbin?
+18:54 pdurbin      sigh. centos 6
+18:54 * pdurbin    looking at the fedora box that's half set up
+18:54 pdurbin      i think fedora 18 is coming out soon
+18:55 semiosis     centos 6 desktop?  wow that's so hardcore
+18:55 pdurbin      crimsonfubot: lucky fedora 18
+18:55 crimsonfubot pdurbin: http://fedoraproject.org/wiki/Releases/18/Schedule
+18:55 pdurbin      whorka: you put me up to it. you and your ilk
+18:55 * semiosis   forces his eyes back into eclipse
+18:55 semiosis     must code java
+18:55 pdurbin      shuff: you gave up and went mac
+19:01 pdurbin      huh. so *that's* what you can use http://trello for... http://wiki.g2.bx.psu.edu/Images/NewsGraphics?action=AttachFile&amp;do=get&amp;target=2012_10_23_trello-inbox.png
+19:04 pdurbin      JoeJulian: any news on shapado?
+19:05 pdurbin      the weekend is coming up... ;)
+19:05 JoeJulian    Probably be a good project....
+19:06 pdurbin      JoeJulian: i mean, weren't you going to set up shapado for #gluster?
+19:11 JoeJulian    &lt;sarcasm&gt;Who me? I have no idea what you're talking about!&lt;/sarcasm&gt;
+19:37 pdurbin      JoeJulian: have you seen this? https://github.com/pdurbin/data-liberation-shapado
+19:40 JoeJulian    I saw that you were working on that. There's no readme so I quickly became distracted by something else shiny.
+19:41 JoeJulian    ADHD's been hitting me hard this week.
+19:44 pdurbin      oh. yeah. could try a git clone and a `prove`. should work
+19:45 pdurbin      Result: PASS
+19:48 pdurbin      rackerhacker: did you write this? http://www.rackspace.com/knowledge_center/article/setting-up-haproxy
+19:48 rackerhacker not me
+19:48 rackerhacker when i'm restricted on network traffic i prefer to use LVS
+19:49 rackerhacker that way you don't waste a huge instance just to sit there running haproxy :)
+19:50 pdurbin      i guess i'm wondering... what if my haproxy box goes down
+19:51 rackerhacker you could do a failover pair w/shared IP
+19:51 rackerhacker but shared IP isn't in next-gen cloud servers quite yet
+19:51 pdurbin      rackerhacker: cool. can you have your buddy add that to the doc? :)
+19:52 rackerhacker if you slide in a comment there, jered should get it pretty quickly
+19:52 pdurbin      yeah? great!
+19:54 pdurbin      Please wait...
+19:55 rackerhacker i don't know if he will get it THAT quickly :P
+19:55 rackerhacker haha
+19:56 pdurbin      An AJAX HTTP error occurred.
+19:56 pdurbin      HTTP Result Code: 500
+19:56 pdurbin      Debugging information follows.
+19:56 pdurbin      Path: /knowledge_center/system/ajax
+19:56 pdurbin      StatusText: Service unavailable (with message)
+19:56 pdurbin      ResponseText:
+19:56 pdurbin      (no ResponseText)
+19:56 pdurbin      :(
+19:58 pdurbin      rackerhacker: by which i mean... i was unable to slide in a comment
+19:58 rackerhacker oh fudge
+19:58 rackerhacker i'll email jered
+20:00 rackerhacker http://theprofoundprogrammer.com/image/28102010668
+20:01 pdurbin      rackerhacker: thanks!
+20:02 rackerhacker pdurbin: we can probably find a way to blame that 500 error on westmaas if we try
+20:02 pdurbin      westmaas: yeah
+20:24 * pdurbin    writes a bit about nfswatch: http://serverfault.com/questions/38756/analyzing-linux-nfs-server-performance/442827#442827
+20:30 pdurbin      rackerhacker: right, per your buddy's doc, simply install haproxy, add "server WWW1 10.0.0.1:80 check # Active in rotation" to the config file, and start the service... super easy
+20:31 pdurbin      and i get a nice dashboard at http://my-proxy/haproxy ...
+20:33 JoeJulian    gah I hate when google thinks it's smarter than me. "rackspace rdns api" "Showing results for rackspace dns api"
+20:34 pdurbin      +1
+20:35 semiosis     double edged sword.  ihave becom solazy tping bcuus gggll fixs foorme
+</pre></body></html>

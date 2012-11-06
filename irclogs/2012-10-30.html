@@ -1,0 +1,290 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+01:01 larsks         Aha! Figured it out.  Interacts badly with my local ssh-agent (which has ssh certificates loaded in addition to keys).  Setting ENV['SSH_AUTH_SOCK'] in the Vagrantfile makes everything happy.
+02:38 pdurbin        larsks: now you're off to the races :)
+02:41 pdurbin        dotplus: we rolled out our mysql puppet stuff recently. i wasn't too involved but i'm starting to test it out, play with it. i'm not sure i've looked at https://github.com/puppetlabs/puppetlabs-mysql before
+03:02 pdurbin        agoddard: oh noes! ... /home/pdurbin/.rvm/gems/ruby-1.9.2-p290@streetchef/gems/vagrant-0.8.7/lib/vagrant/config/vm.rb:60:in `merge': can't convert String into Hash (TypeError)
+03:03 pdurbin        agoddard: i was all excited to try your https://github.com/agoddard/street-chef after re-reading what you had to say about vagrant at http://irclog.perlgeek.de/crimsonfu/2012-04-23#i_5482584
+03:03 pdurbin        stupid ruby ;)
+13:19 dotplus        pdurbin: re:mysql/puppet, did you (they) write it? is it available to crib from?
+13:56 pdurbin        dotplus: sjoeboo (shares an office with me) wrote it. i can ask him if we can open source it
+13:57 pdurbin        agoddard: your https://github.com/agoddard/street-chef is too complicated for me to start learning chef from. `vagrant up` doesn't just work... `vagrant up` does just work with this repo, but am i going to learn any bad practices from it? https://github.com/josanabr/Vagrant-chef-tutorial
+14:00 agoddard       pdurbin: something's probably changed in a new version of vagrant or something, I'll have a look locally. I would recommend just doing chef-solo for vagrant, most cookbooks will work fine unless they require search. The fix for street-chef should be quick though..
+14:05 pdurbin        agoddard: that repo i just mentioned does seem to use chef_solo: https://github.com/josanabr/Vagrant-chef-tutorial/blob/master/project-01/Vagrantfile-03
+14:05 agoddard       pdurbin: I don't get that error, did you bundle install? Anyways, I get a different error 'cause virtualbox guest additions changed in the vagrant precise basebox - this error https://www.virtualbox.org/ticket/928
+14:08 pdurbin        agoddard: yes. i followed your readme
+14:08 pdurbin        i'm on fedora, if it matters
+14:09 agoddard       pdurbin: I'd suggest starting super basic: https://gist.github.com/67a2ee70c88f93ee2f88 and then add a cookbook and check out http://vagrantup.com/v1/docs/provisioners/chef_solo.html
+14:09 agoddard       hmm.. maybe the ruby version makes a difference, do you have rvm installed?
+14:09 agoddard       there's an .rvmrc file in that repo to peg it to 1.9.2
+14:11 pdurbin        agoddard: i do have rvm installed
+14:11 agoddard       oh ya, I should have seen in the path in the error :) weird.. hrm... I wonder.. hrmm..
+14:11 pdurbin        agoddard: that gist works... i can do `vagrant up`... but where are the chef recipies or whatever? can you put one in the gist?
+14:13 pdurbin        the goal being that someone can just run `vagrant up` and some chef recipes get applied... apache gets installed and started or something
+14:14 pdurbin        (which is the case for https://github.com/josanabr/Vagrant-chef-tutorial/blob/master/project-01/Vagrantfile-03 ... it's multi-vm even, which is cool)
+14:15 agoddard       pdurbin: gotcha.. ya, you need to pull the cookbooks down from somewhere - I've added a sample Cheffile at the top of the gist and put apache2 in it: https://gist.github.com/67a2ee70c88f93ee2f88
+14:15 agoddard       librarian is like bundler for cookbooks, it will populate your cookbooks directory with the cookbooks and any dependencies
+14:17 agoddard       I should.. probably blog more :(
+14:18 agoddard       brb
+14:19 pdurbin        agoddard: i'm fine with cookbooks as a git submodule if you want to add them that way
+14:29 agoddard       there's no dependency resolution with that, so I'd go with librarian (or Berkshelf, but I haven't used Berkshelf much.. I understand it has some cool vagrant features though)
+14:34 larsks         "Berkshelf"?  Oh, Internet, you are disappoint.
+14:36 pdurbin        agoddard: as long as it just works
+14:36 pdurbin        crimsonfubot: lucky don't make me think
+14:36 crimsonfubot   pdurbin: http://www.amazon.com/Dont-Make-Me-Think-Usability/dp/0321344758
+14:37 agoddard       http://berkshelf.com
+14:39 semiosis       cookbooks/puppet modules are the new packages :(
+14:41 pdurbin        semiosis: nah. packages are still useful
+14:41 agoddard       pdurbin: street-chef was a one command deal, but changes in vagrant and virtualbox have changed that it seems (vagrant doesn't support vbox 4.2 for example, so "street-chef" just "broke" on my machine too ;)
+14:41 semiosis       agreed, thats why i'm sadface about cookbooks/puppet modules being used to distribute software
+14:42 agoddard       semiosis: they're not used to distribute software, they're used to manage the configuration of it
+14:43 semiosis       agoddard: imho thats the "right way" but i've seen plenty of people use them for distribution/installation instead of packaging
+14:45 agoddard       semiosis: ya, I think having a source install option in a cookbook is ok in some cases (if you want to install a bleeding edge version) I'd usually say that's a bad idea, but oftentimes the install is on an ephemeral VM and if you no longer want source files lingering around, you just blow away the machine :)
+14:46 * agoddard     downgrades Vbox..
+14:55 pdurbin        agoddard: i got a warning that vagrant doesn't support vbox 4.2 so i upgraded vagrant
+14:57 pdurbin        dotplus: hey. sjoeboo is here. what are you wanting to do with mysql anyway?
+14:57 sjoeboo        yeah, there isn't much to what we have
+14:58 sjoeboo        package mysql ensure =&gt; installed, etc etc
+14:58 sjoeboo        and some backup scripts as templates  + a nagios check on a status file the backup creates
+15:00 agoddard       pdurbin: aight chief - here it is.. the super mini one-click chef-solo apache demo https://gist.github.com/5c8a9857c9611939b044 :D
+15:00 agoddard       [2012-10-30T14:59:40+00:00] INFO: service[apache2] restarted &lt; and it works ;)
+15:01 dotplus        sjoeboo: hi there. set a mysql root password, manage my.cnf (preferably with sugar (and maybe even "correctness checking") for various parameters), mysql user/privilege mgmt, and not have problems like the puppetlabs module with creating additional dbs when there is a root password set:)
+15:02 dotplus        I made a few hacks to it to support non-vendor packages (i.e. IUScommunity.org rpms for mysql because centos/rhel packages are ancient)
+15:02 sjoeboo        yeah, we don't  do any of that via puppet currently, most of our mysql installs are for customers and 100% configured by them
+15:03 pdurbin        agoddard: buhh. i can't just type `vagrant up`... will have to look later. day 2 of hurricane sandy school closures and my kids are driving me a bit crazy. taking them outside
+15:04 dotplus        then, I guess I'll have to resurrect/fix what I had before I started to use the puppetlabs module.
+15:07 agoddard       pdurbin: sure, but..
+15:07 agoddard       pdurbin: ok, clone this, go into it and run "vagrant up" :D https://github.com/agoddard/the-super-mini-one-click-chef-solo-apache-demo-that-just-uses-vagrant-up-
+15:14 sjoeboo        pdurbin: you playing with vagrant w/ centos 6.x base boxes or ?
+15:32 pdurbin_m      sjoeboo: yes! vagrant with centos 6! https://github.com/pdurbin/greptilian-vagrant
+15:33 sjoeboo        cool, yeah, i have my own centos 6.3 + puppet + epel + guest additions base box publicly available if you need it
+15:37 pdurbin_m      sjoeboo: great! link?
+15:37 sjoeboo        http://www.files.mattynick.com/vagrant-boxes/centos-6.3.box
+15:37 sjoeboo        nothing special about it really, just like having my own so i know how it was built
+15:39 pdurbin_m      thanks. the centos guys are working on official boxes too
+15:39 sjoeboo        cool
+15:40 larsks         ...and mattdm is trying to get Fedora vagrant images, too :)
+15:41 pdurbin_m      sjoeboo: I'm curious how you built yours
+15:42 sjoeboo        pretty normal stuff really, create a virtualbox vm, centos 6.3 minimal install, set root pw/create vagrant user add ssh keys, instll guest addons, added yum.pupeptlabs repo and epel, install puppet, packge
+16:23 agoddard       aww. come on.. my repo name was awesome.. anyone? :-(
+16:32 agoddard       ...tough crowd.
+16:48 pdurbin_m      agoddard: great name. boom. can't wait to try it. installs apache?
+16:48 agoddard       ya
+17:59 pdurbin        agoddard: wow, it does all kinds of stuff. cool
+18:01 agoddard       pdurbin: ya, I don't know how puppet works, but the LWRP's in chef are pretty amazing, as is the power of search and the templating system. Perhaps puppet has similarities, I've never felt the need to look though 'cause I &lt;3 chef :)
+18:02 pdurbin        crimsonfubot: lucky lwrp chef
+18:02 crimsonfubot   pdurbin: http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+(LWRP)
+18:02 agoddard       pdurbin: you should make a simple cookbook that spins up a new apache site for that apache install, and drops an html document on the system for the new site to display, it will be like 10 lines
+18:03 pdurbin        agoddard: chef is still a bit of a mystery to me. as i mentioned (yesterday?) i switched from salt to puppet for my home server so i could use vagrant. would like to have more familiarity with chef
+18:04 pdurbin        agoddard: yes, i'll probably do something simple like that first. baby steps
+18:05 pdurbin        my thought is that my https://github.com/pdurbin/greptilian-vagrant repo could have different branches... different ways of doing it. right now it's centos+puppet. can try centos+chef. and ubuntu+puppet. and ubuntu+chef
+18:06 pdurbin        i mean, one would be used in production, and the other 3 would lag behind. but would be nice to have the reminders of how to do stuff
+18:07 agoddard       yA
+18:07 pdurbin        different branches... or stuff simply commented out
+18:07 agoddard       and.. as a bonus, chef will do the best job of it!! ;) &lt;/troll&gt;
+18:07 pdurbin        :)
+18:07 pdurbin        the main thing is to get the job done
+18:08 pdurbin        larsks: +1 on the official fedora vagrant boxes. sounds like something the fedora cloud guy would be working on :)
+19:49 agoddard       trying out http://markedapp.com on os x
+20:00 sjoeboo        pdurbin: that ha puppetd mirror setup is close to done, mirror01 and 02 building now, all syncing action = puppetized now
+20:04 larsks         agoddard: +1 for markedapp.
+20:04 larsks         I love me my markdown and my gvim.
+20:10 pdurbin        sjoeboo: awesome
+20:11 pdurbin        larsks: you like openstack and ansible... and now vagrant... :) ... i think this is working... https://github.com/lorin/openstack-ansible
+20:11 pdurbin        (note to self: service iptables stop on my laptop first or ansible can't communicate with the vagrant VMs)
+20:12 pdurbin        "This will boot two VMs, install OpenStack, and attempt to boot a test VM inside of OpenStack."
+20:13 pdurbin        westmaas: openstack ^^
+20:13 agoddard       should be pretty easy to make a Vagrantfile to automate a devstack install too http://devstack.org/guides/single-vm.html
+20:15 pdurbin        agoddard: yes, this is for devstack: https://github.com/wagnersza/cloud-computing (some puppet errors though): change from absent to directory failed: Could not set 'directory on ensure: Could not find group puppet
+20:16 agoddard       nice. looks like there's a few others too https://gist.github.com/1839082/f5b170cd8fa76bae07d473b44753ef48b3e11c95 http://korenkov.info/openstack-testing-setup-with-devstack-and-tem. Devstack is pretty nice
+20:17 pdurbin        the thing i want... (i think) is to play around with openstack in vagrant. we have physical hardware at work but with vagrant all i need is my laptop
+20:17 larsks         pdurbin: Well, I've replaced ansible with a very small shell script.
+20:17 pdurbin        hmm. "nova boot: error: argument --image: invalid int value: 'cirros-0.3.0-x86_64'"
+20:18 larsks         My openstack deployments look very much like vagrant: boot instance, inject puppet configs, run puppet.
+20:18 pdurbin        larsks: and it would be easy for me to re-use your openstack puppet manifests?
+20:19 larsks         ...maybe?   You're certainly welcome to look at them.  The repository is here: https://code.seas.harvard.edu/puppet/puppet (aka git://code.seas.harvard.edu/puppet/puppet.git).
+20:20 larsks         The interesting modules are "openstack" and probably the "role::openstack" classes (modules/role/manifests/openstack/).
+20:20 larsks         You want the "develop" branch.
+20:20 boegel         one always wants the develop branch
+20:20 larsks         They've never been used by anyone other than me.
+20:20 pdurbin        larsks: ok. thanks. how many servers are in your installation?
+20:21 agoddard       pdurbin: you could prolly just build a single VM and then run the devstack script, unless you're developing openstack you shouldn't need to rebuild it too many times
+20:21 larsks         Right now it's a set of three: one controller and two compute nodes. We're using FlatDHCP networking in multi-host mode, so each compute node is its own gateway.
+20:21 larsks         We're also running the volume service on each compute node (using available local disk space to provision iscsi luns).
+20:21 pdurbin        agoddard: i'd like to configure openstack for real. i have 4 physical servers to play with
+20:22 pdurbin        larsks: 3 hosts. ok
+20:22 pdurbin        boegel: +1
+20:22 larsks         pdurbin: There's also https://github.com/puppetlabs/puppetlabs-openstack of course.  We didn't know about these when we started.
+20:24 agoddard       pdurbin: ah nice. I ended up manually installing openstack on two nodes - controller and cinder node, and then I wrote a cookbook to provision compute nodes. The controller and cinder installs were complex enough that writing a cookbook would have taken a while and existing cookbooks didn't seem to work, I also wanted to install folsom instead of essex.
+20:24 agoddard       I then added an openstack::controller and openstack::cinder recipe to the nodes after they were built and moved some things (nova.conf etc) into chef
+20:25 agoddard       now I just bootstrap a free node and assign the compute role to it to bring it into the mix
+20:25 larsks         That sounds like what we're doing.
+20:25 pdurbin        whoa! i think it worked! had to set the ENV variables in "openrc", run ssh-keygen, and run the "nova boot" command from boot-cirros.sh. but now `nova list` shows a cirros vm
+20:26 larsks         Yay!
+20:26 pdurbin        agoddard: so your config is not totally captured? :/
+20:28 agoddard       pdurbin: right, I have a run list for manually installing the controller node and cinder node and it's backed up, the next step is to make it more HA so hopefully it never needs to be rebuilt, but I didn't have time to write cookbooks, it would have taken forever
+20:28 pdurbin        i'm all about reproducibility. so cool that this ansible openstack vagrant thing just works [ almost :) ]
+20:28 larsks         What was particularly hard about writing cookbooks for the controller?
+20:29 agoddard       I also wanted to know exactly what was being installed and where
+20:29 pdurbin        yeah, i hear you. my doc for rebuilding my home server still has some manual steps :( https://github.com/pdurbin/greptilian-vagrant
+20:29 larsks         ...but that's what cookbooks are for, right (so you know exactly what is installed and where)?
+20:30 agoddard       larsks: right, ya that was my answer for not using off the shelf cookbooks
+20:30 larsks         Got it.
+20:30 larsks         Building our Puppet manifests was certinaly an educational experience.
+20:30 larsks         Also, apparently, stay away from qpid.
+20:31 agoddard       larsks: the difficult parts were the number of steps that required keystone and nova commands, the networking prerequisites, the sheer number of attributes I would have had to make in order to make a decent cookbook, the order in which services had to restart, the LVM setup..
+20:32 agoddard       ~/Desktop/Openstack installs $ wc -l openstack_runlist.txt  # 1002 openstack_runlist.txt
+20:32 pdurbin        agoddard: !!
+20:32 pdurbin        that *would* take you a while... :)
+20:32 agoddard       (though, that contains the output from all the commands, and some output can be ~20 lines long
+20:32 agoddard       I think it's telling that there aren't any production ready openstack cookbooks for folsom out there yet either
+20:33 pdurbin        westmaas: need openstack folsom cookbooks ^^
+20:34 agoddard       I know it's a little hypocritical, but I also at this stage kinda like the idea that an accidental change in a controller cookbook won't take my controller down (again, this ends up being the trade-off between time-to-production, reproducibility and depending on high-availability)
+20:34 westmaas       pdurbin: acknowledged
+20:35 pdurbin        westmaas: can you write me up a git repo with openstack folsom + vagrant + puppet? 4 servers would be fine. :)
+20:36 agoddard       I gotta write a blog post, 'cause there were a bunch of places I got messed up at during the controller and cinder install 'cause of missing info in other blogs, or config options that have changed between versions etc
+20:36 pdurbin        larsks: i did see you link to this and i'll check it out. thanks. - https://github.com/puppetlabs/puppetlabs-openstack
+20:36 agoddard       pdurbin: what will the 4 nodes be?
+20:37 pdurbin        agoddard: uh, some computer nodes... uh, a controller node?
+20:37 westmaas       pdurbin: acknowledged
+20:37 westmaas       (no)
+20:37 pdurbin        i don't think this iteration needs to be perfect. we just want something we can start using
+20:37 * pdurbin      shakes fist at westmaas
+20:37 westmaas       theres some puppet out that there that works with folsom though, I'm sure of it
+20:38 westmaas       you guys are even running on redhat right
+20:38 pdurbin        westmaas: centos
+20:38 larsks         pdurbin: FYI, Our openstack deployment is on CentOS 6.
+20:38 westmaas       https://github.com/fedora-openstack/openstack-puppet
+20:39 pdurbin        larsks: awesome
+20:39 pdurbin        westmaas: saw that. you recommend it? fedora?
+20:39 larsks         pdurbin: We're thinking F18 + Fulsom for our next iteration.
+20:40 pdurbin        larsks: huh. dumping centos, eh?
+20:40 larsks         There's been a lot of work done around qemu/kvm/libvirt/etc that's not going to make it into CentOS.
+20:41 larsks         So at least for our virtualization layer we may bump to Fedora.
+20:41 pdurbin        ventz: you've noticed all the wins with running newer libvirt...
+20:41 pdurbin        larsks: sounds scary, but ok :)
+20:42 pdurbin        larsks: what are the main things you're missing by using centos 6?
+20:44 larsks         Well, things like qemu-kvm 0.12 vs qemu-kvm 1.0.1.  Also there's a lot of OpenStack work happening around Fedora.
+20:44 pdurbin        sure
+20:44 pdurbin        would switching to ubuntu 12.04 help?
+20:44 agoddard       our install is 12.04
+20:44 pdurbin        agoddard: and you love it?
+20:45 larsks         Maybe.  I've used Ubuntu several times in the past, and while I think it's fine for desktops I've always ran into issues with server deployments (often in the area of good support for advanced networking).
+20:45 larsks         I haven't looked closely at 12.
+20:45 agoddard       it works. I was using CentOS for Cloudstack 'cause we were having weird kernel panics on Ubuntu 10.04 hosts, but I'm hoping whatever that was is fixed in 12.04 (fingers crossed...)
+20:46 pdurbin        (side note: in my ansible openstack vagrant thingy... the `nova boot` from the controller definitely worked... with `virsh list` on the "compute1" box i can see instance-00000001)
+20:46 larsks         pdurbin: Also, whenever I have to build Debian packages I want to punch something.
+20:46 westmaas       pdurbin: i dunno, I use debian :)
+20:46 pdurbin        westmaas: srsly? debian?
+20:46 westmaas       for our OS deployment, yeah
+20:47 pdurbin        rackerhacker: mmm, debian
+20:47 rackerhacker   IT'S FANTASTIC
+20:47 pdurbin        heh
+20:47 rackerhacker   i always enjoy having my package manager handle my daemons
+20:47 rackerhacker   larsks: FWIW we tried debian packaging and are now moving away ;)
+20:47 larsks         rackerhacker: Oh, god, I forgot about that.
+20:47 larsks         We hates it.
+20:48 rackerhacker   larsks: it makes for lots of fun with puppet... puppet and debian trying to bounce a daemon simultaneously
+20:49 rackerhacker   also H/A is fun on debian when apt/dpkg decide to bounce a daemon managed by the cluster software :/
+20:49 pdurbin        silly apt/dpkg
+20:50 semiosis       let me play devils advocate here for a moment... is there a case to be made for disabling automatic failover while doing manual maintenance/upgrade procedures?
+20:51 semiosis       i.e. force all load to node A while I manually upgrade node B... manually switch load to B, then upgrade A...
+20:51 semiosis       seems sane to me
+20:51 rackerhacker   semiosis: that's the only way to do it on debian/ubuntu that i've found
+20:52 rackerhacker   but if my package manager didn't touch daemons i'd have a bit more freedom with when i wanted to do my restarts
+20:53 semiosis       freedom to upgrade code on disk without running that code right away?  seems dangerous :)
+20:54 rackerhacker   well the other hangup is that if a daemon doesn't do what dpkg says, dpkg bails in a peculiar state and you're stuck wading through the errors to figure out what you have to do manually
+20:54 rackerhacker   debian pushed out a snmpd package a while back that was broken and half-installed... getting it out was a pain in the rear
+20:54 pdurbin        rackerhacker: i'm with you. with rpm/yum daemons are generally not started
+20:55 shuff          rackerhacker: you noticed that one too? :)
+20:55 rackerhacker   my #1 gripe is that daemons are started with default configs without me being asked! :)
+20:55 shuff          it trickled down into ubuntu and started biting us as well
+20:55 rackerhacker   shuff: there was much cursing around here when that dropped
+20:55 pdurbin        doesn't apt/pkg sometimes stop and ask you a question sometimes? that freaks me out...
+20:55 rackerhacker   it's almost like nobody said "hey, why don't we try installing this right quick?!"
+20:55 rackerhacker   pdurbin: yeah, that's unacceptable
+20:55 rackerhacker   especially while being in the middle of a mysql install
+20:56 pdurbin        is there a flag i can give apt to not do that?
+20:56 larsks         pdurbin: And trying to automate those package installs can be a real PITA.
+20:56 rackerhacker   1) let me install the package 2) i'll add configuration 3) i'll choose when to start
+20:56 pdurbin        westmaas: debian, huh?
+20:56 rackerhacker   also with debian your daemons are enabled at boot time immediately unless they have some junk in /etc/default
+20:58 westmaas       pdurbin: I never said debs
+20:59 rackerhacker   pdurbin: westmaas has a debian tattoo
+20:59 pdurbin        lol
+20:59 rackerhacker   you laugh, but we actually had a feller here with a debian tattoo on his leg at one point in time
+20:59 rackerhacker   the little red swirl doodad
+20:59 pdurbin        so, no --ask-me-no-questions flag i can give to apt?
+21:00 semiosis       pdurbin: that exists but it's not what you're looking for
+21:00 pdurbin        semiosis: oh
+21:00 semiosis       you're looking for skip post-install scripts
+21:00 rackerhacker   pdurbin: no, you have to prepopulate the data for stuff like mysql
+21:00 semiosis       ask me no questions is just -y iirc
+21:00 rackerhacker   like passwords and such
+21:00 rackerhacker   semiosis: it will still ask
+21:00 semiosis       ah well that's something different too
+21:00 pdurbin        semiosis: huh. ok. i'd never do that in yum. not for a vendor package. for my own rpm, maybe...
+21:00 rackerhacker   pdurbin: http://www.rndguy.ca/2010/02/24/fully-automated-ubuntu-server-setups-using-preseed/
+21:01 semiosis       debconf database can be pre-populated with answers to required config choices/inputs
+21:01 semiosis       ask me no questions, -y, just skips asking "are you sure you want to install ...." kind of questions
+21:01 pdurbin        semiosis: now we're getting somewhere. thanks much!
+21:01 rackerhacker   almost like dpkg is trying to be puppet there :)
+21:02 semiosis       rackerhacker: anachronistic
+21:02 rackerhacker   i used to run anacron, it was okay
+21:02 semiosis       lol, yeah, not what i meant
+21:02 * rackerhacker giggles
+21:06 pdurbin        some details on the ansible/openstack/vagrant issue i had: had to run a couple commands before `nova boot` · Issue #2 · lorin/openstack-ansible - https://github.com/lorin/openstack-ansible/issues/2
+21:10 semiosis       pdurbin: apparently it's not as easy as we think it should be to disable post-install scripts :/
+21:13 semiosis       pdurbin: this suggests a strategy but doesnt show how to implement it: http://serverfault.com/questions/347937/how-do-i-ask-apt-get-to-skip-all-post-install-configuration-steps
+21:14 pdurbin        slackers
+21:14 pdurbin        ;)
+21:14 larsks         pdurbin: What version of the nova client are you running?  It looks like you're missing a bunch of commands.
+21:14 larsks         All those secgroup-add-rule and keypair-add commands are supposed to do something.
+21:14 larsks         (Re: https://github.com/lorin/openstack-ansible/issues/2)
+21:15 pdurbin        semiosis: maybe `export DEBIAN_FRONTEND=noninteractive` per http://serverfault.com/questions/227190/how-do-i-ask-apt-get-to-skip-any-interactive-post-install-configuration-steps
+21:16 semiosis       pdurbin: see EDIT: line below that, only skips questions... no way to skip post-install scripts... see next answer re: policy-rc.d
+21:16 pdurbin        larsks: python-novaclient-2.6.1-0.4.89bzr.fc16
+21:18 larsks         Huh. I think that's way old.
+21:18 larsks         The current (Essex) one is called 2012.1 (e.g., python-novaclient-2012.1-2.fc17).
+21:18 larsks         And the fulsom one will be 2012.2, I think.
+21:18 pdurbin        i've been meaning to update this laptop from fedora 16 to 17. 18 will be out in december
+21:19 larsks         I'm suspicious that your issues stem from running software older than the cirrus script was expecting.
+21:20 pdurbin        semiosis: policy-rc.d. ok. will google for that if i switch to debian/ubuntu. thanks :)
+21:21 semiosis       pdurbin: keep in mind it's not something people usually need (or even want) to do when running debian/ubuntu servers
+21:22 pdurbin        semiosis: people like answering questions interactively when installing packages on debian/ubuntu?
+21:22 semiosis       ok, so we're getting issues confused here... let me clear that up
+21:23 semiosis       three things.  1) y/n questions like "Do you want to continue to install packages A, B, C...." -- these can be disabled (as yes) by giving -y option to apt-get
+21:24 pdurbin        cool
+21:24 semiosis       2) required configuration inputs (such as mysql's "what do you want the root passwd to be?") -- these can be preset using debconf, puppet even supports this via responsefile :)
+21:25 pdurbin        double cool
+21:26 semiosis       3) disabling "maintainer scripts" (such as post-install scripts) -- these *can* be manipulated using the "policy layer" if i understand correctly, but this should not be needed in most cases (whereas the prev. two are needed all the time)
+21:27 pdurbin        hmm. ok. cool that it's rarely needed
+21:28 semiosis       i've never needed to do that
+21:28 semiosis       fwiw
+21:28 pdurbin        crimsonfubot: lucky puppet responsefile
+21:28 crimsonfubot   pdurbin: http://projects.puppetlabs.com/projects/1/wiki/debian_preseed_patterns
+21:29 semiosis       http://docs.puppetlabs.com/references/latest/type.html#package
+21:31 semiosis       what I do is first do a manual/interactive install setting all the options how I want them, then use "debconf-get-selections | grep {package} &gt; responsefile" to produce a responsefile to give puppet
+21:31 pdurbin        responsefile "currently used on Solaris and Debian". ok. cool
+21:32 pdurbin        rackerhacker: quit complaining ;)
+21:32 semiosis       pdurbin: ... and ubuntu (of course)
+21:32 semiosis       hehe
+21:32 pdurbin        debian can be saved
+21:36 semiosis       just for fun, i'm asking in #ubuntu-server for an easy way to prevent service restart on package update :)
+21:36 pdurbin        semiosis: cool. 'cause that's a little weird
+21:37 semiosis       weird?  how?
+21:38 pdurbin        well, sorry. not restart... weird to me if a service starts when you install a package. maybe we covered the fix for that already
+22:11 semiosis       feedback from #ubuntu-server was helpful... so there's two ways you could do #3, which they call enforcing policy, on packages starting at install/update
+22:12 semiosis       one way to prevent any services from (re)starting by policy is "...to create /usr/sbin/policy-rc.d as a trivial shell script which just runs 'exit 101'"
+22:13 semiosis       this works on services managed by initscripts, but not (on ubuntu) for services managed by upstart jobs
+22:14 semiosis       other option, again for initscripts, would be to modify the initscript to enforce your policy, which would only help for restarting on update, though you could possibly preload the initscript for a package before first install, but that seems hackey
+22:15 semiosis       also found this https://github.com/gpapilion/policy-rc.d -- which is only 3 days old! -- that looks like it's a more complete &amp; flexible implementation of a script for /usr/sbin/policy-rc.d than the simple 'exit 101' mentioned above
+22:18 semiosis       fyi, the policy-rc.d stuff works at the "invoke-rc.d layer" which is the interface through which package scripts are supposed to call initscripts, so an admin can still call "/etc/init.d/whatever start" directly even tho the invoke-rc.d policy may not let package scripts do it
+22:18 semiosis       that was fun :)
+22:33 pdurbin_m      +1
+</pre></body></html>
