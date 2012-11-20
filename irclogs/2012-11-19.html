@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+03:27 pdurbin      nice, cloudenvy seems very much like vagrant, but instead of pointing at virtual box running on your laptop, you point at an openstack installation: https://github.com/cloudenvy/cloudenvy
+03:36 jimi_c       interesting, just needs a jenkins plugin now :)
+03:56 westmaas     damn you bcwaldon why didn't you tell me about this!
+03:56 westmaas     that does look cool :)
+03:59 westmaas     you guys might be interested in this too: https://github.com/dprince/kytoon
+04:00 westmaas     depending on which language you prefer
+04:00 westmaas     I haven't used either of those, though.  Kytoon is used to drive the automation for one of the 3rd party test suites by dprince
+04:01 westmaas     3rd party in the sense that its not run by the openstack ci team
+04:01 westmaas     but dan does work with them to publish results, etc: http://smokestack.openstack.org/
+04:02 westmaas     kytoon does local libvirt, remote ssh, or openstack
+04:05 pdurbin      westmaas: very cool
+04:22 pdurbin      ironcamel: you're gonna say it's dumb of me to package ilbot (the bot, written in Perl, that logs this channel) into RPMs: http://irclog.perlgeek.de/ilbot/2012-11-19#i_6165277
+04:23 pdurbin      but it's so nice and quick... all those packages get installed nicely by puppet
+04:23 pdurbin      whorka: though you said you're looking at a perl/cpan provider for puppet
+04:24 pdurbin      ironcamel: i assume if you wanted to install ilbot based on these instructions, you'd simply become root, and install via cpanm: http://moritz.faui2k3.org/en/ilbot
+04:25 pdurbin      i actually did that first to make sure ilbot worked at all
+04:25 pdurbin      (and it does. it's awesome. i can log whatever channel i want now!)
+04:26 pdurbin      but then i poked around fedora's package database and saw they had most of the cpan modules packages already. i only had to package one, i think
+04:27 ironcamel    pdurbin: yeah, i would probably clone it and run cpanm --installdeps .
+04:27 pdurbin      shuff: and grab one from repoforge: http://pkgs.repoforge.org/perl-Term-ANSIColor
+04:28 ironcamel    why does it say it requires mysql?
+04:28 ironcamel    and apache :(
+04:28 pdurbin      ironcamel: ok. i think i tried that and it installed most of the deps... maybe all of them, i don't remember. it felt fiddly. harder to automate... maybe not all the deps were captured
+04:28 ironcamel    it is pretty trivial to make apps db agnostic
+04:29 ironcamel    and web server agnostic
+04:29 pdurbin      ironcamel: i don't know but there's a new channel! #ilbot! :)
+04:29 pdurbin      i'm sure moritz would be happy to answer your questions
+04:29 ironcamel    via perl's DBI and Plack/PSGI
+04:30 ironcamel    what is #ilbot for?
+04:30 pdurbin      the thing i'm confused about (and i just posted this to #ilbot) is that it doesn't seem to be a proper perl distribution... can't just make and install the thing
+04:30 pdurbin      i'm finding myself copying files into place (with puppet)
+04:31 ironcamel    ohhhh, you didn't make it
+04:31 ironcamel    the whole time i assumed you created it
+04:31 pdurbin      #ilbot is for discussing ilbot... http://moritz.faui2k3.org/en/ilbot
+04:31 pdurbin      nope
+04:31 pdurbin      and i've been feeling bad every time i ask moritz to log another channel
+04:32 ironcamel    ok, so a lot of times, actual apps are not put on CPAN
+04:32 pdurbin      now for my own stuff i can just log it myself. like my work notes... the thing i posted earlier
+04:32 ironcamel    things on CPAN tend to be libs, that help you build full fledged apps, by putting the bits and pieces together
+04:32 pdurbin      ironcamel: with the exception of App::p :)
+04:33 ironcamel    pdurbin: i have put full stack apps on CPAN before. AtomBus for example
+04:33 pdurbin      i like the trend toward App::whatever :) ... give me something i can use :)
+04:33 pdurbin      crimsonfubot: lucky cpan atombus
+04:33 crimsonfubot pdurbin: http://search.cpan.org/~ironcamel/AtomBus-1.0404/lib/AtomBus.pm
+04:34 ironcamel    the App::* stuff tend to be light weight apps, or glorified scripts
+04:34 pdurbin      mmm, pubsubhubbub friendly
+04:36 westmaas     ironcamel: you use that anywhere?
+04:37 ironcamel    something cool/crazy i do is i when the app is run, it creates the db tables for you automagically, so there is no db setup
+04:37 ironcamel    other than pointing it the correct dsn
+04:37 ironcamel    with enough privileges
+04:37 pdurbin      ironcamel: so the thing i was trying first... before i became root and installed stuff via cpanm ... was to create a local user and install everything in its home directory with local::lib ... but then i couldn't figure out how to get apache to source it. was trying suexec
+04:38 ironcamel    westmaas: haven't touched it since the rackspace days
+04:38 pdurbin      ironcamel: this is my db setup for ilbot (using puppet): mysql::db { 'moritz5': user =&gt; 'moritz', password =&gt; 'foo', host =&gt; 'localhost', grant =&gt; ['all'], }
+04:39 ironcamel    pdurbin: i don't know what "apache to source it" means
+04:40 pdurbin      so i was using suexec for privilege separation: http://wiki.apache.org/httpd/PrivilegeSeparation ...
+04:40 pdurbin      and it was working... `whoami` showed the user i set up
+04:41 pdurbin      but then when i tried to use the cpan modules in the users home directory, apache couldn't see them... just the system-wide modules
+04:42 pdurbin      i mean... this is no longer a problem for me now... it's all nicely packages as rpms... but i still kind of wonder if it's possible to use local::lib and have the app run as a user
+04:42 pdurbin      jeez it's getting late
+04:42 pdurbin      anyway, i'm happy that my ilbot setup is much more automated now
+04:43 pdurbin      westmaas: sometimes i forget that you and ironcamel know each other
+04:43 ironcamel    it's silly that it requires apache
+04:43 pdurbin      meh, i usually reach for apache. it just works
+04:44 pdurbin      i don't remember reading that it needs apache but i believe you
+04:44 ironcamel    i don't have anything against it. i don't like vendor lock-in
+04:44 ironcamel    or "whatever-you-want-to-call-it" lock-in
+04:44 ironcamel    web server lock-in
+04:45 pdurbin      i think the main thing is that he makes heavy use of rewrite rules: https://github.com/moritz/ilbot/blob/master/cgi/.htaccess
+04:45 ironcamel    you can do rewrite very easily with lighttpd
+04:45 ironcamel    and nginx
+04:45 pdurbin      are .htaccess files portable? can you use them with nginx or lighttpd?
+04:45 ironcamel    those are the 2 i usually default to
+04:45 ironcamel    i have never used htaccess files with either of those
+04:45 ironcamel    i don't know
+04:46 westmaas     pdurbin: yea ironcamel is a-ok
+04:46 ironcamel    haha, thanks
+04:46 westmaas     ironcamel: I was interviewing a guy the other day that was talking about writing good perl that was object oriented
+04:46 westmaas     and I was like, oh you mean with moose?
+04:46 ironcamel    you must hire him
+04:47 westmaas     and he was all impressed
+04:47 westmaas     thank god we didn't discuss further
+04:47 ironcamel    actually, does he have front-end skills?
+04:47 pdurbin      ironcamel: i don't think anything is stopping anyone from rewriting the .htaccess rewrite rules into a format that's compatible with non-apache
+04:47 westmaas     cisco got him :/
+04:47 ironcamel    cause we desperately need someone
+04:47 westmaas     crimsonfubot: lucky ansible
+04:47 crimsonfubot westmaas: http://en.wikipedia.org/wiki/Ansible
+04:47 westmaas     nope
+04:47 westmaas     crimsonfubot: lucky ansible automation
+04:47 crimsonfubot westmaas: http://ansible.cc/faq.html
+04:47 westmaas     he wrote that
+04:48 westmaas     and no front end skills!
+04:48 westmaas     ironcamel: do you need someone with front end skills AND perl skills?
+04:48 pdurbin      westmaas: wait, the ansible guy was talking about perl?
+04:49 ironcamel    whoa, this looks pretty ambitious
+04:49 westmaas     pdurbin: at one of his jobs, yea
+04:49 pdurbin      larsks: you're a fan of ansible
+04:49 ironcamel    was his name Michael DeHaan?
+04:49 westmaas     yes
+04:49 pdurbin      jimi_c: and you maintain his previous project (cobbler)
+04:49 westmaas     ironcamel: he helped write cobbler, etc
+04:50 pdurbin      well, cool that he does python and perl
+04:51 * pdurbin    yawns
+04:51 ironcamel    pdurbin is a lightweight
+04:51 ironcamel    pdurbin: have you used ansible before?
+04:52 pdurbin      very very lightly. was testing a vagrant openstack thing
+04:52 pdurbin      crimsonfubot: lucky vagrant openstack ansible
+04:52 crimsonfubot pdurbin: https://github.com/lorin/openstack-ansible
+04:52 pdurbin      yeah, that one. works great
+04:52 pdurbin      but from a vagrant perspective, puppet or chef are better because they are baked into the vagrant base boxes
+04:52 larsks       pdurbin: ansible is a neat idea but it's a single-author project and the author is an ass.
+04:53 larsks       I've replaced ansible with pdsh, mostly.
+04:53 westmaas     lol
+04:53 ironcamel    hahaha
+04:53 larsks       Also I like my tasks ordered by dependencies not sequentially.
+04:53 pdurbin      that is the say, puppet and chef are installed within the vagrant base boxes themselves so you don't have to have them installed locally (on your laptop or what have you)
+04:54 westmaas     larsks: seems like a combination might make sense
+04:54 westmaas     dependencies/sequentially
+04:54 westmaas     I like the ability to do certainthings in a certain order, like remove from lb, etc
+04:54 westmaas     if you are orchestrating above the machine level
+04:55 pdurbin      oh, load balancer
+04:55 * pdurbin    falls asleep
+04:56 westmaas     haha yea sorry
+04:58 larsks       westmaas: Maybe.  I would like Puppet to have better cross-machine depedencies.  Someone has hacked up support for that, but it would be nice to see it in the core (because seriously, who is working on a single machine?).
+04:59 westmaas     yea exactly
+04:59 westmaas     welll, the other thing is the typical suggestion is to move away from puppet masters, so then orchestration could be outside of puppet entirely, I suppose.
+05:08 jimi_c       gotta stick up for mpdehaan, he's a pretty laid back guy, i contributed to cobbler with him leading the project for 3+ years and never had issues
+05:09 westmaas     yeah, I didn't see any ass-ish-ness in him in the hours I spent with him!  just sad he didn't decide to join us :)
+05:11 jimi_c       jr
+05:11 jimi_c       doh...
+05:11 jimi_c       he's going to cisco? interesting
+05:11 * jimi_c     had to scrollback
+05:11 jimi_c       you guys got chatty
+06:00 jimi_c       so this is pretty cool: https://wiki.jenkins-ci.org/display/JENKINS/JClouds+Plugin
+06:00 jimi_c       supports euca, openstack, etc.
+20:08 pdurbin      OpenStack Local LVM instance storage « OpenStack « Anthony Goddard « DevOps - http://ops.anthonygoddard.com/OpenStack/OpenStack-local-lvm-instance-storage/
+21:23 pdurbin      sjoeboo: heh, i'm re-reading your "At work we have had Racktables ((http://racktables.org/)) for a while for tracking where things are. Its…..okay. Its not the best,but, eh, it works"
+21:23 pdurbin      http://sjoeboo.github.com/blog/2012/05/31/getting-racktables-location-info-into-puppet/
+21:23 sjoeboo      yeah
+21:23 sjoeboo      would love a better alternative, don't know of any, but i never looked super hard
+21:24 pdurbin      i recently heard someone say, "whenever somebody tells me it's good enough I know it isn't"
+</pre></body></html>

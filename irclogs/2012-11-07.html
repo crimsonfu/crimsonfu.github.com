@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+00:02 pdurbin        that's odd. /var/log/nova is completely empty...
+00:03 pdurbin        i ran `vagrant provision openstack_controller` again and now there are some logs there
+00:08 pdurbin        bodepd: i ran `vagrant provision compute1` one more time for good measure and... it worked! test_nova.sh created a cirros vm for me. on centos. folsom. awesome. great work!
+00:09 bodepd         run vagrant destory and try again from scratch.
+00:09 bodepd         theres a rake task that does it as well.
+00:10 bodepd         rake -T will list them
+00:11 pdurbin        bodepd: oh, your doc says `rake -t` (lowercase) and it was giving errors so i stopped trying rake :)
+00:13 pdurbin        jimi_c: maybe i won't need to get ubuntu kickstarts working with cobbler after all :)
+00:21 jimi_c         yay, and boo!
+00:23 JoeJulian      bodepd: Step 1: https://github.com/puppetlabs/puppetlabs-stdlib/pull/101
+00:25 JoeJulian      And, as a bonus, my hatred for ruby has turned into a dislike with a side of annoyance.
+00:27 pdurbin        :)
+00:32 bodepd         JoeJulian: good. the code looks reasonable. I pinged jeff to see if I can get it merged faster
+00:32 bodepd         (I don't merge things into stdlib :) )
+00:32 JoeJulian      Yeah, but I figured you'd get faster results than I would. I don't know Jeff yet.
+00:33 bodepd         keep submitting good code, and you will :)
+00:44 pdurbin        bodepd: so... how long before a release on puppet forge :)
+00:45 JoeJulian      :)
+00:49 bodepd         pdurbin: it'll be a little while. Probably at least a week. why?
+00:49 bodepd         pdurbin: there's tons of stuff that needs to stabilize.
+00:49 pdurbin        i'm just trying to figure out how to try this out on physical hardware. i guess i can do the whole librarian-puppet thing
+00:50 bodepd         use a master.
+00:50 bodepd         you should be able to set a modulepaht in librarina[D[D[D[D puppet
+00:50 pdurbin        sure. but i mean `puppet module install` is very convenient
+00:51 bodepd         no disagreement there. cutting releases is not always convenient :)
+00:51 pdurbin        :)
+00:51 JoeJulian      bodepd: I've got to go catch the Sounder, but take a look at this proof of concept: https://github.com/joejulian/puppetlabs-openstack/commit/eba255416ebb4a696890dcf11a5282f89f1b6a53
+00:51 pdurbin        i'll see if i can work this into our puppet env
+00:53 bodepd         JoeJulian: looks like its based off the old stuff.
+00:54 bodepd         also, do you really need to update everything?
+00:54 JoeJulian      heh, oops. Wrong working machine. :D
+00:54 bodepd         seems like mysql and rabbitmq are the most important
+00:55 JoeJulian      No, but the idea being that it provides options. Should anyone want to override a class, they should be able to. It's good for testing too.
+00:56 JoeJulian      IMHO, any class that depends on other classes should provide that kind of ability.
+00:57 bodepd         I would rather hold off on things where there is not currently a use base.
+00:57 bodepd         s/base/case/
+00:57 bodepd         I am a little concerned about the growing number of class params.
+00:58 bodepd         I can see what you have in mind though, and as a general pattern it is worth thinking about.
+00:58 JoeJulian      Need **kwargs
+00:59 bodepd         we can pass a {}
+00:59 bodepd         I am doing that in a few places, but that pattern also concerns me :)
+00:59 JoeJulian      Can you default dict entries and only override specific ones?
+00:59 * JoeJulian    noticed his python lingo leaking into this conversation.
+01:00 bodepd         oh, maybe I didnt fully inderstnad kwargs.
+01:00 JoeJulian      Ok, I'll play with that some more later. It's date night. Gotta run.
+01:00 bodepd         later.
+02:53 JoeJulian      Hehe, in attempting to answer my own question regarding passing hashes as class parameters, bodepd, I found a link that looked promising: http://grokbase.com/t/gg/puppet-dev/12527w10yb/question-regarding-hashes-class-parameter-defaults
+12:30 pdurbin        new channel! #puppet-openstack ... logs for today: http://irclog.perlgeek.de/puppet-openstack/2012-11-07
+12:34 pdurbin        bodepd: it's very kind of you to cite "awesomeness of crimsonfu" :) ... #puppet-openstack on freenode - Google Groups - https://groups.google.com/a/puppetlabs.com/forum/?fromgroups=#!topic/puppet-openstack/SB7ZU3TG9lg
+14:44 pdurbin        not sure i had heard of this before... IBM General Parallel File System - Wikipedia, the free encyclopedia - http://en.wikipedia.org/wiki/IBM_General_Parallel_File_System
+14:47 sjoeboo        we demo'd that a long long time ago
+14:49 pdurbin        huh. ok. before my time :)
+14:56 larsks         we're still running that here on some old equipment
+14:56 pdurbin        larsks: ok
+14:56 pdurbin        huh. Python interface to Amazon Web Services - https://github.com/boto/boto
+15:01 larsks         The euca2ools package uses boto...it might already be installed on your system.
+15:02 pdurbin        maybe. i'm just looking at a resume :)
+15:03 pdurbin        if anyone wants to apply... https://sjobs.brassring.com/1033/asp/tg/cim_jobdetail.asp?partnerID=25240&amp;siteID=5341&amp;AReq=26543BR
+15:05 larsks         Hmmm.
+15:10 larsks         Did you know you can ask Python 2 "1 &gt; ['a']"?  And it doesn't complain?  That was an annoying bug to track down.
+15:10 pdurbin        wat? i hope everyone has seen the javascript wat video
+15:14 larsks         pdurbin: Link?
+15:15 pdurbin        crimsonfubot: lucky javascript wat video
+15:15 crimsonfubot   pdurbin: http://www.shopify.com/technology/5374702-javascript-oddities-from-the-wat-video-explained
+15:15 pdurbin        that's the one. thanks, crimsonfubot
+15:21 shuff          fyi, hearkening back to yesterday's conversation: https://github.com/hakamadare/webservice-scriptogram &lt;https://github.com/hakamadare/webservice-scriptogram#readme&gt;
+15:22 shuff          bah, stupid linkifier
+15:23 pdurbin        shuff: this seems to be full of perly goodness
+15:24 pdurbin        shuff: have you seen prepan?
+15:25 shuff          crimsonfubot: lucky prepan
+15:25 crimsonfubot   shuff: http://prepan.org/
+15:25 shuff          haha, that's awesome
+15:25 shuff          anyway, v0.0.1 is already up on CPAN
+15:25 shuff          i'm just about to submit v0.0.2
+15:34 larsks         That sure is a nice default README :)
+15:35 larsks         But hey, look at all those nifty repositories.  I'm-a gonna go take a peek...
+15:36 dotplus        pdurbin: is harvard (ever?) interested in telecommute?
+15:40 shuff          larsks: i take your point :) there is a working module hiding under there, read the POD
+15:42 larsks         dotplus: Some parts of Harvard are sometimes interested in telecommuting.
+15:55 Pax            larsks: LOL so true
+16:10 boegel         pdurbin: EasyBuild v1.0.0-rc1 is now available on PyPi, see http://pypi.python.org/pypi/easybuild/1.0.0-rc1
+17:47 JoeJulian      pdurbin: jmccune says, "I'll do a new minor release of stdlib today so this function is easily obtainable with puppet module install."
+18:19 pdurbin        JoeJulian: awesome
+18:19 pdurbin        speaking of puppet's stdlib... is it a big deal if i update it? is puppetlabs pretty good about backward compatibility?
+18:21 JoeJulian      no clue on that one. I haven't been using it that long. I see he's running 3 concurrent versions so I suspect there may be issues between major versions.
+18:22 rackerhacker   majorly
+18:22 JoeJulian      hehe
+18:23 pdurbin        rackerhacker: major major
+18:24 pdurbin        we'd be going from stdlib 2.2.1 to 3.1.1
+18:24 pdurbin        major version change
+18:29 pdurbin        if this is the worst thing, that's not bad. we're on newer puppet than this: "The 3.0 major release of stdlib drops support for Puppet 2.6. Stdlib 3.x supports Puppet 2.7." -- https://github.com/puppetlabs/puppetlabs-stdlib#stdlib-3x
+18:30 pdurbin        oh! this is were stages come from. i love stages
+18:30 rackerhacker   i'll pistol whip the next person who says major!
+18:30 rackerhacker   http://lolcdn.mhtx.net/shenanigans-20090312-110033.jpg
+18:30 * rackerhacker wants to watch super troopers again now
+18:33 JoeJulian      I met one of the /major/ creature animators from that film.
+18:33 * JoeJulian    had to do it.
+18:33 * rackerhacker giggles
+18:33 rackerhacker   FARVA!
+18:35 JoeJulian      er, wrong "troopers" movie in my mind... I was thinking starship when I read super.
+18:58 rackerhacker   i was wondering
+18:58 rackerhacker   there were several creaters in that film who were quite animated, but not "animated"
+19:34 pdurbin        just got a quick slurm demo: https://computing.llnl.gov/linux/slurm/
+23:35 jimi_c_        pdurbin: do you have vagrant base boxes built for other os's?
+</pre></body></html>

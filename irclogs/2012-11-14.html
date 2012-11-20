@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+04:02 codex     http://www.newegg.com/Product/Product.aspx?Item=N82E16822236344&amp;nm_mc=KNC-GoogleAdwords&amp;cm_mmc=KNC-GoogleAdwords-_-pla-_-NA-_-NA
+04:02 codex     "NAS certified drives" - 3TB for $190
+04:02 codex     very quiet, long life
+05:16 JoeJulian pdurbin: So am I which is why I use kickstart files.
+18:58 pdurbin   fun with "define('WP_ALLOW_REPAIR', true);" this morning. #wordpress
+20:54 pdurbin   where's Pax? thanks! https://git.huit.harvard.edu/splunk-apps/rcops &lt;-- splunk app
+21:38 pdurbin   comptona: "man, I love openstack, but this sort of thing just makes me want to jump off a cliff and/or shovel money at vmware :-P" -- http://irclog.perlgeek.de/puppet-openstack/2012-11-14#i_6154145 !!!
+21:39 comptona  heh
+21:39 pdurbin   westmaas: ^^
+21:39 comptona  the latest python-keystone RPM in epel-testing is busted
+21:39 pdurbin   i should get back to bodepd about the trace he wants on the puppet master that i'm not sure how to do
+21:40 westmaas  doh
+21:40 westmaas  I wonder if thats coming from the fedora folks, we offloaded all our packaging to the distros I think
+21:41 westmaas  let me ask my expert, but I think he's gone for the day!
+21:41 pdurbin   "this looks like an error on the server. Can you get a stack trace from the server?" he said at https://groups.google.com/a/puppetlabs.com/d/msg/puppet-openstack/nz8XHmEOMZs/aKXjHCNeTIUJ
+21:41 pdurbin   sjoeboo: you suggested looking at logs during a puppet run, which i haven't done yet. i guess i'll do that. tomorrow
+21:43 comptona  westmaas: I very much suspect the version of openstack-common that's been bundled with keystone is out of sync
+21:43 comptona  per http://wiki.openstack.org/CommonLibrary
+21:44 comptona  one bit of python-keystone instantiates ConfigOpts.cfg and passes that object a "project" parameter, but the definition of ConfigOpts.cfg (from openstack-common) doesn't accept it
+21:46 comptona  and apparently openstack-common is called "oslo" now?
+21:47 westmaas  comptona: yes - that rename is causing us heartache as well
+21:48 westmaas  I have a bug in the ear of some redhat/fedora people now
+21:48 westmaas  they didn't have an immediate answer but said they'd get back to me
+21:51 comptona  ugh, ok, I think I see now
+21:53 comptona  keystone in essex called openstack-common/configopts() with a bunch of parameters
+21:53 comptona  keystone in folsom calls configopts() and then passes the parameters to setup() of that object
+21:53 comptona  so the RPM package has the essex keystone code and the folsom openstack-common code
+21:53 comptona  *headdesk*
+22:15 JoeJulian argh
+</pre></body></html>

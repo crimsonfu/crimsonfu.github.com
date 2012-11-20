@@ -4,26 +4,290 @@
 </head>
 <body>
 <pre>
-Time  Nick     Message
-00:02 bodepd   comptona: I see what the issue is with that apache module. I think we are going to have to cut another release.
-00:05 comptona bummer
-00:29 bodepd   comptona: the apache module should be updated. Can you see if that resolves you issue?
-00:30 bodepd   it's the same version, Ryan just updated the contents of the tarball.
-00:31 comptona yep, that worked
-00:31 comptona thanks!
-00:31 comptona is there some preferred place to report issues with github-hosted modules that don't have issues enabled?
-00:38 bodepd   I turned issues on.
-00:38 bodepd   there is a redmine project for it, buts its honestly too much of a pain touse.
-00:39 comptona gotcha
-00:42 comptona interesting: err: /Stage[main]/Openstack::Compute/Resources[nova_config]: Failed to generate additional resources using 'generate': Could not parse line "[DEFAULT]" at /etc/nova/nova.conf:3
-00:44 bodepd   comptona: yeah, its a bug with the parsedfile provider.
-00:44 bodepd   its really just a warning
-00:45 bodepd   its low on my priority list at the moment.
-00:45 comptona ok, good to know
-00:45 comptona I was confused since it shows up in the puppet verbose output as "err:"
-00:45 bodepd   yep, its really a warning. or at least it doesnt cause that type to fail.
-00:46 bodepd   I should probably fix it. It should be easy :)
-00:50 comptona hm
-00:51 comptona nova::compute::libvirt.pp, libvirt_type_kvm is unspecified anywhere
-00:51 comptona I'm going to comment out that block to get things going, but I'll probably make it smart enough to only install if the variable is defined
+Time  Nick         Message
+00:02 bodepd       comptona: I see what the issue is with that apache module. I think we are going to have to cut another release.
+00:05 comptona     bummer
+00:29 bodepd       comptona: the apache module should be updated. Can you see if that resolves you issue?
+00:30 bodepd       it's the same version, Ryan just updated the contents of the tarball.
+00:31 comptona     yep, that worked
+00:31 comptona     thanks!
+00:31 comptona     is there some preferred place to report issues with github-hosted modules that don't have issues enabled?
+00:38 bodepd       I turned issues on.
+00:38 bodepd       there is a redmine project for it, buts its honestly too much of a pain touse.
+00:39 comptona     gotcha
+00:42 comptona     interesting: err: /Stage[main]/Openstack::Compute/Resources[nova_config]: Failed to generate additional resources using 'generate': Could not parse line "[DEFAULT]" at /etc/nova/nova.conf:3
+00:44 bodepd       comptona: yeah, its a bug with the parsedfile provider.
+00:44 bodepd       its really just a warning
+00:45 bodepd       its low on my priority list at the moment.
+00:45 comptona     ok, good to know
+00:45 comptona     I was confused since it shows up in the puppet verbose output as "err:"
+00:45 bodepd       yep, its really a warning. or at least it doesnt cause that type to fail.
+00:46 bodepd       I should probably fix it. It should be easy :)
+00:50 comptona     hm
+00:51 comptona     nova::compute::libvirt.pp, libvirt_type_kvm is unspecified anywhere
+00:51 comptona     I'm going to comment out that block to get things going, but I'll probably make it smart enough to only install if the variable is defined
+02:45 GitHub113    [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/77df953dea9015348b67c4313abf4312a5c4a345
+02:45 GitHub113    crimsonfu.github.com/master 77df953 Philip Durbin: grab the latest irc logs
+03:20 larsks       This is what we ended up doing for Windows instances: https://github.com/seas-computing/windows-cloud-init/blob/master/cloud-init.ps1
+03:20 larsks       Configures a random password and spits it out on the serial port, where it can be retrieved from the OpenStack web UI.
+03:34 pdurbin      larsks: cool
+03:34 pdurbin      bodepd: welcome!
+03:35 pdurbin      semiosis: thanks for explaining what we're about :)
+03:35 larsks       Look, I learned powershell...
+03:35 bodepd       pdurbin: thanks!
+03:36 pdurbin      larsks: i guess powershell looks... fine
+03:37 pdurbin      bodepd: you've answered so much, i'm less motivated to reply to your email to the list ;)
+03:37 pdurbin      but i'll try the stuff you suggested, at work when i'm on vpn
+03:38 bodepd       please do, its better on the list so that everyone can learn
+03:38 pdurbin      yup yup
+03:39 pdurbin      bodepd: i'm so glad to hear about the ENV var for redhat/centos in your vagrant dev env: http://irclog.perlgeek.de/crimsonfu/2012-11-05#i_6128727
+03:41 pdurbin      oh yeah, and it was on the list that you mentioned cinder support is coming to redhat/centos - https://groups.google.com/a/puppetlabs.com/d/msg/puppet-openstack/9UEOiBFB5cs/V0_tLiq8IS8J
+03:41 pdurbin      so glad i found that list
+03:41 bodepd       yeah, derek said he had everything execept cinder/quantum working
+03:41 bodepd       exactly :)
+03:42 bodepd       did we meet in Boston years ago?
+03:42 pdurbin      cool. i met derek at the red hat summit
+03:42 pdurbin      i don't think so... but i've been to that summit maybe 3 times
+03:42 bodepd       I remember a few harvard folks sat in a class I taught 2-3 years ago, but I canot remember who it was.
+03:43 pdurbin      what was the class?
+03:43 bodepd       puppetmaster training
+03:43 pdurbin      hmm, probably not me. i'm pretty new to puppet
+03:43 pdurbin      sjoeboo: when do you get back from vacation?!? ;)
+03:44 pdurbin      but puppet is hella nice
+03:44 pdurbin      and sjoeboo keeps us on the latest and greatest... puppet 3.0, puppetdb
+03:45 bodepd       the centos support for the vagrant file is almost done. Still trying to get epel +epel-testing set up correctly.
+03:45 pdurbin      bodepd: you know about https://github.com/stahnma/puppet-module-epel right?
+03:46 bodepd       I ran into it, but it had tons of problems
+03:47 pdurbin      huh. i use it here and it seems to work fine: https://github.com/pdurbin/greptilian-vagrant
+03:47 pdurbin      it's a little chatty, but meh :)
+03:48 pdurbin      bodepd: i swear we talk about other stuff in this channel besides your code :)
+06:48 bodepd       just updated openstack_dev_env, cinder, and nova.
+06:48 bodepd       (master of the git repos) There are still a few issues with the config.
+06:49 bodepd       but at least everything installs correctly
+14:07 pdurbin      a couple things to note for anyone testing out the new centos support in bodepd's puppetlabs-openstack_dev_env repo...
+14:08 pdurbin      1. you'll need to `export OPERATINGSYSTEM=redhat` per https://github.com/puppetlabs/puppetlabs-openstack_dev_env/blob/master/Vagrantfile
+14:09 pdurbin      2. unless you have a proxy set up, you'll want to comment out the yum_proxy bits in manifests/setup/centos.pp - https://github.com/puppetlabs/puppetlabs-openstack_dev_env/blob/master/manifests/setup/centos.pp
+14:32 pdurbin      bodepd: it's expected that `bash /tmp/test_nova.sh` doesn't work on centos, right? like you were saying, so far the centos support consists on installing all the packages, which i can confirm does seem to work fine
+14:56 pdurbin      agoddard: you're running openstack on ubuntu, right?
+15:50 larsks       pdurbin: http://scriptogr.am
+15:50 larsks       Dropbox + Markdown = Blog
+15:51 semiosis     larsks: related: http://www.allthingsdistributed.com/2011/08/Jekyll-amazon-s3.html &lt;-- the strategy sounds cool though could use a refresh (s/jekyll/octopress/)
+15:53 larsks       semiosis: Neat.  I just think that the idea of using a service like Dropbox as the backing store for a blog is very cool, because all of a sudden you've solved the whole problem of data lock-in.  I guess S3 is a similar solution, but I would argue that Dropbox is probably more accessible.
+15:53 pdurbin      larsks: sounds like http://www.marco.org/secondcrack
+15:54 semiosis     larsks: werner uses dropbox for the production workflow, then publishes the result to s3 for hosting
+15:54 larsks       If you want to host your own server there are *lots* of solutions like that.  There are three or four that follow scriptogr.am's model (of a hosted service using Dropbox as the data store).
+15:54 larsks       I'm a fan of letting other people run servers for me, because I am easily distracted.
+15:55 larsks       semiosis: Yeah, I read the link,.
+15:55 pdurbin      another S3 solution is EC2 for Poets: http://ec2.forpoets.org
+16:16 pdurbin      bah. have been trying to re-kickstart one of my physical hosts as ubuntu but it's failing at "There was a problem reading data from the CD-ROM" . i just flipped it back to centos and it kickstarted fine
+16:17 pdurbin      i've definitely used this ubuntu 12.04 cobbler profile before for VMs. dunno why it isn't working on physical hardware
+16:17 semiosis     pdurbin: yw re: explanation
+16:28 pdurbin      larsks: your docs says you're using qpid ( https://code.seas.harvard.edu/puppet/puppet/blobs/develop/modules/openstack/readme/qpid.md ) but it looks like you've switched to rabbitmq ( https://code.seas.harvard.edu/puppet/puppet/blobs/develop/modules/role/manifests/openstack/controller.pp ). is that right?
+16:31 pdurbin      also, puppet/openstack folks might be interested in packstack ( https://github.com/derekhiggins/packstack ), "standalone install utility which uses Puppet modules to deploy OpenStack"... creates an all in one folsom install according to https://groups.google.com/a/puppetlabs.com/forum/#!msg/puppet-openstack/nz8XHmEOMZs/UIt7xIT9emIJ
+16:39 larsks       Yeah, we switched to rabbitmq and all of our problems went away.
+16:40 larsks       It was a dramatic change.
+16:41 pdurbin      larsks: +1
+17:10 * pdurbin    reads Ubuntu actually requires auto=true in kopts by jkff · Pull Request #228 · cobbler/cobbler - https://github.com/cobbler/cobbler/pull/228
+18:19 bodepd       pdurbin: it does not work yet.
+18:19 bodepd       pdurbin: I got past package installation, and found a few remaining issues:
+18:19 bodepd       1. iptables for nova-controller
+18:20 bodepd       2. qemu did not seem to work at all
+18:20 bodepd       3. some other issue that required installation of avahi
+18:22 pdurbin      bodepd: ok, and no AMQP, right? need either rabbitmq or qpid working...
+18:23 bodepd       havent gotten a chance to look at it all. looking at Derek's packstack.
+18:23 pdurbin      yeah, i linked that up in here earlier. haven't had a chance to look
+18:24 bodepd       he seems to have already sort out some of the things I was running into.
+18:24 pdurbin      it's a curious project to me... packstack is a wrapper around puppet?
+18:25 bodepd       yep. ssh wrapper.
+18:25 bodepd       its what redhat is going to use as the basis for their openstack installer for their product.
+18:25 bodepd       I think anyways...
+18:25 pdurbin      huh
+18:26 pdurbin      i'd prefer a nice Vagrantfile to show me how it's done :)
+18:26 bodepd       yep. I'm going to talk to Derek about consolidating. His tool is intended for prod deploys though.
+18:27 pdurbin      is he on freenode?
+18:27 bodepd       nope, just tried to ping him.
+18:27 pdurbin      ok, not right now but generally he is :)
+18:27 bodepd       yep. he's in Ireland though.
+18:27 bodepd       derekh
+18:28 pdurbin      right, right. i think i've chatted with him in #openstack before. and in real life at fenway park at the red hat summit
+18:31 larsks       I am working on a minimal F17 install for our cloud environment.  Have you taken a close look at "yum groupinfo base" lately?  'rdist' and 'rsh' are on there.  Just in case you and your server end up transported back in time TWENTY YEARS.
+18:32 pdurbin      heh
+18:33 pdurbin      comptona: funny that you found us from a web search. what if i want what you've got... openstack essex on centos 6 using version 0.2.0 of the puppetlabs openstack module, right? http://forge.puppetlabs.com/puppetlabs/openstack/0.2.0
+18:34 pdurbin      comptona: i think you were saying it "just works" on centos except for some ldap tweaks
+18:36 pdurbin      comptona: oh wait, you're using 0.1.0: http://irclog.perlgeek.de/crimsonfu/2012-11-02#i_6122385
+18:50 comptona     yes, I am
+18:50 comptona     I wouldn't say that it just worked; I did need to make some changes
+18:50 comptona     but it got me most of the way there
+18:50 pdurbin      comptona: hmm, ok. rabbitmq or qpid?
+18:51 comptona     I think the module uses rabbitmq by default, but that was one of the things I had to massage since it wasn't specified completely everywhere
+18:51 pdurbin      ah, ok. yeah that's what we're talking about, basically
+18:53 comptona     I apologize, I don't remember exactly what I had to change
+18:53 comptona     I'm working on getting permission to post my changes as patches
+18:53 comptona     and also on getting the folsom versions up and running and porting them forward
+18:53 pdurbin      comptona: yeah, should focus on folsom, not essex
+18:54 comptona     yep
+18:54 pdurbin      i guess i just want something that works
+18:54 pdurbin      and that's puppetized
+18:54 comptona     I screwed up, though; I set up a machine with the folsom modules and copied nova.conf from a working box without thinking
+18:54 comptona     and now my nova database is hosed :'(
+18:54 pdurbin      :(
+18:55 bodepd       I went through all of dereks code and ported his additions to the site manifest.
+18:55 bodepd       testing now...
+18:56 pdurbin      bodepd: sweet :)
+18:56 bodepd       I'll talk to him about getting everything he has to do at topscope into the core modules
+18:57 pdurbin      great
+19:22 pdurbin      bodepd: from looking briefly at packstack, it sounds like you've ported qpid code, not rabbitmq. is that right?
+19:22 pdurbin      bodepd: also, i just replied to your email to the list
+19:23 bodepd       I just grabbed the firewall rule and added it for rabbitmq
+19:23 pdurbin      oh, ok, so full steam ahead with rabbitmq on centos?
+19:24 comptona     that is what I'm using
+19:24 pdurbin      larsks: and you said to stay away from qpid. why?
+19:25 pdurbin      westmaas: you're a rabbitmq guy
+19:25 westmaas     I think our engineers were interested in exploring qpid
+19:25 westmaas     but we are using rabbit, yes.
+19:35 pdurbin      boegel: any opinions on slurm?
+19:43 boegel       pdurbin: erm, not personally, no
+19:44 boegel       pdurbin: I think some guys in our team have looked at it
+19:44 boegel       pdurbin: but I haven't
+19:44 boegel       pdurbin: I'm too busy making EasyBuild easy ;-)
+19:44 boegel       pdurbin: we should have an Easybuild 1.0-rc1 this week btw
+19:45 pdurbin      boegel: cool. i've been meaning to put easybuild in a centos vagrant environment. and build python, like you said
+19:46 boegel       pdurbin: wait for like tomorrw, then we'll have a 1.0 release candidate that you can test
+19:46 boegel       pdurbin: installing EasyBuild will be as easy as "easy_install --user easybuild" :)
+19:52 pdurbin      boegel: slurm - https://twitter.com/jamesdotcuff/status/265904005656477697
+19:54 semiosis     it
+19:54 semiosis     it's highly addictive
+19:55 boegel       pdurbin: well, the link isn't working for me, but I'm guessing that's normal :)
+19:56 pdurbin      boegel: you can't even get to blogger ;)
+19:58 boegel       pdurbin: yeah, because James is hosting warez on the same server
+19:58 boegel       pdurbin: oh, wait, did I say that out loud? :P
+20:04 bodepd       launched a VM. just need to test it from scratch, then I'll push a temporary branch that hopefully someone will try out (hint,hint)
+20:05 pdurbin      bodepd: i was just looking at your repo for temporary branches
+20:06 bodepd       I can push it in a minute.
+20:06 comptona     jesus, that was annoying
+20:06 comptona     fixed my database stuff
+20:06 bodepd       actually probabaly best to wait 20 until I finish it.
+20:06 pdurbin      no hurry
+20:11 bodepd       just added redhat_test branch to dev_env.
+20:11 bodepd       it also requires you to pull master from nova.
+20:11 bodepd       I am testing it now.
+20:12 pdurbin      bodepd: +1
+20:12 bodepd       prob still a bug or two to squash
+20:13 bodepd       these are the changes ported from Derek's code + 2-3 additional things I had to add.
+20:13 bodepd       https://github.com/bodepd/puppetlabs-openstack_dev_env/commit/957b3b7bfeb4f044c13749f48d1766e7d1024ba8
+20:14 pdurbin      bodepd: i don't see a redhat_test branch. only master, folsom, and essex: https://github.com/puppetlabs/puppetlabs-openstack_dev_env/branches
+20:14 bodepd       check my fork
+20:15 pdurbin      wow, look at all those branches :) https://github.com/bodepd/puppetlabs-openstack_dev_env/branches
+20:17 pdurbin      bodepd: by the way, i saw your reply on the list... i don't think it's easy for me to test non-puppet 3.0.1 (such as 2.7) but i'll ask my guru tomorrow when he returns from vacation
+20:17 bodepd       that provier issue looks 3.0 related
+20:17 bodepd       can you send me a stack trace from that?
+20:17 bodepd       --trace
+20:18 bodepd       this stuff should work with Puppet 3.0, I've just been a little lazy with testing.
+20:20 larsks       pdurbin: re: qpid, because something about it was all broke to hell in our environment. OpenStack kept falling over (components failing to communicate) in weird ways.  We replaced qpid with rabbitmq and the problem went away.
+20:20 pdurbin      larsks: huh. ok. good to know
+20:21 larsks       Also, rabbitmq seems like less of a black box than qpid...it seems easier to get diagnostics and other information out of it.
+20:21 pdurbin      cool
+20:23 pdurbin      comptona: glad you fixed your database
+20:23 comptona     me too
+20:24 comptona     the hardest part was that nova-volume changed its id format from a random integer to a UUID
+20:24 comptona     so I had to hand-edit each of those rows
+20:24 bodepd       does everyone in here run openstack?
+20:25 bodepd       my test just passed. Functional build from scratch. Please let me know if y'all have any issues with that branch.
+20:26 bodepd       I have to think a little about how I'm going to merge those changes is.
+20:27 pdurbin      bodepd: no, just the loudmouths run openstack
+20:27 pdurbin      agoddard: you've been awfully quiet
+20:28 * semiosis   wants to use clouds, not build them.
+20:28 semiosis     ec2 here
+20:31 pdurbin      semiosis: you can build clouds within clouds with vagrant :)
+20:33 pdurbin      bodepd: assuming this works (running it now)... how easy is it to get from this branch to something i can install with `puppet module install`?
+20:41 pdurbin      bodepd: Duplicate declaration: File_line[nova_sudoers] is already declared in file /tmp/vagrant-puppet/manifests/site.pp at line 227
+20:41 larsks       semiosis: Yeah, the local use case for OpenStack is actually a little iffy, in my opinion.  But people still want to run some stuff locally, and at least it keeps me off the streets.
+20:42 pdurbin      bodepd: i think you want cinder_sudoers?
+20:45 semiosis     google crimsonfu
+20:45 crimsonfubot https://github.com/crimsonfu
+20:45 semiosis     pdurbin: look what i just did!
+20:46 pdurbin      semiosis: "last updated 18 hours ago"
+20:46 semiosis     i made crimsonfubot do something without giving an @command
+20:47 pdurbin      semiosis: you're so tricky
+20:47 semiosis     someone just accidentally did that to #logstashbot and it blew my mind
+20:47 pdurbin      google semiosis
+20:47 crimsonfubot http://en.wikipedia.org/wiki/Semiosis
+20:48 semiosis     yeah, everyone could use more C.S. Peirce in their life
+20:49 pdurbin      bodepd: pull master from nova? i'm not sure i did this... or what you mean...
+20:50 pdurbin      i'm getting this: ERROR: The server has either erred or is incapable of performing the requested operation. (HTTP 500) (Request-ID: req-d19d4ef2-9686-41e6-8b2b-16585750b2c6)
+20:50 semiosis     pdurbin: even weirder, that google operation doesn't appear in the bot's log
+20:50 pdurbin      ERROR: No server with a name or ID of 'cirros_test_vm' exists.
+20:51 pdurbin      bodepd: (from `bash /tmp/test_nova.sh`)
+20:53 pdurbin      larsks: stay off the streets
+20:53 pdurbin      comptona: down with hand editing
+20:54 comptona     tell me about it :-P
+21:05 agoddard     comptona: seems like folsom's change to UUIDs was across the board, makes docs and some tools freak out
+21:05 comptona     yeah, I imagine so
+21:05 comptona     I think it's a good thing overall, just made my recovery efforts harder
+21:05 agoddard     crimsonfubot: are you able to vote for non-citizens, by proxy.. Are you able to vote at all?
+21:05 crimsonfubot agoddard: Error: "are" is not a valid command.
+21:05 agoddard     crimsonfubot: help me out here brother.
+21:05 crimsonfubot agoddard: Error: There is no command "me out here brother.".
+21:05 * comptona   schedules database backups...
+21:06 agoddard     comptona: ya, it broke knife-openstack too http://tickets.opscode.com/browse/KNIFE_OPENSTACK-13
+21:06 * pdurbin    shakes fist at westmaas
+21:07 comptona     if only I'd known, that would have saved me a lot of digging
+21:08 agoddard     openstack local LVM instance storage is number 1 feature ++ would use again
+21:11 pdurbin      bodepd: `bash /tmp/test_nova.sh` works for you from your redhat_test branch? https://github.com/bodepd/puppetlabs-openstack_dev_env/tree/redhat_test
+21:11 pdurbin      comptona: i know you want to try this
+21:12 westmaas     it changed long before folsom
+21:12 westmaas     but I did actually push for that
+21:14 larsks       agoddard: openstack can use lvm for instance storage?
+21:15 * comptona   tries :-)
+21:17 pdurbin      comptona: thanks. please note the extra steps (env var, proxy): http://irclog.perlgeek.de/crimsonfu/2012-11-06#i_6130190
+21:21 comptona     ugh: Vagrantfile:101:in `forward_port': wrong number of arguments (2 for 3) (ArgumentError)
+21:21 * comptona   goes hunting wabbits^Wupgrades
+21:22 pdurbin      comptona: huh. you seem to have the right file at least. line 101: https://github.com/bodepd/puppetlabs-openstack_dev_env/blob/redhat_test/Vagrantfile#L101
+21:23 comptona     I'm running gem update now; we'll see where that gets me
+21:24 pdurbin      comptona: ok. i use the official vagrant packages. you might need to update virtualbox as well
+21:24 comptona     probably
+21:25 comptona     I don't use vagrant much so I'm sure I have some crazy old version
+21:25 comptona     I set it up to have a local linux box to test the FUSE filesystem I was developing, but that was a while ago
+21:25 * pdurbin    has never developed a filesystem
+21:26 comptona     it was neat; FUSE for amazon cloud drive
+21:26 comptona     but they just recently broke the integration between cloud drive and the music service, so now I don't care :-P
+21:27 comptona     https://github.com/handyman5/acd_fuse
+21:27 pdurbin      sounds like me and anything i've touched with twitter's old api
+22:06 bodepd       pdurbin: yep, that should have been cinder.
+22:07 bodepd       pdurbin: I updated nova, so you need to get the latest version of the module from github.
+22:08 bodepd       that code assumes a proxy on port 3128 of your physical host. You may want to comment that out.
+22:09 bodepd       I'm building again. I'm a little confused that I thought I had tested before, b/c clearly it did not compile.
+22:44 comptona     bodepd: in the keystone module, manifests/config/ldap.pp has the "keystone::ldap" class; this doesn't get picked up by puppet's module autoloading and should be named "keystone::config::ldap"
+22:44 comptona     also, puppetlabs-keystone doesn't have issues enabled ;-)
+22:51 bodepd       will do.
+22:51 bodepd       pushing a fix now.
+22:51 comptona     thanks!
+22:51 bodepd       and adding spec tests~
+22:51 bodepd       !
+22:51 bodepd       I also created #puppet-openstack
+22:51 JoeJulian    dammit, I can't find the work I did on adding urlencode to puppetlabs-stdlib. :(
+22:52 bodepd       I remember seeing that
+22:52 JoeJulian    Well, you saw that I said I was going to submit a pull request, but I never did.
+22:54 JoeJulian    It turned out that one of the bugs I was battling was fixed in trunk for glance. Then I got off on an urgent something-or-other and am finally getting back to it today.
+22:57 bodepd       comptona: pushed a fix
+23:01 comptona     thanks very much
+23:09 bodepd       pdurbin: I pushed a version of that branch that I actually .. umm .. tested this time
+23:21 comptona     well, it seems to be working fine
+23:22 JoeJulian    bodepd: Since I use MariaDB instead of the evil empire's mysql, I had to change the module to use that package. It was suggested that you could have a class attribute that would all different classes to be passed as attributes where specific foreign modules are used.
+23:24 JoeJulian    So in place of 'class {"mysql::server":' you might have 'class {"${dbclass}::server":'
+23:24 bodepd       JoeJulian: I'm really open to that pull request
+23:24 bodepd       you are not the first person to ask
+23:24 bodepd       someone else is using galera for HA
+23:25 JoeJulian    I like the entire idea of using overridable classes and I'm going to add that to all my modules.
+23:32 pdurbin      crimsonfubot: lucky galera mysql
+23:32 crimsonfubot pdurbin: http://codership.com/content/using-galera-cluster
+23:50 jimi_c       jenkins has a vagrant plugin.. w00t! thanks for bringing that to my attention pdurbin
+23:50 jimi_c       now to see how well vbox runs inside a kvm guest...
+23:50 pdurbin      jimi_c: now you're getting nutty ;)
+23:51 pdurbin      bodepd: so, i think i have the latest nova... when i cd modules/nova in my checkout of your repo and run `git log` i see the same commits as https://github.com/puppetlabs/puppetlabs-nova/commits/master
+23:52 pdurbin      but `bash /tmp/test_nova.sh` still doesn't work :( "ERROR: ConnectionRefused: '[Errno 111] Connection refused'"
+23:54 jimi_c       i don't do this enough: "yum install http://.../whatever.rpm"
+23:54 jimi_c       makes life much easier
+23:54 bodepd       pdurbin: running a test now.
+23:55 bodepd       pdurbin: that error message doesnt say enough. have a look in /var/log/nova/{api,scheduler}.log
 </pre></body></html>

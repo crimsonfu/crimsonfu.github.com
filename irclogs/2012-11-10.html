@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:05 jimi_c       pdurbin: what's the easiest way to fixup the ssh key for those images? firing it up in jenkins-vagrant it gives me an error regarding an invalid key
+15:42 pdurbin      jimi_c: i don't have much experience with continous integration but check out bodepd's post about vagrant and travis at https://groups.google.com/a/puppetlabs.com/d/msg/puppet-openstack/abO_o4NmatM/iFmz8wDh5TsJ
+15:43 pdurbin      jimi_c: if you get it working, please let me know!
+16:03 agoddard     pdurbin: ha, nice :)
+16:04 agoddard     I had a guy on IRC offer to help with a config issue with an app, made a quick fork of a repo, added a Vagrantfile and he could reproduce the issue with a full stack running locally, all it took was about 20 lines added to the repo. SoSiq.
+16:05 pdurbin      that's awesome
+16:06 pdurbin      jimi_c: check out this guy who's using cobbler to deploy openstack: http://irclog.perlgeek.de/puppet-openstack/2012-11-08#i_6136743
+16:08 pdurbin      agoddard: dunno if you follow the vagrant guy on twitter, but it looks like he's switching jobs. everybody seems to be hoping he starts Vagrant Inc. :) http://twitter.com/mitchellh/status/267047991674810368
+16:10 agoddard     I'm playing with a few ideas at the moment to change how we ship metrics over a WAN.. we currently rock this with an SSH tunnel, but it's not very stable, so I'm thinking about rockin it with AMQP federation.. now I'm thinking about making a webservice so our international partners can send us their metrics too.. hrmm
+16:11 pdurbin      amqp or zeromq?
+16:11 agoddard     I think the logic is already baked into rabbitmq, not sure what other tooling I'd have to add with 0mq
+16:12 agoddard     pdurbin: I for some reason don't follow him, but I see him everywhere. /me starts following him
+16:12 * pdurbin    is somewhat mesmerized by this gangnam style twitter avatar: http://a0.twimg.com/profile_images/2530607513/ezsqisi9ghmledbihcg7_reasonably_small.gif
+16:13 agoddard     haha
+16:14 pdurbin      i've said this before but the guy who invented amqp also invented zeromq. he says he wouldn't use recent versions of amqp. this was all in a floss weekly interview
+16:14 agoddard     crimsonfubot: weather 02543
+16:14 crimsonfubot agoddard: Error: "weather" is not a valid command.
+16:14 agoddard     damn
+16:14 agoddard     crimsonfubot and I don't seem to get along much :)
+16:14 crimsonfubot agoddard: Error: "and" is not a valid command.
+16:14 agoddard     grrr
+16:15 pdurbin      agoddard: patches welcome to crimsonfubot! these days the config is here: https://github.com/pdurbin/greptilian-vagrant
+16:15 agoddard     :)
+16:15 pdurbin      but i should switch crimsonfubot to hubot anyway
+16:18 pdurbin      does anyone connect from a mac to a screen+irssi session? i have to type ctrl-h to backspace... esc-a to switch channels. something with mac keybindings. i don't have these problems on linux
+16:18 * pdurbin    should get off his wife's imac anyway and bring his six year old to ballet
+16:18 * pdurbin    waves
+16:18 agoddard     have a good one :)
+19:21 jimi_c       pdurbin: ooh, interesting, i'll definitely see if there's any work in there i can pull in
+19:21 jimi_c       i have been working on static networking snippets for deb/ubuntu actually
+</pre></body></html>
