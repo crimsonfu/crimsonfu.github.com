@@ -12,7 +12,7 @@ The following procedure worked for me:
 
 2. Install [Lightning](https://www.mozilla.org/projects/calendar/lightning/).
 
-3. Install the [Lightning Exchange Provider](http://gitorious.org/lightning-exchange-provider/pages/Home).
+3. Install the [Lightning Exchange Provider](http://www.1st-setup.nl/wordpress/?page_id=133).
 
 4. Now comes the fun part: telling Lightning how to talk to your Exchange server!  These notes are specifically for Harvard folks, but users of other Exchange installations can swap in their site-specific information.
 
