@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:07 miah         guh. spending too much time in the django docs today.
+00:37 miah         guh. finally. got my bugs cleared up.
+02:49 pdurbin      uh oh. Mark Crispin is terminally ill :( https://www.ietf.org/mail-archive/web/imap5/current/msg00571.html
+13:38 jimi_c__     I love newegg... I ordered those servers yesterday and they're out for delivery today even though I did 3 day shipping
+13:43 rackerhacker jimi_c: do you live close to one of their warehouses?
+13:47 pdurbin      jimi_c: right, your http://www.indiegogo.com/cobbler24 campaign via http://irclog.perlgeek.de/crimsonfu/2012-11-25#i_6183459 , cool
+13:47 pdurbin      jimi_c: is all your jenkins config going to be open source? are you going to publish your puppet code or what not?
+13:49 pdurbin      jimi_c: and will the jenkins installation be public like http://jenkins.saltstack.org ?
+13:50 pdurbin      oooo, salty vagrant - https://github.com/saltstack/salty-vagrant
+13:52 simmel       cool
+13:54 jimi_c       pdurbin: yes, i'll put the jenkins config in the git repo with the code, and yes i hope to have the build status publically available
+13:54 pdurbin      jimi_c: cool. if you can figure out if the config for http://jenkins.saltstack.org is out there, please let me know
+13:56 * pdurbin    asks in #salt
+16:40 pdurbin      HPCwire: Slurm Used on the Fastest of the TOP500 Supercomputers - http://www.hpcwire.com/hpcwire/2012-11-21/slurm_used_on_the_fastest_of_the_top500_supercomputers.html
+16:50 pdurbin      "Cloud-building Fedora 18 goes into beta: OpenStack and Eucalyptus included, OpenShift on the way" -- http://www.theregister.co.uk/2012/11/27/red_hat_fedora_18_beta/
+18:41 miah         moin
+18:45 pdurbin      miah: west coast is just getting up
+18:47 miah         lol. nah. ive been up for a few hours. but just got into work like 20 minutes ago.. ~10:30
+19:30 * pdurbin    glances at Best Practical: What's New in 4: Fast full-text searching - http://blog.bestpractical.com/2011/06/full-text-searching.html
+20:58 sjoeboo_     so, I've got a couple iscsi luns, string together w/ mdadm. need to mount that md device on boot...._netdev seems to be failing me....anyone have some thoughts?
+21:09 pdurbin      sjoeboo_: this is kind of the problem, right? Preventing a RAID device from starting until all disks are ready - http://board.issociate.de/thread/506258/Preventing-a-RAID-device-from-starting-until-all-disks-are-ready.html
+21:11 sjoeboo_     roughly, yes
+21:11 sjoeboo_     not sure yet whats stopping it, if needs bits are not up yet, or if it simply isn't aut assembling the raid device
+21:12 sjoeboo_     currently reboot will give me a better idea
+21:13 pdurbin      this might be helpful: raid - Can you disable automatic mdadm startup? - Server Fault - http://serverfault.com/questions/313548/can-you-disable-automatic-mdadm-startup
+21:28 miah         sjoeboo_: are you using mpath at all or just using the devices directly?
+21:28 sjoeboo_     mpath
+21:29 sjoeboo_     i have/had the uuid in mdadm.conf, now i'm going to try jsut putting in the mpath device names, those won't change
+21:29 miah         i would assume you can do something in your settings there that will help then. its been a while since i dealt with mpath directly though.
+21:29 miah         ya
+21:30 miah         (even longer since i dealt with iscsi)
+22:40 magoo_       firefox is making me fucking rage
+22:50 codex        I was just able to buy a Nexus 4 by automating the trying to checkout
+22:50 codex        it took a bit &gt;100 tries
+22:50 * codex      -&gt; win
+22:51 magoo_       haha, i just realized i typed that in the wrong room - the statement still stands though
+22:57 codex        miah: that sucks (just read up about goatcheese.org :))
+22:58 miah         ah ya
+22:58 miah         i lost it in ~2001
+22:58 miah         back when to prove ownership you had to _fax_ in a form
+22:58 miah         the form had a upc on it so they could tie it to your ticket
+22:59 miah         so they kept claiming they never received my fax
+22:59 miah         or that they were unable to locate it
+22:59 miah         i offered to take a digital photo and they refused. i suppose that technology was 'too new' then still =)
+23:00 miah         anyways. lesson learned: never give network solutions your money
+23:00 miah         thankfully there are other registrars these days
+23:03 miah         woo. i just did awesome things to my graphite cookbook. now to do some more testing and hacking for a new release.
+23:03 miah         lwrp around carbon_cache instances
+23:03 miah         starting to build a lwrp around the config file
+</pre></body></html>

@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:01 JoeJulian    Lol! "The outage extinguished traffic lights during rush hour. Police suggested people seek alternate routes." Really? Is that possible? I thought "all roads lead to Boston". :D
+03:44 pdurbin      simmel: sorry, missed your comments earlier. flipping the logstash query from 15 minutes to 4 hours did allow me to see the data
+03:45 pdurbin      and i don't control the money at work (thankfully) but someone else is already paying for splunk or something
+03:45 pdurbin      but i certainly do understand that splunk is expensive
+03:46 pdurbin      and anyway, as i mentioned the other day, i'm moving on from my current job (next friday is my last day) so i dunno if i'll really be using splunk (or logstash) in the near future or not. we'll see :)
+03:47 pdurbin      but that's not why i jumped in here
+03:48 pdurbin      just noticed and read this... that the vagrant guy started his own company: Announcing HashiCorp - http://www.hashicorp.com/blog/announcing-hashicorp.html
+03:48 pdurbin      which is pretty awesome
+03:48 pdurbin      hmm, no shuff
+03:48 pdurbin      he was asking about non-VirtualBox with Vagrant
+03:48 pdurbin      that blog post says "On the product development front, the separation of Vagrant from VirtualBox will be a reality soon. I have a working proof of concept of Vagrant powering VMWare Fusion, with support for vSphere and Workstation to follow. The interface to build these providers is open and will be fully documented – the open source community will have all it needs to build providers for AWS, KVM, LXC, and more. Expect an update January 2013."
+03:49 pdurbin      so that's cool
+03:50 pdurbin      sounds like he's going for an "open core" business model: "HashiCorp will build commercial plugins, i.e. paid add-ons, for Vagrant. This plugin system is already completely open source and will be fully documented, so that everyone has the same access to the interfaces HashiCorp will use. The paid add-ons HashiCorp will develop are for augmenting Vagrant in a non-fundamental way, and to improve what it can already do."
+03:51 pdurbin      it'll be interesting to see what those plugins do
+03:53 * pdurbin    congratulats the vagrant guy (michellh): http://irclogger.com/.vagrant/2012-11-29#1354247531
+03:54 pdurbin      congratulates
+03:59 pdurbin      not a lot of chatter in #vagrant about the announcement
+04:15 miah         ya
+04:15 miah         https://github.com/hoteltonight/vagrant-dsl
+04:15 miah         my coworker did this
+04:19 pdurbin      interesting... but... why not just use puppet or chef with `vagrant provision`?
+04:28 ironcamel    pdurbin: what is the advantage of irc over jabber conference rooms (group chat) for work communication
+04:29 pdurbin      group chat is bolted on to jabber. it wasn't part of the original spec
+04:31 ironcamel    kind of like multitasking on iphone
+04:31 pdurbin      heh. exactly
+04:32 pdurbin      (heh because http://irclog.greptilian.com/sourcefu/2012-11-30#i_2357561 )
+04:37 pdurbin      ironcamel: i think jabber is fine. i've used it for over 6 years at work. always openfire (which someone has set up already)
+04:37 pdurbin      and group chat works great. but i end up logging locally
+04:37 pdurbin      i know there are logs on the server somewhere
+04:37 pdurbin      but i think they're in xml
+04:38 pdurbin      probably presented in a readable format in some web gui
+04:38 pdurbin      i dunno, i never log into that web gui
+04:38 pdurbin      which is nice in a way. it means it "just works"
+04:39 ironcamel    who cares about server side logging
+04:39 pdurbin      but i'm not sure how to get decent centralized logging with openfire
+04:39 pdurbin      i'm quite happy with ilbot, which is used for this channel and now #sourcefu
+04:39 pdurbin      links are clickable. permalinks (with highlighting) per line
+04:39 pdurbin      very nice
+04:40 ironcamel    i guess it doesn't matter to me because my session never dies and i'm logging locally. i use the irssi xmpp plugin. run irssi inside a screen session on a cloud server.
+04:40 pdurbin      i owe moritz a pull request: http://irclog.perlgeek.de/ilbot/2012-11-29#i_6195934
+04:41 pdurbin      i take it you have a way to back up your local logs
+04:41 ironcamel    no
+04:42 ironcamel    do you mean like log rotate? i do that manually once a year or something
+04:42 pdurbin      i really like having _ilbot around to log for me (philbot in #sourcefu). i'd be afraid my local logs would be incomplete, that i'd miss something. i guess i'm a completionist
+04:43 pdurbin      no, not log rotate. i'm all about data liberation and preservation
+04:43 ironcamel    and i only do it for log files that are very huge, which are not my work related rooms
+04:43 ironcamel    liberation?
+04:43 pdurbin      so my new job at http://thedata.org should be interesting
+04:44 ironcamel    i don't want my work chat logs to be liberated, hehe
+04:44 pdurbin      https://github.com/pdurbin/data-liberation-shapado
+04:44 ironcamel    a lot of dirty and inappropriate jokes go on in there
+04:44 pdurbin      crimsonfubot: lucky data liberation front
+04:44 crimsonfubot pdurbin: http://www.dataliberation.org/
+04:44 pdurbin      yeah, i'm not really one for the locker room talk
+04:48 ironcamel    even so, work communications belongs to my employer. they go the great lengths to keep it secure.
+04:48 ironcamel    *to great lengths
+04:52 pdurbin      lock up those dirty jokes ;)
+04:52 pdurbin      no, i get it :)
+04:58 miah         pdurbin: this allows us to build out rake tasks =)
+04:58 miah         https://github.com/hoteltonight/chef-workflow-tasklib
+04:59 miah         mostly so we can drive with this =)
+04:59 pdurbin      ok. i'm not really into rake. but cool
+04:59 pdurbin      miah: you gotta talk to agoddard about chef. he's so into it
+05:00 miah         i know
+05:00 miah         i met him at chefconf
+05:05 pdurbin      cool
+05:06 pdurbin      sjoeboo: he's swinging by the office tomorrow
+05:06 pdurbin      usually he's a couple hours away. i stopped by to say hi over the summer
+05:11 pdurbin      having a long chat with mitchellh in #vagrant
+05:12 pdurbin      jeez, it rolled over to the next day: http://irclogger.com/.vagrant/2012-11-30
+05:12 * pdurbin    yawns
+05:17 pdurbin      ironcamel: are you "blown away" by vagrant? http://irclogger.com/.vagrant/2012-11-30#1354252580
+05:17 pdurbin      of course you are
+05:17 pdurbin      magoo_: ^^
+05:31 magoo_       he's blown away, i assure you
+06:14 ironcamel    westmaas: http://www.wired.com/wiredenterprise/2012/11/amazon-v-google/ ... OpenStack services are a step below what you get from Amazon. “I don’t see any reason to choose Rackspace. AWS is superior in every way that counts,” he says — though he adds that he hopes this will change.
+06:14 ironcamel    westmaas: that is provably false right?
+06:23 ironcamel    westmaas: https://plus.google.com/u/0/109710815417568411564/posts/R7ZYdzvH8jf
+06:24 ironcamel    i'm always looking out for my favorite director
+06:26 ironcamel    the quote is from the guy that runs Scalr
+06:27 ironcamel    remember when you guys denied OpenStack membership to Scalr because it wasn't written in Python, haha
+06:28 ironcamel    that was kinda funny and kinda sad at the same time
+06:30 ironcamel    to some degree that was a reflection of the closed minded culture. which otherwise was really good.
+06:33 ironcamel    "According to benchmarks run by Scalr, virtual servers boot 4 to 10 times faster than on EC2, and in some cases, you can move data onto Google’s services as much as 20 times faster."
+14:51 pdurbin      ironcamel: ask us about openstack in an hour. a bunch of here are about to have a meeting :)
+16:51 agoddard     larsks: I think I might have been wrong about the ssh'ing of instances - only 'cause I can't find the log now, though there's like still a 5% chance I was right... needs research :)
+17:00 pdurbin      agoddard: you were thinking of cloudstack?
+17:00 agoddard     larsks: ahh, actually, the 5% might be correct..
+17:00 agoddard     but my logs have rotated away
+17:00 agoddard     pdurbin: remembering it now, I'm pretty sure it was OS
+17:01 agoddard     I changed a flavor and there wasn't sufficient resources on the host, so it tried to migrate it (I'm pretty sure) and threw an ssh key error trying to move the instance storage. don't quote me, but worth investigating.
+17:10 agoddard     vindicated! I was right :) https://gist.github.com/2f482d5ac8d286402b7f
+17:10 agoddard     larsks: ^
+17:11 larsks       Wacky.
+17:11 agoddard     ya, I was all 0_o
+17:12 pdurbin      agoddard: westmaas works on nova: https://launchpad.net/~westmaas
+17:12 agoddard     schweet.
+17:12 agoddard     I gotta go again, meeting lunch abaout to start
+18:22 pdurbin      agoddard: good lunch. thanks :)
+18:36 * pdurbin    looks at keystone + shibboleth stuff: https://answers.launchpad.net/keystone/+question/190859
+18:36 pdurbin      simmel: you use shibboleth, unless i'm forgetting... i wonder if you're looking at openstack
+21:21 pdurbin      JoeJulian: thanks for the gluster/kvm fu: http://irclog.perlgeek.de/gluster/2012-11-30#i_6201651
+22:45 ironcamel    pdurbin: westmaas knows all about shibboleth
+22:46 westmaas     true story
+22:46 westmaas     everything
+23:10 * pdurbin    remains skeptical
+23:26 ironcamel    me and westmaas worked on a project together and he very impressively got shibboleth up and running. deploying java applications is harder than writing them from scratch.
+23:26 westmaas     lol
+23:27 westmaas     yeah, I forget what I had working exactly
+23:27 westmaas     couple diff web pages
+23:27 westmaas     fancy stuff
+</pre></body></html>

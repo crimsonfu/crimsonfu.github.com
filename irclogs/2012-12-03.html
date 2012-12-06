@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:53 pdurbin_m    larsks: yup. my friend... git add -p: The most powerful git feature you’re not using yet | John Kary - http://johnkary.net/git-add-p-the-most-powerful-git-feature-youre-not-using-yet/
+01:55 pdurbin_m    http://irclog.perlgeek.de/crimsonfu/2012-11-20#i_6170813
+07:28 simmel       pdurbin: heh, everyone in the .edu sector uses shibboleth = )
+07:29 simmel       pdurbin: Esp. if you
+07:29 simmel       pdurbin: Esp. if you want people at other instutions to get access to your openstack
+07:30 simmel       pdurbin: You'd just Shib your "cloud" and setup which universities/departments to allow in and they'll get access (and even filter on if they are employees or have a special attribute)
+07:31 simmel       pdurbin: For web auth, Shibboleth is clearly superiour. Set up once, use forever.
+07:31 simmel       (and with everyone)
+14:15 pdurbin      simmel: ok, good to know edu's use shibboleth. thanks
+14:54 pdurbin      chatting about changing our build-a-vm wrapper script to call `virt-install` directly rather than `koan`. that's what koan seems to do ultimately, anyway, but it limits the parameters you can pass. we could stop using our patched version: https://github.com/fasrc/cobbler/commit/5c54113
+18:01 pdurbin      crimsonfubot: lucky monitorama boston
+18:01 crimsonfubot pdurbin: http://monitorama.com/
+18:02 pdurbin      crimsonfubot: lucky sensu monitoring
+18:02 crimsonfubot pdurbin: http://www.sonian.com/cloud-monitoring-sensu/
+18:02 pdurbin      crimsonfubot: lucky easybuild python
+18:02 crimsonfubot pdurbin: http://pypi.python.org/pypi/easybuild
+18:03 pdurbin      whorka: ^^
+18:04 whorka       thanks pdurbin. we'll need a replacement for Opsview most likely.
+18:29 pdurbin      agoddard: omg i love your internal openstack codenames!
+18:51 miah         hi
+18:52 pdurbin      hi
+19:19 pdurbin      ah cool. the script i mentioned is up already: https://github.com/sjoeboo/vm_builder/blob/master/vm_builder.rb
+19:45 pdurbin      hmm, "cli scripts for using Request Tracker" -- https://github.com/fasrc/rtcli ... this is new...
+19:46 pdurbin      dotplus: ^^
+19:58 dotplus      pdurbin: hm? what am I looking at here? The README is empty. At first glance, this is a wrapper/pretty printer for rt's cli? perhaps I need to look harder but I don't see what this is trying to achieve.
+20:00 pdurbin      dotplus: that's what it looks like to me too
+20:01 pdurbin      i didn't realize https://github.com/jabrcx was working on this
+20:02 pdurbin      anyway, might be useful to someone
+20:02 pdurbin      i certainly don't plan to publish my fugly perl scripts that do similar things :)
+20:04 pdurbin      soon i'll need to keep track of both rt tickets and redmine. i haven't worked with the redmine api yet
+20:11 dotplus      our scripted rt usage is using the rest api or the perl api directly. $dev &amp; I are the only ones using the cli, and that not heavily.
+20:13 agoddard     pdurbin: awww :)
+20:13 agoddard     guess what falcon is named after?
+20:19 pdurbin      agoddard: some boat?
+20:20 agoddard     pdurbin: http://en.wikipedia.org/wiki/Robert_Falcon_Scott &lt; kept a good log :0
+20:20 agoddard     :)
+20:21 pdurbin      i like logs :)
+20:21 pdurbin      dotplus: do you use http://search.cpan.org/dist/RT-Client-REST/ ?
+20:24 pdurbin      "Xpra is 'screen for X': it allows you to run X programs, usually on a remote host, direct their display to your local machine, and then to disconnect from these programs and reconnect from the same or another machine, without losing any state." -- http://xpra.org
+20:49 pdurbin      wow, it actually works
+20:49 pdurbin      i sure hope my boss make a blog post
+20:50 pdurbin      no need for NX (nomachine)... no need for VNC... xpra ftw!
+20:50 whorka       hmm, rootless remote gui application exec with disconnect/reconnect. that's been on our feature request list for a while.
+20:51 pdurbin      whorka: you need xpra
+20:51 pdurbin      no client!
+20:51 pdurbin      well, no special client
+20:51 pdurbin      just works
+20:51 larsks       xpra: "This project is in deep hibernation; I haven't had time to devote for several years now.
+20:51 whorka       I wonder if the Windows version needs a separate X server or if its built in.
+20:51 larsks       "
+20:51 larsks       Scared o' that...
+20:52 pdurbin      meh!
+20:52 pdurbin      ;)
+20:52 larsks       Ah, wait, that's for partiwm, which links to xpra.org...
+20:52 whorka       larsks you're looking at the project it was forked from, for that reason
+20:53 larsks       Yus, had just noticed that :)
+21:07 dotplus      pdurbin: yes we use that.
+21:14 pdurbin      dotplus: ok, cool. i was using it for a bit but it's faster to hit the api once with `rt` for my use case
+21:14 pdurbin      or something :)
+21:17 raprasad     anyone go to the CS50 fair today?
+21:17 raprasad     forgot about it..there's about 10 minutes left
+21:17 pdurbin      nope :(
+21:18 pdurbin      where's my racktables api? https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+21:19 pdurbin      whorka: i should clarify... xpra is for your users for whom "screen for X" means something :)
+21:24 * dotplus    hands xpra.org to former-coworker @cmu.edu
+21:39 pdurbin      :)
+21:40 pdurbin      now i just need to think of a reason to run an x11 app on my home server...
+21:40 pdurbin      hmm...
+21:40 pdurbin      thinking...
+</pre></body></html>

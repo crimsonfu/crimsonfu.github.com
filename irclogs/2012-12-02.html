@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+02:27 pdurbin_m    http://bendyworks.com/geekville/lab_projects/2012/11/getting-plan-9-running-on-the-raspberry-pi
+02:39 pdurbin_m    heh. two retweets already
+02:40 pdurbin_m    people like their plan 9, I guess
+03:11 pdurbin      i take back what i said at http://irclog.perlgeek.de/crimsonfu/2012-12-01#i_6203205 ... i went ahead and renumbered my irclog database id's with ... set @a=0; update irclog set id=(@a:=@a+1);
+03:12 pdurbin      as i mentioned at http://irclog.perlgeek.de/ilbot/2012-12-02#i_6204142 i found the fu here: sql - How to renumber primary index - Stack Overflow - http://stackoverflow.com/questions/2643371/how-to-renumber-primary-index
+03:13 pdurbin      oh and i did a restore of the backup from the puppetlabs mysql::backup. works fine. easy. ran this: bzcat mysql_backup_20121201-215239.sql.bz2 | mysql
+03:14 pdurbin      i'm sure the people who chose these flags to mysqldump know them better than i do: https://github.com/puppetlabs/puppetlabs-mysql/blob/master/templates/mysqlbackup.sh.erb
+03:17 pdurbin      hmm... i don't see any sort of rotation in place though...
+12:24 pdurbin      uh oh. my 3 year old wants this linux laptop for tuxpaint
+19:14 simmel       pdurbin: yes, no im not. why do you ask? (we use vmware and pretty soon vcloud)
+21:53 pdurbin      simmel: i was asking about shibboleth at http://irclog.perlgeek.de/crimsonfu/2012-11-30#i_6200943 because i had just come from a meeting and it came up in the context of openstack. i don't know much about shibboleth, actually, but maybe it could be useful in letting people log into a private cloud. anyway, it sounds like westmaas knows all about shibboleth, which is good :)
+21:55 westmaas     haha really don't
+21:55 westmaas     got it setup during a weeklong hackathon 3 years ago :)
+21:55 pdurbin      westmaas: meh. good enough :)
+21:55 westmaas     lol
+21:57 pdurbin      westmaas: does shibboleth make sense in the context of openstack? would it be useful to let people who wouldn't ordinarily have accounts log in or something?
+21:57 pdurbin      i feel like i've heard of shibboleth for 10 years but have never known anyone who uses it
+21:58 pdurbin      crimsonfubot: lucky shibboleth authentication
+21:58 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/Shibboleth_(Internet2)
+21:59 pdurbin      yeah, some other department does this stuff, generally. identity management
+21:59 pdurbin      good to know what's out there though
+21:59 westmaas     I suppose it could - I just don't know what you are gaining exactly
+21:59 westmaas     oh is it that you already have SSOs, and you want to use that to auth
+22:00 pdurbin      i dunno
+22:00 pdurbin      larsks: you've already cooked up some nice integration in your openstack for auth
+22:01 westmaas     I bet they support LDAP auth, which keystone can back into, then you set up the right groups in keystone and are all set
+22:02 pdurbin      this might be it: https://github.com/seas-computing/cloudusers
+22:03 pdurbin      the problem is when you have a bajillion departments each with their own LDAP ;)
+22:03 westmaas     ooh, lots of different authn authorities it looks like
+22:03 westmaas     yea
+22:04 pdurbin      anyway :)
+22:04 westmaas     for the number of auth calls that openstack does, I'd recommend trying to avoid going through multiphase shiboleth auth for each one if possible
+22:04 westmaas     though I could be misremembering details!
+22:07 pdurbin      here be dragons
+22:08 pdurbin      i mean, openstack is designed for ISPs, right? so either you're a customer in their database or you're not
+22:08 pdurbin      no confusion. single auth system
+22:12 westmaas     not just for ISPs, but yes, it does assume a single auth system
+22:13 westmaas     I wonder if keystone could have a shibboleth backend actually
+22:13 westmaas     now that I think about it, the way it'd work is the auth would be done, and a token created
+22:13 westmaas     and then everything after that would be fast
+22:14 westmaas     https://answers.launchpad.net/keystone/+question/190859
+22:15 westmaas     and looks like there is a modification to the keystone/swift stack called "colony" that did actually modify keystone to auth to shibboleth
+22:16 westmaas     http://wiki.openstack.org/Keystone/Federation/Blueprint
+22:17 westmaas     from: https://www.terena.org/mail-archives/tf-emc2/msg02285.html
+22:17 westmaas     looks like next release is intended to support federated auth
+22:25 pdurbin      westmaas: cool, thanks
+22:26 pdurbin      sorry, distracted. throwing a couple of these in my cart. seem fast (class 10), cheap, and big enough. microsd cards: Amazon.com: AmazonBasics 16 GB microSDHC Class 10 Flash Memory Card with SD Adapter: Electronics - http://www.amazon.com/gp/product/B0058GH4U0/ref=ox_sc_act_title_1?ie=UTF8&amp;smid=ATVPDKIKX0DER
+22:27 pdurbin      note sure i'd hear of AmazonBasics before... AmazonBasics: Bezos and Co. starts private-label consumer electronics line - http://www.engadget.com/2009/09/20/amazonbasics-bezos-and-co-starts-private-label-consumer-electr/
+22:28 pdurbin      heard
+</pre></body></html>

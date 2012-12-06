@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:02 larsks       Geez, I'm reading https://juju.ubuntu.com/ and I still don't know what it does :(.
+00:03 JoeJulian    I was just thinking the same thing.
+00:06 jimi_c       well ostensibly it seems like they do very similar things, juju seems more container oriented than app though, which i actually like
+00:06 jimi_c       more akin to heroku i think
+00:06 jimi_c       openshift origin, to me, is just very buggy still since it started as closed source and they've had a lot of issues getting the docs opened up
+00:08 semiosis     i was under the impression juju was config management
+00:08 larsks       Sounds interesting.
+00:08 semiosis     but never really looked into it, so what do i know
+00:08 jimi_c       no, it's a complete deployment system. 1) juju deploy mysql 2) juju deploy wordpress 3) juju associate wordpress mysql &lt;- bam you have an environment in 3 commands
+00:08 larsks       Yeah, the web page talks about installable components and server orchestration...which sounds less like openshift and more like, I don't know, salt or puppet or something.
+00:09 jimi_c       "charms" are just pre-packaged components you can deploy. I was digging through the github repo for them today and they seem ridiculously easy to write, very similar to openshift's where you have script hooks that get executed
+00:10 larsks       I will have to go explore.
+00:26 larsks       So...yeah, juju looks much more like a configuration management tool than it does like openshift.  That is, openshift is an application hosting solution, while juju seems designed to provision virtual instances on a cloud infrastructure of your choice.
+00:27 larsks       More like envy or vagrant or something.
+00:35 jimi_c       it's kind of both - it provisions the machine/container and deploys the app
+01:31 pdurbin      semiosis: you get a gold star for being the first to bring up juju: http://irclog.perlgeek.de/crimsonfu/2012-10-16#i_6068179
+01:32 semiosis     \o/
+01:37 semiosis     i'd happily trade in that gold star for some puppet support right now
+01:38 semiosis     two issues with an exec resource
+01:39 semiosis     1. the command is "/foo/bar &amp;&gt; /foo/logs/bar" and when i run that from the command line it's great, but when puppet runs it, /foo/logs/bar gets created but not written to (zero-length)
+01:40 semiosis     2. the script, /foo/bar, exits with 0 (success) if apache needs to be reloaded, and exits nonzero if there's no change for apache.  the goal is that the exec resource will only notify apache when necessary, but puppet sees any exit status as successful, contrary to the docs :(
+01:58 * semiosis   asks hard questions :(
+01:59 semiosis     puppet gives me the same feeling as web development... hacks layered on top of hacks, layered on top of....
+01:59 semiosis     read the manual, "Oh yeah, that's what i want..." try it, fail, research, find out everyone uses a hackey workaround for the broken feature
+02:00 semiosis     amazed whenever things work as described
+02:00 semiosis     cherishing the moment
+02:18 semiosis     thanks to nevyn in #puppet the solution to both problems is to wrap the command as in: bash -c "/foo/bar &amp;&gt; /foo/logs/bar"
+02:19 semiosis     doing that lets output direction work and the status code is correctly detected too
+02:19 pdurbin_m    don't you want onlyif? http://www.puppetcookbook.com/posts/exec-onlyif.html
+02:20 pdurbin_m    ah. you have a fix. great
+02:25 jimi_c       isn't there an option for an exec statement to open up a shell?
+02:26 semiosis     thanks to nevyn in #puppet the solution to both problems is to wrap the command as in: bash -c "/foo/bar &amp;&gt; /foo/logs/bar"
+02:26 semiosis     (repeated that for pdurbin_m)
+02:26 semiosis     jimi_c: apparently not?
+02:27 semiosis     pdurbin_m: re: onlyif, this command runs every time puppet runs, and puppet reads the exit code :)
+02:28 jimi_c       @semiosis: you can set provider=shell, not sure if that'd work or not but it seems like it would
+02:28 crimsonfubot jimi_c: Error: "semiosis:" is not a valid command.
+02:29 semiosis     jimi_c: ooh
+02:29 semiosis     hahaha, bots
+02:29 jimi_c       heh yeah i forget in here sometimes... using @ is an ingrained habit
+14:59 pdurbin      sjoeboo: i'm asking in ##infra-talk if people use and love RackTables - http://racktables.org
+15:10 semiosis     pdurbin: ah yes, good point, i could put my script in the onlyif and make the apache reload the main command of this exec
+15:11 semiosis     that would eliminate the failure-is-normal i had set up
+15:11 semiosis     much better!
+15:11 pdurbin      semiosis: see? ;)
+15:11 jimi_c       i was also curious if provider =&gt; shell worked
+15:11 semiosis     yeah, it was late, i was in a rush... not thinking straight or reading well :O
+15:12 semiosis     jimi_c: yeah you're spot on with that, i didnt read the provider section!
+15:12 semiosis     going to try it right now
+15:12 semiosis     re-read it after you pointed that out and it's clearly the issue with my exec
+15:13 semiosis     hopefully the provider applies to the onlyif like it does the main command
+15:14 jimi_c       yeah it should
+15:14 semiosis     and if it doesnt, bash -c :)
+15:15 semiosis     nice to have that workaround in my back pocket
+15:15 pdurbin      absolutely
+15:15 pdurbin      semiosis: thanks for sharing
+15:16 semiosis     oh my pleasure, thanks for helping!
+15:19 pdurbin      sjoeboo: Collins - Infrastructure Management for Engineers - http://tumblr.github.com/collins/ via https://github.com/cwebberops
+15:21 sjoeboo      looks pretty nice
+15:22 sjoeboo      but again, wants to be jack of all trades, i just want physical managment (do one things and do it well)
+15:22 sjoeboo      so many tools now want to do the whole thing
+15:22 pdurbin      agreed
+15:22 pdurbin      but let's not write out own :)
+15:22 sjoeboo      oh, yeah, of course
+15:22 pdurbin      our
+15:27 semiosis     jimi_c: provider=&gt;shell does apply to both command &amp; onlyif, however it uses /bin/sh (dash) so my a &amp;&gt; b backgrounded a and created/truncated b... had to change to a &gt; b 2&gt;&amp;1
+15:28 semiosis     pdurbin: ^^
+15:28 jimi_c       interesting, yeah i guess if you're on a deb/ubuntu distro, on redhat clones that'd be bash
+15:28 pdurbin      interesting. semiosis, you have more puppet fu than i do. relative newbie here
+15:29 pdurbin      i only discovered onlyif because i was trying to download a file onlyif i hadn't already downloaded it :)
+15:29 jimi_c       you could add a file directive to symlink /bin/sh to /bin/bash, then add an Exec[ requires =&gt; thatfile ] in your top level manifest :)
+15:29 semiosis     pdurbin: ah that's what creates is for
+15:29 jimi_c       oh puppet hackishness....
+15:29 semiosis     jimi_c: NO!
+15:29 pdurbin      semiosis: creates? link?
+15:29 semiosis     :)
+15:30 semiosis     pdurbin: http://docs.puppetlabs.com/references/latest/type.html#exec
+15:30 semiosis     "A file to look for before running the command. The command will only run if the file doesn’t exist."
+15:31 pdurbin      semiosis: hmm, "creates" seems way better than my terrible hack: https://github.com/pdurbin/dvn-vagrant/tree/master/modules/downloads . thanks!
+15:31 semiosis     yw
+15:33 semiosis     ah well your hack actually has some merit... creates only checks for existence, but you're checking that you have the "right" file, which may save you in some weird situations
+15:33 pdurbin      i got excited when i read "Values can be URIs pointing to remote files" in the "source" part of http://docs.puppetlabs.com/references/latest/type.html#file but "source" won't work for http. there's an issue for this
+15:33 semiosis     maybe it's possible for wget to fail somehow and leave an empty file with the -O name
+15:34 pdurbin      Feature #5783: support HTTP(S) URL as the file 'source' - Puppet - Puppet Labs - http://projects.puppetlabs.com/issues/5783
+15:34 semiosis     oh wait you're using -O-, hmmm
+15:35 semiosis     yeah, iirc source only supports file &amp; puppet schemes
+15:35 semiosis     been a while since i've looked at that though
+15:35 pdurbin      would be great if source supported any http download
+15:36 semiosis     some would say external dependencies like that are bad
+15:37 semiosis     but i think most people do it anyway (i do too)
+15:37 semiosis     i have had instances fail to provision because the ubuntu repos are overloaded and i have puppet run apt-get dist-upgrade on first boot :D
+15:41 pdurbin      well, that's why i'm using stages. eventually stage 1 (download) should be successful and the rest of the provisioning can continue
+15:55 larsks       Fixed the annoying issue we've been having  with OpenStack in which automatically assigned ips take 30 minutes to show up.
+15:55 pdurbin      larsks: long time to wait!
+15:56 larsks       Seriously.  It made our show-and-tell presentations sort of embarassing ("...and then go get a coffee or something because there's this bug, see...")
+15:56 pdurbin      lol. poor you :(
+15:56 pdurbin      glad you found a fix
+16:33 simmel       Yeah you do pdurbin, antoon_i is a swede = )
+16:33 simmel       antoon_i: Are there any more channels that you are in that I should hang out in? = )
+16:34 pdurbin      antoon_i: whoops
+16:34 dotplus      so currently in this environment, I'm provisioning "by hand" with a process that looks like: create a LUN on the NAS, use virsh pool-{define,refresh} to tell a kvmhost about the new LUN, determine available MAC/IP addresses, modify the dhcpd puppet module, determine cpu/memory availability/requirements, use virt-install to deploy a new VM as far as running puppet which then takes care of the rest.
+16:35 dotplus      This is great, really it is. It's so far ahead of traditional IT that it's awesome by comparison.
+16:35 pdurbin      dotplus: yes, we remember, vaguely ;)
+16:35 dotplus      But it still feels rather behind the curve.
+16:35 pdurbin      jimi_c: dotplus needs cobbler or similar
+16:36 * pdurbin    gets a ton of mileage out of `koan` - kickstart over a network
+16:36 pdurbin      crimsonfubot: lucky cobbler koan
+16:36 dotplus      I think the next step is automating the provisioning of network/storage/deployment and I'm not sure whether that's cobbler or mumblestack or something.
+16:36 crimsonfubot pdurbin: http://linux.die.net/man/1/koan
+16:37 pdurbin      crimsonfubot: lucky mumblestack
+16:37 crimsonfubot pdurbin: http://cs.nyu.edu/courses/fall10/V22.0101-001/Lectures/LinkedLists/Eval5.java
+16:37 pdurbin      bad crimsonfubot
+16:37 dotplus      ha, by that I just meant Cloudstack/opentstack/whatever.
+16:38 pdurbin      oh
+16:45 pdurbin      good crimsonfubot
+17:15 dotplus      wow, the cobbler manual on github is rather incomplete. several empty stubs and so on.
+17:58 pdurbin      dotplus: on the plus side, it's better than it was, thanks to jimi_c
+17:59 dotplus      I'm not complaining, free software and all that. scratch your own itch, patches welcome.
+17:59 dotplus      was just _surprised_ becuase cobbler has been around so long that I would find so many holes in just a cursory glance.
+18:01 pdurbin      it was kind of abandoned until jimi_c picked it up
+18:02 dotplus      because dehaan moved on from RH?
+18:03 dotplus      has he dropped out cobbler? is anyone still maintaining it?
+18:04 * jimi_c     is maintaining it
+18:04 jimi_c       :)
+18:04 dotplus      ah, I thought pdurbin was just referring to the docs.
+18:05 jimi_c       nope, i'm the lead maintainer, since march
+18:05 pdurbin      nope. at the red hat summit in july i asked a question about cobbler after a talk. next to me was some guy with a #cobbler hat. i told him about #crimsonfu :)
+18:05 jimi_c       mpdehaan came back briefly in november of last year, but quickly decided he had too much going on to be the lead again, so i volunteered and no one objected :)
+18:06 dotplus      sucker. I mean, "Cool, thanks!"
+18:06 jimi_c       no, i agree with the sucker part :)
+18:15 JoeJulian    I'm sure glad I didn't have openstack in production when the folsom update went live in epel. There's some serious upgrade bugs and just plain ol' incompatibilities. I'm surprised folsom was allowed in epel, actually.
+18:17 larsks       ME TOO.
+18:18 larsks       And in fact if you would take the time to post that to epel-devel-list@redhat.com the world would be a better place :).
+18:37 pdurbin      larsks: yikes! An un-Folsom morning - https://www.redhat.com/archives/epel-devel-list/2012-November/msg00037.html
+18:40 pdurbin      one nice thing about repoforge is that they keep all the copies of their old packages in their repo
+18:48 pdurbin      anyway, i sympathize with it being tough to roll back with epel
+18:52 larsks       Yes.  I'm surprised there aren't more people on the list complaining about the update.
+18:52 larsks       I've built my own essex repository and disabled epel on these hosts, but geez, what a clusterf*ck.
+18:55 JoeJulian    There, that should about cover it.
+18:56 pdurbin      larsks: could you use this one? http://repos.fedorapeople.org/repos/openstack/openstack-essex/epel-6/
+18:56 JoeJulian    And that (in reverse) is how it should have been done.
+18:58 larsks       pdurbin: That's where I got most of my packages from.
+18:59 larsks       But I'm keepin' em local this time.
+18:59 pdurbin      larsks: good idea :)
+19:00 larsks       JoeJulian: Thanks :)
+19:01 JoeJulian    I'm just glad I wasn't that far along. I can just wipe my systems and start over.
+19:02 pdurbin      JoeJulian: ah, you must be referring to this post you just made: https://www.redhat.com/archives/epel-devel-list/2012-November/msg00049.html . well said
+19:03 JoeJulian    I probably typed a message three times that long, but I'm a pretty good editor. :D
+19:04 pdurbin      semiosis: maybe it's *all* hacks layered on top of hacks ;)
+19:04 semiosis     well yeah, except for *my* code :)
+19:04 pdurbin      :)
+19:16 JoeJulian    At least you get an apology, larsks.
+</pre></body></html>

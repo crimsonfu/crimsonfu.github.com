@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:56 semiosis     pdurbin: irc logging with logstash FTW!  http://demo.logstash.net/#eyJzZWFyY2giOiJAdHlwZTppcmMgQU5EIEBmaWVsZHMubmljazpcInNlbWlvc2lzXCIiLCJmaWVsZHMiOltdLCJvZmZzZXQiOjAsInRpbWVmcmFtZSI6IjkwMCIsImdyYXBobW9kZSI6ImNvdW50IiwidGltZSI6eyJ1c2VyX2ludGVydmFsIjowfSwic3RhbXAiOjEzNTQxNTQwNDYyNjYsIm1vZGUiOiIiLCJhbmFseXplX2ZpZWxkIjoiIn0=
+02:44 pdurbin_m    "no events matched"?
+02:44 pdurbin_m    there is no better IRC logging bot than ilbot
+02:45 pdurbin_m    though I am dinking with the code a bit...
+02:46 semiosis     pdurbin_m: its been over 15m, set the timeframe back to 4h
+02:50 JoeJulian    Wow... I know where my mind is... "I am drinking with the code a bit..." "its beer over 15m..."
+02:51 semiosis     the problem with making dev, test, staging, and production exactly the same, is that when something works fine on dev &amp; test, but not on staging &amp; production, it's FREAKIN IMPOSSIBLE to figure out why
+02:51 semiosis     ...is where my mind is
+02:54 JoeJulian    Yeah, I know that one. It works from the command line but not from the init script is my favorite of those.
+02:54 JoeJulian    Had that twice in the last two weeks. :/
+02:56 semiosis     or it works from the command line but not from puppet.  the friendly folks of #crimsonfu helped me out of that jam last week :)
+02:58 semiosis     ok, album is over, it's 10 PM, time to go home
+03:26 pdurbin_m    ok that's pretty cool
+04:56 pdurbin      i actually have some data i care about on my home VM now... the mysql database that backs http://irclog.greptilian.com ... trying to think of a good way to back it up. i'm thinking about mysql dumps to http://git.greptilian.com and then i can just pull it down with the rest of my git stuff with my little script: https://github.com/pdurbin/scripts/blob/master/grgit.pl
+04:57 pdurbin      basically, when i sit down at my work computer, my laptop, my wife's iMac, i run `grgit.pl` and i does a `git pull` on all my repos. works great for my needs
+05:00 pdurbin      my model for that VM, by the way is that is should hold public data only. i can't think of any secrets i have on there as of this writing
+08:34 simmel       pdurbin: http://demo.logstash.net/#eyJzZWFyY2giOiJAdHlwZTppcmMgQU5EIEBmaWVsZHMubmljazpcInNlbWlvc2lzXCIiLCJmaWVsZHMiOltdLCJvZmZzZXQiOjAsInRpbWVmcmFtZSI6ImFsbCIsImdyYXBobW9kZSI6ImNvdW50IiwidGltZSI6eyJ1c2VyX2ludGVydmFsIjowfSwic3RhbXAiOjEzNTQxNzgwMjc0MjYsIm1vZGUiOiIiLCJhbmFseXplX2ZpZWxkIjoiI
+08:34 simmel       n0=
+09:48 jgtimmer     pdurbin: we have a logstash vm image if you're intrested in testing it
+12:15 pdurbin      simmel: sorry, what are you trying to show me?
+12:15 pdurbin      jgtimmer: thanks but i think we're done with logstash for now. here's where we were playing with it: http://irclog.perlgeek.de/crimsonfu/2012-10-23#i_6091084
+12:16 pdurbin      i think we're going to try to get into splunk instead
+12:16 pdurbin      hmm, no Pax in here. he gave us a nice demo the other week
+12:20 simmel       pdurbin: The link that you tried but you said "no events matched"
+12:21 simmel       pdurbin: Mine worked
+12:22 simmel       pdurbin: If you're gonna use it for work, Splunk is gonna be really expensive
+12:46 jimi_c       pdurbin: we were looking at using logstash, any reason you're moving away with it? Are you using elastic search too?
+12:47 jimi_c       i recently contributed a whole bunch of patches to kibana to add stuff like authentication/authorization
+12:47 jimi_c       they're in the process of getting that merged into the mainline i believe
+12:56 jgtimmer     we are seeing memory leaks in elastic search here thought, any updates on that?
+12:58 jimi_c       i only have it running on a single system for a POC, we haven't deployed it anywhere major yet
+13:23 jgtimmer     we have it running for over 4months now, having around 500M messages in it now.
+13:25 jgtimmer     we gave an anonomized subset of those to a few students for a machine learning project, they are going to do anomaly detection on it, hopefully this gives us some intresting results
+13:29 pdurbin      jimi_c: i'm looking over internal emails from sjoeboo regarding logstash
+13:30 pdurbin      one thing is that splunk is already installed and our data has been collected for years (by Pax's department)... we just haven't been making use of it... we're starting to get spun up now
+13:33 * pdurbin    is distracted... running `service openfire restart`
+13:35 rackerhacker and now for something completely different: http://i.imgur.com/LYhSj.gif
+13:36 pdurbin      jimi_c: so i guess i would say... with the number of hosts we have (1705 according to http://software.rc.fas.harvard.edu/ganglia/ ) logstash needs some thought with regard to architecture... needs a number of boxes to run on... you can't just throw logstash on a VM and hope it all works
+13:36 pdurbin      rackerhacker: no fun allowed
+13:36 pdurbin      (but that was funny)
+13:37 jimi_c       pdurbin: i was actually planning on using the syslog portion, and using logstash just on a set of centralized systems for indexing only - more splunk-like
+13:38 pdurbin      jimi_c: notice how agoddard's first reaction was "how many ES [elastic search] nodes are y'all running?" -- http://irclog.perlgeek.de/crimsonfu/2012-10-23#i_6091541
+13:38 rackerhacker pdurbin: i miss leslie for sure :/
+13:38 pdurbin      rackerhacker: +1 :(
+13:40 pdurbin      rackerhacker: saw your tweet that you don't have as much time to listen to podcasts. i'm curious if you listen to any technical podcasts like i do
+13:41 rackerhacker i can't stand the vocal podcasts :/ i'm more of a fan of the music ones
+13:41 rackerhacker i'd rather read the technical things
+13:42 pdurbin      sadly, i find i don't have as much time as i'd like for reading technical things. podcasts are great for when i'm biking to work, doing dishes, folding laundry, etc.
+13:43 pdurbin      well, if anyone here has some favorite technical podcasts, please let us know
+13:44 jgtimmer     the linux action show used to be cool, but not that much anymore since lunduke left...
+13:44 jgtimmer     but some of the other jupiter broadcasting podcasts are good aswell
+13:45 pdurbin      jgtimmer: my grumpy tweet at lunduke: https://twitter.com/philipdurbin/status/180041357442826240
+13:51 pdurbin      linux action show is the only thing i've listened to from jupiter broadcasting. i dunno what else they have that's worth trying
+13:52 jgtimmer     tech snap
+13:53 pdurbin      crimsonfubot: lucky jupiter broadcasting tech snap
+13:53 crimsonfubot pdurbin: http://www.jupiterbroadcasting.com/
+13:54 pdurbin      jgtimmer: what's it about?
+14:01 jgtimmer     http://en.wikipedia.org/wiki/Jupiter_Broadcasting#TechSNAP
+14:02 jgtimmer     TechSNAP is a weekly show about Systems Network and Administration[16] and is hosted by Chris Fisher and Allan Jude (owner of scaleengine.com[17]).
+14:02 jgtimmer     TechSNAP takes recent stories of security flaws and general gaffs by web companies and dissects them to find the flaws in the network/web design. It also gives information about running and building your own servers and networks.
+14:04 pdurbin      huh. that sounds pretty interesting, actually
+16:44 semiosis     rackerhacker: congrats on the new position
+17:03 rackerhacker semiosis: thanks
+17:09 larsks       Does anyone know if there is some sort of admin-level view of volumes in openstack?
+17:23 pdurbin      sjoeboo: interesting, the whole gluster's-own-nfs-server being faster than the native gluster client: http://irclog.perlgeek.de/gluster/2012-11-29#i_6197311
+17:24 pdurbin      heh. sjoeboo, don't call it "ugly left over iscsi kit"! maybe agoddard will buy it off us! http://irclog.perlgeek.de/gluster/2012-11-29#i_6197343
+17:25 pdurbin      agoddard: it's awesome. you'll love it. don't forget how much you love iscsi
+17:27 JoeJulian    pdurbin: It's not unexpected. The kernel nfs client implements in-kernel caching, so some things are faster at the expense of being stale.
+17:28 semiosis     adding "noac,sync" eliminates most of that caching afaik
+17:33 pdurbin      interesting
+17:33 pdurbin      it just seems odd to my that gluster implements its own nfs server. i guess it's fine
+17:33 pdurbin      odd to me*
+17:34 GitHub87     [crimsonfu.github.com] hakamadare pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/301ea7f93cfb94291eaf7c4cc6c412744ffb7d94
+17:34 GitHub87     crimsonfu.github.com/master 301ea7f Steve Huff: updating Lightning Exchange Provider link...
+17:34 JoeJulian    It saves quite a few context switches by doing it that way.
+17:36 pdurbin      JoeJulian: ok
+17:36 pdurbin      shuff: look at you all writing blog posts
+17:38 shuff        i discovered that the Exchange provider for Lightning was finally updated to work with modern Thunderbirds, and has a bunch of bugfixes!
+17:38 shuff        i have staved off having to switch to Outlook once again
+17:38 pdurbin      shuff: dude. g.harvard ;)
+17:40 pdurbin      i'm switching over. to the gmail thing, despite the problems i've noted here previously
+17:42 shuff        ehh
+17:43 shuff        if i can use it to schedule rooms and manage the on-call rotation, then i'm interested
+17:44 pdurbin      shuff: you and i have different needs (thank goodness) ;)
+17:45 shuff        true that :)
+19:36 semiosis     JoeJulian: my php session issue was varnish stripping out cookies :D
+19:37 semiosis     JoeJulian: varnish config was not in sync between test &amp; staging
+19:38 pdurbin      i've heard good things about varnish
+19:38 semiosis     love it
+20:22 miah         i havent had a chance to use it yet
+20:22 miah         i've done lots of reading about it though
+20:24 miah         i have a chef cookbook hacked up from opscode too. but i need to do more testing with it.
+21:28 pdurbin      forcing nagios checks to run because i like seeing green
+21:45 pdurbin      https://twitter.com/search?q=power%20boston
+21:46 semiosis     wow!
+21:48 larsks       Huh.  Wonder what that's going to do to my bus ride home...
+21:48 semiosis     does that mean the T stops "dead in its tracks?"
+21:48 semiosis     i'd hate to be stuck in a blacked out tunnel
+21:53 larsks       Apparently a red line train hit a deer?  Not sure if that was the cause of all this or just a coincidence.
+21:54 miah         more trains need cow catchers
+22:26 pdurbin      managed to bike home. the drivers in boston are bad enough *with* working traffic lights
+22:28 miah         i once had a cab driver in boston that didn't know left from right
+</pre></body></html>

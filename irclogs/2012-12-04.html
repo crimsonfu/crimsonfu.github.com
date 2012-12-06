@@ -1,0 +1,182 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+14:13 pdurbin      boegel: you around?
+14:13 jgtimmer     pdurbin: he's here
+14:14 boegel       boegel: I am
+14:14 pdurbin      i bet whorka will be un-idle in an hour or so. maybe you can explain a bit how easybuild might be helpful in deploying commercial apps
+14:14 boegel       pdurbin: I am :)
+14:14 boegel       pdurbin: sure
+14:14 pdurbin      (i mentioned easybuild at lunch yesterday)
+14:15 boegel       pdurbin: and how did they react? disbelief? :P
+14:16 pdurbin      heh. curious, i'd say
+14:16 boegel       sounds good
+14:16 pdurbin      do you even have generic build instructions for common commercial packages?
+14:16 boegel       pdurbin: I have a conf call scheduled in 45m, and I'll be leaving work in just over 2 hours, but let him ask his questions, I'll try and respond ASAP
+14:17 boegel       generic? well, once we support a certain package it's all very generic, yes
+14:17 pdurbin      oh, i don't think he's in a hurry. could wait until next week, next month :)
+14:18 pdurbin      huh. you have a page for this already, it seems: List of supported software packages · hpcugent/easybuild Wiki - https://github.com/hpcugent/easybuild/wiki/List-of-supported-software-packages
+14:19 jgtimmer     pdurbin: we have generic binary and tarred(packed binary) support, which will basically just unpack the binary and move it to the install dir, and then check for /bin /lib dirs and make the modulefile
+14:20 jgtimmer     we also compile some commercial software from source
+14:20 pdurbin      i don't see Mathematica, MATLAB or Stata on your list
+14:20 jgtimmer     we have an internal one for matlab, haven't open sourced it yet since it currently contains our license keys hardcoded
+14:20 jgtimmer     will have to fix this
+14:21 pdurbin      do you call it a matlab build script?
+14:22 jgtimmer     mathematica and stata are not on our systems no, so we're not planing to add it any time soon, but we'll glady accept pull request, and I can sponsor people into adding support
+14:22 pdurbin      hmm, easyconfig. easyblock maybe
+14:22 pdurbin      matlab sounds like a good place to start, if you can open source your easyconfig thing or whatever you call it
+14:23 jgtimmer     easyblock == build script/recipe, easyconfig == configuration
+14:24 pdurbin      thanks :)
+14:29 pdurbin      here's a list of candidates for easybuild: http://support.hmdc.harvard.edu/kb-1112/using_statistical_programs_overview
+14:30 pdurbin      but they have a good solution for open source apps
+14:30 pdurbin      i think easybuild might be a win for commercial apps though
+14:30 jgtimmer     pdurbin: https://github.com/hpcugent/easybuild/wiki/List-of-supported-software-packages/ede46976d7367a86fe76ae79adba7b8e9fd9f118
+14:30 jgtimmer     this is what we have internally
+14:31 pdurbin      cool
+14:31 pdurbin      i'm glad to see a * next to MATLAB :)
+14:32 jgtimmer     the ones that aren't in the current easybuild need to be checked out, they are written for our old internal easybuild version, before we did the cleanup/partial rewrite
+14:33 pdurbin      ok, i guess i'd say... please let us know when your matlab recipe is open source
+14:33 jgtimmer     http://pastebin.com/qx7fDV8c
+14:33 jgtimmer     here you go
+14:33 pdurbin      nice
+14:34 jgtimmer     but this is an old version, it doesn't use some of the new features of the framework yet (modulegenerator etc) and has old style function naming...
+14:34 pdurbin      and do we need to install atlas to use it?
+14:34 pdurbin      was it atlas? some big package and didn't compile with gcc or something
+14:35 pdurbin      that didn't compile, i mean
+14:35 jgtimmer     no, it just takes the install script and runs this.
+14:35 jgtimmer     hmm, wel, it seems to depend on java...
+14:36 jgtimmer     and we don't have java public yet either, I think we still used the system java at the time that was written :-s
+14:36 pdurbin      yeah, it was atlas: http://irclog.perlgeek.de/crimsonfu/2012-10-05#i_6039387
+14:36 jgtimmer     ah
+14:36 jgtimmer     no, it doesn't use any compiler at al
+14:37 jgtimmer     so you don't need the goalf toolkit
+14:37 pdurbin      great
+14:38 jgtimmer     actually we don't use it on our systems eiher
+14:38 jgtimmer     we use the intel compilers and mkl libraries
+14:38 boegel       pdurbin: getting support for what we have internally out there is usually a matter of cleaning up our easyblocks
+14:39 jgtimmer     we added the gcc/openmpi/atlas/fftw toolchainf to have a fully open source toolchain
+14:39 boegel       pdurbin: and only time is an issue there, time which we don't have :)
+14:39 pdurbin      :)
+14:41 boegel       pdurbin: if someone is interested in installing software with EasyBuild for which we have legagy support, we can supply them the old easyblock, and answer questions on how to make it work
+14:45 pdurbin      ok
+14:47 boegel       pdurbin: the best way is just to open a new issue in https://github.com/hpcugent/easybuild-easyblocks/issues?state=open, then we can let the person know whether we have legacy support for it or not
+14:49 jgtimmer     pdurbin: ATLAS builds with gcc, it just fails in a vm because it tries to do smart things with the cpu
+14:50 pdurbin      oh
+14:50 boegel       pdurbin: yeah, that was the issue in the log you sent me
+14:50 boegel       pdurbin: don't blame EasyBuild for that
+14:50 pdurbin      short memory. sorry. that's why i log this channel :)
+14:51 boegel       pdurbin: :)
+14:53 jgtimmer     I can look into adding a less heavy demo, e.g., just a plain python
+14:54 pdurbin      jgtimmer: that'd be great. put in in vagrant even :)
+14:54 pdurbin      it
+14:56 boegel       jgtimmer: the only reason why our current quick demo is heavy is the fact that it includes building a compiler toolchain (which is a one-time pain)
+14:57 pdurbin      i demand instant gratification
+14:58 boegel       pdurbin: https://github.com/hpcugent/easybuild/wiki/Getting-started
+14:59 boegel       pdurbin: the gzip dummy example easyconfig just builds gzip with your system compiler
+14:59 boegel       pdurbin: if you can make that fail, them you might as well change jobs :P
+15:01 pdurbin      i am changing jobs: https://twitter.com/philipdurbin/status/273229031082692608
+15:02 boegel       pdurbin: ah, well, ok, then you're allowed to screw up a gzip dummy build :P
+15:03 pdurbin      huh. this might be new. this example
+15:05 jgtimmer     yes, if the quick demo fails, you should read the getting-started and do step by step :-)
+15:07 boegel_      pdurbin: I made some changes to that wiki page, but basically this gzip example has been on there for a while
+15:07 boegel_      pdurbin: I'm gradually cleaning up documentation, I'm not fully there yet
+15:09 jgtimmer     pdurbin: are you aware of http://numfocus.org/
+15:09 pdurbin      nope
+15:09 jgtimmer     they are a comunity looking into creating reproducible computing
+15:10 jgtimmer     data is a big part of that
+15:10 jgtimmer     the other part is recreating the software environment
+15:11 pdurbin      huh. sounds great
+15:15 jgtimmer     And I spoke to some people at continuum, and they were working on wakari, they plan to make a product for researchers to easily let other people redo their calculations
+15:15 jgtimmer     http://continuum.io/wakari.html
+15:15 jgtimmer     so might be a bit inline with what thedata.org wants to do
+15:19 pdurbin      jgtimmer: yes! sounds like it. thanks
+15:22 jgtimmer     congrats on your job btw
+15:24 pdurbin      thanks. one sec. you guys are gonna love this
+15:29 pdurbin      https://github.com/pdurbin/easybuild-vagrant
+15:29 pdurbin      boegel: gzip example works fine
+15:32 jgtimmer     pdurbin:
+15:32 jgtimmer     I'm not familiar with vagrant
+15:33 jgtimmer     what is that supposed to do? Install a vm whit environment modules in it
+15:33 jgtimmer     ?
+15:33 pdurbin      jgtimmer: http://wiki.greptilian.com/vagrant
+15:34 pdurbin      yes, demo of `eb /easyconfigs/gzip.eb` ultimately, in a VM
+15:35 jgtimmer     I noticed you skipped the step of installing environment modules, so they are already in your vm?
+15:35 pdurbin      no i didn't :)
+15:35 jgtimmer     ah, puppet
+15:35 pdurbin      https://github.com/pdurbin/easybuild-vagrant/blob/master/manifests/init.pp
+15:35 jgtimmer     I skipped that step
+15:35 jgtimmer     it went to fast
+15:35 jgtimmer     :-p
+15:36 pdurbin      oh? you got it to work already?
+15:36 jgtimmer     nono, when reading the readme
+15:36 pdurbin      ah :)
+15:36 jgtimmer     but it was just one line
+15:37 boegel       pdurbin: cool, thx
+15:37 pdurbin      well, please let me know if you get it to work
+15:37 pdurbin      boegel: sure. please give it a try
+15:37 jgtimmer     it's an easy way of testing easybuild under different OS'es
+15:38 jgtimmer     but what would be any other benefit? :-p
+15:38 pdurbin      marketing
+15:38 pdurbin      you could have it default to ubuntu and use centos instead by setting an enviroment variable: https://github.com/puppetlabs/puppetlabs-openstack_dev_env/blob/master/Vagrantfile
+15:41 pdurbin      it would be great if you guys would throw your matlab.eb in https://github.com/pdurbin/easybuild-vagrant/tree/master/easyconfigs test it, and let me know if `eb /easyconfigs/matalb.eb` works
+15:42 pdurbin      typo but you know what i mean, i hope
+15:52 boegel       pdurbin: that would require our matlab.py easyblock to be shipped in EasyBUild
+15:53 pdurbin      boegel: do you understand the value of that easybuild-vagrant repo? the idea is that it's an easy way for people to try out easybuild in a completely clean environment
+15:53 pdurbin      they can blow away the vm with `vagrant destroy`
+15:54 pdurbin      and run `vagrant up` to get it back
+16:19 boegel       pdurbin: https://github.com/hpcugent/easybuild-framework/issues/372
+16:19 boegel       pdurbin: I'll have to go, I may be online later tonight
+16:20 boegel       pdurbin: w.r.t. the guy(s) who had some questions, let them join #easybuild here on FreeNode, we might have someone there to answer the questions
+16:20 boegel       pdurbin: if not, tell them to use the bot and the !tell feature, that's always nice :)
+16:20 boegel       pdurbin: ttyl!
+16:45 JoeJulian    I read that wrong at first and was about to go to #easybuild to have the bot "!tell future"
+16:47 pdurbin      wouldn't that be nice
+18:50 * pdurbin    heads to a meeting with the gluster guys
+18:51 semiosis     cool
+19:38 pdurbin      gluster was inspired by gnu hurd!
+19:38 pdurbin      crimsonfubot: lucky gluster gnu hurd
+19:38 crimsonfubot pdurbin: http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/epel-7/x86_64/repodata/primary.xml.gz
+19:38 pdurbin      bah
+19:40 pdurbin      "negative lookup cache"
+19:40 pdurbin      remember when we looked for something and didn't find it
+19:42 pdurbin      semiosis: they're singing your praises
+19:42 pdurbin      JoeJulian: you too
+19:43 pdurbin      huh. epel-7 ^^
+19:45 semiosis     pdurbin: POIDH
+19:45 pdurbin      semiosis: huh?
+19:45 semiosis     hehe never mind
+19:45 pdurbin      :)
+19:45 semiosis     @lucky POIDH
+19:45 crimsonfubot semiosis: http://www.urbandictionary.com/define.php?term=POIDH
+19:59 pdurbin      interesting that they plan to merge their tweaks to swift code back in
+19:59 pdurbin      westmaas: ^^
+20:03 pdurbin      "An efficient WAN replication method with GlusterFS is to use the marker framework / queue using extended attributes to feed rsync a list of changed files, scales better than inotify" -- http://www.jebriggs.com/blog/2012/02/svlug-story-of-glusterfs/
+20:03 pdurbin      i don't think i'd heard of the gluster "marker framework"
+20:08 simmel       What was the name of that distributed filesystem that recently was in the news?
+20:09 simmel       Ah, http://www.xtreemfs.org/
+20:09 pdurbin      simmel: uh. gluster? :)
+20:10 simmel       Xtreemfs looks interesting. It's like AFS without the quirks.
+20:10 pdurbin      "XtreemFS is an open source distributed and replicated file system for the cloud"
+20:10 pdurbin      cool
+20:11 simmel       Would be awesome with Kerberos support for Xtreemfs but I guess it's only a matter of time before that is a reality.
+20:30 pdurbin      yeah
+20:48 larsks       Grrr, it's java based.
+20:51 JoeJulian    pdurbin: Nice of them to add to my already overly inflated ego. :D
+20:54 JoeJulian    wrt epel7 which leads me to rhel7: "On the desktop, RHEL 7 will also feature the GNOME 3 user experience, which will be new to RHEL users." I do not envy Red Hat's support staff.
+21:31 pdurbin      JoeJulian: huh. i guess you're quoting from this but it's from july: The Future of Red Hat Enterprise Linux 7 - http://www.serverwatch.com/server-trends/the-future-of-red-hat-enterprise-linux-7.html
+21:31 pdurbin      larsks: ask me in 6 months how i feel about java. gonna be staring at a lot of java soon
+21:35 larsks       pdurbin: My biggest complaint about Java is when I have something that will run under java 1.6.21 but not 1.6.20 or 1.6.22.  Or something like that.  Which I run into with alarming frequency.
+21:36 larsks       "WRITE ONCE RUN IN VERY SPECIFIC PLACES"
+21:36 pdurbin      heh
+21:51 simmel       My biggest issue with java is that all libs/products seldom have any or even remotely sane defaults.
+22:01 semiosis     +1
+22:01 semiosis     i call it 'insane by default'
+22:02 semiosis     larsks: that sounds awful.  what could possibly change between those minor releases?
+22:03 miah         who cares about defaults. our job is to trash defaults and make shit awesome.
+22:04 semiosis     miah: spoken like a true java dev
+22:04 miah         i mean. how many people actually run a server with out of the box default configurations.
+</pre></body></html>

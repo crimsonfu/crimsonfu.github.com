@@ -4,9 +4,32 @@
 </head>
 <body>
 <pre>
-Time  Nick     Message
-01:29 pdurbin  semiosis: you're so into AWS but you didn't show up of the hangops about it? http://youtu.be/LvhcAKDXbm4
-01:29 pdurbin  show up for, i mean
-01:37 semiosis yeah missed that :(
-01:37 semiosis havent been to a hangops yet
+Time  Nick         Message
+01:29 pdurbin      semiosis: you're so into AWS but you didn't show up of the hangops about it? http://youtu.be/LvhcAKDXbm4
+01:29 pdurbin      show up for, i mean
+01:37 semiosis     yeah missed that :(
+01:37 semiosis     havent been to a hangops yet
+14:44 GitHub190    [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/cce78a7a0e404d5870cf879edcc86f9d4806912c
+14:44 GitHub190    crimsonfu.github.com/master cce78a7 Philip Durbin: grab the latest logs
+15:03 pdurbin      sjoeboo: i love this chart you just linked me to. shows how gvm02 and gvm04 are a pair (in gluster), that when we rebooted gvm04 and it came back, it synced up with its buddy: http://software.rc.fas.harvard.edu/ganglia2/ganglia2_storage/graph.php?r=hour&amp;z=xlarge&amp;title=&amp;vl=&amp;x=&amp;n=&amp;hreg[]=gvm\d%2B&amp;mreg[]=bytes_%28in|out%29&amp;gtype=line&amp;glegend=show&amp;aggregate=1&amp;embed=1&amp;_=1353355017225
+15:04 pdurbin      bah, unclickable link at http://irclog.perlgeek.de/crimsonfu/2012-11-20#i_6169744
+15:06 pdurbin      anyway, it's awesome that we can reboot one of the gluster servers and our test VM stays up
+16:07 pdurbin      i'm finding this helpful: How A Ruby Case Statement Works And What You Can Do With It - http://www.skorks.com/2009/08/how-a-ruby-case-statement-works-and-what-you-can-do-with-it/
+16:14 pdurbin      handy that you can do this: when "A", "B"
+16:41 semiosis     i saw a switch-in-a-for-loop yesterday, it was totally unnecessary
+17:14 pdurbin      i need to learn the git thing where you make two commits (or more) after editing a file
+17:14 pdurbin      crimsonfubot: lucky git hunks
+17:14 crimsonfubot pdurbin: http://git-scm.com/book/ch6-2.html
+17:14 pdurbin      yeah, interactive staging
+17:16 pdurbin      staging patches
+19:14 pdurbin      ouch. 100 TB of data lost. XFS blamed: http://irclog.perlgeek.de/gluster/2012-11-20#i_6170371
+19:46 larsks       pdurbin: "git add -p" is your friend.
+19:54 pdurbin      larsks: ok. will try it next time. thanks :)
+20:17 pdurbin      that's interesting. this VM has a "virtual" fact of "physical" rather than "kvm". and for the "processor0" fact it has "AMD Opteron 62xx class CPU" rather than "QEMU Virtual CPU version (cpu64-rhel6)"
+20:24 pdurbin      &lt;model fallback='allow'&gt;Opteron_G4&lt;/model&gt; in its &lt;cpu&gt; element
+21:28 pdurbin      ah. we had clicked the "Copy host CPU configuation" in virt-manager. it guess it works... just confuses poor facter, which now thinks the VM is physical :)
+21:41 larsks       pdurbin: We've run into that, too.  The facter fact should probably look at the output of "dmidecode" instead (or something).
+23:30 jimi_c       pdurbin: were you talking about juju the other day? I just discovered that today and I'm in love :)
+23:30 jimi_c       it seems to be everything I was hoping openshift would be
+23:59 larsks       jimi_c: How is it different from openshift?
 </pre></body></html>

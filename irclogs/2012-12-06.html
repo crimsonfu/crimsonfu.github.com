@@ -1,0 +1,204 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:54 JoeJulian    Anybody need a 600PB drive? ;) http://fpaste.org/300y/
+02:42 pdurbin      User Capacity:        600,332,565,813,390,450 bytes [600 PB]
+02:42 pdurbin      nice
+02:43 JoeJulian    Two failed drives within an hour of each other. :(
+02:44 pdurbin      miah: not a bad desk
+02:44 miah         my girlfriend and i made it
+02:46 pdurbin      bah! i just realized i left helpful comments on a non-public post. about standing desks. here are the helpful public tweets: https://twitter.com/coxmat/status/275267931938643968 https://twitter.com/coxmat/status/275290167839965185
+02:47 pdurbin      (building your own standing desk for cheap from IKEA stuff)
+02:48 pdurbin      and of course there's marco arment's coke can standing desk. a classic: http://m.flickr.com/#/photos/marcoarment/3234209861/
+02:48 pdurbin      JoeJulian: :(
+02:50 * pdurbin    just got a retina macbook pro today. #newjob
+02:55 pdurbin      ironcamel: you and i talking retina displays and linux: https://plus.google.com/102499719144563443986/posts/fbDDjoPR1g1
+03:02 miah         ah. we are really choosey about what we buy from ikea. we build lots of stuff though.
+03:04 pdurbin      my wife is the crafy one: https://plus.google.com/109940583958656614840/posts/5tbghDBh1Bq
+03:07 jimi_c_      that is a cool desk, and simple :) this is a table I made - http://lumberjocks.com/projects/39280
+03:07 pdurbin      lumberjocks! great table
+03:07 jimi_c_      and this is my current project: http://lumberjocks.com/Jimi_C/blog/29847 (my everest...)
+03:08 jimi_c_      sad thing is, i haven't made any progress on it since i made that blog entry :( i really need to finish that up - prego wife is taking precedence though :)
+03:09 jimi_c_      i really like that site, helped me learn a lot when i was thinking about taking up furniture building as a hobby
+03:10 pdurbin      very nice. (and congrats!)
+03:11 jimi_c_      had i not mentioned that in here? we're having twins :) just found out last week it's twin boys too... o_O
+03:11 pdurbin      heh. wait. have kids already or not?
+03:11 jimi_c_      no, these will be our first
+03:12 pdurbin      ah. i don't wish you a three year old who won't sleep. and won't let you leave the room. at least she doesn't seem to mind my typing
+03:12 jimi_c_      heh
+03:13 miah         awesome
+03:13 pdurbin      she's less interested in irssi than lumberjocks
+03:13 miah         my girlfriend is a fiber arts major
+03:16 pdurbin      hmm, i guess my friend is more yarn and fabric: http://curiousthreads.tumblr.com
+03:16 miah         cool
+03:20 pdurbin      i'm a little confused about how to create my own puppet module
+03:21 pdurbin      one that could (some day) be published to puppetforge
+03:21 pdurbin      "Error: Could not generate directory "ilbot", you must specify a dash-separated username and module name"
+03:22 pdurbin      oh, i guess they want "pdurbin" or whatever, like `puppet module generate pdurbin-ilbot`
+03:23 pdurbin      because i'm sure so many people want to write an ilbot module
+07:43 simmel       pdurbin: Uh, maybe? I've never tried. openssl.vim just uses openssl enc so for me that's just a password.
+11:15 pdurbin      mmm. podcasts: 082 RR Vagrant with Michael Ries - http://rubyrogues.com/082-rr-vagrant-with-michael-ries/
+11:16 pdurbin      huh. a transcript even
+11:18 pdurbin      "KATRINA: I wonder if anybody uses it to teach programming classes."
+11:18 pdurbin      from what i understand puppet labs uses vagrant to teach puppet in their classes
+12:59 pdurbin      thinking about using puppet to manage my new mac. have never used puppet on a mac before. mostly i just want to install and configure postgres for now
+15:39 pdurbin      VT-x/AMD-V hardware acceleration is not available on your system. Your 64-bit guest will fail to detect a 64-bit CPU and will not be able to boot.
+15:39 pdurbin      i bet that's why
+15:39 pdurbin      config.vm.boot_mode = :gui
+15:43 pdurbin      yep
+15:43 pdurbin      boegel: so maybe i'll have the guy who's on a mac try https://github.com/pdurbin/easybuild-vagrant
+15:43 pdurbin      he's the one who has the ticket to read your paper anyway :)
+15:45 pdurbin      (i can't ask the ubuntu guy to reboot. he's busy) :)
+15:45 pdurbin      er, linux mint. whatever
+15:46 boegel       pdurbin: sure
+15:47 boegel       pdurbin: EasyBuild currently has some issues on OS X, but nothing major afaik
+15:47 pdurbin      boegel: that shouldn't matter. i'm talking about vagrant. easybuild gets installed within a centos 6 vm within vagrant
+15:50 pdurbin      whorka: i can confirm that vagrant works just fine with centos 6 as the host, the hypervisor, the "dom0" vagrant_1.0.5_x86_64.rpm from http://downloads.vagrantup.com/tags/v1.0.5
+15:52 boegel       pdurbin: nice! :)
+15:52 boegel       pdurbin: well, it works fine for building gzip
+15:52 pdurbin      boegel: yeah? you tried my vagrant thing?
+15:52 boegel       pdurbin: not yet, very little time I'm afraid, but it's a cool way of testing EasyBuild :)
+15:52 dotplus      I have a VM running on a kvm hypervisor. VM's disk is LVM2 volgroup provided by hypervisor's iscsi initiator from a remote nas. if the iscsi connection fails, the VM keeps running, but is kinda limping along unable to read/write. When the target/LUN comes back, trying to remount the filesystem RW from within the VM fails. (How) can i kick the iscsi on the hypervisor to get things going again?
+15:53 boegel       pdurbin: try running "eb FFTW-3.3.1-gompi-1.1.0-no-OFED.eb"
+15:53 boegel       pdurbin: that will build GCC+OpenMPI and then build FFTW using a GCC+OpenMPI toolchain
+15:53 boegel       pdurbin: it doesn't involve ATLAS, so it should probably work on a VM
+15:53 pdurbin      boegel: did you install virtual box yet?
+15:54 boegel       pdurbin: I have VirtualBox, yes
+15:54 boegel       I think
+15:54 boegel       I never used it
+15:54 boegel       pdurbin: I have VBox, yes
+15:54 pdurbin      boegel: good. now click the big blue download now at http://vagrantup.com please
+15:54 boegel       pdurbin: hey, you're making me spend time of things I don't have time for :P
+15:55 pdurbin      you'll thank me later
+15:56 boegel       pdurbin: for spending time on things I don't have time for? ;)
+15:56 pdurbin      yes
+15:56 boegel       hehe
+15:56 boegel       pdurbin: installing RPM...
+15:57 pdurbin      dotplus: thinking..
+15:58 pdurbin      boegel: please be sure to: export PATH=$PATH:/opt/vagrant/bin
+16:01 boegel       hey, sounds like you need EasyBuild :P
+16:01 boegel       ok, now what :)
+16:02 pdurbin      git clone https://github.com/pdurbin/easybuild-vagrant.git
+16:02 pdurbin      cd easybuild-vagrant
+16:02 pdurbin      vagrant up
+16:03 boegel       "VirtualBox is complaining that the kernel module is not loaded."
+16:03 boegel       hehe, I halfway expected something like that :)
+16:03 pdurbin      boegel: you should get some vbox setup instructions
+16:04 boegel       pdurbin: I did, checking them out
+16:04 pdurbin      /etc/init.d/vboxdrv setup
+16:04 boegel       pdurbin: working on it, no sweat
+16:06 pdurbin      agoddard: any isci fu for dotplus? http://irclog.perlgeek.de/crimsonfu/2012-12-06#i_6218427
+16:06 boegel       pdurbin: vbox compilation fails
+16:08 pdurbin      boegel: can you paste the error please?
+16:08 boegel       pdurbin: I'll just reinstall VirtualBox :)
+16:09 pdurbin      probably you need some -devel rpm
+16:10 boegel       pdurbin: fixed
+16:10 pdurbin      \o/
+16:10 boegel       pdurbin: vbox was broken because I updated my kernel a couple of times without reinstalling vbox
+16:11 boegel       downloading CentOS .box now
+16:12 pdurbin      boegel: awesome. soon you'll be able to go off the readme at https://github.com/pdurbin/easybuild-vagrant
+16:12 boegel       pdurbin: k :)
+16:13 pdurbin      (that base box download is a one time thing)
+16:13 boegel       pdurbin: of course, makes sense
+16:14 pdurbin      if you fancy some other base boxes: http://www.vagrantbox.es
+16:14 boegel       VM is booting...
+16:15 * pdurbin    hopes boegel's bios is set up for virt already
+16:15 boegel       vagrant ssh is working, so should be fine
+16:16 pdurbin      boegel: great! can you please run the commands in the readme?
+16:16 pdurbin      (build gzip)
+16:16 boegel       pdurbin: trying them
+16:16 boegel       pdurbin: should be fine, it's EasyBuild from now on :P
+16:16 pdurbin      right :)
+16:16 boegel       ;)
+16:18 boegel       /easyconfigs/gzip.eb? that's kind of... dirty
+16:18 boegel       why not throw the gzip.eb in the vagrant home dir?
+16:18 boegel       "== Build succeeded for 1 out of 1"
+16:19 boegel       trying "eb FFTW-3.3.1-gompi-1.1.0-no-OFED.eb -r" now, this should take a while... ;-)
+16:19 pdurbin      boegel: great!
+16:19 boegel       pdurbin: it is kind of cool, yes
+16:19 pdurbin      patches welcome on where to put the easyconfigs folder :)
+16:19 boegel       pdurbin: VMs made easy
+16:20 pdurbin      i feel vindicated
+16:20 boegel       pdurbin: /home/vagrant/gzip.eb would make a lot more sense to me
+16:21 pdurbin      ok. and i bet we could install easybuild itself with puppet somehow
+16:21 pdurbin      since it's in the cheese shop or whatever you python people call it
+16:24 agoddard     dotplus: when the iSCSI connection comes back, is LVM ok as well?
+16:33 boegel       pdurbin: pypi :)
+16:34 pdurbin      boegel: are you going to put easybuild in epel?
+16:34 boegel       pdurbin: recent version of setuptools install "easy_install --user easybuild", which just installs it in your home dir :)
+16:34 boegel       pdurbin: you mean package it in an RPM?
+16:34 pdurbin      yes
+16:34 dotplus      agoddard: well sort of. I think it is, but it doesn't "know" it.
+16:34 boegel       pdurbin: we will, in the end yes, but it's not a big priority
+16:34 pdurbin      uh oh. dotplus woke up. cross talk :)
+16:35 dotplus      agoddard: if the the VM guest is rebooted, everything's fine again. but I want to kick the iscsi on the host in such a way, if possible, such that I can then do mount -o rw,remount inside the guest and *not* have it fail.
+16:37 dotplus      well, or tell the guest that it should try to consider its filesystem as available again in some other way
+16:38 pdurbin      dotplus: i've certainly seen VMs go read only when NFS goes away. agoddard's VMs even :) . so i sympathize
+16:39 dotplus      there are 2 issues here 1) how do I recover as simply as possible 2) How do I find out why this is happening in the first place?
+16:39 dotplus      I'm not even attempting (2) yet.
+16:39 pdurbin      if the NFS outage isn't too long, the VMs stay read-write
+16:39 agoddard     dotplus: ah I see. I've never done the remount in the guest in that situation, I've just bounced the guest - however I'm pretty sure I've seen some VMs recover themselves..
+16:40 agoddard     dotplus: what happens when you try to remount inside the guest now?
+16:41 dotplus      forgotten the exact message, but it basically says filesystem is read-only, can't change it.
+16:41 agoddard     :(
+16:42 dotplus      (had to bounce it and get it going)
+16:42 dotplus      unfortunately, this is not a failure mode that I can simple recreate at will without bad things happening
+16:43 dotplus      s/simple/simply/
+16:43 agoddard     ya. it's good that it's iSCSI, so it should be reasonably easy to redo in some kinda vm in a vm in a vm... you'd have to call it inception.
+16:49 boegel       pdurbin: does vagrant store VM hard disk images somewhere non-standard? my disk is filling up...
+16:50 pdurbin      boegel: buh... i think that's configurable in virtualbox
+16:53 boegel       pdurbin: hmm, just seems like I was getting close to a full disk, nvm
+16:54 pdurbin      too much building with easybuild :)
+16:58 pdurbin      boegel: is easybuild is all about being easy, why not make easybuild into an RPM?
+16:58 boegel       pdurbin: true enough
+16:58 boegel       pdurbin: we will look into that, but our priorities are different now
+16:59 boegel       pdurbin: easy_install easybuild is quite easy as well ;)
+16:59 boegel       pdurbin: gotta run, ttyl
+17:02 pdurbin      if*
+17:26 pdurbin      JoeJulian: on gnome 3 today. the thing i miss the most is notifications at the top right, such as for new messages in pidgin
+18:58 JoeJulian    pdurbin: That, and there's a lot of mouse movement to open apps if you don't just use your keyboard.
+18:59 JoeJulian    And the loss of my weather notifications. ;)
+18:59 pdurbin      heh. you remember my post about that :)
+18:59 pdurbin      so there's no solution to my missing pidgin notifications?
+18:59 pdurbin      should i use some gnome 3 approved IM client?
+19:01 * pdurbin    digs up http://irclog.perlgeek.de/crimsonfu/2012-09-12#i_5980691
+19:01 * pdurbin    should teach crimsonfubot how to find stuff in the logs and link to it
+19:04 JoeJulian    I stopped using pidgin when I was told that my needs were invalid and I should just use pidgin the way it was written.
+19:05 pdurbin      did that happen to you in #pidgin too?!? i was yelled at for using rhel on my workstation :(
+19:06 JoeJulian    yep
+19:06 pdurbin      i did learn a valuable lesson though... only hang out in IRC channels that are logged :)
+19:06 JoeJulian    hehe
+19:08 pdurbin      JoeJulian: so... which IM client?
+19:11 JoeJulian    I'm using the built-in empathy
+19:11 JoeJulian    Using xchat for irc.
+19:11 pdurbin      does empathy store passwords in plain text like pidgin?
+19:12 JoeJulian    I'm a bit disappointed with every im client though. They all seem to have some problem with being logged into google talk from multiple locations. Even Google's own Android app.
+19:14 pdurbin      empathy is already making me angry
+19:15 JoeJulian    passwords are in gnome-keyring
+19:16 semiosis     i'm a big fan of kde and all that but their mail &amp; messaging apps suck
+19:16 pdurbin      back to pidgin
+19:16 pdurbin      gnome-keyring scares me
+19:17 semiosis     tbird &amp; pidgin are not perfect, but they're hard to beat
+19:17 pdurbin      semiosis: +1
+19:17 semiosis     though i am consistently pleased with kde's irc client, konversation
+19:17 semiosis     s/mail &amp; messaging apps/kmail &amp; kopete/
+19:17 pdurbin      JoeJulian: i take it empathy would give me notifications in the upper left? that's where i found the quit button
+19:18 JoeJulian    bottom right
+19:18 JoeJulian    Er, bottom middle/right
+19:18 pdurbin      ok. either way. as log as i don't have to alt tab to see if people are talking to me
+19:18 JoeJulian    The notification pops up from the bottom, but the bottom-right corner has some notification thingies.
+19:18 semiosis     kde does notifications really well from both pidgin &amp; tbird
+19:20 JoeJulian    Apparently the Gnome developers thought we weren't getting enough exercise on our mouse hand, so they made sure we have to use every corner.
+19:22 pdurbin      lol
+19:23 pdurbin      crimsonfubot: lucky ratpoison desktop
+19:23 crimsonfubot pdurbin: http://www.nongnu.org/ratpoison/
+19:25 semiosis     i dont get the rodent reference...
+19:26 semiosis     http://www.nongnu.org/ratpoison/inspiration.html
+19:26 pdurbin      we were talking about mice :)
+19:27 semiosis     oh right, mouse, rodent, rat-poison: a keyboard driven wm
+19:27 semiosis     thx
+</pre></body></html>

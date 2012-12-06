@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+06:00 pdurbin    ok #crimsonfu, you may have noticed that the other day i was making noise about a *new* channel on freenode very much like this one but with more of an emphasis on coding: http://irclog.perlgeek.de/crimsonfu/2012-11-26#i_6187102
+06:00 pdurbin    now is your chance to get in on the ground floor of...
+06:00 pdurbin    #sourcefu! :) - http://irclog.greptilian.com/sourcefu/2012-11-28
+06:01 pdurbin    and look! irc logging on my domain! it works!
+06:01 pdurbin    (no backups yet) :)
+06:02 pdurbin    the config is *mostly* captured...
+06:03 pdurbin    i should probably make it into a proper puppet module
+06:27 pdurbin    jeez, i wrote more over at #sourcefu than i meant to - http://irclog.greptilian.com/sourcefu/2012-11-28 :)
+06:28 pdurbin    anyway, hopefully it gives a flavor of where i'm going with it
+16:58 pdurbin    hmm, "the global timeout
+16:59 pdurbin    is absolute and you won't be able to go over it" -- Re: [Nagios-users] Setting Command Timeout that isn't global? - http://www.mail-archive.com/nagios-users@lists.sourceforge.net/msg34020.html
+17:00 * pdurbin  was wondering if i can change command_timeout in /etc/nagios/nrpe.cfg for just one of the "command[foo]" checks in that file
+17:08 codex      anyone here use mutt?
+17:09 pdurbin    barely
+17:11 codex      About a year ago i added support for HTML, and within a day I realized I need a way to shorten URLs. It worked well however it had a performance hit when you opened your emails (up to 5+ seconds delay). I figured out how to do it in almost real time today
+17:14 pdurbin    codex: i'm not sure what you mean. sending or receiving html mail?
+17:15 pdurbin    i *do* want to master a command line email client some day. thunderbird's future seems uncertain - https://plus.google.com/107770072576338242009/posts/iA1gyNt31tv
+17:16 codex      receiving
+17:16 codex      as html emails came in 1.) they were super ugly and 2.) the html was all over the place
+17:16 codex      i used lynx at first which produced terrible results (for readability)
+17:17 codex      I went to elinks as the HTML engine and a perl script for the URLs
+17:19 pdurbin    so... with your solution as of today... you're happy? :)
+17:20 codex      very
+17:20 pdurbin    cool. i'll be bugging you if i ever make the switch :)
+17:25 codex      pdurbin: http://blog.vpetkov.net/2011/01/06/my-solution-to-dealing-with-mutt-and-long-urls/
+17:25 codex      that was the old post
+17:28 JoeJulian  lI wish I had the time and money to put together a new company to build a decent integrated enterprise class "outlook killer" (open source, of course).
+17:31 codex      JoeJulian: so you mean...zimbra :-D
+17:31 codex      the problem I think is that microsoft had so much time to fail, that they actually got it right
+17:31 codex      (outlook, office, etc...)
+17:32 codex      almost every open source alternative i've used just sucks in one way or another
+17:32 codex      (abiword, neo office, open office, zimbra)
+17:33 JoeJulian  Yeah, and none of them have scaleable and redundant backends.
+17:36 JoeJulian  Outlook has this horrible data storage scheme. T-bird's not that much better. There's a strong resistance to browser based solutions within many enterprises, so zimbra's up against that...
+17:39 JoeJulian  Plus, I can't run outlook on my android, my Fedora box, or my coworker's ipad. It would have to be something that's multi-platform, sync's through the backend so that it's always consistent.
+17:40 codex      doable (obviously), but not easy
+17:41 codex      As you said, the best bet is some sort of a semi-web frontend
+17:41 codex      and that's how you can get the same UI for the most part/same interaction on all the devices
+17:42 codex      you are right about the storage -- it's terrible. I couldn't believe zimbra offers this crazy infrastructure, and the storage end is still a single system -- if you put multiple it spreads the users over multiple, but still, each users is on one "store server"...amazing
+17:42 codex      this is why when comcast loses a server, there is an email outage
+17:44 JoeJulian  It shouldn't be that hard, and it would be relatively efficient, to use a map-reduce store for emails.
+18:29 pdurbin    JoeJulian: have you looked at SOGo (formerly named Scalable OpenGroupware.org) - http://en.wikipedia.org/wiki/SOGo
+18:43 miah       moin
+18:45 JoeJulian  Mon dieu! I hate CLink! Let's just take down the entire connection without telling anybody so we can run line tests...
+19:58 pdurbin    my boss is giving a talk at cloudbeat right now. to watch it live: https://twitter.com/jamesdotcuff/status/273835571586142208
+20:17 semiosis   pdurbin: thanks, excellent lunchtime watching
+20:19 pdurbin    :)
+20:19 semiosis   well... i caught the last minute of that
+20:21 semiosis   now, where have i heard this song before
+20:21 semiosis   anyone know what that tune is playing on the stream now?
+20:22 semiosis   ah, i remember now... https://twitter.com/vihartvihart/status/270033384531693568
+20:23 semiosis   or maybe not
+20:23 semiosis   damn
+20:23 pdurbin    semiosis: sorry we turned it off. back to work!
+20:23 * semiosis feels foolish
+21:11 pdurbin    agoddard: you love iscsi right? wanna buy our old hardware? ;)
+21:20 pdurbin    sjoeboo_: i have a correction for http://irclog.perlgeek.de/crimsonfu/2012-10-23#i_6090367 ... i tried to remove qcow2 corruption using `virsh snapshot` but the corruption remained :(
+21:21 pdurbin    as before the VM itself seems fine. i just don't like the scary errors from `qemu-img check`
+</pre></body></html>

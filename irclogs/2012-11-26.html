@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:44 pdurbin_m    jimi_c: cool
+02:15 pdurbin      oh, i saw a raspberry pi this weekend. and a makerbot
+02:28 jimi_c       i'd love to get a raspi to test arm distros, but unfortunately apparently they do not pxe
+02:31 pdurbin      all we did was boot into what looked like LXDE. midori browser
+02:39 jimi_c       one of my coworkers has been waiting for his for months
+02:39 jimi_c       keep pushing his delivery date back
+14:18 pdurbin      wow. super useful. green circle thing spinning. hope it works... Bulk Deleting All Messages in a Folder in Microsoft Outlook Web Access - Super User - http://superuser.com/questions/150644/bulk-deleting-all-messages-in-a-folder-in-microsoft-outlook-web-access
+15:28 pdurbin      agoddard: do you have any thoughts on testing VM performance with regard to the underlying storage? i know you run a lot of your VMs on local disk rather than keeping the disk images on NFS where most of our other disk images live
+15:28 pdurbin      now we've got gluster storage as well, a new "pool" from a virsh perspective
+15:29 pdurbin      and i'm wondering how we can best benchmark NFS vs. gluster vs. local disk
+15:30 pdurbin      i don't mean to single our agoddard... he just happens to run some of his infra on our kit. anyone is welcome to jump in :)
+15:51 * pdurbin    asks in #gluster: http://irclog.perlgeek.de/gluster/2012-11-26#i_6185657
+16:04 larsks_      pdurbin: No answers for you, but I'm curious what you find out!  What about booting instances on your various pools and running something like "iozone" or some other benchmarking tool?
+16:04 pdurbin      larsks_: yes, iozone came up in our meeting this morning. i've never used it but it's probably what we'll try
+16:04 pdurbin      crimsonfubot: lucky iozone
+16:04 crimsonfubot pdurbin: http://www.iozone.org/
+16:05 pdurbin      as i mentioned in #gluster, kickstarts are slower on gluster vs. NFS
+16:07 larsks_      Huh.
+16:10 pdurbin      yeah, it's a bummer. our NFS server is in a different data center even. this is all a bit anecdotal right now... no hard numbers
+16:16 pdurbin      i think we've identified the bottleneck at least... the 1 gig link to the iSCSI storage. this is kind of a test with old hardware. with new hardware we'd make sure it's all 10 gig links
+18:09 miah         moin
+18:30 pdurbin      don't you hate it when job offers end up in your spam folder?
+18:30 * pdurbin    kicks self
+18:31 miah         doh
+18:32 pdurbin      i accepted it. i'm moving on from my current gig. since you folks know pretty well what i do day to day, please pass along this job ad for my replacement to anyone who might be interested! https://twitter.com/jamesdotcuff/status/269214493203128321
+18:32 miah         pdurbin: lols. i used to work for Research Computing @ Childrens Hospital Boston
+18:34 pdurbin      miah: nice. come on back and take my job :)
+18:34 miah         hahah
+18:34 miah         i learned a lot in my tenure at CHB.. but I've moved far beyond them technically =)
+18:35 miah         (also i dont have to worry about my salary being funded by grants and thus making peanuts)
+18:35 pdurbin      miah: i'm glad you here to share your expertise :)
+18:35 miah         my what?
+18:35 miah         :P
+18:37 westmaas     pdurbin: where you headed?
+18:38 westmaas     rackspace?!
+18:38 pdurbin      heh
+18:39 pdurbin      westmaas: nope, staying at harvard... back to my old department (IQSS) to do dev (and likely some sysadmin) for the dataverse network project: http://thedata.org
+18:39 westmaas     pdurbin: cool
+18:40 pdurbin      i'll prolly try to sell them on vagrant (and git): https://github.com/pdurbin/dvn-vagrant
+18:42 miah         awesome
+18:43 pdurbin      the dataverse project is open source. you can all make fun of my commits :)
+18:43 miah         vagrant is cool and all.. just cant wait until other backends are available because virtualbox sucks..............
+18:44 pdurbin      i hear the master branch is where the non-virtual box stuff is
+18:44 miah         ya. i dont want to do my dev on dev =)
+18:44 miah         i've been working on this: https://github.com/miah/chef-collectd
+18:44 miah         as part of a bigger infrastructure project here
+18:45 pdurbin      agoddard: you use collectd
+18:45 miah         that cookbook still has work to be done
+18:45 miah         i need to deal with the collectd packages race conditions of post-install scripts
+18:48 pdurbin      miah: dunno if agoddard still uses this... https://github.com/agoddard/collectd-cookbook
+18:49 miah         ah. its a fork of coderangers old book, which is what mine is based on =)
+18:49 miah         mine does away with the definition and implements lwrp
+18:50 miah         i've forked/rewritten lots of cookbooks. mostly for practice. i'm still quite the ruby noob.
+18:50 pdurbin      crimsonfubot: lucky lwrp
+18:50 crimsonfubot pdurbin: http://wiki.opscode.com/display/chef/Lightweight+Resources+and+Providers+(LWRP)
+18:51 pdurbin      oh. chef thing. i keep forgetting
+18:51 miah         ya. i started out with cfengine, moved on to puppet, and am now dealing with chef.
+18:51 pdurbin      collect them all
+18:51 miah         i dont think any of them are perfect or meet all my needs
+18:52 miah         though nixos goes more in the direction i'm thinking
+18:52 miah         i need to read more about it and do some testing though
+18:53 pdurbin      crimsonfubot: lucky nixos configuration management
+18:53 crimsonfubot pdurbin: http://lwn.net/Articles/337677/
+18:53 miah         i think the standard of unix distributions providing 'configurations' for software is on the way out.
+18:53 miah         or at least, package managers need to allow me to disable certain portions of that
+18:54 miah         because in many ways, i know more about how i want my system configured and running than the vendor does
+18:54 miah         though, what the vendor provides may be worthwhile for 90% of their customers currently
+18:54 miah         i think that will change in time as configuration management adoption increases and becomes more the standard
+18:57 pdurbin      do any of the linux vendors ship puppet or chef?
+18:58 semiosis     what do you mean linux vendors?  distros?  hardware?
+18:59 semiosis     answer is yes to both afaik
+18:59 pdurbin      semiosis: i mean on centos i get puppet from EPEL not "base"
+18:59 semiosis     oh well yeah
+19:00 semiosis     ubuntu (and probably debian as well) has puppet in the standard repos
+19:00 pdurbin      gotcha
+19:00 semiosis     idk about chef tho
+19:02 miah         ubuntu no longer includes chef as opscode has requested it be remoed
+19:02 miah         removed..
+19:02 miah         because distro's are slow to upgrade to newer releases
+19:02 miah         and you end up with an army of people on a version from 4 years ago that you have to support
+19:03 semiosis     tell me about it -- we've been having that problem with glusterfs
+19:03 semiosis     and all the "howtos" from 2009 lingering around the web don't help either
+19:03 miah         https://wiki.ubuntu.com/PrecisePangolin/ReleaseNotes/UbuntuServer
+19:03 miah         search for 'chef'
+19:04 miah         Chef 0.8.16 (948437) and corresponding Ohai packages (948438) removed from precise at the request of OpsCode.
+19:04 miah         chef 0.8.16.. ancient
+19:05 semiosis     distros having outdated packages is certainly a problem, but i'm not sure that's the right solution :/
+19:07 miah         in this case, opscode provides packages for ubuntu. so they are doing a better job than cannonical can in supporting their product.
+19:07 miah         cannonical doesn't have a commercial interest in making sure chef works well
+19:08 semiosis     looks like chef (10.12.0) is in ubuntu quantal...
+19:09 miah         well, thats at least newer =)
+19:10 semiosis     i wonder what the backstory is re: why opscode didn't contribute package updates to the ubuntu repos
+19:11 miah         possibly too much effort in the reverse?
+19:11 miah         i dont know though
+19:11 miah         opscode has grown into a big company
+19:11 miah         so they probably have the people to pull it off at this point
+19:13 pdurbin      maybe in 10 years when puppet and chef are nice and stable the distros can include them
+19:13 semiosis     lol
+19:14 semiosis     all i know is the puppet packages in ubuntu have been great for me since 10.10, no trouble
+19:14 semiosis     besides the upstream bugs, no extra hassles introduced by the distros
+19:14 pdurbin      whatever version of puppet is in the vagrant base box i use is good enough for me
+19:23 miah         ya. the templates used to build those generally pull from rubygems
+19:25 miah         at least, the veewee templates do
+19:25 miah         not sure if thats what mitchell is using to build his baseboxes though
+19:28 semiosis     wow thats so unlike production
+19:29 semiosis     i have been skeptical about this whole "vagrant" fad
+19:30 semiosis     i wonder if it would be possible to boot the ubuntu cloud guest images in vagrant
+19:30 semiosis     that would be nice (for me)
+19:31 pdurbin      it look me a while to become a believer in vagrant
+19:32 larsks       I like the vagrant idea, but the whole virtualbox-only thing is annoying.
+19:33 pdurbin      yeah. the main thing is the idea
+19:33 larsks       So I wrote https://github.com/larsks/drifter, which is a similar thing but for openstack.  I decided to use ansible for provisioning rather than trying to write my own provisioning system.
+19:33 semiosis     i get the feeling it's mostly for mac people
+19:34 pdurbin      semiosis: vagrant works great on my fedora laptop
+19:34 pdurbin      larsks: wait, are you reinventing that other thing?  the vagrant for openstack thing?
+19:34 larsks       You mean cloud envy?
+19:34 pdurbin      yeah
+19:35 pdurbin      it's right there in your readme :)
+19:35 larsks       Have you *looked* at cloud envy?
+19:35 pdurbin      nope
+19:35 pdurbin      huh. cloud envy implements its own provisioning? bleh
+19:35 larsks       Cloud envy only works with a single instance, can't copy files as part of your provisioning process, doesn't know how to run scripts as root when connecting as an unprivleged user, etc etc...
+19:35 larsks       And yeah, that.
+19:36 pdurbin      that's what sold me on vagrant. that i could use puppet or chef
+20:14 miah         you can run arbirary scripts with vagrant. its quite flexible.
+20:19 codex        http://forums.pinstack.com/content/7710-apple_s_journaling_system_ios_makes_geotagging.html
+20:19 codex        Apple's journaling system for iOS makes geotagging a system-wide feature
+21:24 ironcamel    pdurbin: congrats on your new job. will you be doing more coding now?
+21:25 pdurbin      ironcamel: that's the plan! some sysadmin still i'm sure. i doubt you guys are rid of me
+21:25 ironcamel    pdurbin: have a link to the dataverse source code?
+21:27 pdurbin      ironcamel: https://dvn.svn.sourceforge.net/svnroot/dvn/dvn-app/trunk via http://guides.thedata.org/book/3-check-out-new-copy-dvn-source
+21:29 miah         coding is fun
+21:30 pdurbin      miah: yes
+21:31 pdurbin      that reminds me, i'm kinda thinking about starting up another channel on freenode modeled on this one, but with more of an emphasis on coding
+21:31 pdurbin      need a name. suggestions welcome!
+21:31 ironcamel    coding is life and death, love and hope, creation and imagination, all rolled up into nice little bits
+21:32 semiosis     #codingfu appears available
+21:33 pdurbin      semiosis: you're welcome to squat on it :)
+21:34 semiosis     at this point that would be less work than /leave-ing it
+21:34 semiosis     or is it /part, idk
+21:41 codex        semiosis: /win close?
+21:41 codex        pdurbin: neat idea btw - but why not use this one?
+21:42 codex        tech/systems/coding/network/security - pretty thin line in some cases
+21:42 codex        might as well take advantage of diverse crowds no?
+21:42 semiosis     +1
+21:42 JoeJulian    I think that "coding is life and death, love and hope, creation and imagination, all rolled up into nice little bits" might be a bit long...
+21:43 miah         also. there is ##infra-admin
+21:43 miah         er
+21:43 miah         ##infra-talk
+21:43 * miah       herps while she derps
+22:12 codex        miah: for a second I thought you worked for chia pet :-D
+22:17 miah         lol.
+22:17 miah         ITS THE POTTERY THAT GROWS
+22:18 miah         i've owned this domain for years.. prior to that i had goatcheese.org but stupid network solutions fucked up hard enough to guarentee i'd lose it.
+22:44 miah         fwiw. i work here: hoteltonight.com
+22:50 comptona     if anybody's in SF, we're having an unstructured meetup tomorrow to hang out and talk shop: http://www.meetup.com/sysadmins-San-Francisco/events/92218962/
+22:54 miah         how good will the food be?
+22:54 miah         :P
+22:58 miah         guh.
+23:04 comptona     no food provided, unfortunately
+23:05 comptona     but that means it'll be as awesome as you want it to be! ;-)
+23:07 miah         will fsargent be there?
+23:16 comptona     I don't know
+23:16 comptona     the list of people who are coming is on that page I liked; I'm not sure who fsargent is IRL
+23:16 comptona     liNked
+23:17 miah         he works at rackspace.. i suspect in that office. unless he left already =)
+23:17 comptona     then that's very possible
+23:17 comptona     JasonF would know; he's the contact at rackspace who organized it
+23:17 miah         ah
+</pre></body></html>

@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+00:17 pdurbin   ironcamel: it isn't hard to deploy java apps. git clone https://github.com/pdurbin/dvn-vagrant.git &amp;&amp; cd dvn-vagrant &amp;&amp; vagrant up
+00:17 pdurbin   (but i lol'd at that too) :)
+00:18 ironcamel i don't get it. dvn-vagrant is not java.
+00:19 ironcamel oh, the thing you are vagrant up'ing is java
+00:19 pdurbin   :)
+00:19 ironcamel i am slow
+00:21 pdurbin   time for me to get back into java
+00:22 ironcamel pdurbin: you heard of ubuntu's juju?
+00:22 ironcamel http://www.mattfischer.com/blog/?p=319 GETTING JUJU WITH IT
+00:22 pdurbin   hmm. i feel like it's come up before here
+00:22 ironcamel I learned about it from http://blog.canonical.com/2012/11/29/sputnik-dells-ubuntu-based-developer-laptop-is-here/
+00:25 pdurbin   oh yes, we were just talking about this. isn't the new version written in go?
+00:26 ironcamel no idea
+00:27 pdurbin   bulk of the conversation was here: http://irclog.perlgeek.de/crimsonfu/2012-11-21
+00:32 pdurbin   that's odd. i could have sworn i wrote this already but i don't see it in the log... "`juju-core` is written in Go" -- http://bazaar.launchpad.net/~gophers/juju-core/trunk/view/head:/README
+00:33 pdurbin   "We should really gang up &amp; write a next gen #devops framework with #golang. I'm convinced that it's the future for general ops work." -- https://twitter.com/dysinger/status/271111123946860544
+16:03 pdurbin   huh. github is down again? :(
+16:04 pdurbin   was gonna ask if anyone is using mysql::backup from https://github.com/puppetlabs/puppetlabs-mysql
+16:05 pdurbin   oh good, github is back
+16:05 pdurbin   it looks like mysql::backup calls mysqldump with --all-databases, which i guess is fine... https://github.com/puppetlabs/puppetlabs-mysql/blob/master/templates/mysqlbackup.sh.erb
+16:08 pdurbin   looks like the looks like the cron job fires once a day an hour before midnight: https://github.com/puppetlabs/puppetlabs-mysql/blob/master/manifests/backup.pp
+16:09 pdurbin   (must. preserve. database that backs http://irclog.greptilian.com ... )
+16:22 Pax       Good Saturday Morning to ya's
+16:24 pdurbin   Pax: hi!
+16:25 pdurbin   interesting that mysql::backup puts the cron job in root's crontab. i guess that's fine
+16:25 pdurbin   Pax: see! i'm still here! https://twitter.com/philipdurbin/status/274889460250984448
+16:25 Pax       LOL
+16:26 pdurbin   Pax: "Elián Come Home"?
+16:26 pdurbin   -- https://twitter.com/paxindustria/status/274911109092352001
+16:27 Pax       You don't remember little Elian Gonzalez? http://en.wikipedia.org/wiki/Eli%C3%A1n_Gonz%C3%A1lez_affair
+16:29 pdurbin   oh yeah... been a while...
+16:29 Pax       hey so
+16:29 pdurbin   looks like mysql_backup_20121201-172731.sql.bz2 (for example) gets created
+16:30 Pax       I stated contributing to a github project, and wondering how often I should submit pull requests into the dev branch… lots of small changes, or less requests after stuff is more finished?
+16:30 Pax       stated == started
+16:33 pdurbin   Pax: sometimes projects have very clear instructions on how they want you to do pull requests. check this out: http://thinkupapp.com/docs/contribute/developers/devfromsource.html#quickfire-do-s-and-don-t-s
+16:34 pdurbin   i went ahead and pushed the mysql::backup thing. trying out mysql::backup from puppetlabs · 6a56bd8 · pdurbin/greptilian-vagrant - https://github.com/pdurbin/greptilian-vagrant/commit/6a56bd8b3c2b86b94a69396f31d932aec9912301
+16:40 pdurbin   hmm, interesting that github used 7 characters of the sha1. i've been using 6. i guess 7 is just that much safer
+17:11 pdurbin   whoops, i missed my chance to have shorter permalink achors at http://irclog.greptilian.com ... http://irclog.perlgeek.de/ilbot/2012-12-01#i_6202101 . oh well
+18:13 pdurbin   heh. /usr/local/greptilian/bin/philbot :)
+18:54 pdurbin   ok, not automated, but some technical debt paid off... mysql backups now at https://github.com/pdurbin/data.greptilian.com for the database for http://irclog.greptilian.com
+18:55 pdurbin   Pax: today is turning out to be a #crimsonfu day, i guess :)
+19:04 pdurbin   there! after reboot, all the bots are where they're supposed to be :)
+19:05 * pdurbin heads to lunch
+19:54 westmaas  https://github.com/Netflix/Hystrix/wiki (I'm sure most of you saw this already!)
+21:17 pdurbin   westmaas: good stuff
+</pre></body></html>
