@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+04:03 rackerhacker pdurbin: i think i found a pc laptop i finally like
+04:03 rackerhacker got an x1 carbon in the mail today
+11:37 pdurbin      crimsonfubot: lucky x1 carbon laptop
+11:37 crimsonfubot pdurbin: http://www.lenovo.com/products/us/laptop/thinkpad/x-series/x1-carbon/
+11:39 pdurbin      is that a touch screen? can you draw on it with a stylus?
+11:39 pdurbin      westmaas: that reminds me. i sent you an xmas card, ya bastard
+13:39 jimi_c       and it runs linux... nice
+13:39 jimi_c       http://www.inaccuratedesign.com/2012/10/22/Linux-on-the-X1-Carbon.html
+15:42 agoddard     ohai!
+15:42 pdurbin      hey stranger
+15:42 agoddard     how's the new gig?
+15:43 pdurbin      doin' fun stuff - Dataverse Network - Documentation #1188: Move from Subversion to GitHub - Project Management at IQSS, Harvard University - https://redmine.hmdc.harvard.edu/issues/1188 :)
+15:44 pdurbin      sjoeboo_: i'm totally cribbing from your post: Moving Puppet From Subversion to GIT in 15 Minutes While Adding Dynamic Environments - Coffee &amp; Beer - http://sjoeboo.github.com/blog/2012/02/08/moving-puppet-from-subversion-to-git-in-15-minutes-while-adding-dynamic-environments/
+15:47 agoddard     pdurbin: nice! I rememebr svn -&gt; git migrations ;)
+15:47 agoddard     anyone here have experience with Amazon's Route53 DNS?'
+15:47 pdurbin      i don't have sjoeboo_ here to do it for me ;)
+15:47 pdurbin      agoddard: hmm
+15:47 pdurbin      whorka: do you? amazon thing ^^
+15:48 pdurbin      semiosis: i bet you do
+15:52 agoddard     I'm looking at a quote from dynect for $3-4k for managed DNS, and route53 seems way cheaper and just as good for what we need..
+15:52 blondbaron   i'm really happy with dynect
+15:56 agoddard     I'm sure we would be too, but it might come at the expense of some CDN performance gains, 'cause our budget is lacking a bit :(
+15:57 pdurbin      agoddard: the main reason not to run dns yourself is performance?
+15:57 agoddard     Our current DNS (DYN's 'standard' tier) has gone down 4 or 5 times this year, so I'm pretty sure any other offering (including DYN's enterprise stuff) is gonna be better.
+15:58 agoddard     pdurbin: ya, I guess performance, reliability and cost/benefit - if it's $300 a year, then not having to think about whether the DNS boxes are up is nice..
+15:59 whorka       haven't done any Amazon DNS pdurbin
+16:08 semiosis     agoddard: i'm all up in that r53... whats up?
+16:10 agoddard     semiosis: recommend it? We do around 30m queries/month, though we also run the gauntlet of DNS worst practices in our legacy DNS, so this move will be to clear that up too.
+16:11 semiosis     yeah i've been happy with it
+16:13 pdurbin      stackoverflow stopped hosting their own dns: New DNS Provider « Blog – Stack Exchange - http://blog.stackoverflow.com/2009/09/new-dns-provider/ ... no idea what they're doing now
+16:13 pdurbin      whorka: ack
+16:58 jgtimmer     pdurbin: an interesting podcast I just learned about: http://www.rce-cast.com/
+16:59 pdurbin      jgtimmer: yes! i love that one
+16:59 pdurbin      for all things research computing and HPC
+17:00 jgtimmer     well what others do you love?
+17:00 pdurbin      crimsonfubot: lucky java public house podcast
+17:00 crimsonfubot pdurbin: http://www.javapubhouse.com/
+17:01 jgtimmer     that site is down
+17:01 pdurbin      just started listening to that one. it's great. real-world java fu. i'm almost caught up and will probably listen through them again
+17:01 pdurbin      crimsonfubot: lucky /dev/hell podcast
+17:02 crimsonfubot pdurbin: http://devhell.info/
+17:02 jgtimmer     hmm. it's not down, just not reachable from uni network :-s
+17:02 pdurbin      that one's pretty entertaining (/dev/hell). it's a bit php-oriented but the guys are open to many technologies
+17:02 pdurbin      crimsonfubot: lucky hypercritical podcast
+17:02 crimsonfubot pdurbin: http://5by5.tv/hypercritical
+17:03 pdurbin      i've been falling behind of hypercritical but it's great. very technical. a bit too mac-oriented for me but he had a great episode about filesystems... xfs... btrfs
+17:04 pdurbin      crimsonfubot: lucky this week in google
+17:04 crimsonfubot pdurbin: http://twit.tv/twig
+17:04 pdurbin      i've been falling behind on TWiG too but it's good. more about people and technology. smart people on it
+17:06 jgtimmer     wow, thankx
+17:06 jgtimmer     subscribed to the last 3 :-)
+17:06 pdurbin      jgtimmer: you should join huffduffer! http://huffduffer.com/philipdurbin
+17:07 pdurbin      i'd happily subscribe to anything you huffduff :)
+17:08 pdurbin      i'm starting to feel the need for a #crimsonfu-BOS-lunch channel
+17:11 jgtimmer     wel, not so much time to be huffduffing :-p
+17:12 pdurbin      yeah, huffduffing needs to be easier. i love the idea but i seldom do it
+21:20 pdurbin      sjoeboo_: i'm wondering if you set up an authors file when you ran svn2git... it's choking on my authors file... i don't see you using one here: http://sjoeboo.github.com/blog/2012/02/08/moving-puppet-from-subversion-to-git-in-15-minutes-while-adding-dynamic-environments/
+21:22 pdurbin      when i use --authors ~/authors.txt or set up ~/.svn2git/authors i get... command failed: git svn fetch
+21:23 pdurbin      er, i get this... command failed: 2&gt;&amp;1 git svn fetch
+21:26 pdurbin      hmm, finding some stuff here - command failed: 2&gt;&amp;1 git svn fetch · Issue #69 · nirvdrum/svn2git · GitHub - https://github.com/nirvdrum/svn2git/issues/69
+21:34 sjoeboo_     pdurbin: no, no authors file was ever usd
+21:34 pdurbin      :(
+21:34 sjoeboo_     never had one in svn
+21:43 semiosis     poll: what shell do you use?  and, briefly, why?
+21:43 pdurbin      bash because i like defaults
+21:43 semiosis     bash -- because it's everywhere
+21:44 spilth       bash -- i am a sheep
+21:44 semiosis     pdurbin: yay defaults :)
+21:46 sjoeboo_     late to the game, but bash
+21:48 pdurbin      like perl, bash is good enough :)
+21:50 pdurbin      ah. so svn2git is choking on missing authors. kind of makes sense. i'm running `git svn fetch` to find them. here's my repo: https://github.com/dvn/dvn-sourceforge2github
+21:51 pdurbin      it's funny though... these authors don't appear in the output from this: svn log --quiet https://dvn.svn.sourceforge.net/svnroot/dvn/dvn-app/trunk | grep -E "r[0-9]+ \| .+ \|" | awk '{print $3}' | sort | uniq
+21:52 pdurbin      which is recommended from https://github.com/nirvdrum/svn2git
+21:52 pdurbin      semiosis: am i ruining your survey? sorry :)
+22:00 ironcamel    ... | perl -lane 'print $F[2] if /r\d+ | .+ /' | sort | uniq
+22:00 pdurbin      ironcamel: heh. i just copied and pasted from that page. i'm sure there's a better way
+22:13 pdurbin      ironcamel: you can send that guy a pull request :)
+22:29 pdurbin      so, the svn2git conversion worked once i added the three missing authors... which again i tracked down by running `git svn fetch` after getting that error from `svn2git file:///Users/pdurbin/github/dvn/dvn-sf-rsync --trunk dvn-app/trunk --branches dvn-app/branches`
+22:54 semiosis     pdurbin: what survey?
+22:54 semiosis     hehehe
+22:54 semiosis     had to go afk to drop some kung fu on a dev's javascript
+22:55 semiosis     crazy safari on ios submitting a form by get when all other browsers were doing post like they should
+22:57 pdurbin      speaking of odd mobile browsers, i forget if i sent this along... i know i did in #ilbot - disappearing ilbot logs - YouTube - http://www.youtube.com/watch?v=TriSozFkA-Y
+22:58 pdurbin      those are my kids making noise in the background. such is my life
+23:00 pdurbin      the discussion in #ilbot: http://irclog.perlgeek.de/ilbot/2012-12-02#i_6204065
+</pre></body></html>

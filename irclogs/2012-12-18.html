@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+14:06 pdurbin   agoddard: yet another "publish data on the web" tool - Nesstar - http://irclog.iq.harvard.edu/dvn/2012-12-18#i_175
+15:04 * pdurbin runs `brew install coreutils` and wonders if this is a bad idea
+15:06 pdurbin   oh, interesting... "All commands have been installed with the prefix 'g'."
+15:06 pdurbin   export PATH="/Users/pdurbin/.homebrew/opt/coreutils/libexec/gnubin:$PATH"
+15:07 pdurbin   of course, as it turns out, i meant to run `brew install findutils`
+15:08 pdurbin   ahh... gfind is mine
+15:11 * pdurbin votes up http://superuser.com/questions/293199/find-printf-on-mac-printf-unknown-option/293200#293200
+15:32 larsks    Hey, gluster people: any hints for monitoring the health of a gluster cluster?  All the command seems to be human-readable rather than machine-parseable.
+15:35 semiosis  larsks: i have puppet set up nagios checks for all the gluster processes &amp; log files
+15:35 semiosis  in addition to normal disk &amp; mount checks
+15:35 sjoeboo_  larsks: same, nagios checks, found some, written others
+15:35 semiosis  https://github.com/semiosis/puppet-gluster
+15:35 semiosis  you can see the nagios check commands i use ther
+15:36 larsks    I'll take a look.
+23:16 pdurbin   agoddard: i keep seeing this an can imagine you calling it "ohaiHandler" - http://www.lockss.org/lockssdoc/gamma/daemon/org/lockss/oai/OaiHandler.html
+23:19 pdurbin   heh. make CFLAGS= -std=gnu89 -fheinous-gnu-extensions
+</pre></body></html>

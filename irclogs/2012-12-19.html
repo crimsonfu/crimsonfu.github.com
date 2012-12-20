@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:51 agoddard     ^^
+00:51 agoddard     :D
+01:25 larsks       w
+01:25 larsks       Derrrrr, just passing through my screen session, don't mind me...
+18:55 pdurbin      bah! i'm having this "/sbin/ifup eth1 2&gt; /dev/null" problem again in vagrant and i don't know why - https://github.com/mitchellh/vagrant/issues/997#issuecomment-9969226
+18:56 shuff        huh
+18:57 shuff        yeah, udev persistent rules would have been my first guess
+18:58 pdurbin      last time switching base boxes fixed it
+18:59 pdurbin      i hope centos comes out with official base boxes soon
+19:05 pdurbin      oh wait... my fault i think... i already had vagrant vm running with the same ip address... config.vm.network :hostonly, "33.33.33.10"
+19:46 jimi_c_      pdurbin: can you shoot me that list of other vagrant box builds again? i thought i bookmarked it, but apparently not
+19:46 jimi_c_      really annoying the only official build is lucid32 :/
+19:55 pdurbin      http://www.vagrantbox.es
+19:57 jimi_c_      thanks :)
+20:27 semiosis     wow that's a security breach waiting to happen
+20:28 semiosis     is there even any signature to make sure the .box you get is actually from an author you trust
+20:28 semiosis     ?
+20:52 pdurbin      *crickets*
+20:53 pdurbin      that's partly why i want official centos base boxes :)
+20:53 semiosis     is rolling your own really that hard?
+20:53 pdurbin      dunno
+20:53 pdurbin      sjoeboo_: you did it
+20:54 sjoeboo_     super easy, build a sytem in virtual box, package it up, there are guides
+20:54 semiosis     cool
+20:54 spilth       There's also veewee to help build your own base boxes
+20:55 spilth       @lucky veewee
+20:55 crimsonfubot spilth: https://github.com/jedi4ever/veewee
+20:55 semiosis     i'm bothered by the fact that the boxes aren't signed
+20:55 semiosis     and didnt find anything about that in 10 min of googling around
+21:00 pdurbin      i don't think they're signed. you have a good point
+21:04 pdurbin      but i think i've got a guy here sold on vagrant for our dev environment. we'll see :)
+21:09 pdurbin      now to see if my readme is right: https://github.com/IQSS/iqss-javaee-template :)
+21:10 pdurbin      argh, i always forget readme.md is not github-flavored :(
+21:26 miah         i use marker.app to precheck my markdown files
+21:27 miah         http://markedapp.com/
+21:43 spilth       I need a business case to get upgraded to 10.7 or 10.8 so I can actually use most Apps :-/
+21:43 spilth       But I don't think we're supposed to be installing Apps from the App Store in the first place
+21:44 spilth       Marked requires 10.7 :-(
+21:46 pdurbin      miah: yeah, i have a script but it does autolink. i need to take that out when i'm testing non-github-flavored-markdown files
+21:47 spilth       pdurbin: does auto link turn non-[]() URLs into links?
+21:48 pdurbin      spilth: it means you don't have to put &lt; &gt; around your links
+21:48 pdurbin      which is dumb
+21:50 spilth       Ah, I've never actually looked at GFM - http://github.github.com/github-flavored-markdown/
+21:57 miah         "we're supposed to be installing Apps from the App Store in the first place" ouch. i cant work in an environment like that.
+21:59 spilth       You gotta pick your battles
+21:59 miah         ya i guess
+22:00 spilth       I try to appreciate the reasoning on the other side
+22:00 miah         i try to. but most of the time its pointless
+22:00 miah         i worked at a ponzi scheme that had all sorts of stupid rules for stupid reasons
+22:01 miah         its been hard for me to take more of that shit seriously now
+22:01 miah         make it hard for me to do my job? i'll go do it elsewhere.
+22:01 spilth       bigger companies have bigger liabilities
+22:02 miah         ya
+22:02 miah         bigger companies have bigger ego's and more vapid c-level people
+22:02 spilth       and less second round funding
+22:02 miah         i suppose.
+22:03 miah         as long as i get paid for a while i dont care
+22:03 miah         better than being bored
+22:05 miah         every large company i've been at. i hit the ceiling too quickly. everybody around me is an idiot. we work with technology from 15 years ago.
+22:09 spilth       That means there's an opportunity to educate people and improve things. Assuming people want to learn.
+22:10 miah         you'd think that.
+22:11 miah         i left salesforce because after two and a half years of trying to educate and change i could not make progress
+22:11 miah         after i left, they started implementing and working on the changes i talked about
+22:11 miah         because somebody else brought it up i guess
+22:12 miah         their techops group is run by some misogynists i think
+22:12 miah         everytime i brought things up: ignored
+22:12 miah         somebody else brought up the same topic: LETS DO IT
+22:12 semiosis     people rarely want to learn, usually they must have no other choice
+22:12 miah         yup
+22:13 semiosis     if you work with people who actually want to learn, don't take it for granted, you're lucky
+22:13 miah         and when you're in a cushy large corp IT department..
+22:13 miah         i remember teaching the windows admins at the ponzi schemes about windows slipstreaming
+22:13 miah         they still insisted on manually installing each server
+22:13 miah         because they could spend all day on two servers and do less work overall
+22:14 miah         'i enjoy clicking yes approximately 200 times for the next 3 hours'
+22:14 semiosis     miah: was it a family business?
+22:14 miah         no
+22:14 miah         http://en.wikipedia.org/wiki/Stanford_Financial_Group
+22:14 semiosis     heh
+22:15 semiosis     my of the (somewhat cynical) opinion that, at least in legit businesses, the inefficient ones are the family businesses
+22:15 semiosis     s/my/i'm/
+22:16 miah         my experience is, its most of them
+22:16 semiosis     heh
+22:16 miah         i worked in hospitals..
+22:16 spilth       A good read: http://pragprog.com/book/trevan/driving-technical-change
+22:16 miah         i've read it
+22:16 miah         it comes back to people wanting to change and learn
+22:17 spilth       Well I can see which side of "You can change your organization. Or you can change your organization." you've ended up on :-)
+22:17 semiosis     i wonder if it's any different at facebook, google, or netflix
+22:19 semiosis     so hard to find good people
+</pre></body></html>

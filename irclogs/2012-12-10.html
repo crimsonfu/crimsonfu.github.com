@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+14:03 pdurbin      not to complain about a #firstworldproblem, but i guess i need one of these (or similar): Secure Your Retina MacBook With The MacLocks Lock Cable | TechCrunch - http://techcrunch.com/2012/07/02/secure-your-retina-macbook-with-the-maclocks-lock-cable/
+14:50 dotplus      agoddard: here is the exact error message "mount: cannot remount block device /dev/mapper/vg_root-lv_root read-write, is write-protected" when I try to remount from inside the guest
+14:50 dotplus      guess how I know now? :(
+15:13 pdurbin      dotplus: how?
+15:21 dotplus      pdurbin: because it failed again. for some reason, another VM lost its disk
+15:29 pdurbin      :(
+16:30 raprasad     pdurbin: take a long first day job break!  The CS50 fair is actually today--not last week
+18:58 miah         moin
+18:58 pdurbin      moin
+18:59 semiosis     heya
+19:21 pdurbin      first mention of puppet in #dvn: http://irclog.iq.harvard.edu/dvn/2012-12-10#i_54 :)
+20:53 pdurbin      any opinions on this? How to install PostgreSQL on Mac OS X - @AstonJ's Blog - http://astonj.com/tech/how-to-install-postgresql-on-mac-os-x/
+21:04 dotplus      all these "curl foo | bash"-equivalent installation processes make me nervous
+21:05 pdurbin      yeah
+21:05 dotplus      apart from anything else, it promotes bad habits.
+21:05 pdurbin      i'm planning on going with http://www.enterprisedb.com/products/pgdownload.do#osx via http://www.postgresql.org/download/macosx/
+21:05 pdurbin      that'll give me 9.2, which has that json support i've been curious to try
+21:07 dotplus      when I get around to playing with 9.2, I'll almost certainly be doing it on a linux VM using PGDG's yum repo which will no doubt give me something _very_ recent (i.e. 9.2+)
+21:08 pdurbin      yeah, here's my idea for running postgres in a test vm for this app: https://github.com/pdurbin/dvn-vagrant
+21:09 pdurbin      but i'm going to go ahead and set up this macbook with postgres the way everybody else on the team does: http://guides.thedata.org/book/ii-application-environment-glassfish
+21:20 pdurbin      hmm, the guy who wrote that doc actually installed via fink... so many options :)
+21:22 miah         oh. fink. fun.
+21:22 miah         brew install postgresql
+21:22 miah         works quite well =)
+21:22 pdurbin      i feel like i use homebrew for a couple things... more than just wget...
+21:22 pdurbin      miah: right. brew :)
+21:23 miah         i remember fink though.. and i don't remember it fondly.
+21:23 pdurbin      miah: do you let homebrew write all over your system as root?
+21:23 pdurbin      i usually just keep it all in my home directory
+21:23 pdurbin      ironcamel: yes, this again :)
+21:29 pdurbin      oh, right. homebrew is the one that doesn't run as root (doesn't use sudo) but installs stuff be default in /usr/locl
+21:29 pdurbin      er, /usr/local , mean: https://github.com/mxcl/homebrew/wiki/Installation
+21:30 pdurbin      which kind of rubs me the wrong way since there's stuff in /usr/local already
+21:33 dotplus      also macports
+22:00 semiosis     it's 5:00 somewhere...
+22:08 miah         it doesnt just use /usr/local
+22:08 miah         but /usr/local/Cellar primarily. it certainly does link things into /usr/local/bin though
+22:09 miah         im slowly working my way to workstation management via chef too though
+22:09 miah         so i don't really care. i install everything via homebrew or a dmg
+22:10 semiosis     i heard google uses puppet for workstation management on mac, probably goobuntu as well
+22:11 miah         google is a huge puppet shop
+22:11 semiosis     miah: do you know if that is a common practice?
+22:11 crimsonfubot http://www.puppetville.com/
+22:11 semiosis     yeah
+22:11 semiosis     i mean, do you know if managing workstations with CM is common?
+22:11 miah         it is in many environments yes
+22:11 miah         less so in the startup world
+22:11 semiosis     hehe crimsonfubot does a @lucky any time you start a message with google
+22:11 miah         i think mostly because much of the work is left to be done
+22:19 spilth       I remember reading about some shop that uses Vagrant to build everything from their local development to production environment. This way it's guaranteed that prod is the same as dev.
+22:20 pdurbin      spilth: yes. i use this to go from dev to prod: https://github.com/dvn/iqirclog-vagrant
+22:21 pdurbin      whorka: on one of the VMs you guys set up for me, which hosts http://irclog.iq.harvard.edu
+22:21 spilth       We use Puppet at my job for servers, but not for local development boxes/environments
+22:21 pdurbin      miah: any plans to publish a howto on managing a mac with chef? i was thinking of using puppet to manage my macbook but i'll use whatever's easy :)
+22:22 pdurbin      semiosis: yeah, i noticed that the other day... had started a line with google... hmm
+22:25 pdurbin      spilth: that's not the best example though... not much dev goes into irc logging bot. here's me thinking out loud about how to get a java ee app into vagrant dev/stage/prod cycle: http://irclog.iq.harvard.edu/dvn/2012-12-10#i_55
+22:25 spilth       Don't think this was it but - Building and Distributing Development Virtual Machines With Vagrant - http://blog.meta-spaces.com/blog/2011/09/05/Vagrant/
+22:25 spilth       pdurbin: Do you consider dev to be a local developer's machine or a shared environment?
+22:28 semiosis     fwiw, in my group, dev is local workstation, test is shared HA in office w/out cm, staging is fully automated/puppetized prod-clone in aws, and prod is prod
+22:30 spilth       semiosis: interesting
+22:32 spilth       for us, developers set up their own local environment, dev/qa/prod are servers that are all puppetized. sometimes we have additional environments beyond. sometimes the names are consistent :-|
+22:47 miah         pdurbin: maybe?
+23:57 pdurbin      spilth: well, with vagrant it's kinda both... the dev environment is local but the config is shared with vagrant :)
+</pre></body></html>

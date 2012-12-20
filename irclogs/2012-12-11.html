@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+14:19 pdurbin        huh. i didn't even consider that mac os x 10.8 (mountain lion) would already have postgres installed... when i ran `brew install postgresql` i was told it was "key-only" which i take to mean that the software already exists on the system: http://stackoverflow.com/questions/4691403/keg-only-homebrew-formulas
+14:20 pdurbin        so i started wondering if i can just use the built in version... and found this: Tomasz Korwel » Using built in Postgres 9.1.5 on Os X Mountain Lion (10.8) :: programmer, administrator, engineer – my everyday fights with reality - http://tomasz.korwel.net/2012/11/06/using-built-in-postgres-9-1-5-on-os-x-mountain-lion-10-8/
+14:21 pdurbin        but when i run `psql --version` i get 9.1.4 not 9.1.5 and i don't have /Library/Server/PostgreSQL (let alone /Library/Server) so i wonder if he's talking about 10.8 server rather than client, which is what i have
+14:32 pdurbin        sent him a tweet: https://twitter.com/philipdurbin/status/278507289076432896 with a typo. whoops. :)
+15:58 whorka         pdurbin: OpenStack meetup at Harvard http://www.meetup.com/Openstack-Boston/events/93083222/
+16:16 pdurbin        whorka: interesting. Pax and larsks ^^
+19:01 pdurbin        shuff1: you must be here to talk to rackerhacker about http://crimsonfu.github.com/2012/03/27/lightning-exchange-provider.html
+19:02 shuff1         it had crossed my mind
+19:03 pdurbin        i think i need a #crimsonfu-mac channel. i've gotten too used to linux on the desktop
+19:05 semiosis       pdurbin: hah!  i just went to ##infra-talk for mac help a moment ago
+19:40 miah           herp
+19:55 * rackerhacker waves at pdurbin
+19:55 shuff1         heyo
+19:55 rackerhacker   pdurbin: i think i got davmail to behave when i forced it to use EWS by default
+19:55 rackerhacker   howdy shuff1
+19:55 shuff1         did you end up finding a Thunderbird 17 compatible version of the extension?
+19:55 rackerhacker   i didn't
+19:56 rackerhacker   when i tried to use it with TB17, there was no field for me to put in the URL to the calendar
+19:56 rackerhacker   so i'm doing Lightning -&gt; CalDAV -&gt; Davmail w/EWS -&gt; Exchange
+19:56 rackerhacker   seems to work better now
+19:58 shuff1         huh
+20:04 * pdurbin      is glad he moved to gmail :)
+20:05 rackerhacker   hah
+20:05 rackerhacker   i'm getting harassed for not using a "business operating system" to retrieve my email
+20:10 pdurbin        :)
+20:12 shuff1         tell them Thunderbird is totally a business operating system :)
+20:13 miah           a business operating system? whats that?
+20:13 miah           OS/2?
+20:13 rackerhacker   i told them to get out of my business :)
+20:13 miah           VMS?
+20:14 rackerhacker   HP/US
+20:14 miah           i've been using Postbox.app instead of TB17.
+20:14 rackerhacker   s/S$/X/
+20:14 shuff1         i kind of like HP/U$ better
+20:14 miah           its h-pucks
+20:14 miah           and aix is forever aches
+20:33 * pdurbin      reads http://en.wikipedia.org/wiki/Apache_Solr
+20:37 * pdurbin      looks a previous mentions of solr.... http://irclog.perlgeek.de/crimsonfu/2012-05-17#i_5606102 http://irclog.perlgeek.de/crimsonfu/2012-10-05#i_6038958
+20:37 pdurbin        looks like agoddard runs solr
+20:40 pdurbin        mmm, "has REST-like HTTP/XML and JSON APIs that make it easy to use from virtually any programming language"
+20:56 semiosis       pdurbin: why solr not elasticsearch?
+20:57 semiosis       rackerhacker: tell them sincerely that 2013 will be the year of the linux desktop!
+20:58 semiosis       try not to laugh when you do
+21:00 rackerhacker   haha, i know, i know
+21:00 rackerhacker   i might see if they'll toss me a managed windows vm just for heavy duty calendaring ;)
+21:34 pdurbin        simmel: we talked about shibboleth at http://irclog.perlgeek.de/crimsonfu/2012-12-03#i_6206085 but i'll probably be asking you more questions... :) i just opened this ticket: https://redmine.hmdc.harvard.edu/issues/2657
+</pre></body></html>

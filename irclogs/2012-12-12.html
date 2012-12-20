@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+01:31 pdurbin_m http://www.opsschool.org
+01:32 pdurbin_m https://github.com/opsschool
+01:52 semiosis  oh snap, pdurbin just sent us back to school!
+04:15 pdurbin   semiosis: heh. look at all that stuff you have to know to be in ops
+07:22 simmel    pdurbin: Sweet, gj!
+11:49 pdurbin   simmel: gj? good job?
+11:58 simmel    pdurbin: Yes, exactly.
+12:33 pdurbin   simmel: well, opening a feature request is the easy part. if you have any tips for getting started with shibboleth (especially with a java ee webapp), please let me know :)
+12:40 simmel    pdurbin: https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPJavaInstall looks pretty good, InCommon should have some documentation for you too? /SHIB2/NativeSPLinuxInstall and /SHIB2/NativeSPGettingStarted too
+13:11 pdurbin   simmel: thanks! dropped those links at http://irclog.iq.harvard.edu/dvn/2012-12-12
+13:17 simmel    np
+14:32 pdurbin   shuff: you're here two days in a row? early new years resolution? ;)
+14:35 shuff     the horse, i am back on it
+14:53 pdurbin   heh
+15:21 pdurbin   silly lion... Is there a way to suppress badge counts and the dock icon bounce for Terminal.app in Lion? - Ask Different - http://apple.stackexchange.com/questions/18605/is-there-a-way-to-suppress-badge-counts-and-the-dock-icon-bounce-for-terminal-ap
+17:01 pdurbin   i hear it's almost 12-12-12-12-12-12 or something
+17:05 spilth    11-11-11-11-11-11 was so much better
+17:23 sjoeboo   anyone else in here use rnsapshot for backups ? i've got a really silly idea i'm trying out and want to sanity check it...
+17:23 sjoeboo   basically....having the postsync fire off a hardlink run on the snapshot dir (which is contained inside the backup source)
+17:24 sjoeboo   the idea being, take a /storage/ directory, and present /storage/.snapshots/ without data duplication, only changes, by way of hardlink based file-level de-dup..
+17:33 whorka    if the files are hardlinked, won't changes to /storage affect /storage/.snapshots also?
+17:38 whorka    oh, I see, rsnapshot is using hardlinks between backup sets for differentials, not hardlinks to the originals.
+17:57 semiosis  it's 12:12:12 somewhere...
+19:19 miah      people use terminal.app? i thought everybody used iterm2
+19:19 pdurbin   is it free?
+19:21 miah      yes
+19:21 miah      its open source even
+19:21 miah      http://www.iterm2.com/#/section/home
+19:23 miah      i live in iterm2 + tmux fullscreened.
+19:23 miah      i make heavy use of tmux panes
+19:25 miah      also vim fwiw.
+19:25 miah      and i just use commandline vim, not macvim.
+19:29 pdurbin   shuff: death to macvim!
+19:31 * pdurbin adds iterm2 to http://wiki.greptilian.com/alternatives
+19:31 pdurbin   miah: thanks!
+19:41 spilth    I use tmux and vim... inside of Terminal.app
+19:42 spilth    I use iTerm2 at work only because I'm stuck on OS X 10.6 here and want 256 colors
+19:42 semiosis  konsole \o/
+19:43 spilth    also fullscreen terminal with tmux/vim when I really want to concentrate
+19:46 spilth    http://spilth.org/notes/development_environment/
+19:52 spilth    Here's what it looks like right now - http://devlog.spilth.org/images/original/tmux-vim.png
+20:14 dotplus   "if it's not monitored, it doesn't exist/isn't production" - anyone have a original reference for that quote/concept?
+20:17 pdurbin   dotplus: no, but i've definitely heard that...
+20:19 dotplus   just wanted to give credit, because I'm sure I wasn't the first to say it in public.
+20:52 sjoeboo   pdurbin: finally found that nagios api (ish) http://mathias-kettner.de/checkmk_livestatus.html
+20:52 sjoeboo   provides a nice unix socket that can be cat/echo'd etc
+20:53 sjoeboo   http://www.thruk.org/ uses it, been playing with this today, pretty nice, nicer than nagios (webui) at least
+21:19 miah      i'm done with nagios. forever.
+21:20 miah      sensu makes it too easy
+21:21 spilth    I think we're looking at https://www.icinga.org/ for Monitoring
+21:23 semiosis  JoeJulian: icinga
+21:24 semiosis  i have dreams of replacing nagios with amazon cloudwatch
+21:24 semiosis  finally sent the pull request in to logstash for my cloudwatch output plugin
+21:25 semiosis  ...one step closer to making the dream a reality
+21:25 semiosis  but for now it's just amazon couldwatch
+21:25 semiosis  (rimshot)
+21:34 spilth    (crickets)
+21:35 miah      icinga is better than nagios. but its still.. nagios
+21:35 miah      http://www.slideshare.net/jeremy_carroll/sensu-14485155
+21:36 JoeJulian Yeah, it's nagios with actual useful output and easier management.
+22:37 jimi_c    it's about time someone forked it...
+22:51 spilth    sigh
+22:51 spilth    since the CI server is complaining, it MUST be something wrong with the CI server...
+23:33 pdurbin   sjoeboo: checkmk_livestatus sounds great, especially since you say it works :)
+23:33 pdurbin   whorka: see? sensu. #thenewhotness
+</pre></body></html>

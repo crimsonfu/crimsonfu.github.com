@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+12:41 pdurbin hmm. Why We Need DevOps Now | Puppet Labs - http://puppetlabs.com/blog/why-we-need-devops-now/ via https://plus.google.com/103415330307393824597/posts/GxP8DAvEjCQ (sjoeboo)
+15:49 pdurbin boegel: FYI, i gave an easybuild demo (with vagrant) yesterday for the guy who wrote you back via the ticket you opened
+15:49 boegel  pdurbin: which ticket?
+15:49 boegel  pdurbin: and how did he like it?
+15:54 pdurbin boegel: ticket 29067 - http://irclog.perlgeek.de/crimsonfu/2012-09-26#i_6020301
+15:55 pdurbin he seemed to think it would be useful for... say... new versions of python
+15:56 pdurbin he was telling me that a lot of the software he packages has lots of dependencies
+15:57 pdurbin i think he and i agree that easybuild might be something to look at again in the future, as the cluster is upgrade from centos 5 to centos 6. unsure when that will happen though
+15:58 pdurbin upgraded
+15:58 pdurbin he seemed to think vagrant is pretty cool :)
+15:59 boegel  pdurbin: ah, yes, the paper I sent
+16:00 boegel  pdurbin: cool, glad he liked both vagrant and EasyBuild :)
+16:00 pdurbin right. he liked your paper
+16:00 boegel  pdurbin: if you guys have software you would like to see supported, open an issue for it in https://github.com/hpcugent/easybuild-easyblocks/issues
+16:01 boegel  pdurbin: we have quite a bit of legacy support around that we need to clean up, knowing that other people need some of it will help of choose what to do first ;)
+16:01 pdurbin whorka: geant4! see? :)
+16:03 pdurbin you're already working on matlab, right? we talked about that here the other day but the pastebin expired :( http://irclog.perlgeek.de/crimsonfu/2012-12-04#i_6211416
+16:41 boegel  pdurbin: maybe open an issue that you're interested in that?
+16:41 boegel  pdurbin: we just need to port our MATLAB support
+16:41 boegel  pdurbin: we also have a pull request open for Geant4 support, just needs to be checked/merged in
+19:11 pdurbin boegel: whorka might be interested in an easybuild-vagrant demo with a matlab recipe. some day :)
+</pre></body></html>
