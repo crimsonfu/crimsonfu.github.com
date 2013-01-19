@@ -5,6 +5,8 @@ title: crimsonfu - sysadmins who code
 <a href="https://github.com/crimsonfu/crimsonfu.github.com/blob/master/images/crimsonfu-logo.svg"><img src="http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=48" alt="crimsonfu logo, patches welcome!"></a>
 `{"crimsonfu": "ConfiguRatIon Management of Systems Or Network kung FU"}`
 
+http://irclog.perlgeek.de/crimsonfu/today
+
 ## Guiding principles
 
 * None of us is as smart as all of us
