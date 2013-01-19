@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:26 pdurbin      simmel: heh. just thinking hard about shibboleth is all
+01:26 pdurbin      i think i'm finally spelling it right now
+02:09 jimi_c       JoeJulian: that looks like a straight up disk error, might want to fsck it
+02:20 * pdurbin    learns that java has more shared libraries than perl: http://irclog.greptilian.com/sourcefu/2013-01-07#i_1347
+02:46 jimi_c       i love the hp n40l's I got, with all 3 running my 1500VA battery says it has 45 min expected life
+03:14 semiosis     pdurbin: and that was two years ago
+03:24 pdurbin      semiosis: huh. i didn't even notice that :)
+03:24 pdurbin      crimsonfubot: lucky hp n40l
+03:25 crimsonfubot pdurbin: http://www.newegg.com/Product/Product.aspx?Item=N82E16859107052
+03:25 pdurbin      jimi_c: are they quiet?
+03:25 jimi_c       yes, very
+03:26 pdurbin      i kind of want a server at home
+03:26 pdurbin      has to be silent though
+03:28 jimi_c       i haven't added any extra drives to them, but out of the box they're pretty quiet - not surprising since they're based on a mobile chip
+03:29 jimi_c       i don't think the cpu even has a fan of its own, just a single system fan
+03:36 JoeJulian    jimi_c: Nope, freshly formatted filesystem. Looks to be a xen bug.
+03:46 jimi_c       yes it does: http://lzone.de/blkfront+barrier+empty+write+xvda+op+failed
+06:04 * JoeJulian  hates upstart and therefore ubuntu. :P
+11:48 pdurbin      jimi_c: cool that they're so quiet
+18:48 dotplus      puppet question: should I export @@nagios_hostgroup { "foo":....} for nodes that I want to be in hostgroup "foo" or is that for declaring the existence of a hostgroup named "foo"?
+18:52 semiosis     i think its for the latter
+18:52 semiosis     not positibe
+18:52 semiosis     positive
+18:56 dotplus      so in that case how do I do the former? do I need to modify the @@nagios_host { $fqdn : hostgroups =&gt; [] }?
+18:58 dotplus      node "node_foo" { $nag_hostgroups = ['all-servers'] } and then in class nginx or whatever { $::$nag_hostgroups += 'nginx' }
+18:58 dotplus      is that even valid/permissible?
+18:58 semiosis     idk :/
+18:59 dotplus      or am I at "try it and see"?
+19:34 pdurbin      dotplus: try it and see :)
+</pre></body></html>

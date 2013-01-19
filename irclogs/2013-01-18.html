@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+13:59 jimi_c   I built a drupal web farm this week (4 4x8 web servers, 3 memcache servers, 1 mysql db) that apparently was able to sustain ~60K req/sec - I'm pretty happy with that :)
+14:00 pdurbin  jimi_c: +1
+14:00 pdurbin  right now i'm looking at this... i think it might actually work... osx - Can I create a chat room for 3 different clients for Gtalk service? - Ask Different - http://apple.stackexchange.com/questions/38870/can-i-create-a-chat-room-for-3-different-clients-for-gtalk-service
+14:01 jimi_c   don't cross the streams
+14:08 pdurbin  :)
+14:10 pdurbin  ben_e: django comes up a fair amount here: http://irclog.perlgeek.de/crimsonfu/2012-07-26#i_5848836
+14:12 pdurbin  spilth: i don't think you need to prefix with devopsdays. i wouldn't bother :)
+14:21 sjoeboo  anyone in here use nagios a good deal?
+14:23 pdurbin  a bit
+14:31 sjoeboo  we're still having ack's get squashed when nagios is reloaded
+14:31 sjoeboo  super anoying
+14:32 pdurbin  huh. that does sound annoying :(
+14:32 pdurbin  i just got access to our opsview (built on nagios) yesterday
+14:32 sjoeboo  very, and mailing lists posts w/ similr issues seem unanswered. can't be a unsolved problem...
+15:18 pdurbin  sjoeboo: let's ask shuff when he's in here
+15:18 sjoeboo  yeah
+15:18 sjoeboo  all i'm getting in #nagios is one guy saying he think its a known issue, he is a large number of versions behind, but has no links to bugs/docs
+15:20 spilth   https://twitter.com/patrickdebois/status/292258179167948800 - "had an idea last night -how about using a markdown document with description and code blocks to describe your monitoring checks"
+15:20 pdurbin  spilth: huh. we should pull him in here to explain more
+15:22 spilth   Also: https://twitter.com/patrickdebois/status/292260173941202944 - "for those who asked it yesterday during #devopsdays - he're the markdown2confluence convertor - https://github.com/jedi4ever/markdown2confluence"
+15:22 spilth   Okay, I've done this twice. Time to write an Twitter2IRC retweeter script
+15:26 spilth   [devopsdaysNYC] - Friday program is starting now
+15:27 spilth   https://twitter.com/botchagalupe - Kick Off Talk for Friday
+15:28 spilth   State of the Union 2013
+15:30 spilth   "I'm not doing 10 deploys a day… am I not DevOps?"
+15:30 spilth   "Hype goes way faster than reality"
+15:31 spilth   http://www.amazon.com/Antifragile-Things-That-Gain-Disorder/dp/1400067820 - "There is no opposite word of fragile"
+15:31 spilth   Kaizen - a nice form of anti-fragile
+15:32 spilth   http://techblog.netflix.com/2012/07/chaos-monkey-released-into-wild.html - a good example of an anti-fragile tool
+15:33 spilth   http://itrevolution.com/books/phoenix-project-devops-novel/ - A novel about IT, DevOps, and helping your business win
+15:34 spilth   http://www.realgenekim.me/devops-cookbook/
+15:34 spilth   "DevOps is a professional, cultural movement."
+15:35 spilth   The Three ways: System Thinking, Amplify Feedback Loops and Culture of Continual Experimentation and Learning
+15:35 spilth   (I definitely am interested in 2 and 3)
+15:36 spilth   He's basically mentioning a bunch of stuff "you might want to check out"
+15:40 spilth   Netflix is open sourcing lots of their stuff
+15:40 spilth   http://netflix.github.com/
+15:40 spilth   Check out that landing page!
+15:41 spilth   http://www.amazon.com/Out-Crisis-W-Edwards-Deming/dp/0262541157
+15:41 spilth   http://www.hci.com.au/hcisite2/articles/deming.htm - Demmings 14 Points
+15:42 spilth   http://cuddletech.com/blog/
+15:42 spilth   (This guy is mentioning a lot of stuff!)
+15:43 spilth   http://theleanstartup.com/
+15:43 spilth   http://www.amazon.com/Four-Steps-Epiphany-Successful-Strategies/dp/0976470705
+15:43 spilth   http://www.amazon.com/Web-Operations-Keeping-Data-Time/dp/1449377440
+15:44 spilth   He says the one chapter in Web Operations on Continuous Delivery is amazing
+15:44 spilth   http://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447
+15:45 spilth   "Companies that are ridiculously successful start with Why?"
+15:45 spilth   Live stream is here, btw: http://new.livestream.com/devopsdaysorg/nyc2013
+15:47 spilth   http://paulstamatiou.com/
+15:50 spilth   Next up is https://github.com/roidrage - "Failure is always an option"
+15:50 spilth   from Travis CI
+15:51 spilth   https://travis-ci.org/
+15:54 spilth   http://itrevolution.com/devops-reading-list/ via https://twitter.com/RealGeneKim
+15:56 spilth   http://www.wired.com/autopia/2010/03/boeing-787-passes-incredible-wing-flex-test/ - referenced when talking about being able to predict when things will break
+15:57 spilth   https://twitter.com/RealGeneKim is doing a nice job covering the conference on Twitter
+15:57 spilth   http://charlesduhigg.com/the-power-of-habit/
+15:58 spilth   pdurbin: am i too spammy yet? :-)
+15:59 spilth   Talking about ALCOA and improving their safety - http://www.fastcompany.com/1297926/why-your-gut-more-ethical-your-brain
+15:59 spilth   accidents had to be report within a day with remediation steps - similar to post-mortems
+16:03 spilth   "I had to learn a lot from crashing trains."
+16:04 spilth   Talking about the rising popularity of public postmortems from tech companies
+16:04 spilth   http://aws.amazon.com/message/680587/ - Summary of the December 24, 2012 Amazon ELB Service Event in the US-East Region
+16:06 spilth   http://www.amazon.com/Drop-Pink-Elephant-Ways-Mean/dp/1841126373 - 15 Ways to Say What You Mean...and Mean What You Say
+16:09 spilth   limited number of books on Web Operations
+16:09 spilth   http://pragprog.com/book/mnee/release-it
+16:11 spilth   more Netflix praise
+16:11 spilth   #hangops Google Hangout. Place for Web Ops to hang out
+16:12 spilth   http://hangops.com/
+16:12 spilth   Metioning OpSchool again: http://www.opsschool.org/
+16:13 spilth   http://en.wikipedia.org/wiki/Cognitive_bias
+16:14 spilth   http://en.wikipedia.org/wiki/Hindsight_bias
+16:15 ben_e    http://en.wikipedia.org/wiki/List_of_biases &lt;- i love that WP page
+16:15 spilth   I'm only interested in the biases I know...
+16:16 spilth   Ha ha - http://en.wikipedia.org/wiki/Bias_blind_spot
+16:17 spilth   "Who here has operations and developer blogs?"
+16:18 spilth   Sponsor: http://www.timgroup.com/
+16:19 spilth   https://github.com/youdevise/orc - Model driven orchestration framework for continuous deployment
+16:19 spilth   Sponsor: CatchPoint - http://www.catchpoint.com/ - Real-Time Web Performance Monitoring
+16:20 spilth   (They've asked us to tweet about the sponsors to help support the companies that sponsored the conference)
+16:21 spilth   Sponsor: XebiaLabs - http://www.xebialabs.com/ - Release Automation Tool
+16:22 spilth   Sponsor: Librato - https://metrics.librato.com/ - Measure Everything. Instantly.
+16:22 spilth   Next Up: Aaron Quint (https://twitter.com/aq) from Paperless Post - "Automate or DIE!"
+16:24 spilth   http://codefoodbar.org/ - code(food,bar) is a collection of foodies who happen to be coders and coders who happen to be foodies.
+16:29 spilth   "For us Automation is not about being lazy. It's about being efficient."
+16:30 spilth   "Developers get distracted, blocked, churning."
+16:32 spilth   "Everybody wants pre-cogs as their ops team" - http://coolkwaz.files.wordpress.com/2011/09/precogs1.jpeg
+16:33 spilth   "notifications, one click deploys, CI, distiributed fast deploys, zero config dev env, dev metrics…"
+16:37 spilth   Design an API around your common tasks
+16:39 spilth   They build a command-line tool on top of https://github.com/wycats/thor
+16:39 spilth   built
+16:42 spilth   Switched from command-line tool to http://jenkins-ci.org/ for visibility
+16:49 spilth   Their evolution of their DevTool is pretty awesome
+16:52 spilth   Puppet seems to be getting more love than Chef during this conference.
+16:52 spilth   They use Chef but some frustrations it sounds like
+16:53 spilth   http://www.meetup.com/Chef-NYC/
+16:54 spilth   Awesome: they set up their vagrant to automatically inject their personal bashrc's so they maintain their personal alises
+16:55 spilth   Don't expect to build the perfect system. Build for right now, not for every team at any size.
+16:55 spilth   Start with a workflow then tool around it.
+16:55 spilth   Build what your team needs first. Then add the cool shit...
+16:56 spilth   https://github.com/quirkey
+17:00 spilth   I'm thinking about a DevOps version on http://usesthis.com/
+17:01 spilth   Break time
+17:02 spilth   version OF
+17:25 spilth   Now: Leo Zhadanovsky &amp; John Schneider: DevOps At Obama for America &amp; The Democratic National Committee
+17:26 pdurbin  spilth: no, not too spammy. thanks! :)
+17:31 spilth   What ?s would you want to see on a #devops version of http://usethis.com ? 3rd party/internal tools? Horror/success stories? #devopsdays - https://twitter.com/spilth/status/292322977092087808
+17:38 spilth   https://speakerdeck.com/aq/automate-or-die
+17:47 spilth   Funniest tool name - https://github.com/newsapps/beeswithmachineguns - A utility for arming (creating) many bees (micro EC2 instances) to attack (load test) targets (web applications).
+17:59 spilth   Sorry, that should've bee: What ?s would you want to see on a #devops version of http://usesthis.com/ ? 3rd party/internal tools? Horror/success stories? #devopsdays
+18:02 spilth   Ignite Sessions now
+18:02 spilth   Simple Black Box
+18:02 spilth   https://github.com/vimeo/simple-black-box
+18:08 spilth   Next: Framing &amp; Funding - DevOps in the Enterprise
+18:09 spilth   http://www.amazon.com/Escape-Velocity-Free-Companys-Future/dp/0062040898 - Escape Velocity: Free Your Company's Future from the Pull of the Past
+18:11 spilth   Continuous Alignment
+18:14 spilth   Net talk: OCD and you can too
+18:52 spilth   lunch break time
+19:17 raprasad way off topic: http://www.newyorker.com/online/blogs/culture/2013/01/video-the-art-of-pickpocketing.html
+19:34 pdurbin  raprasad: meet ben_e, another django developer
+20:01 spilth   Open Spaces starting now. I missed the pitching part. Happened 20 minutes early or something
+20:19 spilth   No, somehow I was an hour late for the Open Spaces pitching
+20:31 ben_e    /clear
+20:31 ben_e    typing fail
+20:32 pdurbin  :)
+</pre></body></html>

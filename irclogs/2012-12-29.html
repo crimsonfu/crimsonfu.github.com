@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:57 rackerhacker pdurbin_m: i figured out how to get decent markdown data out of WP with jekyll's tools -- now i just need to get a decent web design going before i can use pelican full time
+02:28 pdurbin      ironcamel: nice
+02:28 pdurbin      JoeJulian: buh. i'll let you know
+02:30 pdurbin      rackerhacker: i just commented on a post about pelican. apparently, it's all the rage. https://plus.google.com/114723964985237592593/posts/N8jnK4a34G7
+02:32 pdurbin      rackerhacker: i get a lot of mileage out of this: my $wc = new HTML::WikiConverter( dialect =&gt; 'Markdown' );
+02:32 pdurbin      http://search.cpan.org/dist/HTML-WikiConverter/
+03:10 rackerhacker ah, i tossed in my $0.02
+03:11 rackerhacker my requirement for it was that the static generator was written in python
+03:11 rackerhacker so it came down to nikola, mynt or pelican
+03:11 rackerhacker pelican seemed to be the most straightforward
+15:01 jimi_c       my $0.02: i've gotten a lot of use out of jekyll, having to use it for our github project page
+15:02 jimi_c       and twitter bootstrap = nice and easy + good looking web page
+15:02 semiosis     surprised i've not heard anyone mention octopress... my impression was that it succeeded jekyll
+15:06 jimi_c       i'm stuck with jekyll, unless github changes their backend :)
+15:06 jimi_c       the main annoyance with them is they force running in --safe mode, which means i have to pre-generate dynamic content before pushing it up to their repo
+15:09 semiosis     @lucky octopress
+15:09 crimsonfubot semiosis: http://octopress.org/
+15:09 semiosis     (for pdurbin :)
+15:09 semiosis     i guess it's just jekyll with some preset themes &amp; features
+15:10 * semiosis   runs in --danger mode
+15:12 jimi_c       me too, i wrote a whole bunch of plugins to do cool stuff and then found out i couldn't use them :/
+15:12 jimi_c       https://github.com/cobbler/cobbler.github.com/tree/master/_plugins
+15:13 jimi_c       ^ what i use for cobbler.github.com/manuals/
+15:14 jimi_c       yeah looking at octopress it looks like they rewrote it to use jekyll recently
+15:15 * jimi_c     may have to check that out
+15:15 semiosis     its been a while already
+15:16 jimi_c       oh yeah by recently i mean within a couple of years, i see a lot of the docs have 2011 on them
+15:17 semiosis     hehe
+15:21 jimi_c       this is much easier than my process: http://octopress.org/docs/deploying/github/
+15:23 jimi_c       right now, i run a script i wrote to generate dynamic content under my _dynamic folder, followed by an rsync to copy the generated content into place, followed by "git add"s for all the new changes (including the pre and post generated dynamic content) followed by a git push
+16:31 pdurbin      jimi_c: http://octopress.org/docs/deploying/github/ is interesting but if i'm going to generate a site locally before pushing it to GitHub Pages, I'll just use ikiwiki, which is awesome. would that GitHub Pages supported ikiwiki :)
+16:34 pdurbin      i wonder if http://www.anandtech.com/tag/Podcast is any good. via http://5by5.tv/hypercritical/97
+16:42 jimi_c       pdurbin: when using vagrant + veewee, is it faster to turn hostiocache on? any other tips on speeding up disk performance? I haven't used vbox much
+16:42 jimi_c       my cobbler import tests are disk heavy, and are taking quite a while under vbox :/
+16:47 semiosis     meh, ordered a galaxy note ii from tmo yesterday and now the order status says backordered
+17:17 pdurbin      jimi_c: sorry, i don't know. one of the centos base boxes i tried booted quickly and the other didn't. not sure why
+17:17 pdurbin      semiosis: careful with the samsung vulnerability, as i warned rackerhacker: https://plus.google.com/101646943125332675164/posts/Ja7C7RpPzNU
+17:18 pdurbin      semiosis: also, i've been a tmo customer for a week or so. taking some notes here for now: http://wiki.greptilian.com/vendors/t-mobile
+17:32 jimi_c       pdurbin: virtual ssd :)
+17:33 jimi_c       i'll fire up a vm later and try some of the usual tricks while running a disk benchmark
+17:33 jimi_c       the n40L i'm running this on just has the one disk, so i'm sure that's not helping
+17:56 pdurbin      jimi_c: ok
+17:58 pdurbin      if anyone local to boston wants to sit with me and help me root and android phone and put cyanogen mod on it for the first time, please let me know. i'm thinking about contacting http://www.meetup.com/boston-android/ to see if it's something they do
+17:58 pdurbin      this is the phone i have and i don't much care for whatever skin HTC has put on it: http://en.wikipedia.org/wiki/T-Mobile_myTouch_4G
+18:00 pdurbin      the mytouch 4G seems to be well supported by cyanogenmod: http://wiki.cyanogenmod.org/wiki/TMobile_myTouch_3G:_Rooting
+18:04 semiosis     pdurbin: thanks for the info.  i'm doign that same plan
+18:40 pdurbin      has anyone looked into Google+ Communities? i'm intruiged by them but i'm concerned about data liberation as i posted here: https://plus.google.com/114723964985237592593/posts/NAnQhJ8awDj . these days i don't want to put my data into anything that won't give it back
+18:41 pdurbin      this give me doubt the Google+ Communities can be accessed via an official API: http://stackoverflow.com/questions/13761665/grabbing-lists-of-members-of-google-communities
+18:41 pdurbin      maybe i'll look into using http://vanillaforums.org instead
+18:47 pdurbin      this would be for a non-technical community. parents of kids at my daughter's school
+18:48 pdurbin      i prefer Q&amp;A sites usually but a forum might be better for them
+18:49 pdurbin      maybe i should run my own irc network and log it. :) ... not that i know anything about running an irc network
+18:59 semiosis     realistically you'd just run a server, not a network
+19:00 semiosis     but i wouldnt recommend it
+19:05 semiosis     so, best android irc client?  yaaic?
+19:05 semiosis     was there consensus on this recently?
+21:02 pdurbin      semiosis: you could also try andchat: http://irclog.perlgeek.de/crimsonfu/2012-12-27#i_6278044
+23:18 pdurbin      more podcasts (i haven't heard of): http://www.edgecasesshow.com http://www.imore.com/tag/debug http://www.coreint.org via http://5by5.tv/hypercritical/97
+</pre></body></html>

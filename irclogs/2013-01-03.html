@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+15:11 pdurbin      stupid ruby: http://danceb.in/PD30f7VV4hGo06vql9DNYg
+15:22 shuff        buh
+17:12 pdurbin      our web page ( http://crimsonfu.github.com ) is affected by this as it's hosted by GitHub Pages: GitHub Pages updated to Jekyll 0.12.0 · GitHub Blog - https://github.com/blog/1366-github-pages-updated-to-jekyll-0-12-0
+20:17 larsks       Visualizing your iptables rulesets with graphviz: http://madhatter.seas.harvard.edu/~lars/iptables/
+20:19 pdurbin      larsks: very cool. are your dot files public?
+20:26 larsks       Yeah.  Replace '.svg' with '.dot'.
+20:26 larsks       They're pretty simple.
+20:29 pdurbin      larsks: very cool. and you write the dot files by hand?
+20:30 pdurbin      oh, duh, your script makes them: https://github.com/larsks/dot-iptables/blob/master/dot-iptables.py
+20:32 pdurbin      larsks: in case you missed this: http://irclog.perlgeek.de/crimsonfu/2013-01-02#i_6292770
+20:33 larsks       Yeah, writing all those by hand would kind of defeat the purpose :).
+20:33 pdurbin      :)
+20:33 larsks       I've heard of Gephi before.  Not sure it's useful in this simple case, but it's interesting in general.
+20:37 pdurbin      larsks: is jinja2 making the dot files?
+20:38 larsks       Not yet.  Right now the dot files are generated directly by the python code, while the HTML is rendered via jinja2 templates.
+20:38 larsks       The dotfiles will probably become jinja2 templates, also.
+20:38 larsks       (see the output_dot_table function)
+20:38 pdurbin      ok. so you know what you're doing... how to make dot files that is :)
+20:38 larsks       Yeah.  Graphviz is my buddy.
+20:39 larsks       I mean, seriously NODEA -&gt; NODEB is pretty simple.
+20:39 pdurbin      :)
+20:39 larsks       I often find it useful for visualizing things quickly.
+20:39 larsks       Wow, the Gephi rendering of those dot files is almost completely useful, at least using default settings.
+20:39 larsks       *useless
+20:42 pdurbin      i thought these were pretty nice: http://savage.net.au/Perl-modules/html/graphviz2/index.html
+21:11 pdurbin      simmel: interesting... "The Shibboleth project officially provides up-to-date RPMs for a few Linux platforms. For a current list, you can refer to the NativeSPLinuxInstall topic. These packages are built and published out of the OpenSUSE project's Build Service" -- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxRPMInstall
+21:13 pdurbin      oooo, this looks even better if it works: https://github.com/amirdt22/vagrant-shibboleth
+21:16 spilth       I've created reports in out Build &amp; Deploy tool (Anthill Pro) to generate DOT files showing which projects are using which environments/servers. Helps me get a handle, visually, on what is using what.
+21:17 spilth       I tried to turn Minecraft recipes into a chart using Graphviz but gave up when I couldn't extract the data from the Java code: https://github.com/spilth/minegraph
+21:19 spilth       I find you can never have enough Graphviz/DOT examples
+21:19 pdurbin      heh. dot seems nice but i'm more of a pic guy
+21:21 pdurbin      http://cm.bell-labs.com/cm/cs/cstr/116.ps.gz PIC - A Graphics Language for Typesetting (User Manual)
+21:21 pdurbin      you might recognize that author :)
+21:22 pdurbin      bah! there's nothing in the vagrant repo. almost nothing
+21:22 pdurbin      crimsonfubot: lucky Shibboleth demo server
+21:22 crimsonfubot pdurbin: http://www.switch.ch/aai/demo/index.html
+21:24 pdurbin      booo. "In order to access a service on host 'aai-demo.switch.ch' please select or search the organisation you are affiliated with"
+</pre></body></html>

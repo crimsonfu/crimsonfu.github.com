@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+05:42 semiosis  pdurbin: znc advisory... if you're in many channels (idk exactly what the threshold is, but it's 12 or less) when znc connects to freenode it bombards the server with too many join commands and freenode cuts it off
+05:43 semiosis  solution appears to be to delete the channels from the znc config (while they're open in a client) and restart znc, then your client re-joins more gracefully
+05:43 semiosis  and znc readds them to its config file (for better or worse, as znc will get dropped for "excess flood" next time it restarts)
+06:19 semiosis  chatted with the #znc people and looks like their new 1.0.0 release (pretty recent) adds flood protection feature /cc JoeJulian
+06:19 semiosis  http://wiki.znc.in/ChangeLog/1.0 &lt;-- 2nd bullet under Minor Stuff
+17:54 pdurbin   semiosis: it sounds like znc introduces problems i don't have ;)
+17:55 pdurbin   but thanks for the heads up. :)
+17:55 pdurbin   still happily using screen+irssi
+17:58 semiosis  now that i have konversation throwing up popups in kde whenever someone says my name i dont think i can live without it :)
+17:58 semiosis  without that, i might not have seen your last chats for an hour
+17:59 pdurbin   a whole hour?!?
+17:59 semiosis  hehe
+17:59 semiosis  async callbacks &gt;&gt;&gt; busy waiting
+17:59 semiosis  what they taught me in school is true
+17:59 pdurbin   man, i'm so pleased with the little scripty i mentioned at http://irclog.greptilian.com/sourcefu/2012-12-31#i_1172
+18:02 semiosis  http://vocab.org/relationship/.html -- missing great aunt twice removed
+18:02 semiosis  srsly so many relations missing
+18:02 semiosis  ok so maybe its 1st degree relation types only
+18:03 semiosis  whats the script?
+18:37 pdurbin   semiosis: cleaning it up
+18:54 semiosis  openvpn on android works \o/
+18:54 pdurbin   semiosis: my script: http://irclog.greptilian.com/sourcefu/2012-12-31#i_1182
+18:56 semiosis  Social Networking as a Service
+18:56 pdurbin   hmm? as a service?
+18:57 semiosis  as though you were managing social network connections on behalf of someone
+18:59 pdurbin   hmm... yeah, kinda, i guess. :)
+18:59 pdurbin   i think it's too much though. this new way via email is simplier, as i'm explaining at http://irclog.greptilian.com/sourcefu/2012-12-31#i_1189
+19:00 pdurbin   too much to ask people to sign up for yet another service. it was fine as a final project for my php class but i'll let it go for now
+19:01 semiosis  php class?  that's a perl script
+19:12 pdurbin   here's the php: https://github.com/pdurbin/lmp-legacy
+23:36 JoeJulian Gotta love it on the last day of the year when the boss accidentally reboots the wrong machine right as everyone's closing.
+23:37 JoeJulian Damned single point of failure... &lt;grumble&gt;
+</pre></body></html>

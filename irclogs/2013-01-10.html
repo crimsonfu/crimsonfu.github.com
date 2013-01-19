@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+03:36 pdurbin   went to a http://masshackers.org meeting tonight and it was good. ~30 people there. python core dev gave a talk. maybe a bit too security focused for my taste but a good time
+03:37 pdurbin   i love their logo and it's even creative commons
+03:38 pdurbin   http://rayarray.blogspot.com/2011/09/masshackers-logo.html
+14:54 * pdurbin sends crimsonfubot into #netbeans
+14:57 pdurbin   semiosis: can you sent your hubot in to this channel so we can play with it?
+15:00 semiosis  pdurbin: eh, therer's not much to play with... all i have is the factoids module... http://pastie.org/5652585
+15:01 semiosis  also afaict it can only be in one channel, set by env var before startup, it's in ##semiosishubug now if you want to poke it
+15:01 pdurbin   ... YET, right? you'll send it in some day :)
+15:01 pdurbin   wat? one channel? lame
+15:01 semiosis  I KNOW!
+15:01 semiosis  so freakin lame
+15:01 pdurbin   oversold
+15:01 semiosis  i was really disappointed
+15:02 semiosis  maybe there's another way, but i think i'd have to read the source to find out... the brief docs just say set this env var and it joins
+15:02 semiosis  and srsly 75% of the plugins are for fetching gifs of pugs &amp; chuck norris
+15:04 pdurbin   -1
+15:25 shuff     pugs and chuck norris?  i want http://placekitten.com support
+15:25 shuff     i guess it's pull request time
+15:26 pdurbin   hmm. handy
+15:27 pdurbin   &gt;&gt; http://irclog.greptilian.com/sourcefu/2013-01-10
+15:47 dotplus   hm, I wonder why my ganglia network aggregate bandwidth graphs show weekly spikes to ~6PiB/s. Particularly odd since it's an aggregate of only a single kvmhost.
+15:50 pdurbin   dotplus: public graphs?
+15:55 dotplus   pdurbin: no, sorry
+15:56 pdurbin   http://rc.fas.harvard.edu links to http://software.rc.fas.harvard.edu/ganglia/ganglia2_master/
+16:03 dotplus   pdurbin: v. interesting. "your"? graph has a similar crazy spike. see the fas grid report network last day
+16:03 dotplus   http://software.rc.fas.harvard.edu/ganglia/ganglia2_master/?r=day&amp;cs=&amp;ce=&amp;s=by+name&amp;c=&amp;tab=m&amp;vn=
+16:04 dotplus   perhaps that means I'm just misinterpreting and should think of it has we shifted 6PiB total during the last day rather than interpreting as a spike to 6PiB/s
+16:05 pdurbin   dotplus: not my graph anymore. i'm still at harvard but i switched departments: http://people.iq.harvard.edu/~pdurbin
+16:06 dotplus   yeah I remember
+16:42 sjoeboo   dotplus: don't know where it is, btu i did see a naglia mailing list post/bug report about teh spikes
+16:42 sjoeboo   somethign to do w/ NIC models and bad adata, not really a ganglia problem, but one maniefsted through it if i remember
+16:47 pdurbin   dotplus: you're talking about the spike that says Max: 153.7P, right?
+17:02 pdurbin   magoo: what do you make of this? vagrant through a proxy doesn't work? https://groups.google.com/d/msg/dataverse-community/wRxRSGE8VpQ/UeGThjqHBQYJ
+17:16 magoo     hard to make anything of that
+17:16 magoo     I can't tell what's throwing the nilClass
+17:18 pdurbin   me neither :(
+17:19 magoo     have you told him to try linux? ;)
+17:19 spilth    look at minitar.rb:493 and see what object is trying to call the size
+17:21 spilth    https://github.com/mitchellh/vagrant/issues/498
+17:22 * pdurbin leaves a comment: https://github.com/mitchellh/vagrant/issues/498#issuecomment-12107950
+17:27 spilth    who else is running/managing a CI server here?
+17:43 magoo     jenkins here
+17:45 spilth    magoo: Do you have multiple teams/projects using it?
+17:46 jimi_c    yay for a job that doesn't restrict internet access!
+17:46 jimi_c    spilth: i'm in the process of setting up jenkins with vagrant
+17:48 spilth    How many projects/teams will be using it?
+17:48 jimi_c    just one, my project (cobbler)
+17:49 jimi_c    they've also got one here at my #newjob, but it's not really being used yet
+17:49 spilth    Ah, okay. I'm looking for people running several projects/teams using a CI server
+17:49 jimi_c    in that case, there will be maybe 2 teams using it
+18:05 magoo     spilth: we have mutiple projects using it
+18:06 magoo     chef plus our multiple applications
+18:50 pdurbin   spilth: hudson here. only one project using it
+18:50 pdurbin   larsks: http://irclog.greptilian.com/sourcefu/2013-01-10#i_1694 and other pythonista
+18:58 pdurbin   jimi_c: +1 for vagrant. you started the #newjob already?
+19:01 jimi_c    yeah been here just over a week
+19:04 pdurbin   cool
+19:04 pdurbin   Dangers of Java - OUCH! - http://www.securingthehuman.org/blog/2013/01/10/dangers-of-java
+19:07 jimi_c    oh java...
+19:17 pdurbin   :)
+19:19 pdurbin   tychoish: emacs+znc revisited: http://irclog.greptilian.com/sourcefu/2013-01-10#i_1715
+20:14 dotplus   poll for the room: what's your preferred open source approach to load balancing/HA for a standard web app service situation?
+20:15 pdurbin   dotplus: coyote point load balancer
+20:17 dotplus   pdurbin: looks like a commercial solution to me...
+20:19 pdurbin   whoops! sorry
+20:19 * pdurbin fails reading comprehension
+21:05 semiosis  dotplus: varnish cache
+22:10 shuff     dotplus: i'm not sure this is my favorite, but i've been wanting for a while to try out crossroads (http://crossroads.e-tunity.com/)
+22:11 shuff     i'm hoping it could be a reasonable general-purpose substitute for e.g. the coyote point load balancers pdurbin mentioned earlier
+</pre></body></html>

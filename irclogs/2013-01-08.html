@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+12:16 pdurbin      LEGO.com About Us New smarter, stronger LEGO MINDSTORMS EV3 - http://aboutus.lego.com/en-us/news-room/2013/january/new-smarter-stronger-lego-mindstorms-ev3/
+14:13 shuff        identify nerdboy
+14:13 shuff        damn it
+14:14 shuff        it's password changin' time :(
+14:18 pdurbin      shuff: :)
+14:18 shuff        always, always, with the typing before coffee
+15:16 semiosis     shuff: your irc client probably supports nickserv, can do the identify for you automatically on connect
+15:17 * pdurbin    should probably do that too
+15:17 rackerhacker i get 'er done via ZNC
+15:18 semiosis     me too, but i've already done enough znc boosting in here :)
+15:18 semiosis     rackerhacker: seen the new znc 1.0 release?  bunch of nice stuff, like automatic flood protection
+15:20 pdurbin      semiosis: i'd love to see a screenshot
+15:20 semiosis     pdurbin: http://wiki.znc.in/Nickserv
+15:20 semiosis     znc is a deamon, what a screenshot do?
+15:22 larsks       shuff: (late on this comment, but:) Use SSL certificates for identification and you don't need to worry about typing passwords.
+15:22 larsks       ...or automating password entry with your client, either.
+15:24 semiosis     @lucky freenode certfp
+15:24 crimsonfubot semiosis: http://freenode.net/certfp/
+15:24 semiosis     neat
+15:24 pdurbin      semiosis: i guess i mean whatever kde client you use
+15:24 semiosis     pdurbin: oh sure
+15:25 semiosis     pdurbin: http://docs.kde.org/stable/en/extragear-network/konversation/identity.html
+15:26 semiosis     first image in the page
+15:29 pdurbin      semiosis: gotcha. so your main screen looks like this: http://docs.kde.org/stable/en/extragear-network/konversation/channel-screen-tour.html
+15:30 semiosis     mostly, i dont have the buttons under the user list, nor at the top to the right of the /topic
+15:30 rackerhacker semiosis: i don't get into flood situations too often, but that does sound useful
+15:31 semiosis     rackerhacker: if you had more than a couple channels open znc will flood freenode with /join commands when it connects, problem for me &amp; JoeJulian
+15:31 semiosis     but yeah it's rare
+15:31 rackerhacker oh yeah, i had to manually set a fat delay
+15:31 rackerhacker nice to know there's something automatic now
+15:31 semiosis     heh i followed that instruction but it didnt help me
+15:31 rackerhacker gives me another excuse to migrate my znc install off my xenserver box :P
+15:48 rackerhacker pdurbin: we've got some folks from the business school there coming to talk to us tomorrow
+15:48 rackerhacker hopefully they won't park their car in the yard
+15:50 pdurbin      :)
+16:57 semiosis     apache has mod_speling that autocorrects spelling in paths
+16:57 semiosis     &lt;3 the name
+16:58 pdurbin      :)
+16:59 shuff        larsks: my irc client is http://spectrum.im/ :)
+17:00 shuff        i'll get automatic nickserv support once i upgrade to spectrum 2.x
+17:00 larsks       shuff: THERE IS NO CLIENT BUT IRSSI.
+17:00 larsks       :)
+17:00 shuff        which i will be able to do once i build a rhel6 system to run the chat service on
+17:00 pdurbin      larsks: +1
+18:10 semiosis     incredible.  i have a vm that won't boot because it says 'The disk drive for /foo/bar is not ready yet or not present.'  however /foo/bar is not in the fstab
+18:10 semiosis     no idea even how /foo/bar got on this machine ever
+18:10 semiosis     doesnt make sense
+18:11 semiosis     hopefully building a replacement instance with puppet doesn't result in the same issue :/
+18:16 semiosis     wow Could not retrieve catalog from remote server: execution expired
+18:16 semiosis     today is not my day
+18:18 semiosis     heh, puppetmaster can't handle any other agents fetching catalogs when this one is compiling :O
+18:38 sjoeboo      sounds like you need a bigger/multiple masters!
+18:41 semiosis     no doubt about it :)
+19:09 semiosis     it's days like this i look back two years ago and thank my past self for decided to get down, learn puppet, and convert the companys whole infra to it
+19:09 semiosis     this little problem could've taken out my whole week
+19:09 semiosis     but instead, puppet did all the hard work while i went to lunch :-D
+20:07 spilth       nice
+21:25 dotplus      generating nagios config from puppet, as mentioned before: http://www.allgoodbits.org/articles/view/31
+21:34 pdurbin      dotplus: mmm, hacker emblem favicon
+21:36 dotplus      indulgent self-aggrandization/wishful thinking.
+21:41 pdurbin      dotplus: is that your site?
+21:45 dotplus      yes
+21:49 dotplus      oh and in case you know of someone looking, I'm actively looking for a new gig:)
+21:59 semiosis     o_O
+22:00 semiosis     dotplus: is your resume posted anywhere? you on linkedin?
+22:03 sjoeboo      i'm hesitant to say "me too", but with the departure of my director and our uncertain future, i'm certainly starting to open up to here about good gigs...
+22:03 shuff        argh
+22:04 shuff        i was talking with pdurbin about this earlier today
+22:05 shuff        i fear an exodus from RC
+22:11 larsks       Hey, me too!
+22:27 pdurbin      sjoeboo: :(
+22:27 pdurbin      larsks: :(
+22:28 pdurbin      dotplus: nice site :)
+22:28 pdurbin      we need to get all of you on http://crimsonfu.github.com/members
+</pre></body></html>

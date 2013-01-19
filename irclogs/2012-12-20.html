@@ -4,11 +4,45 @@
 </head>
 <body>
 <pre>
-Time  Nick     Message
-00:21 pdurbin  semiosis: yeah, weren't you trying to hire someone? you had a subnet quiz and everything
-00:25 semiosis yeah well that didnt go so well
-00:25 semiosis ended up with a couple new super jr. devs
-00:25 semiosis linux sysadmins don't exist, statistically speaking
-00:26 semiosis in theory they do but good luck finding one
-00:26 pdurbin  good help is hard to find
+Time  Nick      Message
+00:21 pdurbin   semiosis: yeah, weren't you trying to hire someone? you had a subnet quiz and everything
+00:25 semiosis  yeah well that didnt go so well
+00:25 semiosis  ended up with a couple new super jr. devs
+00:25 semiosis  linux sysadmins don't exist, statistically speaking
+00:26 semiosis  in theory they do but good luck finding one
+00:26 pdurbin   good help is hard to find
+13:54 GitHub100 [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/6ead6d4e8df835a475a648210c2560b088309d61
+13:54 GitHub100 crimsonfu.github.com/master 6ead6d4 Philip Durbin: grab latest logs
+14:01 jimi_c    jenkins+vagrant+cobbler up and running, now I just need to start writing more test cases...
+14:01 jimi_c    i also found this last night, which describes using jenkins to automate veewee builds: http://www.zivtech.com/blog/one-click-automated-vagrant-base-box-builds-veewee-and-jenkins
+14:02 pdurbin   jimi_c: is your jenkins+vagrant+cobbler on github?
+14:02 jimi_c    not yet
+14:03 pdurbin   plz fix. ;)
+14:03 pdurbin   i was looking at http://codeslife.com/2011/10/21/make-ci-easier-with-jenkins-ci-and-vagrant/ last night but it seems a little backwards... having jenkins spin up vagrant vms for you
+14:04 jimi_c    this is my "Execute shell script in Vagrant as admin" script: http://pastie.org/5557290
+14:05 jimi_c    the rest is based on this youtube video: http://www.youtube.com/watch?v=2o590cmra0g
+14:05 pdurbin   i mean, that's fine, but my plan is to continue to run vagrant on my laptop and have jenkins running as one of the vagrant VMs there. other VMs would be glassfish, postgres, rserve... in an attempt to model our production environment within vagrant
+14:05 jimi_c    well the idea is to have clean build environments, since cobbler touches so much stuff
+14:05 jimi_c    alternatively, you could use vagrant to spin up jenkins slaves, and limit them to 1 executor
+14:06 jimi_c    otherwise i couldn't have more than one cobblerd running without doing some port magic
+14:07 pdurbin   ah, so that youtube video you linked is from http://unethicalblogger.com/2012/03/13/vagrant-plugin-in-action.html which i found via http://stackoverflow.com/questions/6941547/how-to-combine-vagrant-with-jenkins-for-the-perfect-continuous-integration-envir
+14:07 jimi_c    yep
+14:07 pdurbin   jimi_c: so you *are* using jenkins to spin up vagrant VMs?
+14:08 jimi_c    yes, just like in that video, the git repo essentially just contains a Vagrantfile, which is used to spin up the vm, and then that shell script above is run on the vm as root (or via sudo, however the "as admin" works)
+14:09 jimi_c    in the future i will roll my own, with all of those prereqs installed to speed things up
+14:09 pdurbin   right. cool. i could see doing that too. in addition to the way i'm talking about with vagrant on my laptop
+14:10 jimi_c    next i need to figure out how to twiddle a setting and then rerun the tests, without having to fire up a new job
+14:10 pdurbin   i'm heavily influenced by this use of vagrant, which i think is spectacular: https://github.com/puppetlabs/puppetlabs-openstack_dev_env
+14:10 jimi_c    and also running the tests on an ubuntu vm vs. a rhel vm
+14:10 pdurbin   sure
+14:11 jimi_c    yeah that looks interesting, jenkins also has a cloud plugin for running tests on iaas platforms like openstack, you could use it like that too
+14:11 jimi_c    vagrant up your openstack, and then use the cloud plugin to launch instances in the openstack setup for testing
+14:12 * jimi_c  is ridiculously late
+14:12 jimi_c    i'm switching jobs, so short-timing it pretty hard :)
+14:13 * jimi_c  goes
+14:13 jimi_c    cya for now
+16:39 pdurbin   i post link in here with &lt;title&gt; and url with this all the time: CoLT :: Add-ons for Firefox - https://addons.mozilla.org/en-us/firefox/addon/colt/
+16:39 pdurbin   but now i'm trying to use safari. anyone know if there's a similar addon?
+22:13 GitHub79  [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/2e57979d9e67d0cb27b1c6e2ce1b1c676ef83ac1
+22:13 GitHub79  crimsonfu.github.com/master 2e57979 Philip Durbin: typo
 </pre></body></html>

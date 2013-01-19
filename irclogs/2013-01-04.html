@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+10:45 jgtimmer pdurbin:
+10:46 jgtimmer pdurbin: I get vagrants usecase now I need a apache server with mod_shiboleth and some django app's for a project we work on
+10:55 jgtimmer however the vagrant rpm does not work on fedora, and I can't find the source?
+10:57 jgtimmer nvmd got it
+11:18 pdurbin  jgtimmer: is you get Shibboleth working in vagrant, please let me know!
+11:18 pdurbin  if*
+12:07 jgtimmer pdurbin: that sounds encouraging :-s
+13:36 pdurbin  jgtimmer: encouraging? i don't have it working. do you?
+13:38 pdurbin  rackerhacker: thanks for your advice on rooting and modding android: https://plus.google.com/101646943125332675164/posts/FRMbVet9b1g
+13:48 jgtimmer pdurbin: I'm first trying to get django to install, I have no ruby experience, so not quite sure how to use this pip LWRP described here https://github.com/opscode-cookbooks/python
+13:52 pdurbin  why do you need ruby?
+14:14 jgtimmer to write the chef stuff?
+14:15 jgtimmer but I figured I don't need chef, just set it up, and then create a new box to distribute to my coworkers
+14:16 pdurbin  your vagrant base box should already have chef installed
+14:17 pdurbin  it's one of the standard provisioners: http://docs.vagrantup.com/v1/docs/provisioners.html
+14:20 jgtimmer pdurbin: yes I know, but I wanted to add django in cheff, and couldn't figure it out
+14:20 pdurbin  jgtimmer: i suggest you try this first (by agoddard): https://github.com/agoddard/the-super-mini-one-click-chef-solo-apache-demo-that-just-uses-vagrant-up-
+14:21 jgtimmer but I just installed it with easy_install, and will create a new box once I'm done
+14:21 jgtimmer pdurbin: apache was not a problem
+14:21 agoddard ohai!
+14:22 agoddard happy new year all..any openstackers in th haus?
+14:27 agoddard I thought I had tamed the madness that is quotas, but for the life of me I keep getting over quota errors when trying to add over 1GB of cinder storage
+14:41 pdurbin  raprasad: you're a django guy: http://irclog.perlgeek.de/crimsonfu/2013-01-04#i_6297355
+14:43 jgtimmer pdurbin: https://github.com/puppetlabs/puppetlabs-apache/pull/96
+14:45 raprasad I'm not sure if this makes sense for your configuration but you may just want to download the latest release from the django site.  https://www.djangoproject.com/
+14:45 jgtimmer well yes, I used easy_install django
+14:46 jgtimmer but shibboleth seems to be the harder part
+14:46 raprasad right
+15:22 agoddard figured out the quotas.. at least that's some material for a new blog post :D
+15:35 pdurbin  jgtimmer: i usually just install django via rpm. can you do that?
+16:55 pdurbin  http://gistflow.com ! via http://irclog.greptilian.com/sourcefu/2013-01-04#i_1289
+16:57 shuff    SEARCH RESULTS FOR "PDURBIN"
+16:57 shuff    No posts yet.
+16:57 shuff    Sorry, but we didn't find anything.
+16:58 shuff    o noes!
+17:00 pdurbin  heh. i'll give it a play this weekend probably
+18:33 pdurbin  simmel: ping
+19:02 pdurbin  i wonder why they bother to list OpenID and OAuth with a big red NO at https://wiki.shibboleth.net/confluence/display/DEV/Supported+Protocols ... because Shibboleth will never support them? because they don't now but may in the future?
+21:34 pdurbin  bad crimsonfubot. yesterday i was asking you for a shibboleth demo server: http://irclog.perlgeek.de/crimsonfu/2013-01-03#i_6296205
+21:35 pdurbin  "Welcome to TestShib Two, a testing service intended for new installations of Shibboleth. All SAML 2.0 implementations are welcome and may be tested against Shibboleth here." -- http://testshib.org
+21:35 pdurbin  that's the right answer
+21:35 pdurbin  may google crawl this irc log
+</pre></body></html>
