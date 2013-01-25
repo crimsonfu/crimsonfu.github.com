@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:36 pdurbin      mmm, firefox now works with retina screens: 832591 – Using an external monitor disables HIDPI support - https://bugzilla.mozilla.org/show_bug.cgi?id=832591#c8
+13:37 pdurbin      i was starting to use chrome but maybe i'll switch back :)
+13:38 pdurbin      codex: i feel bad that no one had any feedback for you on your hardware question: http://irclog.perlgeek.de/crimsonfu/2013-01-22#i_6361113
+13:39 pdurbin      codex: jimi_c was talking about his hp n401's recently: http://irclog.perlgeek.de/crimsonfu/2013-01-07#i_6304633
+13:42 pdurbin      the two things keeping me on firefox are https://addons.mozilla.org/en-us/firefox/addon/colt/ and the awesome bar: http://support.mozilla.org/en-US/kb/awesome-bar-find-your-bookmarks-history-and-tabs :)
+13:44 pdurbin      and the fact that mozilla fights for the user, as i mentioned here: http://irclog.greptilian.com/sourcefu/2013-01-19#i_2025
+14:39 codex        pdurbin: so it looks like harvard is throwing out ~25 dell 1950s and 2900 series
+14:40 codex        some are dual and quad CPU, with dual and quad core @3ghz +
+14:40 pdurbin      crimsonfubot: lucky dell 1950
+14:40 crimsonfubot pdurbin: http://www.dell.com/us/dfb/p/poweredge-1950/pd
+14:40 pdurbin      crimsonfubot: lucky dell 2900
+14:40 crimsonfubot pdurbin: http://www.dell.com/us/dfb/p/poweredge-2900/pd
+14:40 codex        debating using some of those, but they are loud for inhome
+14:40 pdurbin      poweredge. fun
+14:40 ben_e        and powerhungry
+14:41 codex        yep
+14:41 codex        i have a 1950 that i bought in 2005 and it's VERY loud
+14:41 codex        as opposed to my T410 which is quiet like a desktop computer
+14:41 ben_e        you can play tricks with undervolting the fans
+14:42 ben_e        but... meh
+14:43 codex        those pizza boxes tend to run hot in general
+14:44 pdurbin      having my home server in the cloud is better for my marriage
+14:44 codex        and the design is for size so they make up with strong fans that sound like jet engines when they first turn on, and then are just obnoxious
+14:44 ben_e        nods
+14:44 codex        pdurbin: but i am your provider :-P
+14:44 codex        i keep going back and forth on 2 things:
+14:45 codex        1.) build myself (and then desktops scale out vs server) VS from dell
+14:45 pdurbin      codex: you saved my marriage ;)
+14:45 codex        and 2.) host at home where internet is cheap, and i don't have to worry about space, but power+IPs are expensive VS colo
+14:46 ben_e        what are you building?
+14:47 ben_e        http://jobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?Agent=1&amp;jobid=928776&amp;PartnerId=25240&amp;SiteId=5341 &lt;- james cuff's job, in case anyone wants to be a director of research computing at harvard
+14:51 pdurbin      ben_e: interesting. hadn't seen that
+14:51 pdurbin      some mighty big shoes to fill
+15:34 pdurbin      added some more bullets for my talk tomorrow: http://iqss.github.com/github-at-iqss
+15:39 jimi_c       the good thing about 1950's etc. is you can get them on ebay for damn cheap
+15:40 spilth       I was so tempted to just stay home and work on veewee/Vagrant/Puppet stuff today
+15:40 jimi_c       for example: http://www.ebay.com/itm/Dell-PowerEdge-1950-Xeon-Quad-Core-1-86Ghz-4GB-RAM-2-X-146GB-15K-SAS-Drives-/400392068896?pt=COMP_EN_Servers&amp;hash=item5d393a1f20
+15:40 jimi_c       $100
+15:40 jimi_c       though that's not a buy it now
+15:41 jimi_c       spilth: i'm WFH today, currently working on merging our QA/production puppet modules directories and getting them under git revision control
+15:41 jimi_c       not a lot of fun...
+15:42 spilth       Oh it's more fun than you're letting yourself believe!
+15:45 jimi_c       o_O
+15:46 spilth       You're lucky to have that problem to solve :-)
+15:46 spilth       To have something interesting to do during the day
+15:47 jimi_c       oh yeah, this new job is nothing if not full of stuff to do, and I totally agree - at my last job I sat around half the day reading news and tech articles
+15:47 jimi_c       so boring, i'd rather be busy
+15:48 pdurbin      jimi_c: go apply to be sjoeboo's boss ^^ ... you won't be bored :)
+15:50 sjoeboo      ha, yes, there is PLENTY to do
+15:50 sjoeboo      outgoing boss is still signing us up for more
+15:50 pdurbin      lol
+15:53 sjoeboo      pdurbin: you'll be sad to here we canibalized the otsk boxes into general compute
+15:55 * pdurbin    cries
+15:55 pdurbin      agoddard: ^^
+15:55 pdurbin      larsks: it's all you for openstack
+15:55 pdurbin      larsks: can i use your openstack? ;)
+16:06 spilth       FWIW, the Vagrant piece of what I'm working on is updated with a build script - https://github.com/spilth/vagrant-centos63
+16:06 spilth       Blog post in the works
+17:06 pdurbin      spilth: nice
+17:09 spilth       my goal is help provide an example of an automated process to define, build and make VMs available easily
+17:10 spilth       Continuous Virtualization :-P
+17:12 pdurbin      :)
+17:12 spilth       Is that a helpful thing?
+17:12 spilth       Really my goal is to spit out a nice LAMP box for PHP devs to use (hopefully) and have the whole thing documented
+17:13 pdurbin      sure. where are you installing php?
+17:13 pdurbin      some bundle thing?
+17:14 spilth       I'm not at that point yet
+17:14 spilth       I want to get PHP devs up and running fast with the same version of Apache, MySQL and PHP that we use on Prod boxes
+17:14 pdurbin      ok
+17:15 * pdurbin    clicks watch
+17:15 spilth       I still need to get to the Puppet part. Reading through "Learning Puppet" the last coupe of days and playing with their learning VM
+17:22 spilth       I'm also trying to keep it as light as possible - minimum dependencies and scripted builds
+17:58 pdurbin      yep. good
+18:22 spilth       So if veewee makes "base" boxes... Vagrant makes "?" boxes. Complete?
+18:24 spilth       pdurbin: I'm giving this channel more attention than my devlog lately ;-)
+18:30 pdurbin      spilth: i've been meaning to check your devlog to see what you're up to
+18:30 spilth       It's been 9 days! It must be too many steps to keep it going and I've grown lazy.
+20:28 spilth       http://stackoverflow.com/questions/6941547/how-to-combine-vagrant-with-jenkins-for-the-perfect-continuous-integration-envir
+20:29 spilth       Using Jenkins and Vagrant to build boxes that you use to test other projects that Jenkins builds
+20:30 spilth       https://github.com/wulff/vagrant-jenkins - Vagrant project to build a VM with Jenkins
+20:51 pdurbin      huh. if you join #lucene-dev chanserv sends you a message saying that it's logged with a link to http://colabti.org/irclogger/irclogger_log/lucene-dev ... i kind of want this for #crimsonfu
+20:54 spilth       A few channels have welcome messages like that (#jenkins)
+21:43 spilth       Looks like you can do: /msg ChanServ SET #crimsonfu ENTRYMSG Welcome to #crimsonfu - logged at http://irclog.perlgeek.de/crimsonfu/
+21:44 spilth       https://toxin.jottit.com/freenode_chanserv_commands#cs06
+21:46 pdurbin      spilth: entrymsg?
+21:46 spilth       "SET ENTRYMSG allows you to change or set a message sent to all users joining the channel. Specify a &lt;message&gt; of NONE to clear the message."
+21:47 spilth       "SET URL allows you to change or set the URL associated with a channel. This is shown to all users joining the channel. Specify an &lt;url&gt; of NONE to clear the URL."
+</pre></body></html>

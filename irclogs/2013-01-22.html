@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick       Message
+03:52 * semiosis struggles with autovivification in logstash config dsl
+03:54 larsks     I cannot see the word "autovivification" without imagining a mad scientist yelling "IT'S ALIVE!!!!"
+04:10 semiosis   starring pdurbin as the mad scientist :)
+04:47 codex      What do people think about building commodity servers using the six-core i7s instead of the Xeons and scaling horizontally?
+04:48 codex      obviously a bit more on power draw, they run a bit hotter, and yes, they were not "meant" for 24/7 operation -- so probably designed for "3 years" vs the typical "5 year design"
+11:03 pdurbin    semiosis: :)
+14:33 spilth     I wrote this up this past weekend - http://spilth.org/blog/2013/01/21/automated-vm-generation-with-veewee-jenkins-and-amazon-s3/
+14:39 pdurbin    spilth: this is awesome. want to help with the official centos vagrant base boxes? karanbir is looking for help: http://irclogger.com/.vagrant/2013-01-17#1358442970
+14:40 spilth     Well I already have a trajectory that requires plenty of learning on my part already :-/
+14:40 spilth     But that post and the veewee documentation should be able to get them going I think.
+14:42 agoddard   for those openstackers in here https://twitter.com/anthonygoddard/status/293721620093231105
+14:42 agoddard   I guess that would be http://ops.anthonygoddard.com/OpenStack/demystifying-openstack-folsom-quotas/
+14:42 pdurbin    agoddard: are you blogging again? :)
+14:43 agoddard   pdurbin: I locked myself in a room for 20min ;)
+14:48 pdurbin    :)
+16:28 pdurbin    spilth: http://irclogger.com/.vagrant/2013-01-22#1358872060 :)
+16:29 spilth     pdurbin: I'm not sure what I'd bring to the table. I don't know anything about CentOS. I just picked it because it's the "free equivalent to RedHat".
+16:30 spilth     My next step is to learn enough Puppet to get Apache, MySQL and PHP on a box via Vagrant
+16:30 pdurbin    oh
+16:30 pdurbin    cool
+16:31 pdurbin    spilth: here's me installing LAMP with vagrant: https://github.com/pdurbin/greptilian-vagrant/blob/master/modules/packages/manifests/init.pp
+16:31 spilth     in fact, you just reminded me that I want to download the puppet Learning VM at work
+16:31 spilth     oooh, thanks!
+16:32 pdurbin    but sjoeboo is really the puppet guru. semiosis and larsks too
+16:32 pdurbin    oh, everyone is welcome back in #sourcefu now: http://irclog.greptilian.com/sourcefu/2013-01-22
+17:02 pdurbin    nice. i'm dinking around with solr and 4.1.0 just came out: http://lucene.apache.org/solr/solrnews.html
+17:04 spilth     another thing on my ToDink list
+17:04 pdurbin    :)
+17:06 pdurbin    spilth: if you want to give this a try: https://github.com/dvn/solrpoc ... not really baked yet though
+17:07 spilth     I'm using it via http://sunspot.github.com/ which stands up an instance locally for you automagically
+17:07 spilth     I need to learn about configuring it more for "better" searches
+17:07 spilth     Have a Solr book in my queue
+17:12 pdurbin    spilth: which one? (link please)
+17:12 spilth     http://www.packtpub.com/apache-solr-3-enterprise-search-server/book
+17:13 spilth     I see there's one on 4 coming out in March - http://www.packtpub.com/apache-solr-4-cookbook/book
+17:13 spilth     I got it when there was some 2 for $10 deal or something
+17:13 spilth     In general I'm kind of "eh" about Packt books though
+17:15 pdurbin    i usually go for online references. official docs, etc
+17:17 semiosis   o'reilly?
+17:18 spilth     Well my heart belongs to Pragmatic Bookshelf.
+17:18 spilth     Though I was seen around town a lot with O'Reilly back in the day
+17:19 spilth     Though their Theory In Practice books are pretty nice
+17:21 spilth     I'll go with official docs if there's a PDF version I can read on my iPad (like the Puppet docs!)
+17:22 spilth     Sometimes it's good to get away from the computer and consume some stuff without trying to put it into practice right away
+17:24 pdurbin    yep
+17:50 spilth     So I want to run Jenkins *elsewhere* (not on my laptop/iMac at home) so pushing my boxes to S3 wil be fast - not over my home wireless and spotty internet connection.
+17:50 spilth     Trying to see if CloudBees support running VirtualBox but also considering EC2
+17:51 spilth     But I don't want to keep the EC2 instance running all the time... so wondering if there's a way I can get GitHub to spin up an EC2 instance to run the build only when there are changes...
+17:51 spilth     Is that crazy talk?
+17:53 spilth     My assumption is that leaving Jenkins running idly on EC2 most of the time will be expensive
+17:55 pdurbin    sounds expensive
+17:57 spilth     I guess I don't really have to expose my boxes to the world on S3, so I can just keep stuff local for now.
+18:27 semiosis   OH in ##infra-talk... http://pastebin.com/p6ctWdSH
+18:27 semiosis   mit.edu is having a bad day
+18:29 pdurbin    :(
+18:31 agoddard   yeouch
+18:33 pdurbin    my berklee address is still on http://www.iana.org/assignments/enterprise-numbers ... i love that oid... 16789
+20:06 spilth     btw, you can also just download what I wrote about in my blog here: https://github.com/spilth/veewee-centos63
+20:06 spilth     I should add a link to that in my post
+20:06 pdurbin    "fork me on github"
+20:10 spilth     I'm putting it at the bottom so people aren't tempted to skip the learning process :-)
+20:14 spilth     done!
+20:19 spilth     Boooo - https://twitter.com/spilth/status/293745426803355648
+21:39 spilth     I guess my first Vagrant box should be one that can build itself...
+21:39 pdurbin    that's the spirit
+21:42 spilth     insert inception joke here?
+21:47 pdurbin    in #vagrant they're saying kvm can run on kvm
+21:47 pdurbin    i dunno if virtualbox can run on virtualbox. i kinda doubt it
+21:49 larsks     pdurbin: Nested KVM: http://www.mjmwired.net/kernel/Documentation/virtual/kvm/nested-vmx.txt
+21:50 pdurbin    yeah, nested. thanks larsks
+22:39 JoeJulian  You can run virtualbox in kvm
+23:55 pdurbin    JoeJulian: ok. cool
+23:55 pdurbin    java -jar /tmp/schemaSpy_5.0.0.jar -t pgsql -host localhost -db dvnDb -u dvnApp -p secret -dp /root/dvninstall/pgdriver/postgresql-8.4-703.jdbc4.jar -o /tmp/out -s public
+23:56 pdurbin    some schemaspy fu
+23:57 pdurbin    posted the output (temporarily) here: http://dvn-5.hmdc.harvard.edu/tmp-schemaspy-tmp/relationships.html per https://groups.google.com/d/msg/dataverse-community/be7KTyLC0FU/L1XAhaW-b6kJ
+23:57 pdurbin    i guess "public" is a postgres thing (-s is schema). or maybe it's our app? dunno
+23:58 pdurbin    'By default such tables (and other objects) are automatically put into a schema named "public"' -- http://www.postgresql.org/docs/8.4/static/ddl-schemas.html ... postgres thing, apparently :)
+</pre></body></html>

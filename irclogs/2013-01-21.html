@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+01:08 jimi_c    pdurbin: nice
+01:08 jimi_c    we're talking about moving solr in-house, vs. using a 3rd party hosted service
+03:09 pdurbin   jimi_c: i thought i'd be able to just throw any plain text into it (like the crimsonfu logs from https://github.com/crimsonfu/crimsonfu.github.com/tree/master/irclogs ) but it wants certain data
+03:09 pdurbin   "Solr is built around the concept of schemas; it needs to know the shape of the data it is going to accept" -- Building a Search Engine with Nutch and Solr in 10 minutes | Building Blocks Knowledge Share - http://blog.building-blocks.com/building-a-search-engine-with-nutch-and-solr-in-10-minutes
+03:09 pdurbin   so maybe nutch can help with this
+03:16 jimi_c    you might like elasticsearch better than
+03:17 jimi_c    then
+03:17 jimi_c    http://www.elasticsearch.org/
+03:18 jimi_c    their big selling point is that it's schema free
+03:27 pdurbin   jimi_c: ah. i didn't realize. thanks
+03:29 pdurbin   semiosis: you were trying to sell me on elasticsearch. i didn't know about the schema then: http://irclog.greptilian.com/sourcefu/2012-12-11#i_796
+03:30 semiosis  schema?
+03:30 semiosis  idk about the schema now
+03:32 * pdurbin looks at http://solr-vs-elasticsearch.com again
+03:33 pdurbin   jimi_c: but you can only feed elasticsearch json?
+03:35 jimi_c    yes you feed it json, but you can feed it whatever json you want and it will index it based on how you want
+03:38 pdurbin   ok. for the app at work, i think we'll be feeding it xml... DDI to be specific: Data Documentation Initiative - http://en.wikipedia.org/wiki/Data_Documentation_Initiative
+03:38 pdurbin   and this sounds like us, honestly... "For our project we want to decide and to know which search-fields we have, so we need a schema" -- sentric » Why we chose Solr 4.0 instead of ElasticSearch - http://www.sentric.ch/blog/why-we-chose-solr-4-0-instead-of-elasticsearch
+03:39 jimi_c    yea i'd agree with that
+03:39 jimi_c    if that data's already in xml solr would be the way to go
+03:39 pdurbin   yeah
+03:39 pdurbin   here's the solr ticket i'm working on: https://redmine.hmdc.harvard.edu/issues/2656
+03:39 jimi_c    you've got a constrained document format, creating a schema for that should be painless (and someone else has probably already done it)
+03:40 pdurbin   jimi_c: right, I *think* someone has already written one for DDI: https://github.com/btp/ssedl-solr/blob/master/ddi-to-solr.xsl
+03:41 jimi_c    oh xsl... i do not miss having to deal with that
+03:41 pdurbin   http://irclog.iq.harvard.edu/dvn/2013-01-20 ... i was taking some notes earlier
+03:42 pdurbin   i *would* like some more search options for the crimsonfu logs. i usually use ack locally. the search at http://irclog.perlgeek.de/search.pl?channel=crimsonfu is a little hit or miss
+03:43 pdurbin   i mentioned nutch+solr to the developer of ilbot, the logging bot: http://irclog.perlgeek.de/ilbot/2013-01-20#i_6356316
+03:43 pdurbin   at some point he had mentioned wanting to improve the search
+03:45 pdurbin   jimi_c: here's the crimsonfu log data if you have any ideas: https://github.com/crimsonfu/crimsonfu.github.com/tree/master/irclogs ... not sure what the best solution would be
+03:46 pdurbin   westmaas: heh. my favorite commit ever :) ... "I don't really do work" --westmaas · 4e7d079 · crimsonfu/crimsonfu.github.com - https://github.com/crimsonfu/crimsonfu.github.com/commit/4e7d0796e03d8af871080dbedda9b431ae4b6d6d
+03:48 westmaas  pdurbin: :D
+03:49 westmaas  did you get your sourcefu registration taken care of?
+03:51 pdurbin   nope
+03:53 pdurbin   jimi_c: oh. this was interesting... curl "http://localhost:8983/solr/update/extract?literal.id=doc1&amp;commit=true" -F "myfile=@tutorial.html"
+03:54 pdurbin   i was able to throw an html file into solr with that. via How do I index HTML files into Apache SOLR? - Stack Overflow - http://stackoverflow.com/questions/13179754/how-do-i-index-html-files-into-apache-solr/13192390#13192390
+04:13 pdurbin   "Google BBS Terminal – What Google would have looked like in the 80s" -- http://www.masswerk.at/googleBBS/
+04:26 jimi_c    pdurbin: that's interesting
+04:26 jimi_c    we're using drupal + the solr module, so i figure it does something similar to index its own pages
+12:50 pdurbin   jimi_c: gotcha. yeah, there's a whole group: http://groups.drupal.org/lucene-nutch-and-solr
+12:52 pdurbin   speaking of search, i guess *have* mentioned http://lucy.apache.org here before: http://irclog.perlgeek.de/crimsonfu/2012-08-02#i_5868501
+12:53 pdurbin   lucy/kinosearch is what moritz, the ilbot guy mentioned: http://irclog.perlgeek.de/ilbot/2013-01-21#i_6356809
+12:57 pdurbin   here's what powers http://irclog.perlgeek.de/search.pl?channel=crimsonfu today: https://github.com/moritz/ilbot/commits/master/cgi/search.pl
+21:16 semiosis  pdurbin: will you announce when it's safe to return to #sourcefu?
+23:04 pdurbin   semiosis: absolutely i will :)
+</pre></body></html>
