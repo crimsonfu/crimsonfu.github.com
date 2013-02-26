@@ -1,0 +1,192 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+13:49 pdurbin     "Because we need a decent human readable format that maps to a hash and the YAML spec is like 80 pages long and gives me rage. No, JSON doesn't count. You know why." -- https://github.com/mojombo/toml
+14:19 larsks      From Twitter: "So I can't really tell if TOML is a joke. All I can say is that I really hope it is..." (@samkottler)
+14:28 pdurbin     :)
+14:46 pdurbin     I'd like to figure out a way to automate login to a DVN. i.e. https://dvn-demo.iq.harvard.edu/dvn/faces/login/LoginPage.xhtml ... Browsers don't seem to offer to save my username/password. Thinking about trying greasemonkey or selenium. In practice this for my dev evironment: http://localhost:8080/dvn/
+14:46 pdurbin     ... where I want to log in as networkAdmin/networkAdmin for testing
+17:14 pdurbin     whoa... that's surprising... I figured out why firefox wasn't remembering the password... it's because I wasn't clicking "Log in" with my mouse... I was just hitting Return on my keyboard. crazy
+17:16 jimi_c_     pdurbin: toml looks interesting, like ini but an actual spec
+17:24 pdurbin     ok, something with our app (DVN)... on github I can use enter and firefox prompts me to remember the password. no need for a mouse
+17:25 pdurbin     jimi_c_: yeah, i'm happy enough with yaml for configs though, i guess
+17:25 pdurbin     SEJeff_work: is salt gonna switch to toml? ;)
+17:28 jimi_c_     one area I ran into with yaml was trying to manage it with augeas - if the spacing of array items/etc are off the default augeas filter does not handle it and you end up with a corrupted yaml file
+17:28 jimi_c_     one problem rather
+17:29 jimi_c_     i would consider toml for cobbler, since we already use an ini-like syntax for our modules.conf file, switching our main settings file over to be similar would be nice
+17:29 jimi_c_     right now /etc/cobbler/settings is a yaml file
+17:30 jimi_c_     i have kicked around the idea of converting it to json for a while
+17:31 pdurbin     pump.io uses json for config: https://github.com/e14n/pump.io#configuration
+17:31 larsks      NO! BAD! STOP! Don't use JSON for user-editable configuration files.  Pretty please?
+17:32 larsks      Sure, it's a (big) step up from XML, but neither is it as easy or readable as YAML.
+17:32 pdurbin     larsks: tell it to evan p :)
+17:32 jimi_c_     larsks: not sure why that's any worse than yaml, but i haven't done it :)
+17:32 jimi_c_     pretty-printed json to me is very readable
+17:32 pdurbin     json doesn't allow comments
+17:33 larsks      Because like XML JSON makes you worry about "quotes" and { brackets } that you don't typically worry about with YAML.
+17:33 larsks      ANd it doesn't allow comments, right.
+17:33 larsks      It's designed for machines to exchange information.
+17:33 jimi_c_     comments is the one big downside
+17:34 SEJeff_work pdurbin, writing a toml renderer would likely be trivial
+17:34 SEJeff_work That is all pluggable
+17:34 jimi_c_     but the reason i wanted to do json is because i want settings to be managed through the cli command, so hand-editing the config or relying on comments there should not be required
+17:35 SEJeff_work jimi_c_, For 1 massive thing... no comments in json
+17:35 jimi_c_     and the reason i had to use augeas to manage the yaml was to preserve the comments - otherwise i would have just rewritten the file which would have been a lot easier
+17:35 SEJeff_work comments are no problem with yaml or any ini syntax like thing
+17:35 SEJeff_work Put a comment in a json file and you just broken it
+17:36 SEJeff_work s/broken/broke/
+17:36 jimi_c_     which is also why i tried to start documenting settings much better: http://cobbler.github.com/manuals/2.4.0/4/3/2_-_Complete_Settings_List.html rather than rely on comments in the config
+17:36 semiosis    larsks: worrying about "quotes" and {brackets} is the editor's job
+17:36 larsks      semiosis: it shouldn'
+17:36 larsks      shouldn't be *anybody's* job.
+17:36 semiosis    well that's python i guess
+17:37 larsks      We shouldn't be using machine-exchange formats in places where people are expected to produce and consume the information.
+17:37 jimi_c_     larsks: that's my point, i'd rather have the program manage the file than a user hand-edit it
+17:37 jimi_c_     in that case, a machine-centric format is better
+17:37 SEJeff_work jimi_c_, Makes config management much more difficult
+17:37 SEJeff_work and abnoxious
+17:37 larsks      jimi_c_: But people *are* going to hand edit it, right?  If not, store it in a binary blob and be done with it.  Then you don't need to parse anything.
+17:37 SEJeff_work my spelling is horrible today. Sorry
+17:37 SEJeff_work larsks, ++
+17:38 larsks      Command-based editing makes it hard to manage things with e.g. puppet or chef.
+17:38 jimi_c_     SEJeff_work: if it's text, config management shouldn't be an issue, just deploy the file
+17:38 SEJeff_work which makes it much harder to deploy said app at scale
+17:38 jimi_c_     i totally disagree with that
+17:38 SEJeff_work jimi_c_, Just wanted to voice my opinion. json is very crappy for config files.
+17:38 jimi_c_     a file is a file, if you're automating it the format doesn't matter
+17:38 SEJeff_work &lt;larsks&gt; Command-based editing makes it hard to manage things with e.g. puppet or chef.
+17:39 SEJeff_work a file is a file. I agree on that
+17:39 jimi_c_     i would agree with that if the commands resulted in a database being updated, something centralized for instance
+17:39 SEJeff_work but for a config file, json is a lousy format. The cobbler system records are not meant to be hand edited ever. Those make perfect sense in json for instance
+17:39 SEJeff_work or msgpack :D
+17:39 jimi_c_     heh, well people still hand-edit those too...
+17:39 jimi_c_     they did when they were yaml too
+17:39 SEJeff_work jimi_c_, Well there is no way to rename an interface
+17:40 SEJeff_work so the only sane option is to run set and restart cobblerd
+17:40 jimi_c_     i know, that drives me nuts
+17:40 SEJeff_work or delete the interface and add it again
+17:40 jimi_c_     i'll fix that soon
+17:40 SEJeff_work Yes me too
+17:40 SEJeff_work jimi_c_, I'd buy you a beer for that one
+17:40 * jimi_c_   continues to blame mdehaan
+17:40 jimi_c_     :)
+17:40 SEJeff_work Have used cobbler professionally almost 5 years now
+17:40 SEJeff_work Totally a love/hate relationship
+17:40 jimi_c_     what's the workflow for delete/re-add?
+17:41 jimi_c_     and feel free to move this to #cobbler since we're off-topic here now :)
+17:42 SEJeff_work This is #crimsonfu, sysadmins who code
+17:42 SEJeff_work All things systems related are ontopic
+17:42 SEJeff_work But that works
+17:44 pdurbin     jimi_c: are you logging #cobbler yet?
+17:44 jimi_c      no
+17:44 pdurbin     might as well keep talking here :)
+17:44 jimi_c      i might reconsider that now that i work at a job where i wouldn't catch shit for being on irc during the work day :)
+17:45 larsks      ++log all the channels.
+17:46 SEJeff_work jimi_c, You left scottrade
+17:46 SEJeff_work ?
+17:46 jimi_c      yep
+17:46 pdurbin     jimi_c: how to run your own log bot: https://github.com/dvn/iqirclog-vagrant
+17:46 SEJeff_work jimi_c, Where are you at now?
+17:47 jimi_c      pdurbin: thanks
+17:47 jimi_c      SEJeff_work: went back to Savvis
+17:47 SEJeff_work Nice
+17:47 jimi_c      now Savvis/Century Link
+17:47 SEJeff_work Are they going to use cobbler you think?
+17:48 jimi_c      a few people on the team mentioned they had looked at it a while back, we may end up using it to manage vmware templates and things of that nature
+17:48 jimi_c      going back to the non-self promoting part, I am staying out of their decision making process :)
+17:48 SEJeff_work Ha
+17:48 jimi_c      i'm obviously biased
+17:48 SEJeff_work I was hired to this company largely in part because of salt and we still don't use it. Not yet anyways :)
+17:49 SEJeff_work But yeah, I get it.
+17:50 jimi_c      so what is the workflow for deleting and then readding an interface to a system?
+17:50 jimi_c      i don't understand why you wouldn't just edit it
+17:50 SEJeff_work jimi_c, cobbler system edit --system foo --interface blah --delete-interface
+17:50 SEJeff_work which is awesome (sarcasm), because it always defaults to eth0 if you forget to specify the interface
+17:51 jimi_c      a patch for that was actually submitted recently
+17:51 jimi_c      if there's only one interface, it will delete that, if there's more than one it errors
+17:51 SEJeff_work A rename interface or something flag would be nice
+17:51 SEJeff_work That makes perfect sense
+17:52 jimi_c      https://github.com/cobbler/cobbler/pull/370
+17:52 jimi_c      ^ maybe that was for editing only
+17:52 jimi_c      i think it would work as well for delete
+17:52 * jimi_c    needs to test that
+17:53 SEJeff_work Thats really nice that was added for edit though
+17:53 SEJeff_work I've messed that up so many times as we named our interfaces using descriptive verbs
+17:53 jimi_c      no, now it seems that if you do --delete-interface without specifying it just doesn't do anything...
+17:54 SEJeff_work We would dhcp, xmlrpc connect to the local cobblerd to get a list of the interfaces, generate /etc/iftab, and then rename all of the interfaces on boot
+17:54 SEJeff_work Should probably complain
+17:54 SEJeff_work And cobbler's xmlrpc api isn't too bad
+17:54 SEJeff_work With newer cobbler at least
+17:54 jimi_c      yeah, it should complain
+17:56 SEJeff_work How is the database backend code?
+17:56 SEJeff_work Relatively mature?
+17:56 SEJeff_work backing a central cobblerd with redis or mysql is quite appealing
+17:56 SEJeff_work As it can get slow after you have several thousand systems in it even with json. With yaml it is unbearable
+17:56 jimi_c      it's been there for a while, but I don't know how many people use it, it's one of the things I plan on testing via jenkins more - i'd still consider it beta at best
+17:57 jimi_c      but it's so simplistic you shouldn't have many issues with it
+17:57 jimi_c      just basically using mysql as a key/value store with a blob of json
+17:57 jimi_c      total bastardization
+17:57 SEJeff_work Ha
+17:57 SEJeff_work As much as I hate it, perhaps postgres is a better fit?
+17:57 jimi_c      the redis/mongo backends are better
+17:57 SEJeff_work As it has a native json type
+17:57 jimi_c      i plan on looking at that for sure
+17:57 SEJeff_work You can make redis back to disk and be "durable" right?
+17:57 jimi_c      was waiting for it to be released, and that was like a year ago
+17:57 SEJeff_work Sounds like a perfect fit
+17:58 SEJeff_work We are about to build a very large cobbler infra
+17:58 jimi_c      yes, and mongo is disk-based as well, though of course by default it only writes to disk once a minute
+17:58 jimi_c      unless they've changed that
+17:58 SEJeff_work bigger than chjohnst and I did at the last gig
+17:58 jimi_c      so it's durable-ish
+17:58 SEJeff_work Ok perfect. That should be configurable
+17:58 jimi_c      that'll be interesting
+17:58 jimi_c      you already had one of the larger installs that I knew of
+17:58 SEJeff_work We had 1 central cobbler server with ~40+ remote cobbler "highly available" pairs
+17:59 SEJeff_work Yeah
+17:59 SEJeff_work This one will be bigger :D
+17:59 * jimi_c    needs to start selling support contracts...
+17:59 jimi_c      :D
+17:59 SEJeff_work heh
+17:59 SEJeff_work jimi_c, Where are you based out of?
+17:59 jimi_c      STL, MO
+17:59 SEJeff_work Interested in relocating?
+18:00 SEJeff_work ;)
+18:00 jimi_c      i was last year, wife's preggo with twins right now so that kind of changed our plans
+18:01 jimi_c      i interviewed up in boston, and at google in CA
+18:03 pdurbin     jimi_c: due date?
+18:04 jimi_c      Original was May 13th, but with twins 38 weeks is term so that'd put us at Apr 29th. With twins though, it's a bit of a crap shoot - only 50% of women make it past 36 weeks
+18:05 jimi_c      we just hit 29 weeks yesterday
+18:05 jimi_c      SEJeff_work: https://github.com/cobbler/cobbler/issues/415
+18:05 jimi_c      ^ i'll get that in 2.4.0
+18:06 * pdurbin   puts it in his calendar
+18:12 SEJeff_work jimi_c, Thanks
+19:51 * johnmorr  waves.
+19:54 pdurbin     johnmorr: hmm, i think i'm following you: https://twitter.com/johnmorr
+19:55 johnmorr    pdurbin: yeah, i started at fasrc a couple months ago, i think we met super briefly once or twice
+20:21 pdurbin     i meant to say hi at the going away party for james at the queenshead
+20:25 StripeyType going away party for James?
+20:25 StripeyType oh James Cuff.
+20:25 StripeyType I was very confused.
+20:57 jimi_c      SEJeff_work: http://pastebin.com/Kzsh3NGu
+21:00 jimi_c      now for the gui...
+21:04 SEJeff_work jimi_c, Yup it is settled. I owe you another beer
+21:05 SEJeff_work Thanks much. That will be very appreciated
+21:43 jimi_c      SEJeff_work: was trying to come up with a decent syntax, hopefully that works
+21:43 jimi_c      rather than add yet another field
+21:43 SEJeff_work jimi_c, Yeah. having used cobbler for awhile (and never used the webui), that is as expected
+21:43 SEJeff_work The cli is verbose, but very scriptable, so I don't mind
+21:44 SEJeff_work jimi_c, So our design will involve 2 central cobbler servers clustered with pacemaker
+21:44 SEJeff_work We might attempt to put redis on those
+21:44 SEJeff_work Then replicate that out to the various sites, but for each site, only replicate the records that the local instance is master for
+21:44 SEJeff_work we do that based on hostname globs
+21:45 SEJeff_work Each local cobbler clustered pair would only manage a few hundred hosts tops
+21:45 SEJeff_work But we'd make most changes on the central cobblerd instances. Due to the large number of hosts, redis very well might make sense. Does that sound conceptually doable?
+22:23 jimi_c      redis would make sense if you have the HA pair with pacemaker, so you'd have a transparent failover, i don't think it'd be necessary when using replication
+22:35 jimi_c      webui done now too :)
+22:42 SEJeff_work Very very cool
+</pre></body></html>

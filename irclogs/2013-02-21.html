@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+02:58 * pdurbin    looks at the perl, eval, json thing again: http://irclog.perlgeek.de/crimsonfu/2013-02-19#i_6472566
+02:59 pdurbin      larsks: you're right that eval can and is used for exception handling in perl. i typically don't use eval for this... i write "or die" a lot
+03:00 pdurbin      i've heard this is a nice way to use exceptions: http://search.cpan.org/dist/Try-Tiny/
+03:00 pdurbin      ironcamel: probably from you :)
+03:01 pdurbin      SEJeff_work: i still don't understand why you need eval to convert json to a perl data structure though
+03:01 pdurbin      perl -e 'use JSON; use Data::Dumper; my $valid_json = q{{"foo": "bar"}}; my $hashref = from_json($valid_json); print Dumper $hashref'
+03:01 pdurbin      that will die if you make the json invalid
+03:03 pdurbin      oh, an one last thing about eval. i think i just had a gut reaction to eval. i guess i was thinking about how "string eval" is frowned upon by perlcritic: Perl::Critic::Policy::BuiltinFunctions::ProhibitStringyEval - search.cpan.org - http://search.cpan.org/dist/Perl-Critic/lib/Perl/Critic/Policy/BuiltinFunctions/ProhibitStringyEval.pm
+04:07 ironcamel    he could have also done my $Data = eval { $JSONObject-&gt;decode($ReturnData) };
+04:07 ironcamel    by he, i mean SEJeff_work. eval returns the last thing evaluated in the block.
+04:46 pdurbin      ironcamel: hmm. ok
+04:46 pdurbin      now i feel bad that i only jumped back in here to link to this: This Open-Source, Robotic Tentacle Will Haunt Your Dreams | TechCrunch - http://techcrunch.com/2013/02/11/this-open-source-robotic-tentacle-will-haunt-your-dreams/
+04:46 pdurbin      :)
+13:42 SEJeff_work  pdurbin, ironcamel morning gents!
+13:43 SEJeff_work  It turned out not to actually be the eval that was blowing up. I had a 200 line git diff for that to clean it up enough so that use strict/warnings would even execute. Just trying to make some ugly code go and it ended up being something above that which was throwing me off.
+13:43 pdurbin      SEJeff_work: cool
+13:44 SEJeff_work  And I've been forced to be a polyglot programmer at this new job. Perl, php, lots of python, and... golang!
+13:49 pdurbin      mmm, go. do you like it?
+14:10 larsks       SEJeff_work: Where are you working?
+14:11 SEJeff_work  larsks, A finance company in Chicago
+14:11 larsks       Spiffy.
+14:11 SEJeff_work  pdurbin, I like how it is smack in the middle of python and c
+14:12 SEJeff_work  It does make the concurrency issues of python go away and goroutines make it quite trivial to take a single threaded design and parallelize it. I'm a fan so far.
+14:19 pdurbin      SEJeff_work: cool. oh, hey, you've been gone a while [glad you're ok ;) ] ... I started a new channel: http://irclog.greptilian.com/sourcefu/today
+14:20 SEJeff_work  heh
+14:21 pdurbin      :)
+14:21 SEJeff_work  You sir love your irc logs
+14:23 pdurbin      it's better than twitter
+14:23 pdurbin      SEJeff_work: have you used solr at all?
+14:23 SEJeff_work  Not a fan
+14:23 SEJeff_work  elasticsearch all the way
+14:23 pdurbin      :/
+14:23 SEJeff_work  EL &gt; solr
+14:24 pdurbin      i'm trying to add solr to our webapp: Dataverse Network - Feature #2656: Solr for DVN search - Project Management at IQSS, Harvard University - https://redmine.hmdc.harvard.edu/issues/2656
+14:25 SEJeff_work  Why not use elasticsearch? Setting up a ES cluster is much much easier. It is as easy as riak. Add another node to the ring by pointing it at any existing member and it configures itsself and rebalances work
+14:25 SEJeff_work  Both solr and es are lucene based if I recall
+14:29 SEJeff_work  pdurbin, This is actually pretty non-biased. If you need to scale out, it really sucks with solr in comparison to es: http://solr-vs-elasticsearch.com/
+14:40 SEJeff_work  Has anyone used: http://git-deploy.github.com ?
+14:46 pdurbin      SEJeff_work: yes, both are lucene-based. i did mention ES in update #2 on that ticket ^^. i dunno, solr feels a little more tried and true, I guess. I only just moved the project from svn to https://github.com/iqss/dvn
+14:46 SEJeff_work  To each their own
+14:46 SEJeff_work  I found solr used up a lot of memory and got an es cluster up in running in about 10 minutes
+14:47 SEJeff_work  Then I threw a ton of syslog data at it with graylog2 and logstash (check those projects out if you have some time)
+14:47 SEJeff_work  I never looked back
+14:47 pdurbin      agoddard: you're forever talking about those projects
+14:47 SEJeff_work  because they are amazing :P
+14:47 SEJeff_work  Neither compare to splunk granted, but they are free
+14:48 pdurbin      SEJeff_work: dunno much about git-deploy but i did link it up here: https://plus.google.com/107770072576338242009/posts/VnFeuMEqGEn
+14:49 SEJeff_work  My use case is pushing 2-3 webapps to central sites that are then replicated out automatically to the various slave appservers
+14:49 pdurbin      SEJeff_work: did you set up a custom schema for ES? that's what i'm working on now: https://github.com/dvn/solrpoc
+14:49 SEJeff_work  pdurbin, es is schemaless
+14:49 SEJeff_work  Again... much much easier to get going and usable than solr
+14:50 pdurbin      oh yeah, i forgot. :)
+14:50 SEJeff_work  pdurbin, Just read the front page: http://www.elasticsearch.org
+14:52 pdurbin      right
+14:54 SEJeff_work  Oh and using git-deploy, I don't git push to the production servers. I made it use rsync
+15:00 pdurbin      96 nicks in #solr, 235 in #elasticsearch
+15:03 pdurbin      now that i'm actually dinking with a solr schema the idea of schema-less seems attractive :)
+15:05 SEJeff_work  Yeah I see es vs solr much like salt vs puppet: https://www.ohloh.net/p/compare?project_0=salt&amp;project_1=opscode-chef&amp;project_2=Puppet
+15:06 SEJeff_work  salt is the config management / remote execution tool I hack on in free time.
+15:06 SEJeff_work  saltstack.org
+15:06 pdurbin      es is more active that solr, you mean?
+15:07 SEJeff_work  The community and traction, yeah
+15:07 pdurbin      yeah. we're thinking about moving from hudson to jenkins for this reason
+15:07 SEJeff_work  ha!
+15:07 SEJeff_work  All of the hudson devs moved to jenkins almost
+15:07 pdurbin      yeah
+15:09 SEJeff_work  http://www.ohloh.net/p/compare?project_0=elasticsearch&amp;project_1=Apache+Solr
+15:09 pdurbin      solr has more activity :)
+15:11 SEJeff_work  es is hands down the underdog. solr is the entrenched player
+15:11 SEJeff_work  Both will more than work for what you're trying to do. Go with what you like the best
+15:12 SEJeff_work  I've had great exp with logstash + elasticsearch
+15:12 pdurbin      semiosis: you're a fan of ES too: http://irclog.greptilian.com/sourcefu/2012-12-11#i_796
+15:13 SEJeff_work  pdurbin, speaking of reportlab...
+15:14 SEJeff_work  pdurbin, I know the guy who wrote this, pretty decent stuff: http://blingalytics.readthedocs.org/en/latest/
+15:15 pdurbin      reportlab?
+15:19 SEJeff_work  http://irclog.greptilian.com/sourcefu/2012-12-11#i_791
+15:38 pdurbin      ah
+17:35 larsks|phone hmm. an iPhone irc client without server push is only mildly useful.
+20:08 pdurbin      mount cifs in mountain lion: mount_smbfs //pdurbin@cifs/dataverse ~/dataverse
+</pre></body></html>

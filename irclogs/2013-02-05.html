@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+01:44 magoo     chiming in for my monthly 'ask questions and run' session
+01:44 magoo     anyone in here with solid nginx experience?
+01:44 magoo     specifically, I'm trying to get caching working on my upstream but am not having any luck
+01:59 JoeJulian I use nginx, but not for caching. :/
+02:01 jimi_c    intresting: github is using elasticsearch now after migrating away from solr: https://github.com/blog/1397-recent-code-search-outages
+02:19 dotplus   magoo: if you pastebin some config and say what's happening or not, I'll take a look tomorrow probably. no promises of a magic answer but hey
+03:20 pdurbin   jimi_c: very nice writeup, that github post
+11:16 nbozo     pdurbin: I'm here, and looking for help about the RPM dedicated to virtio-win for a fedora oVirt v2v converter. Is this the best place?
+11:35 pdurbin   nbozo: it is. thanks. only problem is i'm trying to feed my kids breakfast. but tell us about your trouble with https://github.com/pdurbin/virtio-win please
+11:36 pdurbin   jeez, i guess i could have added a readme at least :(
+11:36 pdurbin   dunno if you noticed but it's forked from https://github.com/fasrc/virtio-win and there are more links there
+11:38 pdurbin   there's a newer version at http://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/ and i don't see any archived versions. you'll have to tweak the "Release" line in the spec file
+11:40 pdurbin   then, `rpmbuild -ba path/to/my.spec`
+11:40 pdurbin   after you download the iso to ~/rpmbuild/SOURCES
+12:17 nbozo     Pdurbin:  I saw the newer version, but I must admit my laziness lead me to prefer to ask a already made RPM. Lazyness is not the only reason : evaluating the risk of error between setting up a rpmbuild environement and copying the files by hand lead me to hesitate.
+12:46 nbozo     Ok, I will disapoint you soon: I'm running a whole pure oVirt setup with no redhat inside. But we still have a RHN account which I  just used to grab the virtio-win rpm I just installed. I compared its content with the content of the altfedora one, and I see many files missing on the fedora side.
+13:16 pdurbin   nbozo: hmm, i've actually switched jobs so i'm not super invested in that RPM anymore
+13:17 pdurbin   https://plus.google.com/107770072576338242009/posts/YKCbwiVtpfN
+13:18 nbozo     pdurbin: It's OK. Just know that your past job and your past investigations DID help me (3,2 minutes ago) to successfully import a windows VM into oVirt. So : thank you :)
+13:45 pdurbin   nbozo: awesome. that was my hope!
+13:46 nbozo     :)   See you.
+13:47 pdurbin   heh. Petition | Oracle Corporation: Stop bundling Ask Toolbar with the Java installer | Change.org - https://www.change.org/petitions/oracle-corporation-stop-bundling-ask-toolbar-with-the-java-installer
+14:23 pdurbin   ahhhh. got my gmail filters sorted. Stop Gmail From Running All Filters - Web Applications - http://webapps.stackexchange.com/questions/14715/stop-gmail-from-running-all-filters#comment30416_14907
+18:48 spilth    Attending this in 10 minutes - First Steps with Puppet: Learning about the Puppet Agent/Master-  https://cc.readytalk.com/cc/s/registrations/new?cid=4jyq44sttx06
+19:07 spilth    They're using Vagrant :-)
+19:10 pdurbin   for all their classes, i think
+19:12 spilth    Looks like he's using tmux too
+20:17 magoo     dotplus: i'm going to toss up a couple pastes for nginx
+20:18 magoo     http://pastebin.com/aNZ3zwMS
+20:22 magoo     http://pastebin.com/yZacRMag
+20:22 pdurbin   magoo: i can't believe you're not using ironcamel's pastebin ;)
+20:23 magoo     pdurbin: i really should
+20:23 magoo     i use to have nopaste set up on my prompt
+20:23 magoo     but i rebuilt and never put it back in place
+20:24 magoo     fwiw, i stood it up internally and we use pastebin amongst ourselves
+20:24 pdurbin   nice
+20:25 pdurbin   sorry, carry on with your pasting :)
+20:25 magoo     haha, no worries
+20:26 pdurbin   i kinda want to use that thing openshift guys use rather than google docs for real time collaboration
+20:26 pdurbin   but i guess i'll just use google docs
+20:27 larsks    pdurbin: Do they use something like Etherpad?
+20:27 pdurbin   yeah. http://etherpad.org
+20:27 larsks    Also: gist(.github.com) = best pastebin *EVER* :)
+20:28 pdurbin   huh, they switched from scala to node.js. for etherpad
+20:28 pdurbin   anyway, the openshift guys seem to really like etherpad
+20:29 larsks    I like to combine etherpad with http://markdress.org/ for live markdown rendering of the collaboritively edited text.
+20:30 pdurbin   404 but https://github.com/sanand0/markdress works
+20:31 larsks    Well, not exactly, no (because you need it hosted somewhere for it to be useful).  Bummer that markdress is gone! Oh well.
+20:31 larsks    ...yes, of course you could host it (and etherad) yourself.  But it's fun when someone else is worrying about the details.
+20:32 pdurbin   +1
+20:58 pdurbin   right, so, if i want a local smtp server on mac, all i need to do is `sudo postfix start` - http://stackoverflow.com/questions/8599791/a-simple-local-smtp-server/13958121#13958121
+20:59 pdurbin   i wonder if this was ever in Sharing under System Preferences
+21:28 pdurbin   "Discourse is the 100% open source, next-generation discussion platform built for the next 10 years of the Internet" -- https://github.com/discourse/core via http://www.codinghorror.com/blog/2013/02/civilized-discourse-construction-kit.html
+21:46 larsks    Ooo, pretty.
+21:49 spilth    It's a Rails app :-)
+22:01 spilth    https://github.com/discourse/core/blob/master/CONTRIBUTING.md#contributing-step-by-step
+23:10 pdurbin   sure beats what stackoverflow is written in
+23:25 pdurbin   .net Vs Ruby - Try Discourse - http://try.discourse.org/t/-net-vs-ruby/415/3
+23:26 pdurbin   "for open source projects, there's just too much friction in a Microsoft stack. So it was either Python or Ruby"
+23:30 semiosis  http://try.discourse.org/t/this-site-is-a-sandbox-it-is-reset-every-day/57/14
+23:30 semiosis  hahaha
+23:31 pdurbin   http://try.discourse.org/users/pdurbin
+23:31 pdurbin   semiosis: join us
+23:31 semiosis  will do, but gotta go afk for a bit
+</pre></body></html>

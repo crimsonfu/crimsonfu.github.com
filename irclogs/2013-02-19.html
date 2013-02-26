@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+14:37 semiosis    awfully quiet in here this week
+15:00 SEJeff_work Perl question for the many perl-istas here...
+15:01 SEJeff_work I've inherited a largeish amount of perl and have been maintaining it amongst other things. Much of it wasn't written by a very disciplined developer, so I'm cleaning it up to pass "use strict; use warnings;", which is a bit painful
+15:02 SEJeff_work So there is a patter I'm seeing frequently that is like: eval { $Data = $JSONObject-&gt;decode($ReturnData); };
+15:03 SEJeff_work $Data is a reference to a hash containing the json data in all K=&gt;V form. If I try to initialize $Data before the eval it is ignored, and if I change $Data to my $Data, I need to re-declare it AND re-run the decode below to populate the data
+15:04 SEJeff_work What is the proper way to initialize a hash ref above the eval and then set it in the eval (if that is possible?). It works perfectly fine without strict mode, but strict mode has cause several blatant bugs in this 1700 line script that I'm slowly fixing
+15:08 larsks      SEJeff_work: What do you mean by "initialize" $Data?  Since you're assigning to it in the eval it doesn't make sense to initialize it to anything else.  You can declare it outside the eval as "my $Data" (or "our $Data", if it's global).
+15:09 larsks      Got links to actual code that demonstrates the problem?
+15:12 SEJeff_work larsks, Sadly I do not have links to the code. What is the perl word for my $foo = "bar"; Coming from python or c, I'd call it initializing or a prototype
+15:12 SEJeff_work larsks, So I'm defining a variable that is meant to be a hash ref. Then I've got to (gross I know) decode the json in an eval to make sure it is actually valid json, then use it later on in the script. Does that require making it a global?
+15:13 SEJeff_work Forgive me, I'm a recovering pythonista who is becoming a polyglot developer
+15:14 larsks      Coming from C, I would call "my $foo = bar" assignment, and "my $foo;" a declaration.
+15:14 larsks      SEJeff_work: I think just declaring it as "my $Data" prior to the eval should be fine.
+15:14 SEJeff_work touche
+15:17 larsks      SEJeff_work: E.g: https://gist.github.com/larsks/4986776
+15:22 SEJeff_work Just commented on  your gist. I've got the code like that, but it is blowing up somewhere else. There are ~300 lines of complaints about variables not being defined properly. Just trying to beat through them and then write some unit tests. Thanks for your help sir.
+18:33 pdurbin_m   semiosis: yeah, in Denver
+18:35 pdurbin_m   se_Jeff: you're back! eval is evil. convert properly with from_json or similar from "use JSON"
+20:23 magoo       quit
+20:49 larsks      eval isn't evil!  eval {} is exception handling.
+20:50 larsks      e.g.: https://www.socialtext.net/perl5/exception_handling
+</pre></body></html>

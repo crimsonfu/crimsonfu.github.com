@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick           Message
+01:53 pdurbin        "No one is born an expert, though, and no one gets there without making a lot of mistakes along the way. The key is to learn something from each mistake and to make different ones next time."
+01:53 pdurbin        "As a corollary, be kind to other people when they screw up, and help them learn if you can. Not only will you earn yourself some loyal peers/workmates, but you'll eventually find yourself in a position where they return the favor. Fostering an environment of creativity, education, and exploration is just as important for adults as it is for young children."
+01:53 pdurbin        -- WiAC Interview: Amy Rich, Manager of Release Engineering Operations at Mozilla Corporation | USENIX - https://www.usenix.org/blog/wiac-interview-amy-rich-manager-release-engineering-operations-mozilla-corporation
+01:53 pdurbin        via https://plus.google.com/110918605531791372572/posts/L7LT7hxdnHs
+01:54 semiosis       +1
+01:55 semiosis       otoh i think there's something to be said for showing a little disappointment once in a while to let people know that you know they can do better
+01:55 semiosis       must be done with care though
+02:01 pdurbin        oh absolutely :)
+02:12 * semiosis     is never using ! expansion in bash again
+02:13 semiosis       !sudo pbui executed an rm instead of pbuilder :(
+02:13 semiosis       guess the space meant append 'pbui' to the expansion of !sudo
+02:13 pdurbin        i have ever feared the !
+02:13 semiosis       fortunately the files lost were not *too* important
+02:13 pdurbin        ctrl-r ftw, though
+02:14 semiosis       i think i'm going to stick with history | grep
+02:14 pdurbin        heh. old school
+02:14 semiosis       or just typing everything
+02:14 pdurbin        took me a while to like ctrl-r but now i use it every day
+02:14 pdurbin        every hour? i guess i sleep sometimes
+02:15 semiosis       i'll check it out
+02:16 pdurbin        that and ... esc period ... to repeat the last argument
+02:16 pdurbin        whatever you call that
+02:17 semiosis       thats cool, never knew about that
+02:17 semiosis       one of these days i'll get around to learning more bash tricks
+02:19 pdurbin        there should be a bash tricks meetup
+02:19 pdurbin        as some of this stuff is better explained in person
+02:41 JoeJulian      ctrl-r is like having a third hand.
+02:43 JoeJulian      User can't log in to the web site, keeps getting "invalid password", though everyone else can log in with no problems... Boss: "What can we do to help her, Joe?" Me: "I can add logging to see what passwords are being typed in. That would, however, end up logging plain-text passwords which is a big huge security 'you're an idiot and shouldn't own a computer' level of faux pas. It's got to be a PEBKAC."
+02:50 pdurbin        :)
+02:51 pdurbin        i don't want to think any more about who knows my passwords: https://plus.google.com/107770072576338242009/posts/ETqpKHLUEKr
+02:53 JoeJulian      Yeah, I read that.
+02:55 JoeJulian      Before I started here, these custom php scripts used a random 5 digit number as the password if you "forgot my password". The passwords used to be stored as crypt passwords using a fixed salt. I built a quick rainbow table and over half the passwords were 5 digits.
+03:04 pdurbin        :(
+03:40 rackerhacker   interesting… http://blog.krisk.org/2013/02/packets-of-death.html
+03:44 JoeJulian      egads...
+03:44 rackerhacker   yeah, i was stunned when the card wouldn't even function after
+03:44 rackerhacker   just from reading, didn't try it myself
+03:45 JoeJulian      I don't /think/ I have any of those... but I guess it's time to audit.
+03:46 JoeJulian      "I’ve been working with networks for over 15 years and I’ve never seen anything like this." - I have...
+03:46 JoeJulian      but then I've been doing it longer, too.
+03:48 JoeJulian      tbh, it wasn't that uncommon that a seemingly innocuous sequence of data could take out a device back in the 80s and early 90s.
+03:49 JoeJulian      Even had one where a specific i/o operation would literally pop a pal chip on one motherboard+bios rev.
+03:51 rackerhacker   i remember those idiots who forced crazy current through ethernet cables to blow nics
+04:07 pdurbin        tl;dr (yet anyway)
+04:08 rackerhacker   pdurbin: send a funky VOIP packet through a particular intel NIC and it's no longer functional
+04:37 pdurbin        rackerhacker: thanks
+04:50 JoeJulian      ... or perhaps even a 'ping -p 32 -s 1110'
+12:38 pdurbin        spilth: i just registered a domain for the thing we were talking about yesterday :)
+15:13 pdurbin        going to a tech talk today about AWS. free lunch :)
+15:41 semiosis       going to sunshinephp conf tmrw
+15:41 semiosis       @lucky sunshinephp
+15:41 crimsonfubot   semiosis: http://sunshinephp.com/
+16:08 pdurbin        sunny but cold in boston
+17:20 pdurbin        feeling a little ignorant that it's called "Elastic Block Store" - http://aws.amazon.com/ebs/
+17:21 pdurbin        dunno if i've heard of Simple Queue Service either: http://aws.amazon.com/sqs/
+17:22 pdurbin        on this slide are those, EC2 and S3, which i've heard of, of course, and http://aws.amazon.com/dynamodb/
+17:23 pdurbin        looks like there are other offerings as well: http://aws.amazon.com/products/
+17:24 pdurbin        oh, next slide. even more
+17:24 pdurbin        SNS, SES, RDS, VPC, IAM
+17:27 semiosis       there are a lot of services!
+17:27 semiosis       it'll make your head spin
+17:27 pdurbin        no kidding
+17:27 pdurbin        i mean, i understand that whole business are built on this stuff
+17:28 pdurbin        i just haven't used it much myself
+17:28 semiosis       then there's things like autoscaling, elb, and simpledb that dont even show up on the product listing!
+17:29 pdurbin        i believe it
+17:29 pdurbin        quite a soup
+17:29 semiosis       oh wait AS &amp; ELB are on the prod list, but simpledb is not
+18:12 pdurbin        johnmark: maybe you meen this... here's an example of a zodbot meeting summary: http://meetbot.fedoraproject.org/fedora-meeting/2013-02-06/fesco.2013-02-06-18.00.html
+18:12 pdurbin        (from #dvn)
+18:12 pdurbin        zodbot seems like a nice way to summarize IRC meetings
+18:13 pdurbin        crimsonfubot: lucky zodbot
+18:13 crimsonfubot   pdurbin: https://fedoraproject.org/wiki/Zodbot
+18:16 pdurbin        http://irclog.iq.harvard.edu/dvn/2013-02-07#i_530
+18:33 pdurbin        don't you wish YOUR irc channel had a zodbot: http://irclog.iq.harvard.edu/dvn/2013-02-07#i_562
+19:48 JoeJulian      pdurbin: Here's another expample... ;) http://meetbot.fedoraproject.org/gluster-meeting/2012-10-18/gluster-meeting.2012-10-18-16.06.html
+19:49 pdurbin        ooo. actions
+19:50 JoeJulian      Nice, Ryan Coleman responded to my G+ post.
+19:50 pdurbin        the one i commented on?
+19:50 JoeJulian      https://plus.google.com/u/0/113457525690313682370/posts/7XtDXBcJmAo
+19:50 JoeJulian      yes
+19:51 pdurbin        "and we'll then double down on content like puppetlabs/stdlib"
+19:52 pdurbin        "that dev or someone else responsible for this, reaches out to community members associated with the project that's being targeted" ... that's what my shibboleth meeting is about
+19:52 pdurbin        getting opinions from the community
+19:53 JoeJulian      Need more than opinions. Need involvement and ownership.
+19:53 pdurbin        sure. it's hard
+19:53 JoeJulian      Yep!
+19:54 pdurbin        i owe our shibboleth ticket :)
+19:55 JoeJulian      Though I think if Dan Bodhe had asked me to take over the management of puppetlabs-{openstack,nova,keystone,horizon,cinder} I would have.
+19:56 pdurbin        sounds like a big job
+20:02 magoo          anyone have a good recommendation for a great linux/windows dual-boot laptop?
+20:03 magoo          with emphasis on hardware that has great support in linux
+20:05 pdurbin        good linux support but the hardware has been flaky: https://plus.google.com/107770072576338242009/posts/Hb8qfjoRVSZ
+20:06 pdurbin        thinkpad X220T
+20:09 magoo          yikes, a bit out of the price range i'm working with
+20:09 magoo          i used to have a thinkpad back in the day though... loved that thing
+20:09 magoo          built like a tank
+20:09 * rackerhacker loves his X1 carbon
+20:10 JoeJulian      once he finally got it
+20:11 rackerhacker   yeah
+20:11 rackerhacker   that was a mess
+20:11 JoeJulian      Apparently, though, rackerhacker didn't love it enough to keep both of them! ;)
+20:11 magoo          rackerhacker: all hardware works without hacking on it?
+20:12 JoeJulian      I was tempted to take that second one though...
+20:12 rackerhacker   magoo: everything worked out of the box except for the fingerprint reader
+20:12 rackerhacker   proprietary firmware :(
+20:12 rackerhacker   i used Fedora 17/18, CentOS 6 and Mint on it, all worked like champs
+20:12 magoo          cool, that doesn't concern me
+20:13 rackerhacker   F18 is on it now
+20:13 rackerhacker   i'm thinking about tossing xenclient on
+20:13 magoo          sweet, mint would be my choice
+20:13 magoo          or arch
+20:13 pdurbin        Selena Deckelmann was complaining at http://devhell.info/post/2013-01-23/artisan-database-administration/ that her webcam doesn't work under linux (fedora, i think) but mine works fine (fedora 16)
+20:13 pdurbin        good episode, by the way
+20:14 magoo          but i see the x1 in a lower config around 1200
+20:14 magoo          is that a non-gloss screen?
+20:15 semiosis       i like my asus ux32vd but i was not able to reinstall windows 8 after replacing the hdd with ssd, so no dual boot for me
+20:15 semiosis       but linux (kubuntu quantal) rocks
+20:16 magoo          and are the hinges built solid?
+20:16 magoo          i definitely have to be able to dual-boot... i need to be able to support the dev environment for mac, linux, and windows
+20:16 magoo          i know! shoot me in the face
+20:17 semiosis       https://twitter.com/pragmaticism/status/299612794083487744
+20:18 semiosis       ...is what i tell myself
+20:18 magoo          haha, appropriate
+20:18 magoo          we hired two windows devs this week... my life was so simple before *sigh*
+20:26 rackerhacker   magoo: all are non-glossy, hinges are pretty serious
+20:26 rackerhacker   i use two hands to get it open
+20:32 magoo          &lt;3
+20:32 magoo          might have a winner then
+20:32 rackerhacker   i picked mine up from new egg and saved on tax
+20:32 rackerhacker   faster delivery, too
+20:36 semiosis       rackerhacker: what happened to that samsung?
+20:37 rackerhacker   i returned it because either it wasn't working properly or it wasn't working by design
+20:37 semiosis       ah ha
+20:37 semiosis       your laptop adventures are legend, but i missed that chapter :)
+20:38 rackerhacker   oh hah
+20:43 semiosis       so is the appeal of mint (over ubuntu) that it doesn't have unity?
+20:43 semiosis       anyone have an opinion on kubuntu vs mint kde?
+20:44 magoo          rolling release
+20:44 semiosis       oh interesting
+20:44 magoo          plus cinnamon is terrific
+20:45 magoo          i have it on my home theatre box - looks sharp
+20:46 magoo          there has to be a wrapper to make ec2-describe-instances not look like screen vomit
+20:47 semiosis       have you seen aws cli?
+20:48 magoo          nope, github?
+20:48 semiosis       http://aws.amazon.com/cli/
+20:48 semiosis       based on python/boto afaict, from garnaat
+20:48 magoo          nice, reading up now
+20:49 semiosis       https://github.com/aws/aws-cli#command-output
+20:49 semiosis       never heard of 'jq' before i came across it there
+20:50 semiosis       http://stedolan.github.com/jq/
+20:51 magoo          man, this is sweet
+</pre></body></html>

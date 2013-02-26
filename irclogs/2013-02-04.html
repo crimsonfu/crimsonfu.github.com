@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+03:14 pdurbin      teancom: how did the talk go?
+03:23 teancom      I think it went pretty wel, actually!
+03:23 teancom      I had one developer come up to me afterwards and say that, if he knew even the slightest bit about sysadmining he'd apply for one of my open positions, which made me pretty chuffed.
+03:27 teancom      @pdurbin ^^
+03:27 crimsonfubot teancom: Error: "pdurbin" is not a valid command.
+03:28 teancom      heh
+07:00 westmaas     teancom: what talk did you do?
+07:01 teancom      Why Being a Sysadmin is Awesome (No, Really!)
+07:01 teancom      At Buffalo BarCamp
+07:28 westmaas     haha, cool
+13:46 pdurbin      westmaas: previously mentioned here: http://irclog.perlgeek.de/crimsonfu/2013-02-02#i_6403949
+13:46 pdurbin      teancom: what were the final one liners?
+14:44 teancom      Free Cellphone!, You Get To Tell People They're Wrong (and teach them at the same time), Automate Everything (Lazy is Better!), You're A Cost Center, which is freeing - nothing you do will ever make money, Do All The Things (and then listed all the cool software I get to use/configure/maintain), Make People Happy, followed by Power over Puny Mortals (not that I've ever abused that power), and finally $$$. At least where I am, sysads make m
+14:44 teancom      ore than devs.
+14:45 pdurbin      nice
+14:47 teancom      And then I took some questions, and talked about how "devops" are the future, and the old-school sysad who doesn't write any code, does everything manually, and is soley focused on the OS is a dying breed. Automation is the future, and you have to know how to automate or you'll end up at some bank or university, maintaining SunOS or HPUX machines for the rest of your career.
+14:48 pdurbin      sounds about right
+17:41 larsks       Do we have any rackspace people hanging out here?
+18:04 semiosis     yes
+18:04 semiosis     (not me though)
+18:10 larsks       ...okay.
+19:44 JoeJulian    I don't know anybody at rackspace (cough*rackerhacker*cough)...
+19:45 pdurbin      westmaas: ^^
+20:02 westmaas     JoeJulian: what's up!
+20:03 JoeJulian    [09:41] &lt;larsks&gt; Do we have any rackspace people hanging out here?
+20:03 westmaas     larsks: whats up!
+20:03 westmaas     :)
+20:03 JoeJulian    :)
+20:04 JoeJulian    Btw... registration's open. Everybody come to Cascadia IT Conference - http://casitconf.org/casitconf13/
+20:05 dotplus      aha, a racker. westmaas, is RS ever open to remote? RS sounds like an awesome company, I'm looking for a new gig, but I'm not moving to sf.ca.us or sa.tx.us, etc.
+20:05 westmaas     how about...blacksburg, va?
+20:05 westmaas     :)
+20:05 westmaas     but yes, we are open to remote
+20:05 westmaas     I have an entire team of devs that are remote
+20:06 westmaas     and we have some more operations/engineery types that are remote
+20:06 dotplus      I'm a sysadmin not a developer, but still.
+20:06 dotplus      excellent!
+20:06 westmaas     just not a whole team dedicated to that
+20:06 westmaas     where you at? Boston?
+20:06 dotplus      nope, pittsburgh
+20:07 dotplus      can we continue this in pm or non-logged channel?
+20:07 westmaas     pm away
+20:18 jimi_c       I'm soliciting suggestions for a devops style admin console for use by an operations group to do deployments, possibly using mcollective as the underlying methodology. What are people commonly using to do this? Are there FOSS projects or is it typically a roll your own situation?
+20:19 semiosis     rolled my own with jenkins &amp; puppet
+20:19 jimi_c       yeah we kind of have that going in qa for our developers
+20:19 jimi_c       want something a little more polished for ops
+20:20 pdurbin      what about that thing from etsy? the dashboard
+20:20 jimi_c       i can roll my own, i'd just prefer something that was pre-packaged to make life easier
+20:20 jimi_c       was that etsy? I think netflix may have had one too, couldn't remember
+20:20 pdurbin      crimsonfubot: lucky etsy dashboard github
+20:20 crimsonfubot pdurbin: https://github.com/etsy/dashboard
+20:21 pdurbin      it's more for graphing though...
+20:21 * jimi_c     goes up one level from that to search
+20:21 jimi_c       deployinator
+20:30 spilth       jimi_c: we do deployments using Anthill Pro
+20:31 spilth       It's used by devs, qa and ops
+20:33 jimi_c       that looks interesting, not FOSS though :/
+20:33 spilth       Nope, though they have an older OSS version somewhere
+20:34 spilth       Thinks like RunDeck and ControlTier are interesting alternatives
+20:39 jimi_c       ahh, i've heard of rundeck, forgot all about it. thanks!
+21:05 pdurbin      semiosis: is glusterbot supybot?
+21:06 semiosis     [16:06] &lt;glusterbot&gt; The current (running) version of this Supybot is 0.83.4.1+limnoria 2012-07-13T14:08:55+0000. The newest versions available online are 2013-02+03T16:4639Z (in testing), 2013-02+02T18:5903Z (in master).
+21:06 semiosis     '/msg glusterbot version' produced that
+21:06 semiosis     @version
+21:06 crimsonfubot semiosis: The current (running) version of this Supybot is 0.83.4.1+gribble (2011-06-27T14:41:49-0400).  The newest version available in the gribble git repository is 0.83.4.1+gribble (2011-08-12T18:12:56-0400).
+21:09 semiosis     as you can see the limnoria fork is actively developed.  gribble seems inactive
+21:09 semiosis     i recently upgraded logstashbot to limnoria and am real happy with it
+21:09 semiosis     JoeJulian runs glusterbot btw
+21:09 pdurbin      ah
+21:11 JoeJulian    I should look and see if any of those updates are security related probably....
+21:13 JoeJulian    I switched to the limnoria build when they pulled one of my patch submissions for gribble. I knew then that they were serious.
+</pre></body></html>

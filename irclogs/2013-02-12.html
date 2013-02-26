@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+13:42 pdurbin      larsks: you had asked about web-based IRC clients: http://irclog.greptilian.com/spanworm/2013-02-12#i_3147
+13:43 * pdurbin    drops a link: http://irclog.perlgeek.de/crimsonfu/2013-02-12#i_6442491
+13:44 pdurbin      whoops. wrong channel :)
+14:41 kiwi69932    Look at me I'm using a web irc client...
+14:41 pdurbin      :)
+14:41 pdurbin      kiwi69932: welcome!
+14:41 larsks       pdurbin: It seems pretty.
+14:42 pdurbin      hmm, i didn't link it up yet. here we go: http://kiwiirc.com
+16:39 pdurbin      shibboleth testing is going ok: https://dvn-vm2.hmdc.harvard.edu/secure/
+16:39 pdurbin      see also https://github.com/dvn/shibpoc
+16:40 shuff        yay shibboleth!
+16:40 pdurbin      heh
+16:41 pdurbin      i think next i'm gonna look at http://openam.forgerock.org per http://irclog.iq.harvard.edu/dvn/2013-02-12#i_691
+18:14 semiosis     i played around with opends &amp; opensso right around time of the sun/oracle/forgerock split
+18:14 pdurbin      if install vmware on my mac will it break my virtualbox? http://irclog.perlgeek.de/shibboleth/2013-02-12#i_6444062
+18:14 pdurbin      sorry, if i install, i meant
+18:17 spilth       pdurbin: I have both on my work machine and they don't seem to affect each other at all.
+18:17 spilth       Why do you think they would?
+18:18 jimi_c       any PCI DSS gurus here? rackerhacker?
+18:18 pdurbin      spilth: i dunno. don't they add extra interfaces and all?
+18:18 jimi_c       just had a discussion of the implications of breaking encryption at the localhost level for varnish, since it can't handle https connections
+18:19 spilth       network interfaces? I think they end up using their own prefixes for naming them
+18:19 spilth       vm_/vb_
+18:20 semiosis     jimi_c: so you want to break the encryption AND CACHE THE DATA?!?!?!
+18:20 pdurbin      i just don't like loading up my mac with stuff i don't need
+18:20 semiosis     ;)
+18:20 pdurbin      shuff: weren't you afraid of installing virtualbox? didn't want to break your vmware?
+18:20 jimi_c       semiosis: is that a meme i'm not familiar with?
+18:21 semiosis     nope
+18:21 shuff        pdurbin: yeah, but only due to superstition
+18:21 semiosis     just seems kinda nuts imho
+18:21 pdurbin      shuff: heh
+18:21 * spilth     makes a GUI application in Visual Basic to cache the data
+18:22 jimi_c       semiosis: nuts to cache web traffic?
+18:22 jimi_c       a png is a png, whether it's going over https or not :)
+18:22 semiosis     why would that be regulated by pci dss?
+18:23 semiosis     i figured if you were concerned about regulation it was PII/CC data
+18:23 jimi_c       the question is whether PCI DSS mandates end to end encryption, and what is the end? the server or a process on the server?
+18:24 jimi_c       infosec guy's being overly paranoid (aren't they all?)
+18:24 jimi_c       i'm pretty confident PCI DSS doesn't care as long as it's encrypted up to the load balancer, and all servers behind the LB are configured the same, but I'm definitely no PCI guru
+18:24 pdurbin      jimi_c: you could ask in #masshackers - http://masshackers.org
+18:25 semiosis     pretty sure PCI DSS requires data to be encrypted at rest as well as in flight, so caching unencrypted data is probably not allowed
+18:25 semiosis     if it really is data that's regulated by PCI DSS
+18:26 semiosis     last time i looked into this stuff it was to make a formal statement that PCI DSS didn't apply, so no guru here either
+18:27 jimi_c       right, i wouldn't want to stick CC#'s in memcache, but is it "in-flight" once it's in the memory of a web server? it's certainly not at rest, but even if it were encrypted you can use things like strace to view that as it's read/written to libraries
+18:27 jimi_c       saw a nice demo of someone doing that to sniff ssh passwords
+18:34 jimi_c       ahh, think i found it, traffic on a "private network" does not need to be encrypted to meet PCI DSS requirements
+18:34 jimi_c       thus, you can break encryption at a front-end load balancer with impunity
+18:35 jimi_c       my setup would be better, as the traffic from the LB to the web server would remain encrypted
+18:35 pdurbin      jimi_c: sniffing ssh passwords? http://blog.vpetkov.net/2013/01/29/sniffing-ssh-password-from-the-server-side/
+18:35 jimi_c       yes, was that you who put it on twitter?
+18:35 jimi_c       i was pretty sure it was someone from in here
+18:35 jimi_c       either you or rackerhacker
+18:41 pdurbin      i dunno but when rackerhacker retweets you, look out: https://twitter.com/philipdurbin/status/238221068467306496 :)
+18:43 jimi_c       heh, that's a pretty funny one, i guess i wasn't following you yet at that point
+18:45 jimi_c       so this is pretty scary - an MPLS network is, in the eyes of the PCI SSC, a "private network" and thus not subject to PCI DSS requirements
+18:46 jimi_c       so go ahead and send that packet across the internet unencrypted, you're still PCI compliant ;)
+19:09 semiosis     wow
+19:48 rackerhacker pdurbin: oopsies
+20:06 pdurbin      :)
+</pre></body></html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+14:46 pdurbin   erlang-bear? wtf: http://mirror.hmdc.harvard.edu/fedora-epel/6/x86_64/
+16:14 pdurbin   my latest crazy idea: http://spanworm.com http://irclog.greptilian.com/spanworm/2013-02-08
+17:07 pdurbin   JoeJulian: I'm not sure how to get zodbot to flag an action with "UNASSIGNED": http://irclog.iq.harvard.edu/dvn/2013-02-08#i_663
+17:21 JoeJulian pdurbin: I'm pretty sure it's just action items where there's no nick in the text of a meeting attendee.
+17:22 pdurbin   JoeJulian: yeah, i tried: http://irclog.iq.harvard.edu/dvn/2013-02-08#i_645
+17:22 JoeJulian You'll note the "follow up with jdarcy" action item shows it assigned to jdarcy.
+17:23 pdurbin   right, i tried putting pdurbin in the middle. worked fine: http://irclog.iq.harvard.edu/dvn/2013-02-08#i_653
+17:23 pdurbin   UNASSIGNED is the only thing i can't get to work
+17:26 * pdurbin asks in #fedora-admin
+17:27 JoeJulian I wonder if it has anything to do with the number of people present...
+17:28 pdurbin   hmm, maybe
+17:28 JoeJulian Huh... I never realized that meetbot was just a supybot plugin.
+17:28 pdurbin   don't laugh at my IRC meeting with myself
+17:28 pdurbin   yeah, i'm thinking about adding it to crimsonfubot
+17:32 JoeJulian I'm reading through the code for assigning action items to UNASSIGNED and I don't see any reason that it wasn't. I'll take another look after I get back from a Dr. Appt. I'm leaning toward it being a bug.
+17:34 pdurbin   ok, #fedora-admin is thinking about it too
+19:56 JoeJulian Aha, "if len(thisNick['items']) &gt; 1: ActionItemsPerson.append(thisNick)" so since unassigned only had 1 item, it wasn't added to the list. Looks like a bug to me.
+20:02 pdurbin   ah, and there were 2 unassigned at http://meetbot.fedoraproject.org/gluster-meeting/2012-10-18/gluster-meeting.2012-10-18-16.06.html
+20:17 JoeJulian ... why do some projects use oftc instead of freenode. :/ (and not github, and no bug tracker...) I would not only report the bug but issue a pull request for that if they didn't make it so damned inconvenient.
+20:17 pdurbin   what's wrong with oftc?
+20:17 JoeJulian I'm already on freenode
+20:18 pdurbin   meh. easy in irssi
+20:18 pdurbin   i did link back here in #fedora-admin about it
+20:19 JoeJulian Probably easy in znc, too, but I haven't cared enough to do it.
+20:19 pdurbin   i do have a crazy problem when i try to join gnome's irc though... the last couple times i tried someone i would join the names of all the channels i'm already joined on freenode and oftc. i don't understand why
+20:20 pdurbin   JoeJulian: "sadly upstream is pretty dead"
+20:21 JoeJulian I should talk to the limnoria folks about incorporating meetbot. Then, at least, there'd be a place it could get maintained.
+20:25 pdurbin   i linked back here in #meetbot on oftc
+20:25 pdurbin   man, i don't know what key combination i just hit, but i got "Screen used by" like it says here: http://michael-prokop.at/screen/intro.php3
+20:25 pdurbin   was able to ssh in again and `screen -x` to get back in
+</pre></body></html>

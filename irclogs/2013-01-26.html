@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+02:58 jimi_c  pdurbin: i have some vagrant questions for you
+02:59 jimi_c  i thought i was doing things the right way, but i'm still seeing vagrant jobs using the same vagrant image step on each other's toes
+03:02 jimi_c  i'm doing vagrant add, vagrant init, vagrant up, vagrant provision - am i missing something?
+03:02 jimi_c  the name i'm using is a unique one based on a hash generated during the run
+04:01 pdurbin jimi_c: i'm not sure. you use vagrant a little differently than i do. i manually run `vagrant up` and `vagrant destroy` ... you're spinning up VMs in a CI system if I remember right
+04:41 jimi_c  right, so i'm just doing it in shell scripts in jenkins rather than letting the plugin handle it
+04:48 jimi_c  so I guess I don't need to do the vagrant add part then? just add them in my jenkins home directory so they're there when "vagrant up" is run
+05:22 jimi_c  so here's the issue i'm running into - fired up a matrixed build, and my server has two executors. When the vagrant up started, both servers got assigned ssh port 2222 and didn't detect the conflict
+05:22 jimi_c  so they're stepping on each other's toes
+05:22 jimi_c  i guess i could have my job generate the vagrant file and manually set the ssh port
+05:23 jimi_c  i'm sure that's not an issue you've run into
+13:26 pdurbin jimi_c: that's interesting. just yesterday i was noticing that the second vm i spun on with vagrant was using port 2201 rather than 2222 for ssh. and vagrant nicely tells you this in the output of `vagrant up`
+15:10 jimi_c  ouch... http://www.techweekeurope.co.uk/news/alan-cox-leaves-intel-linux-105279
+16:07 pdurbin yeah, saw that on google+. intel is hiring! kernel devs that is :)
+</pre></body></html>

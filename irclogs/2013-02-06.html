@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+01:52 pdurbin      starting to participate in the meta site: http://meta.discourse.org/users/pdurbin
+01:53 pdurbin      i was about to write this thing off because it's pretty bad on my phone but they're working on it: http://meta.discourse.org/t/deliver-support-for-mobile-smartphones-as-soon-as-possible/661
+02:28 pdurbin      heh. in case they take down http://meta.discourse.org/t/libelous-quote-to-reply/724 i saved it here: https://plus.google.com/107770072576338242009/posts/ae5PvDjKyru
+02:28 pdurbin      i'm such a child
+02:52 pdurbin      "I highly recommend you try the Vagrant image if you want to start hacking on Discourse quickly. It includes a small db." -- https://twitter.com/evil_trout/status/298905129971748865
+15:59 jimi_c       good morning from my new laptop: Asus A55A-AH31, works pretty well with fedora 17 (rackerhacker, I'm looking at you :)
+16:00 pdurbin      18 is out
+16:00 jimi_c       yeah, i had 17 on iso handy :) also after reading some reviews i'm holding off upgrading just yet
+16:00 jimi_c       i'm happy with 17 right now
+16:00 * jimi_c     meeting, bbl
+16:01 * pdurbin    is still on 16 :(
+16:01 shuff        the old and busted?
+16:10 jimi_c       meeting cancelled, wahoo!
+16:10 jimi_c       :)
+16:22 pdurbin      i've been ranting about meetings on google plus. one sec
+16:23 pdurbin      yeah, http://www.paulgraham.com/makersschedule.html and "Github projects don't have meetings" at https://plus.google.com/107770072576338242009/posts/5C2xdtf7jSt
+16:23 pdurbin      ironcamel: heh. +100 from you :)
+16:31 pdurbin      “pgAdmin3” can’t be opened because it is from an unidentified developer
+16:31 spilth       shift-click and choose Open
+16:31 spilth       or right-click, and choose Open
+16:32 pdurbin      hmm. ok. was just looking at Security &amp; Privacy... which says "Allow applications downloaded from: Mac App Store and identified developers" (by default)
+16:32 spilth       yea, you can toggle that too
+16:33 pdurbin      "Open" gives me the same error
+16:34 pdurbin      i remember john siracusa talking about this on hypercritical
+16:34 spilth       http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from-an-unidentified-developer/
+16:35 spilth       you'll get the warning the first time but not after that
+16:35 spilth       with the right-click
+16:35 pdurbin      Gatekeeper adds security layer for businesses that load Mountain Lion | TechRepublic - http://www.techrepublic.com/blog/mac/gatekeeper-adds-security-layer-for-businesses-that-load-mountain-lion/2116
+16:35 pdurbin      "gatekeeper" i guess
+16:36 pdurbin      spilth: oh, you're right. i'm an idiot. different dialog. opens fine. thanks
+16:37 spilth       you are not an idiot :-P\
+16:37 spilth       that is NOT me licking a piece of paper
+16:37 pdurbin      do i have to change that global setting for this one app?
+16:37 spilth       if you get tired of right-clicking you can
+16:38 pdurbin      ah. again, like you said...
+16:38 pdurbin      it was only a one time warning
+16:38 pdurbin      ok, that's fine i guess
+16:39 pdurbin      yum and apt have many more apps that i want than apple's app store
+16:48 pdurbin      right, and since i installed with `brew install postgresql` i get 'psql: FATAL:  role "postgres" does not exist' so i just use my mac username: http://www.johnplummer.com/rails/installing-postgresql-pgadmin.html
+16:49 spilth       are there a bunch of post-install instructions when you use brew?
+16:49 pdurbin      hmm, kinda :)
+16:50 pdurbin      miah: it's working out very well to run postgres from homebrew. thanks again
+16:50 pdurbin      miah: oh, and i'm using iTerm a bit too
+16:51 pdurbin      spilth: that johnplummer post is a pretty good write up of what i'm doing, more or less ^^
+16:52 spilth       btw, regarding my question about Markdown slideshows, I found this - https://github.com/gnab/remark
+16:53 spilth       haven
+16:54 spilth       Have't given it a try yet. Debating how I want to run/present/document this Ruby and Rails crash course I'm working on
+16:54 pdurbin      wow, i'm pretty sold by http://gnab.github.com/remark . thanks
+16:54 spilth       yea, should've linked to that
+16:54 spilth       I just wish ##'s were the slide delimeter. Then it could be both a regular page and slides
+16:55 pdurbin      wait, this is the source though? https://github.com/gnab/remark/blob/gh-pages/index.html
+16:57 spilth       yea, the markdown is IN the HTML
+16:58 ben_e        none of those browser-based slideshows play well with pentadactyl
+16:58 ben_e        but that is pretty slick looking
+16:58 pdurbin      crimsonfubot: lucky pentadactyl
+16:58 crimsonfubot pdurbin: http://5digits.org/pentadactyl/
+16:59 ben_e        it's vi keybindings for firefox
+16:59 ben_e        i saw it and thought "that's a gimmick"
+16:59 ben_e        then i tried it for a week and thought "that's pretty handy"
+17:00 spilth       not compatible with Firefox 18.1
+17:00 ben_e        you gotta use the nightly version
+17:00 spilth       yea, just figured that out
+17:00 spilth       woo, tab commands work!
+17:07 spilth       it actually disabled the menus?
+17:10 pdurbin      there's some other one westmaas likes
+17:10 ben_e        vimperator
+17:10 pdurbin      yeah, http://www.vimperator.org/vimperator
+17:10 ben_e        yeah, you can put the menus back if you miss them
+19:17 miah         pdurbin: awesome. i _live_ in iterm2. its the best term on osx by far. iterm2 + tmux == my home
+19:18 pdurbin      i'm still using screen
+19:21 spilth_      miah: do you use tmuxinator?
+19:21 miah         no
+19:22 spilth_      let's you create config files for commonly used tmux setups
+19:22 miah         ya
+19:22 miah         i have a tmux config, but i change window arrangements all the time
+19:23 spilth_      I have a few common setups I do for Rails and Jekyll projects
+19:23 miah         its definitely handy
+19:23 spilth_      vim/guard rspec, rails server, git
+19:23 spilth_      vim/jekyll --server, jekyll-s3, git
+19:23 miah         ya
+19:23 miah         i have a decent vimrc too
+19:24 spilth_      http://spilth.org/images/original/tmux-dev.png
+19:25 spilth_      sometime I go hardcore fullscreen terminal/tmux!
+19:25 * spilth_    should install lynx...
+19:26 * spilth_    should install Linux without X...
+19:27 ben_e        you'll be happier with Elinks probably
+19:28 miah         just curl and read the code
+19:28 shuff        what's wrong with netcat?
+19:28 spilth_      http://xkcd.com/378/
+19:28 ben_e        not that i am a terminal-happy unix bofh who demands vi keybindings in every application he uses
+19:28 ben_e        you can do sockets in bash if you're really motivated... :P
+19:28 miah         yup
+19:29 ben_e        nc is totally overkill man!
+19:29 miah         people forget about bashs ksh roots
+19:29 spilth_      I prefer to watch the flickering light of my ethernet card
+19:29 miah         programming in bash is painful
+20:07 pdurbin      shuff figured out how to do arrays in bash but that's when i switch to perl
+20:07 shuff        that is, in fact, my red flag
+20:08 shuff        to indicate that i am using the wrong tool
+20:11 pdurbin      :)
+20:30 jimi_c       oop, one problem remains with the laptop - closed lid/opened lid = black screen, no waking up from hibernate :/
+20:34 jimi_c       fixed after editing /etc/acpi/events/videoconf :)
+20:35 jimi_c       would be nice if gnome3 had an option to do that for you, but that's gnome for ya
+20:36 pdurbin      jimi_c: that works fine for me on fedora 16 on my thinkpad
+20:36 jimi_c       yeah the acpi power stuff for the lid event is commented out by default in f17
+20:38 pdurbin      ok
+21:30 semiosis     my new asus doesnt resume from hibernate in ubuntu quantal.  all i can do is suspend &amp; shutdown
+21:30 semiosis     seems to have been disabled by default &amp; i havent tried reenabling it yet
+21:31 pdurbin      well i don't know if it's hibernate or what. all i know is close the lid and later open it. works just like my mac
+23:10 JoeJulian    gnome3 removed hibernate from the options. There's some way to add it back in with gconf but I haven't bothered to do it.
+</pre></body></html>

@@ -4,17 +4,82 @@
 </head>
 <body>
 <pre>
-Time  Nick      Message
-04:35 jimi_c    i must say, using vagrant with jenkins is much easier without using the vagrant plugin
-04:35 jimi_c    running all the commands via bash scripts works better, and i can actually cancel builds and have the vm be destroy
-04:35 jimi_c    'ed
-04:37 jimi_c    also matrixed builds are awesome
-11:04 pdurbin   jimi_c: cool
-14:13 pdurbin   does anyone know how this "mirrored from" was set up? https://github.com/apache/ant ... is this some official github thing?
-14:17 * pdurbin adds a comment: http://stackoverflow.com/questions/11370239/creating-an-official-github-mirror#comment20250253_11370266
-14:19 pdurbin   hmm, this seems like a good way to set up a mirror: https://exyr.org/2011/git-mirrors/
-14:34 larsks    Did someone here have a favorite web-based irc client of some sort?
-14:43 pdurbin   http://webchat.freenode.net/?channels=crimsonfu
-14:43 pdurbin   actually, i think agoddard mentioned one recently
-14:50 larsks    Yeah, I think so too.  Are the logs for this channel searchable?
+Time  Nick         Message
+04:35 jimi_c       i must say, using vagrant with jenkins is much easier without using the vagrant plugin
+04:35 jimi_c       running all the commands via bash scripts works better, and i can actually cancel builds and have the vm be destroy
+04:35 jimi_c       'ed
+04:37 jimi_c       also matrixed builds are awesome
+11:04 pdurbin      jimi_c: cool
+14:13 pdurbin      does anyone know how this "mirrored from" was set up? https://github.com/apache/ant ... is this some official github thing?
+14:17 * pdurbin    adds a comment: http://stackoverflow.com/questions/11370239/creating-an-official-github-mirror#comment20250253_11370266
+14:19 pdurbin      hmm, this seems like a good way to set up a mirror: https://exyr.org/2011/git-mirrors/
+14:34 larsks       Did someone here have a favorite web-based irc client of some sort?
+14:43 pdurbin      http://webchat.freenode.net/?channels=crimsonfu
+14:43 pdurbin      actually, i think agoddard mentioned one recently
+14:50 larsks       Yeah, I think so too.  Are the logs for this channel searchable?
+14:53 pdurbin      hell yes. one sec. i'll put the latest in git
+14:53 GitHub189    [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/04598041013687fba3ddab7e187111e182099c3e
+14:53 GitHub189    crimsonfu.github.com/master 0459804 Philip Durbin: fetch latest irc logs
+14:54 pdurbin      larsks: there you go. i recommend ack :)
+14:54 larsks       So noted!
+14:54 pdurbin      crimsonfubot: lucky better than grep
+14:54 crimsonfubot pdurbin: http://betterthangrep.com/
+14:55 pdurbin      there's also http://irclog.perlgeek.de/search.pl?channel=crimsonfu but it could be better. see http://irclog.perlgeek.de/ilbot/2013-01-21
+14:56 larsks       I like how that last one lets you limit searches to a specific nick.
+14:57 pdurbin      larsks: irccloud: http://irclog.greptilian.com/sourcefu/2013-01-09#i_1572
+14:57 pdurbin      https://www.irccloud.com/
+15:04 larsks       Hmmm, a "subscription service".
+15:25 spilth       Part 2 is up! http://spilth.org/blog/2013/01/24/automated-vm-generation-with-vagrant-jenkins-and-amazon-s3/
+15:28 pdurbin      spilth: i'm gonna have to give this a look sometime. seems great
+15:31 spilth       I'm curious to know if others have any issues along the way (if it's clear enough)
+15:32 spilth       Though - https://twitter.com/mitchellh/status/294681590339104769
+15:33 pdurbin      oh. yeah. `gem install vagrant` is going away
+15:35 spilth       Yea, a bummer. Makes automating things harder.
+15:36 pdurbin      "I doing this on my Mac so there were a few things I needed to set up before getting started"
+15:36 pdurbin      meh. it's just a dmg you download and install once
+15:37 pdurbin      just ignore that vagrant is in ruby, that it ever was on the gem forge or whatever they call it
+15:37 pdurbin      :)
+15:37 spilth       Do python libraries even HAVE a cool name?
+15:37 spilth       ;-)
+15:38 spilth       The point being that you'll now have to manually set up Vagrant on your Jenkins box
+15:38 spilth       Hopefully it can be puppetized
+15:39 spilth       But that is still a cloudy, fog of war area for me right now
+15:41 pdurbin      spilth: you run jenkins on a mac? i'm confused
+15:41 spilth       I ran it to test out what I was doing but it shouldn't matter where Jenkins is running.
+15:42 pdurbin      ok
+15:42 pdurbin      spilth: you know jimi_c was just talking about this: http://irclog.perlgeek.de/crimsonfu/2013-01-25#i_6373706
+15:44 spilth       I'm kind of torn on how much the build system should know about the build process
+15:44 spilth       Ideally I wouldn't even need to use the Amazon S3 Jenkins plugin. It should be part of the build script.
+15:45 spilth       Maybe not "ideally" but it's an alternative I'd consider
+15:45 spilth       Keeping the contract with the CI server very light
+15:47 pdurbin      yeah
+15:47 pdurbin      oh, speaking of CI, this was cool, from yesterday's talk...
+15:47 pdurbin      when someone submits a pull request to openscholar, like this: https://github.com/openscholar/openscholar/pull/1483
+15:47 pdurbin      it kicks off a build in travis to show if it failed or not: https://travis-ci.org/openscholar/openscholar/builds/4332347
+15:48 spilth       Is that a feature of Travis?
+15:49 pdurbin      i dunno but i linked the #openscholar guys here. maybe they'll explain :)
+15:51 pdurbin      github service hook
+15:52 spilth       http://about.travis-ci.org/blog/announcing-pull-request-support/#Enter-Travisbot
+15:52 spilth       "In contrast to most self-made solutions out there, we actually test the merged version, rather than just the fork or feature branch. Thus, we also take into account changes made upstream after the repository has been forked."
+15:55 spilth       I really need to spend more time with Travis CI. I only have one dinky project on there - https://travis-ci.org/spilth/ubyray
+15:55 pdurbin      huh. with travis builds are done in a VM: Why does Travis do for me that Jenkins or Gerrit doesn't? | Hacker News - http://news.ycombinator.com/item?id=3231532
+15:56 pdurbin      so much shiny stuff out there
+15:56 spilth       I don't know that you can run your own instance of Travis CI yet though
+15:56 pdurbin      no? that's unfortunate
+15:56 spilth       It's open source though. Not sure what it takes to stand up your own.
+15:57 pdurbin      ok
+15:57 spilth       There's a Pro version that's in beta. I guess you can pay to keep things private if you need?
+16:17 pdurbin      kinda like the github business model, i guess
+16:31 pdurbin      i forget if i threw this over the wall already. in case i didn't... drush script to export content from a Drupal book module: http://drupal.org/documentation/modules/book - https://gist.github.com/4635780
+17:13 spilth       http://www.securityweek.com/github-search-makes-easy-discovery-encryption-keys-passwords-source-code
+18:06 pdurbin      huh. hadn't seen A Whole New Code Search · GitHub Blog - https://github.com/blog/1381-a-whole-new-code-search
+18:06 pdurbin      i've been crying since google killed Code Search
+21:45 pdurbin      despite this i'm still not quite convinced to switch from markdown to asciidoc: http://www.evanchooly.com/logs/%23%23jsf/2013-01-25
+21:49 semiosis     that 404-looking thing doesnt convince me either!
+21:50 spilth       wish the joins were a lighter color as to not distract
+21:50 spilth       wait, are we talking about the log or the contents of th elog?
+21:50 semiosis     hmm, rekonq was converting the first %23 to a # so the page wasnt loading for me
+21:51 semiosis     chrome seems to load it ok
+21:51 spilth       lame, no entry highlighting ;-)
+23:13 pdurbin      you guys are spoiled on decent irc logging :)
 </pre></body></html>

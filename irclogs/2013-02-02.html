@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+03:05 teancom Giving a talk on Why Being a Sysadmin is Awesome (No, Really!) tomorrow. Soliciting one-liners of why you guys think it's great. I'll go first - I love that the better I'm doing my job, the less I have to do (or at least, I then have time to do the *interesting* work). Developers who finish early just get their next project assigned.
+08:00 jimi_c  I am finding it really quite easy to replace vagrant with a few virsh commands - I am kicking virtual box to the curb
+08:01 jimi_c  for instance, this is my new provisioning script: http://pastie.org/6028334
+08:06 jimi_c  and here is my veewee replacement (their kvm support is not great at the moment): http://pastie.org/6028343
+08:10 jimi_c  right now i have 2 imports (disk heavy activities) running while I'm building another image for use in testing - load is up over 6 on a 2 cpu box and things are just humming away smoothly
+08:11 jimi_c  and just to be clear, I blame vbox for this - the vagrant guys really need to hurry up and add more provider backends now that they have the framework done
+12:13 pdurbin jimi_c: very interesting
+12:20 pdurbin but i can't run virsh on my mac :(
+13:10 pdurbin sysadmins have whipuptitude
+13:10 pdurbin sysadmins move mountains
+13:10 pdurbin sysadmins do the impossible
+13:10 pdurbin sysadmins will replace you with a small shell script
+13:11 pdurbin teancom: ^^
+13:13 pdurbin posted the call for more one liners: https://plus.google.com/107770072576338242009/posts/cu2h9oqMY4H
+13:52 jimi_c  pdurbin: are you sure? http://libvirt.org/sources/osx/
+14:26 pdurbin huh. but... last modified 4 years ago
+14:59 jimi_c  yeah that's probably not good
+15:00 jimi_c  that is a pretty old version
+</pre></body></html>
