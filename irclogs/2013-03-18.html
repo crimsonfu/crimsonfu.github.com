@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+14:06 Pax       hey guys
+14:06 pdurbin   Pax: you're back! :)
+14:07 Pax       I always forget to start the client :p
+14:08 Pax       hey, when people are using git + puppet (or chef) are you finding your prefer to check in all modules in the modules dir as a single repo, or a repo / module?
+14:09 Pax       it kinda looks like people do a repo/module but I wasn't sure what people direct experiences were. It doesn't seem like that would work with dynamic env's
+14:09 Pax       is submodules the answer?
+14:10 pdurbin   i used submodules here: https://github.com/pdurbin/greptilian-vagrant/blob/master/.gitmodules
+14:10 pdurbin   use. still use :)
+14:11 Pax       LOL
+14:11 Pax       pdurbin: hows the gig treating you btw? Still having a great time?
+14:11 pdurbin   love it
+14:12 pdurbin   i think i gush a bit too much here: http://people.iq.harvard.edu/~pdurbin
+14:15 pdurbin   Pax: those are all standard modules (i think) but i'd probably do the same if i wrote my own
+14:16 Pax       LOL nice! I don't think you can gush to much, loving what you do is important! we spend to much time at work every day to hate it!
+14:17 pdurbin   yeah
+15:57 dotplus   anyone have any thoughts on why anaconda might be prompting me to reinitialize the disk during the kickstart of a Centos6.4 install on hyperV when a) the kickstart file contains "zerombr" and "clearpart --all --initlabel" and b) no prompt on KVM hypervisors?
+16:08 larsks    Huh. Any errors in the anaconda logs that suggest anything?
+16:13 dotplus   trying it again, without clearpart. based on http://www.linuxquestions.org/questions/linux-virtualization-90/kickstart-problem-with-initlabel-4175420733/
+16:17 dotplus   same thing.
+16:21 dotplus   no, the debug log on alt-f3 finds /dev/sda, determines that it has no label and defaults to selecting label type msdos. DiskLabel:__init__: device: /dev/sda; labelType: msdos; exists: True;
+16:24 dotplus   which sounds plausibly correct and at least doesn't seem obviously wrong to me
+16:39 crilly    I have 'zerombr' followed by 'clearpart --all'
+16:39 crilly    And I don't get a prompt.
+16:39 crilly    dotplus: If you pastebin your KS file (minus the rootpw hash), I can test it out here on my hypervisor for you
+18:19 dotplus   crilly: http://paste.ie/view/c08a0ff9
+18:19 dotplus   sorry, got called away
+18:20 dotplus   the funny thing is that this works fine on kvm, but not on hyperv. I've never really played with hyperv before so I'm suspecting that we're creating a wrong kind of disk device
+18:21 dotplus   but it seems to me that zerombr and clearpart --all --initlabel should be sufficient to answer all prompts
+19:18 JoeJulian Cool, pdurbin, and what did Theodore Ts'o have to say? https://plus.google.com/u/0/107770072576338242009/posts/EKaQMoLC7iS
+19:19 JoeJulian (I still think he should by by Teddy.)
+19:21 pdurbin   JoeJulian: oh man, i hope it was recorded :)
+19:22 pdurbin   don't let me put words in his mouth :)
+19:22 JoeJulian Heh
+19:22 JoeJulian What was the overall gist?
+19:22 JoeJulian Kernel bug or not?
+19:23 pdurbin   fundamental problems with how the gluster protocol is implemented
+19:23 JoeJulian Maybe I /should/ email Linus.
+19:24 JoeJulian I hate to, but seriously....
+19:24 JoeJulian The only reason I don't is because I fully expect that between Avati and Jeff Darcy they'll have a better long-term solution.
+19:27 pdurbin   oh i think there's a solution
+19:27 pdurbin   or will be
+19:27 pdurbin   some sort of mode in which code written that way will still operate
+19:28 pdurbin   i.e. the bad way ;)
+19:28 pdurbin   "bad developer mode" ;)
+19:28 pdurbin   "no donut"
+19:29 pdurbin   you know... hate the sin, not the sinner...
+19:29 pdurbin   "sin mode" :)
+19:30 pdurbin   "using bits you shouldn't mode"
+19:34 pdurbin   actually, he answered this for me to: "guys around me are asking what the best filesystem is for small files" -- http://irclog.perlgeek.de/gluster/2012-11-02#i_6122122
+19:35 pdurbin   answer: use a database
+19:49 crilly    dotplus: Ah OK, sorry, I was going to use KVM also, so no point in me testing it for you :)
+19:50 semiosis  pdurbin: reiserfs had some novel optimizations for small files.  also some interesting ideas about interfaces blurring the lines between FS &amp; DB
+19:51 pdurbin   mmm, blurry
+19:54 pdurbin   I'm not sure which application was creating small files. I doubt it's easy to point at a database rather than a filesystem. so the blurry idea is interesting
+19:56 pdurbin   JoeJulian: are you familiar with the bits I'm talking about?
+19:57 JoeJulian Usually it's php scripts.
+19:57 JoeJulian They usually have thousands of includes per page load.
+19:58 JoeJulian For some reason people seem to be afraid of caching or preloading.
+19:58 pdurbin   JoeJulian: i meant the bits used by the gluster protocol
+19:58 JoeJulian It's also one of those buzzwords that people that use it typically don't understand.
+19:59 JoeJulian Oh, yes. The structure previously had a 32 bit cookie that was passed. Gluster used the upper 32 bits that weren't being used.
+19:59 pdurbin   yeah. don't use those bits, kids. not allowed
+20:00 JoeJulian That allowed it to map it's own cookie to the cookie provided by the operating system. This was important for nfs.
+20:00 JoeJulian At least that's the way I understand it.
+20:01 JoeJulian Regardless of whether it was the "right" thing to do, Linus has mandated time and time again, "if it breaks userspace applications then it's a kernel bug."
+20:02 semiosis  what if the userspace application is a privilege escalation exploit?
+20:02 semiosis  nailed him
+20:02 JoeJulian hehe
+20:02 pdurbin   you're saying devs are free to use those bits
+20:03 JoeJulian I suppose so. It wasn't like they used the bits by just "guessing" that they weren't being used.
+20:04 JoeJulian The data needed to be passed using existing structures.
+20:04 pdurbin   he made it sounds like a "no no"
+20:05 JoeJulian Well, in his mind it is. I understand his perspective, and I would probably take the same perspective if I were in his position.
+20:06 JoeJulian Frankly, I just use xfs and wouldn't care at all if it wasn't for the constant stream of people complaining to us about it.
+20:08 JoeJulian The similar case that included Linus swearing is where someone was using a signal that was never intended to leak to userspace. The kernel dev "fixed" the leak, breaking apps. I don't see this as being all that different.
+20:09 pdurbin   i hope the talk was recorded
+20:09 pdurbin   he got pretty fired up. talked at length
+20:10 JoeJulian I wish I'd been there (instead of where I was, especially).
+20:10 pdurbin   it was good times
+20:11 pdurbin   shame on the locals who didn't come ;)
+20:11 semiosis  JoeJulian: how was cascadia?  did you talk logstash with whack?
+20:12 JoeJulian I don't know about the rest of cascadia, but my plan was a complete disaster.
+20:12 JoeJulian whack did show off logstash though.
+20:13 JoeJulian And I went out to dinner with he and Randm the night before. Pretty nice guys.
+20:14 semiosis  cool
+20:14 JoeJulian I will be blogging about my failure, and probably throwing Red Hat under the bus a bit in the process.
+20:15 semiosis  should be an interesting read
+20:17 dotplus   crilly: ohok, never mind. this is only happening on hyperv
+20:40 pdurbin   JoeJulian: "horribly violating the Posix Interface definition" -- mr tso on the gplus page you linked to
+20:50 larsks    Wow, see, I completely forgot the linux fest was happening today.
+21:10 pdurbin   larsks: yesterday. the day before. it's over
+21:11 pdurbin   here's my take on it: http://irclog.greptilian.com/northeastlinuxfest/2013-03-17
+21:11 semiosis  gcal ftw
+</pre></body></html>

@@ -1,0 +1,238 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:09 pdurbin      melodie: so, you're part of the Ubuntu Openbox Remix project?
+00:10 pdurbin      I think this is the thread you linked to: OBUbuntu RC7 - http://beta.linuxvillage.net/index.php/topic,198.0.html
+00:11 melodie      pdurbin I am leading this project
+00:11 melodie      as you have created crimsonfu
+00:12 melodie      the other buddies at the LinuxVillage have done the same with Debian testing. We all use the same basis, and about the same main ingredients
+00:13 * pdurbin    tries to translate the linuxvillage about page from french to english: http://translate.google.com/translate?sl=auto&amp;tl=en&amp;js=n&amp;prev=_t&amp;hl=en&amp;ie=UTF-8&amp;eotf=1&amp;u=http%3A%2F%2Flinuxvillage.org
+00:14 melodie      if you wish there are pages in English as well
+00:18 pdurbin      ironcamel: you're a big fan of openbox, if memory serves. I still haven't tried it
+00:21 ironcamel    pdurbin: yeah, i'm running it right now
+00:21 ironcamel    apt-get install openbox; openbox --replace
+00:25 melodie      hi
+00:26 melodie      ironcamel did you hear about openbox-menu and "obsession" ?
+00:26 melodie      (o b session)
+00:39 ironcamel    melodie: i have not. should i try those?
+00:39 melodie      yes
+00:39 melodie      moment plse
+00:40 melodie      do you use Debian, or Ubuntu ?
+00:41 melodie      I have done a ppa for Ubuntu, put aside a package for Debian, however obssion needs to be compiled, which I did for Ubuntu and for Debian (but did not package yet)
+00:42 melodie      sources here: http://code.google.com/p/mimarchlinux
+02:24 ironcamel    melodie: i am running arch
+02:25 ironcamel    and looks like arch has both of those in AUR, it's community based repo
+02:35 melodie      ironcamel yes
+02:35 melodie      I run Arch too and so does mimas
+02:36 melodie      you might want to use the aur pkgbuild, as the community repos perhaps is not up to date
+02:36 ironcamel    i'm not sure what that means :)
+02:37 melodie      then you will need to configure your menu.xml file and your autostart file in .config/openbox
+02:37 ironcamel    i'm just doing packer -S openbox-menu
+02:37 melodie      ironcamel do you use yaourt ?
+02:37 ironcamel    i user packer
+02:37 ironcamel    which is an alternative to yaourt
+02:37 melodie      I don't know packer, does it access the aur repos ?
+02:37 ironcamel    yes
+02:37 melodie      then if you can get the aur version it is more up to date
+02:38 ironcamel    i am installing from aur
+02:38 ironcamel    ok, done
+02:38 ironcamel    now what do i do with openbox-menu?
+02:38 melodie      I can give you my menu.lst third line if you want and my autostart file line to match it
+02:38 ironcamel    sure :)
+02:38 melodie      I give the lines to you and openbox-menu will work
+02:39 ironcamel    where does menu.lst go?
+02:39 ironcamel    i just have a menu.xml
+02:39 ironcamel    in ~/.config/openbox
+02:39 melodie      &lt;menu id="desktop-app" label="Applications" execute=" cat ~/.cache/menu.xml" /&gt;
+02:39 melodie      this is the third line here
+02:39 melodie      and this third line is just after:
+02:40 melodie      &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+02:40 melodie      &lt;openbox_menu xmlns="http://openbox.org/3.4/menu"&gt;
+02:40 melodie      one of the first lines in my autostart file, to match the menu.xml line:
+02:40 melodie      openbox-menu -o menu.xml -p -g -x -t "sakura -e" lxde-applications.menu &amp;
+02:41 ironcamel    that looks scary
+02:41 melodie      ironcamel I mean menu.xml, sorry
+02:41 ironcamel    do i need sakura?
+02:41 melodie      no
+02:41 melodie      you can put your's instead
+02:41 melodie      urxvt, or whatever console you use
+02:41 melodie      -p is for persistant mode : dynamic
+02:42 ironcamel    i use gnome-terminal
+02:42 melodie      ok
+02:42 melodie      then go for it
+02:42 melodie      -g is for gnome menus
+02:42 ironcamel    replace sakura with gnome-terminal?
+02:42 melodie      -x for xfce menus
+02:42 melodie      yes
+02:42 melodie      exactly
+02:42 melodie      and -t for terminal
+02:42 melodie      there is one more switch which I don't use is -k for kde
+02:42 melodie      I don't use kde apps
+02:43 melodie      in the desktop files you often get ShowOnlyIn=SomeDesktops;
+02:43 melodie      or such
+02:43 melodie      these switches are made for this kind of thing
+02:44 melodie      do you have a pic with your desktop ? :)
+02:44 ironcamel    so how would i run openbox-menu manually?
+02:44 melodie      I show you a post where I reported it
+02:44 melodie      well, in console ? just "openbox-menu"
+02:44 melodie      but there is one more way
+02:45 melodie      openbox-menu even lighter - http://beta.linuxvillage.net/index.php/topic,200.msg1277.html#msg1277
+02:45 ironcamel    melodie: http://ironcamel.com/files/ss.png
+02:46 ironcamel    when i run it in the console, nothing happens
+02:46 ironcamel    what is supposed to happen?
+02:46 melodie      it might be because of the latest menu-cached... :/
+02:47 melodie      same here
+02:47 melodie      "** (openbox-menu:7407): WARNING **: Cannot create menu, check if the .menu file is correct
+02:47 melodie      "
+02:47 melodie      just logout/login, then you should have your menus
+02:47 ironcamel    $ openbox-menu
+02:47 ironcamel    ** (process:18816): WARNING **: removed previous socket file /tmp/.menu-cached-:0-naveed
+02:47 melodie      it used to display the whole menu
+02:47 melodie      do you have a 64bits install ?
+02:47 ironcamel    yes
+02:47 melodie      wait a sec
+02:48 melodie      I'll show you some comments at aur
+02:48 melodie      https://aur.archlinux.org/packages/openbox-menu
+02:49 melodie      mimas answered in the comments, I think it might have helped the ones using 64bits boxes
+02:49 melodie      mervinb found a workaround !
+02:52 ironcamel    i created that script in ~/bin instead of /usr/local/bin
+02:52 ironcamel    now when i run it, it just dumps some xml
+02:52 melodie      ironcamel I hope you will get to be able to use it, it's a nice program (I have to make a 64bits machine I have working again)
+02:52 melodie      dumping xml is good !
+02:52 melodie      it means it works
+02:53 ironcamel    that's all it does?
+02:53 melodie      do a right click on the desktop
+02:53 ironcamel    ok
+02:53 melodie      you should see "Application" then all the categories on the right
+02:53 melodie      I show a few pics to you:
+02:53 ironcamel    my menu looks the same as before
+02:53 melodie      http://meets.free.fr/debian/images/obubuntu-RC8-menus.png
+02:54 ironcamel    yeah, mine doesn't do that
+02:54 ironcamel    i don't have the menue on the right
+02:54 melodie      http://meets.free.fr/debian/images/2-Ubuntu-Openbox-desktop.png
+02:54 melodie      did you logout/login ? first time it might help
+02:55 melodie      did you reload openbox btw ?
+02:55 ironcamel    i have not logged out/in.
+02:55 melodie      after editing menu.xml
+02:55 ironcamel    do i need stuff in autostart ?
+02:55 melodie      yes
+02:55 melodie      you need:
+02:55 melodie      &lt;melodie&gt; one of the first lines in my autostart file, to match the menu.xml line:
+02:55 melodie      &lt;melodie&gt; openbox-menu -o menu.xml -p -g -x -t "sakura -e" lxde-applications.menu &amp;
+02:55 melodie      this
+02:55 melodie      openbox-menu -o menu.xml -p -g -x -t "sakura -e" lxde-applications.menu &amp;
+02:56 melodie      mine starts this way here:
+02:56 melodie      #!/bin/sh
+02:56 melodie      # lancer openbox-menu en tâche de fond
+02:56 melodie      openbox-menu -o menu.xml -p -g -x -t "sakura -e" lxde-applications.menu &amp;
+02:56 melodie      ## autorisations polkit en test
+02:56 melodie      /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &amp;
+02:56 melodie      ...
+02:57 melodie      I have also prepared a set of configurations for : Ubuntu, Debian, Sabayon, and PCLinuxOS. each tested and working.
+02:57 melodie      all online on a web space, of course.
+02:57 ironcamel    what does openbox-menu -o menu.xml do?
+02:57 ironcamel    does it overwrite menu.xml?
+02:58 melodie      well, you should type in console "openbox-menu --help" then you will have the answer
+02:58 melodie      output perhaps ?
+02:58 ironcamel    seems the answer is yes
+02:58 melodie      :)
+02:58 ironcamel    &lt;menu id="desktop-app" label="Applications" execute=" cat ~/.cache/menu.xml" /&gt;
+02:58 ironcamel    i have a question about ^^^
+02:58 ironcamel    ~/.cache/menu.xml
+02:58 ironcamel    i don't have that file
+02:59 melodie      (sorry, my cat talks to me at same time, I have to listen to her... saying 'mrii')
+02:59 melodie      do you have a .cache ?
+02:59 ironcamel    yes
+02:59 melodie      did you put a " where it must not be ?
+02:59 ironcamel    what?
+02:59 melodie      I check
+03:00 melodie      $ pastebin menu.xml
+03:00 melodie      http://pastebin.archlinux.fr/459771
+03:00 melodie      $ pastebin autostart
+03:00 melodie      http://pastebin.archlinux.fr/459772
+03:00 melodie      now we can check together
+03:01 melodie      if that still does not work, try login/logout, chances it works
+03:02 ironcamel    before i login/logout, i want to make sure my menu.xml is correct
+03:02 ironcamel    this seems strange: execute=" cat ~/.cache/menu.xml"
+03:02 ironcamel    since i do not have that file
+03:02 melodie      what menu files do you have in /etc/xdg/menu ?
+03:02 melodie      cat will create it
+03:03 melodie      cat does not only show files, it also creates, pipes...
+03:03 melodie      "    cat - concatenate files and print on the standard output
+03:03 melodie      "
+03:03 ironcamel    cat file_name will show the contents of file_name
+03:03 ironcamel    not create the file
+03:03 ironcamel    $ ls /etc/xdg/menus/
+03:03 ironcamel    applications.menu  gnomecc.menu  kde-applications.menu
+03:04 ironcamel    i don't have lxde-applications.menu
+03:04 ironcamel    so should i update my autostart line?
+03:04 melodie      you have to adapt accordingly
+03:04 melodie      choose one of your menus
+03:04 melodie      applications is ok too
+03:05 ironcamel    applications.menu?
+03:06 melodie      me thinks juste applications might work
+03:06 ironcamel    $ openbox-menu -o menu.xml -p -g -x -t "gnome-terminal -e" applications.menu
+03:06 ironcamel    ** Message: wrote to /home/naveed/.cache/menu.xml
+03:06 ironcamel    looks like i have a ~/.cache/menu.xml now
+03:06 melodie      ok !
+03:07 melodie      do you have the menu showing in openbox right-click menu now ?
+03:07 melodie      ironcamel tell me, then I go to sleep :D
+03:08 melodie      horribly late here, didn't see time running
+03:08 ironcamel    logging out now ...
+03:08 melodie      ok
+03:09 ironcamel    melodie: no :( it's the same as before
+03:09 melodie      humm
+03:10 melodie      you might want to write to mimas
+03:10 ironcamel    ok
+03:10 ironcamel    thanks for your help anyway
+03:10 melodie      you should check here first : http://mimasgpc.free.fr/openbox-menu_en.html
+03:12 melodie      ironcamel and from google code his mail is : mimasgpc at free dot fr
+03:12 melodie      ironcamel next time you will tell me how you solve it
+03:12 melodie      :)
+03:12 melodie      good / night: or any other part of the time
+03:12 ironcamel    goodnight :)
+03:12 melodie      thanks :)
+03:18 ironcamel    haha, just got it working
+10:09 pdurbin_     crimsonfubot: load channelstats
+10:09 crimsonfubot pdurbin_: Error: You don't have the owner capability. If you think that you should have this capability, be sure that you are identified before trying again. The 'whoami' command can tell you if you're identified.
+10:09 pdurbin      crimsonfubot: load channelstats
+10:09 crimsonfubot pdurbin: The operation succeeded.
+10:09 pdurbin      crimsonfubot: channelstats
+10:09 crimsonfubot pdurbin: On #crimsonfu there have been 2 messages, containing 64 characters, 7 words, 0 smileys, and 0 frowns; 0 of those messages were ACTIONs.  There have been 0 joins, 0 parts, 0 quits, 0 kicks, 0 mode changes, and 0 topic changes.  There are currently 30 users and the channel has peaked at 0 users.
+10:10 pdurbin      semiosis: I made myself an owner of crimsonfubot
+10:10 pdurbin      please let me know if you want some other stuff loaded
+10:10 pdurbin      or if you'd like to be an owner
+13:53 pdurbin      some chatter with ironcamel about scaling web apps: http://irclog.greptilian.com/sourcefu/2013-03-20#i_4370
+14:33 semiosis     @version
+14:33 crimsonfubot semiosis: The current (running) version of this Supybot is 0.83.4.1+gribble (2011-06-27T14:41:49-0400).  The newest version available in the gribble git repository is 0.83.4.1+gribble (2011-08-12T18:12:56-0400).
+14:34 semiosis     pdurbin: i'd suggest upgrading to the limnoria fork, it's actively maintained
+14:34 semiosis     google limnoria github
+14:34 crimsonfubot https://github.com/ProgVal/Limnoria
+14:34 semiosis     that's a bug, the bot shouldn't (imho) respond to any message beginning with 'google'
+14:35 semiosis     also there's a plugin ('web' iirc) that fetches page titles for urls in channel
+14:36 pdurbin      semiosis: is it in base or epel?
+14:37 semiosis     pdurbin: JoeJulian might be able to answer that, idk whats in rpm repos these days.  i just pulled the source from github &amp; followed the install instructions -- it was real easy
+14:38 pdurbin      semiosis: cool, you can send me a pull request: https://github.com/pdurbin/greptilian-vagrant ;)
+14:39 semiosis     noted :)
+14:43 pdurbin      semiosis: as long as you can automate the install and setup with puppet it's fine by me
+14:45 semiosis     well, i *can*, but i have a feeling that's not really sufficient
+14:45 semiosis     probably need to actually do it
+18:21 pdurbin      hmm. http://mirror-status.repoforge.org
+20:25 JoeJulian    One more reason to dislike gem: "invalid option: --include-dependencies". Yum, and I'm sure apt, have allowed the same options that they allowed in 1994. If those options are no longer used, they just ignore them.
+20:28 pdurbin      wait, something in ruby dropped backward compatibility?
+20:30 comptona     pdurbin: if it's in a distro package, it's too old
+20:35 pdurbin      comptona: well, doesn't puppet kinda work with ruby distro packages? or maybe it used to
+20:35 comptona     it varies
+20:35 comptona     puppet 3 doesn't work with ruby 1.8.5 anymore, which is what RHEL 5 has
+20:36 JoeJulian    The ruby distro package update is what broke that. It's been deprecated for a long time. Puppet is from the puppetlabs repo so it's the latest bleeding edge.
+20:36 comptona     but in general I think they do a good job of backwards compatibility
+20:54 sjoeboo      puppet 3 from the pupeptlabs repo has newer (backported?) ruby w/ it as a dep, so it can be used on EL5 systems
+20:54 sjoeboo      thats how we got to 3 a few days after release
+23:09 melodie      hi
+23:53 pdurbin      melodie: looks like ironcamel figured it out
+23:54 melodie      pdurbin great ! :D
+</pre></body></html>

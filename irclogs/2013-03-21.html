@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:10 pdurbin      with your help, obviously
+00:10 pdurbin      dunno if he ever said if it was worth it or not ;)
+00:12 melodie      time will tell him if he likes it that way
+00:12 melodie      anyway he was happy about help given it seems
+00:12 pdurbin      yep
+00:39 melodie      hi again
+00:43 pdurbin      melodie: you're welcome to just start typing :)
+00:48 melodie      well, all who want to test Ubuntu Openbox Remix, code name Bento, version 1 (after several prior test versions) are welcome to do so!
+00:49 melodie      all who are willing to help improve it as well (still a few things need to be worked on)
+00:49 melodie      here it is shown and linked to: http://beta.linuxvillage.net/index.php/topic,224.msg1494.html#msg1494
+00:49 melodie      :)
+00:50 pdurbin      does Ubuntu Openbox Remix have its own website?
+00:53 melodie      yes, LinuxVillage
+00:54 melodie      as well as the Debian boxes the buddies did
+00:54 melodie      they also work on nice projects around light environments, with the same spirit
+00:54 melodie      we all help each other doing so
+00:57 pdurbin      hmm. so the distro is called VillageBox? http://linuxvillage.org/2013/02/06/linuxvillage-distribution/
+01:01 melodie      VillageBox is a Debian testing spin made by Taco.22, and meant to be as small as possible, but yet easy to build on top of it (with remastersys which is in it)
+01:02 melodie      this is really the linuxvillage spirit : build in a way which allows creative customizations
+01:04 pdurbin      cool
+01:09 melodie      we are a few there with a few years experience of work done together around this kind of project
+01:10 melodie      djohnston also has done spins around Debian testing, interesting ones too
+01:11 melodie      he did a script to switch on/off zram in a Debian box, from the menus
+01:11 melodie      I have not looked at it yet, I should
+01:12 pdurbin      crimsonfubot: lucky zram
+01:12 crimsonfubot pdurbin: http://en.wikipedia.org/wiki/ZRam
+01:15 melodie      pdurbin zram from the Compcache projet at google code
+01:16 melodie      crimsonfubot lucky compcache
+01:16 crimsonfubot melodie: http://code.google.com/p/compcache/
+01:16 melodie      yes !
+01:16 melodie      that's the one. :)
+01:16 pdurbin      :)
+01:18 melodie      the author, nitin gupta is an indian student, and the zram module from his project was integrated to the kernel since the version 2.8.37
+01:18 melodie      at the beginning, another module from his project was necessary to be able to use it
+01:19 melodie      now several distros have made a script to start it and provide a default configuration (which can be slightly modified throught the initramfs.conf file, at least this is what I could see in Ubuntu)
+01:19 melodie      pdurbin is Debian what you use ?
+01:19 melodie      Redhat ?
+01:28 melodie      pdurbin still around ?
+01:34 pdurbin      melodie: in and out. getting my kids down for the night
+01:34 melodie      oh yes !
+01:35 melodie      here it is night already... what time is it for you ?
+01:35 pdurbin      the laptop I'm on now is Fedora. my home server is CentOS
+01:35 melodie      oh good
+01:35 pdurbin      9:30pm. I'm in Boston
+01:37 pdurbin      I'm curious about Debian and Arch but I haven't dedicated much time to using them
+01:37 melodie      same for me about Fedora and CentOS, tried but very fast
+01:43 pdurbin      a buddy of mine is really into NetBSD. I haven't made time for that either :)
+02:02 melodie      BSD's use slides, and I read there is a very special way to multiboot linux distros with bsd distros
+02:02 melodie      slides instead of partitions
+02:05 pdurbin      slides or slices?
+02:05 melodie      slices
+02:05 melodie      ^^
+02:05 melodie      my bad XD
+02:06 melodie      strange... such as lemon slices...
+02:06 pdurbin      :)
+02:07 pdurbin      yeah, solaris had slices too. might still have them
+02:32 melodie      when I heard about opensolaris I wanted to try it, then on their chan someone talked to me about a small fork from it, and I tried it in vbox
+02:33 melodie      that was strange but fun however all was still under heavy development and I didn't go anywhere with that once it was installed
+02:35 melodie      going. good night
+10:14 pdurbin      these days, rather than plain Open Solaris, I'm more likely to give http://smartos.org a try... ZFS+DTrace+Zones+KVM http://en.wikipedia.org/wiki/SmartOS
+14:22 sjoeboo      so, I'm asking this again, in case anyone has answers i haven't found yet...
+14:23 sjoeboo      looking for a good, simple datacenter inventory/system location tracking application
+14:23 pdurbin      :)
+14:23 sjoeboo      pdurbin: yeah, STILL on this
+14:24 sjoeboo      so close to just throwing my hands up and doing a 20% project of just writing one, but i can't belive this isn't a solved problem
+14:25 larsks       Yeah, my experience is they all suck and appear to be stuck about 10 years in the UI past.
+14:25 pdurbin      sjoeboo: hmm, we talked about collins already: http://irclog.perlgeek.de/crimsonfu/2012-11-21#i_6173625
+14:26 pdurbin      seems to be our most recent discussion, based on https://www.google.com/search?q=site%3Airclog.perlgeek.de+inurl%3Acrimsonfu+racktables#q=site:irclog.perlgeek.de+inurl:crimsonfu+racktables&amp;hl=en&amp;ei=HBhLUceqGePV0gHC64DwCg&amp;start=10&amp;sa=N&amp;bav=on.2,or.r_qf.&amp;bvm=bv.44158598,d.dmQ&amp;fp=9c786816b0626539&amp;biw=1052&amp;bih=644
+14:26 pdurbin      whoops long link
+14:27 pdurbin      long broken link :(
+14:28 sjoeboo      yeah....ugh
+14:29 pdurbin      sjoeboo: why not nventory again? has api: http://sourceforge.net/apps/trac/nventory/wiki/RubyAPI
+14:29 sjoeboo      yeah, considering it
+14:30 sjoeboo      just still one of those "look at all the things we can do not that well" tools it seems like
+14:30 sjoeboo      instead of "i tell you where your things are and track very little info about them otherwise"
+14:31 pdurbin      yeah
+14:31 pdurbin      sjoeboo: if you write your own, please open source it :)
+14:32 sjoeboo      oh, of course
+14:33 pdurbin      post it to https://projects.cs50.net ... maybe a student will write it for you :)
+14:40 ben_e        racktables is the one i hear about from time to time
+14:41 ben_e        but i've never used it
+14:44 sjoeboo      ben_e: what do you use?
+14:44 ben_e        the sysadmins a few desks over have a racktables install
+14:45 sjoeboo      ah
+14:46 ben_e        but someone filled out the first racks worth and then wrote "hire intern to finish"
+14:46 ben_e        and it's been that way for 18 months
+14:46 ben_e        :-)
+15:01 pdurbin      sjoeboo: what's the latest on the "official" racktables api?
+15:01 sjoeboo      i've seen 0 action on that
+15:02 sjoeboo      searches yeild the conversation from 2011
+15:02 pdurbin      didn't you file some issues?
+15:02 sjoeboo      yep
+15:02 * pdurbin    checks https://projects.cs50.net/project/97/build-a-restful-api-for-racktables-at-philip-durbin/
+15:03 sjoeboo      the racktables github doesn't have issues enabled anymore :-(
+15:03 pdurbin      hmm, 5 open issues. 0 closed issues: https://github.com/ibettinger/racktables/issues
+23:25 melodie      hi
+23:53 pdurbin      melodie: hi
+23:58 melodie      hello pdurbin
+</pre></body></html>

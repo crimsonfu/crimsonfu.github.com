@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+13:38 pdurbin       we recently switched from svn to git and a guy explained to me that with svn he could easily select files to pull down from svn. so if he saw that someone commited a file that he knew would mess up his dev environment, he wouldn't pull it down. with git, all the files get pulled in. he has no control
+13:45 pdurbin       I guess now that I think of it... cvs works the same way
+14:28 larsks        That's just silly talk.  If he wants to isolate his local working environment from upstream changes, he just needs to create a branch and continue working.  Then he can selectively merge in changes from other people in a controlled fashion.
+14:28 larsks        That's what branches are for.  Selectively downloading files just means you're faking branches in a way that will bite you down the road.
+14:29 pdurbin       the real enemy here is ant. when we switch to maven we shouldn't need nbproject files anymore (netbeans project)
+14:29 larsks        (Because now you're developing code that is *actually broken* vs. the tip of the repository)
+14:29 pdurbin       yeah, the code itself isn't broken... it's these odd config files netbeans needs when using ant
+21:30 StripeyType   larsks++
+21:30 StripeyType   branching is for code isolation.
+21:30 StripeyType   branching is so ridiculously fast in git that there's no reason not to do it often.
+21:31 StripeyType   semi-relatedly: GitLab is an easy thing to set up, and makes it very easy to have a workflow in a team with solid code review discipline.
+21:32 StripeyType   I just spent the beginning of this week setting it up here, and people are now chugging along.
+21:33 pdurbin       the problem is shared project files
+21:34 pdurbin       netbeans+ant+svn is fine i guess
+21:34 pdurbin       netbeans+ant+git is teh badness
+21:34 pdurbin       netbeans+maven+git should be ok, if we can get there...
+21:35 * StripeyType nodnods.
+21:35 StripeyType   makes more sense.
+21:35 StripeyType   it irritates me that Ant is clobbering your workflow like that. :/
+21:36 StripeyType   but you've identified probably the best solution.
+21:36 pdurbin       Dataverse Network - Suggestion #2738: Convert DVN from Ant to Maven - Project Management at IQSS, Harvard University - https://redmine.hmdc.harvard.edu/issues/2738
+21:37 StripeyType   I am unlikely to still have access to that. ;)
+21:37 StripeyType   aaaand I'm wrong.
+21:37 pdurbin       heh
+21:37 pdurbin       open source, baby
+21:38 pdurbin       we're pulling those nbproject files out of our main tree
+21:38 pdurbin       i put the ones specific to my laptop here: https://github.com/pdurbin/dvn-nbproject
+21:38 pdurbin       hopefully they'll work at home too
+21:39 StripeyType   what about having a standard development VM image, then just one nbproject file, stashed in git? then just 'vagrant up'
+21:41 StripeyType   stash the Vagrantfile there as well and bang. everybody's developing in identical VMs, and so the shared nbproject file problem should no longer be a problem.
+21:41 StripeyType   my understanding of your overall workflow may be naive, though, and this may not do what you need.
+21:41 StripeyType   but the overhead is much lower in the short term.
+21:42 StripeyType   (than the Maven switch)
+21:43 semiosis      gitlab \o/
+21:46 StripeyType   I know Ops was using a repo hosted on Gitorious, but we were (two weeks ago) not using it for code review the way we ought to hav ebeen.
+22:12 pdurbin       StripeyType: standard development VM image? are you suggesting i run my IDE (netbeans) from within a VM instead of directly on my macbook? and what OS would the VM be?
+</pre></body></html>

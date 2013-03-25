@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick        Message
+03:05 pdurbin     ben_e: making my terminal wide to see more in irssi stopped working: http://irclog.perlgeek.de/crimsonfu/2013-02-09#i_6433637 ... not sure why... now when i make it bigger the irssi window stays at 80x24 :(
+03:05 pdurbin     i'm still using screen+irssi
+03:46 pdurbin     hmm, `fingerw tobyink@cpan.org` returns something... http://search.cpan.org/~tobyink/WWW-Finger-0.104/bin/fingerw
+03:47 pdurbin     i guess web finger is dead :( http://code.google.com/p/webfinger/source/list
+13:31 ben_e       http://bugs.irssi.org/index.php?do=details&amp;task_id=372 &lt;- multiline input feature request
+13:31 ben_e       no movement though
+13:32 ben_e       nothing looked likely in the scripts section
+13:32 ben_e       https://github.com/shabble/irssi-scripts/tree/master/vim-mode &lt;- makes input line movement/editing much nicer
+13:32 ben_e       i think the problem is that IRC is not the right tool for long-form writing :-)
+13:40 pdurbin     ben_e: i agree, but... resizing the window worked... once :)
+13:40 pdurbin     i guess i could quit my screen session and start over :(
+13:51 ben_e       i use the awesome window manager and i found that its ability to rapidly resize terminals would freak out screen and cause it to hang/crash occasionally
+13:52 ben_e       tmux doesn't seem to have the same problem
+13:52 pdurbin     hmm. tmux+irssi, huh?
+13:53 ben_e       yeah
+13:53 ben_e       although i was looking at the weechat page that one of your SO replies linked and it looks kind of good to me
+13:53 ben_e       it has multiline input area per the SO response
+13:55 ben_e       and jabber support, so i wouldnt' have to run bitlbee
+13:56 pdurbin     yeah, but i don't like weechat's attitude toward women: http://irclog.perlgeek.de/crimsonfu/2012-09-26#i_6018765
+13:59 ben_e       yeah, that's questionable
+13:59 ben_e       did you get a response from them?
+14:00 pdurbin     i did, in their chat room, but they don't log it
+14:01 pdurbin     last i checked the screenshot is still up
+14:01 pdurbin     i was very polite
+15:39 mattdm      I emailed the webmaster and got a polite and quick response...
+15:39 mattdm      screenshot is down now.
+15:39 pdurbin     mattdm: no wa
+15:39 pdurbin     way
+15:39 mattdm      yep.
+15:40 pdurbin     Photo not found: "weechat_2010-02-22_caleb.png" at http://www.weechat.org/screenshots/weechat_2010-02-22_caleb.png/
+15:40 pdurbin     mattdm: thanks!
+15:42 mattdm      pdurbin: small steps to a better world
+15:42 mattdm      and etc.
+15:51 pdurbin     :)
+16:02 pdurbin     heh. "RHN Classic" - https://access.redhat.com/knowledge/articles/63269
+16:03 mattdm      "Classic"
+16:10 StripeyType anybody know how to send 'PgUp' and 'PgDn' in the MacOS terminal?
+16:12 spilth      Fn+Up/Down Arrow?
+16:12 pdurbin     Shift-Fn-PageUp on on a MacBook
+16:13 StripeyType that manipulates the terminal scrollbuffer, but doesn't send the character to the running application therein. Say, irssi running under screen.
+16:14 StripeyType pdurbin: awesome. thanks.,
+16:20 pdurbin     i need to merge my local file into http://wiki.greptilian.com/irssi
+19:29 pdurbin     bah. i don't understand postgres
+19:51 larsks      ?
+19:55 pdurbin     helpful: How To Use pg_dump and pg_restore with Postgres Plus® Tutorial for Linux® | EnterpriseDB - http://www.enterprisedb.com/resources-community/tutorials-quickstarts/linux/how-use-pgdump-and-pgrestore-postgres-plus-tutorial-
+19:58 pdurbin     there a database on our build box i want to get onto my laptop. into my developement environement so i have some real data to play with
+19:58 pdurbin     the build box is rhel. my laptop is mac os with postgres installed via homebrew
+19:59 semiosis    you dont have a vagrant box for that dev env?  thought thats what all you cool kids were doing these days
+20:00 pdurbin     i tried :(
+20:05 pdurbin     mmm, look at all that sweet sweet data
+20:50 pdurbin     so on the build server i ran: pg_dump --create myDb &gt; myDb.sql
+20:50 pdurbin     then i copied it down to my laptop and ran: ~/.homebrew/bin/psql -d template1 -f path/to/myDb.sql
+20:51 pdurbin     the -d could be anything... the pdf from the page above says "The database you specify with the -d option is not affected by the restore operation. The psql program requires a session to be established over a database connection before it can process the SQL statements and psql commands from the backup file."
+21:10 pdurbin     huh. now i need to create the role that existed on the build box, apparently
+21:17 pdurbin     helpful: Slicehost Articles: PostgreSQL - creating and dropping roles - http://articles.slicehost.com/2009/5/7/postgresql-creating-and-deleting-roles
+21:23 pdurbin     i have no idea why ~/.homebrew/bin/psql template1 -c 'CREATE ROLE vdcApp' doesn't respect case sensitivity.. role "vdcapp" is created
+21:25 larsks      pdurbin: http://www.postgresql.org/message-id/201004191852.o3JIqiMK012314@wwwmaster.postgresql.org
+21:25 pdurbin     larsks: hmm.
+21:26 pdurbin     larsks: hmm. "BUG #5431: CREATE USER is not case sensitive, but psql command line arguments are" thanks
+21:26 larsks      Basically, shell quoting + sql quoting is hard, so psql is written to not require complex escaped quotes.
+21:26 pdurbin     i shortened what i really am doing: ~/.homebrew/bin/psql template1 -c "CREATE ROLE vdcApp WITH CREATEDB LOGIN PASSWORD 'secret'"
+21:26 pdurbin     and i'm making the user in pgadmin3 instead
+21:26 * pdurbin   hangs head
+21:29 pdurbin     it worked! \o/
+21:29 pdurbin     asadmin deploy ~/NetBeansProjects/dvn/src/DVN-web/dist/DVN-web.war
+21:29 pdurbin     483 dataverses
+21:44 pdurbin     larsks: it works if you put quotes around it: ~/.homebrew/bin/psql template1 -c 'create role "mixEdCase"'
+21:44 larsks      Yes, that's what I was saying about shell quoting + sql quoting.
+21:44 pdurbin     oh
+21:44 pdurbin     :)
+21:44 pdurbin     thanks
+</pre></body></html>

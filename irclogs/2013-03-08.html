@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:01 pdurbin      JoeJulian: fedora 18 huh? you're making me nervous about upgrading. but i gotta get of 16. i think i don't get any updates any more. or soon
+00:02 JoeJulian    The nvidia driver was the only issue I had.
+00:02 pdurbin      i did one upgrade on this laptop. must have been 15-&gt;16 and it was fine. but i'm planning on wiping and starting fresh with fedora 18
+00:02 JoeJulian    Outside of that, I've been quite happy with 18.
+00:03 pdurbin      i hope my windows parition still works. i use it for netflix now and then. this laptop didn't come with any way to restore windows. no usb thumb drive or what have you. i made one but i don't know if it'll work
+00:03 JoeJulian    I have a windows partition for running Firefall.
+00:04 pdurbin      crimsonfubot: lucky firefall
+00:04 crimsonfubot pdurbin: http://www.firefallthegame.com/
+00:05 pdurbin      heh. the T! http://production_firefall-blog-uploads.s3.amazonaws.com/2013/02/POI.jpg
+14:01 * pdurbin    plays with jconsole: http://en.wikipedia.org/wiki/JConsole
+15:34 shuff        so, apropos of nothing: are you folks familiar with SPORE? https://github.com/SPORE/specifications
+15:35 pdurbin      Specification to a POrtable Rest Environment. nope
+15:35 shuff        in brief: platform-independent specification for RESTful APIs
+15:35 shuff        so
+15:36 shuff        SPORE client library for your language of choice + SPORE specification for API == instant client library
+15:36 shuff        for the API
+15:36 semiosis     interesting
+15:37 shuff        as someone with a bit of a hobby in writing client libraries for APIs, i think this is awesome :)
+15:39 semiosis     here's some other interesting stuff in the ReST/HATEOAS space:
+15:39 semiosis     http://stateless.co/hal_specification.html
+15:39 semiosis     https://github.com/kevinswiber/siren
+15:39 semiosis     http://json-schema.org/
+15:39 shuff        what you say? no Perl library for HAL?
+15:40 semiosis     saw this presentation at SunshinePHP recently which introduced me to these things: http://www.slideshare.net/LukeStokes/pox-to-hateoas-13077649
+15:40 semiosis     seems to be a lot going on in this space
+15:43 semiosis     because apparently no one liked WADL
+15:43 semiosis     @lucky wadl
+15:43 crimsonfubot semiosis: http://en.wikipedia.org/wiki/Web_Application_Description_Language
+15:49 semiosis     so a common deficiency of both SPORE and HAL seems to be support for "forms"
+15:49 semiosis     which afaict is the term used to describe input validation for parameters
+15:50 shuff        oh right, WADL
+15:50 semiosis     such as required field "zip_code" allows only digits, 5 or 9 of them
+15:51 shuff        ehh
+15:51 semiosis     or optional field "eye_color" allows only literals "brown" "blue" "hazel" "green" (or an enum, or similar struct)
+15:51 shuff        you could make the argument that a well-behaved API does its own input validation and returns a meaningful error message when you give it bad input
+15:52 shuff        and that it's the responsibility of the client library to transmit that meaningful error message to the programmer
+15:52 semiosis     shuff: surely that argument is made, but if the goal is building useful client libraries this is important information to have up front
+15:52 shuff        but it would also be nice for the API specification to be able to give hints
+15:54 semiosis     could even generate validation code for the api itself from such a detailed schema
+16:06 semiosis     just saw a banner ad for banner ads on ruby-doc.org.  that's so meta!
+</pre></body></html>

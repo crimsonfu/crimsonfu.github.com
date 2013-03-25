@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick    Message
+18:21 melodie hello
+20:31 pdurbin melodie: hi
+20:32 melodie hello pdurbin !
+20:45 pdurbin melodie: just saying hi? :)
+20:47 melodie pdurbin there is a buddy who tries to code a ui in Qt, for something I demanded he got a hard time with the localisation part of the code implementation and unfortunately I don't code so I am unable to help
+20:47 melodie you can read about the topic here : QtShortcut-Creator feedback thread - http://beta.linuxvillage.net/index.php/topic,236.0/topicseen.html
+20:53 pdurbin sounds like progress is being made
+20:54 pdurbin there's interest in localizing the app I work on into Chinese
+21:00 melodie not in all languages for which translators can be available ?
+21:05 pdurbin hmm, I'm not sure. it's early days. we'll see how the translation effort goes, I guess
+21:07 melodie do you provide a pot file or does it need to use another method ? how difficult is it to contribute ?
+21:15 pdurbin I don't know what a pot file is but it seems to be related to gettext: http://en.wikipedia.org/wiki/Gettext
+21:17 pdurbin this seems to be the ticket where we are tracking our localization efforts: https://redmine.hmdc.harvard.edu/issues/1115
+21:18 pdurbin "move all text into resource bundles" it says, which might be a java ee thing. I'm not sure
+21:18 pdurbin hmm, apparently just a java thing, not necessarily ee: http://en.wikipedia.org/wiki/Java_resource_bundle
+21:58 melodie pdurbin yes I think pot file reffers to gettext, the pot file can be edited in a text editor, or in an editor meant for translations such as poedit, or others
+21:59 melodie then it's easy to display the character chains to be translated, setup the language the iso code ... and the name of the translators
+21:59 melodie the program once saved also generates the mo file which is the ones you find under /usr/share/locales/xy/LC_MESSAGES
+22:00 melodie *  /usr/share/locale/*
+22:00 melodie not locales
+22:02 pdurbin right. makes sense. I've seen this a lot on linux
+22:03 melodie i use linux boxes only
+22:03 melodie and I have not contributed to translations else than direct or from po/pot files
+22:04 melodie so I don't know how that works in other languages such as QT, Java or else
+22:04 pdurbin right
+22:04 pdurbin technically, QT is a framework, not a language
+22:05 melodie ok
+22:05 melodie so what languages can be used in that framework ? any ?
+22:05 pdurbin hmm, java and c++ last time i checked
+22:05 melodie ok
+22:06 melodie and perhaps C ?
+22:07 melodie see here: PCManFM Qt port is 85% finished now! - http://blog.lxde.org/?p=982
+22:07 melodie last year pcman has quit coding directly in C, and h
+22:07 melodie and chose to code in Vala to optimize the time used in coding
+22:07 melodie Vala does produce C
+22:08 melodie now he starts coding with QT, it seems because GTK3 is somehow chaotic for the time being (dev and choices made for each version of it at least)
+22:08 melodie this is why, understanding that pcman wants to produce results at less time greedy cost, I wonder if QT could also allow using C ?
+22:08 pdurbin here's the list: http://en.wikipedia.org/wiki/Qt_%28framework%29#Bindings
+22:14 melodie nothing new about that ? how to find out, the head part of the page mentions that the article is outdated
+22:14 melodie I'll find some QT chan and ask there
+22:14 melodie I would like to know if my supposition makes sense
+22:14 pdurbin good idea
+22:15 pdurbin he wants to code up a qt app in vala?
+22:16 melodie this is not what I said
+22:16 melodie I said last year he quit coding directly with C, and posted at the lxde ml about coding all in Vala
+22:16 melodie compiling Vala produces C
+22:17 melodie I sayd he seems to want results, fast, good, and less time greedy
+22:18 melodie pdurbin what is the program you are working on ? what use will it be dedicated to ?
+22:19 pdurbin it's called "dataverse network (DVN)" and it's for preserving academic research data: http://people.iq.harvard.edu/~pdurbin
+22:19 pdurbin and some analysis (with R) and visualization of the data
+22:20 melodie pdurbin ah research
+22:20 pdurbin that page above is my take on it. its real homepage is http://thedata.org :)
+22:20 melodie about research have you heard about the plot licenses ?
+22:20 melodie I look at your links
+22:21 pdurbin no I haven't
+22:21 melodie thedata.org is unreachable from here
+22:21 pdurbin !!
+22:21 melodie I try another web browser ?
+22:22 pdurbin can you get to the "people" site above?
+22:22 melodie yes I do
+22:22 pdurbin phew!
+22:22 melodie there is a pic of you on it
+22:23 pdurbin yeah, that's the one
+22:23 melodie ping empty
+22:23 melodie $ whois www.thedata.org
+22:23 melodie NOT FOUND
+22:23 melodie sorry
+22:24 pdurbin try it without the "www"
+22:24 melodie for a whois ?
+22:25 pdurbin yeah
+22:25 melodie yes got it
+22:25 melodie but it still is unreachable and does not return anything on a ping either
+22:26 melodie ping: unknown host thedata.org
+22:26 pdurbin I googled "plot licenses" but the only results were for flying airplanes ;)
+22:30 melodie PLOd
+22:31 melodie PLOs
+22:31 melodie my bad
+22:31 melodie http://creativecommons.org/science
+22:31 melodie got it !
+22:31 melodie stands for "Public Library of Science"
+22:31 melodie that's not airplanes, perhaps "flying sciences" XD
+22:33 pdurbin oh, plos. yes, my wife just had a paper accepted to PLOS One. I think that's the same thing you're talking about
+22:34 melodie yes, but what is PLOS one and what do your wife work on ?
+22:34 melodie s/do/does/
+22:39 melodie pdurbin I was going to say, your page "This web page is written in Markdown "
+22:39 melodie my companion also makes his pages in markdown... have not had the courage to try it up to now
+22:39 melodie (speaking for myself)
+22:39 melodie although it seems very nice
+22:42 melodie pdurbin talking about science would you know about some projects related to projects in electronics involving FOSS licences ?
+22:43 pdurbin markdown is pretty good
+22:43 pdurbin my wife is a biochemist. gonna go sit down for dinner with her and the kids
+22:44 pdurbin codex: you know about electronics
+22:44 melodie pdurbin bon appétit !
+22:44 melodie have a nice evening
+22:58 melodie codex if you are not around, I'll be back other times here, at different times of the day. it's UTC +1 here
+22:58 melodie I would be interested about some info on the topic...
+</pre></body></html>

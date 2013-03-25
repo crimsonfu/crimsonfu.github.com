@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+12:09 pdurbin  ""Technical debt never stops charging interest" -- https://twitter.com/leahculver/status/312327822939156480
+12:11 pdurbin  heh. "as opposed to some other kind of debt?" -- https://twitter.com/littleidea/status/312328451120041984
+13:19 pdurbin  ironcamel: thanks for all the git advice at http://irclog.greptilian.com/sourcefu/2013-03-15
+14:56 magoo_   anyone with strong sudo foo in here?!
+14:57 pdurbin  http://irclog.perlgeek.de/search.pl?channel=crimsonfu&amp;nick=&amp;q=sudo
+14:59 magoo_   oh man, i have to remember this
+14:59 magoo_   %devops ALL=(chef) NOPASSWD:/usr/bin/knife ssh*
+15:00 magoo_   so I've got this ^ line to allow our devops users to do deploys across machines
+15:00 magoo_   but this will require a login shell. So you run sudo -i -u chef knife ssh ...
+15:00 magoo_   it always password prompts though
+15:01 magoo_   i know it's the -i, but I don't know of another way to get the chef user to use it's .chef config variables
+15:02 agoddard magoo_ a bit of an aside - you're running knife on the nodes, or these are workstations?
+15:03 magoo_   this is a bastion server
+15:03 agoddard magoo_ ah makes sense :)
+15:03 magoo_   our devs hit our vpn and ssh to it for internal access
+15:03 magoo_   and I want to allow all of the devops group to run a limited set of chef commands
+15:04 magoo_   without having full access to the chef servers
+15:04 magoo_   seems like there's gotta be a way to allow -i without a password prompt
+15:05 agoddard obviously you'r sure the ssh prompt is the local sudo one, and not the remote ssh login one ;)
+15:05 magoo_   correct
+15:05 magoo_   if I'm actually in the chef account, I have all the power :)
+</pre></body></html>
