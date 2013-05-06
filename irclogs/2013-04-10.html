@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+00:02 melodie   good night
+13:00 pdurbin   ben_e: you around?
+13:10 melodie_  hi pdurbin I have sent the mail earlier today about the cs50 appliance. (it was uploaded during last night and I could provide a link to it in the mail)
+13:11 ben_e     yes
+13:12 ben_e     tastypie talk is today
+13:12 pdurbin   heh. yep! ABCD WWW Â» Eric Mattison â€“ Easy APIs to make your life easier - http://w3.abcd.harvard.edu/ai1ec_event/eric-mattison-django-and-tastypie/?instance_id=198
+13:12 pdurbin   had the link ready :)
+13:14 ben_e     the 3 year old brought home some daycare plague last week which i managed to avoid until yesterday
+13:15 ben_e     so i'm not entirely sure i'm going. we'll see what 3 PM feels like
+13:17 pdurbin   something is definitely going around. 103 degree fevers in my group
+19:52 JoeJulian Argh... I spent half the day yesterday re-writing the authentication for a web site I manage, creating a much more robust password storage and tokenized authentication system for it. Then as I'm falling asleep I realized I should have just used keystone.
+20:01 semiosis  code is a liability
+20:02 JoeJulian I was really pleased with what I wrote too, 'till I realized that what I did was basically what keystone already does, with the advantage that a keystone server is an api abstraction from the database that someone would most likely want to break in to.
+20:02 JoeJulian Well, second most likely.
+22:22 pdurbin   cool that keystone is that pluggable
+22:40 JoeJulian Well, I don't know about pluggable, but it's an api. I should just use curl to authenticate, get a token and verify that token on subsequent access (along with validating and changing the session id, and validating whatever else one thinks shouldn't change - like maybe the user agent string).
+23:09 pdurbin   does keystone talk SAML? I need SAML :)
+23:11 pdurbin   holy shit. "It has recently been rearchitected to allow for expansion to support proxying external services and AuthN/AuthZ mechanisms such as oAuth, SAML and openID in future versions." -- https://wiki.openstack.org/wiki/Keystone ... maybe some day! :)
+23:12 JoeJulian Doesn't seem like it should be all that hard to add...
+23:32 pdurbin   westmaas: any idea of the timeline? when keystone will support SAML?
+23:32 westmaas  sorry not really :/
+23:33 westmaas  hey did any of you guys have any openstack commits?
+23:33 westmaas  cause if yes... http://iopenedthecloud.com/
+23:33 westmaas  500/mo free cloud hosting at rs for 2 years
+23:34 pdurbin   JoeJulian: you've made commits
+23:35 pdurbin   I'm still not comfortable enough with SAML to understand how I'd use it with an API provided by a service like keystone
+23:35 pdurbin   I was planning on trying to get SAML from OpenAM
+23:36 pdurbin   but just today in #openam I was hearing that OpenAM and Shibboleth have different interpretations of the SAML spec :(
+23:36 pdurbin   and I'll need to have my app (a Service Provider or SP) auth against a Shibboleth-based Identity Provider (IdP)
+23:39 pdurbin   of course, I haven't been working on all the auth stuff lately. it's been taking a back search to me adding faceted search to our app. I'd love some feedback if anyone wants to try it out: http://dvn-3.hmdc.harvard.edu/dvn/
+23:42 pdurbin   it's a little slow going. today I wrote up a bit of a roadmap for myself to talk through the issues: http://dvn.github.io/devguide/features/search/faceted/roadmap
+23:44 pdurbin   JoeJulian: if you're still around... something else I spent a bit of time on was Shapado. I'm a little worried it's dead. no commits since August 2012. no one responding in IRC. can't find where bugs are being actively tracked
+23:44 JoeJulian I don't think they develop it as a community project. It's an internal project they just happen to open-source.
+23:45 JoeJulian At least that's the way it appears to me.
+23:48 JoeJulian Ok, I read your roadmap as: My business logic is too closely tied to my data source. I should put an api abstraction layer between the business logic and the data so that the data store is simply a re-implementation of that api.
+23:52 pdurbin   JoeJulian: yeah, it is tied quite closely to Lucene. lots of passing Lucene BooleanQuery objects around. I'm thinking I'll try to encapsulate that somehow. So we can switch to Solr or ElasticSearch some day if we want to. I need to re-write a bunch of methods anyway. I'd might as well re-think it.
+23:53 pdurbin   JoeJulian: thanks for reading it :)
+23:53 JoeJulian I'm in the process of doing the same thing here.
+23:54 JoeJulian Luckily, I can point the blame at my predecessor.
+23:56 pdurbin   :)
+23:56 pdurbin   at the time Lucene didn't have features we now want, like faceting
+23:57 pdurbin   but as with your keystone thing there's also this though of switching to a web service like solr of elasticsearch. something with a web api
+23:57 pdurbin   but that's a whole can of worms, re-implementing all of our business logic, like that roadmap says
+23:58 pdurbin   first I need to understand the business logic :)
+</pre></body></html>

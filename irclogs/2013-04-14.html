@@ -1,0 +1,243 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:18 pdurbin      caymus: good stuff
+00:29 caymus       thx pdurbin , but the widget tilt on twinview irritates me, i need to adjust this problem, or understand from where it comes
+00:31 caymus       i use mouse position to move widgets
+00:35 caymus       i have only 1 computer using twinview, so i need to format  my main os,  and also install win 7 with TwinView
+00:35 caymus       I 'have not win7 , except in virtual machine.... :/
+00:40 pdurbin      :/
+14:21 pdurbin      JoeJulian: you around?
+14:22 pdurbin      I have a little follow up to http://irclog.perlgeek.de/crimsonfu/2013-03-18#i_6601609
+14:22 pdurbin      I just posted this: Theodore Ts'o on Gluster, ext4 directory cookies at NELF 2013 - https://soundcloud.com/philipdurbin/theodore-tso-on-gluster-ext4
+14:23 pdurbin      semiosis: ^^
+14:30 pdurbin      join #gluster
+14:32 pdurbin      whoops. :) ... I just dropped a link in #gluster: http://irclog.perlgeek.de/gluster/2013-04-14#i_6702798
+18:13 melodie      pdurbin I have registered to github and now I am going to look how to push a patch
+18:14 melodie      I will start easy with a little change in the home desktop file which is on Desktop and will make it more responsive in virtual machines
+18:29 pdurbin      melodie: nice!
+18:30 melodie      I might need some help on the way, I'm a newbie
+18:30 melodie      at that
+18:40 melodie      reading here: https://help.github.com/articles/set-up-git
+18:47 pdurbin      melodie: ask away :)
+18:48 melodie      I just installed git in my distro
+18:48 melodie      for now I just follow what is written
+18:48 melodie      thanks :)
+18:50 melodie      pdurbin do you know if I need some or any of the optional depends ? here is a list provided by my package manager:
+18:50 melodie      tk: gitk and git gui
+18:50 melodie      perl-libwww: git svn
+18:50 melodie      perl-term-readkey: git svn
+18:50 melodie      perl-mime-tools: git send-email
+18:50 melodie      perl-net-smtp-ssl: git send-email TLS support
+18:50 melodie      perl-authen-sasl: git send-email TLS support
+18:50 melodie      python2: various helper scripts[installÃ©]
+18:50 melodie      subversion: git svn
+18:50 melodie      cvsps: git cvsimport
+18:50 melodie      I won't use subversion this I am sure
+18:51 melodie      else I don't know
+18:51 pdurbin      meh. it's all good. install it all :)
+18:53 melodie      :o
+18:53 melodie      I don't think I need that much ?
+18:53 melodie      why do I need them all ?
+18:55 pdurbin      you probably don't
+18:55 melodie      oh ok :D
+18:55 melodie      I can always find the list if I need to later, the pacman.log is very handy
+18:58 pdurbin      melodie: you can add yourself to http://crimsonfu.github.io/members with a pull request to https://github.com/crimsonfu/crimsonfu.github.com/tree/master/members :)
+18:58 melodie      ok I am going to try to do that
+18:59 pdurbin      that you should be able to do all in your browser if you want
+19:00 melodie      I am wondering about something
+19:01 melodie      shouldn't I quit the nick for registering ?
+19:02 pdurbin      melodie: quit the nick?
+19:03 melodie      none of you have used their nick at that page
+19:03 pdurbin      oh. my nick is in the url
+19:03 pdurbin      i.e. http://crimsonfu.github.io/members/pdurbin
+19:04 melodie      oh ok
+19:04 pdurbin      melodie: in this file you can set your display_name if you want to start making blog posts: https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_config.yml
+19:23 melodie      Hi melodie11! You've successfully authenticated, but GitHub does not provide shell access.
+19:23 melodie      lol!
+19:26 pdurbin      heh
+19:36 melodie      pdurbin what is next I need to do to add myself to your group ?
+19:42 pdurbin      melodie: hold on I'm just realizing that...
+19:42 pdurbin      rackerhacker: ... you tried to add yourself 3 months ago?!? https://github.com/crimsonfu/crimsonfu.github.com/pull/1
+19:43 pdurbin      rackerhacker: sorry! :)
+19:43 melodie      pdurbin no problem, I keep myself busy in the meanwhile
+19:43 pdurbin      melodie: your pull request should look like that :)
+19:44 GitHub60     [crimsonfu.github.com] pdurbin pushed 2 new commits to master: https://github.com/crimsonfu/crimsonfu.github.com/compare/b5070e43b15c...be6eedfb0fe6
+19:44 GitHub60     crimsonfu.github.com/master d95163c Major Hayden: Added member details for myself (Major)
+19:44 GitHub60     crimsonfu.github.com/master be6eedf Philip Durbin: Merge pull request #1 from rackerhacker/master...
+19:44 pdurbin      rackerhacker: all set: http://crimsonfu.github.io/members/rackerhacker ... sorry for the delay :)
+19:45 melodie      perhaps should I start with the beginning ? I didn't yet find how to submit a registration to your group
+19:46 pdurbin      melodie: it's pretty informal :)
+19:46 pdurbin      basically if you hang out in this channel you're a member :)
+19:46 melodie      oh...
+19:49 melodie      pdurbin when I click to "Edit" to the link you provided me earlier
+19:49 melodie      https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_config.yml
+19:49 melodie      it says:
+19:50 melodie      "Octotip: You are editing a file in a project you do not have write access to. We are forking this project for you (if one does not yet exist) to write your proposed changes to. Submitting a change to this file will write it to a new branch in your fork so you can send a pull request. "
+19:50 melodie      what do I need to do then ?
+19:54 * pdurbin    looks at https://github.com/crimsonfu/crimsonfu.github.com/network/members
+19:54 pdurbin      melodie: right. so, you edit the files in your fork, your version of the main repo: https://github.com/melodie11/crimsonfu.github.com
+19:55 melodie      I understand what you say when you say "melodie: right. so, you edit the files in your fork,"
+19:56 melodie      ...
+19:56 melodie      I think I get it
+19:56 pdurbin      :)
+19:59 melodie      I feel stupid. How do I edit that ?
+20:01 melodie      do I add "nick: mynick" and name just before "something_to_iterate_over:" ?
+20:02 pdurbin      yep
+20:02 melodie      ok :)
+20:03 melodie      so that is not too complicated. Do I simply end with clicking to the "Propose File Change" button ?
+20:04 pdurbin      yep
+20:04 melodie      ok
+20:05 melodie      done. what should I do next ?
+20:05 melodie      am I ready to submit this little patch for the cs50 desktop file appliance ?
+20:06 pdurbin      melodie: then... "send pull request" like this screenshot: https://github.com/perl-doc-cats/perl-tutorial-org-data/pull/4
+20:10 melodie      pdurbin I am going to try to explore more about the structure of the github organisation because I don't quite get it for the time being
+20:10 melodie      I'll read from that main page gain and follow the links
+20:15 pdurbin      melodie: ok. no hurry :)
+20:53 melodie      pdurbin I am having a look at commandlinefu website, and the first command line I see makes me laugh :)
+20:53 melodie      http://www.commandlinefu.com/commands/browse
+20:54 melodie      by the time the 3600 seconds elapse this guy needs to be back to provide his password. ^^
+21:32 melodie      pdurbin some time ago you told me about cs50 that I could start with reporting some issues here: https://manual.cs50.net/CS50_Appliance_2.3#Known_Issues
+21:33 melodie      however browsing to and fro at that page there isn't anything which looks to me like a bugzilla
+21:34 melodie      for now I still don't now how I can make a pull request, are there any "1-2-3" steps I could follow, and see how the pull would go in direction of this git tree ?
+21:36 melodie      the "know_issues" page is even locked and the login button dedicated to staff only.
+21:37 melodie      known*
+21:52 pdurbin      melodie: I don't know. the best place to ask is probably http://groups.google.com/group/cs50-discuss/topics
+21:53 melodie      pdurbin else than that, how a pull request done through crimsonfu group can go to cs50 repos ?
+21:55 pdurbin      melodie: crimsonfu has nothing to do with cs50
+21:56 melodie      that's what I was thinking
+21:56 pdurbin      :)
+21:56 melodie      doesn't the cs50 appliance have a repos there too ?
+21:56 pdurbin      I thought maybe you'd like to practice a pull request
+21:56 pdurbin      melodie: there's https://github.com/cs50/appliance50
+21:56 melodie      I am not too keen however I prefer to do things with stuff that are real and meant to be used
+21:57 pdurbin      melodie: you could open an issue: https://github.com/cs50/appliance50/issues
+21:57 melodie      thank you
+21:57 melodie      is that better ?
+21:57 pdurbin      can't hurt :)
+21:57 melodie      there are too many little issues I met with, I should restart from the beginning
+21:58 melodie      that would be a list of issues
+21:58 melodie      :|
+21:58 pdurbin      probably better to mention them in one email to the list then
+21:58 melodie      brrr
+21:58 melodie      no I won't
+21:58 melodie      I need to be part of the list for some time before doing something such as this
+21:59 melodie      I don't want to look like I criticize publicly, I want to come with the problems and solution one by one at the most relevant place
+22:00 melodie      I will also take this as an opportunity to learn how github works
+22:00 melodie      and get familiar with it
+22:01 pdurbin      knowing how github works is a good thing
+22:01 pdurbin      sounds like you're making progress :)
+22:02 melodie      :)
+22:07 melodie      pdurbin where is your "fu" favicon intented to be ? which website ?
+22:09 melodie      pdurbin this is what I am referring to:
+22:09 melodie      https://github.com/melodie11/crimsonfu.github.com/blob/26c1c3c1f4ff7e0ad2d6e3fd1dcc26d1192f53bd/favicon.ico
+22:09 melodie      https://github.com/melodie11/crimsonfu.github.com/commit/26c1c3c1f4ff7e0ad2d6e3fd1dcc26d1192f53bd
+22:10 pdurbin      fu is short for kung fu
+22:10 melodie      yes
+22:11 melodie      I was looking for a contribution I could do there and I know favicons are usually much smaller. so I thought I would ask you at which website you are having it
+22:12 melodie      so I can have a look at "what it looks like" in situ, if it is already in use
+22:12 pdurbin      you should be able to see a favicon at http://crimsonfu.github.io
+22:13 pdurbin      and the "fu" as an image near the top of that page
+22:16 melodie      ok, this one http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=48 is 48x48, as they can be 16x16, or 32x32, 48.. 64 I guess the one you have on git will not be used as is
+22:16 melodie      nothing to be done for me here. :)
+22:16 melodie      or by me*
+22:16 pdurbin      :)
+22:17 pdurbin      am I doing it right?
+22:17 melodie      I think you are doing perfect and I am unfortunately not useful yet. ^^
+22:17 pdurbin      heh
+22:17 pdurbin      you're useful. don't worry :)
+22:17 melodie      thanks. :)
+22:18 pdurbin      melodie: so are you learning some C? from taking cs50?
+22:18 melodie      I will
+22:19 melodie      I am preparing my hardware to make it easier and more agreable, configured the dual screen on the laptop, got some better speakers for now and will by some better headphones soon too. and tomorrow I start another course which will last several weeks up to mid june
+22:20 melodie      and I already know Scratch, I had even included it in this project: http://meylodie.wordpress.com/2011/10/25/pclinuxos-education-en
+22:21 pdurbin      the other course is in Scratch?
+22:21 melodie      I like it very much when they show and compare the Scratch objects with the shape of the C code, it's very explanatory
+22:21 melodie      they use Scratch as a pedagogic tool
+22:23 melodie      pdurbin you might want to get this version of distro for your children, no need to update it
+22:23 melodie      it's too old to be updated as is anyhow
+22:23 melodie      the installer is even hidden
+22:25 melodie      this is the one course where C is compared with the Scratch objects: http://cs50.tv/2011/fall/sections/1/section1.mp4
+22:30 pdurbin_m    cool
+22:34 pdurbin_m    a book about C: http://irclog.greptilian.com/sourcefu/2013-04-14#i_5224
+22:34 melodie      pdurbin_m thank you
+22:35 pdurbin_m    I haven't read it
+22:35 pdurbin_m    sounds good though
+22:36 melodie      I just did a walk throught the cs50 git repos and examined several branches, to finally figure out your suggest to post here: https://github.com/cs50/appliance50/issues is the best place
+22:36 melodie      for what I can and want to contribute
+22:37 melodie      pdurbin all the contributions I did before and the ones done by our LinuxVillage friends are available here: http://tyruiop.eu/~melodie/Downloads/ISOS
+22:38 melodie      and can be found also from the nav bar of the main LinuxVillage website at http://linuxvillage.org (download tab links directly to "Linuxvillage" directory which is under "ISOS"
+22:43 pdurbin_m    right. you make a lot of ISOs. awesome
+22:45 melodie      pdurbin_m :)
+22:46 melodie      the Debian isos are all from djohnston and Taco.22
+22:46 melodie      :D
+22:48 pdurbin_m    ah
+22:50 melodie      I had done lots of ISOs at pclinuxos, that was when I had everything to learn about doing them.
+22:50 melodie      and some debugging on the way too, fortunately the project interested many people and they came to help with their knowledge and skills.
+22:52 pdurbin_m    any interest in making vagrant base boxes?
+22:54 pdurbin_m    check out https://github.com/spilth/veewee-centos63
+22:59 melodie      pdurbin I am not able to learn too many things at same time and still maintain a life out of the computer
+23:00 melodie      each new item to learn about brings in more side things to learn with it
+23:01 pdurbin_m    :)
+23:01 melodie      pdurbin this is what I am starting tomorrow, because it was available and because you have advised me to start with python: https://www.coursera.org/course/interactivepython
+23:01 melodie      so this will be my "full time" learning for the next weeks
+23:02 melodie      and I will fall back to cs50 OpenCoursware after
+23:02 pdurbin_m    that reminds me. the Java people recommend Java, not python ;)
+23:02 melodie      unless I continue watching a video little by little, at least to get familiar with the topics
+23:02 melodie      pdurbin I won't go there, no way
+23:03 melodie      python ok because lots of people take it, even very young ones, and Java apps I don't like anyway
+23:03 pdurbin      here: [09:10] at http://www.evanchooly.com/logs/%23%23jsf/2013-04-11
+23:03 melodie      in Linux they don't look handsome and it slows down the computers for being resource greedy
+23:04 pdurbin      I think the important thing is to learn any programming language
+23:05 pdurbin      sounds like you already understand the concepts. you just need practice
+23:05 pdurbin      (I need more practice too)
+23:05 melodie      why is it talked about Java and about Javascript in the same discussion ?
+23:05 melodie      some of them, but not much yet
+23:07 pdurbin      javascript is the language of the browser so many language are combined with javascript... php+javascript, java+javascript, ruby+javascript, python+javascript
+23:07 melodie      I will be most interested to learn about all open source languages (I'll always stay a newbie anyhow ^^ ) and will enjoy getting into understanding
+23:07 melodie      I don't remember Java being quoted as open source ?
+23:08 melodie      python is a powerful snake, already read a chapter of presentation related to python today. It seems it does hundreds of things
+23:08 pdurbin      java didn't start out as open source but it is now
+23:09 pdurbin      melodie: this is the main downside with python for me: http://wiki.greptilian.com/python/downsides (and it's not *that* big of a downside)
+23:10 melodie      I will look, thanks
+23:20 pdurbin      sure
+23:23 pdurbin      heh. now I've got the Java guys talking again: http://www.evanchooly.com/logs/%23%23jsf/2013-04-14 :)
+23:23 pdurbin      like I do :)
+23:29 melodie      isn't Java closed source, and why aren't there any handsome themes for Java applications in linux boxes ? the fonts are all ugly for instance
+23:31 melodie      pdurbin "Technodrome 	Java is an all around great language, people who say its slow are usually talking about gui apps they have used in 1999 using java"
+23:31 pdurbin      I don't know why it's ugly. :) ... Java is kind of like Perl... it's for getting work done. :)
+23:32 melodie      in 99 I didn't have a computer, this is a Java app tried just a pair of years ago
+23:32 melodie      I have been told it might look not that ugly in Windows, but this is something I don't know really
+23:32 pdurbin      Java used to be closed source. not anymore
+23:33 melodie      since when ?
+23:33 pdurbin      buh. 5 or 10 years? not sure
+23:33 melodie      when did it happen and who holds the code ?
+23:34 pdurbin      well, Java is a spec... so multiple organization write their own implementation (Oracle, IBM, Red Hat)
+23:34 pdurbin      people talk about "openjdk" vs. "Oracle Java"
+23:34 pdurbin      in theory, Java apps should run fine on both
+23:35 melodie      ok
+23:36 melodie      however this is the big "thing" now, all the schools and trainings for grown up push to Java... why ? aren't there other very good languages as well ? and providing nicer ui ?
+23:37 pdurbin      that's a fair question
+23:37 pdurbin      a few schools are switching from teaching Java first to teaching Python
+23:38 pdurbin      you gotta teach *something* first ;)
+23:41 melodie      pdurbin http://wiki.greptilian.com/python/downsides your exemple makes me think of Spip CMS vers Wordpress CMS
+23:42 melodie      with Spip you need first to make a skeleton, whereas in Wordpress you just write your posts and once it's done you can create the relevant category on the fly, and later add subcategories or parent categories as easily
+23:43 pdurbin      crimsonfubot: lucky spip cms
+23:43 crimsonfubot pdurbin: http://www.spip.net/en_rubrique25.html
+23:43 melodie      I like this method much better because less strict allows leaving the need and imagination work freely
+23:43 pdurbin      python is all about being strict
+23:44 pdurbin      so is java
+23:44 pdurbin      perl is not :)
+23:44 pdurbin      ironcamel: ^^
+23:44 melodie      I think I could like Perl
+23:51 pdurbin      !
+23:51 pdurbin      nobody says that but me and ironcamel ;)
+23:51 pdurbin      codex: and you
+23:53 pdurbin      melodie: the perl community is so nice. check out the conversation I had in #pdl on friday: http://irclog.perlgeek.de/pdl/2013-04-12
+23:58 melodie      pdurbin I have a great pdf book and several documentations, I just have to start somewhere with a good frame, this is why I was seeking for online courses
+23:59 melodie      this great pdf book was given to me by his author, it's written in French and has the good size fonts.
+</pre></body></html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+05:25 agoddard      magoo: heyoo.. I'm back. I'm at ChefConf, so might not be on much though
+12:48 dotplus       pdurbin: I have to confess that most machines I am responsible for do not have selinux enforcing. But everything I build is permissive not disabled, so at least in theory, if the mgmt who decided enforcing is too expensive to administer change their collective mind, it will be comparatively straightforward to do so
+12:54 pdurbin       dotplus: yeah, makes sense
+12:55 dotplus       yup, frankly, for our usage scenarios, that's *not* one of the reasons I'm leaving:)
+12:56 pdurbin       :)
+12:56 pdurbin       dotplus: you're leaving?
+12:59 mhayden       JoeJulian / pdurbin: oh my
+13:13 * pdurbin     makes sure our new release installs ok in a fresh install of centos with vagrant: https://github.com/dvn/dvn-install-demo/commit/3b13ae5
+15:49 magoo         agoddard: I'm jealous!
+15:50 magoo         I hope to attend next year
+15:51 magoo         I wasn't getting correct IPs populated with vagrant-ohai until I realized that I didn't have the main ohai cookbook loaded in my runlists for my VMs. Once I put that in place, everything started working properly
+15:56 agoddard      magoo: awsiq! I'd forgotten about that cookbook ;)
+15:57 magoo         haha, it's alive and well! I have a huge multi-vm Vagrant config (nagios testing, etc) and it's crucial
+15:58 pdurbin       magoo: is it open source? :)
+15:59 magoo         pdurbin: agoddard wrote it
+15:59 magoo         i'm actually using a fork of it now, so yes, very much open source
+16:00 pdurbin       o_O
+16:01 pdurbin       crimsonfubot`: lucky agoddard vagrant fu
+16:01 crimsonfubot` pdurbin: http://community.opscode.com/chat/chef/2013-03-14
+16:03 magoo         oh lord, what is this madness?!
+16:08 agoddard      :/
+16:09 magoo         to be clear, i was talking about the bot syntax :)
+16:09 agoddard      ah :)
+16:51 pdurbin       magoo: which repo did you fork?
+16:56 magoo         pdurbin: i didn't fork it, I just meant that I used this guy's: https://github.com/tknerr/cookbooks-vagrant-ohai
+16:58 pdurbin       ah, but he borrowed some stuff from https://github.com/agoddard/street-chef
+17:09 magoo         right
+20:32 pdurbin       has anyone ever run an xmpp/jabber bot? python-jabberbot is easy to install on centos: https://admin.fedoraproject.org/pkgdb/acls/name/python-jabberbot
+20:32 pdurbin       for now all I want it to do is join/create a room on google talk
+20:33 pdurbin       and then hopefully I can then join the room with my own gtalk account
+20:39 semiosis      pdurbin: logstash?
+21:26 * pdurbin     asks at https://plus.google.com/107770072576338242009/posts/CfX9fWq551j in the Google+ community for http://gbin.github.io/err/
+</pre></body></html>

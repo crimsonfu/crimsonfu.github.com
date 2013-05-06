@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+11:26 melodie      hello o/
+11:36 melodie      Old tricks are new again: Dangerous copy &amp; paste - http://beta.linuxvillage.net/index.php/topic,300.msg2020.html#msg2020
+11:45 pdurbin      I need to fix my weechat. I can't click links when they start at one line and end on the next. they're broken up
+12:05 melodie      pdurbin xchat is what I have been using for years and I won't change. I always have irssi, just incase I would have X broken and nothing else
+12:05 melodie      or for remote use... once a while
+12:05 melodie      I tried weechat and could not get used to it :)
+12:33 pdurbin      mostly I like weechat but like larsks I'm thinking of going back to irssi
+12:44 melodie      ok
+13:01 Whoop        pdurbin: install one of the many URL shortner plugins?
+13:01 Whoop        or just http://www.weechat.org/files/doc/weechat_faq.en.html#urls
+13:12 pdurbin      Whoop: hmm.
+13:12 pdurbin      that `/set weechat.look.eat_newline_glitch on` thing looks interesting
+13:14 pdurbin      looks like it's on already though
+13:14 Whoop        I have that off apparently and don't have issues clicking links
+13:15 pdurbin      interesting. I think I was able to click links just fine until I resized the OS X Terminal it's running in. or maybe after I reconnected with `screen` and resized from my linux box at home
+13:16 Whoop        odd, I'm using iTerm2 + tmux with no issues
+13:16 Whoop        real tmux, not the iterm fork
+13:16 pdurbin      hmm. maybe it's `screen` then
+13:16 Whoop        tmux handles resizing much much better than screen
+13:17 Whoop        trigger a /redraw ?
+13:18 pdurbin      Whoop: with ctrl-a F?
+13:18 Whoop        no /redraw is a weechat command
+13:18 Whoop        it'll redraw the weechat window suprisingly ;)
+13:18 Whoop        which might cause screen to detect the resize, perhaps
+13:18 Whoop        unsure re redrawing screen, not used it in a fair while
+13:19 pdurbin      doesn't seem to help but thanks
+13:19 pdurbin      I never really had this problem with irssi
+13:38 pdurbin      I guess in practice what I can do is maximize the window and then click the link. as long as it's not *too* long
+13:39 pdurbin      I did play with `/set weechat.bar.nicklist.hidden` a bit too but that didn't help
+13:42 Whoop        or just /script install tinyurl.pl? ;)
+13:42 Whoop        12:36:38              | {yaURLs}~&gt; http://tinyurl.com/bnutzam (beta.linuxvillage.net)
+13:43 Whoop        after every url
+13:43 pdurbin      meh. I kind of hate url shorteners. i just want the real link
+13:47 semiosis     you could have crimsonfubot provide shortlinks whenever it sees a url in channel.  glusterbot &amp; logstashbot do that
+13:47 semiosis     (by popular demand)
+13:47 pdurbin      semiosis: yeah, we discussed this once and I'm against it :)
+13:47 semiosis     ah
+13:47 Whoop        pdurbin: you still retain the long url, its not like you're hiding it
+13:48 pdurbin      meh :)
+13:48 Whoop        agree wrt to replacing urls with short links however
+13:49 pdurbin      oh, speaking of bots, if anyone knows of an xmpp/jabber bot that produces nice logs like we have, please let me know. see also http://irclog.perlgeek.de/ilbot/2013-04-17#i_6713866
+13:50 semiosis     openfire :(
+13:50 pdurbin      lol
+13:53 semiosis     what do you want to log?  your own client's communications?  chat room transcript?  everything going through the server?
+13:54 Whoop        The lack of Jabberd's is depressing
+13:55 Whoop        Such an awesome protocol, just too complicated it scares everyone away from writing daemons
+13:55 Whoop        and fully featured clients
+13:55 Whoop        Openfire and eJabberd are the only ones worthwhile and they're both flawed in various ways
+13:56 pdurbin      semiosis: I want what _ilbot produces: http://irclog.perlgeek.de
+14:44 johnmorr     pdurbin: ejabberd's html-format logs are slightly less nice but similar, and they have individually-addressible lines
+14:45 johnmorr     pdurbin: and dunno how nice prosody's logging is, but looks like you can define your own logging handler with mod_log_messages: https://code.google.com/p/prosody-modules/wiki/mod_archive
+14:56 pdurbin      johnmorr: interesting. shuff was going to stand up ejabberd at some point
+14:57 pdurbin      huh, written in Lua: Prosody IM - Jabber/XMPP server - http://prosody.im
+14:58 Whoop        its not very featured :(
+14:58 johnmorr     Whoop: how do you mean, 'not very featured'?
+14:58 semiosis     ejabberd &lt;3
+14:59 johnmorr     Whoop: (just wondering what your threshold for ~feature-complete is)
+15:02 Whoop        johnmorr: XMPP has a *lot* of features, I can't remember what Prosody is missing, but I investigated a load of jabberd's a while back and they had various missing plugins from LDAP, pubsub, global addressing (was for internal corp use), file sharing etc
+15:11 pdurbin      it's funny to me that multi-user chat is bolted on to XMPP
+15:11 pdurbin      XEP-0045: Multi-User Chat - http://xmpp.org/extensions/xep-0045.html
+17:11 semiosis     love the new circular cutout for the profile photo on G+
+18:08 pdurbin      what if my vim has tabstop=20 usually but for a certain file I want tabstop=30 ... can I pass a command line argument to vim while I'm launching it to set tabstop? or set some environment variable?
+18:11 larsks       pdurbin: can you add a modeline to the file?
+18:11 Whoop        # vim:tabstop=30
+18:11 ben_e        vim "+set tabstop=30" from the command line
+18:11 Whoop        ^ example of said modeline
+18:12 ben_e        if you want to do it while launching
+18:12 Whoop        modelines are dangerous though, some people turn them off
+18:12 JoeJulian    CISPA is going to a floor vote. US residents, call your representatives.
+18:18 pdurbin      ben_e: awesome
+18:23 pdurbin      I'm looking at http://vim.wikia.com/wiki/Modeline_magic but I can't get it to work, maybe because it's a tsv: https://github.com/dvn/dvn-devguide-src/blob/master/features/search/faceted/status.tsv
+18:29 semiosis     google CISPA
+18:29 crimsonfubot http://en.wikipedia.org/wiki/Cyber_Intelligence_Sharing_and_Protection_Act
+18:29 pdurbin      ben_e: I updated my readme: https://github.com/pdurbin/vim-tsv
+18:29 pdurbin      semiosis: now you're using the crimsonfubot misfeature :/ :)
+18:30 semiosis     http://www.youtube.com/watch?v=xhy7dXWjpAA
+18:31 semiosis     (fix it fix it fix it fix it)
+18:31 whorka       good summary of CISPA here: http://www.zdnet.com/what-is-cispa-and-what-does-it-mean-for-you-faq-7000013965/
+18:33 semiosis     pdurbin: then when you do fix it i'll complain that your fix broke things for me :P
+18:33 semiosis     just kidding
+18:38 pdurbin      I can't win
+18:38 pdurbin      whorka: oh, you are here. openfire logs and xmpp bots ^^
+18:42 whorka       yup. responded in email.
+18:45 pdurbin      whorka: I commented on the ticket. thanks :)
+18:46 pdurbin      whorka: oh, and here are the openfire plugins you linked to: http://community.igniterealtime.org/docs/DOC-1041
+</pre></body></html>

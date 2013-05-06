@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+11:00 pdurbin   https://github.com/jigish/slate seem interesting... "Using Slate: A Hacker's Window Manager for Macs" -- http://www.thume.ca/howto/2012/11/19/using-slate/ via osx - What keyboard shortcuts move, resize, and maximize windows under Mac OS X? - Super User - http://superuser.com/questions/68811/what-keyboard-shortcuts-move-resize-and-maximize-windows-under-mac-os-x
+15:00 magoo     agoddard: you around?
+15:02 pdurbin   magoo: I don't see him on IM
+15:02 magoo     ah, ok
+15:02 magoo     thanks
+15:03 pdurbin   magoo: chef question?
+15:03 magoo     yeah, i'm trying to debug a recipe that he wrote
+15:03 magoo     vagrant-ohai
+18:02 JoeJulian Gah! I have impi boards for a reason... so why won't this one let the keyboard work in grub?!?! &lt;camper class="unhappy"/&gt;
+18:33 JoeJulian Dammit selinux... I still am not sure what happened, but I couldn't log in at all. Not via sshd not via the console. I cheated ( "exec { '/usr/bin/systemctl rescue': }" in puppet ) to discover that selinux was the culprit. A quick restorecon and I'm up and running. Was rather pleased with my cheat though. :D
+18:41 pdurbin   selinux: the cause of and solution to all of life's problems
+23:30 miah      lol
+23:30 miah      selinux... its ouch.
+23:40 pdurbin   i just leave it disabled these days
+23:40 pdurbin   whorka: sorry
+23:40 pdurbin   ;)
+23:40 JoeJulian mhayden: ^
+23:40 pdurbin   JoeJulian: shhh!
+23:42 JoeJulian I try to have it enabled as often as possible. Sometimes some system just has to work "right now" so it get disabled, but eventually I come back and add whatever rules or change file contexts as necessary.
+23:43 pdurbin   oh, wait, no... my home server is in enforcing. all good
+23:43 pdurbin   JoeJulian: call off mhayden
+23:44 JoeJulian lol
+23:45 pdurbin   JoeJulian: whorka is a master of selinux
+23:45 pdurbin   dotplus: he even got RT working with it
+</pre></body></html>
