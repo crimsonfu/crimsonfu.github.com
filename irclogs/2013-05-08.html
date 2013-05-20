@@ -1,0 +1,220 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick          Message
+01:31 melodie       hello
+01:33 pdurbin_m     melodie: hi
+01:35 melodie       hi pdurbin_m !
+01:36 pdurbin_m     my three year old won't sleep again
+01:36 pdurbin_m     on the plus side, she keeps getting out of bed to give me hugs
+01:37 melodie       lol
+01:44 ben_e         my 3 year won't sleep either
+01:45 melodie       pdurbin_m the link from slystone says they want to setup a centralised place to get the info from ISP, phone wiretapping and so on... and planned it to be more economic than the actual method where they gather physical files. but instead of spending 17 Million euros, they are now about to spend 43 million euros. And they asked one company only, so several other companies (5) want to trial the State. Then, to end with the company who got the
+01:45 melodie       contract might also be under surveillance next, and have to keep the files about themselves in their own repos. XD XD XD
+01:45 melodie       http://www.pcinpact.com/news/79609-des-septembre-telephone-et-internet-entre-grandes-oreilles-thales.htm
+01:46 melodie       they also point to the website of some activists well known, who have spread a "very confidential" file related to the global project: http://owni.fr/2012/09/13/secret-ecoutes-pnij-thales - and they continue spreading the document
+01:47 pdurbin_m     right. saw him mention it at http://irclog.perlgeek.de/linuxvillage/2013-05-07
+01:48 melodie       PNIJ would stand in English for something such as "National Legal Investigation Platform"
+01:49 melodie       pdurbin_m yes but slystone just explained it this way "basically what it say is that we can be spied upon provided a judge agrees"
+01:50 melodie       this is a bit besides the reality. judges already have to give their consent for such investigations, but now they need a place to gather it all in a way which has not been done yet. And the people who write the articles want to show the most ridiculous parts of the project.
+01:52 pdurbin_m     global project. hmm
+01:54 ben_e         success
+01:55 pdurbin_m     ben_e: jealous
+01:56 ben_e         anyone using ansible? it seems the edX guys are migrating from puppet to ansible for configuration management
+01:56 ben_e         heh
+01:56 ben_e         he spent the last 20 minutes telling me he was sad that his imaginary friend was sick
+01:56 ben_e         "me sad. me friend sick."
+01:59 pdurbin_m     yesterday I caught her rubbing an entire bottle of lotion on her belly and saying, "my skin feeled bone dry"
+01:59 pdurbin_m     finally she's still. phew
+02:00 pdurbin_m     yeah, vagrant supports ansible now
+02:00 ben_e         right, i saw that on the list
+02:01 pdurbin_m     larsks: still using ansible?
+02:01 ben_e         mitx, harvardx and edx are all hiring devops/sysadmin types right now
+02:02 ben_e         i wonder if edx is fully its own thing or if it's piggybacking on one of the schools
+02:12 melodie       hi ben_e
+02:15 ben_e         hey
+02:20 melodie       good night
+11:50 pdurbin       dotplus: I had no idea the creator of RT is making keyboards these days: ep9: Making your own keyboard (Jesse Vincent) - Tatsuhiko Miyagawa's Podcast - http://podcast.bulknews.net/post/49915262884/ep9-making-keyboard-jesse-vincent
+11:55 melodie       hi
+11:57 pdurbin       hi
+12:05 melodie       pdurbin from your link I found this one: http://fr.slideshare.net/obrajesse/2013-osdcmadeakeyboard
+12:06 melodie       we just looked at the slides (my companion just finished one year of electronic design and programming course)
+12:21 pdurbin       cool. interesting show. I've never thought much about keyboards :)
+12:24 melodie       :)
+12:51 melodie       pdurbin I have done an enquiry about programs meant to manage internet cafes in the world of Free software
+13:07 pdurbin       ok
+13:12 ben_e         git-annex does look pretty cool
+13:13 ben_e         mischan
+13:14 melodie       pdurbin all the programs meant for this use are old, and not usable. I tried the one which looked more promising than others, and it fails to run:
+13:14 melodie       https://sourceforge.net/p/mkahawa/discussion/955736/thread/c69fe267/
+13:15 melodie       Internet Cafes around the world are run mostly under Windows and use closed programs for their management. But when typing "Internet Cafe under Linux" in google, it brings  6 220 000 results!
+13:16 melodie       and this one guy has tested mostly the same ones as I have: http://xubuntucorner.blogspot.fr/2011/06/some-cafe-operators-yet-use-cafe-con.html
+13:16 melodie       and found that none is ready for production
+13:17 dotplus       pdurbin: neither did I. I did know that Jesse is no longer closely involved with bestpractical day-to-day. He hasn't been for quite some time.
+13:18 melodie       I would like this to be known. perhaps some people would be interested to take care of such a program. Mkahawa being it seems, the most advanced one for the time being, even if it does not work on the latest deb distributions.
+13:19 dotplus       also, miyagawa++ but audio is, IMO, a poor primary distribution medium for information. reading++
+13:25 dotplus       melodie: in your usage of the terms "Internet Cafe" and "programs meant to manage internet cafes", what kinds of functionality should the software do? What should be managed?
+13:26 melodie       dotplus I can find a list somewhere on the web to show you
+13:26 melodie       here is one: http://mkahawa.sourceforge.net/features.php
+13:26 melodie       I'll try to fetch another one from a close source program widely used
+13:26 dotplus       forgive me for being an ignorant, privileged westerner but I have never(?) been to an internet cafe; ever since I've been aware of the internet and actually even before, I've had access
+13:27 melodie       dotplus no problem
+13:27 melodie       here is one from a well known program widely used under windows through the world:
+13:27 melodie       http://www.smartlaunch.com/
+13:28 dotplus       basically, the point is to provide access to the internet (or just the www?) for a fee on a (time?) metered basis? so basically the issues are billing/account management and security/malware protection?
+13:29 melodie       and also have some parts which allow being "covered" in regard of laws and regulations
+13:30 dotplus       you mean content/destination filtering?
+13:31 melodie       dotplus depending on the countries, there is this and also the obligation to keep the logs during some time. the laws in France can't be applied because made in a way that it is just not technically possible to be done, but at least the logs must be kept during one year, even if it can't be of any use.
+13:35 dotplus       ah yes. and that probably hits on a major reason why there are no/few people interested in developing such software on a FOSS basis. because there's such a strong overlap between who think that content-filtering/logging for the Authorities is Evil.
+13:38 melodie       dotplus it is evil but having a foss software which we know what it does is better than having a closed software. and the devs can implement the needed parts in a way such that it would be harmless for the good users
+13:39 melodie       anyhow it's not possible to link a user and the logs
+13:41 melodie       an internet cafe can have dozens of people just paying for a connexion once a while and never needing to leave names or any id that can make them identify
+13:42 melodie       on the other side, the filtering is necessary, so that the young users won't be able to reach websites related to adult or illegal contents
+13:44 dotplus       but surely the cafe owner/administrator can link the logs to the person paying?
+13:44 melodie       I don't think so :)
+13:45 ben_e         the other reason that there are no linux packages is that it's basically an integration/sysadmin problem
+13:45 melodie       suppose the police comes to your place, because they need to find out something related to a case which happened several weeks or months ago
+13:45 ben_e         captive portal+transparent squid cache+$random_account_management_system
+13:46 ben_e         it's like 200 lines of perl :-)
+13:46 melodie       suppose you have very many different persons who came just once or twice and not anymore or you see them once a while but have never known their names. they come, login with a machine or another : the logs will just retain date, hour, ip, mac adress : so what ?
+13:47 melodie       ben_e there are packages, just they have not been updated, the code is too old and needs to be fixed
+13:47 melodie       see here:
+13:47 melodie       https://sourceforge.net/p/mkahawa/discussion/955736/thread/c69fe267/
+13:47 ben_e         i saw the scrollback
+13:48 melodie       this is a full feedback I did just a moment ago after I have tested on two different installs of Ubuntu
+13:48 ben_e         10 seconds of perusal tells me that's a gtk app
+13:48 dotplus       ben_e: perhaps but if so that just means that the solution might look a little different: a VM image or a puppet manifest/chef recipe/whatever
+13:48 ben_e         which is not the way i'd implement this
+13:49 melodie       dotplus then suppose there is one guy who does harmful things throught the web, or is an activist, or anything : he certainly won't pay with a credit card or a bank formula.
+13:49 ben_e         in the US ISPs have common carrier status
+13:49 ben_e         although i'm not sure if that applies to retail internet providers
+13:51 dotplus       melodie: I guess I was sort of assuming that the kinds of law enforcement that would require logs would also require that cafe owners make those logs usable by retaining records of names/login times. Perhaps it doesn't work that way in practice
+13:53 melodie       dotplus I read they tried in China, and tried to force the owners of such places to buy a program which costs between 2000 to 6000 euros. (or dollars?) : result, they all canceled their connexions !
+13:54 melodie       in countries supposed to be "democratic", and at least in France the ones who makes the laws have no idea of how that is technically manageable, so they give the job to do to the ones who have the biggest mouth (and money) and it all comes out as "just organise a turn around and you are good"
+13:55 melodie       if the law says "you must keep the logs" then have a setup which allows doing so, and the law can't condemn you
+13:56 dotplus       a rather different mindset.
+13:56 pdurbin       dotplus: jesse said he was taking a year off... to build keyboards as it turned out :)
+14:07 melodie       dotplus the mind is set very fast when you see the type of punishments for breaking the laws : so no matter what, the program which allows opening "a large umbrealla" is the right one! :D
+14:08 melodie       ideally I would myself put a hidden cron to send all logs to /dev/null, but this might not be the right setup. ^^
+14:09 melodie       on the other hand, having read that the memory devices can keep the content of the session for a while after shutdown, I would rather use recent ones, DDR3 which are faster erased after reboot or shutdown...
+14:25 ben_e         melodie: that's spy novel stuff
+14:25 ben_e         the police are not so subtle
+14:25 ben_e         if they want some data you have, they'll just break in and install loggers on all your equipment
+14:27 semiosis      google cold boot attack
+14:27 crimsonfubot` http://en.wikipedia.org/wiki/Cold_boot_attack
+14:27 ben_e         i'm familiar with it
+14:28 semiosis      keyboard duster
+14:28 ben_e         i'm not saying it doesn't exist
+14:28 ben_e         i'm saying that there are cheaper/more effective/more practical solutions to that particular problem
+14:38 melodie       and DPI ?
+14:39 pdurbin       semiosis: hmm. "agoddard created repository hubot-scripts 35 minutes ago" -- https://github.com/EOL/hubot-scripts
+14:46 semiosis      pdurbin: cool, if he can contribute some useful features to hubot, everybody wins
+14:46 semiosis      ;)
+14:47 semiosis      i asked one of the githubbers during their presentation at monitorama about sharing some of their scripts
+14:48 semiosis      he said no because they're either not clean code or too specific
+14:48 semiosis      people started shouting "we dont care" "so what" etc
+14:48 semiosis      i was like, yeah
+14:48 * semiosis    is not impressed with hubot
+14:49 semiosis      or how the github team talks the talk but wont walk the walk
+15:11 pdurbin       argh!!!! Perl Regex Removed From Grep in Mountain Lion - dirt - http://www.dirtdon.com/?p=1452
+15:11 pdurbin       oh, brain fart. use ack, use ack. it's all ok
+15:12 Whoop         Peoeple keep telling me this but ack is an order of a magnitude slower :(
+15:18 ironcamel     ack has always been really fast for me. i use it daily.
+15:19 ironcamel     http://codeseekah.com/2012/03/11/ack-grep-vs-grep/
+15:19 pdurbin       grep without pcre is a sad grep :(
+15:19 ironcamel     looks like ack is actually faster
+15:26 Whoop         eheh, it does appear to be faster now that I'm trying it - could have sworn last I tried it was a load slower &gt;_&lt;
+15:30 pdurbin       heh. +1
+15:31 pdurbin       it turns out I didn't need pcre... I needed to adjust my TopScoreDocCollector: http://irclog.greptilian.com/sourcefu/2013-05-08#i_5975
+15:31 agoddard_     argh frikken IRC fail on my end lately
+15:32 pdurbin       agoddard_: you're back!
+15:39 ben_e         pdurbin: i like your abcd suggestion
+15:40 ben_e         make him eat the github dogfood
+15:41 pdurbin       heh
+15:42 pdurbin       ben_e: probably off topic here since that list isn't public :/
+15:56 agoddard_     frikken ABCD
+15:56 agoddard_     what's a guy gotta do?
+15:56 ben_e         it's an awfully loose affiliation requirement
+15:56 agoddard_     not loose enough :(
+15:56 agoddard_     I was in a meeting the other day and some guy from Harv medical school was like "dudebro, bring that up on ABCD"
+15:57 agoddard_     and I was like "I was banned in ABC -DC"
+15:57 agoddard_     :(
+15:58 pdurbin       agoddard_: "Formed in November, 1985" -- https://www.abcd.harvard.edu/intro.html :)
+15:58 agoddard_     pdurbin: agoddard - not allowed in 2012
+16:03 pdurbin       agoddard_: you still work on EOL right? http://www.mcz.harvard.edu/initiatives/eol.html
+16:40 agoddard_     pdurbin: roger
+16:47 ben_e         did you really get kicked out? what list was it on?
+16:47 ben_e         i want to check out your heinous crimes in the list archives... :-)
+17:43 dotplus       Whoop: also, ack recently got a 2.0 release with some significant improvements: http://beyondgrep.com/ack-2.0
+17:46 pdurbin       oh yes
+17:47 pdurbin       dotplus: I don't have as much time to read as I'd like :(
+17:59 dotplus       ha! who does? ever!
+18:21 pdurbin       yeah
+18:22 pdurbin       has anybody seen this thing? MessagePack: It's like JSON. but fast and small. - http://msgpack.org
+18:24 larsks        I've seen that and used it a bit.  Ended up going with JSON anyway because I can parse it in my head :).
+18:25 larsks        There are msgpack modules for python, ruby, C, etc...
+18:28 pdurbin       :)
+18:34 agoddard_     ben_e: haha, I didn't get kicked out, just wasn't allowed in
+18:34 pdurbin       larsks: if anyone can parse binary in one's head it's you
+18:34 agoddard_     ben_e: so I compiled a list of all the members and they're now banned from conferences
+18:39 ben_e         heh
+19:22 dotplus       oh Canonical. really?
+19:22 dotplus       http://www.phoronix.com/scan.php?page=news_item&amp;px=MTM2Nzg
+19:34 semiosis      dotplus: looks like they're trying to replace APK (android packages) not DEB
+19:37 dotplus       perhaps. but it doesn't smell promising. it sure looks like they're aiming at iOS-ification: ubuntu app store, this...
+19:38 semiosis      yeah they're going after mobile
+19:38 semiosis      no secret
+19:38 * dotplus     is actually considering exploring debian seriously for the first time in ~15 years as a unix person.
+19:39 dotplus       so confirm/promise that this only goes on the mobile-aimed ubuntu derivative and not everywhere?
+19:39 semiosis      well i think that's the main "Ubuntu"
+19:40 semiosis      they do seem to be going after apple's integration between desktop &amp; mobile
+19:40 dotplus       I've been mostly on redhat derivatives and BSDs, but plain old debian is looking interesting again. maybe I'll have a proper chance to get as familiar with it as I am the others and give a fair shake
+19:41 dotplus       I guess it's their distro they can do what they like.
+19:41 semiosis      i've been using kubuntu on my desktop, both work &amp; personal, for about 3 years running, and i highly recommend it
+19:42 semiosis      i've never been happier with a desktop OS
+19:42 semiosis      give it a try
+19:42 * semiosis    not a fan of gnome or unity
+20:18 dotplus       I have kubuntu on my work desktop. it doesn't completely suck, and I don't complain about it too much because I haven't put in any work to make it suck less
+20:19 dotplus       otoh, switching between apps and switching between different windows of the same app are (usually, not always!), extremely slow.
+20:21 larsks        I use the Awesome window manager.  Because I can't be bothered with dragging windows around.
+20:22 dotplus       gnome/unity is, shall we say, not for me. When I move to the next machine, I'll probably try to get back to a nice snappy tiling wm. xmonad was a pain, but once I got what I wanted it was wonderful, until arch broke it.
+20:22 dotplus       I'm considering i3, awesome, xmonad for the next one.
+20:25 larsks        I've found awesome to be generally easy to work with.  I like the various tiling modes it supports.
+20:33 pdurbin       what's up with vagrant dropping arch support in the latest version?
+20:34 pdurbin       compare http://downloads.vagrantup.com/tags/v1.1.5 and http://downloads.vagrantup.com/tags/v1.2.0
+20:44 pdurbin       must mean arch is dead ;)
+20:46 melodie       pdurbin arch what ?
+21:02 semiosis      google arch linux
+21:02 crimsonfubot` https://www.archlinux.org/
+21:03 semiosis      melodie: ^
+21:05 melodie       pdurbin Archlinux is in full shape, see ? Linux nounours 3.8.11-1-ARCH #1 SMP PREEMPT Thu May 2 17:52:13 CEST 2013 i686 GNU/Linux
+21:14 pdurbin       ok ok :)
+21:16 pdurbin       dotplus: melodie and I need to teach you about CoLT so we could have seen "Ubuntu To Get Its Own Package Format, App Installer" with your link :)
+21:17 semiosis      colt?
+21:19 pdurbin       crimsonfubot`: lucky colt firefox addon
+21:19 crimsonfubot` pdurbin: https://addons.mozilla.org/En-us/firefox/addon/colt/
+21:39 semiosis      oh i see
+21:40 semiosis      could also have crimsonfubot` fetch titles
+21:40 semiosis      ;)
+22:03 pdurbin       semiosis: I think it does in "google" mode...
+22:03 pdurbin       crimsonfubot`: google semiosis
+22:03 crimsonfubot` pdurbin: Semiosis - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Semiosis&gt;; Semiotics - Wikipedia, the free encyclopedia: &lt;http://en.wikipedia.org/wiki/Semiotics&gt;; Semiosis - Merriam-Webster Online: &lt;http://www.merriam-webster.com/dictionary/semiosis&gt;; Peirce Dictionary: Semiosis, Semeiosy - Helsinki.fi: &lt;http://www.helsinki.fi/science/commens/terms/semiosis.html&gt;; Semiosis -- (1 more message)
+22:03 pdurbin       yeah
+22:03 * pdurbin     gives crimsonfubot` a treat
+22:04 pdurbin       hmm, now that I'm its owner... I wonder if I can change it's nick... get rid of that `
+22:05 pdurbin       crimsonfubot`: nick crimsonfubot
+22:05 crimsonfubot` pdurbin: Error: You don't have the admin capability. If you think that you should have this capability, be sure that you are identified before trying again. The 'whoami' command can tell you if you're identified.
+22:10 pdurbin       crimsonfubot`: nick crimsonfubot
+22:11 pdurbin       there
+22:13 pdurbin       had to run "/msg crimsonfubot` identify pdurbin s3m10s15suCk5" first
+22:22 pdurbin       maybe I should write a little howto for crimsonfubot
+22:25 melodie       &lt;semiosis&gt; could also have crimsonfubot` fetch titles // LOL
+22:27 pdurbin       patches welcome :)
+22:35 ben_e         +1 for awesome
+22:36 ben_e         tiling windows managers (and punk rock) changed my life
+23:09 semiosis      hahahaha
+23:10 * semiosis    out
+</pre></body></html>

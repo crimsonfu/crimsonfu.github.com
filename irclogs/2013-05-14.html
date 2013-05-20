@@ -1,0 +1,170 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+10:07 pdurbin      ironcamel: ok ok, *maybe* I should try zsh: https://plus.google.com/102499719144563443986/posts/J6yGvUNYMRW
+10:07 pdurbin      ( http://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692 and https://github.com/robbyrussell/oh-my-zsh )
+13:49 run4flat     pdurbin, you should check out zoidberg shell
+14:14 pdurbin      crimsonfubot: lucky zoidberg shell
+14:14 crimsonfubot pdurbin: http://www.drdobbs.com/web-development/zoidberg-a-shell-that-speaks-perl/184416203
+14:14 pdurbin      run4flat: you're so perl-y :)
+14:17 run4flat     :-)
+14:30 pdurbin      the Donald Knuth vs. Doug McIlroy story in the slides is awesome
+15:18 jimi_c       mhayden: re: http://www.linuxinsider.com/story/Ubuntu-Strikes-Out-on-Its-Own-Again-78015.html &lt;- the rants in that article are a bunch of BS. I'm certainly no Ubuntu fan (they NEVER send me patches upstream for cobbler), but to complain about companies writing more FOSS (even if it's for its own sake) is dumb
+15:18 jimi_c       i don't remember people complaining about up2date when urpmi was perfectly fine (even if it was mandrake), and then yum
+15:19 jimi_c       actually people did complain about yum a lot, but that's because at first it lacked a lot of features up2date had, but it caught up very  quickly
+15:22 * jimi_c     really hates work wireless some days
+16:07 sivoais      that zsh completion is enough to get me to convert... *installs* NOW
+17:39 pdurbin      you want a box behind every firewall? that checks in with a mother ship?
+18:05 pdurbin      we had a setup like that with opsview
+18:09 ben_e_       that's what we have now
+18:10 ben_e_       nagios before
+18:11 pdurbin      I wonder if this is any good: The State of Open-Source Monitoring // Speaker Deck - https://speakerdeck.com/obfuscurity/the-state-of-open-source-monitoring
+18:11 dotplus      I did hear someone say they loved their monitoring-fu recently. I think he was referring to a meganagios setup provided by omdistro.org (especially check_mk)
+18:36 JoeJulian    http://joejulian.name/blog/setting-up-dogtag-pki-ca-certificate-manager/#comment-897320357 - I hope my reply gets them to package ejbca. It looked much friendlier than dogtag.
+19:49 pdurbin      thanks to codex we have irclogbot_sc too :)
+19:49 melodie      oh!
+19:50 melodie      thank you codex
+19:50 melodie      pdurbin nothing happened on #wonderstudy, or did you just not "push" new logs to github ?
+19:50 melodie      I don't know how that works
+19:53 codex        Url if anyone needs it: http://irclog.spacecompute.com
+19:58 pdurbin      melodie: correct, the process is manual :(
+19:59 * codex      -&gt; interested in this log push to github
+20:00 pdurbin      codex: https://github.com/wonderstudy/irclog
+20:00 melodie      codex beautiful
+20:00 melodie      would you add #wonderstudy and #linuxvillage ?
+20:01 codex        pdurbin: oh that's very easy to automate
+20:01 codex        melodie: to irclog.spacecompute?
+20:01 melodie      yes
+20:01 melodie      it looks nice and easy to search in
+20:01 codex        sure, one sec
+20:03 codex        melodie: all set
+20:04 codex        http://irclog.spacecompute.com/linuxvillage/today &amp; http://irclog.spacecompute.com/wonderstudy/today
+20:10 pdurbin      codex: yeah, not sure how I want to automate it though
+20:11 codex        is the goal for archiving or someone is pulling/reading it real time?
+20:11 codex        idk if github imposes limits, but you COULD push every minute
+20:12 pdurbin      archiving. once a day is fine
+20:12 codex        'We limit requests to 60 per hour for unauthenticated requests. For requests using Basic Authentication or OAuth, we limit requests to 5,000 per hour.'
+20:12 codex        oh so even easier then
+20:12 codex        :)
+20:12 codex        pdurbin: why not just backup the mysql db btw?
+20:13 pdurbin      I do: https://github.com/pdurbin/data.greptilian.com
+20:13 pdurbin      but that isn't automated either :(
+20:14 codex        pdurbin: sounds like you should look at rsnapshots
+20:14 * pdurbin    hangs head
+20:14 codex        or just a cron job with a mysqldump + scp/github push
+20:17 pdurbin      yeah
+20:21 melodie      codex I send you many thanks!
+20:22 codex        not a problem at all. I plan on keeping this around for a long time, and I am backing up the mysql repo, so if you need other channels, feel free to ping me
+20:22 codex        pdurbin: ^ same goes without saying
+20:24 pdurbin      codex: thanks :)
+21:58 pdurbin      codex: I guess the thing I worry a bit about is... what if I generate an ssh key pair for my server to push irc logs and mysql dumps to github... and then the private key gets stolen off the server.  I guess I could create another github account for this... one that doesn't have access to my normal stuff (which includes work-related stuff)
+22:09 semiosis     pushing irc logs and mysql dumps to github?  that sounds wrong
+22:53 pdurbin      semiosis: yeah, it's sub-optimal but I need to get that data off my VM... need to get it somewhere off site...
+22:54 semiosis     S3
+22:54 semiosis     they pay me to say that
+22:54 semiosis     hahaha j/k
+22:54 pdurbin      heh
+22:55 pdurbin      could do, I guess. one advantage github has is that it's free. I guess I could use Dropbox. could install the Linux client on my server. again, I'd probably want to use some new password with limited access though
+22:57 pdurbin      at least when I do the manual download of data to my laptop and push to github I'm aware of if it failed or not
+22:58 pdurbin      but I agree it's dumb
+22:59 pdurbin      hmm, "Internet Archive's S3 like server API" -- http://archive.org/help/abouts3.txt
+23:00 agoddard     ben_e: sensu ftw
+23:09 pdurbin      agoddard: I'm not sure why firewalls would be a problem with sensu
+23:10 agoddard     ya, it wouldn't be a problem
+23:13 melodie      pdurbin private keys should never be out, but in your possession only
+23:13 melodie      same as certificates of revocation
+23:15 pdurbin      melodie: am I allowed to put my private keys on my server in the cloud? :) ... I probably shouldn't... :)
+23:27 pdurbin      man, the dropbox linux client has a ton of dependencies. 82 packages on my headless VM
+23:27 pdurbin      and http://box.com doesn't have a linux client. and I don't know about Google Drive
+23:27 pdurbin      semiosis: does S3 have a linux client? it must
+23:29 pdurbin      oh yeah, I've heard of this boto thing: https://github.com/boto/boto
+23:30 pdurbin      yum install python-boto works. it's in epel...
+23:31 melodie      pdurbin I have a suggest perhaps... perhaps.
+23:31 melodie      can a private key be displayd as raw text ? I would suppose yes ,
+23:31 melodie      ?
+23:32 pdurbin      huh, and I can get 5 GB of S3 for free? that's plenty of space... http://aws.amazon.com/free/
+23:33 melodie      pdurbin ? about private keys
+23:33 melodie      can it be pasted ?
+23:33 pdurbin      melodie: yes, private keys are in plain text
+23:33 melodie      ok
+23:34 melodie      then if you want to have it in a safe place you could send it to yourself in a mail... encrypted with gpg :D
+23:34 semiosis     pdurbin: s3cmd is the popular cli
+23:34 melodie      which will also of course have a private key that you should not send on the web
+23:34 semiosis     pdurbin: it's far from perfect, but it usually gets the job done without any hassle
+23:35 semiosis     pdurbin: you can use an AWS service called IAM (Identity &amp; Access Management) to make API keys with limited access
+23:35 pdurbin      semiosis: thanks. so this free 5GB of S3 from amazon should work, right? and the s3cmd client?
+23:36 semiosis     pdurbin: yep.  i think s3cmd even has some kind of encryption feature, never used it tho
+23:36 pdurbin      hmm. ok
+23:37 pdurbin      melodie: my concerns is that my VM with the data will be hacked. but if the only secret on there is my password for my backups to S3 that's not so bad. I'd like to configure the backups to be public anyway. I assume I can do that with S3 like I do with Dropbox or Google Drive
+23:37 pdurbin      concern*
+23:38 melodie      I don't know about S3, and I was answering only about the ssh keys, private and public
+23:39 melodie      why would your VM be hacked ? Why wouldn't rather your hard drive die one day ? Or your machine have an accident ?
+23:39 semiosis     pdurbin: you can make s3 objects public, but someone has to pay for the egress transfer
+23:39 pdurbin      my VM will be hacked some day because it's on the public internet :)
+23:39 melodie      ah...
+23:40 melodie      why wouldn't you keep the sensitive data somewhere else ?
+23:40 pdurbin      semiosis: hmm, so I can have 5 GB for free but I can't make it public
+23:40 pdurbin      unless someone pays for something (egress)
+23:41 pdurbin      melodie: the only sensitive data is the password I would great so I can start copying data from the VM in the cloud to somewhere offsite such as Amazon's AWS S3 storage service. the data itself (IRC logs) is already public
+23:41 melodie      pdurbin if you want 10 GB for free and have it either public or private you can use minus.com
+23:41 semiosis     pdurbin: you pay for two things in S3: disk usage for data at rest, and network egress for bytes served to the internet.  you could exceed the free tier limit in either one
+23:42 pdurbin      would great? I meant to say "the password I would create"
+23:42 semiosis     pdurbin: if lots of people download your data from s3 you may have to pay for the extra bandwidth out, even though your stored file size is well under 5G
+23:42 melodie      but you will only have the web browser to send data, and no access by ssh, or ftp or such…
+23:43 pdurbin      semiosis: wat. that sucks. sounds like they're going to want a credit card
+23:44 pdurbin      melodie: yeah, I'm going to need ftp or whatever. scp, rsync
+23:45 pdurbin      cmdln: should I use archive.org?
+23:46 pdurbin      seems like you have to upload metadata with every transfer. bleh
+23:46 pdurbin      maybe someone in this channel has a VM I can copy the data to :)
+23:47 pdurbin      codex: not you. somewhere off site :)
+23:47 eben         what are you trying to do exactly?
+23:47 eben         agoddard: i'll investigate sensu more. thanks.
+23:48 ben_e        there's some italian dude using my nick!
+23:48 pdurbin      ben_e: right now I'm stupidly uploading data to https://github.com/pdurbin/data.greptilian.com to get it off site
+23:48 ben_e        this underscore makes me feel uncomfortable
+23:48 ben_e        where "site" is a VM somewhere that hosts your public website?
+23:48 pdurbin      ben_e: can I upload it to your VM instead?
+23:48 ben_e        probably
+23:49 pdurbin      the site is codex's basement (I think)
+23:49 ben_e        heh
+23:49 pdurbin      ben_e: I'd be happy to host some data for you. no charge!
+23:49 ben_e        i have plenty of all that
+23:50 ben_e        or something
+23:50 semiosis     pdurbin: they will want a credit card :/
+23:50 pdurbin      done and done
+23:50 pdurbin      semiosis: f amazon ;)
+23:50 semiosis     ha
+23:51 melodie      pdurbin this looks fun: http://www.symform.com/our-solutions/pricing/
+23:51 melodie      please have a look?
+23:51 pdurbin      melodie: do they have a linux client?
+23:51 ben_e        is this just for backup?
+23:51 melodie      and free backup here: http://www.symform.com/free-cloud-backup/
+23:52 melodie      I don't know yet, I just found it
+23:52 pdurbin      ben_e: yeah. we could do a proper mirror or whatever
+23:52 semiosis     pdurbin: how about that mega guy?  didnt he launch a new free storage site?
+23:52 semiosis     istr something about that
+23:52 pdurbin      mega guy?
+23:52 melodie      I bet if you type a few words such as "US free storage" or other keywords you will find more than one solution
+23:52 pdurbin      melodie: why? I have ben_e :)
+23:53 melodie      pdurbin why what ?
+23:53 pdurbin      why look any further than ben_e :)
+23:53 ben_e        the megaupload guy
+23:53 ben_e        kim dotcom
+23:53 semiosis     pdurbin: kim dotcom?  he was in the news not too long ago.  megaupload got raided, etc etc
+23:54 pdurbin      dunno him
+23:54 semiosis     recently he started a new site, which appears to be https://mega.co.nz/
+23:55 pdurbin      and he got raided? should i trust this guy?
+23:55 semiosis     i think the movie studios have more to worry about than you do
+23:56 pdurbin      I give away my IRC logs for free :)
+23:56 semiosis     the fbi raided megaupload because people were storing pirated content there
+23:57 semiosis     legit users with legal data got screwed
+23:57 semiosis     i'm surprised you haven't heard about this
+23:57 ben_e        it was all over ars technica and the other geek news sites
+23:57 pdurbin      must be on the wrong sites
+23:58 semiosis     it was in the ny times too
+23:58 semiosis     it was big international news... fbi raided the guy's home in new zealand
+</pre></body></html>

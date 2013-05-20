@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick         Message
+00:00 pdurbin      crimsonfubot: lucky megaupload raid
+00:00 crimsonfubot pdurbin: http://www.nbcnews.com/technology/megaupload-founders-homes-raided-5m-luxury-cars-seized-84897
+00:02 melodie      pdurbin is ben_e your own google man kind of? :D
+00:02 pdurbin      heh. google man?
+00:02 pdurbin      come to boston and you can meet him :)
+00:02 melodie      I ask because I might not have understood it all
+00:02 semiosis     i'll be there in june for the redhat summit again
+00:03 ben_e        we should do crimsonfu beers
+00:03 melodie      ben_e is that right? If I come to Boston I can meet you?
+00:03 semiosis     JoeJulian too
+00:03 ben_e        sure thing
+00:03 semiosis     ben_e: +1
+00:03 pdurbin      mhayden: you too
+00:03 ben_e        and agoddard is just down the way a bit
+00:03 ben_e        we might be able to entice him
+00:07 ben_e        pdurbin: i am still not totally what you are doing. why are you uploading your sql dumps to github?
+00:07 ben_e        totally... sure
+00:07 ben_e        is this just for backups?
+00:07 ben_e        or are you processing the data into some other form?
+00:08 pdurbin      ben_e: yeah, if you look at https://github.com/pdurbin/data.greptilian.com it's just mysql dumps. pretty tiny. just a few MB
+00:09 pdurbin      I'm putting them on github because github's servers are not in codex's basement where my VM is :)
+00:09 ben_e        ok
+00:11 pdurbin      I've never set up a mirror before. this'll be fun :)
+00:29 melodie      good night
+00:33 agoddard     ben_e: ohai! lemme know if you got any sensu questions
+00:35 ben_e        cool, thanks
+00:54 ben_e        pdurbin: you can restrict ssh key options/commands. e.g. http://www.cmdln.org/2008/02/11/restricting-ssh-commands/
+00:55 pdurbin      +1
+01:46 codex        pdurbin: i think you are highly underestimating the infrastructure i have...
+01:55 pdurbin      codex: oh, probably. I've never seen it :)
+01:55 ben_e        pics or gtfo?
+01:55 ben_e        :-)
+01:55 pdurbin      which is my definition of "cloud" :)
+01:58 codex        I am using 3 different datacenters at 3 different locations, and a lab in my house
+01:58 codex        each has advantages and disadvantages - cost, ip space, bandwidth, storage size, etc...
+01:58 codex        currently, rocking the 99.99% uptime :)
+01:59 codex        this year I am aiming for 100%
+01:59 pdurbin      nice
+02:13 mhayden      pdurbin / ben_e: totally in for #crimsonfu beers (even though i don't contribute much)
+02:14 pdurbin      mhayden: what good are you
+02:14 mhayden      my wife asks me the same
+02:31 ben_e        mhayden: you can buy the beer
+02:31 ben_e        :-)
+02:31 * mhayden    usually waits for the vendors to do that :P
+02:31 ben_e        this is all phil's show in some way, isn't it?
+02:32 ben_e        none of us would be here if he didn't have a bee in his bonnet about irc
+02:32 ben_e        and inadvertently became some sort of network super node
+02:32 ben_e        (or maybe intentionally)
+02:34 ben_e        i guess that means we buy his beers :-)
+02:34 ben_e        Or!
+02:35 ben_e        we start a pdurbinfu channel which is like a meta channel for discussion of his burgeoning irc empire
+02:39 pdurbin      ben_e: while you're wasting time I've been setting up new backups: http://or8.net/~pdurbin
+02:39 pdurbin      ben_e: thanks again for the space :)
+02:39 ben_e        np
+02:40 * mhayden    is still reeling from watching Frontline: http://www.pbs.org/wgbh/pages/frontline/retirement-gamble/
+02:40 pdurbin      and I put the config here: https://github.com/pdurbin/greptilian-vagrant
+02:40 pdurbin      except the cron job, 'cause I'm lazy like that
+02:45 pdurbin      is the state of the art still for cron jobs to email you when they fail? I hate email
+03:15 ben_e        you could `cronfoo.sh || curl -X POST -d @error.log http://greptilian.com/phil/your/shit/is/broke`
+03:17 ben_e        or create an @pdurbincron twitter account and follow it and then || twitter_cli
+03:41 agoddard_    w00t ZNC
+03:42 agoddard_    agoddard: now you gotta go
+03:42 agoddard     ouch. damn.
+03:43 agoddard     awwwyeah
+04:59 mhayden      agoddard: gotta love znc
+09:59 pdurbin      ben_e: makes sense. thanks
+13:46 agoddard     mhayden: Awwwyeah!
+15:25 codex        RHEL/CentOS 0-day: http://fucksheep.org/~sd/warez/semtex.c
+15:25 codex        temp work around: https://bugzilla.redhat.com/show_bug.cgi?id=962792
+17:08 pdurbin      impact subscore of 10: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2094
+17:48 agoddard     pdurbin: you got cobbler skillz?
+18:00 mhayden      peach cobbler
+18:08 run4flat     mmmmmm
+18:21 agoddard     nom
+18:21 run4flat     http://4.bp.blogspot.com/_ELW9RFQdZE0/TMJWHQDlukI/AAAAAAAAAng/kbxdHP6xJZI/s1600/Grendel_pie.jpg
+18:57 pdurbin      I used to..
+18:57 pdurbin      run4flat: no fun allowed
+19:38 mhayden      i'm thinking about writing a free/open source CIS benchmark validator for RHEL 6...
+19:39 * mhayden    can't bring himself to spend a bunch of cash on the one from CIS
+19:54 pdurbin      CIS?
+20:32 pdurbin      crimsonfubot: lucky cis computer security
+20:32 crimsonfubot pdurbin: http://www.cisecurity.org/
+21:13 pdurbin      this must be it: http://benchmarks.cisecurity.org
+21:58 mhayden      pdurbin: i did a kickstart for new builds -&gt; https://github.com/rackerhacker/securekickstarts
+21:58 mhayden      but i need to write a script/framework to check existing servers
+21:58 mhayden      was considering doing python unit tests
+22:06 pdurbin      +1
+22:06 pdurbin      mhayden: you have't rebranded your github username
+</pre></body></html>

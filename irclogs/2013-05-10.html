@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick      Message
+12:22 pdurbin   codex: I mentioned irclogbot_sc: http://irclog.perlgeek.de/ilbot/2013-05-10#i_7044680
+13:20 pdurbin   huh. http://sourceforge.net/projects/winmerge/ ... WinMerge as a free, open source alternative to Beyond Compare: http://www.scootersoftware.com/shop.php?zz=products_BC3
+13:21 pdurbin   heh. this seems kinda meta: Comparison of file comparison tools - Wikipedia, the free encyclopedia - http://en.wikipedia.org/wiki/Comparison_of_file_comparison_tools
+13:22 ben_e     i suggested: http://meldmerge.org/
+13:22 ben_e     unfortunately i have not trained myself to click the reply-all dropdown in gmail
+13:22 pdurbin   hmm
+13:22 ben_e     so i only sent it to curtis
+13:22 pdurbin   I was gonna wait a week... then suggest git :)
+13:22 ben_e     meld is awfully slick
+13:23 ben_e     it can do 3-way compares
+13:23 ben_e     you just click the sections you want to blitz or the arrows you want to merge between versions
+13:23 pdurbin   "Meld works on OS X and Windows (with some caveats)"
+13:23 ben_e     yeah
+13:24 ben_e     i'm not a windows guy
+13:24 pdurbin   works well enough on mac?
+13:24 ben_e     it's X based
+13:24 pdurbin   say no more ;)
+13:24 ben_e     heh
+13:24 ben_e     i support a big stack of X apps on os x
+13:25 ben_e     it doesn't really bother me
+13:25 ben_e     the XFree86-&gt;Xorg transition in the 10.5 days sucked pretty hard
+13:25 pdurbin   ben_e: can you get http://gramps-project.org working on mac for me?
+13:26 pdurbin   oh. hmm. they have a dmg now?!
+13:26 ben_e     http://www.gramps-project.org/wiki/index.php?title=Installation#Mac_OS_X
+13:26 ben_e     so it says
+13:26 ben_e     got anything else for me? :-)
+13:26 pdurbin   \o/
+13:26 pdurbin   no, that'll do, pig
+13:27 ben_e     sqwheeeee!
+14:46 pdurbin   boegel|work: ping
+15:30 codex     pdurbin: the big thing about it is that it should be 3 different folders - "shell", "www", "cgi-bin"
+15:30 codex     and the README in the same folder as the other 3 should give you some info about the DB config and how things are layed out
+16:02 pdurbin   codex: yeah. I passed your feedback along
+16:11 codex     it's an extremely nice solution - quite elegant. I think the only thing that is needed is 1.) a small cleanup of the "shell" side. 2.) the clear separation of "roles". That way one can simply drop the "shell" folder in their home somewhere, the cgi folder in their cgi root, and the www in any web server. And 3.) clear directions really. This is something that can be setup in &lt;10 minutes if cleaned up and documented a tiny bit
+16:13 codex     Oh the last  thing -  a set of modules. I think I found this somewhere online, but it would be great to distribute with the package
+16:13 codex     i would personally be willing to clean it up/automate it (maybe even write a puppet config for it :)), but only if he would be willing to merge it. I don't want to re-do this for every version that comes out :)
+16:28 pdurbin   would be nice to have a chef cookbook too
+16:33 pdurbin   magoo: ^^
+16:33 pdurbin   ;)
+20:09 dotplus   4 VMs on hyperv. in hyperv manager, each looks the same as far as I can see; same kind of nic, same virtual network, same vlan. pxe booted to install centos6.4 from the same kickstart script. installation proceeds as expected, guests reboot after install.
+20:09 dotplus   2 VMs look lovely, 2 have no network connectivity
+20:09 dotplus   how to troubleshoot?
+20:12 melodie   does someone know gettext well here ?
+20:20 melodie   dotplus have you tried to change the network setup in the vm ? from NAT to Bridge or reverse side ?
+20:22 dotplus   I have attempted to statically configure networking from inside the VM. no good.
+20:23 melodie   the VM itself might have some configurations
+20:24 dotplus   not sure what you mean by that
+20:30 melodie   in virtualbox there is a setup for the connection : which one can access while the guest is not running. this is what I am talking about
+20:31 dotplus   ah yes. I looked at the hypervisor's network config for these VMs. It appears to be the same for the ones that work and the ones that don't
+20:32 melodie   change it for the ones that don't and retry ?
+20:40 * pdurbin has heard of gettext but that's about it: http://www.gnu.org/software/gettext/
+20:49 melodie   pdurbin ok :D
+20:50 melodie   pdurbin I have used poedit before, to contribute to translations, and I have even updated a pot file which was not up to date, for a perl script to make it fit the newer version of that perl program.
+23:37 pdurbin   dotplus: did you figure it out?
+</pre></body></html>

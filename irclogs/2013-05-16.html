@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>IRC Logs</title>
+</head>
+<body>
+<pre>
+Time  Nick     Message
+10:47 pdurbin  hmm, to support a data archiving standard (AIP: Archival Information Packages) or to create new REST API to support getting all the data out? https://groups.google.com/forum/?fromgroups=#!topic/dataverse-community/07h0Ca-Ai1I
+13:11 mhayden  pdurbin: it's on my list ;)
+13:11 pdurbin  rebranding is hard :)
+13:12 pdurbin  we're trying to re-work our app a bit. we have "dataverses" in our app. and all of them together in a single installation of our software we call a "dataverse network"
+13:12 pdurbin  but now we want something in between
+13:13 pdurbin  so we're starting to call this a "dataverse subnetwork"
+13:14 ben_e    you went too big initially
+13:14 ben_e    since universe is the whole kit and caboodle
+13:15 ben_e    you need datalaxies and datastems somewhere in there
+13:23 ben_e    should the dataverse network be called the datamultiverse?
+13:29 pdurbin  heh
+13:29 pdurbin  I do agree that "dataverse" sounds quite big
+14:53 agoddard oh no! I just discovered that my bouncer doesn't work when I'm on Harvard's VPN 'cause harvard thinks it should be routing the IP. Rage.
+15:07 pdurbin  'With Hangouts, Singhal says Google had to make the difficult decision to drop the very "open" XMPP standard that it helped pioneer.' -- http://www.theverge.com/2013/5/15/4318830/inside-hangouts-googles-big-fix-for-its-messaging-mess
+15:26 codex    yes, "difficult"
+15:26 codex    they have done that with caldev, xmpp, the "wave protocol", rss
+15:27 pdurbin  codex: so maybe forget everything I told you yesterday about nice ad hoc chat room with gtalk :(
+15:27 codex    funny how they advocate an OS protocol until people start using their service and then they pull a microsoft
+15:27 codex    pdurbin: i run my own jabber server for a reason
+15:27 codex    if i had more users, i would run my own spam service and then switch back to running my own email
+15:27 codex    but it doesn't make sense for a copule of users
+15:28 pdurbin  spam service?
+15:36 codex    filtering spam
+15:37 codex    gmail does 2 things amazingly - spam filtering and good web UI
+15:37 codex    recently the webUI part has improved. Spam detection has not (from a blackbox -&gt; to fully working that is)
+15:37 codex    spam assassin is great, however, it takes configs and training
+15:39 pdurbin  running an email service well is more effort than I'm willing to expend
+15:40 ben_e    it's actually rather easy
+15:40 ben_e    except for the spam filtering part
+15:41 ben_e    but SMTP, IMAP, webmail and mailing lists all have robust software options these days
+15:46 larsks   codex: And searching.  Nothing else provides gmail-equivalent search features.
+15:46 codex    that's true actually
+15:46 codex    mutt can be made to be pretty close, but it's painful
+15:46 codex    and definitely not as quick
+15:47 larsks   Actually, I use mutt-kz, and it works pretty much as I want (quick searches, with location qualifiers like "subject:foo AND from:lars").
+15:47 larsks   ...but it's only good with a local mailstore.  No webmail products provide this sort of indexed search feature yet (or IMAP products, as far as I know).
+15:47 larsks   https://github.com/karelzak/mutt-kz
+15:48 larsks   Uses the "notmuch" email indexing/search engine.  http://notmuchmail.org/
+15:48 ben_e    mairix is pretty awesome for mutt searches
+15:49 larsks   mutt-kz is substantially better in that it has the search feature integrated into mutt directly.  There's support for virtual mailfolders and all sorts of other bits.  It's also somewhat faster for both search and indexing than mairix.
+15:49 ben_e    i'll have to check it out
+15:49 larsks   (I've used both at different points)
+15:51 larsks   Back to gmail: I also really like the label-based organization scheme, and I don't know that any open-source IMAP servers support that.  The combination of (a) bad search and (b) a message can only be stored in a single "category" makes them all a non-starter for me.
+15:54 larsks   If you're interested in email indexing tools, there's also "mu" (http://www.djcbsoftware.nl/code/mu/), which does pretty much the same thing as mairix.
+15:58 codex    larsks: kz?
+15:58 codex    i haven't heard of that before
+16:00 codex    oh saw link - i am definitely going to check it out
+16:00 larsks   It is super cool and I could not live without it.
+16:00 codex    larsks: label comment - agreed. I go back and forth between the "move" vs "label" ( a bit annoying - wish move was just 'tag' that label)
+16:37 semiosis security questionnaire :(
+16:37 semiosis Is data used for testing and development fictitious or real?	Yes
+17:06 pdurbin  yes
+17:09 pdurbin  ben_e: coincidentally, my six year old just asked me about the difference between a galaxy and a universe. I showed her http://htwins.net/scale2/ and she's absolutely mesmerized. it takes 5 minutes to go from one side to the other
+17:10 pdurbin  seems like she's feeling better. home sick today. time to get her out in the sun
+19:05 melodie  pdurbin ?
+</pre></body></html>
