@@ -50,7 +50,7 @@ I'm capturing this information here because I find that I deliver some version o
 > attached to the ticket; it checks for vulnerability to CVE-2009-2699,
 > CVE-2009-3094, and CVE-2009-3095.  let's look at those in detail:
 > 
-> CVE-2003-1567 appears in Red Hat's CVE database:
+> CVE-2009-2699 appears in Red Hat's CVE database:
 > 
 > https://access.redhat.com/security/cve/CCVE-2009-2699
 > 
