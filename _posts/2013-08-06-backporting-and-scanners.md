@@ -47,10 +47,10 @@ I'm capturing this information here because I find that I deliver some version o
 > assumptions about a RHEL system's vulnerability based on version number
 > inspection alone; it is necessary to look at the release number as well.
 > for example, consider plugin 42052 from the vulnerability report
-> attached to the ticket; it checks for vulnerability to CVE-2009-2699,
-> CVE-2009-3094, and CVE-2009-3095.  let's look at those in detail:
+> attached to the ticket; it checks for vulnerability to [CVE-2009-2699],
+> [CVE-2009-3094], and [CVE-2009-3095].  let's look at those in detail:
 > 
-> CVE-2009-2699 appears in Red Hat's CVE database:
+> [CVE-2009-2699] appears in Red Hat's CVE database:
 > 
 > https://access.redhat.com/security/cve/CCVE-2009-2699
 > 
@@ -59,7 +59,7 @@ I'm capturing this information here because I find that I deliver some version o
 > Portable Runtime) that are older than the version shipped with RHEL5, so
 > this vulnerability is irrelevant to this server.
 > 
-> CVE-2009-3094 also appears in Red Hat's CVE database:
+> [CVE-2009-3094] also appears in Red Hat's CVE database:
 > 
 > https://access.redhat.com/security/cve/CVE-2009-3094
 > 
@@ -68,25 +68,25 @@ I'm capturing this information here because I find that I deliver some version o
 > 
 > https://rhn.redhat.com/errata/RHSA-2009-1461.html
 > 
-> this erratum tells us that to patch this vulnerability, we need to
-> install httpd-2.2.13-2.el5s2 or later.  let's take a look at the version
-> installed on this server:
+> this erratum tells us that to patch this vulnerability, we need to install
+> `httpd-2.2.13-2.el5s2` or later.  let's take a look at the version installed
+> on this server:
 > 
-> [root@fdd-web ~]# rpm -q httpd
-> httpd-2.2.13-2.el5s2
+>       [root@fdd-web ~]# rpm -q httpd
+>       httpd-2.2.13-2.el5s2
 > 
 > hey, that's the version we need!  this means that even though the Apache
 > daemon reports its version as "2.2.13", it is NOT VULNERABLE to
-> CVE-2009-3094.
+> [CVE-2009-3094].
 > 
-> CVE-2009-3095 also appears in Red Hat's CVE database:
+> [CVE-2009-3095] also appears in Red Hat's CVE database:
 > 
-> https://access.redhat.com/security/cve/CVE-2010-0386
+> https://access.redhat.com/security/cve/CVE-2009-3095
 > 
 > it also has errata associated with it, and its patch is included in the
 > same version of the httpd package mentioned above, which is installed on
 > the server in question.  that means, again, that this server is NOT
-> VULNERABLE to CVE-2009-3095.
+> VULNERABLE to [CVE-2009-3095].
 > 
 > so, what does all this mean?  this means that plugin 42052 shows a FALSE
 > POSITIVE when run against the server in question.  as best i can tell,
@@ -108,9 +108,14 @@ I'm capturing this information here because I find that I deliver some version o
 > security fixes)
 > 
 > 3. we lose the ability to deploy any other packages from the RHEL
-> distribution, or from EPEL, or from any other RHEL-compatible package
+> distribution, or from [EPEL], or from any other RHEL-compatible package
 > repository, that depend on Apache or PHP binaries
 > 
 > and we lose all of these things just to satisfy a false positive.
 
 --- END RANT ---
+
+[CVE-2009-2699]: https://access.redhat.com/security/cve/CVE-2009-2699 "CVE-2009-2699"
+[CVE-2009-3094]: https://access.redhat.com/security/cve/CVE-2009-3094 "CVE-2009-3094"
+[CVE-2009-3095]: https://access.redhat.com/security/cve/CVE-2009-3095 "CVE-2009-3095"
+[EPEL]: https://fedoraproject.org/wiki/EPEL "EPEL"
