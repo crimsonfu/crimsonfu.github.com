@@ -54,8 +54,9 @@ for my $date (@dates_with_activity) {
     #print "$date is greater than $newish_local_log\n";
 
     #print $date, "\n";
-    my $chat_content = get "$BASE_URL/text.pl?channel=$CHANNEL_NAME;date=$date"
-      or croak "Couldn't download chat content for $date: $OS_ERROR";
+    my $day_url = "$BASE_URL/$CHANNEL_NAME/$date/text";
+    my $chat_content = get $day_url
+      or croak "Couldn't download chat content for from $day_url: $OS_ERROR";
     #print $chat_content, "\n";
     open my $fh, '>:encoding(UTF-8)', "$LOG_DIR/$date.html" or croak $OS_ERROR;
     print {$fh} $chat_content;
