@@ -1,0 +1,29 @@
+Time  Nick     Message
+00:33 pdurbin  semiosis: what are you on about?
+13:15 pdurbin  [CentOS-announce] CentOS Project joins forces with Red Hat - http://lists.centos.org/pipermail/centos-announce/2014-January/020100.html
+13:51 dotplus  yeah, well I'd been thinking that it would be good for me to consider Debian for my new (personal) main VPS anyway.
+13:51 dotplus  I hope that this is not the beginning of the end of CentOS-goodness
+16:31 pdurbin  dotplus: huh. I was thinking it's good news
+16:43 dotplus  pdurbin: it could be good news. it could ease the process of cutting new RHEL->CentOS. otoh, being taken over by even a relatively benign big corp like RH looks risky. They have to do what improves the bottomline.
+16:45 dotplus  it depends, and it will take time before we can determine whether it actually works out well for the community.
+17:35 semiosis pdurbin: i was complaining about having difficulty launching a c3.large ec2 instance.  they're so popular that often none are available!
+17:35 semiosis dotplus: debian \o/
+17:40 dotplus  you're a debianite? For some reason, I've gotten (accidentally) through more than 15 years of unix without using debian seriously. it's probably been time to change that.
+17:41 semiosis i prefer ubuntu, but i'm comfy on most deb & rpm distros
+17:52 joshu_   hey guys if you haven't seen this http://elitedaily.com/news/world/man-writes-lengthy-complaint-airline-sit-next-thought-infant-hippopotamus/
+20:55 semiosis anyone ever heard of or used this? http://openbuildservice.org/about/
+21:02 dotplus  that's the thing from suse/novell? heard of, downloaded something from there. what about it?
+21:04 semiosis glusterfs project (where i'm debuntu maintainer) wants to improve our packaging process, i'm looking for software that might be helpful
+21:04 semiosis this thing looks ideal from the web site, wondering if I know anyone who's used it
+21:05 dotplus  didn't gluster get bought/taken over/whatever by RH? I would have thought they should be able to sort you out on the packaging front.
+21:07 semiosis it's complicated
+21:07 semiosis well not really
+21:07 semiosis redhat employs most, but not all, of the devs working on gluster
+21:08 semiosis one of their guys contributes the rpm packaging
+21:08 semiosis but for the most part those guys 1. don't know much about deb packaging or the distro policies, and 2. have more important things on their plates
+21:09 semiosis so i help out with the debian/ubuntu stuff
+21:09 dotplus  what do you want the new tool to do? turn source tarballs into idiomatic packages for various distros?
+21:10 semiosis basically, yes
+21:10 dotplus  uh. have to go. but keep talking (e.g. what are you doing now) and I'll read later.
+21:11 semiosis in the simplest case a shell script could do that, but since we want packages for different distro releases & archs it would be nice to have a comprehensive tool to manage all the building
+21:12 semiosis ...and not have to (re)invent that wheel

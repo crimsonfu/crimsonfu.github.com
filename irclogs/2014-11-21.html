@@ -1,0 +1,26 @@
+Time  Nick      Message
+00:25 pdurbin   oh man, I *just* launched Photo Booth to take a picture of how my Nexus 5 is stuck on the upgrade screen for Android 5.0
+00:26 pdurbin   but now it's finally rebooting. phew!
+00:26 pdurbin   mhayden: you're always all over this stuff
+00:27 pdurbin   I bet there's a word in German for the trepidation I felt.
+02:10 pdurbin   oooo, built in flashlight
+02:31 mhayden   hah
+02:31 mhayden   yeah android 5 was an interesting upgrade for me
+02:32 pdurbin   I lost my speed control on antennapod :( ... but the app looks different so it must have upgraded too
+15:14 pdurbin   yay Dataverse! https://www.voxxed.com/blog/2014/10/making-a-case-for-command-pattern-over-mvc/
+15:40 whorka    nice! and compelling.
+15:41 whorka    I've been spending most of my time in security compliance lately, so I like the idea of baking access controls into the design.
+15:42 pdurbin   yep so Permission.DeleteDatasetDraft is required at https://github.com/IQSS/dataverse/blob/master/src/main/java/edu/harvard/iq/dataverse/engine/command/impl/DeleteDatasetCommand.java
+15:43 pdurbin   permissions are an enum: https://github.com/IQSS/dataverse/blob/master/src/main/java/edu/harvard/iq/dataverse/authorization/Permission.java
+15:45 pdurbin   whorka: I think you're aware of https://github.com/IQSS/DataTags already.
+15:46 pdurbin   "A system to assess the sensitivity and privacy risk of a dataset, and assign a tag to describe how the dataset must be transfered, stored and accessed."
+15:58 whorka    color-coded even
+15:58 whorka    "Crimson" is the most secure ;)
+16:14 hydrajump pretty awesome project https://www.indiegogo.com/projects/pi-top-a-raspberry-pi-laptop-you-build-yourself
+16:37 pdurbin   whorka: of course it is :)
+16:59 semiosis  pdurbin: re: what version of java... must've been 1.4 since there's places where generics could have been used but weren't
+17:00 semiosis  pdurbin: but other places where generics were used.  we ran it on jdk 6.
+17:02 semiosis  pdurbin: there was so much xml.  spring, hibernate, struts, all had huge xml files :(
+17:02 semiosis  from the days when there was no convention, only configuration
+17:10 pdurbin   we can recycle all those angle brackets into html
+17:25 semiosis  haha

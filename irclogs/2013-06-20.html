@@ -1,0 +1,47 @@
+Time  Nick       Message
+02:28 semiosis   tidesdk is not going well for me :(
+02:28 semiosis   apparently it needs to be built, but that's non-trivial on ubuntu
+02:40 pdurbin    is it trivial on mac and windows?
+02:42 semiosis   isn't everything?
+02:42 semiosis   i dont know
+02:53 pdurbin    it's a decent idea anyway. web technologies as a native app
+02:54 pdurbin    semiosis: can you do the whole thing in javascript and embed it all on a single html page you give to people?
+02:55 semiosis   doubtful, i need to recursively scan a directory
+02:57 semiosis   afaik the only way to read a file is with the file input element
+02:57 semiosis   that's not powerful enough
+02:57 semiosis   starting to play with javafx now
+03:01 pdurbin    huh. lemme know how it goes
+03:02 semiosis   sure thing
+13:56 semiosis   pdurbin: javafx rocks!
+13:56 pdurbin    heh
+13:57 semiosis   http://www.zenjava.com/2012/11/24/from-zero-to-javafx-in-5-minutes/
+13:58 semiosis   because maven, of course
+13:59 semiosis   i'm pleased to see that javafx abandoned its scripting language, that thing sucked
+13:59 semiosis   now it's just a declarative UI language (in XML of course) combined with java code
+14:00 semiosis   and conventions make it super easy, for example: add a UI element to the XML file and set an id attribute on it.  then you can bind that to your java code by making an instance variable with the same name as the id and annotating it with @FXML
+14:01 semiosis   so you dont have to write binding code
+14:01 semiosis   or event handlers, etc
+14:02 semiosis   actions/events work similarly... make a method in your controller class, then give the UI element an onAction attribute with the name of the method
+14:02 semiosis   it just works
+14:02 semiosis   anyway, gotta run, bbl
+14:03 pdurbin    at first I read that as @FML
+14:11 pdurbin    with java everything is xml
+14:20 * pdurbin  claws his eyes out
+15:19 agoddard   ben_e: heyooo
+15:20 agoddard   yeah we want to swap it out at some point for ceph or swift, but we have a very specific use case for the data -we basically want to serve a few million files over HTTP (and only over http)
+15:21 agoddard   we're doing a metrics hack day today which I'm running so gonna be afk a bunch
+15:26 pdurbin    agoddard: what was this crazy tweet of yours?
+15:30 agoddard   pdurbin: about gluster?
+15:30 pdurbin    yeah
+15:35 semiosis   pdurbin: now that you're using an IDE it's time to embrace XML
+15:35 pdurbin    semiosis: I go back and forth between formatting my XML in netbeans and vim. I should probably pick a command line tool
+15:36 * agoddard searches tweets, has a bad memory
+15:36 pdurbin    lol
+15:36 semiosis   pdurbin: xmllint
+15:36 agoddard   probably that I wanted to swap to swap gluster when it wasn't behaving, but I ended up upgrading it all and it's been rock solid
+15:37 pdurbin    semiosis: +1
+15:38 ben_e      i can't find it either
+15:38 ben_e      maybe i imagined it in a dream
+15:39 pdurbin    ben_e: you need a vacation
+15:39 ben_e      no shit
+15:39 ben_e      :-)

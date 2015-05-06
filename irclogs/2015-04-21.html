@@ -1,0 +1,61 @@
+Time  Nick      Message
+00:26 prologic  https://mail.python.org/pipermail/python-dev/2015-April/139253.html
+01:19 pdurbin   prologic: so... you're anti PEP 484?
+01:24 prologic  not particularly
+01:24 prologic  but I do agree with some of the points
+01:24 prologic  it adds cognitive overheads, more work
+01:25 pdurbin   I'm not enough of a pythonista to really get what's going on in the PEP or that post.
+01:28 prologic  lemme glance at it again quickly
+01:28 prologic  ahh yeap
+01:29 prologic  so yeah Type Hints
+01:29 prologic  So sometime in Python 3 (I think 3.3+) added Type Annotations
+01:29 prologic  e.g:
+01:29 prologic  def foo(a: int, b: int) -> int:
+01:29 prologic  or something
+01:29 prologic  where the annotations themselves are valid python 3+ syntax but are ignored by the runtime
+01:30 prologic  but are more of a standardized way of static snalyais tools, ides and what not picking up on "declared types" of functions, etc
+01:30 prologic  I think now there is contention (from the ml post above) around whether to do this inline and/or stub files
+01:30 prologic  both have pros/cons
+01:30 prologic  that's my take from it all so far :)
+01:31 prologic  I personally have nothing against type hints and type annotations per se as long as they *do* remain a completely optional feature of the language
+01:31 prologic  I can certainly see tooling and the ecosystem at large benefiting from them
+01:31 pdurbin   ok, so the plan is to always ignore them at runtime for now
+01:31 prologic  but the moment Python turns into a static language I think I'll go find some other language to become an *isa in :)
+01:32 pdurbin   heh
+01:32 prologic  well
+01:32 prologic  I think changing the runtime would breka far too much
+01:32 prologic  and would turn Python into some other langauge anyway
+01:32 prologic  so I doubt that'll ever happen
+01:32 pdurbin   me too
+01:32 prologic  it's already been convention for example to declare types of functions and classes, etc in docstrings
+01:33 prologic  using sphinx rst rextensions and what not
+01:33 prologic  so this is just a way of standaizing that of sorts
+01:33 pdurbin   and tools might make use of it
+01:33 prologic  problem though is that it makes function signature very messy going forward ihmo
+01:33 prologic  and other agree
+01:33 prologic  it also hurts readability as well in a lot of cases
+14:33 codex     pdurbin: whoaaa -- now i'll have to check it out
+14:33 codex     ohh, n.m
+14:33 codex     he was intercepting...duhh :)
+14:34 codex     they should probably pin their certs though
+14:54 pdurbin   intercepting? so it's not really a security problem?
+15:47 hydrajump pdurbin: what I understand the guy did was use burp suite to proxy the paypal ios app's communication with paypal's servers. Had the paypal app used certificate pinning as codex mentioned it would have been harder to do as the app would only trust paypal's cert and not the one from burp suite (which was required to intercept the traffic in the first place).
+15:49 hydrajump with regards to his wifi SSID being sent to paypal it is stated in paypal's TOS/privacy policy that they use various metadata such as your location for fraud detection.
+15:50 hydrajump http://www.troyhunt.com/2015/04/mobile-app-privacy-insanity-were-still.html#.VTZV1D49gio.twitter
+15:51 hydrajump if you scroll down to "Invasive personal device data tracking" you'll see how much personal identifiable data the paypal app sends
+16:44 pdurbin   hydrajump: thanks! will check it out in a bit
+18:03 dotplus   hydrajump: it all hinges on your definition of what it means for a port to be 'open'. Generally, it means that something has to be bound to that socket and listening for connections. so if ssh is not listening (nor anything else) then it's not open. That doesn't necessarily mean that it's blocked in any way by either a host-based or network firewall in between.
+18:41 hydrajump dotplus: very concise explanation. thanks ;)
+18:41 dotplus   oh. and waay out of date. scrollfail.
+18:48 hydrajump hehe
+22:05 codex     pdurbin: basically he said: <ios-paypal-app>---->(him)---->payoal
+22:05 codex     he said to "ios-paypal-app" that "i am paypal" and to paypal he said "i am the ios-paypall-app"
+22:05 codex     and he created 2 connections -- 1 with each. And then inspected everything in the middle b/c the ios-paypal-app -> him was w/ his own cert
+22:06 codex     but anyway, the way he wrote it is about the same as someone saying "the earth is on fire"
+22:06 codex     and then reading in the comments something like "actually, my gas stove has a flame"
+22:07 melodie   codex what does that mean clearly?
+22:07 codex     he is doing a MITM attack against himself by knowingly feeding a certificate to his iOS that he has created w/ his own CA
+22:43 melodie   so that's not a very big security issue if he is doing it to himself, no harm done, right?
+22:43 melodie   why does he do that, a test?
+22:44 melodie   codex
+22:44 melodie   :)

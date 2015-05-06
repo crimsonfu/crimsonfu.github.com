@@ -1,0 +1,76 @@
+Time  Nick       Message
+13:26 pdurbin    only one retweet. oh well
+14:49 pdurbin    nice! http://someguyontheinter.net/blog/github-third-party-application-access/
+15:17 pdurbin    bear: thanks for the retweet! :)
+15:17 bear       :)
+15:46 pdurbin    someone walked by and suggested adding this to the blog post http://i669.photobucket.com/albums/vv57/gudsrost/My%20GIFs/Ren-and-Stimpy-red-button-anim2.gif :)
+17:49 dotplus    pdurbin: re: jekyll. If you're looking at a new static site generator, I would encourage you to look at http://gohugo.io
+18:41 pdurbin    dotplus: thanks. I was just wanting to post that blog post on GitHub Pages, which uses Jekyll.
+21:14 semiosis   https://twitter.com/joewalnes/status/568890807375306753
+21:16 pdurbin    semiosis: heh
+21:16 pdurbin    oh cool, some feedback from a githubber on my post: https://github.com/mozillascience/site/issues/11#issuecomment-75589627
+21:18 semiosis   nice
+21:20 pdurbin    "if an org member has read-only access, the app will not have write access to that org's repo for the user"
+21:20 pdurbin    hmm
+21:20 pdurbin    I still find the screen confusing and scary. Where I'm prompted to authorize an app.
+21:22 skay       hi, do any of you have experience getting xdummy working in a docker container? friend of friend who is working on an academic project in reproducible research in robots is having troubles
+21:22 skay       oh hi marcoceppi, I think I recognize you from juju
+21:23 pdurbin    skay: careful. you might wake up marcoceppi. he doesn't talk much ;)
+21:24 pdurbin    skay: codex and prologic and hydrajump know a thing or two about docker
+21:25 skay       pdurbin: I could forward the email to you, and you could perhaps share it with friends who might be able to help
+21:25 * pdurbin  hates email
+21:26 skay       bwahaha ok
+21:26 codex      skay: some more info -- what's the trouble?
+21:26 skay       I hate phone calls more
+21:26 pdurbin    skay: can you pastebin it?
+21:26 skay       sure
+21:27 codex      also, have you tried existing: https://github.com/bencawkwell/dockerfile-xpra
+21:27 skay       sorry for the horrible formatting http://paste.ubuntu.com/10377940/
+21:29 codex      skay: I pasted the commands for your dockerfile that you need, here:
+21:29 codex      http://pastebin.com/9MmtHv5D
+21:29 skay       codex: I have not. I don't know if Jon has, I'll pass it along to him
+21:29 codex      sub "saucy" with another version --> all this assumes running Ubuntu
+21:35 skay       thanks codex, I'm passing along the information to him.
+21:35 skay       and also pointed him to #sciencelab on mozilla's irc servers along with their discussion group. might help him later when he has more questions
+21:36 skay       some of the folks who are loosely connected there do work in reproducible research and containers and/or vms
+21:36 prologic   lol a thing or two :)
+21:36 prologic   hmm
+21:36 * skay     mostly uses lxc along with juju
+21:37 codex      docker is mostly just lxc :)
+21:37 codex      "sort of kind of, not anymore"
+21:37 prologic   ihmo docker is a better user expeirence and ecosystem :)
+21:37 codex      with a really nice config engine on top and a ton of methodologies
+21:37 prologic   it is what lxc is
+21:37 prologic   but not lxc
+21:38 prologic   it interfaces with the same kernel calls
+21:38 prologic   yeah :)
+21:38 codex      I think docker officially split off of LXC 100%, but yea, same calls underneath
+21:38 prologic   like I said very nice ecosystem
+21:38 prologic   they split off from using lxc lib back in 0.7.x something
+21:38 codex      what I can't understand is why openvz never became this popular
+21:38 prologic   which made sense anyway
+21:38 prologic   code to the kernel
+21:38 prologic   not even drive
+21:38 codex      it seems to be the best of both worlds -- light like containers, but still full VMs
+21:38 prologic   and not the right time I think
+21:39 prologic   it's all about timing and marketing sometimes
+21:39 prologic   have the right idea at the right time
+21:39 codex      that's true
+21:39 prologic   that's how some make millions
+21:39 marcoceppi pdurbin: skay  o/
+21:39 prologic   whilst others like us just make a living
+21:39 skay       o/
+21:39 prologic   anyway work time
+21:40 prologic   skay if you need to know anything in detail about Docker from a usage pov hit me up
+21:40 skay       prologic: sure thing
+21:40 skay       if you are in the midwest consider talking to #chicagolug about it. I am looking to see if someone from marcoceppi's team would like to give us a talk and it would be on topic in that case
+21:41 skay       hi marcoceppi! I've been learning the juju ecosystem and thought it would be interested to talk to my group about it and then figured, why not ask you guys
+21:41 skay       I've been emailing back and forth
+21:42 marcoceppi skay: sounds cool
+21:42 marcoceppi We dont really have anyone in the Chicago area though
+21:43 skay       marcoceppi: yeah, a couple of you said they might ride the train in
+21:43 marcoceppi I'm on an airplane ATM, I'll ping you in a bit
+21:43 skay       k, later
+21:44 prologic   unfortunately I'm from the AU
+21:44 prologic   :)
+21:44 skay       :)

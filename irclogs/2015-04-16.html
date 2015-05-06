@@ -1,0 +1,59 @@
+Time  Nick      Message
+18:19 hydrajump this looks pretty clever: http://getpronto.com/en
+18:19 hydrajump "Turn your iPhone into a smart universal remote that enables you to control virtually all TVs, set-top boxes, DVD, Blu-ray and more."
+18:36 melodie   even your neighbour's? o_^ ?
+18:36 melodie   :D
+18:38 hydrajump hehe sure why not ;)
+18:38 melodie   XD
+19:29 hydrajump this is a silly question, but let's say you have a vanilla ubuntu server running on your local network and you want to check if a specific port is open, e.g. port 22. You can't use `ping` as it has not concept of ports, so you use nmap and run `nmap -p 22 192.168.1.10`. The output you get back is "22/tcp closed ssh". However, you haven't setup any firewall on the server or between your test machine and the
+19:29 hydrajump server, so you know the port is open. Only when you install openssh-server and rerun the nmap scan do you get "22/tcp open ssh".
+19:30 melodie   and?
+19:30 hydrajump The silly question is why does a service in this case an openssh server need to be running to determine if the port is open?
+19:31 melodie   the question and the answer is out of my reach
+19:31 melodie   are you sure it is the only way to know if the port is open? and isn't it the firewall that opens or closes ports : oh no, you don't have a firewall yet right?
+19:31 melodie   what about netstat?
+19:31 hydrajump Does this have to do with the 3 way tcp handshake? nmap sends a syn, but as there is no service running, nmap doesn't get a syn+ack and syn response?
+19:31 melodie   netstap -tupan for instance?
+19:32 melodie   netstat some options your ip?
+19:33 hydrajump melodie: netstat didn't show anything with regards to 22
+19:34 melodie   I'm checking the man it says:
+19:34 melodie   "       netstat  - Print network connections, routing tables, interface statis‐
+19:34 melodie   tics, masquerade connections, and multicast memberships
+19:34 melodie   "
+19:34 melodie   I think with the proper command line it should provide information
+19:38 hydrajump some googling reveals that I seem to be right about the 3 way handshake and nmap showing the port as closed because it does not receive a syn+ack response as the openssh server is not running.
+19:39 melodie   ok :)
+19:41 melodie   hydrajump nmap -p on a machine under windows upstairs answers differently
+19:42 melodie   it says "your port specifications are illegal" :D
+19:45 hydrajump melodie: I have no idea as you can tell my nmap fu is not strong, yet ;)
+19:47 melodie   hydrajump no worry, I was just playing but i don't know the rules of the game :D
+20:09 melodie   has anyone watched the video of John Oliver about the next renewal of the Patriot Act?
+20:10 hydrajump more experimentation and instead of installing openssh-server you can install nmap on the server and run the netcat tool to offer a temporary service listening on port 22, e.g. `ncat --listen 22` and then running nmap on the client as before will show the port is open :D
+20:10 melodie   hydrajump in which country are you?
+20:12 hydrajump melodie: classified :P
+20:13 melodie   hydrajump you are targeted
+20:13 melodie   :p
+20:13 hydrajump haha
+20:13 melodie   http://ma.tt/2015/04/john-oliver-meets-snowden/
+20:13 melodie   :D
+20:13 melodie   enjoy!
+20:14 hydrajump yeah I saw it on my twitter feed, but I haven't watched it yet
+20:15 melodie   which feed is it?
+20:16 melodie   I have watched it fully and watched pieces again several times
+20:16 melodie   you need to be cautious though.
+20:16 melodie   go to the bathroom before!
+20:40 bene      when you try to connect to a closed port on an unfirewalled host, the IP stack generates a TCP reset packet
+20:40 bene      that's what nmap means by saying the port is "closed"
+20:40 bene      if it the host is firewalled, the packets will usually be dropped or occasionally the firewall will send ICMP destination unreachable messages
+20:41 bene      iirc nmap calls those "filtered" in its output
+22:10 bene      pdurbin: poke
+22:44 pdurbin   hydrajump: heed the words of bene
+22:56 melodie   pdurbin bene hi!
+22:57 pdurbin   melodie: your "and?" cracked me up :)
+22:58 melodie   pdurbin why did it?
+22:58 pdurbin   seemed a bit out of character somehow :)
+22:59 melodie   I was waiting for the rest, that's to say the announced question.
+22:59 melodie   (not sure to know what "out of character" means exactly)
+23:00 pdurbin   melodie: I don't think of you as the impatient type :)
+23:01 melodie   pdurbin I am impatient, I am just patient for things I know I don't have a choice. :D
+23:09 pdurbin   hydrajump: I was going to point out the netcat trick but it seems like you figured it out on your own. You can use it to echo commands from client to server, which is fun.

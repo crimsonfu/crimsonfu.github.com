@@ -1,0 +1,29 @@
+Time  Nick         Message
+16:46 pdurbin      at http://atp.fm/episodes/42-the-ultimate-vanity-search John Siracusa asks "Which group wears the pants in a company?" and he more or less says that he things the ops guys do at Google... the people who ensure all their production services are running well
+16:47 pdurbin      as opposed to Apple, where the people designing the latest iPhone wear the pants
+16:47 pdurbin      that was how I heard it anyway
+17:38 pdurbin      thinks*
+18:09 pdurbin      ok, here's the actual quote (from 28:10): "The real heart (if you dig down) of Google are the people who run the infrastructure that run all their services. Those are the real sort of little Yodas inside Google, the people with the most respect and clout and power and the ability to say no to your project and yes to your project indirectly."
+18:13 pdurbin      which reminds me of this comment by Google developer Thor Mitchell: "The cost of maintaining and supporting a feature is a function of how much ongoing work it will generate for operations teams" -- https://plus.google.com/+JulianBond23/posts/4mLaNh31JcW
+19:17 melodie      does someone here know the losetup tool?
+19:18 melodie      I'd like some insights about  how to use it the right way
+19:19 pdurbin      crimsonfubot: lucky losetup
+19:19 crimsonfubot pdurbin: http://www.linuxcommand.org/man_pages/losetup8.html
+19:20 pdurbin      hmm. nope
+21:29 melodie      pdurbin WHDD successful to retrieve the full hard drive
+21:29 melodie      then mounted with losetup and kpartx, this way:
+21:29 melodie      http://pastebin.fr/32148
+21:29 melodie      now I have to do a serious "fsck.ext4" against the partition file number 4
+21:30 melodie      what options should I use? I think "-y" because I don't want it interactive, and what else could be good?
+21:30 melodie      if someone here reads me a and knows, that would be nice!
+22:07 pdurbin      melodie: you are recovering some data?
+22:09 melodie      pdurbin yes, partitions exactly
+22:09 melodie      with WHDD: http://whdd.org
+22:52 pdurbin      -y makes sense
+23:05 melodie      http://pastebin.fr/32149
+23:05 melodie      did -f -y
+23:06 melodie      all worked!
+23:06 melodie      now I need a hard drive.... XD
+23:06 melodie      don't have any spare one as sata
+23:06 melodie      need to buy one
+23:07 melodie      i've got a ata but it's also old with several prefail messages when reading from smartmontool

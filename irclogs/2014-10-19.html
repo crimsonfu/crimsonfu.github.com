@@ -1,0 +1,96 @@
+Time  Nick      Message
+13:22 pdurbin   hmm, I was thinking about trying to shrink the partition I've got Fedora installed on (/dev/sda4) to make room to install Ubuntu but it's greyed out in gparted... I can't seem to shrink it: http://tmp.greptilian.com/tmp/x220parted.png
+13:23 pdurbin   maybe I'll just have to wipe Fedora off of this thing
+13:24 pdurbin   I hear that Netflix works under Linux now, so maybe I don't even need that Windows partition anymore.
+13:47 larsks    pdurbin: I was watching netflix w/ linux just last night. Works a treat.
+13:47 larsks    You need the latest Chrome release, but otherwise no tricks involved.
+13:51 pdurbin   larsks: ok, great. which distro?
+13:52 larsks    I'm on F20, but that shouldn't matter too much.
+13:53 pdurbin   right. ok. me too. but I've got to do something about this random clicking problem I've suffered from for so long. I have half a mind to buy a Mac.
+13:53 pdurbin   I can't bear the thought of rebooting into Windows permanently.
+13:54 larsks    I haven't owned a computer that runs windows ever.
+13:54 pdurbin   larsks: oh? you're running Fedora 20 on Mac hardware?
+13:55 larsks    I'm running it on a Thinkpad.  I'm just saying I've never had windows installed on any computer in my house...
+13:55 larsks    Mostly I've just been lucky to have jobs that don't require MS Office :)
+13:56 pdurbin   hmm, I'm on a ThinkPad too. An X220 Tablet. dunno why I have this problem
+13:58 pdurbin   it's a breath of fresh air to sit down at my wife's iMac or my MacBook at work and know that the mouse pointer won't randomly jump around and click things
+13:58 larsks    Fwiw, I've never seen that behavior...
+13:59 larsks    I'm on a...T530? I think.
+14:00 pdurbin   larsks: do you think it would be worthwhile to attend some local Linux User Group meeting to see if anyone can help me? no idea which one.
+14:02 pdurbin   it's not the sort of thing I'm going to call Lenovo about
+14:04 larsks    I'm not sure; I'm not familiar with any local linux user groups.  I wonder if one of the stackexchange-esque sites would be any help on this?
+14:22 pdurbin   hmm. maybe. I feel like I want to try switching from Fedora to Ubuntu first to see if it helps.
+15:01 melodie   hello!
+15:01 melodie   pdurbin so you haven't fixed it yet?
+15:01 pdurbin   heh. I wish
+15:01 melodie   I am now being trying Ubuntu Gnome, it's a buddy who we can meet at #phillw who leads the project
+15:01 pdurbin   my wife and I just talked about it. I think we're just going to buy a Mac laptop.
+15:02 melodie   his nick is darkxst and he is from Australia
+15:02 melodie   pdurbin you can try one of these desktop editions in live to see how it behaves: http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04/release/
+15:03 pdurbin   what's weird is that the problem isn't happening now. I wonder if it's because I rebooted.
+15:03 melodie   or you could buy a nice refurbished T410 which they sell in US, on ebay, I just had a whirl there now and they are pretty nice
+15:03 melodie   did you update or change a setting/some settings before you reboot?
+15:03 pdurbin   oh wait, it just happened. my pointer clicked Firefox behind the window I'm typing in, which lost focus until I switched back to it.
+15:04 pdurbin   the idea with buying a Mac laptop is that both my wife and I could use it
+15:05 pdurbin   melodie: once I'm happily moved to some other hardware I'm happy to wife this ThinkPad and but whatever distro on it
+15:05 pdurbin   s/but/put/
+15:05 pdurbin   s/wife/wipe/ :)
+15:05 * pdurbin isn't sure what it means to "wife" a ThinkPad
+15:06 melodie   I mean you should try a live CD or usb stick
+15:06 melodie   what proc is that? x86 or 64bits?
+15:07 pdurbin   melodie: I could try a live CD but I'd need to run that way for a few days and see how it goes. the problem sometimes takes a while to surface. This is why I thought it was fixed a few months ago.
+15:08 melodie   you might use a usb stick with persistant mode, once you will have burned a first DVD you can create the usb stick with persistant mode with the tool included with the distro
+15:08 pdurbin   I wonder if I should wait to buy a Mac laptop. (also thinking about buying a new iMac.) I'm not very good about knowing when Apple is releasing new hardware.
+15:09 melodie   "Startup Disk Creator" is the name
+15:09 pdurbin   melodie: yeah, could try that. A USB stick I could write to, so I could live in the other distro for a while.
+15:09 melodie   also if you'd switch to Ubuntu, they have versions for PPC and Mac
+15:10 pdurbin   if my wife is to also use a new Mac laptop there's no way I'm putting Linux on it
+15:10 melodie   well to use the startup disk creator you prior need a first install of ubuntu, or a DVD
+15:11 melodie   or you can create a usb bootable stick with dd and from there create an install to a second usb stick with the startup creator, so this way you can spare a dvd
+15:11 melodie   so is it 64bits or x86_64? So I can point you to the right edition with gnome :)
+15:11 pdurbin   x86_64
+15:11 pdurbin   hmm, this is helpful: http://en.wikipedia.org/wiki/Timeline_of_Apple_Inc._products
+15:12 pdurbin   definitely want a retina screen for whatever new hardware
+15:12 pdurbin   wow, nice: http://www.apple.com/imac-with-retina/
+15:27 melodie   well I like mat monitors, and I think apple provides only shiny ones
+15:27 melodie   besides the fact they are a lot more expensive than regular computers, for not much more features, is just my opinion
+15:34 pdurbin   definitely expensive
+17:49 pdurbin   what's interesting is that Cory Doctorow seems to have the same laptop I have and really likes it: My new Ubuntu-flavoured ThinkPad is computing heaven | Cory Doctorow | Technology | theguardian.com - http://www.theguardian.com/technology/2011/may/17/computing-opensource
+17:49 * pdurbin runs dd if=/tmp/ubuntu2/ubuntu-14.04.1-desktop-amd64.iso of=/dev/sdb bs=1M
+19:13 melodie   you don't need the bs= ârt
+19:13 melodie   part
+22:29 melodie   he in that page:
+22:30 melodie   http://batteryuniversity.com/learn/article/charging_lithium_ion_batteries
+22:30 melodie   I don't understand it all in the part (at the end of the article) where it says:
+22:30 melodie   "Over-discharged batteries can be “boosted” to life again. Discard pack if the voltage does not rise to a normal level within a minute while on boost. "
+22:30 melodie   what do you think the "Discard pack" part means?
+22:35 melodie   hi Mo0O
+22:35 melodie   :)
+22:36 Mo0O      Holà melodie
+22:59 pdurbin   thanks interesting. from the Ubuntu installer I wasn't able to delete the partitions Fedora had created. I ended up booting with PartedMagic to use gparted to blow them away.
+23:00 pdurbin   /s/thanks/that's/
+23:06 pdurbin   oh, and Ubuntu wouldn't let me type my wifi password because it's too short (6 characters).
+23:20 pdurbin   melodie: I *do* see suggestions to buy stuff. songs for 99 cents, etc.
+23:21 pdurbin   and there's a big amazon icon on the dock thing to the left
+23:22 melodie   pdurbin why didn't you get the Ubuntu Gnome I pointed you to?
+23:22 melodie   or Lubuntu? Or Bento? Any honest spin!
+23:22 melodie   ^^
+23:22 melodie   well in Lubuntu and Xubuntu and Bento Gparted is installed. no need for anything else
+23:22 pdurbin   well, shouldn't I try the normal Ubuntu first?
+23:23 melodie   pdurbin you can try as many as you wish, they are all free :D
+23:23 pdurbin   yeah. I'm just hoping this solves my problem.
+23:23 melodie   1001 distros on distrowatch as you know... :o)
+23:23 melodie   pdurbin so does your mouse cursor jump there?
+23:24 melodie   as you formerly told me you use Gnome, I thought you would be familiar with the Ubuntu Gnome edition
+23:24 pdurbin   let me live with it for a few days before I say if it's fixed or not
+23:24 melodie   ok, so what about the Ubuntu Gnome Edition?
+23:24 pdurbin   meh, I'll learn whatever. the default seems fine. Unity or whatever this is
+23:25 melodie   I have it in virtualbox today, and it looks beautiful
+23:25 pdurbin   it's no worse than gnome 3
+23:25 melodie   the themes they are using are so fraich and shiny
+23:43 pdurbin   the pointer is still jumping around on me, without me touching it, even under Ubuntu
+23:44 pdurbin   the hardware must be faulty somehow
+23:44 pdurbin   so frustrating
+23:48 melodie   try a light one, Lubuntu 14.04.1 for instance
+23:49 melodie   you need to try with the very latest kernel, or an older one than the one you have in Fedora, that might help
+23:49 melodie   good night/evening now

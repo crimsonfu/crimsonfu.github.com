@@ -1,0 +1,46 @@
+Time  Nick      Message
+00:48 codex     hydrajump: maybe.... :)
+00:49 codex     hydrajump: it gets around in quite a few places that block VPN or that want you to pay for access
+00:49 codex     very few places properly block udp/53 and redirect to their gateway. Most will allow open resolvers and thus your vpn
+00:50 codex     and it's not like they are doing layer 7 packet inspection
+01:25 pdurbin   semiosis: Stuart Marks on Twitter: "@philipdurbin @michbarsinai :-) No cheating now!" - https://twitter.com/stuartmarks/status/527250860565610496 :)
+02:25 hydrajump codex:  you tried it on airlines :P
+15:19 hydrajump I managed to lock myself out of my EC2 instance running my IRC server last night. That's what happens when you're up late and mess with sshd_config on a "prod" server :(
+15:20 * bear    chuckles
+15:21 bear      hydrajump - it's why I created a checkiptables.sh script that does a diff of iptables-save and /etc/iptables.rules
+15:21 bear      so I can eyeball changes before saving them
+15:22 hydrajump bear: good thing it was only my own non-critical server. Anyway I managed to fix it with little IRC downtime, by attaching the EBS volume to another instance and reverting the change.
+15:22 bear      nice!
+15:23 bear      oh, another habit maybe: never close all of your ssh terminal sessions until you test in a new window you can still connect
+15:23 bear      that has also saved me :)
+15:24 hydrajump oh you can do that even if you modify the sshd_config possibly locking yourself out as I did?
+15:24 hydrajump it won't effect the current ssh sessions?
+15:24 bear      IIRC yes - even a restart of sshd doesn't kill active connections
+15:25 hydrajump bear: didn't know that. Wish I did :P
+15:25 bear      :)
+15:25 bear      (caveat - it's been a long time since I last had to use that, things may have changed)
+15:26 hydrajump hehe no worries. best practice will be to not make any changes on a "prod" instance when testing ;)
+15:27 hydrajump I don't know why I didn't follow what I do for clients for myself
+15:27 bear      good point - that is always the better option :)
+15:27 bear      something about the shoemakers kids... ;)
+15:28 hydrajump masochism
+15:28 hydrajump haha
+15:30 codex     hydrajump: i haven't
+15:38 hydrajump codex: hey. Ah about airlines.
+15:38 hydrajump hehe
+15:38 hydrajump I will have to try next time I fly to the US
+15:38 hydrajump unforunately it doesn't look like it will be for reInvent :( I'm still trying to get a ticket somehow
+16:08 semiosis  hydrajump: CreateImage api call is your friend
+17:21 hydrajump weird I have "AllowUsers hydrajump" and created that user, but I can still SSH as ubuntu ?
+18:17 hydrajump I fixed it by adding DenyUsers ubuntu as well
+19:19 semiosis  looks neat... https://code.facebook.com/posts/844436395567983/introducing-osquery/
+19:19 semiosis  especially this, SELECT DISTINCT process.name, listening.port, listening.address, process.pid FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid;
+20:42 semiosis  furthermore, https://speakerdeck.com/marpaia/host-intrusion-detection-with-osquery
+20:44 semiosis  idea for an Onion article... Systemd selects osquery SQL API to replace linux command line tools
+20:54 semiosis  yep, thats comedy gold.  https://twitter.com/pragmaticism/status/527563979032637441
+21:07 JoeJulian Hehe
+21:32 hydrajump semiosis: thanks for the links. Very interesting.
+21:45 semiosis  yw
+22:56 pdurbin   "Learning IRC is not just about understanding ‘text based chat’, it’s about understanding the ecosystem for communication and ways to get and lend support in open source." -- http://tiptoes.ca/open-hatch-mozilla/
+22:58 JoeJulian s/and.*//
+22:58 JoeJulian Once you get communication, everything else is gravy.

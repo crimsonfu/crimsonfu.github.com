@@ -1,0 +1,32 @@
+Time  Nick      Message
+02:25 semiosis  a few weeks ago i started getting in the habit of writing boolean expressions with the literal value on the left, as in (1 == foo)
+02:25 semiosis  it just paid off when i finally left off one of the equals signs and got a compiler warning in the ide
+02:28 semiosis  lesson learned, writing conditionals that way lets you write code safely while drinking
+03:27 pdurbin_m semiosis: +1
+03:32 pdurbin_m didn't know about http://puppet-vagrant-boxes.puppetlabs.com
+11:10 pdurbin   "/db automatically generates a REST API from relational databases" -- http://www.slashdb.com ... I've never tried this product and it's not open source but I thought I'd pass it along since it's written by a friend of mine (Victor Olex). He mentioned on my post about implementing a SWORDv2-compliant API: https://plus.google.com/107770072576338242009/posts/Yt5HRP1iLbW
+11:16 pdurbin   i.e. you can get http://demo.slashdb.com/db/Chinook/Customer/CustomerId/10.json from http://demo.slashdb.com/db/Chinook/Customer.html?limit=41
+14:07 sjoeboo   friday fun fact, our main ganliga instance has shipped ~140TB of metrics via localhost in the last 2 months.
+14:10 pdurbin   sjoeboo: dang
+14:12 pdurbin   sjoeboo: and even more in the future with a new data center coming online
+14:13 mhayden   sjoeboo: i'm concerned about how much your server talks to itself
+14:13 mhayden   :)
+14:13 sjoeboo   ha, yeah our ganglia setup it...unique
+14:14 sjoeboo   is*
+14:14 sjoeboo   pdurbin: its up.
+14:14 sjoeboo   tier 2 testing is going on right now, then select users get access for tier 3 grande challenge style science, then its open.
+14:17 semiosis  science \m/
+14:29 sjoeboo   50K cores + 200TB RAM = lots of science.
+14:47 ben_e_    50k at mghpcc alone or +odyssey?
+15:42 sjoeboo   ben_e_: thats total
+15:42 sjoeboo   mghpcc day 1 is 28K
+15:42 sjoeboo   not including some "owned" kit we moved out there, thats just the big install which will be general use for our users.
+15:43 sjoeboo   in total mghpcc has about 34K core of compute @ the moment.
+15:58 pdurbin   sjoeboo: oh! it's up! awesome
+15:59 sjoeboo   only a couple months late thanks to the OGC
+16:19 semiosis  do you say m-g-h-p-c-c in conversation?  meg-pack?  something else?
+16:27 sjoeboo   ha, we just say mghpcc, or, for us, holyoke (the town its in)
+16:28 ben_e_    mugpuck
+19:27 * pdurbin votes for mugpuck
+22:22 semiosis  jankinsci
+23:38 JoeJulian magrehipecoce

@@ -1,0 +1,106 @@
+Time  Nick      Message
+16:20 pdurbin   I keep getting demos of http://sphinx-doc.org and I think it might be the way to go
+16:42 joshu     hi pdurbin
+16:42 joshu     perhaps you can help me with an fstab mount issue.
+16:44 pdurbin   joshu: keep talkin' :)
+16:44 joshu     so I'm doing this fine manually
+16:44 joshu     sudo mkdir /mnt/brscan-share
+16:44 joshu     sudo mount --bind /home/$USER/brscan /mnt/brscan-share
+16:44 joshu     sudo mount -o remount,ro /mnt/brscan-share
+16:45 joshu     it works great. But every time I reboot I need to run the bind and remount commands. So I googled how to automate this and I found this link http://askubuntu.com/questions/135496/bind-mounting-read-only-using-fstab-on-ubuntu/135502#135502
+16:47 pdurbin   hmm, I've never used --bind before
+16:47 joshu     ok
+16:48 joshu     I've tried to do it in fstab on 13.04 which is newer than what the person uses in the link, but it still doesn't work, so my question is in that link there's an answer that suggests to script it in rc.local or upstart. I have not used either before. What would you suggest?
+16:51 pdurbin   well, rc.local is older than upstart, if that helps :)
+16:52 joshu     ok then i'll gioogle how to use upstart
+16:52 pdurbin   sounds good
+17:03 semiosis  does $USER work in fstab?
+17:05 semiosis  ah this answer says you cant do both bind & ro in a single mount command: http://askubuntu.com/a/202418
+17:07 semiosis  plain & simple way to do it would be in rc.local, but if you want to get fancy, you could make an upstart job with 'start on mounted MOUNTPOINT=/mnt/brscan-share' with a script stanza to call the remount,ro command
+17:07 semiosis  (the initial bind mount would be a line in fstab)
+17:44 joshu     I've just written my first upstart script. Can someone please check it out and tell me if it's ok https://gist.github.com/anonymous/c4e9b2d42065b06a30c4
+17:45 pdurbin   joshu: does it work? :)
+17:46 joshu     haven't gotten to testing. I just wanted some feedback ;)
+17:49 joshu     semiosis hmm just read your comments. So what I did in the gist is not what you had in mind?
+17:50 semiosis  mountall is not an event, it's an exectuable file
+17:50 semiosis  so thats not going to work
+17:51 joshu     semiosis oh. I took that from the answer I linked to above at askubuntu
+17:51 semiosis  'man upstart-events' for an introduction
+17:51 joshu     write a super-simple Upstart script that starts on the mountall event (so it happens immediately).
+17:51 joshu     yes I'm browsing the http://upstart.ubuntu.com/cookbook/#system-job
+17:52 semiosis  the author was either speaking loosely or just plain confused
+17:52 semiosis  mountall is a program, which happens to emit events, but it's not an event you can actually trigger on
+17:53 joshu     ok so you understand upstart and I just started using it.
+17:53 semiosis  no one understands upstart
+17:53 joshu     So I should do the bind in /etc/fstab like this: /home/test/brscan    /mnt/brscan-share none bind 0 0
+17:53 semiosis  but i do at least have some experience with it :)
+17:53 joshu     hehe
+17:53 joshu     and do the remount ro in an upstart script?
+17:54 semiosis  that might work, if you really want to use upstart
+17:54 semiosis  you could just put the remount,ro line in rc.local though
+17:54 semiosis  i do think you should keep the bind line in fstab tho, maybe with a comment above it saying it's further modified by rc.local or upstart whichever you decide
+17:55 semiosis  keeps things predictable
+17:55 joshu     semiosis ok I'm fixing my fstab now
+17:57 joshu     semiosis the script stanza is necessary even with one line?
+17:57 semiosis  i guess you could use exec instead
+17:57 semiosis  also may need to add a task line
+17:57 semiosis  since this isn't a daemon
+17:58 joshu     semiosis yes I have task. system jobs such as this run with sudo, so I omit sudo in the upstart?
+17:59 semiosis  correct
+18:04 joshu     semiosis https://gist.github.com/anonymous/61f3bf9607994a4fc11d
+18:05 semiosis  iirc it's either exec or script, not both
+18:05 semiosis  and like you said, the sudo isn't necessary
+18:07 joshu     my mistake forgot to remove sudo.. I'll have to check another script to see about exec and script
+18:13 joshu     semiosis looking a ubuntu's upstart scripts in /etc/init some one liners use script stanza and exec, others just exec. I'll keep it simple with just exec.
+18:13 joshu     going to reboot and cross my fingers ;)
+18:14 semiosis  good luck
+18:30 joshu     semiosis it works great!! thanks for your help! Now to write an upstart to clear the contents of the folder on shutdown ;)
+18:30 semiosis  glad to hear it!
+18:31 joshu     semiosis I might have some more upstart questions for you later.
+18:31 semiosis  if i'm around i'll try to help
+18:31 joshu     :D
+18:40 pdurbin   semiosis: +1
+19:00 joshu     semiosis to purge or remove the contents of the brscan directory on shutdown should I target the /mnt/brscan-share, make it remount as rw and rm the files, or target the user directory instead /home/test/brscan/*
+19:00 semiosis  uhhhh
+19:00 semiosis  you tell me
+19:01 joshu     both will result in the same I guess, just which is "better"? or it's the same
+19:01 semiosis  i'd go simpler
+19:02 semiosis  s/go/go for whichever is/
+19:04 joshu     ok and in a another system upstart job I saw that a rm is done like this: exec rm -f /home/test/brscan/* || true
+19:04 joshu     not sure what the || true does
+19:05 joshu     saw it here http://upstart.ubuntu.com/cookbook/#id331
+19:18 semiosis  || true basically means to ignore any error
+19:18 semiosis  not sure what upstart would do on error, but whatever it is this prevents it
+19:19 JoeJulian If another job was waiting for "started", a non-true would block that.
+19:20 pdurbin   sometimes you see || :
+19:20 pdurbin   since : means true
+19:20 JoeJulian :||!: ... that is the question...
+19:21 JoeJulian gives a whole different meaning to "bashing Shakespeare".
+19:21 pdurbin   : that
+19:22 semiosis  wow
+19:38 joshu     ok thank semiosis  pdurbin I'll keep the || true after the rm command
+20:00 joshu     semiosis I created this upstart script to purge the folder, but I've rebooted and the folder hasn't been cleaned. https://gist.github.com/anonymous/459675ea6020335e099c
+20:00 joshu     I looked throughout the other scripts in /etc/init especially the passwd.conf which removes lock files and it uses the same rm -f without true so I just used that.
+20:01 joshu     maybe it's the wildcad
+20:01 joshu     wildcard
+20:03 joshu     no I just tested specifying a specific file to remove and it didn't work either.
+20:03 semiosis  what trigger are you using for the shutdown?
+20:03 semiosis  you could try runlevel 6
+20:03 joshu     I just have start on shutdown
+20:05 joshu     it works with start on filesystem
+20:05 semiosis  check out 'man upstart-events'
+20:05 semiosis  that's not comprehensive, but it's a pretty good intro to most of the events
+20:07 joshu     ok I'll have a look
+20:14 joshu     ok semiosis desktop-shutdown works
+20:15 semiosis  sweet
+20:16 joshu     it's a little fiddly to get started with upstart, but works well once I get it ;)
+20:23 semiosis  upstart makes the easy things confusing and the hard things excruciating
+20:45 joshu     hehe
+22:32 semiosis  anyone here used docker?  http://docker.io
+22:32 pdurbin   semiosis: I think ben_e was
+22:37 semiosis  just came across this http://coreos.com/
+22:37 semiosis  which got me curious about docker
+22:39 pdurbin   surprise tickets for me and my 7 year old. red sox game in 20 minutes
+22:40 semiosis  enjoy
+22:40 JoeJulian nice
+23:31 joshu     semiosis both of those projects never heard of them but look real interesting

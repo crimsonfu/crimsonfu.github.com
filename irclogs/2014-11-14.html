@@ -1,0 +1,233 @@
+Time  Nick        Message
+00:15 prologic    interesting :)
+00:17 pdurbin     hydrajump and codex: please welcome prologic, a fellow docker user
+00:17 pdurbin     larsks: and pythonista
+00:18 pdurbin     creator of http://circuitsframework.com
+00:18 prologic    Thanks pdurbin :)
+00:19 pdurbin     prologic: so you sound pretty interested in dox: http://irclogs.shortcircuit.net.au/%23circuits/2014-11-14.log.html#t00:12:00
+00:19 pdurbin     searchbot: lucky dox docker
+00:19 searchbot   pdurbin: http://blog.chmouel.com/2014/09/08/dox-a-tool-that-run-python-or-others-tests-in-a-docker-container/
+00:19 pdurbin     searchbot: lucky dox docker pypi
+00:19 searchbot   pdurbin: https://pypi.python.org/pypi/dox/9f33ae5
+00:21 prologic    hehe
+00:21 * prologic  pats searchbot
+00:21 prologic    nice bot :)
+00:22 pdurbin     yeah. and ilbot3 does the logging but it isn't mine
+00:22 prologic    *nods*
+00:23 prologic    hmm
+00:23 prologic    it's one of those things really
+00:23 prologic    I could write my own CI
+00:23 prologic    using circuits ofc
+00:23 prologic    but do I have to? :)
+00:24 pdurbin     we use jenkins at work
+00:24 prologic    *nods*
+00:24 prologic    I've used it before too
+00:25 prologic    and built CRUX based Docker images for it
+00:25 prologic    and had a whole setup that worked quite wel for circuits
+00:25 prologic    but I haven't maintained it anywhere useful as such
+00:25 prologic    mainly due to lack of infrastructure
+00:25 prologic    but I may put it back up on DO maybe
+00:25 prologic    or see how Drone's development pans out
+00:25 prologic    thing is; neither Jenkins or Drone would suffice here
+00:26 prologic    because CRUX's ports are in "collections"
+00:26 prologic    so for example core, opt, xorg, contrib, etc
+00:26 prologic    are collections of ports (each a repo)
+00:27 prologic    so you can't just detect a change in that repo and run dox on it without elaborate commands in the dox.yml that try to work out what port(s) changed and rebuild those
+00:36 pdurbin     prologic: sorry, I was staring at a Java stacktrace and wanted to send it off
+00:38 prologic    hehe
+00:38 pdurbin     searchbot: lucky crux port package
+00:38 searchbot   pdurbin: http://crux.nu/Main/Handbook3-0
+00:39 pdurbin     so this uses BSD ports, basically?
+00:42 prologic    https://pypi.python.org/pypi/utmp
+00:42 prologic    ^^^ cool :)
+00:42 prologic    BSD ports?
+00:42 prologic    yeah sort of
+00:43 prologic    some of CRUX's inspiration probably came from *BSD
+00:43 prologic    https://bitbucket.org/prologic/ports/
+00:43 prologic    for a sample of my personal collection
+00:43 prologic    Also if it wasn't obvious before
+00:44 prologic    I want to do this for CRUX+Docker
+00:44 prologic    So I maintain official images of CRUX in the Docker Official Library
+00:44 prologic    namely "crux" versions 3.1 and 3.0
+00:44 prologic    i.e: current and previous veriojn
+00:45 prologic    my goal would be that crux/base (crux as the org and crux/base based on crux) adds pkg-get (our simple binary package manager and a default uri that points to where the CI publishes built packages)
+00:50 pdurbin     wow. that's a lot of ports you maintain
+00:51 pdurbin     what do you do for CI now?
+00:51 prologic    oh we don't
+00:52 prologic    we collectively as a community keep things tested and up-to-date
+00:52 prologic    it's the testing and publishing part(s) I want to automate
+00:53 * pdurbin   likes automation
+00:53 prologic    Also you should checkout a new project
+00:53 prologic    https://bitbucket.org/prologic/dcm
+00:53 prologic    little side project I quickly wrote up 2 weekends ago
+00:55 pdurbin     "dcm is a command-line tool to manage Docker' Hosts". cool
+00:58 prologic    yeah
+00:58 prologic    you can just do (for example):
+00:59 prologic    dcm create
+00:59 prologic    wait a minute or so
+00:59 prologic    and it prints the ip address of the new node
+01:00 prologic    the next couple of things I wanted to do are:
+01:00 prologic    some way of easily using/connecting to these remote docker hosts/nodes
+01:00 prologic    maybe a docker wrapper as such
+01:00 prologic    or an easy way to export the "right env vars"
+01:00 prologic    eval $(dcm env <node>)
+01:01 prologic    could be pretty nice
+01:01 prologic    then any docker or fig or whatever would work as expected against that host
+01:01 prologic    but maybe it might be even nicer to go virtualenvwrapper style
+01:01 prologic    dcm workon <node>
+01:01 prologic    sets up the right env vars and launahces a shell
+01:01 prologic    when you exit the shell you go back to your original shell
+01:02 prologic    the only thing I'm tossing up between
+01:02 pdurbin     I've recently gotten into workon/deactivate. very nice
+01:02 prologic    is whether ot use Docker's new TLS/SSL stuff and expose the Docker Remote API over TCP
+01:02 prologic    or to just simply setup an SSH tunnel when you do: dcm workon <node>
+01:02 prologic    I'm unsure of the pros/cons
+01:03 prologic    setting up TLS/SSL with the Docker Remote API though is *NOT* trivial
+01:03 prologic    I guess I could just try it? :)
+01:03 prologic    searchbot, lucky docker-tunnel pypi
+01:03 searchbot   prologic: https://github.com/tonyseek/docker-tunnel
+01:03 prologic    See ^^^
+01:03 prologic    Was going to rip that off or use it or boror iw, etc
+01:04 prologic    it does the ssh tunnel thing I mentioned
+01:04 prologic    looks like I could even use it as a library
+01:04 pdurbin     cool
+01:04 prologic    so
+01:04 prologic    dcm workon it is then? :)
+01:07 pdurbin     oh, I don't know. I'm interested in Docker but I haven't really used it in anger yet.
+01:08 pdurbin     prologic: did I show you https://github.com/IQSS/plaid ?
+01:08 pdurbin     I could maybe see using Docker for that some day.
+01:09 prologic    hmm
+01:09 prologic    not much there :)
+01:09 prologic    not sure what it's "going to be"
+01:10 pdurbin     oh, if you click the Google Doc
+01:10 pdurbin     it's Python-y so I thought you might be interested
+01:11 prologic    ahh i see
+01:11 pdurbin     right now we deploy to CentOS
+01:11 pdurbin     but I guess it could be whatever
+01:11 prologic    but that could easily be Docker containers based on CentOS
+01:11 pdurbin     sure
+01:11 prologic    not that the underlying distro matters at all
+01:12 prologic    I'm looking forward to when Docker get to a point where we can separate out build-time from run-time
+01:12 pdurbin     well, CentOS 6 is what our Ops guys give us
+01:12 prologic    which will result in images that just contain the application and runtime
+01:12 prologic    nothing else
+01:12 prologic    it won't even look like a distro file system
+01:12 prologic    we can already do this right now - but by hand
+01:13 prologic    it's a two step process
+01:13 prologic    build a docker image that builds an application and it's run-time, then export that out into a tarball, then import that into a new image
+01:19 prologic    https://github.com/docker/docker/issues/7115
+01:20 pdurbin     huh. nested builds
+01:22 prologic    https://github.com/docker/docker/issues/7149
+01:22 prologic    I kind of like the 2nd proposal better
+01:22 prologic    ihmo
+01:22 prologic    https://github.com/docker/docker/pull/8021
+01:22 prologic    which looks to be a current PR
+01:47 pdurbin     do most people who use docker host on their own boxes they set up? or do they use some kind of heroku of the docker world?
+01:47 hydrajump   hi prologic
+01:48 hydrajump   pdurbin: you should check out the past 2 days announcements from AWS. Especially today's releases ;)
+01:48 pdurbin     searchbot: lucky aws announcements
+01:48 searchbot   pdurbin: http://aws.amazon.com/new/
+01:48 pdurbin     hmm. http://aws.amazon.com/about-aws/whats-new/2014/11/13/introducing-amazon-ec2-container-service/
+01:49 hydrajump   https://aws.amazon.com/blogs/aws/cloud-container-management
+01:49 pdurbin     semiosis: do you use this stuff?
+01:49 hydrajump   pdurbin: it's not widely available yet. You have to sign up for a preview
+01:50 pdurbin     right. "preview" at http://aws.amazon.com/ecs/
+01:50 hydrajump   lots of exciting stuff :D
+01:51 pdurbin     neat
+01:52 hydrajump   also I saw your CI discussion earlier...this is one of 3 new services...https://aws.amazon.com/blogs/aws/code-management-and-deployment
+02:01 pdurbin     nice. I mean, I'm not very familiar with AWS but I could see people liking this.
+02:02 prologic    pdurbin, because Docker is still relatively new
+02:02 prologic    a lot of folk use their own Infrastructure
+02:02 prologic    But players like Tutum and Amazon are making this less of an issue
+02:02 prologic    I tend to like to use my own Infrastructure though
+02:06 pdurbin     but at least the containers should be portable. you could start on AWS or your own kit and move the containers around
+02:09 pdurbin     LyndsySimon: check out this Flask thing: http://lucumr.pocoo.org/2012/8/5/stateless-and-proud/
+02:14 prologic    images
+02:15 prologic    but yes :)
+02:16 prologic    hmm
+02:16 prologic    I guess circuits.web has been able to do this for quite some time
+02:16 prologic    even without the help of redis :)
+02:21 pdurbin     prologic: somehow I was wondering if you'd say that :)
+02:22 pdurbin     via http://indiewebcamp.com/irc/2014-11-13#t1415930129795
+02:25 * prologic  reads
+02:28 prologic    https://gist.github.com/78185bea0ec976ece439
+02:41 pdurbin     cool
+03:16 prologic    proof of concept works :)
+03:16 prologic    I'll clean it up and add the new feature
+03:17 prologic    dcm workon <node-id>
+05:33 prologic    https://gist.github.com/bb095843dbf63f1a3fe3
+05:36 codex       prologic: welcome :)
+05:44 prologic    hi :)
+06:09 bear        pdurbin - I run a static site for indieweb but also have behind nginx a flask app for webmention handling and indieauth handling
+11:53 pdurbin     bear: ah. nice. I just know LyndsySimon works on one too
+14:15 LyndsySimon pdurbin: We seem to be settling on using Tornado for apps that need push/pull. Flask works well enough, but when you start scaling horizontally the limitations of how LocalProxy objects start to become much more apparent.
+14:18 pdurbin     hmm. ok
+14:18 pdurbin     so far I only have very limited experience with Django
+14:46 LyndsySimon I worked with Django some several years ago, but haven't touched it since then. I want to say I was using version 0.97 at the time, if that tells you anything :)
+14:47 LyndsySimon I have a side project that I've been writing in Flask, but realized a few days ago that I'm basically re-implemented Django's auth and admin interfaces. I'm seriously considering moving that to Django in the next week or so.
+15:01 pdurbin     oh, we've done some of our own auth in Java for sure
+17:16 semiosis    pdurbin: i've not used anything containerish yet
+17:24 pdurbin     semiosis: but now you can since it's on AWS :)
+17:24 semiosis    how do containers fit in an immutable infrastructure?
+21:12 prologic    LyndsySimon, you could consider circuits.web :)
+21:13 prologic    semiosis, immutable infrastructure?
+21:14 semiosis    @lucky immutable infrastructure
+21:14 semiosis    @#&$*(^)@#
+21:14 semiosis    searchbot: version
+21:14 searchbot   semiosis: An error has occurred and has been logged. Please contact this bot's administrator for more information.
+21:14 semiosis    bwahahahah
+21:15 semiosis    prologic: basically building a golden image for a server then deploying clusters from that image
+21:15 prologic    ic
+21:15 semiosis    prologic: not updating existing servers with new deploys or config changes, but rather replacing them with new servers from a new golden image
+21:16 prologic    by server I assume you mean app/service in the context of Docker?
+21:16 prologic    the convention is that a Docker image usually runs one thing or one kind of thing
+21:16 semiosis    i mean precisely EC2 instances
+21:16 semiosis    i dont see how docker fits into that picture
+21:16 prologic    ic
+21:16 prologic    ihmo Docker would repalce the whole concept of EC2 instnaces
+21:17 prologic    AFAIK AWS are introducing native Docker support anyway
+21:17 prologic    to complement their EC2 offerings
+21:18 semiosis    guess i'll have to read up ont hat
+21:18 prologic    *nods*
+21:19 prologic    in any case the whole notion of immutable infrastructure as you call it is already (and has always been) quite possible with Docker - in fact there is no other way really :)
+21:19 prologic    and I think that's one of the greater appeals :)
+21:19 semiosis    interesting
+21:19 prologic    reproducible repeatable infrastructure
+21:20 prologic    I've been using Docker since 0.7 :)
+21:20 semiosis    on your own hardware?
+21:21 prologic    *nods*
+21:22 semiosis    ah
+21:22 prologic    I now also run it on DO
+21:22 prologic    https://bitbucket.org/prologic/dcm
+21:22 semiosis    we run in ec2, so i'm v. interested in reducing complexity & cost there.  if docker can help, great, i just havent any idea how it would
+21:22 prologic    I wrote this because I couldn't wait for host management to come in Docker
+21:22 prologic    which is coming really soon :)
+21:23 semiosis    nice
+21:23 prologic    I think IHMO AWS will take up Docker fully and whole heartedly
+21:23 prologic    they simply can't ignore it
+21:23 prologic    it's lightweight virtualization essentially
+21:23 prologic    full blown VM(s) might just die off for the most part :)
+21:23 prologic    haha
+21:24 prologic    except in special use-cases where a full hypervisor is required
+21:24 semiosis    windows :(
+21:24 prologic    bbs - going out
+21:24 semiosis    later
+21:24 prologic    even Windows can be Dockerized
+21:24 semiosis    oh wow
+21:24 prologic    a Docker container/image runing kvm/qemu in privielged mode
+21:24 prologic    done :)
+21:24 semiosis    neat
+22:13 LyndsySimon prologic: I just read all the docs for circuits.web. My mind is currently blown, but I think I like what I see so far.
+22:29 LyndsySimon Is there a name for the architecture for which circuits is designed? I've obviously used MVC (and derivatives) in the past, and while that would work here it doesn't seem natural. It almost feels like what I would think of as a model should be a complex component itself.
+23:02 pdurbin     LyndsySimon: well, apparently it's not MVC: "circuits.web does not provide high level features such as... Model View Controller" http://circuits.readthedocs.org/en/latest/web/features.html
+23:02 LyndsySimon Right - but you could implement it, if you wanted.
+23:03 pdurbin     yeah. seems very flexible
+23:47 prologic    LyndsySimon, yes - Component Architecture
+23:48 prologic    precisely
+23:48 prologic    If you want the whole MVC shebang, go right ahead :)
+23:49 prologic    for the most port, myself and other users get away with Controller(s) (we do provide a simple Component for that), Templates and JS/CSS :)
+23:49 prologic    but yeah ideally your application should be comprised of composable components really :)
+23:52 prologic    here's probably two examples of reuseable components in the context of circuits.web (dataconv the project itself is/was an experimental cli data transformer and I later toyed with the idea of making it web enabled):
+23:52 prologic    auth.py: https://bitbucket.org/prologic/dataconv/src/ed47d8914ccd8f6e4d406d0dd2f8d76487e3d7be/auth.py?at=default
+23:53 prologic    server.py: https://bitbucket.org/prologic/dataconv/src/ed47d8914ccd8f6e4d406d0dd2f8d76487e3d7be/server.py?at=default
+23:53 prologic    the more interesting components are probably JinjaRendere, Authentication and LoginManager

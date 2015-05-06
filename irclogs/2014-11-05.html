@@ -1,0 +1,25 @@
+Time  Nick     Message
+16:04 pdurbin  "The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications." https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
+16:13 pdurbin  semiosis: more on the scrambled session bug: https://docs.google.com/document/d/1jrTwlMAaE-O_pOBhjfvCq86VatuFzFxFKOkSAKcDWwE/edit?usp=sharing
+17:17 semiosis pdurbin: why do you need apache?  is there really no java solution for shibboleth?
+17:22 pdurbin  semiosis: this is the pure Java Shibboleth/SAML solution I tried last year: https://svn.softwareborsen.dk/oiosaml.java/sp/trunk/docs/intro.html
+17:27 semiosis this looks pretty good: http://projects.spring.io/spring-security-saml/
+17:27 semiosis i do love spring security
+17:30 pdurbin  semiosis: I just added that to the doc. Thanks.
+17:30 semiosis yw
+17:30 semiosis seriously, if you're going to have to do a lot of work, you shouldn't end up with a dependency on apache
+17:31 semiosis imo only reason to depend on apache is if it makes things super easy, which it clearly is not
+17:31 pdurbin  well, Shibboleth people expect you to be running mod_shib
+17:31 pdurbin  they'll be less able to work with you if you have something else
+17:31 pdurbin  less able to troubleshoot problems, let's say
+17:31 semiosis spring projects generally have great communities around them
+17:32 semiosis and great docs, etc
+17:32 semiosis very high quality software
+17:32 pdurbin  I've never used Spring but there seems to be a bit of a bias against it here. Not sure why. And I'm not sure how easy it is to grab just part of a Spring and add it into an otherwise only Java EE project.
+17:33 semiosis that's one of the main design goals of spring, that you can pick & choose what you need
+17:34 pdurbin  but to use Spring Security SAML I assume we'd need to adopt all of Spring Security
+17:35 semiosis unlikely
+17:36 semiosis you could probably do a minimal integration with spring security for authentication only & still use your own authz
+17:37 pdurbin  well, the suggestion is on the list. thanks
+17:37 semiosis yw
+18:50 pdurbin  Locust - A modern load testing framework - http://locust.io

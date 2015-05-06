@@ -1,0 +1,86 @@
+Time  Nick       Message
+08:25 prologic   no :)
+08:25 prologic   it shall have a good run again :)
+11:55 dotplus    actually, I think it's not a bad idea and worth a little consideration; it's simple (not much to break), plaintext (low bandwidth, easy to compress, easy to index/crawl/search)
+11:56 dotplus    and various other benefits not least of which is that gopherspace is not (currently) infested with spammers, (web)bugs and other malware.
+11:57 dotplus    I, for one, welcome our returning gopher underlords (with apologies to /.)
+12:05 prologic   I agree
+12:05 prologic   that's several of the reasons why I'm so in to it right now
+12:06 prologic   I'm finding the experience quite satisfying
+12:06 prologic   the fact that it's no infested with commercialism either is a big plus
+12:06 prologic   and a lot of websites are just so gawd awful it's not even funny
+12:09 dotplus    yep, even the ones that are lauded by the tech (in this case the webdev/webdesign) community are often awful in the sense of: difficult to use/read, heavyweight on the browser, frequent changes that disturb UX for no good reason and this last is my pet peeve: using (obscure) icons instead of just having *words*.
+12:12 dotplus    that last is a huge thing in the last few years. seriously, wtf? If you're using the web, except in a few special circumstances (that are important and should not be forgotten such as pre-literate children and various disabilities), you have to be able to read. That means *words* are an available mechanism for this communication medium.
+12:12 prologic   *nods*
+12:12 prologic   I agree
+12:12 prologic   being a visuall impaired person I find it extermely frustrating
+12:12 prologic   I believe Gopher (if done right with the right motivated folks) could have a big come back
+12:12 prologic   for what it was designed for
+12:13 dotplus    The trend towards icons for everything is very irritating.
+12:13 prologic   dissemination if information
+12:13 prologic   tell me about it
+12:13 dotplus    perhaps. My guess is that we'd need to write various converters which should prbably be dynamic so gateways in effect.
+12:13 prologic   even more irriating for me :)
+12:14 prologic   well not so much converters as such
+12:14 prologic   but what I've been doing is sraping things
+12:14 prologic   relvent things
+12:14 prologic   e.g:
+12:14 dotplus    gateways to content published to other-than-gopher
+12:14 prologic   gopher://arrow.shortcircuit.net.au/1/comics/dilbert
+12:15 prologic   I plan to scrape xkcd too at some point
+12:15 prologic   the script is really simple :)
+12:18 dotplus    brew search xli
+12:18 dotplus    No formula found for "xli".
+12:19 prologic   xli?
+12:20 prologic   if you're on OS X
+12:20 prologic   you want elinks
+12:20 prologic   brew edit elinks
+12:20 prologic   and throw in --enable-gopher
+12:20 prologic   then brew install elinks
+12:20 prologic   or FF + Overbite Add-on
+12:27 dotplus    in general, scraping is too labour intensive to be viable. For example, say I want to republish to gopherspace the content of some blog, I don't want to go webscrape each article, parse out the html, and store the content. I want to ask the server for a plaintext version of the content of just the article (not all the nav, widgets for login/commenting and whatever else).
+12:28 prologic   I agree
+12:29 prologic   this would normally be possible
+12:29 prologic   except that the Web is inherently broken
+12:29 prologic   and many (99.99%) of websites do not respect REST
+12:29 dotplus    the neogopher community would be best served by making contributions to popular blogging and other CMS such that they autoproduce or have HTTP APIs that either a) are gopher publishers/servers or b) can be queried by standard gopher server software in order to republish
+12:29 prologic   with content negotiation :(
+12:29 prologic   so the only solution to this that I can think of is to build a service
+12:30 prologic   that translate shitty websites into real content that can be served up by gopher
+12:30 prologic   in fact make a proxy that goes the other way around
+12:30 prologic   web -> gopher
+12:32 dotplus    not quite sure what you mean
+12:33 prologic   me neither :)
+12:36 dotplus    ok. then returning to the previous point, I was using lynx and when I navved to the dilbert link, it errored with "sh: xli not found"
+12:40 prologic   ahh
+12:40 prologic   when I use elinks ot opens images in display
+12:40 prologic   but that's because I have elinks configured that way
+12:41 prologic   https://gist.github.com/0ecd92dea875f1c516a1
+12:42 dotplus    so I rebuilt elinks with gopher support (`brew edit elinks`, add "--enable-gopher", as you said) and then `brew install --build-from-source elinks`. And then elinks asks me what I want to do with the file of type image/gif so I attempt to open with the command "open". Preview opens as expected, but without the image:(
+12:49 prologic   oh
+12:49 prologic   open %
+12:51 dotplus    yeah, "open %" was what I had. further investigation and using your example elinks.conf | sed 's/display/open/g', leaves me with Preview giving a permissions problem. elinks is writing the temp file to /var/tmp as mode 0600, which seems slightly surprising, but should be ok. but preview can't open it. I blame Apple.
+12:53 prologic   ahh
+12:53 prologic   yeah might be a bit of fiddling to get that right on OS X
+12:53 prologic   I blame both Apple and the Homebrew maintainers of elinks :)
+12:54 prologic   can you open /path/to/file otherwise?
+12:54 prologic   the temporary file that gets written out?
+13:02 prologic   cool
+13:02 prologic   I just configured elinks to automatically download and play audio files from gopherspace
+13:03 * pdurbin  checks his calendar
+13:03 prologic   hi pdurbin :)
+13:03 prologic   having fun are we/ :P
+13:04 pdurbin    ok ok, I still fire up elinks every once in a while
+13:04 prologic   lol
+13:04 prologic   good :)
+13:04 prologic   it's the best browser :P
+14:01 prologic   gopher://arrow.shortcircuit.net.au/1/~prologic/phlog
+14:01 prologic   sweet :)
+14:01 * prologic is writing a new phlog (Gopher Logging/Blogging) tool in Python
+14:01 prologic   :)
+14:02 prologic   new and list commands work
+14:02 prologic   now on to full text searching and archival :)
+16:51 semiosis   why don't you just use lynx/elinks to browse the web then ;)
+16:51 semiosis   oh never mind. reading further i see you got there on your own
+20:42 prologic   hehe
+20:42 prologic   I would except that the web is broken :)

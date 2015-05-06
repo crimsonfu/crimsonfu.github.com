@@ -1,0 +1,39 @@
+Time  Nick        Message
+00:01 melodie     pdurbin I noticed, you seem very passionate :)
+00:01 melodie     yes, and Perl too ! :D
+00:13 pdurbin     for me, YAML is a way to avoid having a database, but I am not nearly as anti-database as thse folks: http://indiewebcamp.com/irc/2013-05-20#t1369090799
+03:16 mhayden     JoeJulian: glad that less post helped ;)
+05:33 JoeJulian   http://major.io/2013/05/21/handling-terminal-color-escape-sequences-in-less/
+05:38 JoeJulian   It's not perfect, but it's sure a lot easier than what I normally try to read through.
+05:38 mhayden     JoeJulian: yeah, that -R flag helps
+05:39 JoeJulian   just learned about -r too.... that'll even let the cursor movements happen. Woot!
+05:40 JoeJulian   ... and you're still up? :)
+05:41 mhayden     i'm headed out now
+05:41 mhayden     finished migrating some VM's
+05:41 * mhayden   is afk
+05:42 JoeJulian   Goodnight Major.
+05:42 * JoeJulian heads for bed.
+10:06 pdurbin     oh yeah, less -R is great. sometimes I use --color with ack or grep before piping the output to less -R
+20:14 semiosis    if i had files starting with foo bar & baz in subdirectories (for ex /1/fooa /2/foob /2/bara /3/bazb) what single find command could return them all?
+20:15 semiosis    looking for something like find . -name '{foo,bar,baz}*'
+20:17 semiosis    am doing a silly bash for loop to do this, but it's so inelegant
+20:22 ben_e       find . -name 'foo*' -o -name 'bar*' -o -name 'baz*'
+20:22 ben_e       there should be a way to do it with a single regex as well
+20:23 ben_e       but i don't know that syntax off the top of my head
+20:31 semiosis    i was trying regex but after 10 minutes of fail i did a for loop
+20:31 semiosis    thanks ben_e!
+20:32 semiosis    <3 regex, but </3 regex parsers
+20:50 larsks      There is a -regex flag.  E.g., find * -regextype egrep -regex '.*(foo|bar|baz)'
+20:51 larsks      (it matches against the whole path, not just the filename)
+20:51 larsks      It defaults to emacs regex syntax. I have no idea what that means, hence -regextype.
+20:52 semiosis    ahhh regextype
+20:54 semiosis    boom, added -regextype egrep to my previous attempt and it worked great
+20:55 pdurbin     semiosis: what's the final command, please?
+20:56 semiosis    find . -regextype egrep -regex '.*(foo|bar|baz).*'
+20:57 larsks      Also: Note that -regextype must preceed -regex.  Which I guess makes sense, but I found out the hard way.
+20:57 pdurbin     semiosis: thanks. and thank goodness for `gfind` on mac via homebrew :)
+20:57 semiosis    heh i got lucky then
+20:57 semiosis    find . -regextype egrep -regex '.*/(foo|bar|baz).*'
+20:57 semiosis    with added / since i want the filename to begin with one of those strings, and -regex matches whole path
+20:59 semiosis    pdurbin: you mean you don't use sherlock?
+21:01 pdurbin     didn't sherlock get sherlocked? ;)

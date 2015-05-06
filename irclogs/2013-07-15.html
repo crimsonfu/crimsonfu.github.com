@@ -1,0 +1,19 @@
+Time  Nick         Message
+12:49 pdurbin      http://git-annex.branchable.com/assistant/ (git-annex assistant) sounds interesting: "creates a synchronised folder on each of your OSX and Linux computers, Android devices, removable drives, and cloud services"
+12:49 pdurbin      via http://episodes.gitminutes.com/2013/07/gitminutes-16-joey-hess-on-git-annex.html
+19:39 pdurbin      how come `curl -s http://www.w3schools.com/xpath/books.xml | xmllint --xpath //title -` returns some data but `curl -s https://thedata.harvard.edu/dvn/api/metadata/85531 | xmllint --xpath //titl -` gives me "XPath set is empty"?
+19:51 semiosis     pdurbin: --xpath //titl
+19:51 semiosis     really?  missing an 'e'
+19:52 pdurbin      semiosis: in https://thedata.harvard.edu/dvn/api/metadata/85531 you mean?
+19:53 pdurbin      semiosis: I'm working with what's there
+19:53 semiosis     oh i see
+19:53 semiosis     never mind
+19:53 pdurbin      :)
+19:54 pdurbin      semiosis: the question is about xpath, not the data itself :)
+19:54 pdurbin      the books.xml example comes from here: Your XML friend XPATH command line xmllint » Linux by Examples - http://linux.byexamples.com/archives/565/your-xml-friend-xpath-command-line-xmllint/
+19:55 semiosis     google firepath
+19:55 crimsonfubot https://addons.mozilla.org/en-US/firefox/addon/firepath/
+19:55 semiosis     pdurbin: check that out, it's an extension for firebug that will give you the xpath selector of an element
+19:59 pdurbin      semiosis: hmm. firepath is telling me "DDI:codeBook/DDI:stdyDscr/DDI:citation/DDI:titlStmt/DDI:titl" but with xmllist I get this... XPath error : Undefined namespace prefix
+20:02 pdurbin      semiosis: interesting tool though. thanks
+20:03 semiosis     yw, hth

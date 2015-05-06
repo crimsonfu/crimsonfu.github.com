@@ -1,0 +1,64 @@
+Time  Nick      Message
+13:55 pdurbin   does anyone have django running on centos under virtualenv?
+15:22 pdurbin   bah! permissions issue
+15:40 hydrajump bash remote execution vulnerability http://seclists.org/oss-sec/2014/q3/651
+15:56 pdurbin   yikes
+18:52 semiosis  http://s3-ec.buzzfed.com/static/2014-09/23/12/enhanced/webdr04/anigif_enhanced-4630-1411491004-1.gif
+18:52 semiosis  enjoy
+21:33 codex     details about the bash thing in one place: http://blog.vpetkov.net/2014/09/24/bash-remote-exploit-vulnerability/
+21:38 semiosis  meh
+21:38 semiosis  i dont always use bash, but when i do i 'curl | sudo bash'
+21:38 semiosis  brb, memeing that
+21:42 semiosis  codex: can you clear this up for me... in that post's example, is it intended for there to be an unmatched single quote?
+22:16 codex     semiosis: no, sorry -- wordpress "annoyances"
+22:16 codex     check now
+22:20 semiosis  i'm vulnerable!
+22:23 pdurbin   codex: can you make the links clickable?
+22:26 codex     if you are running bash -- chances are you are
+22:27 codex     pdurbin: yea, new version of wp is doing some really weird things
+22:27 codex     it looks nicer, but it's less functional
+22:28 semiosis  codex: bash all the things!
+22:28 codex     pdurbin: done
+22:28 codex     heh
+22:29 codex     pdurbin: btw, I have a scanner in AWS for this
+22:29 pdurbin   much better. thanks
+22:29 codex     if you have some external space, I can scan it
+22:29 codex     (for the cgi/http vuln)
+22:29 pdurbin   codex: I just have the one VM with you and sounds like you patched already
+22:30 semiosis  people still use CGI?
+22:30 codex     pdurbin: i don't patch people's vms -- due to, not having access to people's vms :)
+22:30 codex     pdurbin: but a simple "yum update" will get you there
+22:31 pdurbin   oh good
+22:34 hydrajump hi guys
+22:34 hydrajump codex: quick docker q. Are you running any databases in containers?
+22:36 codex     I am - not personally, but managing a few for different projects
+22:40 hydrajump codex: just trying to decide whether to run DBs in docker containers or on raw EC2.
+22:47 codex     i think it really depends. If you are going w/ the docker way for "custom" apps, it's great
+22:47 codex     i actually have a dual mysql setup. If within AWS -- docker is super easy b/c you get the site to site vpn and such
+22:47 codex     but having a dual mysql-cluster is actually pretty simple
+22:49 semiosis  why not just use RDS if you want mysql in ec2?
+22:50 hydrajump codex: do you setup iptables in each container as an extra layer of security?
+22:53 codex     yea -- you actually need it for the routing
+22:53 codex     between the "host" and the containers -- so that you can pop open dynamic ports on the outside
+22:54 codex     semiosis: you can -- this really becomes a portability/size of app/what the goal of the project/etc...
+22:54 codex     for my personal blog, i wouldn't get RDS
+22:54 codex     for a production setup, probably will
+22:56 hydrajump codex: are you using port binding to expose a containers ports to the outside or you're going and modifying the iptables directly? I'm still figuring out the networking of docker
+22:59 codex     hydrajump: sadly, the networking in docker is still "crapy" -- they really need a "routing" engine that lets you modify stuff on the fly easily. They have something like this already, but it's not great
+23:00 codex     so you can either use their "bind" to bind a port to a dedicated external, but if you are following the prefered setup -- and you are abstracting things -- you can't hard code ports. So then you would get the random port assigned, and end up iptabling that to the "host" VM
+23:01 codex     hydrajump: so for example, you can do the '-p 3306:3306' type of thing
+23:01 hydrajump ah so you do docker run -P codex/myapp and it will bind what EXPOSE ports you have such as 80 to 41900 on the host
+23:02 codex     or
+23:03 codex     MYSQL01_HOST=`docker inspect mysql01 | grep Addr | awk -F'"' {'print $4'}` && iptables -t nat -I PREROUTING -p tcp --dport 3306 -j DNAT --to $MYSQL01_HOST:3306
+23:03 codex     s/or/and ^^
+23:03 codex     that is the prefered method
+23:04 codex     hydrajump: correct about the expose. You "expose" them esentially, and then bind them w/ iptables
+23:04 codex     another method (totally different) is not to even have networking, and later add things to the specific bridge that you create w/ pipework, but again, currently the network state could be much better
+23:05 codex     and they are already working it out. I believe the next couple of releases will fix it completely. The big push was to realease a v1 so that companies that start incorporating the main stuff
+23:05 hydrajump so that  iptables command is modifying a rule on the host and not in the container?
+23:14 codex     correct
+23:15 codex     it's bridging your container (docker) with the host port so that stuff on the outside can communicate out. And if you think about it -- this is ONLY needed if 1.) you need someone from the outside to access mysql (in this case) OR if you want to create a cluster between multiple mysql instances
+23:15 codex     normally, you would use the "link" method to feed your MySQL instance to your webapp
+23:16 codex     or even if you don't use link, you would not expose the DB to the container, because generally it's not needed -- unless you need to replicate/cluster/etc...
+23:16 codex     gota run ttyl
+23:16 hydrajump bye codex

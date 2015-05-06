@@ -1,0 +1,20 @@
+Time  Nick      Message
+06:59 GWG       Okay. I have 4 3TB drives now. Need to decide. I have RAID 5 or RAID 6 to consider
+12:31 pdurbin   RAID 6 sounds fancy.
+12:58 bene      two parity volumes
+12:59 bene      do you really have a need for a single filesystem?
+13:39 pdurbin   bene: happy new year! welcome back
+14:32 bene      happy new year to you too
+14:32 bene      it's odd that you messaged me the irc logs link yesterday and semiosis and bear were discussing xmpp
+14:33 bene      since i set up openfire this week and have been trying to get it working as an internal chat solution
+14:33 bene      . o O ( it's not a technology... it's a solution. )
+14:33 * pdurbin used to help run openfire a bit
+14:50 dotplus   GWG: have you considered zfs as an alternative to lvm/mdadm? I think it's easier to deal with and it has a few nice features that you might like. zfs send|receive to migrate data is very convenient.
+15:17 larsks    dotplus: also, the fact that ZFS is one of the only filesystems that ensures data integrity on disk.  Just about everything else will silently ignore on-disk corruption.
+15:34 dotplus   larsks: yeah, that was one of the features that I had in mind with "that you might like":)
+15:36 GWG       I'm happy with ext4
+16:19 semiosis  bene: i really disliked openfire
+16:20 semiosis  bene: so i switched to ejabberd, which was fine as long as i could run it on shared storage.  without shared storage it's a pain in the ....
+16:21 semiosis  but as of yesterday we're switching to slack.  i tried hipchat but it just isn't up to par
+16:30 bene      we have AD for user accounts, so the option to hook up openfire to AD and get all the users/groups with no extra config is a big win
+16:46 semiosis  pdurbin: pm?

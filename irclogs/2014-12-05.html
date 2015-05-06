@@ -1,0 +1,27 @@
+Time  Nick       Message
+14:43 pdurbin    "that thought is pd(ist)urbin" -- http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2014-12-05#i_3515086
+15:45 pdurbin    hmm. web is down for me but irc is ok. how about you, codex or whorka ? (and where did all the crimson people go?)
+15:59 whorka     seems like it might be internal dns
+16:00 * pdurbin  agrees
+16:01 * pdurbin  wonders if 8.8.8.8 is still a thing
+16:02 pdurbin    guess so. much better :)
+17:13 pdurbin    whorka: yep. "DNS" http://services.huit.harvard.edu/status-dashboard/note/1586
+20:30 tfhartmann anyone using consul or any other service discovery tools?
+20:50 pdurbin    whoa. "Harvard University is experiencing internet outages across campus." http://www.harvard.edu/emergency
+20:53 pdurbin    searchbot: lucky consul software
+20:53 searchbot  pdurbin: http://www.consul.io/intro/vs/
+20:55 pdurbin    huh. so vs. zookeeper, nagios, sensu and an bunch of things I've never heard of like Serf
+20:56 pdurbin    tfhartmann: is it awesome?
+20:57 tfhartmann well, so far I really like consul, I have a small 2 node server set up
+20:57 tfhartmann er 3 node
+20:58 tfhartmann trying to decide where all to use it, and how. My reason for setting it up at all was to use it for Docker container registration and discover
+21:12 larsks     tfhartmann: hah, funny, I just booted up consul for the first time today.
+21:13 tfhartmann larsks: great mind thing alike?
+21:13 larsks     Somethink like that.
+21:13 tfhartmann although my mind apparently can't type
+21:14 larsks     I've also used just plain etcd for service registration/discovery.  I am partly interested in consul's "event" support.
+21:18 tfhartmann oh hey... and I just noticed it has remote execution too... thats pretty spiff
+21:48 larsks     Ooo, this is a good article.  It claims to be about Java, but it's not just about Java: http://www.jamesward.com/2014/12/03/java-doesnt-suck-youre-just-using-it-wrong
+22:21 codex      pdurbin: yep
+22:21 codex      pdurbin: there should've been a note or something
+23:37 pdurbin    codex: a note to use 8.8.8.8? that tip spread like wildfire 'round here

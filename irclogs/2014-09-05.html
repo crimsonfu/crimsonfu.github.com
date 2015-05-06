@@ -1,0 +1,56 @@
+Time  Nick        Message
+12:27 pdurbin     I'm somewhat fascinated by the markdown controversy.
+12:28 pdurbin     and it's interesting to see how the various implementations don't produce the same HTML: http://johnmacfarlane.net/babelmark2/?normalize=1&text=-+one%0A-+two%0A%0A*+buckle%0A*+my+shoe
+12:29 pdurbin     er. this is a better example... when you switch from ul to ol in the same markdown: http://johnmacfarlane.net/babelmark2/?normalize=1&text=1.+one%0A2.+two%0A%0A*+buckle%0A*+my+shoe
+12:31 pdurbin     see also http://standardmarkdown.com which maybe will get a name change
+12:35 pdurbin     sivoais: having to put links in <> like you do drives me crazy... it's part of the spec: http://talk.standardmarkdown.com/t/autolinking-is-not-automatic/73
+12:37 pdurbin     I was just looking at http://tantek.com/w/Markdown and I agree with some of the weirdness of markdown
+12:38 pdurbin     - Asterisk demarcation for italic (never what I've seen it mean in plain text email).
+12:38 pdurbin     - 2. No-one uses double asterisks or underlines in plain text email to mean something specific. It just looks like a typo.
+12:46 pdurbin     I'm kind of curious to try asciidoc. Tweeted a bit about this last night: Philip Durbin on Twitter: "@mojavelinux your "Documentation is too important to be based on a language with no formal grammar" is a great point." - https://twitter.com/philipdurbin/status/507775718051557376
+13:13 pdurbin     I do like that markdown is inspired by plain text email. I just think it's slightly off.
+15:41 sivoais     hehe, pdurbin, you went back in time to make that reply? :-D I do that sometimes.
+15:50 semiosis    imho they shouldn't call it markdown, that's gruber's name, regardless of any legal documentation.
+15:50 semiosis    call it markd0wn, writedown, or markbelow, whatever
+15:52 semiosis    otoh, why doesn't gruber support the effort?  can't get my head around that
+16:54 pdurbin_m   semiosis: for Gruber's reasoning: https://overcast.fm/podcasts/episode/344902019595#t=4527
+16:55 pdurbin_m   which is http://daringfireball.net/thetalkshow/2014/07/19/ep-088
+16:56 pdurbin_m   via https://plus.google.com/u/0/109132032588648589691/posts/6pCMzLZMu8i
+16:56 pdurbin_m   via http://indiewebcamp.com/irc/2014-09-04/line/1409863039547
+16:58 semiosis    summary: some people see the world as broken because there's so many flavors of markdown.  meanwhile in the world, people are happily using markdown all over the place, so there's no problem.
+17:02 pdurbin_m   more or less. Atwood and Gruber have different needs
+17:02 pdurbin_m   Gruber is always going to eyeball the rendered HTML before he posts
+17:03 pdurbin_m   Atwood wants absolute consistency of output across markdown implementations
+17:04 semiosis    my response to gruber would be... so you take your markdown & convert it to html... then do you check that the generated html looks the same in all browsers?
+17:04 semiosis    if it doesn't, then aren't you bothered?  and if it does, then aren't you glad there's a standard for that?
+17:05 semiosis    i should tweet that
+17:05 semiosis    you heard it here first!
+17:06 pdurbin_m   I doubt he does.
+17:07 pdurbin_m   and I doubt he would be bothered
+17:07 semiosis    because all he uses is safari on his mac
+17:07 pdurbin_m   heh
+17:08 pdurbin_m   good enough. ship it!
+17:08 semiosis    i dont mean it literally, but as a thought experiment... that he's satisfied with markdown because he knows the html will look consistent because it is a standard
+17:08 semiosis    (mostly)
+17:09 pdurbin_m   once it's HTML it's the browser's job
+17:10 pdurbin_m   I doubt Gruber does weird things with markdown. Much more variety across stackoverflow posts, I'm sure.
+17:12 pdurbin_m   Atwood and GitHub should call their thing GitDown.
+17:12 * pdurbin_m sings
+17:12 semiosis    boogie oogie
+17:18 pdurbin_m   the only weird thing I do with markdown is assume I don't have to put <> around my links. so maybe the new thing is not for me
+17:19 semiosis    GitDown is a great name, you should trademark that!
+17:19 pdurbin_m   Example 405 http://google.com ... not autolinked :( http://jgm.github.io/stmd/spec.html#autolinks
+17:20 pdurbin_m   sivoais: I just can't be like you. ;)
+17:20 pdurbin_m   I hear all the git docs are in asciidoc.
+17:24 sivoais     yep, asciidoc <https://github.com/git/git/tree/master/Documentation>
+17:24 sivoais     GitDown++
+17:27 pdurbin_m   semiosis: I saw gitdown on Twitter. not my idea
+17:27 semiosis    all the more reason to trademark it quick
+17:47 pdurbin_m   nice post: http://scripting.com/2014/09/05/emailToGruber.html
+17:52 pdurbin_m   anyway, I see both sides
+17:52 pdurbin_m   but Atwood should simply give on the name
+17:52 pdurbin_m   call it SpecDown or something
+17:53 pdurbin_m   there was a great tweet about sand castles
+17:59 pdurbin_m   Check out @JamesDeacon's Tweet: https://twitter.com/JamesDeacon/status/507683360173731840
+18:00 pdurbin_m   Kid builds castle. Other kid says 'hey, you've done it wrong, get out the way and let me show you what your castle should be' #Markdown
+18:25 JoeJulian   MarkedDown

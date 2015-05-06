@@ -1,0 +1,130 @@
+Time  Nick         Message
+01:51 pdurbin      ah
+10:05 pdurbin      holy crap. I think I fixed it! with firmware!
+10:05 pdurbin      X220 Touchpad jumpy response when used with 90w slim AC adapter - Firmware update http://forums.lenovo.com/t5/X-Series-ThinkPad-Laptops/X220-Touchpad-jumpy-response-when-used-with-90w-slim-AC-adapter/ta-p/766543
+10:06 pdurbin      via Lenovo ThinkPad Laptop – Jittery/Jumpy Touchpad | Ray Woodcock's Latest - http://raywoodcockslatest.wordpress.com/2012/12/09/lenovo-thinkpad-jittery-touchpad/
+10:07 pdurbin      lots of other stuff posted about this: "Using Ubuntu 12.04, 64-bit version, installed on Lenovo X220 laptop. Fresh "default" install and settings configuration. When the laptop is plugged into a power source, the touchpad's onscreen cursor (the white arrow that shows position) shakes excessively when trying to use the touchpad to control the cursor." -- Bug #1028617 “Cursor shakes violently when
+10:07 pdurbin      connected to power so...” : Bugs : “xserver-xorg-input-synaptics” package : Ubuntu - https://bugs.launchpad.net/ubuntu/+source/xserver-xorg-input-synaptics/+bug/1028617
+10:08 pdurbin      random mouse clicking
+10:08 pdurbin      cursor jumping
+10:09 pdurbin      hopefully those are enough keywords so other people can find the solution. this has been driving me crazy
+10:09 pdurbin      more crazy :)
+11:46 mhayden      pdurbin: yeah, that's frustrating on the new lenovo models too (the ones without any mouse buttons)
+11:46 mhayden      i saw a post about someone complaining about a T440 for that reason
+11:56 pdurbin      mhayden: I was losing my mind. All this clicking happening without me doing anything
+11:56 mhayden      yeah, i tossed windows 7 on my X1 just to see if i was totally nuts and it was like i had a totally different trackpad
+11:56 mhayden      it totally behaved itself
+11:57 pdurbin      EXACTLY
+11:57 pdurbin      and can you imagine me bringing it in?
+11:57 pdurbin      "um. sir, just reboot into windows. goodbye!"
+11:58 pdurbin      mhayden: to be clear, I didn't actually use anything on your post (though I did play with those settings a bit). The fix was a firmware update
+12:54 mhayden      ah okay, i'm not sure if my X1 has a firmware update
+14:39 skay         pdurbin: it's probably not copacetic for me to use swear words in dvn so, speaking of databases and key value stores, http://howfuckedismydatabase.com/
+14:39 skay         I love that site
+14:39 skay         http://howfuckedismydatabase.com/nosql/
+14:40 skay         please let me know if it is also not copacetic here
+14:49 pdurbin      it's all good
+14:49 * mhayden    is so extraordinarily offended
+14:49 mhayden      :)
+14:55 skay         okay whew.
+14:55 skay         :)
+15:04 pdurbin      skay: you can even start a python vs. perl debate... like old times in here :)
+15:08 skay         country or western (blues brothers)
+15:08 skay         vim or emacs
+15:10 skay         executable line noise versus executable pseudocode
+15:11 skay         one problem versus two problems
+15:11 skay         http://www.jwz.org/blog/2011/11/you-doom-us-all-to-inhuman-toil-for-the-one-whose-name-cannot-be-expressed-in-the-basic-multilingual-plane/
+16:01 larsks       Any fasrc folks hanging around right now?
+17:26 JoeJulian    mhayden: "Your password must contain..." regardless of entropy?
+17:50 mhayden      JoeJulian: what?
+17:50 JoeJulian    I just had to change a password at RS. It didn't like my more-secure really-long password and made me choose one that had mixed case.
+17:51 JoeJulian    entropy > mixed-case...
+17:52 JoeJulian    mhayden: Do you use/recommend any sort of password-keeper and if so, which one?
+17:56 mhayden      JoeJulian: i'm partial to lastpass
+17:57 mhayden      i feel like i get the best security/usability balance with it
+18:06 larsks       I use GPG + a text file :)
+18:23 semiosis     post-its on the monitor
+19:23 pdurbin      larsks: welcome back!
+19:25 pdurbin      sjoeboo: you too :)
+19:25 sjoeboo      larsks: you were looking for someone fasrc ?
+19:29 larsks       Yes! Is that you?
+19:30 larsks       pdurbin: Hi! :)
+19:30 sjoeboo      yepppp
+19:31 larsks       sjoeboo: Do you know anything about rchelp.fas.harvard.edu?  It appears to account for, like, 80% of the requests to the RDO software repositories at http://repos.fedorapeople.org/ and we're trying to figure out who to contact...
+19:32 sjoeboo      oh yeah, that would be me/us
+19:32 sjoeboo      that, @ the moment, accounts for an ourbound proxy server
+19:32 sjoeboo      which out internal mirror system exgresses through
+19:32 sjoeboo      should just be an rsync hourly.
+19:33 sjoeboo      but one of the other guys setup the rdo one...lets see...
+19:33 larsks       No, this is something doing recursive HEAD and GET requests against the site; not rsync.
+19:33 larsks       Around 800,000 requests/day.
+19:33 sjoeboo      ugh, okay
+19:33 sjoeboo      this is this tangental team to us, need to track those guys down.
+19:34 larsks       Okay.  The RDO repositories don't update all that often, so the mirror could be cranked down a chunk and still keep things reasonably up to date.
+19:35 sjoeboo      yeah, no, this is/was some falks not directly on our team half-assed setting some stuff up...i'll track them down.
+19:35 larsks       Thanks.
+19:38 sjoeboo      found it, it'll stop, might resume @ some point but in a much nicer way.
+19:38 sjoeboo      if it happens again, or you've got any questions for us, help@fas.harvard.edu will get the whole group
+19:38 sjoeboo      wait
+19:38 sjoeboo      rchelp@fas.harvard.edu
+19:38 sjoeboo      durrr
+19:42 larsks       sjoeboo: Awesome!
+19:44 larsks       sjoeboo: If it helps, we can probably enable rsync mirrors.  If someone is interested they can contact me at lars@redhat.com.
+19:44 sjoeboo      okay cool
+19:53 semiosis     pdurbin: you're at IQSS right?  havent had a chance to read the article yet but noticed an IQSS mention here: http://harvardmagazine.com/2014/03/why-big-data-is-a-big-deal
+19:55 pdurbin      semiosis: yep: http://www.iq.harvard.edu/people/philip-durbin
+19:55 pdurbin      I'm slowing working through that article. It's a good one
+21:05 pdurbin      since I'm an employee, I get the print version at home
+22:11 pdurbin      speaking of fasrc, nice to see https://github.com/fasrc/openauth-puppet/issues/1 and use of travis, which I've been meaning to try
+22:17 pdurbin      semiosis: do you use travis?
+22:23 semiosis     pdurbin: https://travis-ci.org/semiosis/glusterfs-java-filesystem
+22:24 semiosis     yes i do
+22:24 pdurbin      ooooh, maven even
+22:24 pdurbin      this gives me hope I can get it to poop out a war
+22:24 semiosis     yep, it even installs a deb from a PPA before running the tests!
+22:25 semiosis     pdurbin: the hard part is what should it do with the WAR
+22:25 pdurbin      yeah
+22:25 semiosis     you'll need to do some fancy stuff to set up a secure upload from travis to wherever without disclosing the credentials publicly
+22:26 semiosis     there's docs on how to do it
+22:26 pdurbin      well, for starters, how about it runs checkstyle or something. and builds the war. baby steps
+22:26 semiosis     fwiw, my .travis.yml - https://github.com/semiosis/glusterfs-java-filesystem/blob/master/.travis.yml
+22:27 semiosis     one cool thing was the catlogs.sh (not my invention, got the idea from somewhere else)
+22:27 pdurbin      semiosis: thanks, I was just looking at that... that's all you need?
+22:27 semiosis     yep, and connect travis with github to run after a push
+22:27 pdurbin      nice
+22:29 pdurbin      semiosis: does it have to be a push? instead, can travis host the war file? then I pull it down and deploy it into my app server?
+22:30 semiosis     usually you'd have maven push the thing somewhere
+22:30 semiosis     there's plenty of options for that
+22:30 semiosis     maven wagon plugins
+22:30 semiosis     i like the s3 wagon plugin
+22:30 semiosis     lets maven upload to an s3 bucket
+22:31 pdurbin      sure. but with jenkins I can just download the war file from each build
+22:31 semiosis     eh, the power of maven comes from using maven
+22:32 semiosis     i doubt travis will save artifacts for you
+22:32 semiosis     but maybe
+22:32 pdurbin      ok
+22:32 pdurbin      makes sense. it would eat up a lot of their disk space
+22:33 semiosis     also ripe for abuse
+22:33 pdurbin      yeah
+22:40 semiosis     pdurbin: did you ever set up a nexus repo?
+22:40 semiosis     that's the ultimate place to store the artifacts
+22:40 pdurbin      nope :(
+22:40 semiosis     but of course the most sophisticated
+22:41 pdurbin      none of our ops guys are in here. can't ask them again if they'll set it up for me ;) ... I do have a ticket for it
+22:41 semiosis     wagon ftp is probably the absolute simplest, though i never have used it... https://maven.apache.org/wagon/wagon-providers/wagon-ftp/
+22:42 pdurbin      is there free nexus hosting for lazy people?
+22:42 semiosis     sonatype OSSRH, which feeds into maven central
+22:42 semiosis     i just signed up for that for the gluster java project
+22:42 pdurbin      orly
+22:43 pdurbin      crimsonfubot: lucky sonatype ossrh
+22:43 crimsonfubot pdurbin: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
+22:43 pdurbin      "Sonatype OSSRH (OSS Repository Hosting Service) uses Nexus to provide Maven repository hosting service for open source projects: https://oss.sonatype.org "
+22:43 pdurbin      semiosis: now you tell me! :)
+22:44 semiosis     yeah, that
+22:44 semiosis     you never asked!
+22:44 semiosis     (iirc)
+22:44 pdurbin      :)
+22:45 pdurbin      oh, that reminds me. our designer signed up for pagekit recently. also free for open source
+22:45 pdurbin      er. pagekite
+22:46 semiosis     curl | sudo :(
+22:48 semiosis     afk

@@ -1,0 +1,30 @@
+Time  Nick       Message
+17:03 semiosis   from #gluster, [12:54] <JoeJulian> btw, semiosis, I officially hate ubuntu more than ever and consider it to be the least server friendly distro of any known distro.
+17:03 semiosis   this seems a more appropriate channel
+17:04 semiosis   JoeJulian: please do go on.  what specifically got you so worked up?
+17:04 JoeJulian  Well, I suppose that's true....
+17:05 JoeJulian  I love how, on a headless server, if there's a broken raid initramfs will drop you to a shell regardless of whether or not the raid is a necessary component to the operating system.
+17:07 semiosis   JoeJulian: add 'nobootwait' to the fstab for that mount?
+17:08 semiosis   or perhaps 'optional' is the right modifier.  see fstab(5), last para
+17:08 semiosis   for the 4th field
+17:09 JoeJulian  I looked through the code that produces the initrd file with initramfs_update and there is nothing to allow that to be bypassed.
+17:10 semiosis   hmm ok if you say so.  i haven't had to roll my own initrd in a long time
+17:10 JoeJulian  The only way I'm able to fix it is to remove the bits added by the mdadm_tools package
+17:13 semiosis   JoeJulian: so even if this raid isn't in fstab, it still drops to shell?
+17:13 JoeJulian  yep
+17:19 JoeJulian  ... and in other news, did you hear that James Dyson might be leaving the company he founded?!?!?!?
+17:20 * semiosis waits for the punch line
+17:20 JoeJulian  ... I'm worried it will create a dangerous power vacuum.
+17:20 semiosis   nice
+21:01 ironcame1  pdurbin: is there still a #codefu channel?
+21:10 pdurbin    ironcame1: #sourcefu, yes
+21:13 pdurbin    JoeJulian: don't get mhayden started about ubuntu/debian: http://major.io/2014/06/26/install-debian-packages-without-starting-daemons/
+21:18 mhayden    oh sheesh
+21:18 JoeJulian  hehe
+21:20 mhayden    the argument is that the daemons are okay to start because they're configured to listen on localhost or whatever
+21:21 mhayden    but since you'd rarely go into prod like that, why start them <-- my question
+21:21 JoeJulian  amen
+21:42 * Whoop    has whinged about this for years
+21:42 Whoop      but owell, if you're using daemons on a server you're using a config management system, so its easy to turn off auto start....for the minority of daemons that allow you turn off, grunt
+21:52 JoeJulian  The easiest way to do that is to use centos. ;)
+23:20 pdurbin    ironcame1: you've got some YAPC tidings for us?

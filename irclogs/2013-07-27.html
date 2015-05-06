@@ -1,0 +1,27 @@
+Time  Nick    Message
+14:52 pdurbin dotplus: I've worked in environments with mysql replication set up but failover has been manual... promotion of a slave... not especially pretty
+14:58 pdurbin dotplus: look like we talked about this before: http://irclog.perlgeek.de/crimsonfu/2012-09-27#i_6022862 :)
+14:58 pdurbin looks*
+15:01 pdurbin dotplus: I still want someone to try out the mysql autofailover stuff with Scalr and report back about if it's any good: http://irclog.perlgeek.de/crimsonfu/2012-07-18#i_5824414
+15:04 pdurbin "Scalr-managed infrastructure automatically recovers from failures such as server, disk, network, and datacenter ones." -- http://www.scalr.com/how-it-works/
+17:43 dotplus pdurbin: ah yes, scalr sounds interesting, but we don't have a cloud to manage (yet? we have a project started that's is looking into getting going in that direction. but it's .gov and glacial), and we can't use public cloud
+18:42 pdurbin dotplus: ah, so you'll be rolling your own solution. You might want to try paying attention to http://en.wikipedia.org/wiki/Sheeri_Cabral ... I attended a great talk by her about MySQL backups and she is a co-host of this podcast: http://www.oursql.com
+18:45 dotplus yeah, I've read her a fair bit over the years. think I've probably met her at LISA.
+18:46 dotplus at the moment, I think we're leaning towards percona xtradb cluster if there aren't any dealbreakers limitations for our environment
+18:47 dotplus good to hear about oursql. although, I'm not a huge fan of audio/video. text is just so much more infodense and searchable.
+18:48 dotplus but that's probably pertinent enough that I should listen to it all
+20:49 joshu   hi
+20:50 melodie hi JoeJulian
+20:50 melodie hi joshu
+20:51 melodie the present chan is also logged, so you can ask your question and stay logged : once someone will see your question either here
+20:51 melodie or in the logs, they will answer if they can
+20:51 joshu   I've been struggling all day with a way to pass the username and password from the lightdm login greeter to the desktop file Exec= command line. I've tried to use PAM but I can't get further than echoing the username and password to a text file.
+20:51 joshu   hi melodie
+20:51 melodie joshu you might want to start with explaining what project you are working on
+20:51 melodie for the people here have no idea about it yet
+20:52 melodie and a desktop file "Exec=" command line does not give any information about which desktop file it is about
+20:52 melodie so please try to be precise
+20:53 joshu   to give some context all I'm trying to do is have the user login to the lightdm greeter and then execute xfreerdp to give the user an RDP session.
+20:54 joshu   I have this working BUT the user has to login twice. Once at the ubuntu lightdm greeter and the second time in Windows. xfreerdp has two arguments /u: and /p: where you can give it the username and password, respectively which will be used to login to Windows. I'm trying to figure out a way to pass these two values from the UBuntu lightdm greeter.
+20:58 melodie good night !
+20:58 melodie joshu keep eyes to the topic: " logs at http://irclog.perlgeek.de/crimsonfu/today"

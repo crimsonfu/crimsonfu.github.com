@@ -1,0 +1,29 @@
+Time  Nick     Message
+14:54 pdurbin  is this a good place to buy SSL certs from? https://www.namecheap.com/security/ssl-certificates/comodo.aspx
+15:14 shuff    Comodo is the certificate authority that HUIT uses; they have a management interface that's not horrible
+15:15 shuff    i heard a bunch of good stuff about NameCheap a little while back when there was a big furor about moving away from GoDaddy
+15:15 shuff    thank you for reminding me about them; i keep meaning to make that move myself
+15:30 pdurbin  $9 per year for an SSL cert seems like a good price
+15:56 semiosis pdurbin: namecheap is great.
+16:08 pdurbin  good to know
+22:32 semiosis i am in need of a sequential json parser in php (a la SAX)
+22:34 semiosis a ha! https://github.com/salsify/jsonstreamingparser
+22:35 semiosis with composer & travis :D
+22:37 pdurbin  yeah, typically I'd call it a "streaming" parser
+22:38 semiosis thats what i thought to but then the wikipedia page for SAX called it sequentail
+22:38 semiosis hrm
+22:38 semiosis s/to/too/
+22:38 semiosis meh, brain fried today
+22:38 semiosis moving apartments on top of already busy schedule
+22:39 semiosis for some strange reason i find working with streaming parsers really fun
+22:39 semiosis the tree, the stack, feels like real core CS stuff
+22:39 pdurbin  :)
+22:40 pdurbin  this guy calls non-stream "conventional" http://coldattic.info/shvedsky/pro/blogs/a-foo-walks-into-a-bar/posts/55
+22:40 pdurbin  but there's probably a better term for it
+22:40 pdurbin  "slurp" or something :)
+22:40 semiosis well in XML it's streaming vs DOM
+22:40 pdurbin  yeah, that's what he says
+22:40 semiosis which i think works just as well for JSON, if you consider JSON documents
+22:41 pdurbin  hmm. I never thinking of JSON as a DOM
+22:41 semiosis pocketing this post.  too much xml for right now
+22:43 pdurbin  :)

@@ -1,0 +1,15 @@
+Time  Nick     Message
+13:13 dotplus  jimi_c: is www.cobblerd.org itself on github? the last section of /community.html refers to the old site's layout, I think
+13:14 jimi_c   dotplus: it is, and you're right, i'll fix that
+13:15 dotplus  heh, that was why I was asking whether it was on gh, I was gonna fix it for you, but that's ok.
+13:16 dotplus  I'll go back to reading your docs instead:)
+13:17 jimi_c   oh, yeah it's cobbler/cobbler.github.com, so if you find any other typos in the manuals just let me know (and ask me in #cobbler so we don't spam up pdurbin's channel :))
+13:17 pdurbin  jimi_c: did you ever set up logging?
+13:17 jimi_c   no, my time was limited before and then i had twins... :)
+13:17 pdurbin  you can chat here, then
+13:18 dotplus  sorry, /me joins #cobbler
+13:18 jimi_c   pdurbin: ok, just didn't want to intrude, some ops don't like when their channels get hijacked
+13:19 pdurbin  meh
+13:22 jimi_c   dotplus: the one thing to know about sending patches for the website is that most everything is in _dynamic since I use several jekyll plugins (which github doesn't allow)
+13:22 jimi_c   so you need to edit the files in _dynamic, run the generate_dynamic.sh script and then add both the .md and resulting .html files in your git commit
+13:23 * jimi_c hates jekyll --safe

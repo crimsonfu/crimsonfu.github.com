@@ -1,0 +1,119 @@
+Time  Nick         Message
+01:37 hydrajump    Just came across this service https://waffle.io/ pretty cool idea
+02:01 pdurbin      "Why don't you open source your workflow?"
+02:01 * pdurbin    looks at https://waffle.io/waffleio/waffle.io
+02:02 pdurbin      so this is making a trello board from github issues, right? like https://huboard.com/researchcompendia/researchcompendia
+02:02 pdurbin      skay: ^^
+02:03 pdurbin      unrelated: forcing https with apache
+02:03 pdurbin      https://wiki.apache.org/httpd/RewriteHTTPToHTTPS totally works and is easy but there's a somewhat scary note saying "Using mod_rewrite to do this isn't the recommended behavior. See RedirectSSL" ... wondering how scared I should be
+02:33 skay         pdurbin: yes sort of
+02:33 skay         kanban style
+12:59 PaxIndustria morning
+12:59 pdurbin      mornin'
+13:15 hydrajump    afternoon ;)
+15:54 dotplus      pdurbin: wrt. redirect/rewrite to https, why is that scary? Are they not both valid methods?
+15:58 pdurbin      dotplus: I think mod_rewrite is fine. But why is there FUD on that page? Is it not fine?
+16:01 ben_e        redirect will eventually cause the crawlers to drop the non http page from their indexes
+16:02 ben_e        if you really want the canonical URL to be https, then you should use a permanent redirect
+16:03 pdurbin      hmm. ok
+16:08 codex        pdurbin: i actually prefer o/s, but only when functionality is not harmed
+16:08 codex        and usually this is the case
+16:08 codex        but there are a few exceptions where o/s limits you
+16:11 pdurbin      the vagrant guy complains about the limitations of virtualbox too
+16:11 pdurbin      well, maybe not complains. but prefers vmware
+16:56 codex        win 24
+17:25 ben_e        http://wiki.nginx.org/Pitfalls#Taxing_Rewrites <- the nginx docs opinion
+18:16 pdurbin      ben_e: the nginx opinion is that mod_rewrite is fine?
+18:20 ben_e        no, it's the "i have a problem; i know i'll use regexes" == two problems opinion
+18:25 pdurbin      oh
+18:25 pdurbin      huh mod_ssl doesn't seem to be enabled by default on mac: http://blog.andyhunt.info/2011/11/26/apache-ssl-on-max-osx-lion-10-7/
+18:26 pdurbin      seems to match the answer at http://superuser.com/questions/73979/how-to-easily-create-a-ssl-certificate-and-configure-it-in-apache2-in-mac-os-x
+18:27 pdurbin      codex: I know, I know... just do all this in docker, right? :)
+18:41 ben_e        what are you doing?
+18:41 ben_e        modifying the system daemons on a mac is a fool's errand
+18:42 ben_e        No Good Will Come Of This, pdurbin!
+18:42 * ben_e      shakes his hoary UNIX fist
+18:42 pdurbin      ben_e: heh. on sec and my message should hit the archive
+18:42 pdurbin      ben_e: NativeSPMacInstall, homebrew - http://shibboleth.net/pipermail/users/2014-April/014907.html
+18:54 pdurbin      ben_e: it's ok to feel sorry for me
+18:56 ben_e        i pity the fool!</mr_t>
+18:57 pdurbin      heh
+18:57 ben_e        do people run production deployments of DVN on os x?
+18:57 pdurbin      hell no
+18:57 ben_e        so why develop on it?
+18:57 pdurbin      I mean, they've tried
+18:57 pdurbin      and we've helped them
+18:58 pdurbin      ben_e: what should I develop on instead?
+18:58 ben_e        build a vagrant dev env and then make dev look as closely like prod as possible
+18:58 ben_e        use the vbox folder sharing to export your src dirs into the vagrant vm
+18:58 pdurbin      ben_e: and run my IDE (netbeans) inside vagrant?!1
+18:58 ben_e        so you can use Eclipse against your local src code
+18:59 ben_e        but the build artifacts will run inside the VM
+18:59 pdurbin      or inside docker, if I go that route
+18:59 pdurbin      codex: isn't that the idea?
+18:59 ben_e        meh
+19:00 pdurbin      we need a "tools" team to set all this up for us
+19:00 ben_e        i should demo our django dev set up
+19:00 ben_e        it's basically that idea
+19:01 ben_e        with ansible playbooks that you can point at dev/staging/production to drive deployment, updates, etc
+19:03 pdurbin      ben_e: yes! please come give a tech talk: https://lists.iq.harvard.edu/mailman/listinfo/techtalkfollowup
+19:35 codex        pdurbin: hm?
+20:00 pdurbin      codex: right now we all work on (java) code and deploy into glassfish (a java ee container/server like jboss) running on our macs. what would you do?
+20:39 codex        oh interesting
+20:39 codex        i could see docker being used for cheap containers for a dev env
+20:39 codex        every time you need a server - use a container
+20:40 codex        but the best part - you can trigger it into your deployment system
+20:40 codex        so when you check code into svn/git - it can run it through jenkins, and deploy a container at the end
+20:42 pdurbin      some more thoughs on this here: http://irclog.perlgeek.de/shibboleth/2014-04-02
+20:44 codex        heh
+20:44 codex        i love the first line
+20:44 pdurbin      :(
+20:44 pdurbin      ;)
+20:45 codex        i agree about os x being suck for dev env.
+20:45 pdurbin      meh. it's fine for java
+20:45 codex        i attempted at one point to get the full lamp stack, and all this extra stuff
+20:45 codex        but it's such a pain in the ass
+20:45 pdurbin      codex: what should i use for java dev? linux? windows?
+20:45 codex        idk
+20:46 codex        i've never been a SERIOUS java dev
+20:46 pdurbin      exactly :)
+20:46 codex        only place was for 1 year
+20:46 codex        writing the GSD plotter system
+20:46 codex        and i used eclipse
+20:46 codex        and made it work
+20:46 codex        the rest of the stuff - i've been using vim
+20:46 codex        and this was back like in '06
+21:31 skay         ben_e: I'd like to see your django deployment setup
+21:32 skay         pdurbin: this will be annoying, but one thing you can do is perhaps have a shared mounted volume so that you can edit your source code outside of the vagrant box?
+21:32 skay         that is a bunch of meh for me, so I don't end up doing it
+21:33 skay         and for me as a java dev, I used os x and centos
+21:36 pdurbin      at home i write java on fedora
+21:37 skay         pdurbin: btw, http://www.csie.ntu.edu.tw/~b01902112/9007199254740992/
+21:37 pdurbin      lordy
+21:37 pdurbin      my whole family is addicted
+21:37 pdurbin      JoeJulian: ^^
+21:39 JoeJulian    hehe
+21:40 JoeJulian    Troublemaker
+21:40 skay         pdurbin: oh, I should get the rest of my family addicted
+21:40 skay         good idea
+21:41 pdurbin      skay: not your 7 year old. she'll keep asking to play
+21:41 pdurbin      (if you have a 7 year old)
+21:42 skay         oops. I do not meet the prereq. I will have to borrow one
+22:13 JoeJulian    pdurbin: You do realize the danger of indoctrinating a 7 year old (or any subordinate) with logic, don't you?
+22:13 pdurbin      she still doesn't know her powers of 2 very well. I'm a touch disappointed. Stupid game.
+22:14 pdurbin      kidding
+22:14 * pdurbin    loves 2048
+22:14 JoeJulian    Hehe
+22:15 JoeJulian    I was teaching my 4yo to count to 31 on one hand last week.
+22:17 pdurbin      that's no mean feat
+22:17 semiosis     how about counting to 20 on one hand?
+22:18 JoeJulian    Which method is 20? 31 is, of course, binary.
+22:18 semiosis     idk if there's a name for it
+22:19 semiosis     kinda my own invention afaik
+22:19 semiosis     1-4 on the digits, summing values.  thumb is 10
+22:19 semiosis     so index (1) + pinky (4) = 5
+22:19 semiosis     all four fingers = 10 = thumb
+22:20 JoeJulian    So a variation on binary.
+22:21 JoeJulian    well... no...
+22:21 JoeJulian    Ok, odd.
+22:21 semiosis     hahahaha

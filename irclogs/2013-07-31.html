@@ -1,0 +1,93 @@
+Time  Nick       Message
+00:42 pdurbin_m  nice seats: https://plus.google.com/109940583958656614840/posts/UJiFX2ScvZQ
+10:46 pdurbin    semiosis: heh. "no one understands upstart" :)
+10:46 pdurbin    (catching up on the backlog)
+11:51 joshu      pdurbin hey ;)
+11:52 pdurbin    joshu: I'm glad your upstart script works
+11:52 pdurbin    joshu: I'm sure to be asking you for help some day
+11:53 pdurbin    right now I'm still on the latest CentOS, which doesn't use upstart
+11:53 joshu      thanks. hehe no worries I can be your upstart sifu :P
+11:53 joshu      I've never used CentOS. Only linux dist I've used is Ubuntu.
+11:56 pdurbin    ubuntu is a solid choice
+12:06 joshu      pdurbin do you just do linux server backend stuff as your primary work?
+12:06 pdurbin    no, but I used to
+12:08 dotplus    semiosis: you saw coresos it on hn? me too. It sounds quite interesting for certain kinds of purposes. I haven't thought hard yet, but perhaps coreos/docker is analagous to vagrant + (vbox|vmware|whatever), only more lightweight (and less mature?). I suspect that there is room for several different stacks of these kinds and the massive proliferation of choices at the moment will settle down to a smaller number
+12:14 dotplus    the ones that survive will be the ones that achieve a critical mass which is either provided by a small, determined community (think ericsson and erlang (before erlang became "popular"): not many need a telco language) behind a stack that is particularly good for a (less common) use case OR a larger community behind a stack that is suitable for a wider or more common set of use cases (think openbsd which has (had?) a larger community than ...
+12:14 dotplus    ... erlang because it's suitable for a common use case: everyone needs a router/firewall)
+12:16 dotplus    One thing is sure... if you can come up with a simple, reliable, flexible way to marshal all these different deployment/provisioning/cloudy systems (or at least most of the popular ones), you're going to have a huge success
+12:22 pdurbin    so many choices
+12:27 * dotplus  wants to not pick betamax
+12:28 pdurbin    dotplus: just pick VHS and you're fine for many years :)
+13:43 ben_e      we're not using docker... yet
+13:44 ben_e      but it seems to have a lot of momentum for a youngish project
+13:48 ben_e      i think it was agoddard who was tweeting about docker
+13:48 ben_e      but i've said something like that before...
+13:49 ben_e      if it's impossible to actually search twitter, then there's plausible deniability!
+14:34 semiosis   dotplus: no i dont read HN, i saw it on twitter.
+14:34 semiosis   i do use openbsd for my router/firewall
+14:39 dotplus    sure, netiher do I. many don't. but many do. it was an analogy, substitute puppet vs bcfg2, ubuntu vs arch, or even "linux" vs QNX for examples of the larger community:)
+15:09 melodie    hello !
+15:09 melodie    does someone know about  a specific technical criteria in USB sticks which could be isolated, in order to try to find out why one kernel version sees some mass storage peripherals and not others?
+15:09 melodie    I have 4 USB sticks, 2 of them are seen and 2 of them are not seen, with the session booted to the kernel  3.10.3-1, but all of the 4 are seen when booting to the kernel linux-lts 3.0.87-1
+15:10 melodie    I have questioned the forum of Archlinux.fr, and other members can only notice it happens for them.
+15:10 melodie    they can give the output of lsusb and or usb-devices but I don't know what to search for from there, this is why I thought I would come here
+15:10 ben_e      quality control on usb thumbdrives seems highly variable
+15:11 ben_e      the freebies that vendors/conferences give away are free for a reason
+15:32 melodie    hi ben_e
+15:33 melodie    I had not seen your answer
+15:33 melodie    ben_e the thumbdrives which are the subject of the story both work perfectly with some kernels, and not with the latest installed in arch
+15:35 melodie    some other people at the forum noticed the same behavior : one machine up to date, the usb stick is not detected anymore, and in a machine where the update has not been done, it is detected. In my machine I have the latest regular kernel and the latest LTS kernel : the sticks are detected correctly in the session with the LTS kernel only
+15:35 melodie    this is why I try to get answers at the chan incase someone has an answer on which criteria should be checked on?
+17:58 semiosis   yo dawg i heard you like virtualization... https://www.dropbox.com/s/vr48ny7p3id37te/1._corelocalhost_bash_20130731_101616.png
+20:03 joshu      hi semiosis
+20:03 * semiosis waves
+20:04 joshu      hehe how did you do that big dot?
+20:04 joshu      some irc command?
+20:05 semiosis   /me waves
+20:05 * joshu    waves back
+20:06 joshu      hehe
+20:06 joshu      new upstart script feedback please https://gist.github.com/anonymous/a238133933700bc267df
+20:06 semiosis   you'll be operating bots in no time!
+20:06 joshu      the top one is mine and the bottom one is from ubuntu
+20:06 * joshu    rofl
+20:15 semiosis   no feedback on that upstart job
+20:15 semiosis   does it work?
+20:15 semiosis   "If it compiles, it is good; if it boots up, it is perfect." -Linus
+20:15 joshu      that upstart script to cart brscan-skey isn't working. When I run it manually user test, e.g. brscan-skey it start the binary in the background until logoff and works correctly. The idea with the upstart is to have it start on boot and respawn if it fails
+20:15 joshu      semiosis hehe
+20:16 semiosis   well not sure how that program will handle multiple users... maybe you need to use sudo or su in upstart to run it as your user
+20:17 semiosis   another thing to note is that the environment in upstart isn't the same as the environment when you run commands in a shell
+20:17 semiosis   you may need to set env vars in the upstart job for the program to work
+20:17 semiosis   bbiab
+20:17 joshu      just for single user.
+20:17 joshu      https://gist.github.com/anonymous/1ea5ecb81ac5221d8e8c
+20:17 joshu      ok
+21:42 joshu      semiosis i have been able to make the upstart script work, but when I shutdown or reboot the OS hangs and I have to force shutdown or force reboot.
+21:50 joshu      I've confirmed that when I remove the upstart script ubuntu shuts down properly
+22:01 melodie    joshu there are new commands for clean shutdowns
+22:01 melodie    you might want to check the forums, or askubuntu.com
+22:02 melodie    hello :)
+22:02 joshu      melodie I have googled not like I just ask for help without trying ;)
+22:11 semiosis   joshu: i would try without any stop-on statement
+22:12 joshu      semiosis is the rest ok the expect daemon and respawn?
+22:13 semiosis   no way for me to know
+22:13 semiosis   the syntax appears to be valid, but how should i know if they're correct for your program
+22:13 semiosis   do you get any messages about this in syslog?
+22:14 joshu      semiosis sure how should I know..hehe I didn't make it ;) I'm trying now without the stop i'll let you know in 1min if it hangs again
+22:21 joshu      semiosis that fixed it thank you!! Don't get why it hung with the stop on, but without it it doesn't hang some I'm happy :D
+22:22 semiosis   verify that process starts ok with upstart using ps, then check 'service $whatever status' to see if upstart is still tracking the process
+22:22 semiosis   just a wild guess though
+22:22 semiosis   glad it works
+22:23 joshu      semiosis done and done. test       585  0.1  0.2 169816  1324 ?        Sl   00:20   0:00 /opt/brother/scanner/brscan-skey/brscan-skey-0.2.4-0
+22:23 joshu      brscan-skey-daemon start/running, process 583
+22:23 semiosis   well then idk why the stop fails
+22:23 joshu      I even tried killing it with sudo kill 583 and after that sudo status…. and it still said process 583
+22:24 joshu      good or bad?
+22:24 joshu      if it respawns when killed shouldn't it have a different process number?
+22:26 semiosis   yes
+22:29 joshu      so something is wrong with my script?
+22:35 semiosis   maybe?
+22:35 semiosis   i gotta run, sorry
+22:37 * joshu    waves bye
+23:24 joshu      it's working now semiosis killing it and it respawns a new process id ;)
+23:28 joshu      semiosis it don't work properly with exec su -c, only with setuid…but with setuid it want to write to /brscan and not /home/test/brscan. I tried using chdir /home/test but that doesn't help.

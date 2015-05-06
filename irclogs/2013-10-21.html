@@ -1,0 +1,28 @@
+Time  Nick       Message
+13:51 Pax        pdurbin: have you messed with Jekyll and s3 buckets?
+13:53 pdurbin    Pax: jekyll, yes. s3, no
+13:54 pdurbin    should work fine. people run static sites on s3: http://ec2.forpoets.org
+13:55 Pax        Hmmm, I'm having trouble getting links to work correctly. I've run sites out of s3 before, but I think I'm missing something basic
+13:55 Pax        check it out this works
+13:55 Pax        http://cloudhacks.huit.harvard.edu.s3.amazonaws.com/index.html
+13:55 Pax        but the link to the post itself doesn't http://cloudhacks.huit.harvard.edu.s3.amazonaws.com/2013/09/27/hello-world
+13:56 Pax        *unless* you add hello-world/index.html in which case it works fine, so i'm thinking I've messed up my jekyll config somehow
+13:56 Pax        running it locally with Jekyll server works just fine
+13:57 Pax        as does running it out of pages http://huit.github.io/cloudeng.github.io/
+13:59 pdurbin    Pax: you could try a different permalink style. forgo the index.html pages and use something like this instead: http://crimsonfu.github.io/2012/01/30/introducing-crimsonfu.html
+13:59 pdurbin    looks like that style is whatever the default is: https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_config.yml
+14:00 pdurbin    Pax: I assume you're using "pretty" http://jekyllrb.com/docs/permalinks/
+14:01 Pax        essentially yeah
+14:01 Pax        permalink: /:categories/:year/:month/:day/:title
+14:01 pdurbin    Pax: maybe try non-pretty :)
+14:02 pdurbin    we're all so used to web servers digging around for index.html. I don't believe S3 does that
+14:03 Pax        well, it's configurable, and I had it configured (I thought) to do that… trying non-pretty :)
+14:04 Pax        hey I think that did it! sweet!
+14:05 Pax        http://cloudhacks.huit.harvard.edu/
+14:05 Pax        thanks dude! Great suggestion!
+14:05 pdurbin    sure. I'm a Perl guy... I'm all about non-pretty :)
+14:06 Pax        so thats a site thats built on Jekyl deployed in an s3 bucket and then served by CloudFront (AWS CDN)
+14:07 pdurbin    I like the name
+16:44 * semiosis is going to start putting documentation in IGNOREME files because thats what people really want
+17:13 pdurbin    :)
+17:18 pdurbin    chocolate art tonight: https://www.seas.harvard.edu/calendar/event/53691

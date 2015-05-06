@@ -1,0 +1,124 @@
+Time  Nick      Message
+14:28 pdurbin   if anyone would like to come to lunch on Tuesday with me and a founder of http://openhatch.org please let me know. codex larsks tfhartmann
+15:09 pdurbin   and a very cool person who works there: http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2015-01-15#i_3546403
+17:22 semiosis  ejabberd is great but so frustrating.  ubuntu packages dont support mysql, but they run at boot.  upstream install includes mysql support, but won't start at boot.  argggh
+17:35 pdurbin   is the e for erlang?
+17:35 pdurbin   whorka: I can't believe you'd never heard of https://twitter.com/php_ceo
+17:40 semiosis  yes
+17:40 semiosis  the e is for erlang
+17:40 semiosis  and for extremely frustrating
+17:43 pdurbin   searchbot: lucky mostly erlang
+17:43 searchbot pdurbin: http://mostlyerlang.com/
+17:44 pdurbin   they have a nice podcast though
+17:49 pdurbin   let it crash
+17:54 bear      if your using ejabberd I would recommend prosody instead
+17:55 semiosis  i'm ready to throw this thing out the window
+17:55 semiosis  finally get the db working and now some obscure bug prevents login
+17:55 semiosis  people saying they had to compile latest erlang from source to get past it
+17:55 semiosis  wtaf
+17:56 semiosis  bear: all i need is TLS encryption and server-managed shared buddy list.  this is a private chat server for our small company, everyone is on a single buddy list
+17:56 bear      yea, that's why I prefer prosody - it tracks the latest xmpp requirements, uses lua which is a much saner language to debug/work with and is very stable
+17:56 semiosis  bear: can prosody do that?
+17:56 bear      yep
+17:56 semiosis  thanks!
+17:57 bear      stock prosody from the debian/ubuntu package will get you that
+17:57 semiosis  oh another thing i need, no local storage
+17:57 pdurbin   semiosis: you know bear is on some XMPP board, right?
+17:57 bear      you can use sqlite, mysql, flat file, ... all in the config
+17:57 semiosis  this is running on a transient ec2 instance
+17:57 semiosis  woooo!
+17:57 semiosis  my hero
+17:57 semiosis  pdurbin: did not know that
+17:57 bear      http://prosody.im/doc/mysql
+17:58 bear      last year I was the chairman of the XSF Board
+17:58 bear      this year I took a break :)
+17:58 semiosis  nice
+18:02 semiosis  and prosody has their own upstream apt repo! \o/
+18:03 semiosis  glad i decided to complain in here :)
+18:04 pdurbin   that's what #crimsonfu is for
+18:04 dotplus   bear: do you happen to whether hipchat/slack/whatever the cisco thing is called are built on top of prosody/ejabberd/something opensource or whether they each have their own thing?
+18:04 * pdurbin high fives tfhartmann
+18:05 bear      yea, cisco's chat service uses xmpp on the backed IIRC
+18:05 bear      the original "Jabber" team got bought by cisco way back
+18:06 bear      webex and it's variants
+18:06 dotplus   They all use XMPP, I was wondering if you knew about the whether server implementations were prosody/ejabberd/whatever
+18:07 bear      I haven't looked that deep
+18:08 dotplus   no worries, just curious and it sounded like you might be more likely to know than a quick stfw might reveal
+18:10 bear      you can always point xmpp.net at the domain - it will spit out what it discovers
+18:17 dotplus   interesting, but that only appears to look at security aspects dns, tls protocols/ciphers, not server software.
+18:19 bear      hmm, I thought it reported server signatures...
+18:21 bear      ah - they have s2s blocked for it - so server guessing is blocked
+18:33 semiosis  sadly the groups feature in prosody doesnt store in the db, and afaict from the docs there's no wildcard... i would have to edit the config file every time we add/remove a user
+18:33 semiosis  bear: does that sound right?
+18:33 semiosis  or am i missing something
+18:34 bear      yea, I think your missing something
+18:34 bear      group - do you mean a group of users?
+18:34 semiosis  http://prosody.im/doc/modules/mod_groups
+18:35 semiosis  says i have to explicitly list the usernames
+18:35 bear      ah
+18:35 semiosis  but i just want one group with all users
+18:35 bear      let me ask if they have that set so you can use a bot to configure...
+18:36 semiosis  thx
+18:41 semiosis  maybe i'll submit a patch to add that feature :)
+18:41 bear      :)
+18:42 semiosis  i can live with this text file config for now
+18:42 bear      the prosody devs are all in europe, so getting an answer can be slow
+18:42 semiosis  deploying a new server image when someone joins/leaves the company isn't *that* big of a deal
+18:42 bear      they are a friendly lot - you can jump on their chat room and ask anything
+18:42 semiosis  i'm sure i will
+18:42 bear      you could probably update the config and then just use prosodyctl command to bounce the group module
+18:43 bear      it would be a -HUP type config update
+18:43 semiosis  this is an immutable server image
+18:43 bear      oof
+18:43 bear      so yea, a patch to get it to use a data store instead of a flatfile would be most welcome
+18:47 semiosis  i was thinking a patch to support a wildcard term for all registered users
+18:47 semiosis  and still using flatfile
+18:48 semiosis  that seems like an easier patch to start with
+18:48 bear      ah - yea
+19:10 dotplus   semiosis: won't your CM take care of that for you? or are you trying to avoid bouncing the service every time you want to add a user or something like that?
+19:22 GWG       I need some server advice of a different nature
+19:23 GWG       My server at home has ded
+19:23 GWG       died
+19:24 GWG       Trying to decide if I should go RAID 5
+19:26 bear      in some ways the raid question is how much the drives cost vs how long you can afford to be offline
+19:27 bear      if you don't mind being offline, then raid 2 (mirroring) is doable, if you don't want to be offline then raid 5 is an option
+19:27 dotplus   think about what you're trying to achieve. Is your data (easily) recreatable? Will you cry if it's gone? Are you going to setup monitoring (and act on any alerts!) to show when a disk goes bad? what kind of usage do you expect?
+19:28 semiosis  dotplus: cm only runs to build the image, once it's deployed to the cluster it's immutable
+19:28 dotplus   bear: raid2 is striping, raid 1 is mirroring
+19:28 semiosis  cluster of one in this case, autoscaling just makes sure there's one alive
+19:28 bear      dotplus - ah, thanks - i'm always getting that wrong
+19:29 semiosis  might scrap the whole IM server thing and signup for one of those SaaS products pdurbin mentioned
+19:29 semiosis  more trouble than it's worth
+19:30 dotplus   eh, I would think that for a small outfit who are already comfortable managing stuff, it's easy enough to add one more simple service
+19:30 GWG       I thought it was 0 and 1
+19:30 dotplus   but otoh, there's always the "focus on your core competencies" against that
+19:30 GWG       But, I've only had rare hard drive failures
+19:30 GWG       I just had a motherboard failure
+19:31 dotplus   raid Z
+19:32 pdurbin   that I mentioned?
+19:33 semiosis  [13:04] <dotplus> bear: do you happen to whether hipchat/slack/whatever the cisco thing is called are built on top of prosody/ejabberd/something opensource or whether they each have their own thing?
+19:33 semiosis  that definitely not pdurbin saying that
+19:33 semiosis  brain not working on account of cold or flu
+19:33 pdurbin   I think my wife's startup is using slack.
+19:33 bear      slack is good, but heck, you could also just go with one of the new hosted irc's
+19:34 semiosis  that's not going to work for us. 80% of the company is not devs
+19:34 semiosis  90%?
+19:35 bear      slack works well then - desktop clients, mobile clents - very very non-dev friendly
+19:36 bear      or you can use something like gitter-im - and tie it to a private repo
+19:36 pdurbin   wife approval factor
+19:40 dotplus   Also very non-dev friendly: http://www.webex.com/projectsquared/ (Disclaimer: I work for Cisco which owns webex)
+19:40 dotplus   just not for that bit of Cisco. or indeed anywhere near it.
+19:42 semiosis  wow there sure are a lot of choices
+19:43 dotplus   hire me as a consultant and I will research your needs, the options, recommend something suitable and help you implement/make the most of it.
+19:43 dotplus   actually, I'm kidding. I don't do that sort of thing any more.
+19:43 semiosis  lol
+19:54 semiosis  project squared doesn't even have pricing info
+19:54 semiosis  scary
+20:05 semiosis  hipchat has a native linux client.  SOLD!
+21:27 pdurbin   man, whatever happend to http://crimsonfu.github.io/members/agoddard
+21:27 pdurbin   that guy was great
+21:35 pdurbin   and shuff. I remember shuff
+21:36 pdurbin   shuff and whorka: please prepare a warm welcome
+22:00 whorka    warming the phasers
+22:08 pdurbin   heh. stun is fine
+22:22 shuff     hey, prosody!  i love it

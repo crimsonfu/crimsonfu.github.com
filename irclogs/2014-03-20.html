@@ -1,0 +1,131 @@
+Time  Nick      Message
+12:25 melodie   hi
+12:25 melodie   I have just been told about puphpet, to be used in a vagrant machine
+12:25 melodie   <SidGBF> melodie: the idea is that you create a VM and all your webserver (or whatever deployable) project you make inside of it. Database, apps, stuff like that, so you don't need to install in your machine. And with puphpet you can easilly deploy too.
+12:25 melodie   this is at #ubuntu
+12:29 melodie   https://puphpet.com/
+12:33 pdurbin   melodie: I use puppet and vagrant to demo our app: https://github.com/dvn/dvn-install-demo
+12:34 melodie   hi pdurbin !
+12:34 pdurbin   o/
+12:35 melodie   I does not look that hard, I should give it a try
+12:35 pdurbin   melodie: yes! please try it :)
+12:35 melodie   do you install puphpet in the vagrant machine? Is that the way it works?
+12:35 melodie   not yet, but at some time perhaps soon
+12:35 pdurbin   vagrant is already installed in the vagrant "base box"
+12:35 pdurbin   er
+12:36 pdurbin   puppet is already installed in the vagrant "base box" (sorry)
+12:36 melodie   I need to try openerp and have to install postgresql to make it work
+12:36 melodie   oh so
+12:36 melodie   puppet or puphpet ?
+12:37 melodie   and I would also need to have a lamp server independant from my current install, that would be handy
+12:37 melodie   do you think I could make a vagrant machine out of Bento?
+12:37 melodie   bento being a 12.04.4 (lts up to date) that could be handy for me
+12:44 pdurbin   heh. puppet
+12:52 melodie   hi again
+12:52 melodie   I have rebooted to get the configuration of the usb headset work with alsa : that worked
+12:53 melodie   someone here is keen with udev rules?
+12:54 melodie   at boot I get this:
+12:54 melodie   udevd[625]: failed to execute '/lib/udev/mtp-probe' 'mtp-probe /sys/devices/pci0000:00/0000:00:1d.2/usb4/4-1 4 2': No such file or directory
+12:58 melodie   rebooting
+14:46 pdurbin   help me #crimsonfu! http://irclog.greptilian.com/javaee/2014-03-20#i_64690
+15:45 sivoais   pdurbin: if it is something they have to restart, why not check if those are done on startup?
+15:48 pdurbin   well, it's not really about restarting things...
+15:48 pdurbin   "what's the best way to communicate things to your team such as: 1. run this SQL script after you pull the latest code. 2. drop this new schema.xml file into place after you pull the latest code. 3. drop your database and create a fresh database after pulling the latest code. ?"
+15:52 pdurbin   does that make sense?
+15:54 sivoais   pdurbin: is there some sort of versioning stored somewhere in the configuration?
+15:55 sivoais   because it would make sense to compare against that to know when someone is running an upgrade
+15:57 sivoais   that combined with a new file (like UPGRADE.2014-03-20) and mailing list / blog post would make the most sense to me
+15:59 pdurbin   everything is in git
+16:29 pdurbin   sivoais: that's effectively what we're trying. a new file per breaking change. but we're trying it in Google Docs
+16:29 pdurbin   "we're experimenting with a folder in Google Drive. made a breaking change? create a doc. everyone has applied the fix locally? delete the doc"
+16:33 sivoais   ah, I saw that in the logs. Google Docs as a way to get feedback?
+16:38 pdurbin   no. as a way to communicate when you latest code requires action from the rest of the dev team to get their dev environments working again
+16:44 pdurbin   because of a breaking change.  need to run an sql script or whatever. or update your solr schema.xml
+18:42 skay      pdurbin: you could create tasks in your tracker that are subtasks of a containing task, and assign all the devs a task
+18:43 skay      pdurbin: I'm guessing you need a stopgap until you find some way to automate stuff?
+18:44 skay      I'm on a team that communicates information via google docs and it is driving me crazy
+18:48 skay      i used jira before. issues could block other issues
+18:50 semiosis  i was a big fan of google docs until a couple weeks ago when they abruptly deleted one of our collaborative docs for an unspecified TOS violation
+18:51 semiosis  our requests for review went unanswered
+18:51 semiosis  fuck google docs
+18:51 semiosis  the doc in question was a form with questions we use for QA testing our mobile apps
+18:51 semiosis  absolutely not a TOS violation
+19:19 skay      I like the art in the mediagoblin campaign that makes internet drones that remind me of google style elements http://mediagoblin.org/news/do-something-about-censorship.html
+19:19 skay      I think he could have done that with the big eye too
+19:21 pdurbin   skay: well, dropping your database completely always works. but yeah, the setup to get workign again is not completely automated yet
+19:23 skay      I wrote a script for myself called smashdb. hulk smash
+19:23 skay      dropdb! makedb! psql thingees!
+19:23 skay      haven't automated all of that yet
+19:25 skay      ... do you ever get asked to do things that are almost like painting bikesheds more more like being asked to put a screen door inside of a hatch in a submarine?
+19:25 pdurbin   um
+19:25 skay      that was apropos nothing
+19:25 pdurbin   :)
+19:28 pdurbin   yeah, i have a dropdb script too
+19:29 pdurbin   maybe this is just part of greenfield development. or agile. lots of things changing under you
+19:29 pdurbin   trying to build a house while the foundation was just poured and is still wet
+19:44 skay      I don't know how much you are changing going from 3 to 4, but I know at my old job we changed out the travel platfrom from behind classic Orbitz and it was quiet challenging at times
+19:44 skay      at first we had no good process and it was "death march"
+19:45 skay      later on people learned and got more sane and started trying to borrow methodologies from here and there
+19:45 skay      with varying degrees of success
+19:46 pdurbin   skay: did you know there's a book called "Death March" about software?
+19:46 skay      anyway, we ended up with multiple environments with different things and having to do some lock step stuff from time to time when making major revs
+19:46 skay      pdurbin: YES OMG
+19:46 skay      that's where  know the term from
+19:46 skay      I haven't read hte entire book yet
+19:46 skay      I tend to pick up non fiction books and read for a while and then pick up another and so on
+19:47 skay      as opposed to loosing myself in novels until I am done with them
+19:47 pdurbin   I discovered this recently on Google+: https://plus.google.com/+PhilipDurbin/posts/KmDWQrbvjm7
+19:47 pdurbin   this is the book: http://en.wikipedia.org/wiki/Death_march_%28project_management%29
+19:47 pdurbin   I haven't read it but I did find that wikipedia page interesting
+19:48 skay      pdurbin: I confess that I have imposter syndrome so horribly that I often day dream that I should just quit and get a different career
+19:48 skay      Or I day dream that one day I am independently wealthy and can go cocoon and do programming for fun and not at any job
+19:49 skay      I have imposter syndrome so horribly that I am even afraid of interviewing prospective employees. I was barely working up to that orbitz.
+19:50 skay      I was interesting in helping to interview people but was so nervous that I avoid it
+19:52 skay      nice post
+19:53 skay      pdurbin: more classical books for you: Mythical Man Month.
+19:53 skay      Peoplesoft
+19:53 skay      I really hate the Real Programmer meme
+19:55 skay      I grew up in an economically depressed region and I care fuck all if people want to program to make money versus programming because the get warm fuzzies
+19:56 skay      it's so incredibly pretentious to devalue the former
+19:56 pdurbin   I've heard good things about Mythical Man Month. I think that's where the "you can't get a baby in 1 month with 9 women" idea comes from
+19:56 skay      could be
+19:58 semiosis  close... i think the analogy would be that it takes *longer* than 9 months to get a baby with more than one woman
+19:58 semiosis  ;)
+19:59 skay      pdurbin: from your shared post " if they want to really be good they have to do more than just what it required in class. They need to have a side project. I truly believe that to be the case.﻿"
+19:59 semiosis  MMM thesis is that adding labor to a late project makes it later
+19:59 skay      here's my college experience -- blue collar parents didn't give me any money, so I went to school part time and worked part time. I spent outside time hanging out in a cognitive psychology lab
+20:00 skay      one of my cs profs asked me if I would consider working in his lab but I turned him down because I would have been making a lot less than my job in the IT department
+20:01 skay      real people do not always have the luxory to be real programmers -- maybe they have to spend time paying their way instead
+20:01 skay      at least the IT job involved me doing flunky stuff in operations and learning perl
+20:01 skay      I think I learned more useful things from that than from many of my classes
+20:03 skay      semiosis: it is hilarious when people who know about this book and admit it do still try to add more people to get a lte project going
+20:03 skay      late
+20:05 skay      pdurbin: did you see the reproducibility paper that this is in reaction to? http://cs.brown.edu/~sk/Memos/Examining-Reproducibility/
+20:12 semiosis  i got a lot out of the theory courses... how to reason about security protocols, modeling communications channels, queueing, etc
+20:12 semiosis  best programming course i took was AI in which I learned lisp
+20:13 semiosis  really learned lisp from a book
+20:13 semiosis  but for that course
+20:13 semiosis  imho just doing the required work for classes isn't enough
+20:14 semiosis  it's necessary but not sufficient to be a good/great developer
+20:25 pdurbin   semiosis: should I learn clojure?
+20:25 pdurbin   skay: sorry, doing real work
+20:25 skay      scala
+20:25 semiosis  clojure!
+20:25 semiosis  no scala
+20:26 skay      erlang!
+20:26 semiosis  i leared common lisp
+20:26 semiosis  if clojure had existed 10 years ago i'd have done that instead of CL
+20:26 pdurbin   I don't know any lisp. but I was thinking about learning some clojure
+20:26 semiosis  definitely
+20:27 semiosis  i learned lisp but i never wrote practical programs in lisp... lisp changed how i write code in all languages, esp. java
+20:28 semiosis  i'm a much better dev (in all languages) for learning lisp
+20:28 semiosis  it forces you to think bottom up
+20:28 semiosis  which is quite different from most languages
+20:28 pdurbin   yeah
+20:31 semiosis  it's also nice how recursion is more natural than iteration in lisp
+20:33 semiosis  in any problem you can not solve, there is a simpler problem you also can not solve
+20:38 pdurbin   sing it
+20:48 semiosis  ♬ in any problem you can not solve, there is a simpler problem you also can not solve ♬
+21:45 pdurbin_m semiosis: lol. that was worth saving: https://plus.google.com/107770072576338242009/posts/N77RpSX3DER :)
+21:46 semiosis  ha
+22:09 pdurbin   finally getting some real answers back in ##javaee :)

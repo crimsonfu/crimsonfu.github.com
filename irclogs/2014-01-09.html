@@ -1,0 +1,21 @@
+Time  Nick     Message
+00:50 pdurbin  semiosis: yeah, I've heard of http://openbuildservice.org ... maybe I downloaded something from there once
+15:29 pdurbin  sagotsky: have a moment?
+16:05 sagotsky what up
+16:08 pdurbin  sagotsky: if someone is installing openscholar, do use the default solr/collection1/conf/schema.xml from the "example" directory of the solr tarball or do you have them drop in a different (custom) schema.xml?
+16:15 sagotsky you'd have to talk to richard about that
+16:15 sagotsky my guess is it's something more drupaly
+16:17 pdurbin  huh
+16:18 pdurbin  sagotsky: you mean I should look at the drupal install docs?
+16:19 sagotsky no, I mean there's probably something in the admin/config area
+16:19 sagotsky and maybe a module or two to enable
+16:20 sagotsky I haven't actually done any of the solr stuff in OS so I'm not the best person to talk to
+16:28 pdurbin  what a guy, that Richard
+16:28 pdurbin  "Move apache-solr-1.4.1/example/solr/conf/schema.xml and rename it to something like schema.bak. Then move the solr-conf/solr-1.4/schema.xml that comes with this Drupal module to take its place." -- http://drupalcode.org/project/apachesolr.git/blob_plain/refs/heads/7.x-1.x:/README.txt
+16:28 pdurbin  via https://drupal.org/project/apachesolr
+16:28 pdurbin  that's what I was looking for
+16:29 pdurbin  sagotsky: so openscholar is piggybacking off the solr setup for drupal, which makes sense
+17:16 pdurbin  overheard: "virtual machines are like burritos"
+18:00 pdurbin  in a talk about http://www.graphviz.org and http://plantuml.sourceforge.net
+18:00 pdurbin  great talk. I expect slides will be posted
+21:42 pdurbin  boegel|work: PLOS Biology: Best Practices for Scientific Computing - http://www.plosbiology.org/article/info%3Adoi%2F10.1371%2Fjournal.pbio.1001745

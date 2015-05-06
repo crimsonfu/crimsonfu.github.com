@@ -1,0 +1,17 @@
+Time  Nick      Message
+00:57 pdurbin   codex: ah. thanks. none of that was immediately clear to me from that tweet
+14:55 pdurbin   I'm having the weirdest problem with Vagrant. I can access forwarded ports in a browser but not from curl.
+14:56 pdurbin   curl 'http://localhost:8993/solr/collection1/select?q=*&wt=json&indent=true'
+14:56 pdurbin   curl: (7) Failed to connect to localhost port 8993: Connection refused
+14:56 pdurbin   config.vm.network "forwarded_port", guest: 8983, host: 8993
+14:58 pdurbin   huh, but if I replace "localhost" with "127.0.0.1" it works from curl
+15:15 bene      check your /etc/hosts
+15:16 hydrajump if you haven't seen this: https://twitter.com/pukingmonkey/status/588735318913851392
+15:16 bene      it was on ars technica and schneier's blog
+15:17 hydrajump crazy what they, e.g. feds will do
+15:19 bene      they don't have a sense of humor about this stuff
+15:20 hydrajump sure but they also don't listen when told seriously
+15:20 hydrajump he's been doing research about the security of embedded systems in planes since 2009.
+15:21 hydrajump http://www.wired.com/2015/04/twitter-plane-chris-roberts-security-reasearch-cold-war/
+15:21 hydrajump http://www.wired.com/2015/04/fbi-tsa-warn-airlines-tampering-onboard-wifi/
+22:33 melodie   good night

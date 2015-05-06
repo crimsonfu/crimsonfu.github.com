@@ -1,0 +1,48 @@
+Time  Nick      Message
+14:45 GWG       Anyone good with Nginx around?
+14:45 GWG       https://github.com/dshanske/nginx-cache-control/blob/master/example.conf
+14:46 GWG       Looking to figure out an elegant way to restrict the header initiated purge to localhost.
+15:49 bear      gwg - you could check if $domain is "localhost"
+16:09 GWG       Bear, you can not have nested ifs
+16:32 bear      then setup a location for localhost and share the internal bit
+16:50 GWG       Can you restate that?
+17:15 bear      each location {} block can be for a regex that you can then "include foo.conf" for the details
+17:16 bear      so:   server { server_name localhost; include stuff.conf; }
+17:16 bear      server { server_name www.example.com; include stuff.conf; }
+17:17 bear      then you can duplicate but only have a single file to edit for each different server name
+17:20 GWG       Bear, that would not work. I have more than one site on the server.
+17:21 GWG       So, the localhost couldn't figure out what data to serve.
+17:24 bear      oh - sorry for missing that detail :/
+17:25 GWG       Bear, no problem.
+17:25 GWG       For now, no one has DDOSed me using it on the years I've had this setup.
+17:26 GWG       But I want to close the door
+17:30 GWG       I have a different idea
+17:30 GWG       What if I just vary the trigger?
+17:46 GWG       I can just change the header.
+17:53 bear      true, good idea
+18:14 GWG       Instead of it being 1,it can be a random number I can change.
+18:14 GWG       Bear, thank you for helping me come to that conclusion. Sometimes you just need a sounding board
+18:15 bear      glad to be helpful! (yes, having someone to talk out a problem is a huge help)
+18:17 GWG       Bear, if you are interested in the solution, I can show you the setup
+18:17 GWG       I've started a repository for it.
+18:17 pdurbin   talk to the bear: http://wiki.greptilian.com/programming
+18:17 bear      nifty - yes, always interested in how people use nginx
+18:18 bear      oh my - that is so cool pdurbin !
+18:19 GWG       https://github.com/dshanske/nginx-cache-control/blob/master/example.conf
+18:19 GWG       Pdurbin, perfect
+18:20 pdurbin   :)
+18:20 GWG       The example was based largely on one written by Mark Jaquith. I need to add references/credit
+18:20 * pdurbin imagines bear as a bear
+18:22 bear      I like it
+18:24 GWG       Pdurbin, that is how the teddy bear was invented
+18:30 pdurbin   :)
+19:19 pdurbin   what's a word for having more permission than you should?
+19:23 pdurbin   if I don't have a permission I should it's "missing". but what's the opposite?
+19:47 pdurbin   hmm. maybe I could call it an "illegitimate" permission
+20:00 semiosis  excess?
+20:00 pdurbin   could work but doesn't sound scary enough :)
+20:01 pdurbin   maybe a "revoked" permission
+20:02 semiosis  unauthorized
+20:02 semiosis  you may technically have the permission, although you dont have the authority to use it
+20:02 semiosis  and scary too
+20:02 pdurbin   yeah

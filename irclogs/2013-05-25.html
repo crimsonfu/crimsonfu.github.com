@@ -1,0 +1,69 @@
+Time  Nick      Message
+00:00 melodie   hi
+00:01 melodie   I have used some time to figure out a good way to reinstall the linuxvillage forum on the domain www.linuxvillage.net and to make it as it was at beta.linuxvillage.net : almost there!
+00:03 melodie   it's online but the encoding is wrong. I don't know yet which solution is the best to make it right, as the db dumps are ok with utf8, the db itself seems ok, so I consider playing with "recode -d" and such to redo the db
+00:05 JoeJulian I thought you didn't use databases. ;)
+00:08 melodie   hi JoeJulian
+00:08 melodie   how did you think?
+00:10 JoeJulian I thought I saw you presenting the case for flat files the other day.
+00:13 melodie   we have a forum : SMF which uses mysql, a brand new wiki, DokuWiki which does not use databases, and a CMS, Wordpress, which does make use of databases
+00:13 melodie   you probably saw me presenting DokuWiki?
+00:48 pdurbin   ben_e: I did meet semiosis. briefly. hopefully again when he's in town for the red hat summit. (and others)
+00:50 JoeJulian We'll definitely meet up when we're out there.
+00:50 pdurbin   great
+00:51 pdurbin   JoeJulian: I was linking to some database haters this week
+00:51 pdurbin   this was actually part of their argument... problems restoring
+00:51 pdurbin   melodie: which you seem to be having? :(
+00:51 JoeJulian In fact, precisely utf8
+00:51 pdurbin   shoot, I wanted more :) in here
+00:52 melodie   hi, you can see at http://linuxvillage.net : but I have good hope I will find a solution for the encoding.
+00:52 melodie   I just need some time during the day with some quiet...
+00:52 pdurbin   melodie: it's back! \o/
+00:52 melodie   it's somewhere else
+00:53 melodie   I have reinstalled it as a companion domain on a hosting which is not a dedicated one, I just hope it's not going to be too heavy for the account I have there
+00:53 pdurbin   hmm. ok
+00:53 melodie   and the encoding is not correct
+00:54 melodie   so I have to find out the best method to get it right
+00:54 melodie   as soon as I will be ready to test things, I'll put the forum on maintenance mode
+00:54 pdurbin   melodie: how are you managing the database? command line? cpanel?
+00:55 melodie   phpmyadmin
+00:55 melodie   cpanel is just a large control center which points to different tools
+00:55 pdurbin   ok, so phpmyadmin. it's pretty powerful. maybe you can change the encoding somehow
+00:55 melodie   some sql commands can also be thrown throught phpmyadmin (perhaps you know that already)
+00:56 melodie   I have found a text file I kept from some years ago and that gave me ideas
+00:56 melodie   and also I have found on the web someone who says something about the db exported in the wrong encoding
+00:56 melodie   I'll see...
+00:57 pdurbin   melodie: ok, please keep us updated. my three year old needs a bedtime story. "Martha Calling" is what she picked
+00:57 melodie   I did some tests with the commande "recode" that has effects, so I'll do one to several tests
+00:57 melodie   pdurbin ok, good story then! and give it the right intonation! :D
+00:58 JoeJulian pdurbin: make sure you bring your 3yo. I'll be bringing mine.
+01:00 melodie   JoeJulian are you a club of 3yo-ers ? :)
+01:01 ben_e     i have a 3 yo... can i join?
+01:01 melodie   that makes 3
+01:01 melodie   are you all going to put up common birthday parties too?
+01:23 melodie   good night
+02:12 pdurbin   ben_e: sure. you should meet some more folks
+02:12 pdurbin   jimi_c_: are you coming to boston for the red hat summit?
+02:18 jimi_c_   unfortunately not this year :(
+02:19 jimi_c_   i'm a lowly contractor right now, i don't think they'll spring for the trip
+02:19 jimi_c_   i can't believe that was almost a year ago though
+11:21 pdurbin   jimi_c_: ah. bummer
+22:40 melodie   hi
+23:13 pdurbin_m melodie: how is your database? all fixed?
+23:14 melodie   pdurbin_m yes, thanks to Yoshi's help
+23:15 pdurbin_m great!
+23:15 melodie   once he understood what the problem was coming from he found the way to fix it and a few seconds after I had done it!
+23:15 melodie   just some quotes are missing, but I think it must be only a few quotes from the last week before the forum was out of reach
+23:16 pdurbin_m ok
+23:16 pdurbin_m what was the fix?
+23:38 melodie   pdurbin the fix:
+23:39 melodie   http://irclog.perlgeek.de/linuxvillage/2013-05-25#i_7116147
+23:39 melodie   here
+23:49 pdurbin_m melodie: interesting. thanks
+23:51 pdurbin_m this wifi is pretty spotty. on vacation in the white mountains
+23:52 melodie   pdurbin_m I would have considered using recode -d utf8..latin1 file.sql
+23:52 melodie   then import the result and put it back to utf8 from within phpmyadmin
+23:53 melodie   with these two:
+23:53 melodie   SET NAMES 'utf8';
+23:53 melodie   TYPE=MyISAM, CHARACTER SET UTF8;
+23:54 melodie   but the SMF admin features already have it, just something was blocking (bad_behavior latin1 table) so this is why Yoshi offered to use that solution

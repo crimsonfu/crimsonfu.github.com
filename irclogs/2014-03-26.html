@@ -1,0 +1,35 @@
+Time  Nick      Message
+12:38 dotplus   pdurbin: re: javascript send plaintext to a remote port... you can't:( at least not within an html page in a browser.
+12:39 pdurbin   dotplus: I was wondering if you were talking client side or server side javascript
+12:39 pdurbin   client side, sounds like
+12:39 dotplus   yes
+12:40 * pdurbin trolls JoeJulian about 2048/4096: https://plus.google.com/+PhilipDurbin/posts/jTwz6LZuYDV
+12:41 dotplus   I like the hex-board version
+12:41 dotplus   anyway, don't you dare start destroying my productivity with such things again.
+12:44 pdurbin   so happy to figure out not having --globoff in curl was my only problem: http://irclog.greptilian.com/sourcefu/2014-03-26
+20:40 pdurbin   on RHEL when I do `adduser pdurbin` a group called "pdurbin" is created. what do you call that group?
+20:41 semiosis  call it pdurbin?
+20:41 pdurbin   :)
+20:41 semiosis  is this a trick question?
+20:41 pdurbin   I mean generically
+20:43 pdurbin   "A group with the same name as a user is called a user private group" -- https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-users-tools.html
+20:43 pdurbin   I knew I had seen that somewhere
+20:43 pdurbin   "user private group"
+20:43 pdurbin   "Red Hat Enterprise Linux uses a user private group (UPG) scheme, which makes UNIX groups easier to manage. A user private group is created whenever a new user is added to the system. It has the same name as the user for which it was created and that user is the only member of the user private group."
+20:44 pdurbin   semiosis: not a trick question :)
+20:45 pdurbin   I'm building the same concept into our app
+20:45 pdurbin   a group called "joe", a group called "mark": http://lucene.472066.n3.nabble.com/document-level-security-filter-solution-for-Solr-td4126992.html#a4126994
+20:45 semiosis  i never saw the point of that
+20:47 pdurbin   semiosis: shall I continue to quote https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Managing_Users_and_Groups.html#s2-users-groups-private-groups ?
+20:47 pdurbin   there's more
+20:47 pdurbin   :)
+20:48 semiosis  i see
+22:12 JoeJulian First, the default is therefore to deny everyone access to that user's files. Mode 0\d\d0 since the group has only one member.
+22:12 JoeJulian I always hated the old SCO default of having everyone in the user group.
+22:13 JoeJulian Yeah, I guess I should have read before commenting. ;)
+22:49 pdurbin   JoeJulian: did you read what I said earlier about 2048? :)
+22:51 JoeJulian Yeah. :)
+22:52 pdurbin   I love that clip. Pulp Fiction is on Netflix, you know. I started re-watching it the other night.
+22:52 JoeJulian I've never seen it yet.
+22:53 pdurbin   well, it's only been out for 20 years
+22:54 JoeJulian Yeah, maybe sometime in the next 20.... ;)

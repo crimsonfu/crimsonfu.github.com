@@ -1,0 +1,38 @@
+Time  Nick     Message
+01:33 pdurbin  GWG: I suppose you are talking about http://blog.eu.playstation.com/2014/08/26/exploring-18446744073709551616-planets-mans-sky/
+01:38 GWG      Actually, not at all
+01:38 GWG      I asked Linode for some IPV6 addresses
+01:38 GWG      That's how many they gave me
+01:39 pdurbin  ah. interesting
+01:43 GWG      I find that overwhelming
+01:59 pdurbin  sounds like you didn't ask for that many
+02:10 pdurbin  ah, /64 is the default: https://www.linode.com/docs/networking/native-ipv6-networking#ipv6-address-pools
+02:13 GWG      Yes
+02:15 prologic yeah /64 is a default mostly
+02:15 prologic and most places will give you a /56 too
+02:16 prologic sure you'll (as an end user) will never use a /56
+02:16 prologic let alone a /64
+02:16 GWG      prologic: They asked me
+02:16 prologic but it doesn't matter too much since it's 64bit addressing
+02:16 GWG      I said whatever works for them
+02:16 prologic so we won't be running out of IPv6 space any time soon
+02:16 prologic our Sun will blow up before we run out
+02:16 prologic yeah
+02:16 prologic I don't think anyone will cut up a block smaller than /64 really
+02:17 prologic it's too much maintenance
+02:18 pdurbin  prologic: that page says linode will give you a /116 if you ask for it. 4096 addresses
+02:19 pdurbin  GWG: less overwhelming, perhaps :)
+02:19 GWG      I didn't want to be a troublemaker
+03:32 prologic ahh
+03:32 prologic anyone here used socat?
+03:32 prologic $ echo "SET UQoqbbtpvikDPbVKCUDE3F foo bar" | socat -v - UNIX:/tmp/cgod.sock
+03:32 prologic > 2014/12/29 13:34:44.363141  length=35 from=0 to=34
+03:32 prologic SET UQoqbbtpvikDPbVKCUDE3F foo bar
+03:33 prologic I can't get the server's response to stdout/stderr
+03:33 prologic weird ( I see it being written when looking at the server logs )
+03:51 prologic man socat is weird
+03:51 prologic I can't get it to behave
+03:52 prologic I used my own unix socket client and everything works perfectly
+03:57 prologic yay finally
+03:57 prologic https://gist.github.com/therealprologic/2c61402dfd30ac10ed42
+16:46 prologic http://daisy.shortcircuit.net.au/

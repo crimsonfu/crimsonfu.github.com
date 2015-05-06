@@ -1,0 +1,96 @@
+Time  Nick      Message
+01:34 pdurbin   bah. just lost all my SMS history. stupid Android
+01:35 pdurbin   all technology hates me today: https://twitter.com/philipdurbin/status/573142546836275200
+03:20 pdurbin   skay: talking about you at http://irclog.greptilian.com/sourcefu/2015-03-05 with sivoais
+03:23 sivoais   :-)
+03:25 sivoais   pdurbin: re: the SMS history, I have an app I installed that redirects all my SMS/call logs to my e-mail
+03:26 sivoais   I used to have something that sent them to me via XMPP too, but that stopped working for some reason O_o
+04:40 skay      o/
+04:42 skay      The runmycode.org group didn't want to collaborate on an open source version, and one of the PIs had me and a postdoc do work to make an open source reboot -- we didn't get to the point where we could spin up VMs for people though
+04:46 sivoais   didn't RunMyCode come out of academia? Columbia Uni. iirc
+04:47 sivoais   hehe, interestingly enough, I was complaining about wanting devops for science in #pdl the other day...
+04:47 skay      sivoais: Columbia and two orgs in France
+04:47 skay      sivoais: yes! science ops
+04:48 skay      I spent a lot of time ranting at my PI about devops trying to say how runmycode is like travis-ci
+04:48 skay      or could be
+04:48 sivoais   Too many times have I downloaded code and it just doesn't even compile.
+04:49 sivoais   I just added Travis-CI support to the PDL project! That's why it's been on my mind. :-)
+04:49 skay      she had me and her post doc take papers from a sample of Science publications to see if we could download materials and get them to run
+04:49 skay      I don't know when that will be published
+04:49 skay      I decided not to stick with the job and didn't renew after a year
+04:49 skay      It's a lot easier to get things done in an industry setting
+04:50 * sivoais has never worked in the ... real world... open-source is the closest I've gotten to doing software engineering
+04:50 skay      I went in to industry instead of grad school.
+04:51 skay      I was interested in cognitive science and got psychology and cs undergrad degrees.
+04:51 skay      but got a programming job
+04:52 sivoais   nice! I did my undergrad in neuroengineering and now I'm almost finished with a CS masters
+04:52 * skay    needs to turn in early
+04:52 skay      neato!
+04:52 skay      o/
+04:52 sivoais   oh, we'll chat later then! :-)
+04:52 sivoais   o/
+04:52 skay      I gotta a meeting at 7 am
+04:52 skay      timezones!
+04:52 skay      o/
+13:37 bene      runmycode looks like a project in search of a problem
+13:50 skay      bene: it allowed people to run code on a CERN cluster
+13:51 skay      bene: to generalize it, they should have done another prototype that allowed anyone to glue together something like a repo and travis or jenkins and a generation of a DOI at the same time
+13:51 skay      bene: while also providing an archive for all of the data and results being used
+13:53 bene      it doesn't actually mention this cluster option anywhere on the main page or faq AFAICT
+13:54 bene      and the data/code/paper hosting thing has a million fragmented platforms already
+13:54 skay      bene: while being able to run things on bare metal or vms
+13:54 skay      bene: no kidding
+13:55 skay      bene: NO KIDDING
+13:55 bene      i was chatting with some old labmates and the lab i was working for at HMS is now setting up a repository for structural biology data..
+13:55 skay      bene: one reason why I left the job
+13:56 bene      yeah
+13:56 skay      bene: there are already repositories like that. can't remember off hte top of my head.
+13:56 bene      yes, i know
+13:56 pdurbin   bene: it's for science. reproducibility of results
+13:57 skay      yeah, it glues together things that developers have already had for a long time but with strict packaging of everything that went in to the computation
+13:57 bene      pdurbin: no, it's just fodder for grant funding and the resulting egoboo/departmental standing that results from bringing in grant dollars
+13:57 * bene    is pretty jaded about academia at this point
+13:57 skay      btw, the guys who owe runmycode.org didn't collaborate with my PI and wouldn't even share all of the source code
+13:58 skay      I had to get my PI to fight with them for 3 months. the entire academic environment of that group was toxic. I set up a meeting to resign after that 3 months, and my PI talked me out of it
+13:58 skay      and basically told me to JFDI a new platform
+13:59 skay      bene: a lot of this is an attempt to apply a technical solution to a social problem.
+13:59 skay      bene: are you familiar with all of hte news across all disciplines for the lack of reproducibility in research?
+13:59 bene      yes
+14:00 bene      NIH/NSF is handing out money trying to get people to solve that problem
+14:01 bene      so it was a regular topic of the technical lab meetings
+14:06 skay      I like the efforts of software-carpentry for actually training people to understand technology versus people creating brand new tools in some NIH syndrome
+14:07 skay      scientists should learn to how to use what already exists and understand why and understand how to create tools that are maintainable enough for their needs
+14:08 skay      there was too much ego where I worked
+14:09 skay      there were some technology that could have been actually useful instead of some wanking
+14:09 skay      but I was the wrong person to hire for it
+14:10 skay      sometimes I was filled with incandescent rage
+14:19 pdurbin   bene: someone needs a hug, sounds like
+14:20 skay      not me, I'm good
+14:20 skay      I'm just trying to convey how things were.
+14:20 pdurbin   skay: don't mind bene. he's usually not this grumpy :)
+14:21 skay      I think that group was an outlier for a bad place to work in academia
+14:21 skay      do I sound like I'm comisserating? I hope so
+14:21 skay      if not, I will quieten down
+14:21 skay      sometimes commiseration is a nice thing
+14:22 skay      it sounds like I'm not as jaded yet
+14:28 bene      i'm good too
+14:28 bene      the problem with software in research is that the toolmaking is generally not valued
+14:28 bene      the incentives for building/maintaining the tools are all messed up
+14:29 bene      i.e. NSF will give you money to build a new tool, but getting them to fund maintenance/bug-fixing is "not novel" and much harder
+14:38 bene      not to mention that software citations are usually relegated to the paper addendum or only available in the online version
+14:38 bene      if they get cited at all
+14:39 bene      the software developers in structural biology all ruefully joke about how "methods developers" don't get much credit for their work unless they also make some huge scientific discovery along with the method
+15:14 bene      anyway, they are hard problems and worth working on
+15:16 bene      but primarily social and _not_ technical
+15:22 skay      http://video.open-bio.org/video/1/a-history-of-bioinformatics-in-the-year-2039
+15:22 skay      borrows a slide from The Life and Death of Yavascript
+15:23 skay      numfocus talk https://www.youtube.com/watch?v=j9ydiVbassQ
+15:23 skay      mentions the social problems too
+17:18 bene      http://bostinno.streetwise.co/2015/03/03/startup-culture-beers-on-tap-at-boston-tech-companies/ <- more proof that you need to care about the beer in your keg if you're using it for recruiting
+17:19 skay      we have a bar with hackerspace brewed beer at our hackerspace. <3
+17:22 bene      i was kibitzing with someone here about office beer as a recruiting tool last week
+18:54 semiosis  i'm on a mac!
+19:00 pdurbin   semiosis: did it call you a slacker yet?
+19:00 semiosis  well, i did just install slack
+19:01 semiosis  ooh textual made a noise
+19:01 semiosis  this is neat

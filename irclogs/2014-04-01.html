@@ -1,0 +1,170 @@
+Time  Nick         Message
+00:04 pdurbin      searchbot: lucky &yet
+00:04 searchbot    pdurbin: http://andyet.net/
+00:05 pdurbin      bear: wait, you said you were the twit bear: http://indiewebcamp.com/irc/2014-03-31/line/1396308491
+00:05 bear         yes, i'm the server person for twit
+00:07 pdurbin      now I forget who else listens to a lot a podcasts in here (besides me)
+00:09 pdurbin      oh yeah. jgtimmer: http://irclog.perlgeek.de/crimsonfu/2012-12-14#i_6243114
+00:10 pdurbin      semiosis: could your bot do a "last seen" or something?
+00:11 bear         most of my bots do that - uses a simple file-per-user to record last channel/comment
+00:12 pdurbin      yeah
+00:12 semiosis     i wrote an irc bot for a class project in college, now i just use limnoria
+00:12 pdurbin      in practice, this works well enough: http://irclog.perlgeek.de/crimsonfu/search/?q=jgtimmer
+00:12 semiosis     no idea how it stores stuff
+00:12 semiosis     i dont suffer from NIH
+00:12 bear         limnoria is  supybot based bot
+00:12 semiosis     right
+00:13 semiosis     actively maintained
+00:13 semiosis     lots of features
+00:13 bear         so it probably uses it's flat file db setup
+00:13 semiosis     easy interactive configuration
+00:13 * bear       nods
+00:14 semiosis     bear: logstashbot is my bot
+00:14 semiosis     btw
+00:15 bear         ah - nifty
+00:15 bear         I thought your nick was familiar
+00:15 bear         hmm, I think my name is still deep inside of supybot's contrib list someplace
+00:15 semiosis     cool!  thanks for you contributions
+00:15 semiosis     i'm very fond of supybot
+00:16 bear         yep - I used the heck out of it in the early 2000's
+00:16 semiosis     it's pretty nice, for a python app ;)
+00:16 bear         :P
+00:16 pdurbin      bear is on the board of http://xmpp.org/about-xmpp/xsf/
+00:16 pdurbin      today I learned
+00:16 semiosis     quite fond of jabber too
+00:17 semiosis     just sent some kudos to bear in #logstash
+00:17 bear         I love the bot's nick in logstash
+00:17 bear         I need to "borrow" that for one of mine
+00:17 semiosis     that's botbot.me
+00:17 semiosis     sorry, pdurbin likes fully qualified URLs... https://botbot.me/
+00:18 pdurbin      semiosis: well, it's for ilbot3 ... for the channel logs
+00:18 semiosis     they do logging for open source channels (very nice looking logging)
+00:18 pdurbin      so they're linkable
+00:18 pdurbin      "XMPP over Websocket, without the need to touch any XML by using JSON-like stanza objects" -- https://github.com/legastero/stanza.io
+00:18 bear         botbot.me is a great service
+00:19 pdurbin      yeah. high on my list at http://wiki.greptilian.com/irc/logging
+00:28 Whoop        aha, its bear, long time no see (we met at Monitorama Boston where I probably made a fool of myself due to large quantities of beer ;) - http://twitter.com/adamgibbins)
+00:29 bear         hello! (and no worries, I was probably doing the same ;)
+00:30 * pdurbin    still can't believe he missed it. was traveling
+00:30 bear         are you going to the one in Portland this year?
+00:31 pdurbin      semiosis was there too, you know
+00:31 Whoop        bah, keep forgetting about portland, need to investigate flights
+00:31 Whoop        and wiggle a trip via the boston office so I can get it on $work
+00:32 bear         :)
+00:36 pdurbin      Whoop: you're in boston?
+00:37 Whoop        No, I'm in London, I'm in boston often though due to $work office there
+00:38 Whoop        "often" = month or so a year
+00:38 pdurbin      ah. ok
+00:39 * Whoop      has no idea how he ended up in this channel ;)
+13:32 hydrajump    codex are you using vagrant or fusion to run docker on your Mac?
+13:54 PaxIndustria poke :codex
+13:56 pdurbin      everyone wants a piece of codex
+14:06 hydrajump    haha
+14:21 PaxIndustria every time I see "codex" in the chat, I think of Felicia Day's Guild Character :p  http://www.watchtheguild.com/characters/codex/
+14:21 skay         pdurbin: jwz still posts. also, doh. wrong channel. my friend works for lulzbot and in general is in to hardware and robots and so on
+14:31 pdurbin      love his post about groupware
+14:31 pdurbin      searchbot: lucky jwz groupware
+14:31 searchbot    pdurbin: http://www.jwz.org/doc/groupware.html
+16:28 codex        hydrajump: i tried it w/ vagrant, but the thing that pissed me off is that it doesn't forward the ports by default
+16:28 codex        so i realized it's easier AND much more mimicing production if you just have an Ubuntu VM on your mac and run it all there
+17:06 hydrajump    interesting. I was reading about the official support of OS X and how they provide instructions for installing the docker client on OS X and then using boot2docker to run a minimal VM in vagrant for the daemon.
+17:09 hydrajump    Official OS X support seems quite recent and perhaps a bit convoluted.
+17:50 codex        PaxIndustria: to your question - I use VMs remotely. Honestly, no real benefit or running it locally (imo) -- it runs the same locally and remotely
+17:50 codex        might as well have an always on VM
+17:51 codex        i use DigitalCloud and Amazon
+17:51 codex        if you use Ubuntu 13.10 - it works by typing 3 commands (add repo key, update, install docker)
+17:51 codex        Ubuntu is also the only platform that they officially support
+17:52 codex        one thing I noticed - install 'cgroup-lite' so that you don't get resize errors on the AUFS
+17:52 codex        it's supposed to be a dependency, but for some reason it's missed I think
+17:53 hydrajump    codex so you don't run VMs locally?
+17:54 hydrajump    Not even for the Ubuntu docker VM you mentioned earlier?
+17:54 codex        not really. I have to mess around, but there is just no point in the long run
+17:54 codex        hydrajump: everything I use / work with is remote anyway
+17:54 codex        so what's the point/benefit
+17:55 PaxIndustria local dev work?
+17:55 codex        i utilize a mac for my client, but all of my work is remotely connected
+17:55 PaxIndustria model something before deploy?
+17:55 codex        but this is one of the benefits in docker
+17:55 codex        deployment is cheap
+17:55 codex        think git
+17:55 codex        do you deploy a local VM every time you want to try a branch
+17:55 PaxIndustria sometimes, yeah! Vagrant makes that fast and easy
+17:55 codex        PaxIndustria: it's the netflix model - you can deploy a "farm", and while it's live, remodel it and redploy, and re-point production live
+17:56 codex        PaxIndustria: you can, but it's just pointless (imo)
+17:57 PaxIndustria for example, I might want to work on my puppet chef (docker) deploy scripts locally before ever sending it anywhere
+17:57 codex        with docker local vs remote is nto really different
+17:57 codex        every VM becomes a docker "hypervisor"
+17:57 hydrajump    and not having local VMs means that you always need internet access
+17:57 codex        and a docker image is just a bunch of commands built into a binary
+17:58 codex        example: https://index.docker.io/u/ventz/dos/
+17:58 codex        PaxIndustria: ^
+17:58 codex        that's a dataOS image built
+17:58 codex        let's say i am in dev "docker pull ventz/dos"
+17:58 codex        i go to production "docker pull ventz/dos"
+17:58 PaxIndustria ok, for the sake of argument, how might I do that on my laptop?
+17:59 codex        so there are two ways
+17:59 hydrajump    PaxIndustria are you a Mac user too?
+17:59 PaxIndustria yup
+17:59 hydrajump    same here.
+17:59 codex        1.) (my prefered) - deploy an Ubuntu 13.10 VM (key is 13.10 b/c it works out of the box)
+18:00 codex        2.) the vagrant method - where vagrant creates a "control" vm for you - down side here is the ports are not mapped/oppened by default between the subnets - so you either need to configure vagrant or you need to map each port that you need
+18:00 hydrajump    As I was says to codex I read Docker's OS X install instructions last night http://docs.docker.io/en/latest/installation/mac/
+18:00 codex        yea a lot has changed recently there
+18:00 hydrajump    I haven't decided how I'm going to approach it yet.
+18:00 codex        boot2docker was "acquired" - and basically updated
+18:00 codex        which is nice
+18:01 hydrajump    I've never used vagrant or virtual box. Only VMware stuff, Fusion on my mac.
+18:01 codex        PaxIndustria: i would do a regular VM and use sshfs or something like that if you want the dev to happeon your laptop
+18:01 codex        hydrajump: so just launch a VM and access it directly
+18:01 codex        that was my point that doing that is easier - because fusion/virtual box allow you to accdess the ports locally
+18:02 codex        so no weird mapping
+18:02 hydrajump    codex yeah you're preferred option 1 seems like the way to go for me as well
+18:02 codex        the "native" way with vagrant (which is no longer recommended) requires a mapping in the middle
+18:02 codex        oh wow - just re-read OS X directions. They took out vagrant completely
+18:02 codex        i guess a lot of people complained about the ports
+18:02 hydrajump    create an new ubuntu vm, install docker inside it and run the daemon and client inside the VM. SSH into the VM from OS X and play with docker.
+18:03 codex        hydrajump: yep - so your "launch" happens in the VM. you use your OS X browser/clients to interact with the VM services
+18:04 codex        hydrajump, pdurbin, PaxIndustria: brew on os x has docker already
+18:04 codex        i would go that route for the client if you want to use your mac 100% and connect remotely (even from the client/deployment side)
+18:05 PaxIndustria we actually had a work around for the port forwarding bit at $work which was nixed by our security team :)
+18:06 hydrajump    codex yeah I saw that docker was in home-brew, but that is just the client right.
+18:06 codex        yea
+18:06 codex        b/c the client simply uses a socker (on server by default) or port (if you add line to docker daemon to allow API via tcp/udp)
+18:06 codex        so you can use the client anywhere
+18:07 hydrajump    boot2docker is also in homebrew
+18:07 codex        yep
+18:07 codex        boot2docker has been greatly improved and slimmed down
+18:07 codex        i like it. It used to be old and outdated
+18:07 hydrajump    have you used virtual box or fusion with vagrant provider?
+18:09 codex        you can only use virtualbox
+18:09 codex        fusion does'nt expose APIs for vagrant
+18:10 codex        fusion will only work if you deploy a VM yourself
+18:10 hydrajump    but vagrant as an add-on provider for fusion. I just haven't used vagrant or the provider. http://www.vagrantup.com/vmware
+18:11 PaxIndustria I've used the fusion plugin
+18:11 PaxIndustria er just in general not for docker :p
+18:11 hydrajump    any good PaxIndustria
+18:11 PaxIndustria yeah actually
+18:11 PaxIndustria it works pretty much as described
+18:12 PaxIndustria I've also had good luck with the AWS plugin too
+18:12 hydrajump    have you compared fusion + vagrant provider against virtual box and vagrant?
+18:12 hydrajump    Isn't the vmware fusion hypervisor superior to virtual box or is that myth?
+18:14 PaxIndustria Hmmm I haven't noticed it being more awesome, but I haven't looked all that hard either, for most of what I've been doing I've been using virtual box provider just out of habit
+18:18 hydrajump    and you're just also getting started with docker?
+18:22 codex        didn't fusion allow partners to work with it's API
+18:22 codex        i know there is one, but i don't think it's free
+18:23 codex        i would assume there is some way to run it on fusion (but guessing it would'nt be free to end consumer b/c of fees company would have to pay for fusion api)
+18:23 codex        hydrajump: i saw the stats recently (and given I am biased possitively towards fusion) -- virtualbox on the OS X performs the best out of all 3 major prvodiers (3rd being parallels)
+19:00 PaxIndustria well, FWIW I've been playing with fusion and other then kicking me off VPN every time I do a vagrant up, it's been pretty ok
+19:09 hydrajump    codex really vbox better than fusion.
+19:13 * Whoop      prefers fusion, no licensing issues, doesn't cause kernel coredumps on "early" OSX releases etc
+19:14 Whoop        I replaced parallels, fuck those guys and their constant upsell, despite having already brought the product
+19:14 Whoop        also doesnt work with vagrant ofc
+19:15 hydrajump    Whoop you use the fusion vagrant provider?
+19:19 Whoop        yeah
+19:29 hydrajump    I think I'm going to get it as well so I can interact with fusion with CLI
+19:29 hydrajump    fusion has worked extremely well for me so I don't see why I'd move to vbox for the virtualisation bit.
+21:06 pdurbin      codex: want to add Docker to https://github.com/crimsonfu/crimsonfu.github.com/blob/master/_includes/topics.yaml for us? :) And otherwise clean up that list?
+21:55 codex        hydrajump: performance supposedly
+21:55 codex        i still prefer and use fusion
+23:58 pdurbin      codex: you're less of an open source zealot than I am. most are :)
+23:58 * pdurbin    eyes PaxIndustria

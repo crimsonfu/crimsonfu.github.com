@@ -1,0 +1,30 @@
+Time  Nick      Message
+14:04 bene      any suggestions for an open source tunable performance-degrading http proxy for testing/qa of web apps under bad network conditions?
+14:05 bene      google has a variety of results for both commercial and not tools, but nothing screamed USE ME
+14:06 bene      ISTR running across a nice looking python (maybe ruby) app on github that would do this, but i didn't star it and now i can't find it
+14:17 pdurbin   I just heard good things about http://trafficserver.apache.org
+14:18 bene      that looks like it's for improving performance
+14:18 pdurbin   bene: do you have any candidates you can link to?
+14:19 bene      http://www.telerik.com/fiddler
+14:19 pdurbin   ah, ok
+14:19 pdurbin   bene: I'd go ask in #rest
+14:20 bene      charles proxy is another popular one
+14:24 pdurbin   searchbot: lucky charles proxy
+14:24 searchbot pdurbin: http://www.charlesproxy.com/
+14:26 pdurbin   bene: maybe https://www.runscope.com ? dunno
+14:27 pdurbin   bene: ah yes, charles proxy mentioned at http://rubyrogues.com/163-rr-education-with-coraline-ada-ehmke-and-katrina-owen/
+14:27 pdurbin   "And it’s a web proxy that will sit between your machine and the rest of the internet. And when you are trying to write a web scraper or figure out why your AJAX callbacks aren’t working right, this thing will get between your browser and the server and log everything for debugging."
+14:27 pdurbin   via http://irclog.greptilian.com/sourcefu/2014-07-19
+14:28 bene      i saw one that could simulate low bandwidth, high latency and packet loss conditions
+14:28 pdurbin   latency monkey
+14:29 hydrajump btw regarding proxies here's another interesting one written in go: https://github.com/xiam/hyperfox
+14:31 hydrajump bene: on OS X and iOS there's also "Network Link Conditioner" app
+14:31 hydrajump http://nshipster.com/network-link-conditioner/
+19:25 pdurbin   I'm kinda bummed that this doesn't "just work" on Mac: pic $1 | groff > /tmp/output.ps && ps2epsi /tmp/output.ps /tmp/output2.ps && convert -resize 7% -density 1152 /tmp/output2.ps /tmp/output.png
+19:25 pdurbin   convert: no images defined `/tmp/output2.ps' @ error/convert.c/ConvertImageCommand/3106.
+19:25 pdurbin   /tmp/output2.ps: PostScript document text conforming DSC level 2.0, type EPS
+19:26 pdurbin   it opens in Preview ok... gets converted into a PDF
+19:28 pdurbin   oh, that reminds me: http://codeinthehole.com/writing/commandlinefucom-is-in-new-hands/
+19:28 pdurbin   (the inspiration for this channel's name)
+19:31 pdurbin   got an email recently: Subject: New things are happening at commandlinefu Dancebin! - http://danceb.in/9M6MPTjl5BGQ3B2uDMIysQ
+19:31 pdurbin   raw version looks better: http://danceb.in/9M6MPTjl5BGQ3B2uDMIysQ/raw

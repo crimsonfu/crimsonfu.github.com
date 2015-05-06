@@ -1,0 +1,28 @@
+Time  Nick      Message
+19:23 semiosis  anyone else here use ec2 ebs optimized instances?
+19:24 semiosis  i seem to be given much slower CPUs for ebs-optimized instances than regular instances
+19:25 semiosis  like 1.8GHz ebs-optimized vs 2.6GHz regular
+19:25 semiosis  could just be bad luck of the draw though
+19:48 joshu     hey semiosis how's it going?
+19:50 semiosis  busy busy busy
+19:51 joshu     you use AWS for work?
+19:51 semiosis  yes
+19:52 joshu     linux vms only or dark side too?
+19:52 semiosis  linux all the way
+19:52 joshu     I ask as I'm looking at AWS for the latter for the first time
+19:53 joshu     migrate from on-site VMware vSphere ESXi to AWS VPC
+21:05 pdurbin   wow, so many differnt types: http://aws.amazon.com/ec2/instance-types/
+21:16 semiosis  joshu: i thought about using a windows ec2 instance to build native packages of a javafx app we're developing, but decided instead to just borrow time on windows boxes in the office
+21:16 semiosis  vnc across the office lan is so much better than rdp over the internet
+21:17 joshu     hehe true
+21:18 larsks    semiosis: Ya think?  I've generally found RDP sessions to be nicer to work with (rdesktop happily lets me change my virtual desktop resolution, but my vnc clients do not -- that I'm aware of).
+21:18 larsks    But local is certainly faster :)
+21:21 semiosis  +1
+21:22 joshu     larsks if you haven't already you should have a look at freerdp instead of rdesktop
+21:22 * pdurbin wonders how licensing works for Windows VMs on EC2
+21:24 semiosis  pdurbin: there's a small additional cost baked into the hourly rate for windows vms
+21:24 joshu     pdurbin Amazon takes care of it…yeah what semiosis said
+21:24 semiosis  pdurbin: but that's nothing compared to the huge emotional cost of using windows lol
+21:25 joshu     semiosis haha you're so right! Why that OS even exists :(
+21:28 pdurbin   heh. gotcha. thanks. the microsoft tax :)
+22:12 semiosis  trying out the new eclipse 4.3 (kepler)

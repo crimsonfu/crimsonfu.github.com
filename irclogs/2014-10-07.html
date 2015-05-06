@@ -1,0 +1,7 @@
+Time  Nick    Message
+14:23 pdurbin I'd like to have Python 2.7 on CentOS 6. Is `scl` (Software Collections) the recommended way? http://softwarecollections.org
+15:13 whorka  works well on our Research Computing servers for 2.7 and 3.3
+15:15 pdurbin good to know. I need it for Django
+16:58 pdurbin ok, seems to work fine. scl enable python27 "path/to/setup-script.sh"
+17:45 pdurbin this was helpful: http://developerblog.redhat.com/2013/02/14/setting-up-django-and-python-2-7-on-red-hat-enterprise-6-the-easy-way/
+17:48 pdurbin getting the python27 rpm from http://ftp.scientificlinux.org/linux/scientific/6.4/x86_64/external_products/softwarecollections/yum-conf-softwarecollections-1.0-1.el6.noarch.rpm

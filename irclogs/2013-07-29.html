@@ -1,0 +1,17 @@
+Time  Nick    Message
+01:40 pdurbin codex: ah. ok
+02:14 joshu   anyone good with shell scripting who can give me some feedback
+10:17 pdurbin joshu: I'm no wizard but what's your question?
+10:18 joshu   hey pdurbin me neither. Just looking for some feedback https://gist.github.com/anonymous/bc52bca235a1fd830b6d
+10:25 pdurbin I'm not used to seeing lines start with a colon but I guess others are: http://stackoverflow.com/questions/3224878/what-is-the-purpose-of-the-colon-gnu-bash-builtin
+10:29 joshu   I just got that from some other script
+11:36 dotplus ben_e_: and the drbd Just Works? doesn't need much love & attention? interesting. (we're not running a highend website either, in fact this is as much for internal infrastructure services such as a config mgmt db, RT, an accounts db as for a few public wordpress sites with maybe a few thousand uniques). My thinking is that I want somehting that is as stable and low maintenance as possible, that any hardware we're likely to buy + a minimal ...
+11:36 dotplus ... initial effort towards mysql tuning will result in acceptable performance)
+13:39 pdurbin dotplus: ah. you're still running RT
+15:13 ben_e_  dotplus: yeah, drbd has been remarkably trouble free for our purposes around here
+15:13 ben_e   mirrors for mysql and postgres
+15:14 ben_e   and a pair of mirrored 15 TB file servers for scientific data
+15:24 ben_e   news of the day: harvard netops dropped some of our servers from dns
+15:29 larsks  I dump our zones into a git repository twice daily and generates alerts on changes...just because we've had this sort of thing happen in the past.
+15:30 larsks  Also for switch configurations and firewall configurations.
+15:41 pdurbin :)

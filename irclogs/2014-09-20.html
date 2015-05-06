@@ -1,0 +1,21 @@
+Time  Nick      Message
+17:16 pdurbin   Philip Durbin on Twitter: "Nice! They let anyone in the new @odybot community! Even former members of @fasrc like me! #odybot http://t.co/4dtqKXXrRE" - https://twitter.com/philipdurbin/status/513100443791425536
+17:17 pdurbin   dotplus: are you still doing HPC?
+17:21 hydrajump any heka (https://github.com/mozilla-services/heka) users?
+17:21 hydrajump been struggling with riemann for a week and considering alternatives maybe heka
+17:22 pdurbin   huh. so it's for time series data?
+17:23 hydrajump pdurbin: it's for everything apparently
+17:24 hydrajump http://vimeo.com/98689689
+17:24 hydrajump "Rob Miller: Stream Processing Made Heka Easy"
+17:25 pdurbin   hmm, ok
+17:25 pdurbin   hydrajump: your data is time series data?
+17:28 hydrajump pdurbin: data or events look like this: service-up - when service is starting, service-exception - when strange exception
+17:28 hydrajump happened, service-heartbeat, 'job ' + type + ' start, 'job ' + type + ' finish'
+17:28 hydrajump don't know if that is classified as time series
+17:29 pdurbin   sounds like logs
+17:30 hydrajump those mentioned are "events" sent directly from nodejs apps and meant to go to a monitoring solution that will provide real time monitoring/ alerting
+17:32 pdurbin   ok. I wonder if logstash would be useful here.
+17:33 hydrajump from the heka video it is supposedly does what logstash does and more without the memory overhead of jvm etc.
+17:34 hydrajump heka written in go
+17:35 pdurbin   ah, a way to avoid the jvm
+17:36 hydrajump and provides other features as well not just that. I just wanted to hear someone's experience with it

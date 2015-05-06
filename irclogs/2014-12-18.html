@@ -1,0 +1,62 @@
+Time  Nick       Message
+00:56 hydrajump  can anyone recommend a rails developer whose available for a couple of days job working on an existing rails 4 app?
+00:57 prologic   permissive?
+00:57 prologic   hydrajump if you said python I'd say sure yeap me :)
+00:57 prologic   :P
+00:58 hydrajump  hehe thanks :D
+00:58 hydrajump  not easy finding good devs who actually do what they say they will
+00:59 prologic   that's true
+01:17 pdurbin    those lazy devs
+01:32 prologic   yeah :P
+01:32 prologic   damn them all to hell :)
+01:32 prologic   oh wiat
+01:32 prologic   I'm a dev
+01:32 prologic   rats :(
+01:32 prologic   got my new server working last night
+01:32 prologic   a little VX11 CRUX VM at hetzner.de
+01:33 pdurbin    prologic: if you want URLs to be clickable in the logs made by ilbot3, you have to add http://
+01:43 prologic   heh
+01:43 prologic   http://hetzner.de
+01:43 prologic   there :P
+01:44 prologic   anyone heard of this statusnet / gnusocial thing?
+01:44 prologic   any opinions?
+01:51 pdurbin    statusnet is no more, but yes it lives on a gnusocial, I guess. the guy who wrote statusnet has since created http://pump.io
+01:54 prologic   oh?
+01:54 * prologic looks
+01:55 pdurbin    prologic: node.js! async! you'll love pump.io!
+01:57 prologic   https://1realtime.net/prologic
+01:57 prologic   cool :)
+01:57 prologic   I created an account on their hosted version of pump.io
+01:57 prologic   I'll try it out over the next few days
+02:06 * pdurbin  has an account at https://microca.st/pdurbin ... "2 years ago" on the more recent post
+02:07 pdurbin    prologic: I left some notes here: http://irclog.greptilian.com/spanworm/2013-02-26#i_3540
+02:08 pdurbin    looks like I opened this ticket: https://github.com/e14n/pump.io/issues/440
+03:45 prologic   So i pump.io decentarlized ?
+09:28 * prologic is hacking up a gopher daemon in circuits
+09:28 prologic   :)
+11:29 pdurbin    prologic: yes. decentralized and federated. rare in that way
+13:59 prologic   https://bitbucket.org/prologic/cgod
+13:59 prologic   pdurbin, cool so I should run a pump instance on my server yeah?
+13:59 prologic   get in on this oss/decentralized/federated social crap :)
+14:28 dotplus    prologic: "circuits"?
+14:28 dotplus    I don't think you can mean ASIC, right?
+14:33 prologic   ASIC?
+14:33 prologic   https://pypi.python.org/pypi/circuits
+14:37 pdurbin    this confusion never comes up in #circuits ;)
+14:37 prologic   no indeed :)
+14:48 dotplus    https://en.wikipedia.org/wiki/Application-specific_integrated_circuit
+14:59 dotplus    huh. circuits sounds interesting. the purpose of it is to make it easy to build network service daemons?
+15:02 prologic   sure
+15:03 prologic   or web apps
+15:03 prologic   or anything that does I/O
+15:06 dotplus    how does it do performance-wise? multi-thread/multi-process? python for that sort of thing just makes me think of multiprocessing and "fails at anything but small scale", but that might be because the primary app I'm thinking of (bcfg2) was horrid.
+15:10 dotplus    mrrh, you people are too interesting. I have work I'm supposed to be doing
+15:12 prologic   async I/O
+15:13 prologic   event-driven
+15:13 prologic   real world performance is acceptable for what the framework does
+15:13 prologic   raw banchmarks put circuits (the core) at ~50k events/s on my hw and ~150k event/s with PyPy
+15:14 prologic   circuits.web fairs far worse but it's quite a feature rich web framework
+15:14 prologic   so benefits from load balancing :)
+15:15 prologic   circuits is design to scale :)
+15:15 prologic   you should do as little CPU bound work as possbile in any given event handler
+15:15 prologic   CPU bound work should be shoved off to a Worker (circuits.Worker)

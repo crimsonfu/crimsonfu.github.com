@@ -1,0 +1,10 @@
+Time  Nick      Message
+11:48 pdurbin   hmm, when I try to curl http://www.smartpeoplepodcast.com/?feed=podcast
+11:49 pdurbin   I don't get the XML I expect... instead I get a bunch of javascript that apparently has the URL encoded in it. It works in the browser (I see the XML) but I can't figure out how to have curl download the XML.
+11:57 bencomp   Accept: text/html ?
+11:57 bencomp   xml
+11:59 pdurbin   bencomp: wow, that totally works. thanks!
+11:59 pdurbin   curl -H "Accept: text/xml" http://www.smartpeoplepodcast.com/?feed=podcast
+17:40 pdurbin   any javascript hackers? help! Follow redirects in d3.js or javascript · Issue #21 · IQSS/TwoRavens - https://github.com/IQSS/TwoRavens/issues/21
+20:05 semiosis  tee is really the best named command ever
+20:18 JoeJulian +1

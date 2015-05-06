@@ -1,0 +1,46 @@
+Time  Nick      Message
+02:17 pdurbin   anybody wanna /join #indiewebcamp and help fight a synflood attack?
+02:17 pdurbin   good people in there
+02:33 pdurbin   their wiki is still up: http://indiewebcamp.com
+03:03 pdurbin   nevermind. fixed: http://indiewebcamp.com/irc/2014-02-26/line/1393468771
+16:09 skay      pdurbin: me too. and I was looking for dockerized scientific python stacks and found https://index.docker.io/u/scivm/
+16:12 skay      pdurbin: and it looks like that user may beat me to dockerizing scientists papers http://www.scivm.org/ though I don't know
+16:20 pdurbin   skay: me too? oh. moving from vagrant to docker? http://irclog.iq.harvard.edu/dvn/2014-02-27#i_6613
+16:20 skay      pdurbin: yes, that
+16:20 skay      I didn't want to start rambling in #dvn about offtopic stuff so came here
+16:30 * pdurbin never goes off topic
+16:57 semiosis  mentoring one of my devs to send a PR to a github project for a fix he made
+16:57 semiosis  feels good
+16:57 semiosis  that first PR is the hardest
+16:59 pdurbin   semiosis: I did the same here yesterday: https://github.com/dvn/dvn-install-demo/pull/2
+17:01 semiosis  i just wrote some quick tips while talking with him: https://gist.github.com/semiosis/9254331
+17:02 semiosis  pdurbin: cool!
+17:14 joshu     semiosis thanks for the tips they will come in handy shortly ;)
+17:15 semiosis  yw!
+17:16 joshu     Are pull requests always done from within the github site, e.g. it's github extension to git?
+17:20 semiosis  there may be command line utilities to call the github api, but yes it's a github thing
+17:20 semiosis  i always do it on the web site
+17:22 pdurbin   Linus doesn't like them. Or at least doesn't use them.
+17:23 joshu     ok my git and github use has been restricted to just git clone, so I'm starting to use it now properly and plan on contributing to some open source projects very soon.
+17:25 pdurbin   +1
+17:40 semiosis  https://github.com/torvalds/linux/pull/17#issuecomment-5654674
+17:40 semiosis  https://github.com/torvalds/linux/pull/17#issuecomment-5659970 -- classic Linus!
+17:50 skay      semiosis: I consider asking people to attach the parent as a remote, and then periodically fetch and rebase to fixup small commits, but I know this is not to everyone's preference
+17:51 semiosis  i have tried many times but still cant figure out wtf rebase is/does
+17:51 skay      semiosis: for a new person who may also be new to git, you might add some example commands
+17:51 skay      omg rebase and all that stuff -- I still make mistakes.
+17:51 semiosis  skay: not my intention to write a beginners guide to git
+17:52 skay      and my brain is fried from using a proprietary stream-based version control system for many years
+17:52 semiosis  skay: we use gitlab internally and have a flow very similar to github, i just wanted to give my colleague some tips for successful PRs and point out the differences between our gitlab flow and the github flow
+17:52 skay      and it was so easy to visualize where I had gone off stream with my changes and what I needed to fix
+17:53 skay      semiosis: oh I see.
+17:53 skay      I have http://tyler.readthedocs.org/en/latest/developmentsetup.html#making-changes btw, which links to this article about interactive rebasing https://help.github.com/articles/interactive-rebase
+17:54 semiosis  thx i'll take a look at those
+17:54 skay      it helped me
+17:54 semiosis  ...again
+17:54 skay      oh ha
+17:54 skay      afkish again
+17:54 semiosis  every time i think i need to rebase i figure out (after much frustration) that i want either a reset or a merge
+17:55 skay      (tyler is what I called my project before my boss asked me to pick a different n ame since people kept asking her who the hell is tyler)
+17:56 skay      (and I explained, Rose Tyler is the companion of the first Doctor in the Doctor Who reboot, and we are rebooting RunMyCode, which has companion pages. makes sense)
+17:58 semiosis  here i was thinking "the first rule of..."

@@ -1,0 +1,60 @@
+Time  Nick      Message
+00:20 pdurbin   semiosis: you're saying swagger forces you to have "body" on the left as a name? you can't pick your own name ("file") for multipart?
+15:20 hydrajump ebay hacked!! http://www.cnet.com/news/ebay-hacked-requests-all-users-change-passwords/
+15:23 pdurbin   bummer
+15:58 semiosis  pdurbin: yes, i set the name in the java annotation but that didnt show up in the ui
+16:35 pdurbin   huh
+16:46 hydrajump semiosis: maybe too late but what about this for your api documentation needs http://apiary.io/
+16:48 semiosis  interesting
+16:49 hydrajump semiosis: http://apiblueprint.org/
+16:50 hydrajump beautiful sites
+16:51 semiosis  who designs these sites?!?!
+16:52 hydrajump good question I wish I had those skills. Eye candy :P
+16:52 semiosis  thx for the refs but both are too heavyweight for what i need right now
+16:53 semiosis  i'm just writing a markdown doc for three endpoints a client needs this week
+16:53 semiosis  will worry about larger scale api docs later
+16:53 hydrajump no worries.
+16:55 hydrajump the second link looks pretty straightforward from the getting started...
+16:55 hydrajump $ cat << 'EOF' | snowcrash --format json
+16:55 hydrajump # My API
+16:55 hydrajump ## GET /message
+16:55 hydrajump + Response 200 (text/plain)
+16:55 hydrajump Hello World!
+16:55 hydrajump EOF
+16:55 hydrajump {
+16:55 hydrajump "name": "My API",
+16:55 hydrajump "description": ""
+16:55 hydrajump ...
+16:56 semiosis  you skipped the part where I have to git clone recursive & compile C++
+16:57 semiosis  :)
+16:57 hydrajump Oh...get a Mac :P
+16:57 semiosis  sure, reaaaally straightforward :P
+16:58 hydrajump hahahaha
+16:58 hydrajump Touche
+16:58 hydrajump Pen and paper
+18:28 larsks    Huh, those both look Markdown based. Neat. hydrajump, thanks for the links :)
+18:29 hydrajump ;)
+18:54 pdurbin   +1
+18:57 hydrajump Is there a way in markdown to split a blockquote into two. Here's an example
+18:58 hydrajump http://pastie.org/private/r13xe8tvgux0bvlfi11ccg
+18:59 hydrajump Problem is that when I render the markdown using redcarpet it becomes one blockquote with two paragraphs. I want the two paragraphs to have a new line in between if you see what I mean.
+19:11 larsks    hydrajump: http://chunk.io/f/7e6e3f6713254052b2788394305eca84
+19:11 hydrajump Stackoverflow https://stackoverflow.com/questions/12979577/how-can-i-write-two-separate-blockquotes-in-sequence-using-markdown
+19:13 hydrajump Yeah thanks larsks. Now I have a different case that looks like this: http://pastie.org/private/gylhyrytwp2kjepc7ie6a
+19:14 hydrajump Now I don't want to split the blockquote, but I want each list item to have a line break so it's easier to read
+19:15 larsks    hydrajump: a line break where?  When I render it, there's an empty line between list items.
+19:18 hydrajump really for me it looks like this: http://cl.ly/image/1G0f27333u2k
+19:25 hydrajump I don't know if there's any difference with kramdown vs redcarpet with regards to this
+19:26 larsks    hydrajump: Fix it with CSS.  You should be able to add some padding-top to your list items or something.
+19:27 hydrajump there are line breaks if I remove the blockquotes. So it's a markdown limitation?
+19:28 larsks    I don't think so.  That is, space between list items is really a style thing.
+19:29 hydrajump Ok I understand. I'll add some css to fix it. Thanks for your help.
+19:34 larsks    You could stick some <br/> tags in there I guess...
+19:36 hydrajump I added blockquote li { padding-top: .5rem; } it did the job.
+21:40 semiosis  pdurbin, anyone: thoughts on how to do api request rate limiting in java?
+23:17 hydrajump It would be so cool to attend something like this when I'm in the US, but super pricey https://www.blackhat.com/us-14/training/index.html
+23:18 hydrajump codex: you been to any conferences like that?
+23:20 hydrajump Speaking of APIs http://apis.io/ and http://apisjson.org/
+23:41 semiosis  lmao, an api search engine, with a whole *30* in the index!
+23:42 semiosis  way to solve that problem!
+23:42 semiosis  can I get an API for apis.io?  can i search for itself?

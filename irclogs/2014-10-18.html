@@ -1,0 +1,47 @@
+Time  Nick      Message
+20:00 melodie   pdurbin ?
+20:00 * melodie invites pdurbin to #phillw to debate about Discourse
+20:01 * pdurbin thinks he likes Discourse
+22:14 melodie   :)
+22:16 pdurbin   melodie: remember those Amazon ads you showed me on default Ubuntu? Can you turn those off?
+22:17 melodie   yes you can and I was even told now they are default turned off :
+22:17 pdurbin   oh good
+22:17 melodie   Linus Torvalds would have them triald? Well not sure, something phillw told me
+22:19 melodie   and that was on the official ubuntu only : not in Xubuntu, Lubuntu and other non Unity flavors
+22:28 pdurbin   everybody still hates Unity, right? I'm still on Fedora so I don't know.
+22:29 melodie   well, to be frank I have yet to meet with the people loving it while using it on a daily basis
+22:29 melodie   on Fedora I'd suppose you use Gnome? Or is it Xfce or Lxde?
+22:30 pdurbin   gnome 3, yeah
+22:31 pdurbin   i still have the problem where my pointer jumps all around. :( I thought I had fixed it. T-T
+22:32 melodie   what is you gpu and graphics driver?
+22:32 pdurbin   00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+22:33 melodie   which driver?
+22:33 melodie   Intel xyz?
+22:33 pdurbin   not sure
+22:34 melodie   well something such as:
+22:34 melodie   grep Driver /var/log/Xorg.0.log should tell you something
+22:35 pdurbin   X.Org Video Driver: 14.1
+22:35 melodie   this is not enough
+22:36 melodie   maybe if you scroll into the file, using whatever tool you want (more, less, or any text editor started as simple user should do)
+22:37 melodie   also in the graphics section in a "sudo lshw" you should find it
+22:39 melodie   pdurbin I think I've seen this issue in the paste but I can't remember the details. what is the brand an model computer where it happens?
+22:41 melodie   pdurbin would this help you? https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1272624
+22:42 melodie   "his may be due to how the touchpad is detected as a PS/2 mouse instead of a more appropriate touchpad driver (...)"
+22:42 pdurbin   melodie: many detail about my laptop here (where I claimed to have fixed it): http://irclog.perlgeek.de/crimsonfu/2014-03-24#i_8482831
+22:42 pdurbin   details*
+22:42 * pdurbin runs yum install lshw
+22:42 melodie   :)
+22:43 pdurbin   vendor: Intel Corporation
+22:43 pdurbin   configuration: driver=i915 latency=0
+22:44 melodie   on this side it seems all ok to me, so the lead related to the touchpad seems one to be explored, so you might want to read the details of the ubuntu bug report above
+22:44 melodie   this might work in Fedora too, provided you adapt the information
+22:45 pdurbin   melodie: so in my case, my pointer jumps around (and clicks!) even when I'm not touching the touchpad. even when I'm just typing or whatever. it's ridiculous. no problem when i boot into windows.
+22:45 pdurbin   that bug report seems to be about actually touching the touchpad
+22:50 melodie   yes but the result seems the same, so maybe the solution to it would work for you?
+22:51 melodie   or a similar one?
+22:51 melodie   and have you tried changing the version of the kernel also?
+22:51 melodie   well the solution they point to would be here: https://help.ubuntu.com/community/SynapticsTouchpad#Control_touchpad_features_using_synclient
+22:56 melodie   pdurbin also if you haven't yet, you might want to seek for some clues here: http://www.thinkwiki.org/wiki/Category:X220
+22:57 melodie   even if I haven't found a clue there
+22:58 melodie   I have to quit, good evening, and see you soon
+23:04 pdurbin   whoops, missed her. thanks, melodie

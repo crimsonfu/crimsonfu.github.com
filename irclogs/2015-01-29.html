@@ -1,0 +1,26 @@
+Time  Nick      Message
+17:24 pdurbin   iTunes Connect Issue Causing Developers to Be Logged Into Wrong Accounts [Updated] - Mac Rumors - http://www.macrumors.com/2015/01/29/itunes-connect-developer-issue/
+18:13 dotplus   guess who gets to learn Yet Another configuration mgmt tool? Ansible this time.
+18:15 * pdurbin has heard good things about ansible
+18:16 bene      it's delightfully simple
+18:22 hydrajump ansible is great and easy t learn ;)
+18:49 dotplus   So far (with <1 day of reading docs), my guess is that ansible makes it easy to get stuff done. My concern is how easy is it to do stuff _well_?
+18:50 dotplus   cross-platform, testable, scaled to hundreds of environments with hundreds of hosts in each, etc. etc.
+18:50 bear      having done good chef, puppet and ansible - it's just as hard/easy as the others
+18:51 bear      inventory management and role/task seperation is what I like about ansible
+18:51 dotplus   yeah, that doesn't surprise me much. they are hard problems.
+18:52 bear      your roles and tasks in ansible will have a lot of "when: ansible_os_family == 'RedHat'"
+18:52 bear      to handle the cross platform
+18:52 bear      and lines like - hosts: RedHat-7*:RedHat-6*:CentOS-7*:CentOS-6*:Ubuntu-12.04:Ubuntu-14.04
+18:53 bear      which means inventory data is important
+18:55 dotplus   hm? I don't think I get that hosts: line
+18:56 bear      ansible lets you declare what hosts are to be handled for a playbook - and it can contain wildcards
+18:57 bear      so if your inventory groups are by OS (which then lists what hosts are in each group) you can select by OS
+18:57 bear      so that line reads "gather all hosts that are in the groups RedHat-7* and RedHat-6* and CentOS-7* ..."
+18:58 bear      and then the tasks that follow the hosts line will be performed on them
+18:59 dotplus   oh I see, those are inventory groups not hostnames. now I understand.
+19:02 bear      yea, ansible can use host, groups and ip addresses for pattern matching
+19:02 bear      it then builds the host list from all that are matches
+21:13 semiosis  some awful bash for those of you with autoscaling instances in ec2... https://gist.github.com/semiosis/4489065
+23:21 pdurbin   whorka: you do some of that I think
+23:21 pdurbin   the autoscaling, not the awful bash

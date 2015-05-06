@@ -1,0 +1,26 @@
+Time  Nick       Message
+16:48 * semiosis starts overhauling infrastructure
+16:49 semiosis   lots of cool new stuff in the last three years since our last refresh
+17:11 hydrajump  semiosis: hey what are you using?
+17:12 semiosis   doing a proof of concept with vagrant, packer, and masterless puppet for deployment in ec2 vpc
+17:12 semiosis   current infra is ec2 classic, a puppetmaster, and a ton of masterfully complex puppet code
+17:13 semiosis   hoping to reduce that complexity
+17:25 semiosis   a big part of this is replacing nagios
+17:25 semiosis   anyone have experience with datadog?  so far that looks like a good alternative
+17:34 semiosis   or perhaps librato
+17:35 whorka     not yet but please report back what you find. I'm currently comparing them to SumoLogic.
+17:35 semiosis   whorka: thanks! i'll probably try all three of them
+17:35 semiosis   never heard of sumologic before
+17:37 semiosis   newrelic looks too expensive at $150/server-month
+17:37 semiosis   hoping to spend that or less total for all the servers
+17:38 whorka     Sumo gave me a real nice rundown of their security infrastructure.
+17:38 whorka     runs on EC2/S3 and everything is AES256 encrypted end-to-end and at rest.
+17:38 semiosis   neat
+17:39 semiosis   that would be important for sending logs, but right now i'm just interested in system metrics & alerts
+17:39 whorka     ah, we are looking at logs
+17:39 semiosis   looking at setting up an elasticsearch cluster for log & business event analytics
+17:39 semiosis   but that's after the infra refres
+17:39 semiosis   h
+17:40 semiosis   bbaib
+17:50 hydrajump  semiosis: I've heard great things about datadog
+18:52 semiosis   that gives me hope :)

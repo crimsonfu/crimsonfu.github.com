@@ -1,0 +1,21 @@
+Time  Nick      Message
+01:02 pdurbin   phew! pushed
+01:02 * pdurbin packs up
+01:03 pdurbin   and thank god for perltidy
+14:40 pdurbin   heh. Bug 1043676 – drop docker from rawhide (or redirect to wmdocker) - https://bugzilla.redhat.com/show_bug.cgi?id=1043676
+14:40 pdurbin   I run yum install docker
+14:40 pdurbin   then yum remove docker
+14:40 pdurbin   then yum install docker-io :)
+14:43 pdurbin   huh
+14:43 pdurbin   Stderr: 2014/06/06 10:42:30 Get http:///var/run/docker.sock/v1.11/containers/json?all=1: dial unix /var/run/docker.sock: permission denied
+14:44 pdurbin   surely I don't have to run `vagrant up drupal --provider=docker` as root...
+14:44 pdurbin   (from https://github.com/huit/docker-drupal )
+14:44 bene      what distro are you running on?
+14:45 pdurbin   fedora
+14:46 bene      http://docs.docker.io/installation/binaries/#giving-non-root-access
+15:04 pdurbin   bene: thanks. gotta pack for camping but will mess with this later
+15:05 bene      where are you camping?
+15:06 pdurbin   http://www.nhstateparks.org/explore/state-parks/pawtuckaway-state-park.aspx
+15:38 bene      http://pwnwiki.io/#!index.md <- sorta thin right now, but could be interesting in the future
+15:43 pdurbin   ah. if you get pwn'ed
+21:02 semiosis  http://cdn.memegenerator.net/instances/500x/46344831.jpg

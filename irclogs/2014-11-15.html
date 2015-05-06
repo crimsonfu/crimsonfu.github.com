@@ -1,0 +1,164 @@
+Time  Nick       Message
+06:28 prologic   Hi folks
+06:28 prologic   I'd like to announce a pre-release of autodock: https://registry.hub.docker.com/u/prologic/autodock/
+06:28 prologic   autodock -- Automating Docker
+11:51 pdurbin    nice
+11:51 prologic   yeah actually
+11:51 prologic   it is :)
+11:51 prologic   building a hipache plugin now
+11:51 prologic   that will let you dynamically setup vhosts for any web container
+11:51 prologic   by simply running it with a VIRTUALHSOT env var
+11:51 prologic   e.g:
+11:52 prologic   docker run -e VIRTUALHOST=foo.bar.com -p 80:80 my_web_image
+11:53 pdurbin    After Docker: Unikernels and Immutable Infrastructure — Medium - https://medium.com/@darrenrush/after-docker-unikernels-and-immutable-infrastructure-93d5a91c849e
+11:53 pdurbin    semiosis: ^^
+12:13 pdurbin    I was just saying yesterday that I'll feel like Docker has arrived when one of our users asks for us to distribute our application as a Docker container.
+12:14 pdurbin    so far they've only asked for RPMs
+12:38 prologic   heh
+12:38 prologic   I'm sure they will eventually :)
+12:39 prologic   Docker really is quite convenient though
+12:39 prologic   even on the Desktop
+12:39 prologic   just today, I wanted to convert a bunch of REDME.rst to README.md
+12:39 prologic   (because the Docker Hub doesn't support rendering rst yet)
+12:40 prologic   it's far eiaser to just run up someone's image of pandoc
+12:40 prologic   thatn it is to install haskell and all the dependeices of pandoc
+12:40 prologic   only to litter my system of something I'd hardly use :)
+12:40 prologic   so now I have a ~/bin/rst2md
+12:40 prologic   https://gist.github.com/b66bd4ddf4bd9e1b63cc
+12:42 pdurbin    yeah, I use Vagrant for quick experiments in installing stuff I don't want on my laptop
+12:44 pdurbin    prologic: do you always run docker as root?
+12:44 pdurbin    when you do `docker run`?
+12:45 prologic   err no never
+12:45 prologic   always as my local user
+12:45 prologic   also you should try it out yourself
+12:45 prologic   as opposed to Vagrant
+12:45 prologic   it's a hell of a lot faster to test things out :)
+12:55 pdurbin    I don't *want* to execute `docker run` as root. It's just that the last time I tried Docker I was on Fedora and there's all this weirdness there about sudo and Docker and groups: https://docs.docker.com/installation/fedora/
+12:56 prologic   oh
+12:56 prologic   that's just bad documentation :)
+12:57 prologic   what can I say -- developers suck at it
+12:57 prologic   needless to say
+12:57 prologic   install Docker
+12:57 prologic   add yourself to the "docker" group
+12:57 prologic   and you're done
+12:57 prologic   no sudo or root this
+12:57 pdurbin    ok, so you do have to add yourself to the "docker" group
+12:57 prologic   all kinds of silliness of nob jokey sysadmins :)
+12:58 prologic   yes b default the remote api (docker daemon) binds to /var/run/docker.sock
+12:58 prologic   you can tweak this by editing the systemd/upstart/init (whatever) startup for Docker
+12:58 prologic   docker --help
+12:58 prologic   it's the -H option
+12:58 prologic   e.g:
+12:58 prologic   docker -H tcp://0.0.0.0:2375
+12:58 prologic   237t is the standardized port
+12:58 prologic   as recognized now by the (whatever that org is)
+12:59 prologic   2375*
+12:59 prologic   or you can have both like I do on my desktop
+12:59 prologic   so I can access the Docker Daemon on my desktop via it's UNIX Socket at /var/run/docker.sock and via it's TCP endpoint from my MacBook Air
+13:00 prologic   so on my MBA I can do:
+13:00 prologic   docker run -i -t crux
+13:00 prologic   and instantaneously get a crux linux env
+13:09 pdurbin    ok, `sudo gpasswd -a pdurbin docker` (and logging out and back in) from https://docs.docker.com/installation/ubuntulinux/ seemed to work fine. and restarting docker
+13:10 prologic   awesome :)
+13:10 pdurbin    and now I'm in crux I think
+13:10 prologic   welcome to the evil wonderful world of Docker :)
+13:10 prologic   oh?
+13:10 prologic   typing crux will find out :)
+13:11 pdurbin    CRUX version 3.1
+13:11 prologic   yeap :)
+13:11 prologic   you are :)
+13:11 prologic   docker run -i -t crux/python
+13:11 prologic   :)
+13:11 prologic   or even better
+13:11 prologic   docker run -i -t --privileged crux/dind
+13:11 prologic   Docker-in-Docker :)
+13:13 pdurbin    running `rst2md index.rst` right now. it's downloading some stuff
+13:14 pdurbin    downloading pandoc
+13:17 pdurbin    and dependencies. slowly
+13:19 prologic   ahh cool :)
+13:19 prologic   it helps to have a fast connection sometimes
+13:19 pdurbin    ever so slowly
+13:19 prologic   often some folk are lazy and dont' optimize their iamges :)
+13:20 prologic   I Dockerized my UNIX as an IDE Development Environment last week
+13:20 prologic   so I can run my ide anywhere :)
+13:20 prologic   it's ~1.2G in size
+13:20 prologic   good thing my new job has Fibre :)
+13:20 pdurbin    so it's an image not a container?
+13:22 pdurbin    searchbot: lucky docker image vs container
+13:22 searchbot  pdurbin: http://docs.docker.com/terms/container/
+13:23 pdurbin    ok, so images are read-only
+13:24 pdurbin    containers are read-write
+13:24 prologic   the life-cycle is
+13:24 prologic   Image -> Container
+13:24 prologic   a Registry (e.g: Docker Hub) stores Images
+13:24 prologic   Docker runs Containers
+13:24 prologic   it also builds Images
+13:24 prologic   etc :)
+13:24 prologic   the whole ecosystem
+13:24 pdurbin    an image is like a snapshot of a container? I'm seeing `docker commit`
+13:25 prologic   yes containers are read/write
+13:25 prologic   however when they are terminated and removed
+13:25 prologic   all data is lost
+13:25 prologic   images are immutable
+13:25 prologic   umm
+13:25 prologic   images are built up of layers
+13:25 prologic   using COW - Copy on Write
+13:25 prologic   AUFS, BRTFS, devmapper
+13:25 prologic   are the main storage backends supported right now
+13:26 prologic   I use BTRFS myself here
+13:26 prologic   docker commit is useful for building images by hand
+13:26 prologic   e.g:
+13:26 prologic   docker run -it ubuntu /bin/bash
+13:26 prologic   ; install some crap
+13:26 prologic   ; exit
+13:26 prologic   docker commit ...
+13:26 prologic   then you have a new image based off ubuntu
+13:27 prologic   however caveat:
+13:27 prologic   this is not easily reproducible
+13:27 prologic   since you did it by hand :)
+13:27 prologic   so learn to user/write a Dockerfile
+13:27 prologic   lots of examples at https://bitbucket.org/cruxlinux/
+13:28 pdurbin    I'm sure I'll learn more as I play around.
+13:28 pdurbin    rst2md is still downloading gigabytes of pandoc dependencies
+13:28 pdurbin    well, one of them is over 600 MB at least. dunno the total
+13:33 prologic   $ docker images | grep pandoc
+13:33 prologic   jagregory/pandoc           latest              be6297221dd3        8 months ago        2.143 GB
+13:34 prologic   apparently huge
+13:34 prologic   one good reason why I didn't want to isntall it locally :)
+13:34 prologic   also lazy image author/maintainer
+13:34 prologic   probably didn't do an apt-get clean and/or merge multiple RUN statements (optimizing the image)
+13:36 prologic   http://code.activestate.com/recipes/578963-guess-a-number-2-the-computer-attempts-to-guess-yo/
+13:36 prologic   geez christ
+13:36 * prologic weeps
+13:36 pdurbin    done! and now I have an index.md file. neat!
+13:37 pdurbin    and now it's fast to conver the next file. no downloading :)
+13:38 pdurbin    yeah, my /var/lib/docker/aufs is 2.9 GB now
+13:39 prologic   *nods*
+13:39 pdurbin    http://blog.thoward37.me/articles/where-are-docker-images-stored/ could get to the point faster ;)
+13:39 prologic   well locally in /var/lib/docker
+13:39 prologic   by default
+13:39 prologic   /data/docker on my desktop :)
+13:39 prologic   but one should not really look inside or touch the data storage area :)
+13:40 prologic   it's all black magic :)
+13:40 prologic   Also handy tip for when you get to building images
+13:40 prologic   docker rmi -f dangling=true
+13:40 prologic   remove stale dangling images
+13:43 prologic   https://pypi.python.org/pypi/hipachectl/0.0.1
+13:43 prologic   cool ^^^ :)
+13:43 prologic   one of my docker related tools is seeing some use
+14:13 pdurbin    I guess the first thing I think is "where would I host a Docker image I create?"
+14:13 pdurbin    it's easy to host a PHP app
+14:13 pdurbin    and I'm used to deploying Java webapps now
+14:14 pdurbin    and Django, a bit
+14:14 pdurbin    I've stood up Ruby on Rails apps
+14:15 pdurbin    CGI is easy
+14:16 pdurbin    it would be interesting if our ops people said, "We'd like a Docker image of your app. We love hosting Docker images/containers."
+14:26 pdurbin    the argument for writing apps in PHP because they're so easy to deploy: http://werd.io/2014/8-tips-for-writing-open-source-web-apps-that-anyone
+14:47 pdurbin    I guess I'm thinking it would be interesting if Docker becomes so popular that it becomes a common way to deploy apps.
+19:00 pdurbin    bear: heh. nice to see you mentioning Circuits: http://indiewebcamp.com/irc/2014-11-15#t1416075419484
+19:00 bear       :)
+19:00 bear       I use and like circuits a lot
+22:43 prologic   bear, oh really ?
+22:44 prologic   I haven't seen you before though :)
+22:44 prologic   what do you use circuits for?
+23:18 pdurbin    bear: ah. cool. I don't know a ton about circuits but I learn a bit here and there in #circuits

@@ -1,0 +1,134 @@
+Time  Nick         Message
+12:13 pdurbin      interesting: Feature #3802: Setup dataverse 4.0 on MW Azure - Dataverse Network - Project Management at IQSS, Harvard University - https://redmine.hmdc.harvard.edu/issues/3802
+12:14 pdurbin      I assume that's supposed to be "MS Azure"
+12:35 pdurbin      ben_e: see? all this VMs for dev stuff sounds great but it's a little tricky the more moving parts you add: http://irclog.iq.harvard.edu/dvn/2014-04-03#i_7967
+13:49 pdurbin      I'll probably just got with Vagrant. It's what I know. I'm not going back to MacPorts.
+13:54 hydrajump    pdurbin homebrew
+13:55 pdurbin      hydrajump: not supported: NativeSPMacInstall, homebrew - http://shibboleth.net/pipermail/users/2014-April/014911.html
+13:59 hydrajump    pdurbin ah I didn't know you were looking to install something specific. I've never heard of shibboleth before ;)
+14:05 dotplus      execute him!
+14:05 dotplus      oh no, that's only if he pronounces it incorrectly
+14:13 semiosis     pdurbin: install kubuntu on that mbp!
+14:22 hydrajump    haha
+14:23 hydrajump    is shibboleth used to secure web servers or something as I saw apache mentioned?
+15:00 ben_e        the complexity is the moving parts
+15:00 ben_e        not the VM
+15:00 ben_e        the VM in this instance decreases your complexity
+15:02 ben_e        since you can set up a single vagrant box, export it to a website, hand your devs/collaborators a vagrantfile and with 'vagrant up' they have a working, consistent environment that closely mimics the production deployment env
+15:02 ben_e        and since they're devs, when they break it, they can just vagrant destroy && vagrant up again
+15:03 ben_e        it may still be a boatload of upfront work getting the working, repeatable dev env set up
+15:03 ben_e        but you're gonna pay for complexity costs somewhere in the process
+15:10 pdurbin      in the netherlands, they apparently pronounce it "shib oh lay"
+15:11 pdurbin      ben_e: anything but macports
+15:12 pdurbin      semiosis: can kubuntu make use of a retina screen?
+15:14 ben_e        even if it could, you won't get as good a battery life as you will with OS X
+15:15 ben_e        if you need ubuntu on your mac, just virtualize it
+15:15 ben_e        i think you're being trolled though :P
+15:17 * pdurbin    thinks he is
+15:32 hydrajump    so shin oh lay ;) is SSO
+15:32 hydrajump    shib
+15:32 hydrajump    haha
+15:42 semiosis     pdurbin: you tell me
+15:43 semiosis     retina displays have been out a while already, should be ok
+15:44 pdurbin      we're kind of in the middle of a release
+15:48 semiosis     at this point you should wait for trusty 14.04 to come out, later this month
+15:54 * pdurbin    can wait
+15:57 hydrajump    pdurbin you ditching OS X for Kubuntu?
+15:58 * pdurbin    can wait a loooong time
+16:27 semiosis     fwiw kubuntu looks great on my 1080p display
+16:34 pdurbin      at home I run fedora. I do like linux
+16:34 pdurbin      I just don't want to be out of step from the rest of my team
+16:34 codex        pdurbin: https://index.docker.io/u/ventz/dataos/
+16:34 codex        hydrajump: ^
+16:34 codex        PaxIndustria: ^
+16:35 codex        i renamed my 'dos' project to dataOS
+16:35 codex        from the stats on the account (which I just reset) -- i realized that about 100ish people were actively using this
+16:35 pdurbin      codex: so I start with `brew install docker` or something?
+16:35 codex        for the OS X client if you want to control from OS X directly
+16:35 pdurbin      i'm ok with this
+16:39 codex        pdurbin: start with the path of least resistance
+16:39 codex        learn how ti works "out of the box"
+16:39 codex        then add funky stuff :)
+16:39 codex        (that's my theory anyway)
+16:39 codex        but - you could just follow the OS X directions on their site - i think the new way of doing it with the boot2 image is much better
+16:41 pdurbin      codex: is the new way documented?
+16:47 codex        yep
+16:50 pdurbin      codex: this thing? https://github.com/boot2docker/boot2docker
+16:50 pdurbin      (via http://docs.docker.io/en/latest/installation/mac/ )
+16:53 codex        yea
+16:55 codex        pdurbin: i think hydrajump provided this already, but: http://docs.docker.io/en/latest/installation/mac/
+16:56 codex        so they ahve "supported platforms" vs "provisioning (usage from)"
+16:57 hydrajump    codex when I first saw dos I immediately thought of msdos and wondered what you had created :P
+16:57 codex        it turns out I got > 30 emails of people asking me if it was an image for "denail of service"
+16:57 codex        :sigh:
+16:58 codex        even though the description said "DataOS"
+16:58 semiosis     codex: DDoSaaS
+16:58 codex        srsly
+16:59 hydrajump    haha
+17:11 PaxIndustria was reading this post after checking out the thread http://puppetlabs.com/blog/can-containers-and-configuration-management-co-exist
+17:11 pdurbin      westmaasaaS
+17:11 pdurbin      westmaas: ^^
+17:12 PaxIndustria and I really like the idea of docker containers spun up by jenkins, that pretty sway
+17:14 semiosis     pdurbin: lol.  SEMIOSISaaS
+17:15 semiosis     PaxIndustria: me too
+17:15 semiosis     currently have to long lived VMs that jenkins deploys to & runs tests against.  i'd love to replace those with docker containers
+17:19 hydrajump    PaxIndustria I read about using ansible and docker for that....one sec let me find my links
+17:19 hydrajump    PaxIndustria https://github.com/Homebrew/homebrew/pull/28078
+17:21 hydrajump    opps wrong link
+17:21 hydrajump    PaxIndustria http://www.ansible.com/blog/2014/02/12/installing-and-building-docker-with-ansible
+17:22 PaxIndustria cool!
+17:22 hydrajump    I've used ansible and can't compare to chef or puppet but it's real easy to use
+17:42 hydrajump    pdurbin so you going to try and get that shibolay thing working via docker on your mac
+18:14 pdurbin      either docker or vagrant, I guess
+18:18 codex        http://blog.vpetkov.net/2013/08/31/openstack-network-controller-open-vswitch-network-interfaces-config/
+18:18 codex        ^ that was the article that openstack asked to license for their own documentation
+18:18 * codex      is extremely interested into why that's so popular
+18:22 pdurbin      codex: westmaas is your openstack guy
+18:29 codex        westmaas: ^ ping
+18:30 codex        why did that post get so popular?
+18:30 codex        i am getting like 50K+ unique hits per month
+18:30 codex        and why in the world would they want to license it when my license opens it to all
+18:31 westmaas     codex: hmmm
+18:31 westmaas     codex: as for why its popular I think it is becuace networking in openstack is generally confusing
+18:31 codex        yea, it's confusing as shit
+18:31 codex        heh
+18:31 westmaas     and it must be linked from somewhere now :)
+18:31 codex        that's why i posted it. i was shocked at how simple the end solution is, and how no one had it anywhere
+18:31 codex        westmaas: that's what i am trying to figure out
+18:32 codex        i see that google brings it up first at "openstack networking open vswitch"
+18:32 codex        but still, can't figure out what made it that popular
+18:32 dotplus      :( boot2docker didn't just work on my mac, installed via homebrew without error. `boot2docker status` says it's running. `boot2docker info` seems happy, but `docker version` gives me client info ok, but fails with unexpected EOF when I expect info about the server. `boot2docker ssh` hands for a while, then silently exits.
+18:54 westmaas     codex: who reached out to you about licensing?
+18:54 westmaas     anne gentle?
+19:15 pdurbin      who's going to watch them fire up the ol' MARK 1 in 45 minutes?
+19:54 codex        westmaas: drew something
+19:54 pdurbin      heading over
+19:54 pdurbin      searchbot: lucky mark 1 computer
+19:54 searchbot    pdurbin: http://en.wikipedia.org/wiki/Harvard_Mark_I
+20:16 pdurbin_m    https://twitter.com/philipdurbin/status/451814688691867648
+20:16 pdurbin_m    whoops. they*
+20:17 semiosis     pdurbin_m: is that in the science building?  i passed through there to get some AC on my walk to meet you at FASRC
+20:17 semiosis     pdurbin_m: was surprised to see that computer
+20:18 pdurbin_m    yep. science center
+20:23 pdurbin_m    ijstokes: nice shot: https://twitter.com/ijstokes/status/451814712368705536
+20:24 pdurbin_m    sjoeboo: ... of you ;)
+20:38 sjoeboo      ha, yep!
+20:57 pdurbin      :)
+20:58 pdurbin      well, that was pretty cool. hear the thing hum. everyone was there. got a cookie
+20:58 pdurbin      heard*
+20:58 ben_e        no one wrote a "Hello world" for it
+20:58 * ben_e      was disappointed
+20:58 semiosis     how many u-boats did you sink with it?
+21:05 pdurbin      from what I understand this tweet is no longer true: https://twitter.com/philipdurbin/status/313027257658642433
+21:05 pdurbin      the place was too mobbed for me to check though
+22:40 hydrajump    you guys all live and work in Boston at Harvard University?
+22:49 pdurbin      some of us. I do
+22:52 pdurbin      hydrajump: https://github.com/crimsonfu/crimsonfu.github.com/blob/master/index.md#about-the-name-crimsonfu
+22:55 hydrajump    ah that explains why you guys go to events together etc
+22:56 pdurbin      ben_e: so hard to please
+23:01 semiosis     hydrajump: not me
+23:01 pdurbin      semiosis: yeah but you're in cahoots with us
+23:02 pdurbin      hydrajump: what's you're story?
+23:02 pdurbin      your*
+23:02 * pdurbin    slings a towel over his shoulder and wipes a pint glass
+23:55 ben_e        http://vagrantbox.msopentech.com/ <- windows vagrant box

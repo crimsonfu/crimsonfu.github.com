@@ -1,0 +1,13 @@
+Time  Nick    Message
+12:49 melodie are there Debian addicts here? I'd like to ask about a command line, and also how to put it in a post-install script?
+12:49 melodie this is the command line:
+12:49 melodie update-rc.d zram defaults
+12:50 melodie I don't know what "defaults" is supposed to refer to : I suspect it should be "default" as in "/etc/default/" but I am unsure about it
+13:02 melodie ok, defaults is an option
+13:15 pdurbin melodie: an option? you can leave it out? and just use "update-rc.d zram" instead?
+13:16 melodie no you have to define one
+13:16 melodie it's one among else
+13:17 melodie it allows making the symlink which will trigger zram to be loaded and configured at boot time, and "defaults" says it will start in levels 2345
+13:17 melodie so this is the required option for this start script
+13:23 pdurbin hmm. ok
+23:01 melodie good night

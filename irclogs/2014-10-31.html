@@ -1,0 +1,20 @@
+Time  Nick      Message
+17:15 hydrajump hi need some help with ssh port forwarding. this is the network setup ssh -> bastion -> ssh -> server
+17:15 hydrajump ssh -i key.pem -L 3009:localhost:3009 hydrajump@public-ip ssh -i key2.pem -L 3009:localhost:3009 -N core@private-ip
+17:15 hydrajump this way I can access localhost:3009 to gain access to the server web UI.
+17:16 hydrajump this is a temporary solution until I can bring up and get everyone to use openvpn to gain access without ssh port forwarding
+17:16 hydrajump my question is can multiple people do the same port forwaring e.g.
+17:16 hydrajump ssh -i key.pem -L 3009:localhost:3009 semiosis@public-ip ssh -i key2.pem -L 3009:localhost:3009 -N core@private-ip
+17:17 hydrajump the reason for all of this is that there is an internal admin tool which is under dev and cannot be internet accessible as the necessary security is not in place both in the code for the portal etc. E.g. auth is not implemented yet
+18:30 JoeJulian The first port forward, yes. The second, no.
+18:30 JoeJulian hydrajump:
+18:32 JoeJulian The first one says to forward my local port 3009 to localhost:3009 on the remote machine. The second forward does the same thing but if someone has already forwarded that port on host "public-ip", then port 3900 will already be in use, but it's in use in the way you already want it to be so that's not a problem.
+18:32 JoeJulian pdurbin: You following the spaceshiptwo tragedy?
+18:34 pdurbin   uh. there was an unmanned supply rocket that was supposed to go to the international space station the other day. it blew up :(
+18:35 JoeJulian Yep, and spaceshiptwo crashed about an hour ago killing one of the test pilots. :(
+18:35 pdurbin   yikes!
+19:23 semiosis  ahhh
+19:46 hydrajump JoeJulian: right I understand. Thank you
+20:24 semiosis  why do programmers get Halloween & Christmas mixed up?
+20:52 semiosis  Because Oct 31 == Dec 25
+21:43 pdurbin   +1

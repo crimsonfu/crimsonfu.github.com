@@ -1,0 +1,41 @@
+Time  Nick       Message
+21:49 pdurbin    what are the best open source video games?
+21:50 pdurbin    asking for a friend: http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2014-11-22#i_3503966
+22:04 prologic   oh hmm
+22:04 prologic   there's quite a few good ones ihmo
+22:04 prologic   tuxracer comes to mind :)
+22:04 pdurbin    never heard of it. my kids love tuxpaint
+22:08 prologic   https://gist.github.com/0d90549538158c76b033
+22:08 prologic   https://wiki.archlinux.org/index.php/List_of_games
+22:08 prologic   Arch probably have a beter list
+22:09 pdurbin    prologic: you changed it to extremetuxracer ?
+22:11 prologic   I believe upstream changed it
+22:12 prologic   we (CRUX) normally create ports that directly match upstream software names
+22:12 prologic   :)
+22:13 prologic   I discovered how to Dockerize and run X11 apps last night
+22:13 prologic   I even created a Bash alias fo simplifying how to ro it in one stroke :)
+22:13 pdurbin    :)
+22:14 prologic   alias dkix="docker run -i -t -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/$HOME/.Xauthority --net=host"
+22:15 pdurbin    nice
+22:16 prologic   I don't really understand too much why the contanier needs to have access to the host's network stack
+22:16 prologic   but anyway
+22:16 prologic   it doesn't work without --net=host
+22:17 pdurbin    probably the NSA put that in there
+22:17 prologic   lol
+22:18 * pdurbin  remembers when the NSA was hated only for creating SELinux
+22:18 pdurbin    mhayden: ^^
+22:20 prologic   heh
+22:20 * prologic creates a crux/gtk image
+22:20 prologic   to speed up creating X11 Dockerized apps :)
+22:20 prologic   (at least based on GTK+)
+22:20 prologic   :)
+23:05 hydrajump  prologic: I haven't tried it myself but all the examples I've seen don't require --net=host
+23:05 prologic   They do now :)
+23:05 prologic   Docker 1.3.1 here
+23:06 hydrajump  oh, have you tried just adding --cap-add=NET_ADMIN to see if that alone works?
+23:07 prologic   no I haven't
+23:07 prologic   but I'll try when I get back
+23:07 prologic   I'm going to push up crux/gtk to the hub
+23:07 prologic   and a simple demo app based on that
+23:08 prologic   as a here's how to Dockerize X apps
+23:08 prologic   bbl

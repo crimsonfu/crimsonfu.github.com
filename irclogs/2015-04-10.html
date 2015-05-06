@@ -1,0 +1,35 @@
+Time  Nick      Message
+11:37 pdurbin   semiosis: I even use Firefox
+11:37 pdurbin   but a Mac at work
+13:11 larsks    Because it's Friday, a terrible hack: https://github.com/larsks/workinghours
+13:12 pdurbin   larsks++ ... should go on pypi
+13:13 larsks    Maybe, but that requires more work and I am all done.  Pull requests welcome :)
+13:14 pdurbin   nothing wrong with a proof of concept :)
+13:17 dotplus   that's hilarious.
+13:19 dotplus   semiosis: hydrajump: let me give you a counter anecdote (yes, I know that the plural of anecdote is not data:).
+13:20 dotplus   I bought one of their little NAS boxen for home use. It was ok - like most of these things you can fiddle with it as a "proper" linux box if you poke it in the right way.
+13:21 dotplus   Anyway, I didn't spend much time setting it up or using anything fancy. it was just a NFS/CIFS box for me.
+13:22 dotplus   happily (slowly, but happily) serving for a couple of months. Then one day it bricks itself. The response from support was a request to update to the latest firmware.
+13:22 dotplus   It was bricked and wouldn't load new firmware. I wasn't happy.
+13:51 semiosis  pdurbin: intellij idea is open source.  but some of the more sophisticated plugins are commercially licensed
+13:53 pdurbin   semiosis: do you use the fully open source version or the non fully open sourced version?
+13:54 semiosis  i use ultimate.  in fact, most of the time their beta releases (called EAP) include a license good for 30 days, so you just have to keep updating to the latest beta, which I do.
+13:55 semiosis  although I also have a full license for my open source project
+13:57 pdurbin   so the latter
+15:38 larsks    pdurbin: I wrote it up, with pictures: http://blog.oddbit.com/2015/04/10/workinghours-time-shifting-git-commits/
+15:46 pdurbin   "a terrible utility for doing awful things to your repository history" :)
+15:47 pdurbin   heh. --drift
+15:47 pdurbin   larsks: I love it.
+16:06 hydrajump larsks: hehe you created that during working hours :P
+16:08 hydrajump btw larsks IIRC you run your own email server, right?
+16:10 larsks    hydrajump: I run my own MX service.  It takes email to my personal domain and then forwards it elsewhere.
+16:11 larsks    hydrajump: digitalocean + postfix
+16:11 hydrajump larsks: are you using postfix 3.0.0?
+16:12 hydrajump i.e. did you compile from source?
+16:12 larsks    hydrajump: No, I'm running whatever was packaged in Fedora 19 at the moment, with an upgrade planned to F21 in the near future.
+16:12 hydrajump ah ok
+16:44 pdurbin   cat boost.tsv | perl -lane 'print "$F[1]^$F[0]"'
+16:44 pdurbin   I feel like there are shorter one-liners for that. ^^
+17:04 bene      awk '{print $2"^"$1}' boost.tsv
+17:04 bene      mebbe
+17:52 pdurbin   bene: perfect! thanks!

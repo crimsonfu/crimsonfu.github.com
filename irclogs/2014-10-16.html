@@ -1,0 +1,7 @@
+Time  Nick      Message
+13:22 * pdurbin looks at https://code.google.com/p/modwsgi/wiki/InstallationIssues#Unable_To_Find_Python_Shared_Library
+15:58 pdurbin   ok, the fix was to add "export LD_LIBRARY_PATH=/opt/rh/python27/root/usr/lib64:$LD_LIBRARY_PATH" to /etc/sysconfig/httpd
+15:58 pdurbin   "In a future post, we will cover running Django with Apache’s httpd." http://developerblog.redhat.com/2013/02/14/setting-up-django-and-python-2-7-on-red-hat-enterprise-6-the-easy-way/
+15:58 pdurbin   I'm looking forward to that post :)
+16:01 * pdurbin votes up http://stackoverflow.com/questions/7847305/how-to-set-ld-library-path-individually-for-django-web-sites-with-apache-and-mod
+16:19 pdurbin   phew! added Jenkins job, upgrade Python from 2.6 to 2.7 · 9fbcab2 · IQSS/dataverse.org - https://github.com/IQSS/dataverse.org/commit/9fbcab2bdb0acb449756cf0dc06449db2223b8f5

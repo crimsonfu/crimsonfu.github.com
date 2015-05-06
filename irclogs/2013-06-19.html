@@ -1,0 +1,80 @@
+Time  Nick         Message
+17:03 ben_e        ahh, villainy
+17:03 ben_e        that's a good word
+17:03 ben_e        larsks gets the triple word score for the day
+17:04 ben_e        who's using high availability storage for their VM infrastructure?
+17:05 ben_e        we use ovirt+kvm for our in-house service VMs
+17:06 ben_e        and it seems like the RH tech roadmap is to push things towards the glusterfs storage driver for kvm
+17:07 ben_e        but lurking on the gluster mailing list has given me the willies
+17:15 larsks       ben_e: What in particular has given you willies?
+17:50 pdurbin      ben_e: gluster is good medicine
+18:20 semiosis     visualvm \o/
+18:20 semiosis     pdurbin: if you haven't seen it, check it out
+18:20 semiosis     google visualvm
+18:20 crimsonfubot http://visualvm.java.net/
+18:29 pdurbin      semiosis: it's built into netbeans
+18:29 semiosis     lol
+18:29 semiosis     ok so netbeans has some redeeming values
+18:41 semiosis     ben_e: i think it's fair to say everyone doing vm storage on glusterfs to date are "early adopters"
+18:42 semiosis     historically glusterfs wasnt well suited for that kind of workload, more for application data -- in hpc, multimedia, medical/science types of uses
+18:43 semiosis     but redhat seems to be putting a lot of effort into getting glusterfs ready for vm storage
+19:22 semiosis     has anyone heard of or used tidesdk?
+19:22 semiosis     google tidesdk
+19:22 crimsonfubot http://www.tidesdk.org/
+19:23 semiosis     i need to make a simple cross-platform uploader app and was thinking javafx, but found this in a search for alternatives
+19:27 semiosis     http://stackoverflow.com/a/13617473
+19:28 pdurbin      "Create multi-platform desktop apps with HTML5, CSS3 and JavaScript... TideSDK is the new standard for creating beautiful and unique desktop apps using your web development skills."
+19:28 pdurbin      haven't heard of it. sounds interesting
+19:28 semiosis     that SO answer (apparently from a tidesdk dev) makes it sound really good
+19:41 pdurbin      semiosis: can it be a command line app?
+20:00 semiosis     dont know, but when i find out i'll let you know
+20:47 pdurbin      semiosis: what's the most cross platform way to write a command line app?
+20:47 semiosis     java
+21:24 ben_e        sh! :-)
+21:24 ben_e        not for windows i guess
+21:26 ben_e        larsks: not a specific thing i guess
+21:26 ben_e        i realize the mailing list is going to primarily be filled with people reporting/working on problems
+21:27 ben_e        so it's not necessarily indicative of the overall quality of the project
+21:29 ben_e        lots of anecdotal data points from people in the vicinity
+21:29 ben_e        e.g. fasrc having issues with theirs
+21:30 ben_e        agoddard tweeted about swapping out his glusterfs
+21:30 semiosis     link?
+21:30 ben_e        for which?
+21:30 semiosis     the tweet?
+21:31 semiosis     never mind, not important
+21:32 semiosis     just curious if there was some explanation associated
+21:33 ben_e        no, it was tossed off
+21:33 ben_e        i can't find it now
+21:33 ben_e        maybe it was tongue in cheek
+21:33 semiosis     heh
+21:33 ben_e        since iirc he wanted to replace it with ceph
+21:33 * ben_e      pokes agoddard
+21:34 ben_e        how do you search all of a single person's tweets?
+21:35 semiosis     idk
+21:36 ben_e        hms it built a test gluster cluster for use with their compute cluster and after it fell over a few times, they went another way
+21:36 ben_e        maybe i just need to read more gluster success stories
+21:37 ben_e        semiosis: i think your point about being an early adopter for the qemu+gluster is playing a part too
+21:45 pdurbin      comptona: you're our ceph and openstack guy
+21:47 pdurbin      ben_e: cool that you're using ovirt. on centos?
+21:49 ben_e        currently on centos
+21:50 ben_e        using version 3.1 and a 3.2 test box on fedora
+21:51 pdurbin      ben_e: before were you using vmware? vanilla kvm? something else?
+21:52 ben_e        that side of things was kvm+virt manager "before"
+21:53 pdurbin      ok. that's what I'd call vanilla kvm
+21:53 ben_e        nods
+21:53 ben_e        our senior sysadmin left and was replaced with 3 more junior guys
+21:53 pdurbin      ben_e: you like ovirt better?
+21:54 ben_e        and since the stuff i do relies on the infrastructure they run, i decided to insert myself more into the admin process
+21:54 ben_e        there's a lot of "how is this set up?" and being met with blank stares :-)
+21:54 ben_e        the ovirt feature set is nice
+21:55 ben_e        the 3.1 install we have it a bit wiggy
+21:55 ben_e        i think the previous sysadmin mangled it a bit to get it to run on centos
+21:56 pdurbin      I thought oVirt was Fedora only
+22:06 pdurbin      seemed nice. nice feature set. much heavier than vanilla kvm
+22:49 pdurbin      ben_e: don't forget about #sourcefu! doin' a little dance over there: http://irclog.greptilian.com/sourcefu/2013-06-19 :)
+22:59 comptona     pdurbin: you rang? :-)
+23:00 comptona     we're still using ceph, I'm building out a new cluster with better infrastructure as we speak
+23:08 pdurbin      ben_e: see? use ceph
+23:10 comptona     although I ran into a bug recently where apparently it's not possible to perform directio writes > 8 MB to CephFS
+23:10 comptona     which is lame
+23:11 pdurbin      -1

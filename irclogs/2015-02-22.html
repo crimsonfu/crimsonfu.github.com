@@ -1,0 +1,24 @@
+Time  Nick      Message
+14:16 pdurbin   bear: thanks for helping me summarize the github security problem. I linked back to our conversation here: https://github.com/mozillascience/site/issues/11#issuecomment-75417905
+14:17 pdurbin   dotplus: at http://irclog.perlgeek.de/crimsonfu/2015-02-18#i_10136684 you asked if they're doing it wrong. I have a better understanding of what they're trying to do now (see comment link above) and I'd said what they're doing is weird, at least :)
+15:01 pdurbin   I just opened this issue to get a second opinion: GitHub OAuth scope public_repo allows broad access · Issue #816 · prose/prose - https://github.com/prose/prose/issues/816
+16:29 pdurbin   tried to install jekyll on ubuntu. got this: uninitialized constant Jekyll::Converters::Scss
+16:30 pdurbin   this was helpful in getting it working: Bug #1422020 “Jekyll doesn't work at all. " : Bugs : jekyll package : Ubuntu - https://bugs.launchpad.net/ubuntu/+source/jekyll/+bug/1422020
+17:17 pdurbin   codex and mhayden: I'm writing that blog post for you ;)
+17:17 pdurbin   bene: maybe you'll proofread it for me
+18:02 GitHub106 [crimsonfu.github.com] pdurbin pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/25058b5c40307610a9cfe2f60036aea12c92d287
+18:02 GitHub106 crimsonfu.github.com/master 25058b5 Philip Durbin: added blog post about github oauth app security
+18:03 pdurbin   everyone, please let me know what you think about this: http://crimsonfu.github.io/2015/02/22/owners-of-organizations-on-github-should-carefully-set-up-third-party-application-restrictions.html
+18:17 codex     pdurbin: is the public repo permission so that you can clone repos and create new ones from it?
+18:17 codex     but still -- that is a strange permission
+18:18 codex     there either needs to be something more granular, or this should not be allowed
+18:19 codex     oh interesting - ok, so about their "public_repo" -- that is the reason they are using it.
+18:19 codex     pdurbin: "Some people have suggested only requesting access with this scope when a user wants to use these features. This is probably the best compromise, but I'm less inclined to do this since we want to encourage users to interact with code."
+18:19 codex     ^^ this sounds like my argument for "private" mailing lists ;)
+18:23 pdurbin   hmm? private mailing lists? how so?
+18:24 pdurbin   interesting tidbit. on my first attempt to push that blog post I got this error:
+18:24 pdurbin   "ERROR: Sorry, but @crimsonfu has blocked access to SSH keys created by some third-party applications. Your key was created before GitHub tracked keys created by applications, so we need your help."
+18:25 pdurbin   which is why I made this image: http://crimsonfu.github.io/images/brace-yourself-github.png :)
+18:25 pdurbin   thankfully, they provide a link where I can easily approve my ssh key
+18:26 pdurbin   I guess I'll look out for similar errors from jenkins.
+18:52 * pdurbin shares that new blog post at https://twitter.com/philipdurbin/status/569569515123695618 and https://plus.google.com/+PhilipDurbin/posts/5X3BhhC6vFN

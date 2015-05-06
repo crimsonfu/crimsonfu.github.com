@@ -1,0 +1,41 @@
+Time  Nick      Message
+14:05 pdurbin   codex: have you tried https://github.com/huit/docker-drupal ?
+14:17 codex     no - i refuse to touch drupal
+14:17 codex     imo it's a complete piece of crap
+14:17 codex     and worse - then people take this crap and use it in an even crappier way for something that it was completely not designed to do
+14:19 codex     pdurbin: looking at the Dockerfile/setup, that's not really the correct way to use docker...
+14:24 pdurbin   :(
+14:25 pdurbin   I just thought I'd try Docker from Vagrant first.
+14:34 bene      "This is still a work in progress, and does not yet work correctly."
+14:35 bene      codex: which part of that is un-dockerish?
+16:52 codex     I think the "standard" (there isn't one, but accepted way) is to have a "build.sh", "run.sh" and the Dockerfile (along with any needed configs). Then, the Dockerfile needs to have all of the pushes and executes. Ex here: https://github.com/huit/docker-drupal/blob/master/mysql/Dockerfile
+16:53 codex     you shouldn't call a run like that
+16:54 codex     also - the data partition should be abstracted
+16:56 codex     supervisor is not pushed or used...
+16:57 codex     bene: http://git.vpetkov.net/?p=docker.git;a=tree;f=repo/apache-docker;h=55eb0b94a0940858e095022683e9ed73a77c08ff;hb=afe6132018ce0f3c107c6c383ae4aa410b935291
+16:58 codex     I would even put a "run.sh" in there that looks something a long the lines of: http://git.vpetkov.net/?p=docker.git;a=blob;f=run-apache-docker.sh;h=59aaa9ebd28d9e7d995e334a7ddac8be88135e30;hb=afe6132018ce0f3c107c6c383ae4aa410b935291
+16:59 codex     also, abstracting the storage with a data container of some sort: https://registry.hub.docker.com/u/ventz/dataos
+17:08 pdurbin   so... docker is hard ;)
+17:24 codex     not at all
+17:24 codex     it's just that there are no standards / templates yet
+17:24 codex     but the idea is it all comes down to like 8 simple commands
+17:24 codex     it's just that you need to change your way of thinking about the resources and components
+17:26 pdurbin   codex: should my first try with docker be from vagrant?
+17:29 codex     i personally think you should grab a VM (even if local on fusion / virtual box) -- follow the 2 steps to install docker and then create the container there
+17:29 codex     it will be much easier
+17:30 codex     pdurbin: if you need help, I can setup a VM for you to play with
+17:33 pdurbin   codex: grab an ubuntu vm?
+17:34 codex     i would - it includes the latest version, and it's literally as easy as "apt-get install docker.io"
+17:34 codex     and you are ready to go
+17:34 pdurbin   ok. i'll try that. sometime. thanks
+17:37 pdurbin   mhayden: "At the present time, we do not support the SP in conjunction with SELinux" -- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPSELinux
+17:37 pdurbin   "There had been some intention to work on building policy modules for use with Shibboleth 2.x, but the interest in this waned as SELinux adoption lagged."
+17:38 mhayden   pdurbin: shabby shibboleth
+17:38 pdurbin   lolz
+17:38 * pdurbin runs `setenforce permissive`
+17:39 pdurbin   mhayden: you even have a guy commenting about selinux and shib: http://major.io/2013/04/15/seriously-stop-disabling-selinux/#comment-60735
+17:40 mhayden   sigh
+17:40 mhayden   the leading LSM's are SELinux, AppArmor and TOMOYO... apparmor has so few profiles/granularity and TOMOYO is really foreign
+17:41 mhayden   someone told me this week: "AppArmor never gets in my way"
+17:41 mhayden   my response was "because it's barely doing anything!" :)
+17:56 westmaas  burn

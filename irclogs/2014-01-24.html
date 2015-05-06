@@ -1,0 +1,47 @@
+Time  Nick         Message
+00:59 pdurbin      dotplus: what attracted you to that backup solution?
+13:01 dotplus      pdurbin: I haven't used it yet, which is why I was asking for opinions. But I've written cheap db backup scripts for just about every consulting client and employer I've ever had and I'd like something a bit more solid/standard.  it supports mysql (w/xtrabackup which is awesome) and pgsql. seems to have a code layout that appears at first glance to make sense to me and it's written in a language with which I'm familiar so hopefully I can ...
+13:01 dotplus      ... more easily patch it for my needs.
+13:16 pdurbin      dotplus: I see. When I was looking for something kinda standard I went with mysql::backup from puppet: https://github.com/pdurbin/greptilian-vagrant/blob/master/modules/server1/manifests/init.pp
+13:18 dotplus      $org is not a puppet environment, we use bcfg2 (at the moment)
+13:18 dotplus      and cfengine2 and some other stuff. yes, I'm pushing for change:) but a) I'm new b) this is .gov
+13:22 pdurbin      does bcfg2 have a standard way to do backups?
+13:26 dotplus      oh. ew. mysql::server::backup is just using mysqldump. Now I remember why I wasn't using it at my previous employer where I did have puppet. mysqldump is fine if you just have small databases. but if you have 100s GiB or more, (which we did) a restore would take far too long because a restore was reloading from SQL. innobackupex from percona's xtrabackup meant that restore was just copying the files (could be rsync diffs if you use one file ...
+13:26 dotplus      ... per table) and therefore took 2 orders of magnitude less time.
+13:27 dotplus      bcfg2 does not have any builtin that provides backup functionality except that it keeps a backup of any file that it changes
+13:27 dotplus      nothing like this
+13:27 pdurbin      ok
+13:28 pdurbin      dotplus: was healthcare.gov your fault?
+13:29 dotplus      and given that my deployment/testing strategy was "broken? want a test/dev/training server? let's build a new one and restore the data", I need to be able to recreate databases quickly.
+13:29 dotplus      heck, no.
+13:29 pdurbin      heh
+13:29 pdurbin      dotplus: well, I hope you find a good solution. please report back
+13:30 dotplus      I'm running infrastructure for the HPC team @ornl.gov
+13:31 * pdurbin    looks at Oak Ridge National Laboratory | ORNL - http://www.ornl.gov
+13:31 pdurbin      dotplus: do you guys use slurm?
+13:32 dotplus      moab (mainly? perhaps there is slurm too?) At least I think that is the piece at the equivalent level of slurm, I'm not an HPC person myself, so I'm only tangentially aware of such things.
+13:35 dotplus      we have the largest machine (in this country) and several smaller ones, but we have some folks who babysit the supercomputers and clusters themselves. I'm just running infra services to support them. not really that different from any other hetergeneous medium/large environment.
+13:36 dotplus      I know one of the clusters guys chuckles (privately) when interviewees ask abuot slurm because he's had some bad experiences but I don't know the details
+13:37 pdurbin      crimsonfubot: lucky largest computer in the united states
+13:37 crimsonfubot pdurbin: http://www.computerweekly.com/news/2240088267/Worlds-biggest-computer-built-for-US-nuclear-department
+13:38 dotplus      err, see the date on that?
+13:38 pdurbin      bad crimsonfubot. no donut
+13:39 dotplus      http://www.top500.org/
+13:40 dotplus      http://www.top500.org/system/177975 is a better link
+13:41 dotplus      but there are several other large machines/clusters here as well as Titan
+13:46 dotplus      hm, perhaps westmaas can give opinions about Holland Backup since it's a RS project?
+14:05 pdurbin      dotplus: looks like you've dropped to #2 ;)
+14:12 dotplus      reading++ :)
+14:12 dotplus      #1 on top500 is not .us, it's .cn
+14:12 dotplus      I said "in this country"
+14:14 pdurbin      :)
+14:16 dotplus      but it's all silliness anyway. the only comparison that really makes any kind of sense to me is "computing power" per unit of energy. Of course you can make something more computationally powerful if you throw more Power at it. More efficient use of the power is what's interesting. And I'm fairly sure that there are lots of flaws in using FLOPS as a measurement of "computing power". It's likely the best indicator we have, but still rather ...
+14:16 dotplus      ... flawed.
+14:16 pdurbin      yeah
+14:27 westmaas     dotplus: sorry, I know nothing about holland backup!
+14:29 dotplus      no problem, I know RS is huge. worth a shot though:)
+15:16 pdurbin      westmaas: aren't you, like, Dutch or something?
+15:17 westmaas     pdurbin: :(
+15:17 westmaas     way to call me out twice
+15:17 pdurbin      :)
+18:08 pdurbin      any downsides to the checklists in GitHub Issues? are they an awesome feature or meh? https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments

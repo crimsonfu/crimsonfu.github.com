@@ -1,0 +1,6 @@
+Time  Nick      Message
+14:08 pdurbin   weird. on OS X 10.8 I'm getting this: curl: (35) error:14077458:SSL routines:SSL23_GET_SERVER_HELLO:reason(1112)
+14:08 pdurbin   but on 10.9 my coworker gets no error. so I guess this advice to upgrade to 10.9 is sound: http://stackoverflow.com/questions/22563509/unable-to-solve-this-error-error14077458ssl-routinesssl23-get-server-hellor/22766560#22766560
+18:00 pdurbin   ah ha! setting the ServerName was enough. i.e.
+18:00 pdurbin   ServerName example.com:443
+18:00 * pdurbin votes up http://serverfault.com/questions/540953/ssl23-get-server-helloreason1112-issue-curl-7-25-0/540954#540954

@@ -1,0 +1,87 @@
+Time  Nick      Message
+01:52 pdurbin   how do you diagnose a python IRC bot that keeps dying every once in a while?
+01:53 pdurbin   not much in the logs when it dies: https://pastebin.mozilla.org/8827949
+01:53 pdurbin   see also http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2015-04-02#i_3608428
+02:15 prologic  is this written in circuits? :)
+02:17 prologic  clearly not by the looks
+02:17 prologic  from looking at your output log
+02:17 prologic  looks like you're not responding to PING properly
+02:17 prologic  show me the code I'll take a gander
+02:17 prologic  not like I haven't done this before (a few times now) :)
+03:08 pdurbin   prologic: https://github.com/shaunagm/WelcomeBot/issues/10
+03:13 prologic  okay this ol chestnut
+03:13 prologic  so a couple of things
+03:13 prologic  IRC line delimiter is \r\n
+03:13 prologic  and you _must_ respond with PONG :<data>
+03:13 prologic  when you see a PING :<data>
+03:13 prologic  exactly
+03:14 prologic  otherwise most IRC servers/Daemons will disconnect you
+03:14 prologic  usually you are pinged with a timestampt
+03:14 prologic  you must respond with the same value/ts you see
+03:18 pdurbin   heh. the old chestnut
+03:18 pdurbin   prologic: so you think there may be a legit bug in the code?
+03:18 prologic  yes
+03:19 prologic  the way you handle and process PING?PONG
+03:19 prologic  See: https://github.com/circuits/circuits/blob/master/circuits/protocols/irc/protocol.py#L88
+03:24 pdurbin   ok
+03:24 prologic  also this bot could do with a bit of a makeover :)
+03:24 pdurbin   prologic: how long before freenode disconnects you if you don't reply with a PONG? minutes? days? weeks?
+03:25 prologic  perhaps I could submit a PR that rewrites it using circuits whilst preserving the functionality?
+03:25 prologic  I believe the default is 300s
+03:25 prologic  I think that's the default of most ircd(s)
+03:27 pdurbin   prologic: but! it's already PONG'ing it looks like: "If the server pings us then we've got to respond!" https://github.com/shaunagm/WelcomeBot/blob/master/bot.py
+03:28 prologic  yeah but the code I'm looking at isn't right
+03:28 prologic  this is what I think is going on
+03:28 prologic  => SERVER: PING :1234
+03:28 prologic  <= BOT: PING
+03:28 prologic  or I saw
+03:28 prologic  PING :isme
+03:28 prologic  or something
+03:28 prologic  none of which is right :)
+03:28 prologic  Bot needs to respond with (in this eample)
+03:29 prologic  PONG :1234
+03:29 pdurbin   hmm. I guess in that log we're only seeing the input, not the output
+03:32 prologic  yeah
+10:34 pdurbin   prologic: nice comment. thanks
+10:34 pdurbin   on that old chestnut :)
+10:38 prologic  heh nps
+10:38 prologic  :)
+10:39 prologic  I think my next mini project is to write a new tool
+10:39 prologic  I'll call it dodns
+10:39 prologic  digital ocean dns
+10:39 prologic  with the ability to add/remove/list domains and add/remove/list records
+10:39 prologic  but also import entire domains/zones from existing bind configs
+10:43 pdurbin   tied specifically to Digital Ocean?
+10:45 prologic  I guess in general it doesn't have to be
+10:45 prologic  but for now it was going to
+10:45 prologic  what ideas have you got?
+10:46 prologic  there are already existing tools for this kind of stuff
+10:46 pdurbin   naming is hard :/
+10:46 prologic  but there are two issues I see
+10:46 prologic  many of them are large-ish, complex and support way too many clouds -- some of which one might not care too much about
+10:46 prologic  and they do almost everything under the sun
+10:46 prologic  my particular use-case was simply to import a few dozen odd domains I have
+10:47 prologic  from bind configs to digital ocean
+10:47 prologic  then do a mass delegtation from my registrar
+10:47 prologic  since DO hosts domains for free essentialyl
+10:48 prologic  https://github.com/changhiskhan/poseidon/issues/21
+10:51 prologic  oooer wow
+10:51 prologic  I had 14 unique visitors to my Gopherspace today
+10:51 prologic  biggest in a few weeks
+11:09 pdurbin   it's nice that the have an API
+13:46 melodie   hello
+13:47 pdurbin   melodie: hi
+13:47 melodie   hi pdurbin
+14:45 hydrajump prologic: regarding your dns tool what about using terraform.io?
+14:46 hydrajump I know it does more than dns, but might be something to look at
+17:33 semiosis  wow, i plugged my mac mini into my ups via usb cable and it treats it similar to a laptop battery
+17:33 semiosis  impressive!
+17:35 pdurbin   hydrajump: gentle reminder to use full http:// so ilbot3 will make clickable links - https://terraform.io
+17:35 pdurbin   semiosis: I remember when you were into kubuntu
+17:36 semiosis  pdurbin: we're still friends
+20:57 prologic  hydrajump, I'll have a gander :)
+20:57 prologic  although I suspect it might be too complex :)
+20:57 prologic  I prefer simple things
+21:00 prologic  actually
+21:00 prologic  this is kinda looking really nice
+21:00 prologic  I'll investigate this :)

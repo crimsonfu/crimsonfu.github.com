@@ -1,0 +1,203 @@
+Time  Nick      Message
+00:14 pdurbin   mhayden: https://twitter.com/HoldMyBeerGif/status/576141882889277441
+00:14 pdurbin   bene: so you like the look of Matrix?
+00:15 pdurbin   er, that was for bear
+00:17 bear      I have looked at it lightly - will be exploring it more this weekend
+00:28 pdurbin   gotcha
+00:29 pdurbin   oh, and I enjoyed all the chatter about IRC at http://indiewebcamp.com/irc/2015-03-13#t1426285076716
+00:29 pdurbin   "IRC is the stepping stone to a indieweb identity federated chat environment" --bear
+00:30 bear      i've been thinking about this for a long time now
+00:34 pdurbin   Back in the day, people were upset about the lack of interop between AIM and Yahoo Messenger and MSN Messenger and whatever else. They said they wanted federated chat.
+00:35 * bear    nods
+00:35 bear      we used to have it, for a very short period, when they all had xmpp gateways
+00:35 bear      but that went away
+00:36 pdurbin   so it goes
+00:37 pdurbin   I wonder how an indieweb federated chat environment would differ from XMPP.
+00:39 bear      no xml is the biggest thing
+00:39 bear      it would probably be html or json snippets
+00:40 bear      but all of that is plumbing as tantek likes to say
+00:41 bear      so at the core, it probably would not be much different than a basic xmpp message - since all that is really is JID and the message text
+00:42 pdurbin   makes sense
+00:42 bear      a JID in the indieweb realm is your domain
+00:43 bear      and text is text - all of the rest is extra: timestamp, tags, etc
+00:43 pdurbin   searchbot: lucky xmpp jid
+00:43 searchbot pdurbin: http://xmpp.org/extensions/xep-0029.html
+00:44 bear      JID == Jabber ID
+00:44 bear      user@domain
+00:44 bear      so a JID maps perfectly to a indieweb id if you run your own xmpp server
+00:45 pdurbin   yeah, I'm seeing the example "room@chat.example.com/user@host" here: RFC 6122 - Extensible Messaging and Presence Protocol (XMPP): Address Format - http://tools.ietf.org/html/rfc6122
+00:46 bear      that's a long form alternate
+00:46 pdurbin   ah
+00:46 bear      it's userid@xmpp_host
+00:47 bear      as long as xmpp_host can be resolved to a server name
+00:47 bear      to get the IP and port
+00:47 bear      and userid is meaningful in that xmpp server's userid space
+00:47 bear      my personal xmpp JID is bear@bear.im
+00:47 prologic  heh
+00:47 bear      which is also my email address
+00:47 prologic  IHMO IRC has always been the more superior form of chat
+00:48 bear      that's because IRC is chat at it's most basic
+00:48 pdurbin   well, chat was bolted on to XMPP as an extension, right? XEP-0045: Multi-User Chat - http://xmpp.org/extensions/xep-0045.html
+00:48 bear      right
+00:48 bear      IRC == MUC
+00:49 prologic  yeah
+00:49 pdurbin   I mean, XMPP was primarily built for private one-to-one messaging. AIM, basically.
+00:49 prologic  let's not forget that many of these so-called chat protocols were in fact extensions of IRC itself :)
+00:49 prologic  e.g: MSN
+00:50 bear      yea, they all come from the same chat parents: UUCP groups aka usenet
+00:50 bear      IRC, XMPP, etc
+00:51 bear      it's always been identity that drove most of this
+00:51 bear      and why silos are king
+00:51 pdurbin   Wait, I thought Usenet was NNTP. That's not chat.
+00:52 bear      before usenet switching to NNTP it was UUCP bangpath delivered
+00:52 bear      think BBS - Fidonet stuff
+00:52 bear      you sent your message which was tagged for a group to your upstream
+00:54 bear      I really should be saying UUCP news - because the smallest pieces of UUCP were mail and news
+00:54 pdurbin   so that was... kind of like chat?
+00:54 bear      yep
+00:54 pdurbin   ok
+00:54 bear      you sent to your upstream server your "news article"
+00:54 pdurbin   but how "real time" was it?
+00:54 bear      hahahaha
+00:54 bear      it wasn't real time at all
+00:55 bear      each ! path item had to be dialed by modem
+00:55 prologic  that's where talk/wall came in
+00:55 prologic  then soon after irc :)
+00:55 bear      right - but those were only valid on the server you were in
+00:55 pdurbin   well, for my money chat is real time
+00:55 bear      right
+00:55 prologic  right
+00:55 pdurbin   if it's not real time, it's something else. a forum or whatever
+00:55 prologic  but they became the irc we know today
+00:55 bear      yea, I'm just bringing these up as examples of history
+00:56 pdurbin   sure sure
+00:56 prologic  well to be fair
+00:56 prologic  irc could be even more realtime
+00:56 bear      yea, the indieweb folks want to bring irc over to the web side so they can mix realtime chat *and* forums
+00:56 prologic  but it would require a different kind of protocol :)
+00:56 prologic  one that was event based :)
+00:56 bear      yea, your talking google wave type eventing
+00:56 prologic  precisely
+00:56 prologic  and bringing irc more to the web I think is a great thing
+00:56 prologic  look at slack
+00:57 bear      which was xmpp based :)
+00:57 prologic  they have a fancy ass chat system
+00:57 prologic  which is great
+00:57 prologic  but also offer xmpp and irc gateways
+00:57 prologic  which is just awesome
+00:57 bear      yea, slack is what we use at work now for a lot of stuff
+00:57 prologic  I wish we did
+00:57 bear      and I use it mostly thru my IRC client
+00:57 prologic  we use stink'n Hipchat
+00:58 prologic  it's UI sucks ass
+00:58 pdurbin   You guys want Google Wave? Isn't IRC real time enough?
+00:58 prologic  and well everything about it sucks really
+00:58 bear      because it has a better presentation than it's web
+00:58 prologic  pdurbin, IHMO - yes
+00:58 prologic  :)
+00:58 bear      ugh - never liked hipchat
+00:58 prologic  no me neither
+00:58 prologic  it's quite frankly horrible
+00:58 prologic  and utterly useless really
+00:58 prologic  you can connect to it via irc using bitlbee
+00:58 prologic  but that's an even worse experience ihmo
+00:59 prologic  such a useless thing Atlassian bought
+00:59 bear      that sounds fragile
+00:59 prologic  some software really should just die
+00:59 prologic  :)
+00:59 bear      agreed
+01:00 bear      this is one area that the indieweb folk get a bit backwards - for federated to work you need to focus on the pipes
+01:00 bear      and make sure that your interface to the pipe is flexible, but you still need to get the plumbing right
+01:01 pdurbin   I've asked if indieweb leads to group think: https://indiewebcamp.com/irc/2014-10-16/line/1413498731528
+01:01 bear      they manage to avoid cargo cults a lot
+01:01 bear      come close sometimes, but they haven't yet
+01:02 bear      because they always treat the UX as key and don't sweat the implementation
+01:03 prologic  we should hack on charla at https://bitbucket.org/prologic/charla
+01:03 pdurbin   Don't get me wrong, I like the indieweb people. I'm maybe 80% with their party line.
+01:03 prologic  and bring this to the web via websocekts
+01:04 * bear    nods
+01:04 prologic  and also bring federated features
+01:04 prologic  such as linking to other irc networks
+01:04 bear      right
+01:04 prologic  and even interfacing with jabber/xmpp networks
+01:04 prologic  the design of charla is flexible enough to achieve this
+01:04 bear      some of them are html only!!!!
+01:04 prologic  without god objects
+01:04 prologic  or cargo cult programming
+01:04 prologic  ):
+01:04 prologic  fuck the html only ones :)
+01:05 bear      those thankfully are a very small part
+01:05 pdurbin   prologic: you're going to make IRC federated? "No open federation" is something Matrix wants to improve on according to "What’s the difference between Matrix and IRC?" at https://matrix.org/blog/faq/
+01:05 bear      charla sounds a lot like what the matrix folks are trying to d
+01:05 prologic  well it's not that hard really
+01:05 bear      o
+01:05 prologic  one thing that can be done with a new irc server implentnation
+01:06 prologic  is the notion of handling duplicate identities
+01:06 prologic  such that two or more people can use the same handle if you will
+01:06 prologic  but not in the same "room"
+01:06 pdurbin   that sounds... confusing
+01:06 prologic  this could be extended even further too
+01:06 prologic  not really :)
+01:06 prologic  it could be done seamlessly
+01:07 prologic  without users having to do much at all
+01:07 prologic  bear: yeah :)
+01:07 prologic  I wish I had a bit of help, etc
+01:07 prologic  I run out of steam on that one for the time being
+01:08 bear      yea, my new role as project manager for our dev team has me swamped - or I would be hacking on a lot of this stuff as it really interests me
+01:08 prologic  it's a prototype at best atm, but the structure is there to extend it to whatever we want
+01:08 pdurbin   prologic: bummer, they're using twisted rather than circuits: https://github.com/matrix-org/synapse
+01:08 prologic  I'm focused atm on vallinux
+01:08 prologic  so yeah
+01:09 prologic  pdurbin, uggh
+01:09 pdurbin   lolz
+01:09 prologic  that'll slow their progress down significantly
+01:09 prologic  seriously
+01:09 prologic  the twisted framework is nuts
+01:09 pdurbin   prologic: send them a pull request ;)
+01:09 prologic  not to mention it's not a component architecture
+01:09 prologic  so no loose coupling
+01:09 prologic  :(
+01:09 prologic  haha
+01:10 pdurbin   bear: sounds fun though
+01:10 prologic  hmm
+01:10 prologic  no thanks
+01:10 prologic  that codebase looks huge already
+01:11 pdurbin   I guess IRC is still good enough for now.
+01:11 * pdurbin puts his feet up
+01:12 bear      :)
+01:22 prologic  haha
+01:37 pdurbin   I'm told that this issue has something to do with "read-only view of the public matrix rooms" https://matrix.org/jira/browse/SYN-283
+01:38 pdurbin   nice people
+02:13 pdurbin   "Creation and management of fully distributed chat rooms with no single points of control or failure" http://matrix.org/docs/spec/
+02:13 pdurbin   that does sound pretty neat
+12:21 pdurbin   speaking of IRC
+12:21 pdurbin   this is an interesting thread:
+12:21 pdurbin   Jeff Atwood on Twitter: "I like Slack, and I kinda hate IRC, but the idea of Slack "replacing" IRC is not good. Only an open source tool should ever do that." - https://twitter.com/codinghorror/status/575797613909278720
+12:23 pdurbin   I'm not sure I agree with this though:
+12:24 pdurbin   Jeff Atwood on Twitter: "@Myotherpants pretty much, problem is, chat produces near zero useful search results. (vs. forums, vs. stack) so hard to get excited about" - https://twitter.com/codinghorror/status/575798049907171328
+12:25 pdurbin   ... because in practice, now that I have years of logged chat conversations from this channel and others indexed by Google I'm easily able to find old conversations that have good information in them.
+12:28 pdurbin   And yet, Mr. Atwood seems interested in improving chat, some day: https://twitter.com/codinghorror/status/575799919681765377
+12:29 pdurbin   And *someone* at Stack Exchange built a chat thing.
+12:29 pdurbin   So clearly he thinks chat has some value.
+12:41 larsks    pdurbin: I think the point re: search is that while inidividuals may have chat logs, there is no good "search all the chats" site anywhere, and it's not possible in any search engine to say, "restrict my results to irc conversations".
+16:26 pdurbin   yeah, that could be his point
+17:03 bear      chat is like the saying "a person is good, a crowd is not" -- being able to search single chat room logs is meaningful because of the implied topic scope where as searching across multiple chat room logs is nigh impossible because of identity and topic divergence
+17:03 bear      only if your logging process can link the chatter identity across rooms (like what the stack exchange team did) *and* keep each room focused on a topic, then you will get the most benefit from it
+17:04 pdurbin   Yeah. I mean Twitter is fine for just general chatter but I like that IRC is split into rooms based on topics.
+17:08 larsks    Huh.  You could write a client that would present an irc-like view of twitter based on hash tags, which would actually look pretty natural to irc users.  You know, "/join #crimsonfu" would put you in a window that only saw messages with the '#crimsonfu' hashtag, and any messages you typed there would automatically get the hashtag appended...
+17:08 pdurbin   could do
+17:10 larsks    That would be sort of run.  And you would call it "twirc".  And using it would be "twircing".
+17:10 larsks    s/run/fun/
+17:10 bear      lol
+17:27 pdurbin   nice, I'm not the only one who has used that hashtag: https://twitter.com/hashtag/crimsonfu :)
+17:50 pdurbin   I dunno. Twitter was way more interesting to me when it seemed like it wanted to be plumbing: http://radar.oreilly.com/2008/11/why-i-like-twitter.html
+17:51 pdurbin   "Twitter is a re-incarnation of the old Unix philosophy of simple, cooperating tools."
+17:51 pdurbin   but now Twitter wants you to use their client exclusively
+17:54 pdurbin   I guess I'm saying I'm fine with something better or different coming along.
+18:23 larsks    Oh man, someone did it already: https://github.com/semifor/twirc
+18:25 pdurbin   'This isn't normal IRC
+18:25 pdurbin   behavior, but "twirc" isn't a normal IRC server.
+18:26 pdurbin   :)
+23:15 melodie   good night
+23:51 larsks    Also this: https://twirc.io/
+23:52 larsks    ...which does almost exactly what I was suggesting (treating hashtags like channels), although through a web ui rather than actually implementing an irc interface.

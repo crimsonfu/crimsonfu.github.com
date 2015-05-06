@@ -1,0 +1,39 @@
+Time  Nick      Message
+15:17 bencomp   pdurbin sent me
+15:18 semiosis  large marge sent me
+15:18 pdurbin   lolz
+15:18 pdurbin   bencomp: well, you know way more about logstash than I do: http://irclog.iq.harvard.edu/dataverse/2014-08-01#i_11801
+15:23 bencomp   I think I've found the use of aligning logs
+15:24 pdurbin   not even sure what that means
+15:25 pdurbin   searchbot: lucky logstash align
+15:25 searchbot pdurbin: http://serverfault.com/questions/604653/problems-configuring-logstash-for-email-output
+15:26 bencomp   "use case for aligning log files"?
+15:27 pdurbin   yeah
+15:40 bencomp   is Apache Brooklyn on topic too? (just found out that it exists)
+15:41 pdurbin   searchbot: lucky apache brooklyn
+15:41 searchbot pdurbin: http://incubator.apache.org/projects/brooklyn.html
+15:42 semiosis  grok is a library built on top of regex for parsing strings
+15:42 semiosis  lets you build up very complex patterns out of simpler component patterns
+15:42 pdurbin   oh, this is a better site: http://brooklyn.incubator.apache.org/
+15:42 pdurbin   "Simplified deployment and runtime management of enterprise-grade applications"
+15:42 pdurbin   bencomp: yes. on topic
+15:43 semiosis  here's the base patterns, you can see how they go from simple to complex: https://github.com/elasticsearch/logstash/blob/master/patterns/grok-patterns
+15:50 bencomp   pdurbin: Glassfish grok patterns: https://gist.github.com/bencomp/9b99cee2720d6233c8a1
+15:52 semiosis  nice!
+15:56 semiosis  i wrote these a long time ago, they probably dont even work anymore... glusterfs: https://gist.github.com/semiosis/1499710 & ModSecurity: https://gist.github.com/semiosis/1346387
+16:04 bencomp   semiosis: I bet you know logstash even better than pdurbin thinks I do - would you recommend running it on a production server next to or inside glassfish?
+16:05 semiosis  hah
+16:05 semiosis  i've been away from it so long
+16:06 semiosis  i used to run it on prod alongside other stuff, in its own jvm.  but i didnt maintain it and now i need to rip it out & start over
+16:06 semiosis  not sure about running it in glassfish.  that might be challenging
+16:06 semiosis  though possible in theory
+16:07 semiosis  if i were doing it over today, i'd look into using something like this: https://github.com/ryantenney/log4j-redis-appender
+16:07 semiosis  and writing out structured log messages to redis direct from my java apps
+16:07 semiosis  then having a logstash collector/processor consume from redis
+16:08 semiosis  or another message broker of your choice
+16:08 semiosis  logstash supports many
+16:08 semiosis  if you can modify your apps to write structured logs that's the best.  grok should only be used as a last resort imho
+16:09 semiosis  afk a bit
+16:10 bencomp   ooh, that's some useful advice - Im really a beginner at log management (I currently rsync the various log files and try to get them into elasticsearch using logstash, and then visualise them with kibana - on my laptop. that doesn't work very well)
+16:11 bencomp   it wouldn't necessarily need to run inside glassfish
+16:14 * pdurbin doesn't know logstash at all. the guy who used to sit next to PaxIndustria showed it to me once

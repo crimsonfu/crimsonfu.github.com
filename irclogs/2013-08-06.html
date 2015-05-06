@@ -1,0 +1,68 @@
+Time  Nick         Message
+14:02 mhayden      pdurbin: https://github.com/crimsonfu/crimsonfu.github.com/pull/2
+14:04 GitHub184    [crimsonfu.github.com] pdurbin pushed 2 new commits to master: https://github.com/crimsonfu/crimsonfu.github.com/compare/d11236a48698...4f97de9b372d
+14:04 GitHub184    crimsonfu.github.com/master 610607e Major Hayden: Changing irc nick rackerhacker -> mhayden
+14:04 GitHub184    crimsonfu.github.com/master 4f97de9 Philip Durbin: Merge pull request #2 from major/master...
+14:14 * mhayden    tips his hat to pdurbin
+14:17 mhayden      is anyone here following any particular hardening/configuration standard when you set up systems? CIS? USGCB? STIG?
+14:55 GitHub151    [crimsonfu.github.com] hakamadare pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/bfc96d4d7654f9b9922151569fc60b6086b82fea
+14:55 GitHub151    crimsonfu.github.com/master bfc96d4 Steve Huff: Capturing RHEL backporting rant
+18:48 codex        pdurbin: ^ my friend changerOfSea has a vagrant question
+18:48 codex        i figured this is the right place to send him
+18:48 changerOfSea hey all
+18:49 changerOfSea trying to make 100% sure that this is just not me being stupid
+18:51 pdurbin      mhayden: no, I haven't even heard of those. but maybe you mentioned CIS in here once
+18:56 changerOfSea pdurbin: ok, if you have a sec, so I'm trying to install nginx using puppet/vagrant/centos. I'm using puppetlabs' version of puppet-nginx, it's asking for geoIp now, is there a simple puppet way to install it w/o writing a shell script
+18:57 changerOfSea i checked out boxen's puppet-geoip and installing it by just writing out include statements... am I doing it wrong?
+18:57 pdurbin      changerOfSea: I take it `yum install geoip` doesn't work?
+18:57 pdurbin      I've never used geoIP... not sure I've heard of it
+18:57 changerOfSea pdurbin: well it's trying to do that on it's own, but seems to fail
+18:58 changerOfSea Error: Execution of '/usr/bin/yum -d 0 -e 0 -y install GeoIP' returned 1: Error: Nothing to do
+18:58 changerOfSea pdurbin: ^^^ this is the error I'm getting
+18:58 changerOfSea it's a geo location lib that gives you the rough estimate of where you are based on IP
+19:00 pdurbin      looks like Puppet is trying to do `yum install GeoIP` ... I'd make sure that works outside of Puppet first
+19:01 larsks       changerOfSea: What pdurbin said.  That error typically means that there was no package by that name.  I get the same error, for example, if I "yum install sdlfkjsklfjs"
+19:02 larsks       Also, you'll get this error if the requested package is already installed.
+19:02 changerOfSea pdurbin, larsks: right, that seems to be the case, it can't find it, is there a way through puppet to add a yum repo?
+19:03 larsks       Sure!  You can install it as a file resource, or use the yumrepo resource type.
+19:03 larsks       http://docs.puppetlabs.com/references/latest/type.html#yumrepo
+19:03 larsks       That page (the Puppet type reference) is your friend.
+19:03 larsks       ...and then make sure you set up dependencies correctly such that the repo is installed before any packages .
+19:09 * pdurbin    wonders if he should stop using the "epel" module: https://github.com/pdurbin/greptilian-vagrant/tree/master/modules ... and use larsks's fancy way instead
+19:09 changerOfSea larsks: thanks! I'm trying to do this through vagrant and puppet and the urge to just manually yum install everything is getting to me :D
+19:09 changerOfSea pdurbin: thanks as well!
+19:09 pdurbin      oh sure
+19:09 larsks       Whereby "fancy" you mean "the right way"? :)
+19:10 pdurbin      larsks: what's wrong with that epel module? why does it exist?
+19:10 larsks       It looks like it's actually just a collection of "yumrepo" resources.  Plus the GPG key.  So really, that seems like a fine way of installing things.
+19:11 pdurbin      phew!
+19:11 ben_e        maxmind controls the distribution of all that stuff
+19:11 ben_e        i doubt it's available via a yum repo
+19:11 ben_e        http://www.maxmind.com/en/geolocation_landing
+19:12 larsks       Well, under Fedora there is a GeoIP package...
+19:12 ben_e        they have historically offered a freeish "lite" version
+19:12 changerOfSea pdurbin: so should I just include epel and put that module in my folder?
+19:12 larsks       Fedora 17 has https://gist.github.com/6167614
+19:12 larsks       changerOfSea: That's probably the best way, yes.
+19:13 ben_e        https://admin.fedoraproject.org/pkgdb/acls/name/GeoIP also
+19:13 changerOfSea larsks: cool thanks!
+19:18 changerOfSea Error: Could not update: Could not find package geoip
+19:18 changerOfSea Error: /Stage[main]/Geoip/Package[geoip]/ensure: change from absent to latest failed: Could not update: Could not find package geoip
+19:18 larsks       On my system the package is called GeoIP.
+19:18 changerOfSea larsks: grrrrr
+19:19 larsks       Also in epel, it looks like.
+19:20 changerOfSea larsks: it might be because i got the puppet-geoip class and was trying to include that as well, trying w/o
+19:23 changerOfSea larsks: yep, that seems to be the case, now on to configuring it
+20:54 changerOfSea hey, larsks, pdurbin, you guys still around? If I set in my manifest file "config.vm.network :forwarded_port, guest: 80, host: 1234 " and set up nginx, and I connect to localhost:1234  I should be getting something right?
+20:56 pdurbin      changerOfSea: https://github.com/dvn/dvn-install-demo should give you something at http://localhost:8888/dvn/ if you'd like to use that as a model
+21:00 larsks       changerOfSea: I'm not actually a vagrant user...
+21:03 pdurbin      larsks: but you'll help create official Fedora base boxes. yes. yes you will
+21:08 larsks       Until vagrant works out of the box with kvm or openstack out of the box I'm probably never going to touch it.  I just don't use virtualbox that much.
+21:08 larsks       Hmmm, repeating myself a few times I repeated myself.
+21:09 larsks       I know some works are working on that support...don't actually know the status these days.
+21:15 changerOfSea larsks: ah, thanks anyway
+21:15 changerOfSea pdurbin: hmmm... ok, I'll take a look, thanks!
+21:16 changerOfSea pdurbin: just looked, it needs to be nginx/mongo/php  :(
+22:09 changerOfSea or rather pdurbin anything on port forwarding?
+23:10 pdurbin      changerOfSea: port forwarding at https://github.com/dvn/dvn-install-demo/blob/master/Vagrantfile
+23:13 pdurbin      changerOfSea: vagrant doesn't care if you're using nginx or something else

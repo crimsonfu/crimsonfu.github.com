@@ -1,0 +1,142 @@
+Time  Nick       Message
+03:16 pdurbin    mhayden: you like to post animated gifs. Enjoy! https://plus.google.com/+Youonlyhadonejob-com/posts
+03:16 pdurbin    prologic: gopher, huh?
+07:46 prologic   pdurbin, yeah gopher :)
+07:46 prologic   I'm kinda getting seriously into this
+07:46 prologic   you probably may (or may not) know how I'm visually impaired (legally blind)
+07:47 prologic   so fancy UI (as is the web these days) and these stupid flat uis
+07:47 prologic   are just terribly shit from an accessibility point of view
+07:47 prologic   there is a certain appeal to gopher really
+07:47 prologic   and you may know from previous chats that I'm also a UNIX as an IDE developer
+07:47 prologic   vim + lots of cli apps
+12:21 hydrajump  prologic: i'm also slowly getting in go. really like how you can cross compile so easily for different OSes.
+12:28 dotplus    prologic: I guess you have a reverse proxy in front of your gopher service (gophernicus?); Server Information>your ip address reports '10.0.0.1'
+12:29 prologic   hydrajump, gopher
+12:29 prologic   not golang
+12:29 prologic   dotplus, DNAT
+12:29 prologic   yeah
+12:30 prologic   just running it on my desktop for  now
+12:30 pdurbin    the go mascot is a gopher #justsayin
+12:31 * dotplus  imagines a gopher daemon written in golang
+12:32 dotplus    I wonder if that is interesting enough and small enough to be a project to learn golang.
+12:32 hydrajump  prologic: hehe opps
+12:33 * pdurbin  is thinking about the ruby stuff called by http://podcasts.greptilian.com/go.sh for http://podcasts.greptilian.com in go
+12:35 pdurbin    because it's the quickest, dirtiest ruby you've ever seen
+12:36 prologic   sure could be :)
+12:36 prologic   it's an easy protocol
+12:37 prologic   anyway Gopher in general is really lovely
+12:37 prologic   there's an addon for Firefox that gives you a nice Gopher client
+12:37 prologic   and elinks has support for it with --enable-gopher (compile flag)
+12:37 pdurbin    prologic: next you'll be selling us on TCL
+12:37 prologic   nah
+12:37 prologic   some languages should die :)
+12:37 prologic   haha
+12:38 pdurbin    is that the one that's supported by the <script> tag in HTML?
+12:38 * pdurbin  forgets
+12:38 prologic   umm
+12:38 prologic   no
+12:38 prologic   that's javascript :)
+12:38 prologic   <script> tags in HTML don't support anything else
+12:38 pdurbin    no
+12:39 prologic   not without hacking the brwoser or some kind of addon
+12:39 pdurbin    there is another
+12:39 prologic   you're thinking SSI
+12:39 prologic   Server Side Includes
+12:39 prologic   but IIRC that wasn't TCL either
+12:39 prologic   just some kind of weird hacked up scripting langauge
+12:39 dotplus    SSI can use lots of languages it's server-dependent. remember cold fusion?
+12:40 prologic   ofc
+12:40 prologic   but I think many web servers had some builtin too
+12:40 prologic   not sure :)
+12:40 prologic   who users that anymore anyway
+12:40 dotplus    I think java or some MS thing were the most common
+12:40 pdurbin    'In this example, we declare the default scripting language to be "text/tcl".' http://www.w3.org/TR/html401/interact/scripts.html
+12:45 dotplus    do the regular search engines (duckduckgo, google, yahoo, baidu, yandex, bing, did I miss any big ones?) crawl gopherspace?
+12:48 pdurbin    dotplus: you mean like how google indexes nntp
+12:48 dotplus    uh, yeah. the more common example would be how google crawls/indexes http servers :)
+12:49 prologic   that's a very good question
+12:49 prologic   if you find the answer, speak up :)
+12:49 prologic   I'm not sure myself
+12:49 prologic   I know there are Veronica-V2 and VISHNU spiders/crawlers that crawl Gopherspace
+12:49 prologic   they seem to be the two main Gopher search engines
+12:50 pdurbin    dotplus: well, for nntp google renders it as html
+12:50 prologic   that's cheating :)
+12:51 dotplus    it's still useful and sorta counts. presumably they return links/pointers to the sources, right?
+12:51 pdurbin    prologic: so is http://webchat.freenode.net/?channels=crimsonfu :)
+12:51 prologic   dotplus, yeah they do
+12:51 prologic   pdurbin, true :)
+12:51 prologic   you know guys
+12:52 prologic   it woudln't take much for a bunch of smart guys like us to revitalize Gopher :)
+12:52 prologic   put a new spin on it for the new young hipsters that are all social this and social that :)
+12:53 prologic   IRC has been bastardized that many times now over the past decade I've lost count :)
+12:53 mhayden    pdurbin: hah, thanks for the gifs
+12:54 dotplus    I sort of assumed that there is still an existing core of gopher-folk, that it never exactly died, just that the rest of the world forgot about it. perhaps I'm wrong?
+12:54 pdurbin    mhayden: only the best for you, my friend
+12:54 mhayden    i'm working on getting approval to go to the summit this year in boston, will hopefully present on something
+12:55 pdurbin    mhayden: nice! look me up. oh, and go all the way back to the beginning (like I did) and fine the one with the sea lions
+12:57 prologic   ahh
+12:57 prologic   my root menu is looking much nicer now :)
+12:58 dotplus    prologic: certainly there are enough smart tech people who decry the state of the web and yearn for the attitudes of days of yore where everything was text based and wasn't solely for the benefit of GovCorp that a renaissance is possible.
+12:58 prologic   hmm
+12:58 prologic   tbh I only started with Gopher seriously last night
+12:58 prologic   I've known about the protocol somewhat for years
+12:59 prologic   but I started out by Internet days with IRC back in '97
+12:59 prologic   but didn't have the pleasure of finding out or using Gopher at the time
+12:59 pdurbin    dotplus: you should check out http://indiewebcamp.com
+12:59 prologic   Netspace ruined that :)
+12:59 dotplus    netscape?
+12:59 prologic   dotplus, agreed
+13:00 prologic   I'm a web developer approaching 2 decade
+13:00 prologic   and I'll be the first one to say
+13:00 prologic   the Web is broken
+13:00 prologic   very very broken
+13:00 prologic   Gopher just reminds me of what the original internet of the Internet/Web/Gopher really was meant to be
+13:01 dotplus    pdurbin: I have heard that name occasionally. in theory, I think I remember that it would be an awesoem direction to put some of my effort, but I just don't see to have any spare.
+13:01 pdurbin    prologic: you could be a 3 decade gopher dev by now
+13:01 prologic   haha
+13:01 prologic   I doubt I'd pay my mortage that way :)
+13:01 prologic   :P
+13:01 pdurbin    dotplus: you can find me swaying here: http://indiewebcamp.com/File:iwc-cambridge-sway.gif
+13:01 prologic   there are limits to what a sole man can do :)
+13:02 mhayden    anyone here doing anything with power8?
+13:02 mhayden    or as i call it, "The Ocho"
+13:02 pdurbin    oh, larsks and codex: check this out: https://twitter.com/philipdurbin/status/543218908342546432
+13:02 dotplus    prologic: not a web developer, but a sysadmin. currently, creating automation to manage various corp clouds.
+13:03 prologic   yeah
+13:03 prologic   hmm
+13:04 prologic   here's an idea
+13:04 prologic   version my gopher with git/mercurial
+13:04 prologic   :)
+13:04 prologic   gives you "last updated" and a "revision history" for freee
+13:04 prologic   :)
+13:05 dotplus    pdurbin: previous one in Brighton, UK. yeah that sounds about right, that sounds just the kind of (counter)cultural effort that would thrive there.
+13:06 * dotplus  misses Brighton in many ways.
+13:06 dotplus    that was the nearest big town for my teenage years
+13:08 dotplus    ok, enough nostalgic brain-idling on gopher and brighton. must do stuff before baby wakes.
+13:09 dotplus    prologic: everything should be version controlled. git is a reasonable choice. no reason why you should stick with rcs just because you're using ancient server protocols:)
+13:09 * dotplus  gone
+13:10 prologic   the protocol might be ancient
+13:10 prologic   actually that's not quite true
+13:10 prologic   it's had updates in recent years
+13:10 prologic   Gopher+ for example
+13:10 prologic   and Gophernicus is one nice server
+13:11 prologic   last released this year v1.6 I think I'm using
+13:11 prologic   rock solid
+13:11 prologic   :)
+13:49 prologic   So far, Veronica-2 has found 3084856 unique and verified selectors,
+13:49 prologic   generated by 150 unique servers (counting host and port pairs).
+19:03 pdurbin    https://github.com/IQSS/docs.zeligproject.org/blob/master/README.md#zelig-docs-hackers-guide-to-vagrant :)
+19:10 tfhartmann ooh
+19:11 pdurbin    tfhartmann: don't tell me you're into R and latex ;)
+19:12 tfhartmann I am when you make it sound all sexy like that
+19:12 pdurbin    heh
+19:12 pdurbin    I'm actually pretty happy I got all this working.
+19:12 pdurbin    took it from a developers laptop and made it run in the cloud
+19:13 tfhartmann R has been on my radar a bit more, we have a project called Distributed R
+19:13 pdurbin    so she doesn't have to do it manually any more
+19:13 tfhartmann https://github.com/vertica/DistributedR
+19:13 pdurbin    huh. didn't know you were on github
+19:13 pdurbin    tfhartmann: oh hey, check this out: https://twitter.com/philipdurbin/status/543218908342546432 :)
+19:46 pdurbin    anyway, DistributedR looks neat. I dropped a couple links to people
+19:53 tfhartmann just released a new Splunk Puppet module :)
+19:53 tfhartmann https://forge.puppetlabs.com/huit/splunk

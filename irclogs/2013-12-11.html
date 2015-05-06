@@ -1,0 +1,13 @@
+Time  Nick         Message
+01:25 pdurbin      semiosis: you've talked about IRC bouncers before but I'm still not sure exactly what they are or if I'd benefit from one. For now, I configured weechat to write its "hotlist" to a file so I can easily check if any channels have unread messages: http://tmp.greptilian.com/tmp/activity.html
+01:25 pdurbin      something like /set plugins.var.perl.hotlist2extern.use_title "off" /set plugins.var.perl.hotlist2extern.external_command_hotlist "echo \'WeeChat Act: %X\' > /var/www/html/tmp/activity.txt"
+01:26 pdurbin      which uses http://www.weechat.org/scripts/source/hotlist2extern.pl.html/
+01:27 pdurbin      it's a great solution for me. I can easily check that activity.html page from anywhere
+16:09 semiosis     pdurbin: i use znc on an ec2 micro instance to proxy my irc connections.  it allows me to connect multiple clients, and when no clients are connected it stores messages & plays them back when a client connects
+16:09 semiosis     crimsonfubot: lucky znc
+16:09 crimsonfubot semiosis: http://znc.in/
+16:10 semiosis     this is related to what you're doing with weechat... https://github.com/mrtazz/znc-logstash-notifications
+16:38 joshu        hi semiosis so you connect your irc client to your znc instance on aws?
+16:38 semiosis     thats right
+16:39 joshu        what OS do you run znc on?
+16:42 semiosis     ubuntu!

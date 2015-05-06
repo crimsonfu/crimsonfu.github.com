@@ -1,0 +1,29 @@
+Time  Nick       Message
+00:18 hydrajump  I've been using termshare for several hours today and it's absolutely awesome!
+00:18 pdurbin    +1
+00:18 hydrajump  Just need to get the server working selfhosted
+00:19 hydrajump  I've just finished several termshare sessions with a guy in Russia
+00:20 hydrajump  I've also just finished submitting a formula to install it using homebrew for you Mac OS X users :P
+02:24 hydrajump  I'm terrible at sed and been scratching my head for a while now. Can someone please take a look at this: https://gist.github.com/anonymous/fc4c490a107a23379a34
+02:25 hydrajump  I'm trying to get the sed to insert the lines with indentation, but there are two many leading spaces for each line
+13:25 pdurbin    Native Win32 ports of some GNU utilities - http://unxutils.sourceforge.net
+13:26 pdurbin    "native means the executables do only depend on the Microsoft C-runtime (msvcrt.dll) and not an emulation layer like that provided by Cygwin tools"
+14:02 pdurbin    bene: I know you linked to http://vagrantbox.msopentech.com previously, but here's a nice landing page: http://msopentech.com/opentech-projects/vagrant/
+14:02 pdurbin    "MS Open Tech are pleased to provide an evaluation copy of Windows in the form of a Windows Box for Vagrant and Vagrant Cloud provides a wide range of boxes for Linux"
+14:32 hydrajump  [04:24:48]  <hydrajump>	 I'm terrible at sed and been scratching my head for a while now. Can someone please take a look at this: https://gist.github.com/anonymous/fc4c490a107a23379a34
+14:33 hydrajump  [04:25:23]  <hydrajump>	 I'm trying to get the sed to insert the lines with indentation, but there are two many leading spaces for each line
+14:59 whorka     it looks like sed is printing just as many spaces as you specified... de-indent the source?
+16:23 hydrajump  whorka is there no way to keep the indentation, so that sed isn't all the way to the right which will look weird from a source code perspective?
+16:23 hydrajump  Do you see what I mean?
+16:42 whorka     mmmhmmm, so you want to embed a sed script in a another script but have the inner script follow the indent rules of the outer script even though it is all in one big single-quoted string
+16:43 whorka     how about you stick the sed script string in an environment variable, then sed off the leading spaces before you run it? :)
+16:54 whorka     this is actually a terrible idea b/c the escaping will get all weird... in general things like heredoc and embedded strings need to maintain their own indenting.
+16:54 whorka     one workaround I've seen though is to concatenate your script into a string one line at a time. then each concatenation line can follow the indenting of the overarching script.
+18:12 hydrajump  Thanks for your suggestions whorka.
+18:34 hydrajump  anyone else having connection problems with freenode today?
+18:36 semiosis   nope
+18:37 hydrajump  weird last 6-7 hours probably been disconencted 10+ times
+21:41 hydrajump  https://github.com/cantino/huginn "Build agents that monitor and act on your behalf. Your agents are standing by!"
+23:56 pdurbin    hydrajump: see also munin
+23:56 pdurbin    searchbot_: lucky munin
+23:56 searchbot_ pdurbin: http://munin-monitoring.org/

@@ -1,0 +1,23 @@
+Time  Nick      Message
+12:36 hydrajump ProtonMail https://protonmail.ch/ "End-to-end encrypted email based in Switzerland"
+15:15 pdurbin   that didn't work out so well for lavabit
+15:16 bene      the swiss are much more librul
+15:16 bene      xref all their hidden nazi gold
+15:30 larsks    I dunno.  Seems like a lot of "trust us, we're *totally* encrypting things".  How would we ever know?
+15:31 larsks    And of course, http://www.jwz.org/blog/2014/05/google-has-most-of-my-email-because-it-has-all-of-yours/
+16:25 semiosis  i need to document a json/rest api.  suggestions?
+16:26 semiosis  i found this... https://helloreverb.com/developers/swagger anyone know of other solutions?
+16:40 hydrajump larsks: I believe they are planning to open-source the code IIRC
+16:41 pdurbin   semiosis: thanks. I had forgotten what that was called. looks like I mentioned it here: http://irclog.greptilian.com/sourcefu/2013-08-27#i_18523
+16:44 hydrajump Here's the tweet from protonmail https://twitter.com/ProtonMail/status/468759469006942209
+16:45 pdurbin   semiosis: but! should we be documenting APIs at all? should they be self describing instead?
+16:45 pdurbin   "We put them all in human-written documentation that you have to write up and figure out yourself, whereas when they’re actually in the response you can know what you’re doing just by looking at the service." -- http://javascriptjabber.com/104-jsj-hypermedia-apis-with-steve-klabnik/
+16:46 semiosis  pdurbin: if only it were that simple
+16:46 pdurbin   heh. exactly
+16:47 pdurbin   swagger looks nice
+16:47 * pdurbin sends an email to the team about swagger
+23:19 semiosis  not thrilled with swagger's handling of multipart form (file) upload endpoints
+23:21 pdurbin   bummer
+23:35 semiosis  http://imgur.com/70um7i3 for example
+23:36 semiosis  the two "body" lines are really one form param called "file" but swagger refuses to use the right field name
+23:37 semiosis  also no obvious way to say what content types are allowed/supported for the file

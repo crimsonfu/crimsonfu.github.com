@@ -1,0 +1,48 @@
+Time  Nick     Message
+13:40 ben_e    capturing stdout/err in bash is easy
+13:40 ben_e    tcsh is not as flexible with redirection as bash
+13:40 ben_e    but if you have a working perl script, why would you convert it to a shell script?
+13:41 ben_e    i think the deafening silence is because no one wants to encourage you down that path :P
+13:43 pdurbin  heh. it's not for me. I'm happy with my solution :)
+13:43 pdurbin  ben_e: but thanks
+15:56 ben_e    vim has syntax highlighting for strace output
+15:56 * ben_e  whuggles vim
+15:59 pdurbin  :)
+17:01 larsks   Here's a fun article on securely managing a password "database" with vim: http://pig-monkey.com/2013/04/4/password-management-vim-gnupg/
+19:12 pdurbin  larsks: from a glance that seems like kinda what I do
+19:12 pdurbin  meanwhile...
+19:12 pdurbin  osx - Why do I get files like ._foo in my tarball on OS X? - Super User - http://superuser.com/questions/61185/why-do-i-get-files-like-foo-in-my-tarball-on-os-x
+19:12 pdurbin  bleh!
+19:12 pdurbin  "OS X's tar also knows how to convert the ._ members back to native formats, but the ._ files are usually kept when archives are extracted on other platforms."
+19:14 semiosis http://dilbert.com/strips/comic/1995-06-24/
+19:14 semiosis "Here's a nickel , kid. Get yourself a better computer"
+19:14 pdurbin  grr
+19:15 pdurbin  ;)
+19:15 pdurbin  do i need to support these crazy tarballs created by mac users?
+19:16 pdurbin  http://superuser.com/questions/212896/is-there-any-way-to-prevent-a-mac-from-creating-dot-underscore-files
+19:16 semiosis wow, finally got the AC fixed in my office and now i'm freezing :D
+19:34 pdurbin  if (!"._".equals(finalFileName.substring(0, 2))) { ... do the thing ... }
+19:42 semiosis pdurbin: ! filanFileName.startsWith("._")
+19:42 semiosis s/filan/final/
+19:44 pdurbin  semiosis: oh yeah. whoops, already committed
+19:44 semiosis hehe
+19:44 pdurbin  semiosis: this is why we keep you around :)
+19:44 semiosis awww
+19:48 pdurbin  semiosis: here you go: more readable, removed noisy println · 5719ca2 · IQSS/dvn - https://github.com/IQSS/dvn/commit/5719ca2
+19:48 pdurbin  thanks
+20:38 pdurbin  [dataverse] DATA CURATOR HULK (@DATACURATORHULK) is now following you on Twitter!
+20:38 pdurbin  awesome
+20:39 ben_e    HULK SMASH BIG DATA?
+22:02 pdurbin  Twitter / DATACURATORHULK: HULK SMASH IRRESPONSIBLE DATA ANALYSIS - https://twitter.com/DATACURATORHULK/status/325257512653815808
+23:02 semiosis jumping between platforms to make native installers of the javafx app... spent an hour on windows, then one on mac, reminds me just how bad windows is
+23:02 semiosis not even a decent terminal!
+23:07 pdurbin  semiosis: it can play netflix at least
+23:07 pdurbin  of course, so can my toaster
+23:35 semiosis hahahaha
+23:36 semiosis hey quick mac question... i added some simple envvar exports to .bashrc but bashrc doesnt seem to get evaluated either in iterm2 or an ssh session
+23:36 semiosis #lazyweb & all that
+23:36 semiosis never mind, http://hayne.net/MacDev/Notes/unixFAQ.html#shellStartup
+23:37 pdurbin  :)
+23:48 semiosis well the javafx app doesnt run at all on the mac
+23:48 semiosis yippee
+23:57 pdurbin  should I laugh or cry?

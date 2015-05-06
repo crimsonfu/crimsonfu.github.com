@@ -1,0 +1,33 @@
+Time  Nick       Message
+00:32 JoeJulian  pdurbin: How about https://gist.github.com/joejulian/6275783?
+00:43 pdurbin    JoeJulian: ooo. .take ... thanks
+00:54 * pdurbin  looks at http://stackoverflow.com/questions/16555206/arrays-in-ruby-take-vs-limit-vs-first
+09:37 joshu_     semiosis Lima looks pretty cool. How do you think the "decentralized P2P VPN" works?
+09:38 joshu_     Do you mean that when you launch the Lima app on say your iOS device, it establishes a VPN connection between your iOS device and your Lima device? If so they it's pretty much just a VPN server running on your Lima or am I wrong?
+09:39 joshu_     *they
+12:10 pdurbin    using :%retab! for the first time in vim and it's awesome: http://vimdoc.sourceforge.net/htmldoc/change.html#%3aretab
+13:13 dotplus    does rackspace cloud offer a 'free tier' like AWS? I'm looking at doing some provisioning automation with libcloud so I was hoping for free time on basically as many as I could get my hands on, but at least the big ones RS/AWS. (And then extend to my own openstack, Joyent (for cross-OS fun) and maybe others)
+14:01 dotplus    ha, *now* I know I'm in a) the future b) HPC, I overheard: "each filesystem only has ~2.5PB, one of my concerns..."
+15:32 semiosis   joshu_: that would be my guess.  the web site did mention that the device runs openwrt
+15:33 semiosis   joshu_: the problem then becomes how does the mobile app find the address of the device.  users can't be expected to set up their own dynamic dns
+15:34 pdurbin    dotplus: rackspace free tier? http://irclog.perlgeek.de/crimsonfu/2013-07-22#i_7357323
+15:34 pdurbin    but I think only the accounts are free? like how amazon accounts are free :)
+15:38 dotplus    hm, perhaps westmaas can comment?
+15:39 semiosis   pdurbin: bait & switch with the free vms for open source?
+16:00 pdurbin    i don't know
+16:00 westmaas   its supposed to be coming, not sure on the status
+16:01 westmaas   will try to find out
+16:05 pdurbin    westmaas: you da man
+16:12 dotplus    that would be lovely!
+16:55 evms       hey, anybody at Harvard maintain an Emacs24 rpm? We found one online already but we prefer a Harvard maintained one — btw I work at IQSS
+17:00 evms       pdurbin: hey do you have emacs24 in the FASRC repo?
+17:09 pdurbin    evms: fasrc has various versions of emacs as modules not RPMs: http://rc.fas.harvard.edu/module_list/
+17:39 sjoeboo    evms: important to note those modules are for use inside our infrastructure.
+17:39 sjoeboo    which just this weekend finally grew by 28K cores.
+17:41 evms       understood
+17:41 evms       I just wanted the Emacs24 base RPM
+17:41 evms       we use pacakge.el management for Emacs24 not RPMs
+17:45 semiosis   filezilla password recovery protip... set up your own FTP server, change server address in filezilla, capture traffic, connect.
+17:46 * semiosis just sayin
+18:08 JoeJulian  lol
+18:09 pdurbin    semiosis: !

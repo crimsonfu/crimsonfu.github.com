@@ -1,0 +1,21 @@
+Time  Nick      Message
+13:18 dotplus   regarding mghpcc, do you find that the user community actually knows how to take advantage of all those cores? or do you have to educate them? At ece.cmu.edu, we had very few (non-CS types) who were able (willing?) to split their jobs up to be parallelizable (even when the nature of the jobs lent itself to being split up). And now at ornl.gov, I see a _large_ team of people most of whose role (I think) is to teach researchers how to use the ...
+13:18 dotplus   ... supercomputers
+13:25 pdurbin   more people use our "compute on demand" (GUI-oriented apps like Stata) cluster than our batch cluster: http://cod-head.hmdc.harvard.edu/UserJun.html vs. http://batch-head.hmdc.harvard.edu/UserJun.html
+13:25 pdurbin   (not that this has anything to do with mghpcc)
+14:35 sjoeboo   dotplus: we have to do a lot of user education, and our community is pretty split. Some researchers know exactly what they are doing and have pretty scalable code/models. Others just want to run matlab single threaded for 2 weeks "somewhere other than their desktop"
+14:35 sjoeboo   we specifically went for a high core count because we have so many serial users.
+14:39 sjoeboo   that being said, our install @ mghpcc (well, our 28K cores of net new stuff out there) IS a single paralell system
+14:49 pdurbin   sjoeboo: pleasingly parallel? http://en.wikipedia.org/wiki/Embarrassingly_parallel :)
+14:50 sjoeboo   ha, yes and no. some users just have ways of running 28K independent jobs, others are heavy MPI, true parallel programs.
+14:56 pdurbin   makes sense
+22:12 semiosis  pdurbin: https://botbot.me/freenode/gluster/ \o/
+22:14 pdurbin   semiosis: very pretty
+23:50 JoeJulian Which came first? The sysadmin, or the bus?
+23:51 agoddard  the bus
+23:51 pdurbin   JoeJulian: I hope this is hypothetical
+23:51 JoeJulian Yeah, just have heard the "if he got hit by a bus" analogy a few too many times today...
+23:52 * pdurbin hops on his bike and crosses fingers
+23:53 agoddard  I just sent a request to the gov't for info on vehicle collisions yesterday coincidentally, Imma send 'em one for bus vs pedestrian accidents
+23:53 agoddard  and then see if we can figure out if any are sysadmins
+23:53 agoddard  put this issue to rest once and for all

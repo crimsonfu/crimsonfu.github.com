@@ -1,0 +1,32 @@
+Time  Nick      Message
+19:50 hydrajump Any Mac users here who has messed with the built-in pf firewall? codex mabe you have?
+19:50 hydrajump s/has/have
+19:51 codex     i have
+19:51 codex     i really didn't like it
+19:51 codex     mostly b/c of the way it hooks in
+19:51 codex     ive heard it's gotten words better since going to PF though (from ipfw)
+19:51 hydrajump hey I have a use case and I came across pf as a built-in solution would requiring extra software.
+19:52 codex     but it's not as nice as it is on openbsd
+19:52 codex     even though it's the "identical" engine I think
+19:52 codex     hydrajump: you can use pfctl to control it
+19:52 codex     my suggestion is to create a script to launch it instead of one liners
+19:53 codex     this is a good starting point: http://blog.scottlowe.org/2013/05/15/using-pf-on-os-x-mountain-lion/
+19:53 codex     that's the "proper" way to do it
+19:53 hydrajump Specifically I want to block all traffic except for DHCP, DNS and OpenVPN when on untrusted wifi and ethernet connections. I have it mostly working except that for some reason DNS resolution isn't working and my rule unexplicably doesn't do what I want.
+19:53 hydrajump Yeah I've seen that and a few others
+19:53 hydrajump Let me show you what I have...
+19:53 codex     % pfctl -vvsr --> to see your current list
+19:54 hydrajump yep
+19:54 codex     % pfctl -vvss --> see current state
+19:54 hydrajump https://gist.github.com/hydrajump/fea1005599bfecd17d26
+19:55 hydrajump If you can please take a look and see what I might be doing wrong
+20:00 codex     i wouldn't do a return block policy
+20:00 codex     not smart -- you will ddos yourself
+20:01 codex     what is the error that you are seeing btw?
+20:02 hydrajump Oh I got that from this guide https://gist.github.com/scy/8122924
+20:04 hydrajump I've never used pf before. The problem is that on wifi and eth interfaces when not connected via openvpn, I can't resolve any hostnames using OpenDNS's servers
+20:05 hydrajump Everything else is working, e.g. I get DHCP info,
+20:05 hydrajump I have to leave be I'lll be back online in an hour or two. Cafe is kicking me out ;)
+20:05 hydrajump bbl
+21:45 hydrajump sorry I'm back
+21:46 hydrajump codex: did you find anything else wrong besides the return block policy?

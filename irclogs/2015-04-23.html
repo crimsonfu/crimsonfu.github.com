@@ -1,0 +1,17 @@
+Time  Nick      Message
+14:39 hydrajump if you ever need to create online forms: http://typeform.com
+15:42 melodie   hi
+15:42 melodie   can someone tell me what the command line is to ouput strate to a file instead of stdin?
+15:42 melodie   strace*
+15:42 melodie   sorry
+15:45 melodie   knowing I want to invoque strace against a binary
+15:48 melodie   oh I found
+16:39 pdurbin   melodie: you got it to work?
+17:12 melodie   yes pdurbin
+17:12 melodie   thanks
+17:12 melodie   and after that I broke the session, tried to repair, couldn't, then reverted back to the former version package
+17:13 melodie   well testing the newer openbox patched for Debian/Ubuntu, the removal and revert back to stable didn't work that well
+18:20 pdurbin   I don't have much in my strace notes
+18:21 pdurbin   strace -fFttT -s 64 uptime # verbose debugging
+18:21 pdurbin   strace -f -p `pidof clamcour` 2>&1 | grep write
+18:21 pdurbin   Last updated March 3, 2011

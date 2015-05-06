@@ -1,0 +1,58 @@
+Time  Nick      Message
+01:01 JoeJulian mhayden: rackspace images are selinux free by default? <gasp>
+01:02 pdurbin   JoeJulian: wow. that would get under mhayden's skin, I bet :)
+01:03 JoeJulian Not even permissive... actually disabled... :)
+01:04 pdurbin   smh
+01:08 pdurbin   JoeJulian: anything new in gluster?
+01:16 JoeJulian lots... not even sure what yet...
+01:16 JoeJulian I'm trying to track down a bug right now...
+01:17 pdurbin   hopefully not a bad one
+01:18 JoeJulian Not terribly bad. For some reason the bricks aren't getting properly killed at shutdown so the client's hanging waiting for ping-timeout.
+01:20 pdurbin   doesn't sound too bad
+12:37 mhayden   JoeJulian: unfortunately, they are
+13:55 GitHub106 [crimsonfu.github.com] hakamadare pushed 1 new commit to master: https://github.com/crimsonfu/crimsonfu.github.com/commit/c438f35844b73e46bf90da95f1bbbf415a366a5a
+13:55 GitHub106 crimsonfu.github.com/master c438f35 Steve Huff: Cleaning up markup slightly, adding links
+15:32 semiosis  pdurbin: biggest gluster news imho is libgfapi, a filesystem-like API which allows applications to work with directly with gluster, without a fuse mount
+15:41 pdurbin   semiosis: ok. interesting
+15:46 semiosis  ... and i'm writing a java binding for it (have i mentioned that here before?)
+15:48 pdurbin   semiosis: I don't think so. Is it on github?
+15:48 semiosis  yes, i plan to officially announce it next week.  still need to tidy up a few things.
+15:50 semiosis  https://github.com/semiosis/libgfapi-jni (libgfapi jni binding) and https://github.com/semiosis/glusterfs-java-filesystem (java7/nio.2 filesystem provider backed by libgfapi-jni)
+15:51 semiosis  mainly need to clean up the project naming, copyrights, licensing, and docs before the announcement.  the code is pretty solid although not yet feature complete
+15:52 pdurbin   great stuff
+15:53 semiosis  the Example class shows off what it can do from a high level consumer's point of view: https://github.com/semiosis/glusterfs-java-filesystem/blob/master/glusterfs-java-filesystem-example/src/main/java/com/peircean/glusterfs/example/Example.java
+19:47 magoo     any of you know an awesome sysadmin around the bay area?
+19:47 magoo     https://www.crowdtilt.com/learn/jobs#job1
+19:48 magoo     (or willing to move out here)
+19:53 semiosis  magoo: Kickstarter for groups?
+19:54 magoo     it's basically for pooling money amongst friends
+19:54 magoo     think reaching a beach house
+19:54 magoo     *renting
+19:54 semiosis  ohhh i see
+19:54 semiosis  so like private kickstarter? ;)
+20:29 magoo     close but still wrong :P
+20:30 magoo     private and public campaigns, big or small, and we accept anything (no approval process other than preventing fraud)
+20:31 magoo     semiosis: you know any good talent out here?
+21:03 pdurbin   magoo: are you right downtown in San Francisco? I'm going to be near Union Square Sep 22-26 for a conference: http://oracle.com/javaone
+21:04 magoo     yup, on 7th and Howard
+21:05 magoo     that being said, my baby boy is supposed to be born around the 7th so I'll probably still be at home with the wife figuring fatherhood out haha
+21:05 pdurbin   magoo: oh! congrats!
+21:05 magoo     thanks!
+21:06 pdurbin   minimagoo
+21:06 magoo     haha, indeed
+21:06 magoo     also the reason I'm starting to really gear up on hiring
+21:07 magoo     i'm the only sys admin and I'm typically not away from the office
+21:07 pdurbin   ironcamel: you'll cover for magoo :)
+21:07 magoo     thanks ironcamel! ;)
+21:07 magoo     my hero
+21:11 ironcamel i can't do half the stuff magoo does
+21:12 semiosis  magoo: congrats!
+21:12 semiosis  sorry the only sysadmin i know out there works for twitter
+21:13 semiosis  and i dont even know him that well
+21:13 semiosis  sysadmins are hard to find!
+21:14 * pdurbin is realizing how few people he knows in San Francisco
+21:15 semiosis  i haven't been in ##infra-talk for several months but as i remember there were plenty of SF sysadmins in there
+21:42 magoo     semiosis: yeah, i'm not very connected out here as i just moved here a month ago
+21:42 magoo     i'm trying to change that quickly
+21:43 magoo     i was working remotely for crowdtilt for the last couple years
+22:42 semiosis  erryday i'm cache busting

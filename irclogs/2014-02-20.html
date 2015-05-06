@@ -1,0 +1,9 @@
+Time  Nick     Message
+22:55 semiosis puppet problem...
+22:56 semiosis need to mount a disk on /var/www, but mount won't work unless /var/www already exists, so make the mount require the file
+22:56 semiosis problem then is that i need the mount point to be owned by a particular user
+22:57 semiosis when the dir is created before mounting it is owned by that user, but then after mounting it's owned by the owner of the root of the mounted fs
+22:57 semiosis and wont get chowned until the next puppet run
+22:57 semiosis meaning other things will fail this run which depend on it being owned by this partiuclar user
+22:58 semiosis what do I do?
+22:58 semiosis i'm using an exec after the mount now, which works, but that's not the puppet way!

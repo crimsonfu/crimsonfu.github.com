@@ -1,0 +1,74 @@
+Time  Nick      Message
+00:21 * pdurbin hears crickets
+01:38 bear      rbase is old school relational database stuff
+01:39 bear      *old* school
+01:40 bear      it was the oracle of the day - back when everyone was using dBase files and the like - if you wanted business level you used R:Base
+01:40 bear      R:Base went on to cause other form/query database systems to be created
+01:41 bear      it's report form template language was the base for things like Access
+01:56 pdurbin   bear: would you recommend it for a project in 2015?
+01:57 bear      in a wierd way yes, because if they have legacy requirements...
+01:57 bear      technically it's still a valid relation database - just not internet scale, talking about internal enterprise network stuff
+01:57 bear      IMO it's the same as someone asking to use MSSQL
+01:58 bear      the reason to use it is the same as to not use it - do they have in house rbase dba's?
+02:00 pdurbin   or a lot of code written around it maybe
+02:02 bear      yea, as a sql style database it's just as modern as any of the non-internet sql dbases
+02:02 bear      I just hadn't seen it in use in decades (but I also haven't done enterprise app dbase work in decades)
+02:04 bear      we have a current client that we are doing some tech debt archeology for - they are using 2008 era MSSQL
+02:09 pdurbin   that I've heard of at least
+15:25 dotplus   heck, I'm not sure if I should say this in a logged channel, because I don't ever want to be a MSFT apologist. But actually MSSQL can be a valid choice in certain situations, especially in combination with Visual Studio. At least the modern versions allow (some) people to get Valuable Work Done.
+15:26 dotplus   whether they would have been better off learning the unix tools from the beginning and walking that path is, of course, up for (futile) debate.
+18:42 bear      (dotplus said what I was trying to say in a much cleaner manner)
+19:25 pdurbin   https://about.gitlab.com/2015/03/03/gitlab-acquires-gitorious/
+19:25 bear      yea
+21:50 semiosis  i hope they didnt pay too much.  gitorious was pretty crappy
+21:50 semiosis  and gitlab is beyond amazing
+22:07 bene      gitlab is pretty nice
+22:07 bene      i set up an in-house server for us
+23:04 semiosis  thinking about switching to my mac mini at work for daily use.  any tips or must-have apps I should know about?
+23:05 semiosis  are there any task management apps, window switchers, terminal/IRC stuff, etc that you can't live without on your macs?
+23:06 prologic  what do you guys think about a tiny linux distro with busybox built against uclibc, kernel, finit and a package manager written in python (bundled statically)?
+23:07 prologic  oh and probably dropbear
+23:07 prologic  total size might come in at ~20-30MB
+23:07 prologic  might also throw Docker in there too for good measure by default
+23:09 semiosis  well i use openwrt, that's similar to what you describe
+23:14 bear      for osx - iTerm2, Textual and then anything else you need via homebrew
+23:15 prologic  so no :)
+23:15 prologic  abandon the idea :)
+23:17 semiosis  bear: thanks
+23:19 bear      I use homebrew to install the latest openssl, python, node, git and wget for example
+23:19 bear      if you point homebrew to install into your user dir you don't muc with system versions of them
+23:27 semiosis  do you use any alternative apps for the mac os desktop?  finder alternative?  app switchers?  etc?
+23:27 semiosis  i'm used to kde and all of its power gui features :)
+23:27 bear      not really - I tend to use mine as a fancy terminal host
+23:28 bear      albert has a lot of use at our office
+23:28 semiosis  albert?
+23:28 bear      oops - http://www.alfredapp.com/
+23:28 semiosis  ah
+23:29 semiosis  cool, thanks
+23:30 bear      oh, and it's worth buying vmware for your mac if your going to do any vagrant work
+23:31 semiosis  i'm going to be doing a LOT of vagrant work
+23:31 bear      the speed difference between free and paid is well worth
+23:31 semiosis  what about virtualbox?
+23:31 bear      we avoid it
+23:31 semiosis  hmmm
+23:32 semiosis  i see several vmware editions, which do you recommend?
+23:32 semiosis  fusion?  pro?  workstation?
+23:33 semiosis  tbh i'll probably try vbox first, it's been great for me on linux
+23:33 bear      vmware fusion 7.1.1
+23:34 bear      the biggest difference is speed, but with a new mini you may not notice it at first
+23:34 semiosis  it's the last gen mini, but it's fast
+23:34 bear      I keep asking my coworker to write a blog post on all the pain points but we've all been hyper busy
+23:41 pdurbin   semiosis: you're giving up your beloved kubuntu?!?
+23:45 semiosis  pdurbin: i can't let my ideology get in the way.  these days i'm less interested in "using linux" and more interested in doing awesome shit.  my linux desktop obsession is getting in the way
+23:46 semiosis  first i'll switch over at work, then maybe down the road switch over at home too
+23:46 semiosis  we'll see how it goes
+23:46 pdurbin   oh at work, forget it. I use a mac, of course :)
+23:46 pdurbin   I have shit to do.
+23:46 semiosis  srsly!
+23:47 pdurbin   and I'm not going to be "that guy" ... the only one who runs linux
+23:48 semiosis  ha
+23:49 semiosis  pdurbin: any response to my mac apps question?
+23:50 semiosis  pdurbin: what hypervisor do you use with vagrant on your mac?
+23:50 pdurbin   um. I like having an extra terminal app installed: iTerm2
+23:50 pdurbin   semiosis: virtualbox
+23:52 pdurbin   I use Adium to log into gtalk or whatever they call it now

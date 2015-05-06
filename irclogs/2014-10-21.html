@@ -1,0 +1,92 @@
+Time  Nick       Message
+13:20 hydrajump  anyone have experience with IDS/IPS on AWS? And/or WAF such as incapsula http://incapsula.com? /cc codex
+13:25 lguillaume pdurbin: I stopped using kde years ago. I'm sure it's even more bloated now! Now (when I need X) I just use twm or xfce if I want a desktop.
+13:27 pdurbin    lguillaume: wow! you even had your wife on KDE for a while! (the poor thing)
+13:28 lguillaume Yeah - she has a Mac now :)
+13:29 pdurbin    good for her. but you're still on netbsd?
+13:30 lguillaume Servers are all netbsd. Rock solid. Easy to upgrade and pkgsrc works the same on my macs as it does on netbsd
+13:30 pdurbin    ah. for mac I use homebrew
+13:30 lguillaume I've always had a mac for work.
+13:31 lguillaume Never needed to jump on that bandwagon
+13:32 pdurbin    there's a guy from oftc/#ikiwiki who's really into pkgsrc
+13:35 pdurbin    this guy: https://github.com/schmonz/pkgsrc-ikiwiki
+13:37 lguillaume I don't know why it's not more popular
+13:39 pdurbin    searchbot: lucky xkcd standards
+13:39 searchbot  pdurbin: http://xkcd.com/927/
+13:42 pdurbin    that could be why
+13:42 lguillaume Indeed
+13:46 pdurbin    hydrajump: nope, but semiosis uses a lot of AWS. Oh, and (unrelated) check this out: https://t37.net/is-docker-ready-for-production-feedbacks-of-a-2-weeks-hands-on.html
+13:55 codex      hydrajump: we are just getting into that at work -- not yet though
+13:55 codex      going to start poking at incapsula soon
+15:13 hydrajump  codex: same here. I'm investigating what we can do from using 3rd party SaaS such as incapsula to what we can do within our AWS VPC which is running (will be) CoreOS and DOcker.
+15:15 pdurbin    wow. coreos. fancy
+15:16 hydrajump  Due to the way CoreOS is built, e/g. read-only, no package managers. Installing HIDS won't work. I think that our security efforts will be securing our node apps in terms of secure coding practices, making sure all communication is using SSL internally as well as externally.
+15:18 hydrajump  Using something such as Incapsula will hopefully go quite a long way. I don't know what can be done in terms of the Docker containers. Each container should ideally run one process. We discussed iptables a few weeks ago. I haven't looked into how that works in Docker containers.
+15:18 hydrajump  I don't know whether running a Suricata container behind our ELBs is something to consider. Never used it myself.
+15:20 hydrajump  codex: if you can...can you share what types of things you are looking at besides incapsula? What are your thoughts on what I've described?
+15:21 hydrajump  pdurbin: hehe it's what I see most companies going towards at least startups and companies who understand the benefits.
+15:22 pdurbin    hydrajump: this is even fancier: Mirage OS - http://www.openmirage.org
+15:22 codex      hydrajump: i am not involved in this, but I think i will be soon -- i'll let you know what we research
+15:22 codex      we were looking at "cloud ids" and also a waf -- and incapsula looks to be putting the two together
+15:23 codex      hydrajump: that said, a whole bunch of my co-workers use vyatta (now brocade) for the IDS/cloud firewall
+15:44 semiosis   hydrajump: nidps or hidps?  i have used ModSecurity in AWS, but that's no different from using it anywhere else
+16:12 semiosis   pdurbin: http://www.infoworld.com/article/2835160/java/robovm-enables-java-to-ios.html
+16:13 pdurbin    meh. ios
+16:14 * pdurbin  remembers Cisco IOS
+16:18 hydrajump  codex: ay yeah Vyatta I'm familiar with. Incapsula looks like it is doing a lot of layer 7 web application specific filtering which is probably what a web focused company needs in terms of protection
+16:19 codex      hydrajump, semiosis: https://awsmedia.s3.amazonaws.com/SEC402.pdf
+16:20 codex      not sure if helpful - haven't had time to read yet, but only "stuff" on IDS in Aws
+16:20 hydrajump  codex: yeah I watched that presentation and downloaded the secaudit.json Role Policy and the SecConfig.py script
+16:20 hydrajump  Very good presentation covering the AWS parts.
+16:21 hydrajump  codex: (http://www.youtube.com/watch?v=aGfKCmnmh5g)
+16:21 hydrajump  Intrusion Detection in the Cloud (SEC402) | AWS re:Invent 2013 ^^
+16:22 hydrajump  codex: what do you use today to centralise logs? ELK?
+16:22 semiosis   great stuff!
+16:22 semiosis   thx for these links
+16:22 codex      thanks
+16:22 codex      hydrajump: splunk
+16:22 hydrajump  codex: ok
+16:23 hydrajump  semiosis: yeah really good presentation!
+19:57 semiosis   pdurbin: icymi, ubuntu utopic unicorn final release is this thursday!
+19:57 semiosis   https://wiki.ubuntu.com/UtopicUnicorn/ReleaseSchedule
+20:05 lguillaume Just curious - why Ubuntu and not just Debian?
+20:29 pdurbin    yeah, I should try Debian, I guess. I dunno. strength in numbers or something
+20:30 pdurbin    semiosis: yeah, saw that. has java 8, which is nice
+20:38 semiosis   lguillaume: or slackware for that matter?!
+21:03 semiosis   lguillaume: but seriously, ubuntu is pretty far ahead of debian.  if you're using modern x86 hardware, it's great.  if you're on a raspberry pi or some other strange thing, then there's probably a debian build for it
+22:20 pdurbin    netbsd runs on everything
+22:28 lguillaume :) even on my SE 30
+22:29 pdurbin    oh man, the tinky wars
+22:29 lguillaume I still got mine. Does that mean I win ?
+22:29 pdurbin    it does :)
+22:30 lguillaume hehe. I mean a rpi is quite "tinky"
+22:31 pdurbin    haven't played with one yet
+22:31 lguillaume nor I
+22:31 lguillaume I have my firewalls running on Soekris boxes
+22:31 lguillaume not quite as small or powerful, but very good hardware
+22:32 pdurbin    oh yeah. I don't have any servers at home anymore. the server on a lamp timer is long gone
+22:33 lguillaume I know - I'm a glutton for punishment and high electric bills
+22:36 pdurbin    I bet that Soekris box is pretty low power
+22:36 lguillaume That's not the culprit :)
+22:37 lguillaume I think it's the media server and the Xen host with all the websites and the mail server
+22:41 pdurbin    lguillaume: speaking of Xen, I'm curious if you've heard of http://www.openmirage.org
+22:43 lguillaume huh - interesting.
+22:44 pdurbin    yeah, Xen... not Linux... perfect for you :)
+22:44 pdurbin    dunno how you feel about OCaml though ;)
+22:45 lguillaume Or what I'd do with just a kernel!
+22:46 pdurbin    their website is hosted on it... so you can run a web app
+22:47 pdurbin    it's all open source: https://github.com/mirage
+22:48 lguillaume great idea and use of Xen
+22:48 pdurbin    this one is their website: https://github.com/mirage/mirage-www
+22:49 lguillaume Do you guys use EC2 for a lot of stuff?
+22:49 pdurbin    65% javascript, 20% ocaml
+22:49 pdurbin    I don't. semiosis does
+22:49 lguillaume I wonder how hard it is to port a DOMU running on a NetBSD DOM0 to EC2
+22:50 pdurbin    why port the domu? let amazon be the domu :)
+22:52 lguillaume well - say I have a running system. I want to just drop it in as an image of some sort on their DOM0 (or whatever they call that)
+22:58 pdurbin    maybe there's a tool to convert your Xen images into AMIs (the images that run on Amazon)
+23:12 semiosis   lguillaume: afaik there are not different linux kernels for different xen dom0, the same should work on all
+23:13 semiosis   lguillaume: there is one catch, which is the bootloader.  i remember when ubuntu switched to pv-grub, which allowed for simple kernel upgrades without having to build a new image
+23:15 semiosis   if you have a pv-grub kernel in the AMI then you should be able to boot the kernel from the root device
+23:15 semiosis   whatever it is
+23:16 * semiosis afk

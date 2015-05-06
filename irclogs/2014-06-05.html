@@ -1,0 +1,80 @@
+Time  Nick           Message
+10:38 pdurbin        today! Events - Harvard IT Summit 2014 - http://www.centerdigitaled.com/events/Harvard-University-IT-Summit.html?page=agenda
+11:19 CalimeroTeknik would you happen to know how to write this? date -d "next time it'll be 00:10" +%s
+11:37 CalimeroTeknik um, found, but date doesn't do it
+18:32 pdurbin        oh man, I came to hear the talk by PaxIndustria but he's not here!
+18:32 pdurbin        this is what the talk is about: The Twelve-Factor App - http://12factor.net
+18:33 pdurbin        "The twelve-factor app is a methodology for building software-as-a-service apps"
+18:36 pdurbin        shuff: agperson has the stage now. good stuff
+18:36 semiosis       12-factor looks interesting
+18:41 pdurbin        they're talking about docker
+18:41 pdurbin        I wonder if this code is online
+18:42 pdurbin        I'm gonna guess it's this: https://github.com/huit/docker-drupal
+18:42 pdurbin        https://github.com/huit/docker-drupal/blob/master/drupal/Dockerfile
+18:43 pdurbin        yeah, and vagrant. this must be it: https://github.com/huit/docker-drupal/blob/master/Vagrantfile
+18:53 pdurbin        vagrant up drupal --provider=docker
+18:53 pdurbin        from https://github.com/huit/docker-drupal#getting-started
+20:53 semiosis       anyone have a recommendation on a pen test/vuln scan company for a web service?
+20:53 semiosis       need to check myself, before i wreck myself
+20:57 melodie        semiosis it has to be a company?
+20:57 melodie        if not I know a nice guy from Belgium who might help you
+20:57 semiosis       well, no, but it does help when i show someone a review by a recognized name
+20:58 semiosis       i guess if dan kaminsky did the scan himself that would be ok
+20:58 semiosis       :)
+20:58 melodie        :p
+20:58 melodie        it does not hurt to ask, I'll ask him if he knows about a company
+20:59 coyotus        soir
+20:59 melodie        hi codex
+20:59 semiosis       best i've encountered so far was pricewaterhousecoopers
+20:59 melodie        hi coyotus
+20:59 melodie        semiosis needs to find a company for a pentest as reference
+21:00 melodie        do you know about one?
+21:00 semiosis       they went beyond just running the automated scan tools, and actually had people figuring out hacks
+21:00 coyotus        c'est pour quoi mel
+21:00 coyotus        je suis assez pressé
+21:00 melodie        semiosis coyotus is from Belgium and knows the topic but I don't know if he knows about companies. He is in a hurry he gets up early (europe time) can you sum up?
+21:01 coyotus        demain me lève à 4h
+21:01 melodie        coyotus je viens de le lui dire
+21:01 melodie        il cherche une entreprise pour des tests de pénétration pour vérifier la qualité d'un site à ce que j'ai compris et il aurait besoin de pouvoir le citer en référence.
+21:01 melodie        la qualité/la sécurité
+21:02 coyotus        il est d'ou ?
+21:02 melodie        il est aux US : semiosis you are in the States, right?
+21:02 coyotus        je connais pas de société au states
+21:02 semiosis       yes
+21:02 coyotus        et ailleur ça ne sera pas facile niveau contractuel
+21:03 melodie        semiosis coyotus says he does not know anyone in the States in fact
+21:03 melodie        coyotus si tu le dis
+21:03 semiosis       ok thanks
+21:03 coyotus        il est mieux de commencer par scanner lui même son site
+21:03 melodie        je crois qu'il veut des références connues
+21:03 coyotus        quel type de ref
+21:03 melodie        et scanner lui-même il l'a déjà fait
+21:03 coyotus        moi je peux donner que des ref belge
+21:03 melodie        type de ref: <semiosis> i guess if dan kaminsky did the scan himself that would be ok
+21:04 coyotus        ce qui lui sera pas très utile
+21:04 melodie        ok
+21:04 coyotus        désolé
+21:04 melodie        je ne veux pas te regarder beaucoup plus
+21:04 melodie        j'avais un truc à te demander mais je t'enverrai un mail au besoin ?
+21:04 melodie        retarder*
+21:04 codex          melodie: hola
+21:04 melodie        hi codex !
+21:05 melodie        codex sorry for the highlight, my tab is mad :p
+21:05 codex          ah ok
+21:05 codex          :)
+21:05 coyotus        oki
+21:05 coyotus        je go désolé
+21:05 coyotus        ++
+21:05 melodie        ok :)
+21:05 melodie        bonne nuit ! good night !
+21:28 pdurbin        man... java, python, ruby, and perl this week
+21:37 semiosis       going to try qualys free vuln scanning tools
+21:38 semiosis       pdurbin: you polyglot
+21:38 semiosis       you're running all those langs on jvm right?
+21:58 pdurbin        perl 6 runs on the jvm
+22:21 pdurbin        the first thing I added was "use strict" :)
+22:21 pdurbin        ironcamel: ^^
+22:24 ironcamel      pdurbin: the first thing you added to what?
+22:24 ironcamel      btw, this is pretty good http://talks.golang.org/2014/gocon-tokyo.slide#1
+22:32 pdurbin        ironcamel: an installer I'm hackin gon
+23:00 pdurbin        wow. a goto

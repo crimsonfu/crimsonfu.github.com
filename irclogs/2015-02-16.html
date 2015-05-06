@@ -1,0 +1,19 @@
+Time  Nick    Message
+14:37 dotplus if/when y'all write a proper article or something about this, please ping me. I'd like to see it to verify that the risk of this problem is (for our special case) as low as I think it is but that also, in general, this is a) a fundamental failure on the part of those who made oauth application functionality for github b) share it with various teams @ $org who betweem them have lots of "private" repos at github and might well have different ...
+14:37 dotplus ... use cases and therefore be vulnerable.
+14:44 pdurbin we *do* have a place for articles at http://crimsonfu.github.io . pull requests welcome! :)
+14:46 pdurbin dotplus: to gauge risk it might be nice to know some more details about what this means: "This organization allows the application to access private organization data and modify public organization data"
+15:13 pdurbin bear: GitHub Support replied 7 hours ago and I just replied asking for more details on what that sentence means.
+15:13 pdurbin if anyone here already knows what it means, please let us know
+15:56 pdurbin dotplus and bear: I just added this comment: https://github.com/mozillascience/site/issues/11#issuecomment-74529357 ... I hope it makes sense.
+16:29 bear    pdurbin +1 - your representing this issue very well
+16:38 pdurbin bear: thanks. it's a delicate balance. I've concluded that the permisions being requested by that application *are* too broad. But at the same time, it's completely nuts to me that a member who has been only granted read-only access to an organization can authorize an app to have *write* access to all public repos of an organization. Again, this is the default.
+16:38 * bear  nods
+16:39 bear    the permissions being too broad can be discussed to death - it's always going to be a problem really. but having the org get opened up like that by a read-only member of the org... ouch!
+16:39 pdurbin exactly
+16:41 pdurbin bear: any fallout from you getting away from the default? From setting up third-party application restrictions?
+16:41 bear    none so far
+16:42 bear    our ops team tends to be the one who setup access, so I was able to whitelist the few apps that did need access yesterday
+16:45 pdurbin bear: ok. and don't forget about deploy keys
+16:46 bear    all of our keys are cycled fairly regularly
+16:47 pdurbin +1

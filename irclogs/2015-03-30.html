@@ -1,0 +1,100 @@
+Time  Nick      Message
+00:14 bene      that's nothing like the sugar shacks i have visited in western ma
+00:14 bene      where are the lawn chairs? where is the cooler of coors light?
+00:24 pdurbin   this is the closest one to Boston, they say
+00:53 bene      they do a boil down at the growing center in somerville
+00:54 bene      miles' grade is doing a field trip next week i thin
+00:54 bene      k
+00:54 bene      aww yeah
+00:54 bene      4 maple trees in somerville and we're tapping 'em all!
+01:07 pdurbin   heh
+01:30 bene      i find github's interface confusing too
+01:30 bene      almost everything is clickable, but it's not always clear where that click will go
+01:32 bene      larsks: are you using a tagging script with mutt-kz/notmuch or doing it all in procmail or similar?
+01:33 pdurbin   notmuch?
+01:33 larsks    I'm using afew (https://github.com/teythoon/afew) for tagging, with a bunch of custom filter modules.
+01:33 bene      cool
+01:33 bene      i was looking at afew
+01:33 larsks    pdurbin: notmuch is an email indexing tool (using xapian).  It is *awesome*.
+01:34 larsks    Espec. when combined with mutt-kz.
+01:34 bene      yep
+01:34 larsks    It's the only email searching solution I've found that can compete with gmail.
+01:34 * pdurbin looks at http://notmuchmail.org
+01:34 larsks    bene: I have e.g., modules that extract metadata from bugzilla and gerrit emails and populate tags based on that, etc.
+01:34 pdurbin   ah. I set up xapian for search of ikiwiki at fasrc
+01:34 larsks    pdurbin: https://github.com/karelzak/mutt-kz
+01:35 pdurbin   that's a lot of C
+01:35 larsks    bene: https://github.com/larsks/afew_filters
+01:36 bene      nice
+01:36 pdurbin   these days I'm using Lucene/Solr rather than Xapian
+01:36 bene      i am stuck with exchange on the server side of things
+01:36 larsks    bene: I am stuck with Zimbra!
+01:36 larsks    So I use 'getmail' to download everything locally, and run mutt-kz there.
+01:36 bene      pulling with isync and then running notmuch against the local maildirs
+01:37 larsks    Yeah :)
+01:37 bene      notmuch is pretty amazing
+01:37 bene      ~7000 messages/day in my group
+01:37 pdurbin   at one point I was tasked with evaluating Zimbra as a possible replacement for courier, imp, and majordomo
+01:38 bene      but searching 90 days worth of messages takes a few seconds
+01:38 larsks    I don't deal with anything near that volume, but I can't live without excellent mail filtering.  I can't imagine trying to live with some sort of folder-based organization anymore.
+01:38 larsks    s/filtering/searching/
+01:38 larsks    pdurbin: I can't common on zimbra from the mainteance side, but the ui is a little clunky.  It works, I guess.
+01:39 pdurbin   larsks: in the end the whole thing got outsourced, from what I understand
+01:39 bene      i still want to be able to use the phone to read my inbox, so i have about 50 server side exchange rules that do some basic sorting
+01:40 larsks    I have so far kept work email away from my phone.
+01:40 pdurbin   bene: I probably have close to that many in gmail. can't imagine life without them
+01:40 bene      pull all the machine email and the noisier humans out of my inbox
+01:41 pdurbin   is chat a good solution for too much email? or does it just move the problem?
+01:41 bene      we have hipchat channels devoted to tickets/wiki updates/code checkins
+01:41 bene      i like it in the sense that it's an ephemeral notification
+01:45 bene      it scrolls away without me having to do anything to archive, backup, etc, but it's still searchable
+01:45 bene      but putting those notifications in a human-oriented chat channel tends to just make it noisy and ignorable
+01:45 pdurbin   gmail feels the same way for me. I hardly ever archive or delete anything. Still searchable though.
+01:51 pdurbin   I'm fairly anti-automated noise in chat rooms: Can designerbot please stop posting to the #opensourcedesign channel on freenode? · Issue #205 · DesignOpen/designopen.github.io - https://github.com/DesignOpen/designopen.github.io/issues/205
+02:16 bene      http://kmkeen.com/awk-music/
+03:04 pdurbin   bash: /dev/dsp: Permission denied
+10:35 pdurbin   speaking of email: Tutanota, An Open Source Encrypted Gmail Alternative, Heads Out Of Beta | TechCrunch - http://techcrunch.com/2015/03/18/tutanota-exits-beta/
+10:52 melodie   pdurbin if people use it, Google can't browse the contents of their emails anymore
+10:52 melodie   :p
+10:53 melodie   they might raise new term conditions? :D
+13:11 bene      i don't see how this really affects google
+13:16 bene      or maybe i don't understand how their encryption works
+13:32 hydrajump is Tutanota supposed to be similar to https://protonmail.ch/
+13:33 hydrajump ^ seems so
+13:33 hydrajump https://whiteout.io/ is also interesting "EMAIL ENCRYPTION FOR THE REST OF US"
+13:34 bene      all the browser based ones are serving up some javascript pgp-style encryption that lets you do the encryption/decryption in the browser AFAICT
+13:35 bene      but our ability to verify the javascript that is loaded into our browsers is pretty poor
+13:36 bene      so the security of all these tools seems suspect to me
+13:36 bene      maybe they have some clever workaround i haven't grokked
+13:39 hydrajump bene: yeah I haven't looked close enough or tested any of them. I'm about to put together a new email server using Haraka and Dovecot.
+13:44 bene      i hadn't heard of haraka
+13:46 hydrajump https://github.com/baudehlo/Haraka
+13:46 bene      yeah, i googled
+13:47 bene      i'm pretty comfortable with postfix at this point
+13:48 bene      weird
+13:49 bene      if it doesn't do mail storage stuff, then you have to use it with another mail server?
+13:54 hydrajump yeah "Haraka makes no attempt to be a mail store (like Exchange or Postix/Exim/Qmail), a LDA, nor an IMAP server (like Dovecot or Courier). Haraka is typically used with such systems."
+13:55 hydrajump so instead of Postfix+Dovecot you can do Haraka+Dovecot
+14:06 bene      can it do deferred delivery?
+14:15 bene      maybe i'm not understanding what they mean by mail store
+14:28 hydrajump bene: I'm not sure I haven't played with it enough. They are super friendly and helpful in #haraka unlike #postfix ;)
+19:20 pdurbin   that's weird. it's like 8.8.8.8 stopped working
+19:20 pdurbin   or at least deleting it from my DNS settings helped
+19:21 melodie   hello!
+19:22 pdurbin   melodie: hi
+19:24 melodie   pdurbin I will ask some admin questions here very soon
+20:26 melodie   what would you use to keep 5 or 6 machines having the same linux distribution, up to date, with a fairly slow internet connection?
+20:27 melodie   would you use a local repos? Would you use rsync to synce the /var/cache/apt directory between machines? Or something else?
+20:27 melodie   there is a NAS also on the network
+20:28 melodie   and supposedly all the machines have the same user apps
+20:32 bene      https://help.ubuntu.com/community/Apt-Cacher-Server <- i have used this to make a single machine download and cache debs
+20:38 melodie   bene I look, thank you
+20:38 melodie   is that supposedly available for linux mint too?
+20:40 bene      i have never used mint
+20:40 melodie   ok
+20:41 melodie   in this sentence: "allowed_hosts=::ffff:192.168.0.1/24" up to which local IP does /24 allows?
+20:41 melodie   (I don't know to do the math for that)
+20:41 bene      http://www.aelius.com/njh/subnet_sheet.html
+20:43 melodie   oh thank you bene
+20:44 melodie   I don't use mint either, however it's based either on Ubuntu or on Debian, which I will discover in a near future
+20:46 melodie   hopefully apt-cacher will be available there too

@@ -1,0 +1,12 @@
+Time  Nick      Message
+00:15 pdurbin   http://www.libressl.org
+00:16 pdurbin   http://freshbsd.org/search?project=openbsd&q=file.name:libssl is pretty entertaining
+12:57 hydrajump codex hi I'm looking at whether to use AWS vs a docker purpose built provider. Do you have any experience with any of the providers listed here http://www.centurylinklabs.com/top-10-startups-built-on-docker/ or any others not listed?
+19:50 codex     hydrajump: very different use cases
+19:50 codex     aws -> full blown VM/stack
+19:50 codex     for special apps/webapps or "modules" if you will, i would build purpose specific docker containers
+19:50 codex     you should always have some full VM somewhere -- at least at this time (imo)
+19:51 codex     digitalocean is a great provider with ssd that's cheap
+20:02 hydrajump so the docker hosting providers where you don't have access to the host VM aren't yet ready for prime time?
+20:04 hydrajump If I'm not clear what I'm comparing is say an AWS instance of ubuntu server which you setup/config plus docker and then your containers versus a docker hosting providers such as dotcloud or tatum where you only deal with the docker containers
+22:04 pdurbin   it's a good question

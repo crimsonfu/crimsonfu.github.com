@@ -1,0 +1,33 @@
+Time  Nick         Message
+00:15 pdurbin      what's weird is that the patch is two years old: https://sourceware.org/git/?p=glibc.git;a=commit;h=d5dd6189d506068ed11c8bfa1e1e9bffde04decd
+00:17 pdurbin      Bug 15014 – gethostbyname_r() returns EINVAL (22) instead of ERANGE (34) (CVE-2015-0235) - https://sourceware.org/bugzilla/show_bug.cgi?id=15014
+04:23 hydrajump    anyone use samba as a file server in a Windows environment instead of Windows Server?
+04:29 prologic     sure have in teh past
+04:29 prologic     works pretty well when configured properly
+04:35 hydrajump    prologic: getting permissions setup right is a PITA
+04:39 prologic     well not really IHMO
+04:39 prologic     but you probably want to use the attirbute stuff anyway
+04:40 prologic     and not rely on unix file system permissions
+04:41 hydrajump    right now I'm messing with these for share settings: `force create mode = 0660; create mask = 0777; directory
+04:41 hydrajump    mask = 0777; force directory mode = 0770`
+04:41 hydrajump    but you suggest configuring using Windows ACLs instead?
+05:09 prologic     yeah I recommend file attributes
+05:09 prologic     it'll only end in tears if you insist on using unix permissions
+05:09 prologic     yeap
+05:10 prologic     use the acl/attributes
+05:11 hydrajump    ok thanks for the advice prologic.
+05:32 project2501a samba 3 or samba 4?
+05:35 project2501a yeah, what prologic said.
+11:25 pdurbin      codex: ok, *now* I'm patched. I wasn't the only one wondering about the ETA of the patch: https://twitter.com/CentOS/status/560138182441070592 :)
+15:34 dotplus      prologic: I saw you committed to the proxmox api or was it something using the proxmox api? anyway, any chance you have a moment to help me understand where I'm going wrong in cloning a vm backed by ceph?
+15:35 dotplus      http://pastebin.com/0QmdJtzn is my code/error.
+16:14 hydrajump    project2501a: samba 4
+21:26 prologic     dotplus, just about ready to go to work but I'll have a look and get back to you
+21:26 prologic     I did do some work on a python library for accessing proxmox
+21:31 dotplus      no worries, I'll fawningly appreciate any assistance:)
+21:59 prologic     actually just took a look
+21:59 prologic     I'm not sure from what you've shown
+21:59 prologic     that *should* work :)
+22:16 dotplus      prologic: that's useful information as well!
+22:16 dotplus      helps me point the finger at our PVE install
+22:18 dotplus      anyway, time to step away from the screen.

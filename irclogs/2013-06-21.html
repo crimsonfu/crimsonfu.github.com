@@ -1,0 +1,100 @@
+Time  Nick      Message
+12:35 pdurbin   mhayden: I just listened to http://major.io/2013/06/19/my-interview-on-the-dave-and-gunnar-show/ ... good stuff
+12:36 pdurbin   I didn't know RHEL7 was getting a "classic mode" for GNOME
+12:37 * pdurbin looks at http://fedoraproject.org/wiki/Features/Gnome3.8#Classic_mode
+12:39 pdurbin   there's talk of classic mode here too: https://help.gnome.org/misc/release-notes/3.8/
+13:00 mhayden   classic mode isn't bad looking
+13:04 pdurbin   I'm taking a vacation day. thinking of wiping my fedora 16 laptop and putting 19 beta on it
+13:04 pdurbin   so maybe I'll be able to check out classic mode
+15:22 pdurbin   this Fedora 19 beta install has not been without peril
+15:23 ben_e     are you wearing your Joo Janta 200 Super-Chromatic Peril Sensitive Sunglasses?
+15:24 pdurbin   should be
+15:25 pdurbin   I just hope it still boots Windows. I use it to watch Netflix
+15:29 pdurbin   oh good, it does
+15:29 pdurbin   but now I need a shower
+15:37 pdurbin   ah. typing this from the newly installed Fedora 19 laptop
+16:06 melodie   pdurbin let us know how this version goes, within a few days? :)
+16:21 pdurbin   melodie: so far so good. vagrant works. I'm sure everything else will
+16:22 melodie   :D
+16:22 melodie   great
+16:22 pdurbin   melodie: one weird thing is that my screen is stretched horizontally very wide... not sure why
+16:22 pdurbin   and I haven't found a way to fix it yet
+16:22 larsks    What pdurbin doesn't know is that *I'm* typing this from his newly installed Fedora 19 laptop, too.  Should have applied those security updates!
+16:22 larsks    * not really.
+16:23 pdurbin   heh
+16:24 pdurbin   ask I was backing up my laptop I found a directory at /root/george
+16:24 pdurbin   and I was like "who the hell is george?"
+16:24 pdurbin   but them I remembered I helped my friend george recover some photos years ago
+16:24 pdurbin   s/ask/as/
+16:30 pdurbin   dunno if the wideness is apparent or not, but here's how it looks: https://plus.google.com/107770072576338242009/posts/fMVMdSyq2UP
+16:31 melodie   pdurbin which desktop manager is it?
+16:32 pdurbin   gnome 3
+16:32 * pdurbin looks at http://fedoraproject.org/wiki/Releases/19/FeatureList
+16:33 pdurbin   gnome 3.8
+16:33 melodie   what is the graphical card?
+16:34 melodie   pdurbin do you have the right driver for the card, and what are the choices presented in the console with the command "xrandr" ?
+16:37 pdurbin   ah, the resolution should be 1366x768, but Displays under Settings is showing 1024x768 as the only option
+16:40 melodie   pdurbin you might be missing the right driver ?
+16:41 melodie   can you check in the /var/log/Xorg.0.log which driver is used?
+16:53 pdurbin   melodie: the solution was to take out the "nomodeset" kernel parameter when booting. everything is back to normal now
+16:55 pdurbin   a guy in #fedora-qa said it was disabling the intel gfx driver
+16:57 pdurbin   I'm not sure my exact graphics card but the sales order had "0A59714           SBB 12.5MHDLD BT DLMBR2X2ANT" on it when I ordered this laptop, a ThinkPad X220T (X220 Tablet)
+17:07 melodie   pdurbin you would know with the command "lspci | grep VGA" or "lspci | grep Video" sometimes
+17:08 melodie   anyhow a "lspci" will provide a bunch and you can find it there
+17:08 melodie   usually
+17:10 melodie   pdurbin I had not seen you found the solution, talking with a visitor at home :)
+17:11 pdurbin   melodie: yes, but the output is pretty generic: 00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+17:13 melodie   oh
+17:13 pdurbin   huh, when I ran `grub2-mkconfig` it changed 'set default="0"' to 'set default="${next_entry}"' ... I'm not sure if that's valid or not. I'm used to seeing "0"
+17:14 melodie   pdurbin and what is the explanation related to the nomodeset option ?
+17:14 melodie   I don't know much about grub2 so far, I have kept grub legacy as long as possible in many machines and I still have one
+17:15 melodie   too much to learn at same time!
+17:15 melodie   new stuff all around
+17:16 pdurbin   a guy in #fedora-qa said it was disabling the intel gfx driver
+17:17 pdurbin   melodie: that was the only explanation
+17:17 melodie   ah
+17:18 pdurbin   he says 'set default="${next_entry}"' is valid. must be a grub2 thing
+17:24 pdurbin   must be. I rebooted just fine
+17:25 pdurbin   trust but verify :)
+17:26 melodie   I looked on the web
+17:26 melodie   nomodeset disables kvm which prevents some graphic drivers to load (or to work? not sure exactly)
+17:27 melodie   s/kvm/KMS/
+17:28 melodie   pdurbin found more here: http://wiki.sugarlabs.org/go/Nomodeset
+17:28 melodie   seems very interesting
+17:28 pdurbin   heh. "They can all draw pretty pictures"
+17:30 pdurbin   "Specifying 'nomodeset' when the system boots basically tells the system to use an older set of software/drivers which does work (but may be slower or have some other issues that people would like to eliminate)."
+17:31 melodie   yes
+17:31 pdurbin   melodie: KMS?
+17:31 melodie   this is the part I found interesting to know about
+17:31 melodie   Kernel Mode Setting
+17:32 pdurbin   ok
+17:32 melodie   found here: http://en.wikipedia.org/wiki/Kernel_mode-setting
+17:32 melodie   "Doing mode setting in kernel-space is more flexible and allows displaying of an error in the case of a fatal error in the kernel, even when using a user-space display server.
+17:32 melodie   User-space mode setting would have needed superuser privileges for direct hardware access, so kernel-based mode setting increases security because the user-space graphics server does not need superuser privileges."
+17:33 melodie   ah ha !
+17:39 pdurbin   hmm. `yum install gnome-classic-session` to try "classic mode" in gnome 3.8 on fedora 19
+17:52 pdurbin   hmm. interesting. all it does is install these extensions: gnome-shell-extension-alternate-tab gnome-shell-extension-apps-menu gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list
+17:52 pdurbin   basically
+18:04 larsks    pdurbin: re: grub2, which is terrible and pointlessly complex, mattdm has done work such that syslinux is now an option, too.  If you boot the installer with "syslinux" on the command line you get that instead of grub2.
+18:07 pdurbin   huh
+18:07 pdurbin   all these newfangled thinggs
+18:08 pdurbin   in my day it was lilo and it mattered where it was installed. first 1024 blocks or something
+18:09 larsks    lilo is not something I miss :)
+18:09 pdurbin   :)
+18:18 ben_e     mattdm is matthew miller?
+18:22 larsks    ben_e: Yup.
+18:23 larsks    Former Harvard colleague, now the Fedora cloud architect, trying to make Fedora more useful in cloud environments.
+18:26 larsks    pdurbin: Actually, that's "extlinux" on the command line.  See https://fedoraproject.org/wiki/Features/SyslinuxOption once Matthew finishes updating the page...
+18:27 pdurbin   ben_e: he's in our logs. surely you've read them ;)
+18:37 ben_e     i know matt
+18:38 ben_e     IRL not IRC
+18:38 ben_e     i didn't know what his handle was
+18:38 larsks    He is generally mattdm@*.
+18:39 ben_e     ijstokes and i go out for drinks pretty regularly and matt has come along some times
+18:48 pdurbin   ben_e: did he find people for his scientific python thing? pydata or whatever?
+18:52 * ben_e   shrugs
+18:52 ben_e     i haven't seen him in a bit actually
+18:54 pdurbin   here it was: http://irclog.perlgeek.de/crimsonfu/2013-05-29#i_7128693
+18:55 pdurbin   what's new is that the schedule is up: PyData 2013 | Boston, MA | July 27 – 28 - http://www.pydata.org/bos2013/schedule/
+18:56 pdurbin   hmm, not sure I've heard of any of these people
+19:02 ben_e     justin riley is on there

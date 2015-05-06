@@ -1,0 +1,213 @@
+Time  Nick         Message
+03:04 pdurbin      codex: http://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-installation-of-genomic-analysis-pipelines-with-docker/
+11:29 pdurbin      ▶ The Expert (Short Comedy Sketch) - YouTube - https://www.youtube.com/watch?v=BKorP55Aqvg
+14:09 Pax          Morning!
+14:51 pdurbin      PaxIndustria: morning!
+15:18 pdurbin      overheard: "restless mouse syndrome"
+15:27 codex        pdurbin: very cool
+15:27 codex        morning
+15:27 codex        :)
+15:28 codex        pdurbin: i truly think docker is simply the next level of virtualization. What Xen and VMWware did (and now KVM is doing) for the "server" virtualization world, docker is picking right up and moving into the next phase
+15:28 pdurbin      yeah
+15:28 codex        docker basically defines dev-ops -- you create a generic version of an item as a completely scriptable module, and then kick off any number of configurations - from simple to complicated
+15:30 pdurbin      codex: how is docker different or better than vagrant?
+15:31 codex        pdurbin: it's really the server version of vagrant
+15:31 codex        and it's much lighter
+15:32 codex        docker recently re-wrote a major lib which removes any dependency on LXC
+15:32 codex        but yea,the key things are super super light (size and install) and super fast (VMs start in < 2 seconds)
+15:32 codex        pdurbin: https://www.scriptrock.com/articles/docker-vs-vagrant/
+15:33 codex        scroll to the bottom to the comparison
+15:33 pdurbin      in a bit. in a meeting
+15:33 codex        ok
+15:34 codex        the thing that really attracted me to it is the ease of commands. It is made up of 10 commands which encapsulate the entire interaction (script wise) with building any server
+15:34 codex        and they are flexible enough that you never feel like you are being limited. But at the same time, you are not learning 50+ commands
+15:34 codex        also, the simplicity and elegance is just beautiful
+16:10 pdurbin      PaxIndustria: are you convinced? you like vagrant :)
+16:37 semiosis     i wonder if i could migrate our test environment to docker
+16:38 semiosis     would be nice to have jenkins just spawn a couple containers locally & not have two separate VMs running all the time
+16:38 semiosis     i suppose this is similar to travis-ci
+16:44 PaxIndustria pdurbin: I do like vagrant :)
+16:44 pdurbin      me too
+16:45 pdurbin      PaxIndustria: don't I owe you a pull request or something?
+16:46 PaxIndustria oh yeah! into https://github.com/huit/vagrant-generic
+16:46 PaxIndustria We've been creating branches for different models of app's
+16:48 pdurbin      ah ha. https://github.com/huit/vagrant-generic/tree/splunk and https://github.com/huit/vagrant-generic/tree/theforeman and https://github.com/huit/vagrant-generic/tree/hubot ... stuff I've heard of :)
+16:48 pdurbin      PaxIndustria: will these branches ever get merged into master?
+16:49 PaxIndustria nope, changes from master might make it out to the branches sometimes, for example we stitched from r10k to Librarian
+16:49 PaxIndustria the idea to keep from having a whole ton of vagrant-<type> repo's
+16:49 pdurbin      huh. seems odd... persistent branches like that...
+16:50 pdurbin      PaxIndustria: do any other projects do this? is it modeled off something?
+16:50 PaxIndustria I *think* I took the idea from the openstack packstack repo
+16:50 PaxIndustria https://github.com/stackforge/packstack
+16:51 * pdurbin    looks at https://github.com/stackforge/packstack/branches ... essex, folsom, grizzly. hmm
+16:51 PaxIndustria I won't venture to much of an opinion on if it's the *right* way to do it, but it seems to be working so far :)
+16:52 pdurbin      essex is 991 commits behind master
+16:52 pdurbin      PaxIndustria: do it the openshift way instead. repo per project
+16:53 pdurbin      i.e. https://github.com/openshift/django-example
+16:53 PaxIndustria yeah, we talked about that, it just seemed like a *lot* of repos
+16:53 PaxIndustria In addition, we wanted to try and keep things like the puppet file, bootstrap.sh, and a bunch of the starting files the same, without having to manage them across a bunch of repos
+16:54 pdurbin      git submodules then
+16:54 semiosis     forks
+16:55 PaxIndustria ug submodules *shudder*
+16:55 semiosis     we have a similar model at work, we clone a master template project in gitlab, and can merge changes from the template into the forks using multiple remotes
+16:55 PaxIndustria I like the forks idea though
+16:55 PaxIndustria throw it up as an issue on the repo!
+16:56 PaxIndustria if people like the forks idea, I'd be happy to do it!
+16:59 PaxIndustria pdurbin: would love your input on this guy too! https://github.com/huit/puppet-harvard
+17:01 pdurbin      PaxIndustria: sjoeboo is your puppet guy. I'm a wannabe
+17:02 pdurbin      PaxIndustria: I did comment on your excellent travis work here: http://irclog.perlgeek.de/crimsonfu/2014-03-24#i_8487043 (different repo)
+17:03 PaxIndustria sweet!
+17:03 PaxIndustria I've been trying to use travis for all my modules
+17:04 pdurbin      semiosis is getting me up to speed
+17:04 PaxIndustria we used it for nepho too
+17:04 pdurbin      crimsonfubot: lucky huit nepho
+17:04 crimsonfubot pdurbin: https://github.com/huit/nepho
+17:05 pdurbin      "
+17:05 pdurbin      A deployment tool for virtual data centers.
+17:44 hydrajump    I have experience using VMware vSphere ESXi and Fusion, but never used vagrant and docker. I'm curious if and how docker might replace say Fusion for local VMs and how docker might be used on EC2.
+17:46 codex        pdurbin: vagrant is really VM based
+17:46 hydrajump    Vagrant is essentially a CLI only option (I know GUI is possible) to spin up VMs and you can use Virtualbox or Fusion. Docker on the other hand I haven't quite figured out.
+17:46 codex        PaxIndustria: ^
+17:46 codex        docker is truly JUST the process you need
+17:46 codex        but the power is the speed/ease
+17:47 hydrajump    codex are you a docker dev or just use it a lot?
+17:47 codex        and the fact that it's not just a dev env., but it goes one step further - you can take it and drop it into production (same template)
+17:47 codex        hydrajump: i use it like crazy
+17:47 codex        i am currently managing > 5000 nodes using docker
+17:47 codex        and nothing else seems to come even close to it
+17:48 codex        been using it for about an year, and in the last 4-5 months it has become superb
+17:48 codex        it's not "production ready yet", but most companies are already building out full infrastructure around it
+17:48 hydrajump    cool so ignorant question, but if we take my typical use of VMware ESXi/ Fusion and let's say I spin up an Ubuntu Server 12.04 VM, then install postfix, dovecot creating an email server. How would this translate to using docker if at all?
+17:49 codex        hydrajump: so the basic idea is that you ignore the OS layer - you focus on the apps
+17:50 hydrajump    so postfix, dovecot etc would be installed in a docker container?
+17:50 codex        so, you would create a "mail" container - and because each container is lightweight, you would potentially break up the postfix one and the imap one
+17:50 hydrajump    ok
+17:50 codex        the OS would be ~250MB -- the bare minimum needed to abstract the hypervisor info
+17:50 codex        so you would do "docker -it ubuntu /bin/bash"
+17:50 codex        install the software, commit your changes -- now you have an image you can push out
+17:50 codex        OR
+17:51 hydrajump    but what is the OS? where would my two docker containers be deployed/ installed?
+17:51 codex        alternatively, use a "Dockerfile" (10 commands) and do a functional stepthrough
+17:51 codex        hydrajump: any OS you want, but think of it as a hybird layer - where you have one image and deploy only diffs on top of it
+17:51 codex        so if you spin up 100 mail servers, they are only using the deltas between them
+17:52 hydrajump    ok so I still need to maintain the OS, configure it for security etc then add my docker containers.
+17:52 codex        no
+17:52 codex        b/c there is no OS in reality
+17:52 codex        nothing is exposed
+17:53 codex        you are literally injecting (done by docker) the bare minimum to "run" that os (some proc & dev, bare minimum binaries, etc..)
+17:53 codex        at that point, you can TREAT it like a full os and run yum/apt-get and install other software
+17:53 codex        but you would end up exposing only 1 app per container, so there is nothing to secure
+17:53 codex        the idea is most containers don't even need ssh
+17:54 codex        hydrajump: look at this: http://docs.docker.io/en/latest/examples/running_ssh_service/
+17:54 hydrajump    and would AWS EC2 be a viable deployment option or as the OS is stripped down inside a docker container you deploy containers some other way?
+17:54 codex        that's you setting up a container running SSHD
+17:54 * hydrajump  looking
+17:55 codex        hydrajump: that's one of the beaitufil things - you can use any physical or virtual environment (xen, kvm, hyper-v, vmware) or install in any already existing VM (on top of any virtual env)
+17:55 codex        it behaves just the same
+17:55 codex        so the image you develop on your mak (dev side), then gets takes as is (Dockerfile) and put into production -- a mesh spanning between aws, rackspace, digitalcloud, etc..
+17:59 hydrajump    so can you boot a physical laptop from just a docker container?
+17:59 codex        no
+17:59 codex        you always need the docker layer acting between the base os /kernel
+17:59 codex        again - it's not so much for desktop/user use
+18:00 codex        it's really meant for servers and developers being able to run it on mac/linux, write their software/test, and then drop tested stuff into production
+18:01 hydrajump    ah so a docker container by itself doesn't do anything. So can you on a Mac without Fusion/ Virtualbox/ Parallels "boot" a docker container?
+18:01 codex        hydrajump: think of the container as a puppet template in a way
+18:01 codex        it's the instructions of what to do
+18:02 codex        you use docker itself to "launch" the template as a container
+18:02 semiosis     i think of it as a chroot
+18:02 codex        it it a bit
+18:02 codex        chroot on steroids + all the new kernel stuff (cgroups, namespaces, etc...)
+18:02 hydrajump    I don't mean as before booting the Mac itself, but if I'm booted up into say Mavericks, can I start a docker container and have my "mail" server running for testing?
+18:03 codex        yea
+18:03 codex        and actually there is an option where you launch it on a VM
+18:03 codex        or use vagrant to deploy the "VM" env underneath -- since OS X doesn't have a native linux kernel and fusion doesn't have an API
+18:03 codex        hydrajump: easiest way to test is one of two ways:
+18:04 codex        1.) install latest (13.10) ubuntu and run 3 commands to install docker
+18:04 codex        or
+18:04 hydrajump    codex ah so on OS X I still need a hypervisor installed, but if I was using a linux OS then I wouldn't need a hypervisor?
+18:04 codex        2.) install Virtualbox + Vagrant (manages "virtual layer) and then use docker directly
+18:04 codex        hydrajump: correct - you need the linux kernel in some way
+18:04 codex        in #2 - vagrant deploys a tiny (300MB) linux image
+18:05 hydrajump    codex you develop on Mac?
+18:05 codex        on yes, for no
+18:05 codex        but i automatically ssh everywhere
+18:05 codex        hydrajump: check this out: http://tmp.vpetkov.net/Dockerfile
+18:05 codex        so think of that as "procedural"
+18:06 codex        if you download that file in a folder and say "docker build -rm=true -t hydrajump/mysql ."
+18:06 codex        it will take that docker file and build you a "hydrajump/mysql" image
+18:06 codex        from there "docker run -it hydrajump/mysql /bin/bash" --> gets you the mysql server (a bash shell into it) in < 2 seconds
+18:07 codex        so the build builds  a binary image out of the procedural - which you can then deploy
+18:07 hydrajump    and from that docker file that container relies on CentOS
+18:07 codex        yep
+18:07 codex        FROM is what you are abstracting from
+18:08 codex        you can do from an official image (Ubuntu, CentOS, etc..) or build your own
+18:08 hydrajump    so it has to be deployed on that base CentOS to work
+18:08 codex        but remember, base CentOS is the minimum one (<200MB)
+18:08 codex        or base Ubuntu is <200MB, the base Centos is a bit bigger
+18:08 codex        but yea, it's the truly BARE minimum (much smaller than no base in RHEL)
+18:09 codex        so when you type "docker images" you can see yoru "built images"
+18:09 codex        and you can either run interactively or as a daemon (-it vs -d)
+18:09 hydrajump    so it's the docker file mysql/ centos in this case which is <200mb with any data in the database
+18:09 hydrajump    *without
+18:09 codex        correct
+18:09 codex        and if you shut down the container, you lose the data
+18:09 codex        it's run time
+18:10 codex        if you want it permanent, you specify a flag
+18:10 hydrajump    is this a little like VMware ThinApp if you're familiar with that?
+18:10 codex        so for development, this becomes excellent, b/c if you need a "clean system"
+18:10 codex        docker run -it centos /bin/bash     = new OS
+18:11 codex        mm, sort of in a way
+18:11 hydrajump    how do you deploy your >5000 docker containers at work? Is it internally or cloud, e.g. AWS?
+18:12 codex        hydrajump: it's for a contract I was working on - it was for a wordpress/drupal provider
+18:13 codex        i built data abstraction images, mysql clusters, and apache "wordpress" nodes, and then a gre+ipsec mesh underneath
+18:13 codex        now when they get a new customer, it takes them <5 seconds in total to provision a complete cluster for that customer
+18:13 codex        i did a tally up yesterday of the running containers, and it's 4,997 right now with 100% uptime
+18:14 codex        when one cloud provider raises their prices (or another lowers them), they bring up a new VM in another provider, join the mesh, and start the containers
+18:14 hydrajump    interesting...and if you deploy say 2 containers on the same host, then you need to specify that each container can talk to the other one or by default they are isolated?
+18:14 codex        you can do either or
+18:14 codex        by default, all containers (when you say network) get put into a "docker0" bridge
+18:15 hydrajump    which is shared with the host OS?
+18:15 codex        but there are crazy things you can do on top - like disable that network, and use an internal protocol that links the containers, or disable all networking and use "pipework" to join them into open vswitch
+18:15 hydrajump    shit sounds crazy
+18:16 codex        http://www.slideshare.net/adrienblind/docker-networking-basics-using-software-defined-networks
+18:16 codex        look at slides #21 and #24
+18:16 codex        that shows a pretty good example of what we are doing
+18:16 codex        (where each Host # in the picture is a VM in someone's cloud)
+18:17 codex        this is why I keep saying this is the future of virtualization. It's the first technology that lets you TRULY abstract over all cloud providers (that combained w/ Open vSwitch)
+18:17 codex        and the fact that you can run it on top of VMs with a 0% hit is the key part
+18:17 codex        b/c of the linux kernel abstractions that cgroups and namespaces provide
+18:23 hydrajump    so before you worked with docker, were you working with VMware ESXi? From what you've told me it seems that a lot of knowledge of how virtualisation works with ESXi isn't applicable to how you should think about it with docker or am I wrong?
+18:23 codex        hydrajump: i worked at vmware :)
+18:23 codex        before that with Xen
+18:24 hydrajump    hehe ok
+18:24 codex        after vmware moved exclusively to KVM (which for full VM virtualization i still believe in as the best solution)
+18:24 codex        along the years looked at container stuff (bsdjails, solaris zones, docker an year ago), but nothing was there yet
+18:24 codex        until the linux kernel includes some key components that made it all possible
+18:27 hydrajump    but as you can't have docker without full virtualisation (if we neglect physical) then you still need to have a working knowledge of let's say ESXi and then docker assuming you were the only one responsible for the full stack.
+18:27 hydrajump    at first I thought docker was completely standalone
+18:28 hydrajump    but you've explained that that is not the case ;)
+18:29 hydrajump    or AWS EC2 and docker..
+18:42 PaxIndustria just got back, and skimmed over the thread, codex: docker still seems a bit like "magic chroot box" to me
+18:42 PaxIndustria gotta run out again in about 10, but I'll hit you up for beer at some point to get both barrels from ya :)
+18:43 hydrajump    codex I read the vagrant/ docker comparison and I have a better understanding of docker thanks to you! I actually have a project coming up that involves setting up a mail server and I was going to just use ansible to configure an EC2 instance, but I should maybe reconsider and look at using docker.
+18:44 pdurbin      PaxIndustria: can I come? :)
+18:44 hydrajump    Thanks for the docker intro codex!
+18:44 PaxIndustria pdurbin: So long as your buying ;)
+18:45 pdurbin      !
+18:45 pdurbin      PaxIndustria: come to an IQSS pub night next Friday at Queenshead
+18:45 pdurbin      hell, you all can come
+18:45 PaxIndustria LOL I might, next friday is my last day, so I think a bunch of us are going out for a beer :)
+18:46 pdurbin      PaxIndustria: last day?!? ;)
+18:46 * pdurbin    knows what he means :)
+18:47 ben_e        what does he mean?
+18:47 ben_e        the twitter/irc/abcd fuzzy connections thing means i sorta know who people are but not really
+18:48 ben_e        agoddard likes pie though
+18:49 PaxIndustria I'm taking a job with FAS RC and my last day at my current gig is next friday :)
+18:55 ben_e        where are you leaving?
+18:55 ben_e        ISTR jcuff tweeting about "getting you" :-)
+18:56 PaxIndustria LOL
+18:56 PaxIndustria I'm leaving the HUIT Network group
+18:58 PaxIndustria gg ttyl!
+19:05 codex        hydrajump: np. good luck
+23:28 pdurbin      wow. so much docker fu
+23:33 hydrajump    pdurbin you played with docker?

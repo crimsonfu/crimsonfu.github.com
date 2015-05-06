@@ -1,0 +1,102 @@
+Time  Nick      Message
+12:14 * pdurbin looks at Harvard University IT Summit 2013 - http://www.centerdigitaled.com/cdg-events/Harvard-IT-Summit-2013.html
+12:28 pdurbin   I picked 1. Mobilizing the Library: Creating a Tablet Interface for Digital Collections 2. Next-Generation Technology Environments: Utilizing Platform as a Service to Speed Innovation 3. Cloud Initiatives at Harvard
+13:27 ben_e     i think i'll do the 1. IT service desk 2. changing group culture and 3. the cloud initiatives one
+13:28 ben_e     i sorta want to go to the cool tools one, but hms doesn't have access to most of those
+13:28 ben_e     so i would just be the annoying complainy guy in the back
+13:34 pdurbin   I shoulda proposed a talk about using IRC for collaboration :)
+13:34 ben_e     and you could have presented from another location over IRC
+13:35 ben_e     lots of figlet and ascii art
+13:35 pdurbin   :)
+14:28 larsks    SELinux's toxic mistake: http://utcc.utoronto.ca/~cks/space/blog/linux/SELinuxToxicMistake
+21:28 pdurbin   larsks_: interesting read. thanks
+21:28 pdurbin   mhayden: have you seen it? :)
+21:53 * mhayden ganders
+21:55 mhayden   definitely valid comments, pdurbin/larsks_
+21:56 mhayden   but one could argue that a security tool will ALWAYS get in the way somehow
+21:57 mhayden   think of the CIA triad
+21:57 mhayden   you have to give on one to get more of the other
+21:57 mhayden   if you want something to be more available, you might have to give up a little confidentiality
+21:57 mhayden   or if you want supreme data integrity, you might not have your data available to you as often
+22:07 pdurbin   heh. ganders
+22:09 mhayden   but yeah, i think it's impossible to implement security without getting in the way of someone
+22:10 mhayden   firewalls get in the way, physical or virtual
+22:10 mhayden   file permissions get in the way
+22:10 mhayden   privilege escalation controls get in the way
+22:10 pdurbin   I suspect the author of the article would agree with all of that
+22:10 mhayden   my garage door keeps people from pilfering through my stuff but i have to open and close it every day, that gets in my way
+22:11 mhayden   to use SELinux (or any other security product), you must care about that TYPE of security
+22:11 mhayden   and it has to provide value in your environment
+22:11 mhayden   but blindly shutting off SELinux (or iptables, or chmod 777) without knowing what you're doing is silly
+22:11 mhayden   if there's a true business reason to turn off a security product, do it! :)
+22:12 pdurbin   the article seems focuses on the value that selinux provides. or doesn't ;)
+22:12 mhayden   for example, i cannot get pacemaker/corosync/drbd to behave themselves with selinux enabled
+22:12 mhayden   :P
+22:12 pdurbin   for the record, I have selinux on :)
+22:12 mhayden   i do too (except on some clusters where i have it in permissive)
+22:12 * pdurbin runs `getenforce`
+22:12 * pdurbin isn't a liar
+22:14 mhayden   teehee
+22:14 mhayden   i've gotten tons of flames for starting that site
+22:15 mhayden   well, let me rephrase that -- i get flames for almost everything i post
+22:15 mhayden   but it's those small positive comments that i get every once in a while that keep me going... it's nice to help folks in one way or another
+22:56 pdurbin   absolutely
+23:00 melodie   hi mhayden where do you post?
+23:04 mhayden   melodie: http://major.io
+23:06 melodie   I have a question about the first part of the first post I see there
+23:06 melodie   :)
+23:06 melodie   (starting!)
+23:06 melodie   " If I issued the reboot command in Linux"
+23:07 melodie   which distribution, which version?
+23:07 melodie   hum
+23:08 melodie   you wrote it after a few sentences.
+23:08 melodie   why not at once?
+23:08 melodie   Linux : not a system.
+23:08 melodie   Fedora Linux, Fedora GNU/Linux...
+23:11 melodie   mhayden what did you mean after the quote related to Intel AMT, by "That’s a mouthful." ?
+23:11 melodie   pdurbin what do you do with SELinux ? How do you do it? And why? :)
+23:12 melodie   I think it's default provided in Fedora, but I know really little about SELinux and I would want to know a little more about it
+23:13 mhayden   melodie: it was a lot of tech speak in that Intel AMT manual excerpt :P
+23:14 mhayden   i had to read a bunch more of the manual to even figure out what that paragraph meant ;)
+23:14 mhayden   melodie: SELinux is a labeling system... you apply contexts to files, folders, and devices
+23:14 melodie   I have a very little tech knowledge : I have not succeded in seeing how the power management / reboot feature could be affected by the intel amt feature
+23:14 mhayden   certain daemons and users can be prevented from doing certain things to certain devices/files/dirs
+23:15 mhayden   melodie: when the ACPI command goes to the server to reboot, the mei kernel module was interfering
+23:15 mhayden   instead of a soft cycle i ended up with a shutdown
+23:15 mhayden   (which would have been awful had i not had IPMI to bring it back up)
+23:15 melodie   is SELinux commanded with command lines only or are there tools above it to ease the handling?
+23:15 mhayden   both
+23:15 melodie   IP MI ?
+23:16 mhayden   there are GUI tools, text tools, and commands to administer SELinux
+23:16 melodie   good to know.
+23:16 mhayden   IPMI is a way to manage a server via out-of-band methods
+23:16 melodie   alright
+23:16 mhayden   like if you lock yourself out of a server with bad firewall rules, you can use out-of-band access to access the console and fix your mistake
+23:16 mhayden   or power cycle the server
+23:16 melodie   some strange things sometimes happen with power management
+23:16 mhayden   among other things
+23:16 mhayden   yeah, the intel AMT isn't particularly about power mgmt
+23:17 mhayden   it's more about the operating system being able to send some data to be picked up out-of-band style
+23:17 melodie   no but their driver was conflicting the acpi rules or so?
+23:17 mhayden   possibly
+23:17 melodie   out-of-band...
+23:17 mhayden   all i know is that disabling it worked
+23:17 mhayden   :)
+23:17 melodie   first time I hear about this method.
+23:18 melodie   in real, what does it look like?
+23:26 JoeJulian melodie: On that motherboard the IPMI is an integrated component. All you see is an extra RJ45 ethernet port on the back.
+23:28 melodie   hi JoeJulian
+23:28 melodie   so how is a "out-of-band" connection started? What is the point of entry for it?
+23:29 melodie   I heard about "PXE" although I never tried to use it, but never about out-of-band
+23:30 melodie   http://fr.wikipedia.org/wiki/IPMI  // a bit short. :/
+23:31 melodie   command lines for ipmiutils and ip adresses?
+23:32 melodie   incredible world, so many protocols, specifications, just amazing!
+23:32 melodie   thanks :)
+23:33 melodie   yesterday I started to read about DSR : I found that amazing too:
+23:34 melodie   "The Dynamic Source Routing Protocol (DSR)
+23:34 melodie   for Mobile Ad Hoc Networks for IPv4The Dynamic Source Routing Protocol (DSR) for Mobile Ad Hoc Networks for IPv4"
+23:34 melodie   http://tools.ietf.org/html/rfc4728
+23:35 melodie   If I printed it it would be 214 pages to print
+23:35 melodie   I wonder if I could read it all?
+23:40 melodie   good night
+23:42 JoeJulian Hehe, good night mel

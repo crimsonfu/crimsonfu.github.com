@@ -1,0 +1,36 @@
+Time  Nick       Message
+02:34 pdurbin    helpful: http://www.rackspace.com/knowledge_center/article/mysql-resetting-a-lost-mysql-root-password
+17:36 semiosis   http://www.markshuttleworth.com/archives/1316 -- farewell Upstart, what a long strange trip it's been
+17:40 pdurbin    systemd-lish: https://plus.google.com/u/1/111049168280159033135/posts/PpxUSXcF4CU #rejectedcandyhearts
+17:40 pdurbin    mhayden: glad you plus oned that :)
+18:06 mhayden    pdurbin: i lol'd
+18:06 mhayden    and ubuntu finally caved!
+18:42 pdurbin    :)
+19:11 pdurbin    python doesn't have something like perl's DBI? http://stackoverflow.com/questions/3128961/what-is-the-python-equivalent-of-perls-dbi
+19:25 pdurbin    right so if you're using || with psql to concatenate two columns it gets an ugly label: ?column?
+19:25 pdurbin    but then you just add this: AS the_label_i_want
+19:25 pdurbin    as explained here: http://stackoverflow.com/questions/5179648/prepend-table-name-to-each-column-in-a-result-set-in-sql-postgres-specifically/10261640#10261640
+19:38 pdurbin    psql myDb -F $'\t' --no-align --pset footer -c "select id, createtime, extract(epoch from createtime) as epoch_time, protocol || ':' || authority || '/' || studyid as global_id from study;" > out.tsv
+19:39 ironcamel  thats just standard SQL i think
+19:39 pdurbin    having to use $ there is also weird: http://stackoverflow.com/questions/10315916/how-to-set-tab-delimiter-using-psql-f/10316104#10316104
+19:39 pdurbin    ironcamel: yeah, probably
+19:40 pdurbin    oh and the pset footer thing is to get rid of the row count: http://stackoverflow.com/questions/12783314/can-i-get-a-csv-header-but-no-row-count-in-postgresql/12795738#12795738
+20:16 melodie    hi
+20:16 melodie    Debian and Ubuntu are going systemd
+20:17 melodie    I have commented this related post and talked about the Fedora configuration gui allowing to start and stop services and so on: https://plus.google.com/116965050091309960242/posts/JFVDasEDtns
+21:26 semiosis   a bit sad today... after struggling for the last two years i was just now beginning to really understand upstart
+21:28 * pdurbin  never bothered to learn! o/
+21:36 joshu_     semiosis you ever thought about switching from Ubuntu to Debian?
+21:37 semiosis   nope
+21:38 semiosis   i'm extremely happy with ubuntu... imho Kubuntu is the best desktop OS ever & ubuntu server best server OS ever
+21:39 semiosis   <3 the fixed release schedule, i'm a big fan of that.
+21:41 semiosis   joshu_: now that doesnt mean i dislike debian... in fact i like debian a whole lot, it is most of ubuntu after all.  and as the deb package guy for glusterfs i support & contribute to both debian & ubuntu
+21:41 * semiosis used debian before there was ubuntu
+21:42 semiosis   redhat too in fact
+21:48 joshu_     semiosis how do you setup your kubuntu. Do you start with the mini.iso and add packages or do you use the main kubuntu iso?
+21:49 semiosis   the regular desktop 64bit iso
+21:49 semiosis   i normally split my ssd into two & switch between the partitions with each new release
+21:50 semiosis   so i can still boot into my old desktop while i set up my new one
+21:50 semiosis   i usually avoid in-place upgrades
+21:50 semiosis   although i was forced to do in-place upgrade for saucy on my laptop because of a bug related to EFI in the installer :(
+21:50 semiosis   the upgrade was very smooth though

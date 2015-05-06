@@ -1,0 +1,36 @@
+Time  Nick         Message
+14:43 pdurbin      oh good, it does seem to be possible to hide my g.harvard (Gmail) address which ezmlm grabs from the "Return-Path" header. I just had to email solr-user-subscribe-philip_durbin=harvard.edu@lucene.apache.org http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201403.mbox/%3CCABbxx8F5o-BxFO_HRvh0WFaq2g%3DWQWzc95HfG9ky6GQ8PJXpiw%40mail.gmail.com%3E
+14:44 pdurbin      wow, over I year since I mentioned this: http://irclog.perlgeek.de/crimsonfu/2013-02-26#i_6499130
+15:34 dotplus      anyone tell me how to do the equivalent of bash's 'echo "foo" > /dev/udp/<fqdn>/<port>' in javascript (from inside html)?
+15:34 dotplus      i.e. send plaintext to a remote port
+16:27 pdurbin      dotplus: buh. dunno. sorry
+16:27 pdurbin      who knows about zookeeper? http://zookeeper.apache.org
+17:23 semiosis     i just blew someone's mind showing them CSS-X-Fire
+19:09 pdurbin      crimsonfubot: lucky CSS-X-Fire
+19:09 crimsonfubot pdurbin: http://code.google.com/p/css-x-fire/
+19:17 hydrajump    css-x-fire similar to this http://livestyle.emmet.io/
+19:18 semiosis     interesting
+19:20 * hydrajump  waves at semiosis
+19:20 semiosis     \o
+19:23 hydrajump    I've been using github quite a bit lately and one thing I've stumbled on is how to deal with making your local fork identical to the upstream repo. I created a few feature branches and some were merged by upstream pull request and one was closed. In all cases when github suggested that I delete my branches I did. My question is how do I make that reflect my local repo?
+19:24 semiosis     git fetch
+19:24 hydrajump    I did git upstream && git merge upstream/master but my local branches are still present, so if I push to my github repo the branches will be created again. I'm not sure how to deal with this.
+19:24 hydrajump    *opps I meant git fetch upstream
+19:26 hydrajump    I haven't mastered the whole github dance. I got fork, clone, add upstream remote, create a feature branch, push branch, create pull request, delete feature branch. It's the steps after that which I'm unclear on.
+19:27 hydrajump    do I fetch my own github fork and merge?
+19:27 pdurbin      hydrajump: does this help? https://www.thinkup.com/docs/contribute/developers/devfromsource.html#step-by-step-the-short-version
+19:27 pdurbin      "As time passes, the upstream ThinkUp repository accumulates new commits. Keep your working copy’s master branch and issue branch up to date by periodically rebasing: fetch upstream, rebase master, rebase issue branch."
+19:28 semiosis     hydrajump: i fetch upstream, merge locally, then push into my fork
+19:29 semiosis     i usually don't bother deleting local branches, but they don't get pushed up automatically.  git push only pushes the current branch
+19:29 semiosis     afaik
+19:30 pdurbin      that's my experience too
+19:31 hydrajump    pdurbin "rebase master, rebase issue branch." never used these commands
+19:32 hydrajump    semiosis when you fetch upstream does that apply to all upstream branches or just the default branch?
+19:33 semiosis     fetch updates the tracking of all remote branches
+19:33 semiosis     doesnt affect any of your local branches
+19:51 hydrajump    Do you only rebase when you have a feature that you haven't created a pull request for in order to make sure that you your feature is using the latest upstream?
+19:54 semiosis     i never rebase, haven't been able to figure out what it's for.  i merge.
+19:55 hydrajump    hehe ok. I'm going to follow your steps now on my local repo and see what happens
+19:56 hydrajump    if git fetch upstream doesn't print any info does that imply that I'm up to date?
+20:08 hydrajump    pdurbin that link is very helpful especially the diagram ;)
+20:09 pdurbin      great

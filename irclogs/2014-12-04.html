@@ -1,0 +1,30 @@
+Time  Nick      Message
+00:00 pdurbin   hook*
+00:02 pdurbin   semiosis: can you add a test runner? it doesn't have to be perl but could look something like this: https://github.com/crimsonfu/code/blob/master/katas/autovivification/t/go.t
+00:03 semiosis  complicated
+00:03 pdurbin   well, write it in node or php or whatever. i don't care
+00:04 semiosis  checking the output isn't sufficient
+00:04 pdurbin   `prove` is just the standard way to do it in perl
+00:04 semiosis  'echo 1 && echo 3' would pass
+00:04 pdurbin   why should I check the output like an animal? the test should pass or fail
+00:06 semiosis  i didnt realize you were grading people's work, i thought these were so people could demonstrate creative solutions to a problem
+00:06 pdurbin   huh. I ran `brew install jq` but I'm getting "error: startswith is not defined"
+00:07 pdurbin   jq version 1.3
+00:07 semiosis  maybe that's new in 1.4
+00:08 semiosis  yep
+00:08 semiosis  ok time to go, it's been fun!
+00:09 pdurbin   semiosis: thanks!
+00:09 semiosis  yq
+00:09 semiosis  yw
+00:11 * pdurbin runs `brew update && brew upgrade jq`
+00:12 pdurbin   ok, totally works with jq 1.4
+00:12 pdurbin   semiosis: gold star
+00:19 pdurbin   here's the "recurse" example in jq I was looking at: http://rosettacode.org/wiki/Tree_traversal#jq
+00:21 * pdurbin continues to be obsessed with trees
+08:00 prologic  sorry what's going on?
+08:00 prologic  :)
+11:52 pdurbin   prologic: the summary: https://twitter.com/philipdurbin/status/540333834194415616 :)
+16:02 semiosis  pdurbin: as i was falling asleep last night i realized you could probably do this in jq 1.3 (without startswith) by doing .b >= "x" and .b < "y"
+16:03 semiosis  but i'll leave that as an exercise for the interested reader
+16:28 pdurbin   an opportunity for someone to contribute their solution to the kata
+16:28 * pdurbin still thinks a test runner would be nice

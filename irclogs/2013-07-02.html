@@ -1,0 +1,86 @@
+Time  Nick      Message
+00:00 pdurbin   hell of a thing
+00:00 semiosis  root@compute-710a:~# fsck /dev/nova_local/ice-0000008c_disk.local1
+00:00 semiosis  s/local1/local/
+00:00 pdurbin   yeah
+00:00 semiosis  what happens when you try to mount it?
+00:00 semiosis  that's not in the gist
+00:00 pdurbin   I was just gonna say
+00:00 semiosis  agoddard:
+00:01 pdurbin   I guess local1 is the first partition of local?
+00:01 semiosis  no
+00:01 semiosis  1 is the Start column
+00:01 semiosis  there's no space between the columns
+00:02 pdurbin   oh
+00:02 agoddard  added the above to the gist
+00:02 semiosis  pdurbin: guessing, actually the columns dont really add up
+00:03 semiosis  lvdisplay calls it local (without the 1) so that's definitely the name
+00:03 semiosis  agoddard: NTFS?  really?
+00:04 pdurbin   heh. I had the same thought
+00:04 semiosis  try mount -t ext4
+00:04 semiosis  oh i see the 1 is a partition within the LV
+00:04 semiosis  weird
+00:04 semiosis  who partitions their LVs?!
+00:04 pdurbin   semiosis: didn't I just say that? ;)
+00:05 semiosis  yeah
+00:05 semiosis  guess so
+00:05 agoddard  yeah, this is all Openstack generated :(
+00:05 agoddard  ha, yeah not ntfs.. haha
+00:05 agoddard  mount: wrong fs type, bad option, bad superblock on /dev/mapper/nova_local-ice--0000008c_disk.local,
+00:05 agoddard  missing codepage or helper program, or other error
+00:05 agoddard  In some cases useful info is found in syslog - try
+00:05 agoddard  dmesg | tail  or so
+00:05 agoddard  local1, which I think it the right partition? just gives me mount: special device /dev/mapper/nova_local-ice--0000008c_disk.local1 does not exist
+00:08 semiosis  agoddard: http://backdrift.org/mounting-a-file-system-on-a-partition-inside-of-an-lvm-volume
+00:08 semiosis  seems relevant
+00:08 semiosis  however insane :)
+00:09 agoddard  awsiq haha.. lemme give it a go
+00:10 semiosis  awsiq?
+00:10 agoddard  I spent a long time in a small room with two ruby devs when we were 25, now I speak funny :/
+00:11 semiosis  got it
+00:12 semiosis  afk for a bit, good luck
+00:15 agoddard  thanks
+00:15 agoddard  updated gist with kpart info, gonna play with that and google a bit more :D
+00:16 agoddard  semiosis: I owe you a metric mother load of beer
+00:19 agoddard  mounting the dm device worked. I tried that earlier, but the dm device from local, not local1 F)*Ckfffnnn partition harshing my mellow.
+00:20 pdurbin   semiosis: that blog is by the guy who came before me at my last job. never met the guy. heard good things
+00:22 pdurbin   agoddard: so it was local vs local1?
+00:23 agoddard  pdurbin: I think kpartx had to create the DM entry, it only worked with the new DM entry
+00:23 agoddard  if I hit local1 before, it couldn't mount it
+00:23 pdurbin   agoddard: ah. ok
+00:23 pdurbin   agoddard: but you're all set now?
+00:24 agoddard  yep!
+00:24 agoddard  dude. crimsonfu ftw.
+00:24 pdurbin   awesome
+00:24 pdurbin   semiosis: remind me to give you a promotion
+00:24 agoddard  :D
+00:24 agoddard  +1
+00:25 agoddard  not sure what wins now, fixing lvm from Australia via 3G, or fixing a xen problem from the blue ridge parkway on EDGE
+00:25 agoddard  the winner is: the internet.
+00:31 agoddard  pdurbin: and just to troll me, it sees it as local1 when it's mounted: https://gist.github.com/agoddard/9074e57ed2a80e715fb2#file-gistfile1-txt-L73
+00:35 pdurbin   nice
+00:37 pdurbin   kpartx - Create device maps from partition tables    ...   This  tool,  derived  from util-linux' partx, reads partition tables on       specified device  and  create  device  maps  over  partitions  segments       detected. It is called from hotplug upon device maps creation and dele‐tion. ...    -a     Add partition mappings
+00:37 pdurbin   sounds useful :)
+00:41 agoddard  certainly was today :)
+01:10 semiosis  back
+01:10 semiosis  agoddard: glad my google-fu helped you out
+01:11 semiosis  my devops-in-strange-places story this week was restarting application servers over ssh from my phone in a movie theater
+01:11 semiosis  not as exotic as the blue ridge or AU, but out of my ordinary
+01:11 agoddard  haha nice
+01:12 agoddard  "stop texting" "I'm not, I'm fixing the internet, shut up and watch the movie"
+01:12 semiosis  hehehe
+01:34 * pdurbin looks at http://en.wikipedia.org/wiki/Blue_Ridge_Parkway
+01:42 semiosis  nice place, you should go!
+01:53 pdurbin   I'm supposed to go to Charlottesville, Virginia in September. looks like it's pretty close to the start of it (Shenandoah National Park)
+17:27 pdurbin   how many messages per minute will a typical mail server accept from the same IP before it starts scoring those messages as spam?
+17:37 ben_e     is there a typical mail server?
+17:38 pdurbin   I suppose not
+18:14 pdurbin   I'm gonna say... 10
+19:17 semiosis  what if that IP belongs to a reputable mail provider?
+19:18 semiosis  i'm sure aol's MTA receives more than 10/min from gmail's MTA
+19:18 pdurbin   fine 20
+19:18 semiosis  lol
+19:18 pdurbin   those guys have backroom deals
+19:19 pdurbin   i just mean two random mail servers
+19:19 semiosis  dkim & spf
+19:21 pdurbin   yeah

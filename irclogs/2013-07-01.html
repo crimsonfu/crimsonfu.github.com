@@ -1,0 +1,42 @@
+Time  Nick       Message
+03:19 ben_e      anyone played with packer yet? http://www.packer.io/intro/index.html
+03:19 ben_e      looks interesting, and it's from the guy that created vagrant so there's a bit of track record for useful tools there
+03:20 ben_e      not sure how much traction it's going to have until they get kvm/xen builders
+10:52 pdurbin    ben_e: I heard him talk about it on a podcast but he only said the name. the rest was secret
+10:53 pdurbin    "Packer is a tool for creating identical machine images for multiple platforms from a single source configuration."
+10:54 pdurbin    seems a lot like Vagrant
+11:49 mhayden    i've heard some of our openstack devs rave about packer but i haven't messed with it
+12:26 pdurbin    westmau5: you're an openstack dev
+12:44 * mhayden  used to dip his toe in openstack development
+12:48 pdurbin    :)
+23:36 agoddard   hrmf.. anyone got some cycles to spare to help a guy with an OpenStack/LVM issue? (mostly an LVM issue)
+23:39 pdurbin    agoddard: sometimes it helps to talk
+23:40 * pdurbin  wipes a pint glass
+23:40 agoddard   :D
+23:41 agoddard   I lost an o/s instance, it wouldn't come back online, then I discovered the compute node had lost one of the cinder disks, so I manually reconnected it with iSCSI and the node booted
+23:42 agoddard   however I couldn't access anything on it, no ssh, nginx didn't start, so it appeared to have locked up on boot, BUT.. I could still ping it and then I noticed that chef was still running happily on it 0_O
+23:43 agoddard   so I wrote a cookbook to force ssh on, but still no dice, all that was listening on the machine was NTP and DNS on udp
+23:43 agoddard   so it seemed like a network thing, but all the other instances on the compute node were fine and the security group hadn't changed..
+23:44 agoddard   so then I figured I'd quit while ahead and dump all the data from the node. I mounted the cinder volumes to another host, mounted the root disk locally, everything was happy..
+23:44 agoddard   but then I tried to mount the ephemeral disk, 80GB LVM on the compute node and that's where things are going wonky
+23:46 agoddard   apologies if this comes through crappily formatted:
+23:46 agoddard   root@compute-710a:~# fdisk -l /dev/nova_local/ice-0000008c_disk.local
+23:46 agoddard   Disk /dev/nova_local/ice-0000008c_disk.local: 85.9 GB, 85899345920 bytes
+23:46 agoddard   16 heads, 63 sectors/track, 166440 cylinders, total 167772160 sectors
+23:46 agoddard   Units = sectors of 1 * 512 = 512 bytes
+23:46 agoddard   Sector size (logical/physical): 512 bytes / 512 bytes
+23:46 agoddard   I/O size (minimum/optimal): 512 bytes / 512 bytes
+23:46 agoddard   Disk identifier: 0xca9ea009
+23:46 agoddard   Device Boot      Start         End      Blocks   Id  System
+23:46 agoddard   oh it missed the last line: /dev/nova_local/ice-0000008c_disk.local1              63   167771519    83885728+  83  Linux
+23:46 * agoddard flips table, gists it
+23:47 * agoddard is also in Australia on a 3G cell phone connection and has been crankin on this problem all night :|
+23:47 agoddard   here's the fdisk of the LV https://gist.github.com/agoddard/9074e57ed2a80e715fb2
+23:48 agoddard   (updated)
+23:48 agoddard   so what I'm trying to do now is just mount that disk, anywhere
+23:49 agoddard   updated gist again and added lvdisplay output for it
+23:58 agoddard   so I dunno if I'm using the wrong device name, or there's something funky going on.. LVM thinks the volume is fine in the lvmdump report, but it seems like I lost the filesystem?
+23:58 pdurbin    agoddard: sorry, man. I've got two kids in a bath and no ideas for you :(
+23:59 agoddard   no probs man, I'll keep tappin' away, maybe I'm tired and just missing something :/
+23:59 pdurbin    lvdisplay says it's fine but you can't mount it?
+23:59 agoddard   yep

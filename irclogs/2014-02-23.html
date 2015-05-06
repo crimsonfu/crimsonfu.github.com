@@ -1,0 +1,8 @@
+Time  Nick    Message
+18:03 joshu   hi anyone around
+18:11 pdurbin joshu: what up
+18:12 joshu   hey pdurbin got a sed problem. Thought I'd ask here as you guys probably have a solution ;)
+18:12 joshu   hi I'm using sed to insert new lines in a file, but the last line "}" has a leading space that I don't want and I can't seem to get rid of it. Here's the code https://gist.github.com/anonymous/b21cd7000043e8048147
+18:20 pdurbin joshu: what does "file" look like? can you add it to the gist?
+18:22 joshu   pdurbin I solved it by changing this line https://gist.github.com/anonymous/b21cd7000043e8048147#file-gistfile1-txt-L6 to include the last bracket \   }\n}
+18:41 pdurbin joshu: ok. great

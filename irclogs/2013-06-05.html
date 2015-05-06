@@ -1,0 +1,55 @@
+Time  Nick      Message
+11:48 mhayden   JoeJulian: can't tell if melodie was trolling or attempting to learn ;)
+12:07 pdurbin   mhayden: definitely attempting to learn. she's the co-founder of http://wonderstudy.github.io
+12:07 mhayden   ah, okay
+12:07 mhayden   i've been getting trolled profusely lately
+12:08 mhayden   had a discussion last night over beer about why engineers are so afraid to make blog posts and engage in social media
+12:08 mhayden   especially about the projects they're working on and passionate about
+12:09 pdurbin   they're afraid of being trolled?
+13:26 ben_e     i just figured blog posts were another form of documentation
+13:26 ben_e     and we all love documentation
+13:26 ben_e     except when we have to write it
+13:26 ben_e     :-)
+19:42 JoeJulian I haven't really been trolled yet.
+20:29 melodie   is there someone who could explain a few things to me related to dumping sql databases with a command line in a cron? I have a practical example at hand
+20:32 larsks_   Maybe.  What's yer question?
+20:34 larsks_   We're doing regular nightly dumps from both MySQL and Postgresql.
+20:34 melodie   oh ok
+20:37 melodie   larsks I wonder if the two options in here:
+20:37 melodie   mysqldump -u <database name> -p <password> -c --add-drop-table --add-locks --quick --lock-tables <database name> | gzip > /home/user/backup/$(date +"%Y-%m-% d_ % H % M")_database.sql.gz 2>&1
+20:37 melodie   --lock-tables and --add-drop-table are the best one to be used?
+20:39 melodie   are they relevant?
+20:39 larsks    The man pages suggest that --single-transaction is better than --lock-tables (because it won't cause other clients to hang waiting for the dump to complete).  This requires InnoDB tables, I think.
+20:40 larsks    Locking tables is useful to ensure a consistent backup, but does have an operational impact.
+20:40 melodie   which is it ?
+20:40 melodie   is it heavy?
+20:41 melodie   does it prevent an access to the website/forum which is backed up at that moment?
+20:41 larsks    The operational impact is that any other clients will block trying to update the tables until the database is completely backed up.
+20:41 larsks    So yes, if the website/forum needs to make changes, it will hang during the backup.
+20:42 larsks    The --single-transaction option gets you consistency without blocking, but it requires that you are using a transactional database engine.
+20:42 melodie   ok
+20:42 melodie   I think we have MyISAM type of tables and not InnoDB
+20:42 larsks    The --add-drop-table isn't terribly important; it means that you can load the dump into an existing database and it will automatically destroy and then re-create tables rather than failing with an error if the table already exists.
+20:43 melodie   oh good
+20:44 melodie   it avoids having to drop tables prior to uploading
+20:45 melodie   larsks thank you very much
+20:45 larsks    No problem!
+20:47 melodie   do you find Postgresql harder to put to work than mysql or is it just the same to you? I ask because I found Postgresql having less step by step docs which could be used as is when I tried to have one working (on a local machine to try an app, once)
+20:48 melodie   I have heard more than once that Postgresql would be stronger than Mysql for production work. Do you think this is a true statement, or not 100% right?
+20:48 larsks    I find Postgresql both easier to work with and more importantly SANER to work with.
+20:49 larsks    I never wonder wether or not I have transactional semantics and foreign key support available, for example.
+20:49 larsks    I have always found the postgresql reference documentation to be excellent.
+20:50 larsks    I know that the Puppetlabs folks gave up on Mysql support for various reasons, primarily lack of support for certain types of queries that they rely on.
+20:50 larsks    (http://docs.puppetlabs.com/puppetdb/latest/configure.html)
+20:50 melodie   I was probably not lucky or too newbie, I found docs which where not exactly matching the version I think. Anyhow never mind, I just wanted your opinion. It seems this is part of your job, right?
+20:51 melodie   ok
+20:51 melodie   perhaps "MariaDB" will be developed in a better way than the MysqlDB they just forked?
+20:52 larsks    I haven't really followed the MariaDB development.
+20:53 melodie   all I can say about it is it just replaced Mysql in the Archlinux official repositories. :)
+20:53 melodie   it might be a choice related espacially to "Free software philosophy"
+20:54 melodie   larsks and again thank you very much for taking the time and sharing your knowledge!
+20:54 larsks    Yes, many distributions are switching to MariaDB for licensing reasons...
+20:55 melodie   :)
+20:56 melodie   what exactly is PuppetDB?
+20:58 larsks    PuppetDB is Puppet's storage backend for holding host "facts", Puppet run reports, and other similar metadata.
+20:58 melodie   I'll bbl. :)

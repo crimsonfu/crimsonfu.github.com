@@ -1,0 +1,19 @@
+Time  Nick      Message
+14:33 dotplus   Nice. I've already taken to using "... is so vague as to be content-free", but "uselessly vague" might be better. Particularly wrt to "cloud" and "devops".
+14:58 pdurbin   http://uselessuseofcat.com
+20:14 pdurbin   is uWSGI awesome? I'm looking at http://voorloopnul.com/blog/setting-up-django-with-apache-and-uwsgi-ubuntu-12-10/ ... maybe as an alternative to mod_wsgi
+20:31 pdurbin   uWSGISocket 127.0.0.1:3031
+20:32 pdurbin   this is the problem I'm trying to solve: https://github.com/IQSS/eyeData/issues/2#issuecomment-65139309
+20:36 pdurbin   (getting Django with Python 2.7 working on CentOS 6)
+20:41 dotplus   uwsgi is awesome
+20:43 dotplus   virtualenv solves most problems in the area of "my (system/vendor) python isn't what I want". Alternatively in the specific case, isn't there a RHEL software collection for 2.7 on 6?
+20:44 pdurbin   dotplus: yes! I'm using software collections when I `yum install python27` but do I also have to `yum install python27-mod_wsgi`? Or should I use uwsgi instead?
+20:45 pdurbin   here are all the places I'm calling `scl`: https://github.com/IQSS/dataverse.org/search?utf8=%E2%9C%93&q=scl (software collections)
+20:45 pdurbin   whoops, different repo but whatever
+20:48 dotplus   mrrh? mod-wsgi is for apache. uwsgi is a standalone appserver, to go behind apache or nginx or whatever as a reverse proxy
+20:48 dotplus   different pattern.
+20:58 pdurbin   right, I'm using mod_wsgi right now but I had to compile it special for the version of python I got from software collections. I was thinking maybe I should try `yum install python27-mod_wsgi` instead
+20:58 pdurbin   or I was thinking of ditching mod_wsgi entirely and trying uwsgi
+20:58 * pdurbin hopes he is making sense
+21:36 dotplus   pdurbin: you are making sense. I think that if you want to continue with mod-wsgi, you'll do better with python27-mod_wsgi. If you're still in the exploratory phase, I advise looking at uwsgi. it's mature, flexible, performant and well-known.
+21:40 pdurbin   dotplus: awesome. thanks much

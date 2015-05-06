@@ -1,0 +1,145 @@
+Time  Nick      Message
+02:55 mhayden   pdurbin: well windows doesn't do acpi_rev properly either
+02:55 mhayden   it always reports 2
+02:56 mhayden   :(
+19:26 semiosis  anyone heard of Boxen?  Used it?  https://boxen.github.com/
+19:26 semiosis  looks like puppet scripts to install stuff on your mac
+19:28 pdurbin   that might be the one GitHub Inc. uses
+19:28 semiosis  it is
+19:29 pdurbin   that's all I know
+19:53 hydrajump hi guys. anyone familiar with nmap who can double check something for me? Let me know if you're able to determine if any ports are open at the following IP 54.93.216.195
+19:54 hydrajump it's an EC2 instance I have launched and want to confirm something.
+19:57 larsks    hydrajump: nmap tellsme port 554 and 7070 are open.
+19:58 hydrajump hi larsks. that's odd
+19:59 larsks    Eh, maybe.  It may simply indicate that my isp is doing something wonky with those ports :)
+19:59 hydrajump there's only one port open according to the security group.
+19:59 larsks    Is it one of those?
+19:59 hydrajump nope
+20:00 larsks    Weeeeeeeird.  I can telnet to either port and connect, too.  But no response to anything.
+20:01 hydrajump that's really weird
+20:02 skay      hey pdurbin, my friend made a channel called #userops http://mediagoblin.org/news/userops.html is it something you'd find interesting?
+20:02 larsks    hydrajump: I'm not the only one: http://serverfault.com/questions/330571/nmap-on-my-webserver-shows-tcp-ports-554-and-7070-open
+20:06 pdurbin   skay: is it publicly logged like this channel?
+20:06 skay      pdurbin: I don't know
+20:06 skay      I don't think so. I see nothing about it in the topic
+20:07 skay      are any of you at libreplanet?
+20:07 * skay    is not
+20:08 pdurbin   gonna ski this weekend instead
+20:08 skay      oh have fun. I've never downhill skied. cross countried around the lake front before
+20:08 skay      s/around/at
+20:09 pdurbin   the kids love it
+20:10 pdurbin   I slipped on the ice biking to work today. I think the guy who found me thought I was dead.
+20:13 whorka    "found" you? holy crap. how long were you out? and you're still going skiing??
+20:14 pdurbin   heh. I'm being a drama queen. I just didn't feel like moving until I knew I was ok
+20:15 bene      pdurbin: do you ride studs in the winter?
+20:15 pdurbin   whorka: ask Cris next to me about the guy she saw wipe out just outside CGIS this morning.
+20:15 bene      it was pretty icy this morning
+20:16 pdurbin   I probably should ride studs, whatever that means.
+20:16 bene      studded bike tires
+20:16 pdurbin   sounds fancy
+20:16 bene      http://www.peterwhitecycles.com/studdedtires.asp <- Schwalbe Winter Marathons
+20:17 bene      that's what i have
+20:17 bene      but i'm mostly on the hubway these days
+20:19 pdurbin   I want someone to buy me one of those fat tire bikes. Or whatever they're called.
+20:20 whorka    a "cruiser" ?
+20:21 bene      no, they're called fat bikes
+20:21 bene      http://en.wikipedia.org/wiki/Fatbike
+20:22 whorka    I had Schwalbe Big Apples on my bike for a while which they claimed were "balloon tires"... helped smooth out the ride a bit.
+20:23 pdurbin   bene: are you still in the area? let's grab whorka some day and talk bikes over lunch
+20:23 bene      i'm downtown for work these days
+20:23 bene      but i could WFH some day and trot down for lunch
+20:24 pdurbin   now you're talkin'
+21:17 hydrajump larsks: ok. thanks for scanning ;)
+22:18 pdurbin   skay: now that I've actually read http://mediagoblin.org/news/userops.html I can say, yes, it's interesting. :)
+22:18 pdurbin   "If you’re interested in talking about making deployment easier for every-day users, please consider joining the conversation"
+22:19 skay      I'm having some pain helping novices learn to deploy something when I'm not an exerpt myself. I just jumped in to help where they have given sudo to maybe everyone?
+22:19 pdurbin   skay: did I show you https://github.com/mattl/indieweb-installer/blob/master/dump.md ?
+22:19 skay      in production... and they edit the code in production. and push to github from there? sort of? but I don't know how they set things up
+22:19 skay      sigh
+22:20 skay      pdurbin: you have not
+22:20 skay      my friend Asheesh (Chris referred to him) works on sandstorm.io
+22:21 skay      seems similar?
+22:21 pdurbin   skay: yes, I told Asheesh about it here: http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2015-01-20#i_3551855
+22:21 skay      need to away-from-attention
+22:22 skay      pdurbin: oh! I didn't realize you met asheesh. derp. of course you h ave
+22:22 skay      I forget who knows everyone
+22:22 pdurbin   he's a swell fellow
+23:35 bene      if indieweb installer is specifically aimed at webapps, then something in the deis/dokku/flynn camp where it's a heroku-compatible app format seems like a good target
+23:35 pdurbin   bene: speak English, man
+23:36 bene      if you really want everyone hosting their own little federated web doohickey, then it's got to be low cost and compatible across a bunch of services
+23:36 bene      just look up flynn or deis
+23:36 bene      do you know about heroku?
+23:36 bene      lemme rephrase
+23:36 bene      you should know about heroku
+23:36 * pdurbin knows about heroku
+23:36 bene      :-)
+23:37 pdurbin   searchbot: lucky deis dokku flynn
+23:37 searchbot pdurbin: http://progrium.com/blog/2014/10/28/deis-breathes-new-life-into-dokku/
+23:37 bene      i've only read 3 of the things you've posted from the indieweb crowd
+23:37 bene      so i may not have grokked their motivations or goals
+23:37 bene      well
+23:37 bene      definitely not motivations, but perhaps goals
+23:37 pdurbin   'I announced Dokku as an open source "Docker powered mini-Heroku."'
+23:38 bene      hmm, flynn looks bigger than i remember
+23:38 pdurbin   bene: ok so this thing is like openshift origin. run your own paas
+23:39 bene      okay
+23:39 bene      i wasn't aware that red hat had open sourced redshift, but yes, that's sounds like a reasonable characterization
+23:39 bene      s/red/open
+23:39 bene      RedShiftHatOrigin
+23:39 pdurbin   searchbot: lucky openshift origin
+23:39 searchbot pdurbin: https://www.openshift.com/products/origin
+23:39 bene      ShiftHatRedOrigin
+23:40 pdurbin   phew! it's still a thing
+23:40 bene      yeah, it's a thing
+23:40 bene      i went to a talk by nate aune 3-4 years ago comparing heroku, openshift, cloud*mumble* and 1 other PaaS
+23:41 pdurbin   I think the indieweb people want something more like CPanel. maybe bear knows
+23:41 bene      i saw the cpanel references
+23:41 bear      they are not ready for even that level of automation just yet
+23:42 bear      the collection of tools is still to variable to really get in place
+23:42 pdurbin   well, they should all join that new group skay started :)
+23:43 pdurbin   bene: good talk?
+23:43 bear      my hunch is that it will be a bunch of microservices with a common  config (but that is also my bias)
+23:43 bene      http://appsembler.com/blog/paas-bakeoff-comparing-stackato-openshift-dotcloud-and-heroku-for-django-hosting-and-deployment/ <- stackato and dotcloud were the other two
+23:43 bene      it was a good talk
+23:44 bene      nate's a good speaker
+23:44 bene      he set up the same mini django app on all 4 services
+23:44 bear      I would love to see something like Digital Ocean's ability to just paste in a docker file and you get a vm
+23:44 bene      showed off the command line tools, etc
+23:45 skay      pdurbin: I did not start that group, my friend Chris did
+23:45 pdurbin   skay: just joshin' ya
+23:45 pdurbin   skay: your friend Chris should join #crimsonfu! :)
+23:46 skay      pdurbin: he's paroneayea
+23:47 pdurbin   bear: well, how does "
+23:47 pdurbin   Docker powered mini-Heroku in around 100 lines of Bash
+23:47 pdurbin   " grab ya? https://github.com/progrium/dokku
+23:47 bear      add in some sort of default private network configuration... oh my yes
+23:47 pdurbin   openstack has fancy virtual networking stuff
+23:48 bear      yea, I explored dokku a while ago - but issues with docker was making it fail in odd ways
+23:48 bear      well, i'm thinking that someone would need to select "db option 1" and then the remaining items in the deploy bundle would get a network update to allow them to talk to the docker container that is db-option-1
+23:50 pdurbin   bear: maybe try running the fancy new linux distro by prologic with all of it's dockerized docker docking: https://github.com/vallinux
+23:50 bear      I was reading that this weekend - I just do not have enough time in the day :/
+23:51 pdurbin   it's only a week old. good luck running prod on it :)
+23:51 bear      LOL
+23:53 pdurbin   bene: oh. django hosting. interesting
+23:53 pdurbin   bene: in theory I'm maybe going to this: Flask for Django Developers - Django Boston Meetup Group (Cambridge, MA) - Meetup - http://www.meetup.com/djangoboston/events/220624326/
+23:54 bene      i'm signed up for that too
+23:54 bene      i've been sketching out a little ops-y flask app in recent days
+23:55 pdurbin   bene: have an itch to scratch?
+23:55 bene      sounds like indiewebcamp wants to productionize tilde.club without the clubby bit
+23:56 bene      my itch is that i have SSH access to 700 machines and very little metadata about them
+23:56 bene      pssh and for loops can go a long way, but i need to stuff the info i collect into something with an interface that lets me interpret the data in a useful manner
+23:56 pdurbin   for the ilbot3, to make a clickable link in the logs: http://tilde.club
+23:57 pdurbin   bene: have you tried salt?
+23:57 pdurbin   searchbot: lucky salk stack
+23:57 searchbot pdurbin: http://saltstack.com/community/
+23:57 bene      we have salt in some of the environments
+23:57 pdurbin   oh
+23:57 bene      have you run halite?
+23:57 pdurbin   nope
+23:58 pdurbin   bene: you're reminding me of this thing I made while at fasrc: https://github.com/pdurbin/wellington
+23:58 bear      you may want to check out the info gathering part of ansible
+23:58 pdurbin   but it didn't have a web interface. sounds like you want one
+23:58 bear      it runs a small app that then returns a json blob of metadata
+23:58 bene      i have run ansible too
+23:59 bene      but the reporting bits in tower are not free AFAIK
+23:59 bene      and not all of our remote machines have python-simplejson installed

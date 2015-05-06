@@ -1,0 +1,31 @@
+Time  Nick       Message
+20:29 semiosis   https://firstlook.org/theintercept/
+20:46 joshu      hi semiosis
+20:46 semiosis   o/
+20:56 joshu      IIRC you use AWS
+20:57 * semiosis does
+20:59 joshu      have you ever downloaded an EBS volume locally or copied the data on an EBS volume to your local comp
+20:59 semiosis   not exactly.  why?
+21:00 semiosis   i mean, does it matter if it was my local computer?
+21:00 joshu      I'm trying to find out if and how to do it
+21:00 joshu      I want to launch a marketplace AMI EBS instance and examine the contents of the EBS volume
+21:01 semiosis   joshu: attach the ebs volume to another instance, then you can do whatever you want with it... rsync it, dd it, ...
+21:01 semiosis   i would just do all the work on the other instance though
+21:01 joshu      semiosis that easy..I thought I had to copy the ebs volume locally and then extract or mount the data.
+21:01 joshu      ok
+21:02 joshu      I will do some googling on using dd as I haven't before
+21:02 semiosis   forget dd
+21:02 semiosis   launch the marketplace ami, stop the instance, force-detach the ebs vol(s)
+21:02 semiosis   now you have 'available' ebs vols you can attach to another instance
+21:02 joshu      with you so far
+21:03 semiosis   launch your favorite plain old linux instance (gotta be ubuntu, AMIRITE?!?!) and attach the ebs vols to it
+21:03 semiosis   then you can mount them & do whatever you want
+21:03 joshu      hehe ubuntu all the way..all I've used ;)
+21:04 semiosis   woo
+21:04 joshu      ok once I've mounted the ebs volume to the ubuntu instance..what would you use to copy the whole contents so I can investigate it closer locally?
+21:04 semiosis   i'd caution you against reading other people's proprietary code though.  that can be bad
+21:05 semiosis   idk what you're up to with this marketplace ami, and i dont want to know... but dont be evil :)
+21:05 joshu      semiosis I'm not going to do anything illegal. Really. I'm trying to help an open source project creat an AMI from scratch using the "free" community version of that AMI
+21:06 joshu      we are trying to understand HOW to build an AMI based on debian with squashfs union filesystem thingy I don't understand
+21:09 semiosis   sounds complicated.  good luck with that
+21:29 joshu      semiosis thanks

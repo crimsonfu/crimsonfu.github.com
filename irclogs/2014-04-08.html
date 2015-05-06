@@ -1,0 +1,36 @@
+Time  Nick      Message
+15:21 semiosis  found out that JMX stops working when java runs out of heap space :(
+15:22 semiosis  also found out there's a JVM argument to make a heap dump when it runs out of heap space :)
+15:22 semiosis  -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp
+15:23 pdurbin   huh
+19:21 semiosis  fun stuff! https://gist.github.com/mitsuhiko/10130454
+19:21 semiosis  heartbleed exploit code
+19:22 semiosis  just point it at your https web server & it will spit out cookies (incl. session IDs) from users
+19:46 pdurbin   is ssh affected or "just" https?
+20:00 pdurbin   seems like all the tests are for port 443
+20:08 semiosis  idk
+20:08 semiosis  wondering about openvpn as well
+20:11 pdurbin   "It's worth pointing out that OpenSSH is not affected by the OpenSSL bug" -- http://security.stackexchange.com/questions/55076/what-should-a-website-operator-do-about-the-heartbleed-openssl-exploit
+20:12 pdurbin   oh, that reminds me... new blog from one of the #crimsonfu co-founders: http://someguyontheinter.net
+20:12 pdurbin   "it must be true!"
+20:13 pdurbin   "The vulnerability does not affect openssh it affects openssl" -- http://serverfault.com/questions/587414/do-i-need-to-replace-keys-for-openssh-in-response-to-heartbleed
+20:22 hydrajump semiosis I think openvpn is fine as long as the version of openssl it uses doesn't have the heart bleed vulnerability.
+20:22 semiosis  it's fine if it's fine
+20:23 semiosis  but what i want to know is, is it fine if it's *not* fine?
+20:23 hydrajump do you guys know of a travis-ci free solution for private code? Something that either hosted or easily self-hosted.
+20:23 semiosis  jenkins
+20:24 semiosis  searchbot: lucky jenkins ci
+20:24 searchbot semiosis: http://jenkins-ci.org/
+20:24 semiosis  yep
+20:24 hydrajump isn't that a big complex thing to setup for someone who hasn't setup CI before?
+20:25 hydrajump I saw something called magnum-ci.com
+20:26 semiosis  haha
+20:26 semiosis  like magnum pi
+20:26 semiosis  this looks really cool, thanks!
+20:27 semiosis  love that they support gitlab
+20:27 semiosis  too bad they dont support java though :(
+20:30 hydrajump yeah name is awesome. Don't know how the service is compared to say travis
+20:30 pdurbin   Magnum CI - Hosted Continuous Integration and Continuous Deployment Platform - https://magnum-ci.com
+20:30 pdurbin   nice
+20:30 hydrajump their mascot is awesome. If you tweet them they'll send you a sticker apparently
+23:30 pdurbin_m https://twitter.com/philipdurbin/status/453674698665377792

@@ -1,0 +1,7 @@
+Time  Nick      Message
+19:59 pdurbin   huh. curl -3, --sslv3 (SSL) Forces curl to use SSL version 3 when negotiating with a remote SSL server.
+19:59 pdurbin   via 2011:10:07:error_14077458_ssl_routines_ssl23_get_server_hello_reason_1112 [carnivore news] - http://carnivore.it/2011/10/07/error_14077458_ssl_routines_ssl23_get_server_hello_reason_1112
+21:06 pdurbin   Phew! As of the commit below. I'm able to communicate with the Identity Provider (IdP) at http://testshib.org by having PageKite forward ports that Vagrant is forwarding from a CentOS virtual machine running on my MacBook. I can barely believe it works. What a pain. Next I guess I'll try to configure Netbeans running on my Mac to deploy to Glassfish that's running on the Vagrant CentOS VM rather than
+21:06 pdurbin   Glassfish running on my Mac. An alternative to Vagrant would be to install Apache and Shibboleth via MacPorts: http://shibboleth.net/pipermail/users/2014-April/014923.html For now, I've documented the Vagrant approach in the dev guide. I'd be happy to help others get set up for Shibboleth development. Phil p.s. The commit: set up shib in Vagrant port forwarding to PageKite #2657 · 728b31a ·
+21:06 pdurbin   IQSS/dataverse - https://github.com/IQSS/dataverse/commit/728b31a
+22:00 JoeJulian mhayden: I wanted to make sure my team knew about supernova (http://major.github.io/supernova/ for your logs pdurbin) and they're all like Yeah! We know! We love it!  https://s3.amazonaws.com/uploads.hipchat.com/67494/472072/NfuAdAZSMVP5Zx5/upload.png

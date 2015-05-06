@@ -1,0 +1,7 @@
+Time  Nick    Message
+12:40 dotplus consider an internal db server with many databases on it. Many developers, many client appservers, etc. Do people just manage privileges with their config mgmt systems? or something particular for DBs?
+12:43 dotplus magoo (in case you read logs) https://lists.lopsa.org/cgi-bin/mailman/listinfo/sajobs is a good place to reach many sysadmins
+12:47 pdurbin dotplus: I only have one database user but yes: https://github.com/pdurbin/greptilian-vagrant/blob/1107c933020905fc713d9500014663427771304d/modules/server1/manifests/init.pp#L227
+12:51 dotplus that's what I did at my previous gig where I built a puppet world. Didn't have many DBs, many DB users or complex ACLs/privs. Unfortunately, none of those conditions are true at the new place (not even puppet, we're bcfg2)
+12:52 dotplus I think that approach will be burdensome to scale to even dozens of DBs/DB users.
+12:55 pdurbin yeah, it would

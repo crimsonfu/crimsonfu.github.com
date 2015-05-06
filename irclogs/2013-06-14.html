@@ -1,0 +1,7 @@
+Time  Nick     Message
+14:50 pdurbin  for file in *.xml; do tr '\000' '\n' <"$file" >"$file.xml-new"; mv -f "$file.xml-new" "${file%-new}"; done
+14:51 pdurbin  to remove nulls from xml. untested. from a mailing list. but I like how this guy thinks. :)
+15:44 semiosis What's file%-new do?
+16:00 ben_e    that's a bash string operator that strips the -new off the temporary file name variable
+19:49 larsks   Somebody here has worked with Gluster, yes?
+19:51 pdurbin  JoeJulian: you and semiosis

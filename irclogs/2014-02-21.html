@@ -1,0 +1,87 @@
+Time  Nick         Message
+17:25 semiosis     pdurbin: ping
+17:26 pdurbin      semiosis: hi. did you solve your puppet problem?
+17:26 semiosis     well i just used an exec, which i consider a workaround/kludge, not a solution
+17:26 semiosis     pdurbin: are you going to redhat summit/devnation?
+17:27 pdurbin      my puppet code is full of kludges :)
+17:27 pdurbin      semiosis: wasn't planning on it
+17:27 semiosis     ok
+17:28 pdurbin      huh. still no crimsonfubot. how am I supposed to google anything? ;)
+17:28 semiosis     you're asking a Q on the youtube thing!
+17:28 semiosis     good one
+17:29 pdurbin      crimsonfubot: lucky red hat summit 2014
+17:29 crimsonfubot pdurbin: http://www.redhat.com/summit/
+17:30 pdurbin      nice. SF. april 14-17
+17:30 pdurbin      semiosis: I am? a question?
+17:31 pdurbin      I *did* ask a question in ##virtualjug about http 2.0: http://irclog.greptilian.com/javaee/2014-02-21#i_58681
+17:32 pdurbin      but I'm barely listening. kids are too loud. school vacation week. just got back from skiing in colorado: ▶ Ski Papa - YouTube - http://www.youtube.com/watch?v=EVqGRNTAE50
+17:33 pdurbin      semiosis: did Arun answer my question?
+17:34 * pdurbin    will listen to it later
+17:43 semiosis     yes he answered your question
+17:43 pdurbin      oh, cool
+18:00 * pdurbin    hopes he pronouced my nick right ;)
+18:07 semiosis     good enough for me to hear it
+18:23 pdurbin      :)
+20:27 dotplus      anyone who knows both puppet & chef here to an intermediate or above level in each?
+20:29 pdurbin      dotplus: shopping around?
+20:31 dotplus      yes. we have a fair bit of experience between us in puppet, but none of us really knows much about chef or cfengine3 (the other main candidates, I don't think anyone's seriously considering salt or ansible for this use case)
+20:32 dotplus      and I don't want to fall into the trap of thinking that it's much harder to work with foo than puppet just because we already know how to do it in puppet
+20:32 pdurbin      I don't know that chef is especially hard. it's just a little different than puppet
+20:33 pdurbin      dotplus: https://github.com/agoddard/the-super-mini-one-click-chef-solo-apache-demo-that-just-uses-vagrant-up- :)
+20:33 semiosis     saw a talk about this at sunshinephp recently... one slide showed puppet most popular overall, except rubyists heavily favor chef, and (iirc) pythonistas heavily favor ansible
+20:34 semiosis     salt wasnt mentioned
+20:34 dotplus      also, we're going to have to get non-infrastructure people (such as security, lustre admins, HPC folks and others) on board, so we need to make a compelling case. When our ancestors picked bcfg2, these other folks felt like it got dumped on them without any input and the success of this iteration is going to depend on their by-in
+20:38 dotplus      hm, agoddard's thing might be useful to poke through.
+20:40 dotplus      at first glance, it just looks like a lot more stuff than I would write for a puppet equivalent
+20:47 pdurbin      it's funny, I have a VM with our infrastructure people and thought maybe I'd merge my Puppet code at https://github.com/dvn/iqirclog-vagrant into theirs, but it hasn't happened. Recently the VM was rebuilt and they run their Puppet code and I ran my stuff afterwards by hand (using that repo as a guide)
+20:47 pdurbin      dotplus: I guess I'm saying I'll be curious to know if you have success with various teams all using the same Puppet (or whatever) configs
+20:48 pdurbin      I'm no longer on the inside when it comes to Puppet... which is fine most of the time
+20:49 dotplus      define "same", no doubt we'll use lots of environments
+20:50 pdurbin      dotplus: well, I assume you'll keep the Puppet code in git or whatever. I mean the various teams would all have access to that git repo (which I don't, though perhaps I could ask for access)
+20:51 dotplus      Probably they would have access, but would tend to just stay out of various bits of the tree
+20:52 pdurbin      dotplus: are the various teams all in there using bcfg2?
+20:53 dotplus      personally, my expectation is that most of the non-infra people will be users of CM, not developers of CM functionality.
+20:53 dotplus      yes
+20:53 pdurbin      ok. cool
+20:53 dotplus      at least, if it's not that way, we'll probably end up in the same mess
+20:54 pdurbin      I mean, we had a web developer in our puppet configs back when I had my hands in the puppet configs (at my last job). but he'd sometimes break stuff and it was easier to just do stuff for him sometimes :)
+20:54 dotplus      although I can't see the Crays getting much value from any of the CMs
+20:58 pdurbin      dotplus: sorry, what's the mess?
+20:59 dotplus      bad tree, bad process, unpredictable results of a commit, little testing and what testing there is is murky
+21:03 pdurbin      hmm. ok
+21:03 pdurbin      bad tree?
+21:23 pdurbin      dotplus: is there more support in the puppet ecosystem for better process? than your current tool, I mean
+21:29 pdurbin      I have the impression that chef has a good testing culture. I assume puppet does too
+21:34 pdurbin      semiosis: most popular among whom?
+21:39 melodie      hi!
+21:40 pdurbin      melodie: hi!
+21:40 melodie      hello pdurbin :)
+21:40 melodie      how are you?
+21:41 pdurbin      melodie: good. just got back from vacation: http://irclog.perlgeek.de/crimsonfu/2014-02-21#i_8322825
+21:42 melodie      oh great! you were on vacation with the whole family I guess?
+21:43 pdurbin      yep
+21:43 melodie      pdurbin I'm watching your video on youtube!
+21:43 pdurbin      :)
+21:43 melodie      neat!
+21:45 pdurbin      my four year old can ski better than I can :)
+21:46 melodie      ha ha ha ! :D
+21:46 pdurbin      :)
+21:48 pdurbin      melodie: what's new with you? I haven't been to the linuxvillage forum in ages...
+21:49 melodie      some more Bento, with small new improvements each time... mostly
+21:49 melodie      next, a Ubiquity slideshow is expected (nicer look for the installer) and then we will see. We are looking for coding contributors
+21:49 melodie      here:
+21:50 melodie      https://github.com/Bento-dev/
+21:50 melodie      there are several projects
+21:50 pdurbin      this seems new: https://github.com/linuxvillage :)
+21:50 melodie      I guess Mo0O should add info on the readme
+21:51 melodie      yes, however this is Mo0O who takes care of this part
+21:51 melodie      so I don't know how he intends to organize it exactly
+21:51 pdurbin      ah
+21:55 melodie      yes
+21:56 melodie      perhaps should I ask him to complete a todo file and a readme to present the content which should be developed later?
+21:57 pdurbin      melodie: sure. or create issues in the github issue tracker for that repo
+22:08 semiosis     pdurbin: re: by whom... found the slide deck, but the graph i'm thinking of isnt in it... https://speakerdeck.com/thijsferyn/vagrant-puppet-and-chef-number-ftw-sunshinephp-2014
+22:10 semiosis     pdurbin: my guess would be "most popular among survey respondants" ;)
+22:10 pdurbin      :)
+22:10 pdurbin      semiosis: he pronounced my nick just fine by the way
+22:11 semiosis     right

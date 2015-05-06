@@ -1,0 +1,77 @@
+Time  Nick      Message
+16:03 semiosis  anyone have a recommendation for NAS for a small office?
+16:17 bene      http://www.smallnetbuilder.com/tools/rankers/nas/view
+16:18 bene      some of the labs we supported at harvard had synology devices
+16:18 bene      they seem fairly solid
+16:56 melodie   semiosis there is a synology nas selector here: https://www.synology.com/en-us/support/nas_selector
+16:57 melodie   I am going to see one "Synology DS213j" soon, and now the Synology company sells the next version, DS215j, they have a good reputation
+16:58 melodie   and documentation available too: https://ukdl.synology.com/download/Document/DataSheet/DiskStation/
+16:59 semiosis  thanks i'm trying out freenas right now and i'll look into synology as well
+16:59 melodie   I just found the right directory for all the recent models, didn't quite know how it was organized, but here it is: https://ukdl.synology.com/download/Document/DataSheet/DiskStation/15-year/
+17:00 melodie   welcome
+17:06 melodie   does someone have insights about the security risks brought with the activation of the sysrq feature?
+17:06 Whoop     you're already screwed if they have physical access
+17:13 melodie   Whoop what about a small team with a small network, where no one does any administration?
+17:13 melodie   5 people
+17:13 melodie   ?
+17:13 melodie   one being the admin and the others just doing office work
+17:13 Whoop     I don't understand the question, whats that go to do with anything?
+17:13 Whoop     do you consider them a security risk?
+17:13 melodie   I don't
+17:13 Whoop     well then?
+17:14 Whoop     To be clear, my answer was rather yes enable SysRq, as its no increased risk - you're already screwed if your attacker has physical access to your hardware
+17:14 melodie   my question is general: in the configuration file there is a security risk mentioned, so I'd like to know what the security risks are really
+17:14 hydrajump semiosis: depends do you want to DIY?
+17:15 bene      yeah
+17:15 melodie   Whoop and my question would more be oriented to the risks coming from the outside network, internet
+17:15 bene      when i heard "small office" i assumed it was not going to be a DIY set up
+17:15 hydrajump ^ me too
+17:15 bene      dentists don't want $200/hr unix consultants setting up freenas for them
+17:16 semiosis  no more DIY than a NAS distro like freenas.  current setup is ubuntu with everything set up by hand
+17:16 bene      that's pretty DIY :P
+17:16 hydrajump i've heard good things about synology
+17:16 hydrajump hehe
+17:16 Whoop     melodie: I'm not aware of any, the only remote way to use sysrq is by poking a proc device...I presume you have that secured sufficiently
+17:16 semiosis  need to support windows, mac, linux clients, want to make hourly snapshots visible over the network, and support backup clients from workstations
+17:16 melodie   hydrajump I have had a glance at the doc, there is a nice desktop in synology
+17:17 melodie   Whoop I don't know I haven't been at that place yet, and the network isp is a foss non for profit association of our area
+17:17 melodie   Whoop what proc devices could be at risk? in a Linux Mint distribution?
+17:18 melodie   is a NAS Synology a proc device by the way? I assume it should be?
+17:20 Whoop     melodie: /proc/sysrq-trigger
+17:21 melodie   Whoop that one is at risk?
+17:21 melodie   ls -l returns "--w------- 1 root root 0  9 avril 19:20 /proc/sysrq-trigger"
+17:21 Whoop     ...you can execute sysrq commands via it, yes?
+17:21 melodie   and it's empty
+17:21 melodie   no idea
+17:21 melodie   first time seen
+17:22 semiosis  just looking over the synology website and thinking shut up and take my money
+17:23 melodie   semiosis lol
+17:23 melodie   Whoop they'd need the root password
+17:23 melodie   if it's a good one there should not find it
+17:23 melodie   ?
+17:24 Whoop     ofc its empty....its a device
+17:24 Whoop     you asked for risks, I gave you risk
+17:24 melodie   semiosis is freenas that simple to install and configure? and is the UI as user friendly?
+17:24 Whoop     you've got it covered, cool
+17:24 melodie   Whoop thanks!
+17:24 semiosis  melodie: no
+17:24 melodie   semiosis aha
+17:25 semiosis  and synology claims support for the cloud services we use, aws & box.com
+17:25 semiosis  which is killer :)
+17:25 melodie   semiosis I guess it's not an obligation to use them?
+17:27 semiosis  i'm just looking for the best upgrade path for our current setup.  we've gotten along fine without any of that stuff for years, but i want the next office nas to do as much as possible
+17:27 semiosis  synology seems to have everything we could want
+17:27 melodie   oh!
+17:27 melodie   ie?
+17:29 melodie   semiosis some examples?
+17:29 melodie   main features?
+17:30 semiosis  like i said before, need to support windows, mac, linux clients, want to make hourly snapshots visible over the network, and support backup clients from workstations
+17:30 semiosis  synology adds cloud service integrations, mobile apps, etc which we could use too
+17:44 semiosis  the mac continues to impress me.  my workstation & laptop are on the same wifi and i can automagically access my home dirs on each from the other
+17:47 hydrajump hehe are you running OS X as your main OS now instead of kubuntu?
+17:50 semiosis  yes i switched.  mac mini desktop at work and a new retina mbp 13 for home
+17:51 semiosis  was starting to feel left behind in the professional software development world
+18:19 semiosis  same reason i switched to intellij idea *cough*pdurbin*cough*
+18:25 hydrajump anyone built postfix 3.0.0 from source?
+18:26 hydrajump the version in APT is quite old and although very convenient to install I'm considering building the latest stable from source, but just thought I'd ask if anyone has experience with the various build options that are available
+20:52 pdurbin   semiosis: I'm still on fully open source stuff: linux and netbeans

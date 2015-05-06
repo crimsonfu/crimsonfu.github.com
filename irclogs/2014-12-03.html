@@ -1,0 +1,101 @@
+Time  Nick       Message
+02:48 pdurbin    dotplus: I'm trying out `yum install python27-mod_wsgi` ... so far so good: https://github.com/IQSS/plaid/commit/4e81be485c7ad193d62896e2a4c78d14cc8a40e9
+02:50 pdurbin    of course, our resident Django expert says uWGSGI is "definitely the preferred Django deployment (e.g. modern generation)"
+02:50 pdurbin    and provided this link: Set up Django, nginx and uwsgi - https://gist.github.com/evildmp/3094281
+09:12 prologic   IHMO (I'm biased) mod_wsgi/uwsgi are great and all (and WSGI ingeneral)
+09:12 prologic   but you loose a lot of the benefits of better/smarter backends like say twisted.web, tornado, circutis.web
+09:13 prologic   I tend to advise lighttpd/nginx + reverse proxy to your web app backend generally
+09:13 prologic   scales better :)
+12:10 pdurbin    prologic: that's cool. for now I'm just trying to get Django working on CentOS 6, which comes with Python 2.6, which is too old, hence all the jumping through hoops.
+12:25 prologic   ahh
+12:25 prologic   just build Python 2.7 from source :)
+13:19 pdurbin    prologic: could do but `yum install python27` is easier: https://www.softwarecollections.org
+21:08 prologic   pdurbin, ahh :)
+21:08 prologic   that must be recent :)
+21:12 semiosis   pdurbin: you like jq right?  can you help me?
+21:12 semiosis   i'm finding the tutorial & manual lacking
+21:13 semiosis   goal is to get a particular property from objects in an array where another property has some value
+21:14 semiosis   for example... [{a: 1, b: x}, {a: 2, b: x}, {a: 3, b: y}] ==> show me all the a's where b is x ==> 1, 2
+21:15 prologic   cat file.json | jq '. | [] | select(a=2) | .b'
+21:15 prologic   I like jq too :)
+21:15 semiosis   prologic: thanks!!!
+21:15 prologic   the docs are fine
+21:15 prologic   but yeah examples are lacking
+21:15 prologic   it's something like the above
+21:16 semiosis   the docs are terse.  and thats fine, but sometimes terse docs aren't enough
+21:16 prologic   *nods*
+21:16 prologic   hmm
+21:16 prologic   I don't even have jq here
+21:16 prologic   damint :/
+21:16 prologic   going to have to port it for CRUX :)
+21:17 prologic   anyway gotta get to work :) good lucky
+21:17 prologic   luck*
+21:18 semiosis   thx again
+21:20 pdurbin    semiosis: I use jq 1000 times a day. love it. it even has recursive stuff
+21:21 semiosis   pdurbin: would you do it the same as prologic?  or else what would you do?
+21:22 pdurbin    hmm, if prologic's thing works...
+21:22 pdurbin    SHIP IT!
+21:23 semiosis   sadly, it doesnt
+21:23 semiosis   error: a is not defined / . | [] | select(a=2) | .b                1 compile error
+21:23 semiosis   i put in my example array
+21:24 semiosis   but that expression isn't even well formed apparently
+21:24 pdurbin    oh
+21:24 pdurbin    bummer
+21:25 semiosis   eh, ok, my example needed " around the bare chars
+21:25 semiosis   but the expr is still bad
+21:28 semiosis   ok ok, how about a simpler thing
+21:28 semiosis   show me all the objects in an array where x = y
+21:29 semiosis   how do I do that?
+21:33 pdurbin    semiosis: if there's a #jq channel and they want me to log it I'm happy to
+21:37 semiosis   pdurbin: can you just show me how to filter an array?
+21:37 semiosis   i have an array of objects, i want to get the subset of objects where .foo == "bar"
+21:37 pdurbin    can you just
+21:37 pdurbin    he says
+21:38 semiosis   i'm about to throw out this jq thing and *just* use php
+21:38 semiosis   all i've ever been able to do with jq is pretty print stuff
+21:45 pdurbin    semiosis: that's what I do most often but you may find some nuggets at https://github.com/IQSS/dataverse/search?utf8=%E2%9C%93&q=jq
+21:45 pdurbin    may
+21:45 pdurbin    :)
+21:45 semiosis   '.[] | if .b=="x" then .a else null end'
+21:46 semiosis   that does what i want, mostly.  i am left with a null where b was y
+21:46 pdurbin    curl -s 'http://localhost:8983/solr/collection1/select?rows=100&wt=json&indent=true&q=*&fq=dvtype:files' | jq '.response.docs[] | {name_sort, id, parentid}'
+21:46 semiosis   but at least it gives me all the a's where b is x
+21:47 pdurbin    I mentioned jq here: https://github.com/mit-cml/appinventor-sources/issues/96
+21:47 pdurbin    "Perhaps it could have semantics like jq: http://stedolan.github.io/jq/ " :)
+21:50 semiosis   ok, i can use empty instead of null
+21:50 semiosis   that's nice
+21:50 semiosis   this might actually be useful
+22:08 semiosis   prologic: i think you meant this, ./jq '.[] | select(.b == "x") | .a'
+22:09 semiosis   and i think i get jq now
+22:09 semiosis   sharp learning curve on that thing
+22:11 pdurbin    so sharp it hurts
+22:12 semiosis   seriously
+22:12 semiosis   i think a grammar would have helped a lot
+22:12 semiosis   the syntax is so weird
+22:12 pdurbin    yeah, I called it "semantics"
+22:12 semiosis   it's a functional language
+22:12 pdurbin    i dunno
+22:12 semiosis   but with bizarre syntax
+22:12 semiosis   no grouping, no s-expresseions
+22:12 pdurbin    just like sed!
+22:13 semiosis   lol
+23:26 pdurbin    semiosis: can you please make your jq question into a kata? https://github.com/crimsonfu/code/tree/master/katas
+23:27 pdurbin    then prologic can add his solution
+23:27 semiosis   https://twitter.com/pragmaticism/status/540268171169918976
+23:27 semiosis   that pretty much sums it up
+23:30 semiosis   ok i'll kata
+23:46 semiosis   https://github.com/crimsonfu/code/pull/1
+23:46 semiosis   pdurbin: ^
+23:50 semiosis   hang on still editing
+23:51 semiosis   ok done
+23:51 * semiosis gbtw
+23:57 semiosis   pdurbin: and you can add yours too!
+23:57 semiosis   s/yours/your solution/
+23:57 pdurbin    7 commits? no squashing?
+23:57 pdurbin    i kid
+23:58 pdurbin    ok, merged
+23:58 GitHub173  [code] pdurbin pushed 8 new commits to master: https://github.com/crimsonfu/code/compare/345cc08e096e...dbf4145ccc6e
+23:58 GitHub173  code/master da4b78e Louis Zuckerman: jqfilter
+23:58 GitHub173  code/master a930996 Louis Zuckerman: jqfilter
+23:58 GitHub173  code/master 552978e Louis Zuckerman: jqfilter
+23:59 pdurbin    man, I forgot about that git hooks. it's been so long since we worked on any katas

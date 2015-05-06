@@ -1,0 +1,25 @@
+Time  Nick      Message
+00:10 pdurbin   heh
+00:12 prologic  it's all but too true though
+00:12 prologic  sadly
+16:22 semiosis  just found out about Amazon Aurora... https://aws.amazon.com/blogs/aws/highly-scalable-mysql-compat-rds-db-engine/
+16:22 semiosis  thinking about migrating to that
+16:22 semiosis  anyone heard of it?
+16:25 pdurbin   nope
+20:36 pdurbin   If you have a job that you're going to break up across several servers and each server will process part of that job, what do you call the part? A "slice"?
+20:44 pdurbin   you have 100 items to process. you tell server 5 to process the last 20 of the 100. maybe you'd call that "slice5" (or "slice4" if you like zero-index counting)
+21:15 semiosis  job
+21:15 semiosis  the job has 5 tasks
+21:15 semiosis  or maybe batch
+21:16 semiosis  but that has other connotations
+21:16 semiosis  or is the job all 100
+21:16 semiosis  i dont know
+21:17 pdurbin   heh
+21:18 pdurbin   right now I'm saying numPartitions=3 and partitionIdToProcess=1 for example
+21:19 semiosis  sounds interesting.  what's the workload?
+21:20 pdurbin   indexing 303,826 documents into Solr
+21:22 semiosis  science!
+21:22 pdurbin   :)
+21:58 semiosis  impression from first day with pfsense... don't trust the optional packages
+21:58 semiosis  base system seems pretty good
+23:18 hydrajump semiosis: did you go with pfsense instead of Ubiquiti ER range?

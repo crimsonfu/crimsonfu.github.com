@@ -1,0 +1,27 @@
+Time  Nick    Message
+17:53 melodie is someone here saavy at same time with lamp servers, vhosts and wordpress ? My buddy Goodbox and I would need some help for http://linuxvillage.org which he hosts and does not behave properly
+17:53 melodie if someone can help, I'll paste the issue and question from #wordpress where we don't find answers at the moment
+18:09 pdurbin melodie: paste away
+18:13 melodie pdurbin thanks
+18:13 melodie <melodie> I am having a webspace on the server which Goodbox is managing and there is a forum which works well, a wordpress which does not do what it is supposed to
+18:13 melodie <melodie> the first issue which I meet with is that it won't connect outside: for instance I can't update the plugins from within the admin boards, neither can I connect to Jetpack which I wanted to have to test a pair of features on http://linuxvillage.org
+18:13 melodie <melodie> last but not least I can't either upload pictures into a gallery which stores it all in the database, such as ngg-gallery (I know ngg-gallery became crummy since it changed owner but I still wanted to give a whirl to the last version)
+18:13 melodie <melodie> so what we tried so far:
+18:14 melodie we tried having all files and directories in the install belong to www-data, owner and group, and that allowed connection to outside, I could install plugins from the administration board and so. but I could not post normally anymore. The server uses virtual hosts : can anyone help find out what Goodbox should improve in the server configuration?
+18:14 melodie <Goodbox> Then, actually we have htdocs owned by melodie:www-data, folders in 755 and files in 644. But the problem is that wp seems not support sftp over ssh as login for proceed to the update..
+18:14 melodie pdurbin that's it
+18:24 pdurbin melodie: the hosting company is limiting your ability to connect to outside sites?
+18:24 melodie it is not a company, it is buddies
+18:24 melodie he does not know how to configure it right
+18:26 melodie if the files belong all to the server it works for the outside but then I can't post normally, it brings me back to the index of the posts instead of returning to the post I am editing, if the files belong to "melodie:www-data" then I can post normally but can't access outside anymore
+18:42 pdurbin ah. so a permissions problem. nothing to do with firewalls
+18:45 melodie yes, more of an ownership problem*
+18:45 melodie -*
+18:45 melodie permissions are more or less ok, unless some bitsuid are needed
+19:23 Goodbox Hi all!
+20:01 pdurbin Goodbox: hi! sorry, in and out
+20:03 Goodbox hello pdurbin how are you ? :)
+20:10 Goodbox Damn it!!!! I'm setting up a vsftpd access, however I'm falling on a stupid 530 Permission denied since I created an melodie-ftp user; which is correctly allowed in vsftp.conf. If anyone can help me, it will be really kind :)
+20:43 pdurbin Goodbox: hmm, I usually use sftp instead
+20:43 Goodbox Idem
+21:28 melodie Goodbox Idem/same

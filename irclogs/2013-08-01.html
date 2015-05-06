@@ -1,0 +1,99 @@
+Time  Nick         Message
+00:08 joshu        semiosis for your eyes :P https://gist.github.com/anonymous/d8e61294931052f96f76 working 100%
+01:16 pdurbin      joshu: I'm glad your upstart script works
+01:16 pdurbin      for real this time :)
+01:18 joshu        hehe pdurbin me too =D
+14:16 * pdurbin    thinks about how he'd implement API keys: http://irclog.iq.harvard.edu/dvn/2013-08-01#i_2961
+14:31 joshu        pdurbin you work at Harvard?
+14:33 pdurbin      joshu: yes: http://people.iq.harvard.edu/~pdurbin
+14:33 joshu        pdurbin cool ;)
+16:45 semiosis     pdurbin: good docs on how AWS does API auth here http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html
+16:49 semiosis     in a nutshell... you have a public & a private key, you send the public key in the clear, along with a timestamp, and your message (commands, etc), then sign that whole thing with your private key & append the signature
+16:49 semiosis     google HMAC
+16:49 crimsonfubot https://en.wikipedia.org/wiki/Hash-based_message_authentication_code
+16:50 joshu        hi semiosis
+16:50 semiosis     hey hey hey
+16:51 joshu        I solved the upstart script after about 4 hours ;)
+16:51 semiosis     nice!
+16:51 joshu        was a PITA
+16:51 semiosis     that's upstart
+16:52 joshu        tha't most of the stuff I have to deal with :P
+16:54 joshu        I have a different problem I'm trying to solve now. I have an xsession that starts firefox in fullscreen mode. The top menu items, File, Edit, History etc for some reason I can't click on them, but the browser itself works. The bigger issue it that I can't figure out how to exit the session and return to the login screen. I've tried all kinds of shortcuts I've read online, ctrl+alt+del, ctrl+alt+space, ctrl+alt+esc, all the F keys.
+16:55 semiosis     ctrl+alt+shift+F12
+16:55 semiosis     or maybe ctrl+alt+backspace
+16:58 semiosis     bbl
+16:59 larsks       Maybe just ctrl-Q to quit Firefox?
+16:59 joshu        larsks that worked :D
+16:59 joshu        do you have any ideas why the top menu items don't work?
+17:00 larsks       So, they're visible but not working?
+17:00 joshu        exactly
+17:01 larsks       No idea.  I'd have to try and replicate the problem here.  I bet if you start a minimal window manager before Firefox that things will work...
+17:02 joshu        larsks hmm maybe this is a silly question as I'm not super familiar with this stuff, but doesn't lightdm count. Its from the lightdm login screen that I start the session
+17:03 larsks       lightdm isn't a window manager...it's really just the login screen.  Whatever session you're starting defines what actually gets started up, which may include a full GNOME desktop or a single application (like firefox).
+17:04 larsks       Technically, it's a "display manager" (like gdm or xdm), which is responsible for (a) authentication and (b) starting up an X session for you after you successfully authenticate.
+17:06 joshu        ok thanks for the explanation. So to get the firefox menu working I need to add a window manager. Any suggestions for one?
+17:08 larsks       You're using Ubuntu, right?
+17:08 joshu        larsks it's actually ubuntu mini and i have xserver-xorg and lightdm installed
+17:09 joshu        putting together a thin client
+17:09 larsks       The "awesome" window manager can be pretty unobtrusive.  You could configure it so that Firefox starts up in full-screen mode with no window decorations (that's how I run it, in fact).
+17:10 joshu        sounds interesting I'll have to google "awesome".
+17:13 ben_e        then you can install pentadactyl and get an even more awesomely minimal firefox
+17:14 joshu        and can I configure the session desktop file so that the firefox browser can only view a local html file?
+17:16 larsks       Errr...maybe?  That sounds like a Firefox configuration question.  I'm not sure if you can limit firefox to just local files.
+17:16 larsks       You can certainly have it start up viewing a local file, but I'm not sure that you can prevent access to the location bar...
+17:18 joshu        ok I'll check awesome wm and then look at locking down firefox. Thanks larsks ben_e ;)
+19:12 pdurbin      semiosis: thanks, I'll check out that AWS API thing
+19:33 joshu        anyone have experience with openvpn
+19:35 pdurbin      joshu: looks like your buddy semiosis does: http://irclog.perlgeek.de/crimsonfu/search/?nick=&q=openvpn :)
+19:35 joshu        pdurbin hehe ok I'll ask semiosis
+19:36 * pdurbin    should teach crimsonfubot how to search the logs
+19:41 semiosis     openvpn \o/
+19:41 semiosis     as i have said many times before
+19:46 joshu        semiosis you don't like? I've never used it before just ipsec site-site and l2tp/ipsec remote access
+19:47 * semiosis   <3 openvpn
+19:47 * joshu      it loves you back :P
+19:47 semiosis     ha
+19:47 semiosis     i use openvpn a lot
+19:48 joshu        semiosis I need to set up openvpn on an edge router lite (vyatta-esque).
+19:48 semiosis     have it running everywhere... vpn gateway on my home router, my office router, also a bastion host in the prod cluster in EC2
+19:48 joshu        semiosis then as pdurbin  you're my buddy
+19:48 * joshu      waves to buddy semiosis
+19:49 semiosis     hey budyy
+19:49 semiosis     buddy*
+19:49 joshu        have you used vyatta or the edge router?
+19:49 semiosis     no
+19:49 joshu        ok no worries. before I start configuring I'm wondering if I should create and manage the certificates on the device or somewhere else?
+19:50 semiosis     normally the CA is placed on an independent system, not a vpn gateway
+19:50 joshu        someone I know uses xca a windows program and suggested that I use that. But I'm a Mac user.
+19:51 semiosis     openvpn includes a script called easy-rsa
+19:51 semiosis     http://openvpn.net/index.php/open-source/documentation/miscellaneous/77-rsa-key-management.html
+19:51 joshu        semiosis yes the edge router has that too
+19:51 semiosis     you should be able to run that on your mac
+19:51 semiosis     then just scp the key & cert files to the edge gateway
+19:52 joshu        ok that's how you do it?
+19:52 semiosis     yes i use easy-rsa
+19:52 semiosis     (but not a mac lol)
+19:53 joshu        ok I'll take a look. hehe what's your OS of choice?
+19:53 semiosis     kubuntu
+19:53 joshu        cool
+20:01 joshu        semiosis would you suggest I setup a small ubuntu vm for the CA and just use that vm for the CA ?
+20:02 semiosis     you could, but try running easy-rsa on your mac first
+20:02 semiosis     easy-rsa is just shell scripts which call the openssl command, so it should work
+20:03 joshu        ok I'll do that
+20:36 semiosis     https://blog.wikimedia.org/2013/08/01/future-https-wikimedia-projects/
+20:59 * ben_e      whuggles wikipedia
+20:59 ben_e        i'm not quite sure how they manage to spend $30 million/year, but i generally think the wikipedia crew has their shit together
+21:02 * semiosis   googles whuggles
+21:07 semiosis     still stumped
+21:07 semiosis     what's a whuggle?
+21:49 joshu        semiosis still working on the openvpn server config. I'm setting aes256 and sha512 what do you think?
+21:52 semiosis     i use aes-128-cbc & leave the hash default (which is sha1)
+21:53 semiosis     good enough security & decent speed
+21:53 semiosis     bf-cbc cipher is good too, but in my simple tests was no faster than aes-128-cbc
+21:53 semiosis     ymmv
+21:57 joshu        on vyatta/ edge it's aes-128 blowfish and sha1 by default
+21:58 joshu        sorry got that wrong blowfish 128bit key
+21:59 joshu        do you use this penvpn-option --comp-lzo
+22:00 semiosis     i do usually, one exception is on an ec2 micro instance where it causes the cpu throttling to kick in
+22:00 semiosis     i disabled it to save cpu cycles
+22:04 joshu        semiosis what about split-tunneling. seems to be enabled by default.

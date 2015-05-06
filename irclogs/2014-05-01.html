@@ -1,0 +1,75 @@
+Time  Nick      Message
+03:41 larsks    hydrajump: I haven't, but I was looking for something like that.  Thanks.
+12:24 pdurbin   Trolls just want to have fun - http://www.sciencedirect.com/science/article/pii/S0191886914000324
+12:25 pdurbin   via http://www.slate.com/articles/health_and_science/climate_desk/2014/02/internet_troll_personality_study_machiavellianism_narcissism_psychopathy.html
+12:25 pdurbin   via http://twit.tv/show/this-week-in-google/245
+12:30 dotplus   ha. buzzword bingo(psych) triggered just in the URL.
+12:46 pdurbin   too much buzzword?
+12:46 pdurbin   I dunno, seems interesting. I may check out the original paper.
+13:32 dotplus   quite possibly interesting, just that the URL made me twitch:)
+14:17 * pdurbin was a psych major
+14:53 bene      it's IRODS all the way DOWN
+14:57 hydrajump larsks I've been trying to get termshare to work but not successful yet. The instructions are a bit thin. I managed to deploy it to heroku, but I can't access the web-based terminal. The heroku app url redirects to the github project repo. I've contacted the author via twitter, but so far I've not got it to work. You tried it?
+14:58 larsks    hydrajump: Not yet.  It's on my short list :). What I *really* want is something that integrates directly with tmux, so that I can run "tmux" locally but hook it up to some sort of web-based broadcasting mechanism.
+14:59 hydrajump I've seen something like that but I don't use tmux... one sec
+14:59 hydrajump larsks http://tmate.io/
+15:01 larsks    You had my hopes up! :) But that seems more targeted at remote paring.  I want the web-based aspect for doing demos without requiring software installs for participants.  I see that they have "HTML 5 client" on their "future work" list, so I will keep my eye on it.
+15:08 hydrajump larsks do you run your znc, tapchat services on a cloud server?
+15:09 larsks    hydrajump: Yeah, I'm using digitalocean for that.
+15:10 hydrajump cool
+15:12 hydrajump digitalocean seems quite popular
+16:00 pdurbin   bene: you know about https://irods.org ?
+16:00 pdurbin   it's on our roadmap: http://thedata.org/book/upcoming-releases
+16:01 pdurbin   "after 4.0" :)
+16:08 bene      yes, i'm familiar with irods
+16:10 pdurbin   wow. that's two people in one week
+16:11 bene      this rob ford crack video goes out to _you_ and _you_ and _you_!
+16:11 bene      the high energy physics crowd has been dealing with big data far longer than most sciences
+16:11 pdurbin   the other guy was at this event (I'm mentioned in the blog post): http://openhatch.org/blog/2014/openhatch-newsletter-april-2014/
+16:12 bene      and i'm an HEP RC dilletante
+16:12 bene      i have also heard jacob farmer pitch his starfish FS metadata system in the past
+16:12 bene      BioIT world is this week
+16:13 bene      so all this stuff is popping up in my twitter feed right now
+16:16 dotplus   HEP == High Energy Physics? That sounds like a dangerous business to be dilletante about
+16:17 bene      i'm only a dilletante about the research computing aspects
+16:17 dotplus   heh, less dangerous then.
+16:23 dotplus   pdurbin: has anyone from dataverse talked to any of the open research folks here @ornl.gov? it seems that there might be people on both sides that would be interested in getting together if they were made aware of each other
+16:25 pdurbin   orly.gov? ;)
+16:25 pdurbin   "No messages matched your search." ... nothing in my email
+16:26 pdurbin   dotplus: ask them to say hi: https://groups.google.com/group/dataverse-community :)
+16:28 dotplus   I don't even know who "them" is. there are ~5k people here. But next time I hear someone going on about how much we're contributing to the body of (public) scientific research, I'll point them at dataverse
+16:30 pdurbin   dotplus: I have something you should point them at... one sec
+16:31 pdurbin   open science channels - Google Groups - https://groups.google.com/forum/#!topic/openscienceframework/wb0dkThdeJ8
+16:31 pdurbin   dotplus: ^^
+16:32 pdurbin   yay science
+16:46 hydrajump can you PM someone on IRC even if you don't know what channel(s) they might be on?
+16:49 pdurbin   hydrajump: sure. with /query hydrajump or whatever
+16:50 hydrajump thanks pdurbin
+16:55 semiosis  pdurbin: converting the vboxes to qemu/kvm now
+16:56 semiosis  too many startup/shutdown issues with vbox
+17:02 pdurbin   semiosis: the author of vagrant seems to prefer vmware over vbox
+17:02 semiosis  what?
+17:02 semiosis  link?
+17:02 semiosis  vmw isnt even open source
+17:03 pdurbin   semiosis: it was on some podcast
+17:20 semiosis  wow kvm was a lot easier to set up than i remember
+17:23 semiosis  amazed how vbox can handle suspend/resume so well but fails miserably with plain old shutdown/startup
+17:24 pdurbin   shutdown? I always just run `vagrant destroy` :)
+17:27 bene      i have 30+ vbox VMs running on a headless server
+17:27 bene      we use them for software build/testing
+17:28 bene      the software opengl implementation under vbox was much better than kvm when i originally built it
+18:04 pdurbin   bene: how do you manage those vbox VMs? with vagrant?
+18:06 bene      http://sourceforge.net/projects/phpvirtualbox/
+18:07 pdurbin   huh
+18:07 bene      very slick web frontend to the vboxwebsrv
+18:19 semiosis  bene: i was using remotebox (remotebox.knobgoblin.org.uk)
+18:19 semiosis  which was also pretty slick
+18:20 bene      yeah, i saw the oblique reference and read the irc log to find out the rest
+18:39 pdurbin   jabrcx: wow. nice redesign: https://rc.fas.harvard.edu
+18:40 jabrcx    thanks to Aaron Kitzmiller and Gabrielle Naglieri
+18:41 pdurbin   ah
+18:41 pdurbin   jabrcx: I had linked to it here: http://irclogs.jackgrigg.com/irc.freenode.net/openhatch/2014-05-01#i_3343575
+18:44 jabrcx    cool!
+18:51 pdurbin   :)
+18:57 hydrajump larsks just tested termshare. Couldn't get my own server working, but using the free service it works great!
+18:58 hydrajump Super easy to use. Execute termshare on the machine you want to share. Share the URL that shows and the other user can see your shell from a web browser AND control if you want

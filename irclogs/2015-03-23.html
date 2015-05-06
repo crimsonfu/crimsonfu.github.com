@@ -1,0 +1,41 @@
+Time  Nick      Message
+13:35 paulisp   I need some help with LXC. I am trying to run X on an LXC container (as shown at http://mraw.org/blog/2011/04/05/Running_X_from_LXC/ ). However, when I `startx`, mouse and keyboard are unresponsive, even to change to a different tty. The graphics show up, but "no one's home" it seems. Are there any container experts out there that can help me out?
+13:39 pdurbin   hmm, maybe prologic or codex or hydrajump knows. or others :)
+13:43 paulisp   codex: thoughts?
+13:43 paulisp   prologic: thoughts?
+13:43 paulisp   hydrajump: any ideas?
+13:45 pdurbin   paulisp: you might need to wait for some of them to wake up :)
+13:45 paulisp   lol sorry
+13:45 pdurbin   maybe write up your problem at http://serverfault.com and link to it
+13:47 paulisp   link: http://unix.stackexchange.com/questions/191289/docker-how-to-run-x-desktop-in-a-container
+13:48 pdurbin   or there. very good
+17:04 hydrajump paulisp: hi I know you mentioned you're using LXC, but here are lots of examples how to do it with docker if you want to try https://blog.jessfraz.com/posts/docker-containers-on-the-desktop.html
+17:07 paulisp   is it running its own X server?
+17:08 paulisp   ah, you're forwarding X. See, I'm trying to have the host not even run its own X server, offloading everything to the guest.
+17:09 paulisp   And, so far, everything but the keyboard appears to work
+17:11 paulisp   hydrajump: I do appreciate the examples, though!
+17:20 paulisp   hydrajump: It may even seem like a self-licking ice cream cone, but I planned on running these types of docker containers inside an LXC container. Similar to docker --privilege, but I figured that LXC is more for what I'm trying to do.
+17:59 paulisp   I figured it out. all details are in the url provided above.
+18:02 pdurbin   paulisp: are you saying the answer is at http://unix.stackexchange.com/questions/18003/linux-lxc-deploying-images-with-tiniest-possible-x11 ?
+18:25 paulisp   yes
+18:25 paulisp   pdurbin: thanks
+18:25 pdurbin   paulisp: sure. are you going to add an answer to http://unix.stackexchange.com/questions/191289/docker-how-to-run-x-desktop-in-a-container ?
+18:26 paulisp   pdurbin: Yes. I plan on doing a clean write-up over the next hour.
+18:26 pdurbin   +1
+20:20 prologic  pdurbin, paulisp I know how ot urn X apps in Docker containers
+20:20 pdurbin   prologic knows everything
+20:21 prologic  See: https://registry.hub.docker.com/u/crux/xchat/
+20:21 prologic  haha
+20:21 prologic  not quiet :)
+20:21 bene      quite loud?
+20:21 prologic  quite*
+20:21 prologic  :)
+20:21 prologic  sorry
+20:21 prologic  Tue Mar 24 06:24:55 AEST 2015
+20:21 pdurbin   bene: quite you
+20:21 prologic  too early for me
+20:21 bene      i'm just playing word games
+20:22 bene      WORMS. I'M AFRAID OF WORMS, ROXANNE!
+20:23 prologic  Anyone here have a chance to spin up my little/mini PaaS of sorts :)
+20:23 prologic  https://gist.github.com/prologic/72ca4076a63d5dd1687d
+20:23 prologic  I've deployed it to vz1.vallinux.org last night demo app at hello.vallinux.org

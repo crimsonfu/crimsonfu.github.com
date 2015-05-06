@@ -1,0 +1,38 @@
+Time  Nick      Message
+14:51 dotplus   pdurbin: fink->macports->homebrew me too. Packaging systems suck, royally. I can't imagine how to cope if you actually have a serious number of OSX machines to support professionally. I guess you'd end up rolling your own or porting yum/apt/portage/something.
+14:52 dotplus   brew is definitely wins on the easy-to-use axis, and it's not bad on flexibility. but it's low on predictability, verifiability and other axes that matter for deplyments where n>"a couple"
+14:53 pdurbin   in general, once I install something with homebrew, I don't touch it. I'm a little scared to.
+14:55 dotplus   oh and unless I'm missing something it sucks on browseability. I should write a script that examines the list of available packages and extracts interesting metadata, especially version, short description, long description and links to details about how the package was built (perhaps just a link to the buildscript on github?) and the (docs) section of the project's website.
+14:56 dotplus   yeah, that's part of what I meant about predictability
+14:56 dotplus   it feels fragile
+14:57 pdurbin   that's why I don't run it as root. I install everything in ~/.homebrew
+14:59 dotplus   I don't really manage my osx (laptops) in any significant way, certainly not like how I manage services/machines that I'm paid to deal with.
+15:00 dotplus   I'm not as familiar although that's both cause and effect, of course.
+15:23 bene      there's an ansible module for driving homebrew
+15:24 bene      and the whole homebrew recipe/toolset is just a git repo
+15:25 bene      so a git pull to a specific tag and then a brew install with a specific package list should get you a similar environment across multiple machines
+15:25 pdurbin   bene: right. I clone the repo to ~/.homebrew
+15:25 bene      the reason to run homebrew as yourself is because os x machines are really single user machines
+15:26 bene      fink is already built on dpkg/apt and it's a horrorshow
+15:26 bene      and macports is mostly tcl based
+15:26 bene      so... yeah
+15:26 bene      pick your poison
+15:27 bene      but i've been pretty happy with homebrew
+16:18 bene      ls
+16:19 bene      . ..
+16:19 bene      CLEAR
+16:35 semiosis  dotplus: i've heard google uses puppet to manage their large fleet of macs
+16:35 pdurbin   me too
+16:36 semiosis  i installed imagemagick with homebrew yesterday and it worked great
+16:42 dotplus   semiosis: yeah, there was a LISA paper about managing macs at scale that I think was from google.  I've also heard they ~hate managing them.
+17:05 hydrajump these are some of the tools to manage macs "Autopkg + Munki + Sal + Facter + WebHelpDesk + DeployStudio"
+22:40 semiosis  APIs that take schemaless XML via a form encoded post parameter really grind my gears.
+23:08 pdurbin   mmmm, schemaless
+23:08 pdurbin   like json
+23:26 semiosis  this API can take json instead of xml, but that too has to be formencoded & passed as a post parameter :(
+23:33 pdurbin   semiosis: application/x-www-form-urlencoded ?
+23:33 semiosis  yep
+23:33 semiosis  how browsers submit forms
+23:33 pdurbin   ew
+23:34 semiosis  APIs like these give PHP a bad name
+23:34 pdurbin   :)

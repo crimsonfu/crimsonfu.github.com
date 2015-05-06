@@ -1,0 +1,87 @@
+Time  Nick      Message
+00:01 pdurbin   http://www.crowdsupply.com/kosagi/novena-open-laptop
+00:02 pdurbin   "A new open-hardware computing platform, flexible and powerful, designed for use as a desktop, laptop, or standalone board."
+00:24 westmaas  seems like that site isn't very good for crowdfunding
+00:24 westmaas  in my unbiased opinion
+00:26 pdurbin   westmaas: what do you know about crowd funding ;)
+00:27 westmaas  haha
+00:28 pdurbin   westmaas: how come you and ironcamel aren't on the company web page?
+00:28 westmaas  we are secret weapons
+00:29 pdurbin   westmaas: are you shock or awe?
+00:29 westmaas  hah
+00:30 westmaas  ironcamel got a special mention on the last blog post: http://engineering.crowdtilt.com/
+00:31 pdurbin   wow. awesome AND relevant
+00:32 westmaas  haha
+00:33 pdurbin   westmaas: how's perl treatin' you?
+00:34 westmaas  ok so far, but I haven't been getting my hands too dirty in code yes
+00:34 westmaas  yet*
+00:34 pdurbin   ah. #directorfu
+00:35 westmaas  exactly
+00:58 ironcamel lol
+00:59 ironcamel i think all westmaas does is go to meetings
+00:59 ironcamel meetings for scheduling more meetings
+01:02 pdurbin   so sick of meetings
+01:03 pdurbin   ironcamel: yes, nice quote from you at the end: http://engineering.crowdtilt.com/never-ever-use-perl/
+01:05 ironcamel haha, thanks
+01:06 ironcamel that was born from my frustration with people hating on perl.
+02:34 pdurbin   yeah, no need to hate
+02:34 pdurbin   "You don’t have to profess hate for one thing in order to express love for another."
+03:07 westmaas  ironcamel: I hate your hatred of meetings
+17:59 codex     hydrajump: sorry - didn't have a lot of time to go through it. Will look this weekend
+18:09 pdurbin   sigh
+18:09 pdurbin   I need `jq` but for XML
+18:10 * pdurbin looks again at http://stackoverflow.com/questions/91791/grep-and-sed-equivalent-for-xml-command-line-processing
+18:14 larsks    pdurbin: What about xpath?  xmlint --xpath //some/query < myfile.xml
+18:14 larsks    Err, "xmllint"
+18:16 pdurbin   larsks: I've been trying but it seems buggy
+18:17 pdurbin   believe me, I'm looking at http://stackoverflow.com/questions/2224613/how-do-you-use-the-pattern-option-of-xmllint
+18:18 larsks    pdurbin: usually works for me.  Got an example that's not working?
+18:19 larsks    E.g., this works: virsh net-dumpxml default | xmllint --xpath '//range[@start="192.168.122.2"]' -
+18:19 pdurbin   larsks: here you go: atom statement Dancebin! - http://danceb.in/hnmscF3c4xGMZvHQvceTbw
+18:19 larsks    581162
+18:19 larsks    776679
+18:19 larsks    326106
+18:20 larsks    591143
+18:20 larsks    whoop. flakey yubikey.
+18:20 pdurbin   heh. no worries
+18:20 pdurbin   this kinda does what I want:
+18:20 pdurbin   curl -s http://danceb.in/hnmscF3c4xGMZvHQvceTbw/raw | xpath '//entry/title'
+18:21 pdurbin   BUT
+18:21 pdurbin   since I'm on os x, I get these annoying "-- NODE --" and "Found 2 nodes" messages
+18:21 Whoop     larsks: my yubikey isn't flakey, thanks ;)
+18:21 pdurbin   more on that os x problem here: http://stackoverflow.com/questions/7797795/why-is-sed-not-able-to-process-piped-output-from-xpath
+18:22 larsks    So...it's working, but you don't like the format of the output?
+18:22 pdurbin   right
+18:22 pdurbin   since I'm on os x, I get these annoying "-- NODE --" and "Found 2 nodes" messages
+18:23 pdurbin   there's no -q option on os x
+18:23 pdurbin   (for /usr/bin/xpath)
+18:29 pdurbin   hmm. maybe I'll just hack /usr/bin/xpath5.12 a bit
+18:32 pdurbin   yeah. that works :)
+18:34 larsks    Yay!
+18:34 pdurbin   westmaas: see? perl. love it :)
+18:38 pdurbin   my answer: http://stackoverflow.com/questions/7797795/why-is-sed-not-able-to-process-piped-output-from-xpath/23686186#23686186
+18:38 pdurbin   because otherwise `xpath` is a handy tool
+18:53 whorka    pdurbin: curl -s http://danceb.in/hnmscF3c4xGMZvHQvceTbw/raw | xpath '//entry/title' 2>/dev/null
+18:54 pdurbin   whorka: right. yes, but then I miss the newlines :(
+18:57 pdurbin   I did take a quick look at xmlstarlet but it seemed... complicated
+19:05 pdurbin   right. this even works. nice: xpath '//entry/id/text()'
+19:06 pdurbin   maybe xml isn't so bad after all
+19:16 pdurbin   ah ha. this works too: curl -s http://danceb.in/hnmscF3c4xGMZvHQvceTbw/raw | xmlstarlet sel -t -v //_:entry/_:title
+19:16 pdurbin   per the namespace warning/message: None of the XPaths matched; to match a node in the default namespace use '_' as the prefix (see section 5.1 in the manual). For instance, use /_:node instead of /node
+20:16 hydrajump larks you like the yubikey? I've heard about it and one called ironkey, but have not used either product.
+20:17 larsks    hydrajump: ironkey is, I think, a completely different sort of product.  yubikey is a hardware token; ironkey is an encrypted usb flash drive.  Or at least, I think.
+20:17 larsks    At my work we use two-factor auth, and I'm using the yubikey for that.  It works great.
+20:18 larsks    I have the yubikey "nano", which basically fits inside a USB port and can be left in semi-permanently.
+20:18 larsks    We're using LinOTP as the backend.
+20:19 larsks    We can use either hardware tokens (like the yubikey) or software tokens (like google authenticator).
+20:21 whorka    larsks you are completely right about the ironkey being an encrypted USB flash drive (we have several)
+20:24 hydrajump whorka: You like them?
+20:32 larsks    hydrajump: We had a few ironkeys when I was at Harvard.  They seemed nice.  They sure where impenetrable when we lost the password :)
+20:34 whorka    yeah, they're good for what we use them for. supported under RHEL/CentOS.
+20:35 hydrajump Cool the only other alternative I've come across is Lok-it http://www.lok-it.net/
+20:39 whorka    "washing machine cycles will not damage LOK-IT security or the data" <- best feature
+20:46 hydrajump old review of ironkey but interesting https://www.ethicalhacker.net/columns/murray/review-pen-tester-sets-sites-on-the-ironkey
+20:46 hydrajump " quality of their team (mostly sourced with product people from Apple and various professionals from the InfoSec world), "
+21:00 larsks    buffer #crimsonfu
+21:00 larsks    Oh look, here I am already.
+21:00 larsks    :/

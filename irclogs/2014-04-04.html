@@ -1,0 +1,80 @@
+Time  Nick       Message
+00:16 pdurbin    ben_e: huh. seems legit, even
+01:01 semiosis   one more benefit of staying at the office late for a maintenance window: get to play music at full volume
+01:05 pdurbin    my kid came home singing "just another manic monday". she seems surprised I knew the words. then we played the song on youtube too loud for my wife's taste
+10:15 pdurbin    ben_e: that vagrant box from microsoft and this news: Microsoft Open Sources C# Compiler | Hacker News - https://news.ycombinator.com/item?id=7524082
+13:19 pdurbin    huh. vagrant has a provisioner for docker: http://docs.vagrantup.com/v2/provisioning/docker.html
+14:02 dotplus    hydrajump: nope. I'm neither in .ma.us, nor am I .edu.
+15:52 semiosis   pdurbin: "'vagrant up' w/ docker provider takes <2 seconds to bring up a box. Delicious." - https://twitter.com/jordansissel/status/439914122973425664
+15:55 ben_e      abcd main meeting in 5 minutes
+15:56 ben_e      free lunch for harvard types... :P
+16:23 semiosis   if you're nuts about ubuntu whats that make you?
+16:23 semiosis   an ubunut
+16:23 * semiosis sleep deprived
+17:56 pdurbin    semiosis: nice tweet
+17:57 pdurbin    semiosis: what should we write our installer in? Groovy? It's for a Java EE app. Needs to be deployed into Glassfish.
+18:02 pdurbin    sweet! got my Vagrant dev environment mostly set up. CentOS 6.5 VM running on my Mac
+18:26 dotplus    I went to a presentation about http://aristanetworks.com this week. These people have really bought into the idea that your network equipment is, with the exception of the ASICs and lots of nics, just another computer
+18:26 dotplus    and that it should be manageable as such.
+18:27 dotplus    it's a fedora box with some special sauce. which is mostly written in python so you can see what they're up to.
+18:30 dotplus    unlike many vendors who say "it's just a linux/bsd box with some extra software", it really feels like a normal linux box. JSON apis for all their stuff, manageable with ordinary CM, none of the normal pain you get when dealing with blackboxen
+18:30 dotplus    they're the first that have tried to make progress in this direction, and I'm glad to see it happening more.
+18:32 dotplus    disclaimer: I haven't actually used it, it *might* be a fragile house of cards, which is so often the reasoning why vendors make things blackboxen. On the other hand, there are already a number of installs that I'm aware of here and elsewhere.
+18:37 ben_e      heh
+18:38 ben_e      sounds like the feeling i had walking out of a juniper networks sales talk in 2000
+18:48 ben_e      "holy crap, it's just freebsd with a routing engine built on top! i get a full ssh session and bash shell and egrep and everything!"
+18:49 ben_e      . o O ( must remember to hit enter key on fully typed message before answering doorbell )
+18:50 semiosis   pdurbin: what do you mean installer?
+18:50 semiosis   https://maven-glassfish-plugin.java.net/deploy-mojo.html
+18:51 semiosis   ^^ if this is a maven project we're talking about
+19:07 pdurbin    semiosis: this is the current installer if that helps explain: https://github.com/IQSS/dvn/blob/develop/tools/installer/dvninstall/install
+19:08 semiosis   this is not a maven project :(
+19:08 semiosis   and that installer burned my eyes
+19:11 pdurbin    semiosis: what would be better?
+19:11 semiosis   beats me
+19:12 pdurbin    whatgoodareyou
+19:12 semiosis   idkwhatyouwant
+19:13 pdurbin    a quick install: http://thedata.harvard.edu/guides/dataverse-installer-main.html#quick-install
+19:17 pdurbin    so similar to that but better
+19:17 pdurbin    thinking maybe groovy this time. I dunno
+19:24 ben_e      i thought 'curl | bash' was the new hotness for installers :-)
+19:24 semiosis   hahahaa
+19:24 semiosis   ben_e: curl | sudo bash
+19:24 semiosis   for more winning
+19:26 semiosis   pdurbin: what do others do?  there must be lots of projects that dont use maven & still need to be deployed to glassfish, right?
+19:26 pdurbin    semiosis: we do use maven
+19:26 semiosis   hmm, i didnt see a pom.xml in that project
+19:26 semiosis   but i did see a build.xml
+19:27 pdurbin    https://github.com/IQSS/dvn/blob/develop/DVN-root/pom.xml
+19:27 semiosis   ahh
+19:27 semiosis   then forget the installer, use that maven glassfish plugin i linked
+19:27 semiosis   maven all the way
+19:28 pdurbin    sorry, right now I'll all WTF OMG over org.omg.CORBA.INTERNAL: WARNING: 00710008: Unable to determine local hostname from InetAddress.getLocalHost().getHostName()  vmcid: OMG  minor code
+19:28 semiosis   hah
+19:29 pdurbin    but I'll check out that link later
+19:29 * pdurbin  looks at http://mytechrantings.blogspot.com/2013/05/how-to-resolve-javanetunknownhostexcept.html
+19:30 pdurbin    I have no idea what I did... I mean, I upgraded VirtualBox and Vagrant... I hope that didn't hose my machine :(
+20:24 ben_e      the vagrant+docker thing is interesting
+20:26 ben_e      it runs init, rsyslog and sshd
+20:26 ben_e      so it's effectively multiuser
+20:26 ben_e      or could be with a bit more configuration
+22:09 pdurbin    semiosis: https://maven-glassfish-plugin.java.net might be helpful in dev but I think people who install our app will want something else. I mean, ideally we'd ship RPMs or debs, I guess. I don't know. Something to make the setup easy.
+22:11 pdurbin    what's the easiest java webapp to install? don't people complain about installing jenkins?
+22:14 hydrajump  pdurbin sorry for the late reply. I do freelance consultancy for small businesses/ startups finding and/ or developing solutions for their IT related problems.
+22:15 pdurbin    hydrajump: ok. cool
+22:18 pdurbin    ah, looks like maybe jenkins doesn't even have a database: http://serverfault.com/questions/232866/where-and-how-does-hudson-jenkins-store-data
+22:18 pdurbin    which makes writing an RPM easier: https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+22:18 hydrajump  I can't recall how I found this channel, but I'm happy I did ;)
+22:19 pdurbin    comptona found it via google
+22:19 * pdurbin  waves at comptona
+22:19 comptona   so I did
+22:19 comptona   hehe, hi
+22:19 hydrajump  pdurbin I saw that you got docker installed. How's that going for you?
+22:19 hydrajump  hi comptona
+22:19 pdurbin    hydrajump: oh, no. just good ol' vagrant. so 2012 of me
+22:19 hydrajump  hehe ok
+22:24 pdurbin    this is interesting... http://www.jtrac.info/doc/html/installation.html ... "Once you have Java you can start using JTrac right away because you do not need to configure a web-application server or a database. JTrac embeds both of these (Jetty and HSQLDB) to make it easy for you to evaluate JTrac."
+22:24 pdurbin    looks like Jira and other stuff I've heard of uses this HSQLDB thing: http://www.hsqldb.org/web/hsqlUsing.html
+22:28 JoeJulian  Hey westmaas, who would be best to report something like this to to actually get it fixed: "jclift> JoeJulian: I'm finding that Rackspace VM's aren't super reliable.  Out of every 10 or 15 that I start, one fails to boot and init fully.  I'll be able to log into it, but it doesn't do any cloud-init stuff properly, and the log shows "no such user cloud-user" or similar wording."
+22:30 * pdurbin  is guessing JoeJulian (or someone) already opened a ticket
+22:32 JoeJulian  pdurbin: not I (I haven't reproduced the error reported) and it's not my account.

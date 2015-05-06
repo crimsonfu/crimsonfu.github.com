@@ -1,0 +1,74 @@
+Time  Nick      Message
+00:02 pdurbin   huh. interesting
+00:03 pdurbin   someone offered me an invite to github's new editor. atom or whatever. but I'm happy with vim. :)
+00:08 melodie   codex wao wao!
+00:09 melodie   when will that hit Europe?
+00:09 melodie   :)
+00:17 Whoop     well, considering its specific to amazon fresh, which doesnt exist in europe - I'd guess not for a long time
+00:18 Whoop     hell, doesnt even exist in most of the US yet, so years :)
+00:21 melodie   have to go, good night
+00:22 melodie   Whoop ok! ^^
+00:41 hydrajump wow amazon dash...the future of grocery shopping
+00:42 hydrajump why are databases so complicated :(
+00:44 pdurbin   complicated?
+12:24 pdurbin   this was really good, well worth listening to: http://theshipshow.com/2014/03/deciphering-the-docker-lifestyle/
+12:26 pdurbin   and they mentioned this, which is awesome: http://www.wei-wang.com/ExplainGitWithD3/
+12:27 pdurbin   kinda similar to http://pcottle.github.io/learnGitBranching/
+12:28 pdurbin   but anyway, they asked for feedback about their docker episode. twitter works: https://twitter.com/ShipShowPodcast/status/450673710630838272
+15:53 semiosis  pdurbin: all the java web apps i've used ship with an embedded web server, usually jetty.
+15:53 pdurbin   hmm
+15:54 semiosis  although tomcat can be embedded as well
+15:54 pdurbin   yeah, that's how solr ships
+15:54 pdurbin   with jetty
+15:54 pdurbin   semiosis: do any of these apps use a database?
+15:54 semiosis  of course
+15:54 pdurbin   how is the database setup done?
+15:55 semiosis  usually they ship configured with sqlite, which you use to play with on first run, then you edit a config file & replace the sqlite config with your sql db config
+15:55 semiosis  sonarqube, jenkins, and jira all are like this
+15:56 pdurbin   ok. or could use h2 or that other h thing. to start. then switch to postgres or whatver later
+15:56 semiosis  right
+15:57 pdurbin   semiosis: so would you dump the schema from sqlite and then create the schema from it in postgres? (for example)
+15:57 pdurbin   for us, the postgres schema, the tables, get created when we deploy to glassfish
+15:57 semiosis  right
+15:57 semiosis  you could also provide a db script the user has to run to set up their schema
+15:58 pdurbin   hmm. yeah, could do
+15:59 pdurbin   i don't have a lot of database fu
+16:19 mattdm    this is a random test of unicode support: ♪€°☠☂
+16:21 pdurbin   mattdm: ilbot3 can handle it :)
+16:22 * pdurbin checks: http://irclog.perlgeek.de/crimsonfu/2014-04-07#i_8553151
+16:22 pdurbin   yep
+16:22 mattdm    apparently ircii is fail :)
+16:22 mattdm    my android phone client doesn't have complete font support
+16:22 mattdm    no pirates or umbrellas
+16:23 pdurbin   mattdm: this is what I use: Yet Another Android IRC Client - Yaaic - http://www.yaaic.org/
+16:34 pdurbin   semiosis: I'm sure an RPM for our app would be appreciated. I was talking to mattdm about this over the weekend
+17:28 semiosis  anyone ever connect visualvm to a remote tomcat7?  i'm having a real hard time getting this to work
+17:28 semiosis  all the web sites say the same thing, but it just doesnt work
+17:34 semiosis  hah, got it!
+17:46 pdurbin   hmm. visualvm. that's what netbeans uses but maybe I should fire it up independently
+17:47 semiosis  i need to track down a memory leak in prod
+17:48 semiosis  visualvm + jmx to the rescue
+17:48 pdurbin   hmm
+17:48 pdurbin   yeah, I need to look at performance generally
+17:57 semiosis  argh.  remote memory monitoring is only in java 8
+18:00 semiosis  looks like you can make a heap dump on the remote host, then analyze the file locally
+19:46 pdurbin   "The other problem with Travis is that it’s a CI solution, not a proper testing solution." -- http://www.sitepoint.com/testing-across-node-js-versions-using-docker/
+20:13 hydrajump pdurbin my "databases are complicated" comment was related to a possible web app I'm trying to decide if I can develop for a friend.
+20:15 hydrajump There seems to be two camps when it comes to developing modern web apps today: rails/ postgres and node/express/mongodb or something similar.
+20:18 pdurbin   yeah
+20:18 pdurbin   we're in the postgres camp
+20:18 pdurbin   but in the office next to mine.. the mongo camp :)
+20:22 pdurbin   oh, there's also a "polyglot persistence" camp
+20:32 skay      pdurbin: hey Max Ogden is going to talk about dat at the next mozilla science lab call https://etherpad.mozilla.org/sciencelab-calls-apr10-2014
+20:56 hydrajump pdurbin have you built anything with node.js?
+21:04 pdurbin   hydrajump: nope. but if I did I'd probably start with a command line app: https://www.npmjs.org/browse/keyword/cli
+21:05 pdurbin   skay: does that get recorded as a podcast?
+21:05 skay      pdurbin: I do not know
+21:05 pdurbin   ok
+21:56 ben_e     https://access.redhat.com/security/cve/CVE-2014-0160 <- nasty openssl security bug... whee!
+21:56 ben_e     http://heartbleed.com/ <- also
+22:30 pdurbin   nasty
+22:38 pdurbin   I remember back when every bug didn't get its own domain
+23:02 skay      pdurbin: no podcast. I asked
+23:16 pdurbin   bummer
+23:16 pdurbin   I just started listening to this and so far so good: http://www.internethistorypodcast.com

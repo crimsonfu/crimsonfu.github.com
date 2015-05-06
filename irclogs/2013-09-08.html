@@ -1,0 +1,33 @@
+Time  Nick    Message
+00:27 pdurbin hmm, curious what that is
+12:26 melodie hello
+12:44 pdurbin melodie: good morning. can you say a little more about your new project?
+12:44 melodie hi pdurbin
+12:44 melodie yes, sure
+16:07 melodie I am annoyed with a feature in a wordpress website I manage. I don't find where the problem comes from, at #wordpress they don't have a clue either. Does someone here think it is possible a table or such in the DB has been corrupted and that it does not show, even with checkups from within phpmyadmin?
+16:08 pdurbin melodie: you can't see the table from phpmyadmin?
+16:09 melodie the problem is not a table, the problem is a window which should appear above, but doesn't
+16:09 melodie some buttons of the editor and a feature to modify the setup of an image in a post
+16:10 pdurbin it's a new feature? a plugin you added or something?
+16:10 melodie as I have tried every kind of recommand, such as deactivate plugins, fallback on a default theme, reinstall the files from a fresh archive, I thought some table might have a corruption which does not show
+16:10 melodie it's a normal feature from the editor
+16:11 melodie and on other sites and multisites I run I didn't meet with this issue at all
+16:11 pdurbin it used to work? what changed?
+16:11 melodie instead of showing on top of the page in a js window it is embedded in the page itself, down left corner of the page
+16:12 melodie what changed might be the numerous stuff I added and removed to try to find a new plugin working
+16:12 melodie to try to get it fine again I have also removed the tables left from the removed plugins in the database
+16:13 pdurbin hmm. is it crazy to try restoring from a database backup?
+16:13 melodie yes it is
+16:13 pdurbin :)
+16:14 pdurbin scary to think that experimenting with plugins can break wordpress
+16:15 melodie I use the database less possible for any for of restoring, better create anew on another webspace and restore from the xml exports (three sites in the multisite) and then setup some of the little details by hand
+16:15 melodie pdurbin that's php, never know how the plugins will react one with the other
+16:16 melodie I prefer this to happen with my multisite than on someone else's which I also manage
+16:16 melodie s/any for/any form/
+16:18 pdurbin melodie: ok, sounds like you can create anew if you need to
+16:20 melodie yes it's sometimes the last solution which is the sure way
+16:22 melodie pdurbin what do you think of these errors I found while inspecting one of the guilty elements? (just in case) : http://pastebin.fr/28678
+16:28 pdurbin hmm. not sure. that's a lot of errors
+16:36 melodie yes
+16:39 melodie I think these errors are the same on another website of mine, so I feel I don't have fast fix solution at the end
+16:39 melodie a solution for a fast fix*

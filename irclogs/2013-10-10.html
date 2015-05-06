@@ -1,0 +1,55 @@
+Time  Nick       Message
+14:33 pdurbin    it looks I can get at my Skype chat history with `sqlite3 /Users/pdurbin/Library/Application\ Support/Skype/greptilian/main.db .dump` but (unlike Gtalk), it's not available online (unfortunately). I guess I should back up that file.
+14:34 pdurbin    see also http://askubuntu.com/questions/149214/copy-skype-chat-history-to-text-files
+16:09 pdurbin    wft: https://nemlog-in.dk/vislogintyper.aspx
+16:09 pdurbin    trying to post at http://digitaliser.dk/group/42063/forum
+16:17 pdurbin    success! http://digitaliser.dk/forum/2526560
+18:11 pdurbin    whorka: do you know who knows AWS stuff cold?
+18:19 whorka     no who?
+18:21 pdurbin    semiosis
+18:21 * semiosis awakens
+18:21 semiosis   awakes?
+18:21 semiosis   wakes?
+18:22 semiosis   What's the B stand for in Benoit B. Mandelbrot?
+18:22 semiosis   Benoit B. Mandelbrot.
+18:22 semiosis   what about AWS?
+18:22 whorka     I think I may have the answer to my problem already... Are CloudFormations resource property names case sensitive?
+18:23 whorka     i.e. did I get "Encountered unsupported property IPAddress" because I spelled it "IP" instead of "Ip"
+18:23 semiosis   never used cloudformation, but i generally assume everything is case sensitive
+18:24 semiosis   shouldn't you be using an SDK to interact with the API?
+18:24 semiosis   or are you, and it's not checking that sort of thing well enough?
+18:24 whorka     yes and yes
+18:24 semiosis   heh
+18:24 whorka     passed cfn-validate-template no blips
+18:42 whorka     yep, that was it.
+18:43 whorka     it's case sensitive, and while EC2 resource type names are InterCaps with acronyms ALLCAPS, EC2 resource parameter names are InterCaps even for acronyms.
+18:43 whorka     e.g. a AWS::EC2::VPNConnection has a "VpnGatewayId"
+19:32 pdurbin    whorka: log.info("Session created at: " + request.getSession().getCreationTime() + ", timeout after " + request.getSession().getMaxInactiveInterval() + " seconds");
+19:32 pdurbin    at https://view.softwareborsen.dk/Softwareborsen/oiosaml.java/sp/trunk/src/dk/itst/oiosaml/logging/Audit.java?view=markup
+19:32 pdurbin    seems to be informational
+19:32 pdurbin    being part of init() and all
+19:33 pdurbin    just says the session will timeout after 30 minutes
+19:33 whorka     I have lost the context of the original error
+19:33 pdurbin    whorka: context is http://digitaliser.dk/forum/2526560
+19:33 pdurbin    whorka: but don't worry about it :)
+19:35 pdurbin    whorka: the null here is probably the problem: 2013-10-10 11:58:29,444 [ERROR] OIOSAML_AUDIT_LOGGER - Dispatch:metadata <-- 140.247.0.40 58A44A01E5CFB560E3192DB8F710F561 '' '' 'null'
+19:35 whorka     yeah that null pointer exception didn't look good
+19:36 pdurbin    nope
+19:36 pdurbin    this guy started a thread called "Unable to validate response signature when assertion is encrypted and signed" http://digitaliser.dk/forum/2476292
+19:37 pdurbin    and I do see EncryptedAssertion from both of the IdP's I'm testing with, including http://testshib.org
+19:37 pdurbin    IdP being SAML/Shibboleth jargon for Identity Provider
+19:41 pdurbin    oh, and annoyingly I can't open the project in my IDE (as a project) because it doesn't use Ant or Maven or Gradle. Some weird thing called Gant: http://gant.codehaus.org
+19:43 whorka     The format of that error message appears to be defined on line 92 of Audit.java (as linked above), in which case if I'm reading correctly what was "null" was the stringification of the Throwable exception's error message.
+19:44 whorka     the backtrace leads to line 32 of https://view.softwareborsen.dk/Softwareborsen/oiosaml.java/sp/trunk/src/dk/itst/oiosaml/sp/service/MetadataHandler.java?view=markup (MetadataHandler.handleGet())
+19:45 pdurbin    right. yes. I'm working with revision 11220 (sorry for linking to the latest) so the numbers are a little different but you're right
+19:46 pdurbin    proper link: https://view.softwareborsen.dk/Softwareborsen/oiosaml.java/sp/trunk/src/dk/itst/oiosaml/logging/Audit.java?revision=11220&view=markup
+19:48 pdurbin    iam try to set this whole thing up again, I think
+19:48 pdurbin    ima* :)
+19:49 semiosis   sso is a pita :/
+19:51 pdurbin    semiosis: I like this high level description of SSO: http://stackoverflow.com/questions/342378/cross-domain-login-how-to-login-a-user-automatically-when-transferred-from-one/342498#342498
+19:51 pdurbin    via http://irclog.greptilian.com/javaee/2013-10-08#i_28961
+19:57 semiosis   concepts are simple, implementations arent
+20:02 pdurbin    maybe it's the EncryptedAssertion thing
+20:03 pdurbin    time to try a third IdP, I guess
+20:03 pdurbin    anyone have an IdP? :)
+20:10 * pdurbin  emails someone who should have one

@@ -1,0 +1,38 @@
+Time  Nick     Message
+20:38 GWG      Anyone use SPDY and have a benchmarking opinion?
+23:03 prologic Not used it
+23:03 prologic however I do have an opinion
+23:03 prologic with most websites today using CDN(s)
+23:03 prologic SPDY is pointless
+23:03 prologic it is really only useful if you plan on hostingg *EVERYTHING* yourself on your own server
+23:03 prologic and to be clear, a single server with a single endpoint
+23:04 GWG      prologic: Many CDNs also support SPDY now
+23:04 prologic as soon as you start using a CDN or have many distributed servers yourself SPYDY is quite literally useless
+23:04 prologic indeed
+23:04 prologic and so they should :)
+23:04 prologic it's just the way it's designed that's all
+23:04 GWG      I could see it being useless with mixed content..
+23:04 GWG      I'm still confused about the point
+23:05 prologic I've encountered far too many zealot folk who make all sorts of bogus claims that it speeds up their shitty little web server / website
+23:05 prologic and haven't the foggiest how it actually works :)
+23:05 prologic it solves multiplexing to a single server
+23:05 prologic afaik :)
+23:05 prologic that's all
+23:06 prologic I think come aspects of it are being incorpoarated into HTTP 2.0 anyway
+23:07 prologic SPDY manipulates HTTP traffic, with particular goals of reducing web page load latency and improving web security. SPDY achieves reduced latency through compression, multiplexing, and prioritization [1] although this depends on a combination of network and website deployment conditions.[2][3]
+23:08 prologic ...
+23:08 prologic As of July 2012, the group developing SPDY has stated publicly that it is working toward standardisation (available as an Internet Draft).[5] The first draft of HTTP/2 is using SPDY as the working base for its specification draft and editing.[6]
+23:11 GWG      I may experiment
+23:11 prologic do so :0
+23:11 prologic but host your own stuff then
+23:12 GWG      That is what I was experimenting with
+23:13 GWG      Benchmark for HTTP, HTTPS, SPDY, SPDY with CDN
+23:13 GWG      I want to see the speed comparison myself
+23:14 prologic ahh yes
+23:14 prologic I believe someone did that on the web
+23:14 prologic wasn't very good
+23:14 prologic it's marginal at best
+23:14 prologic IIRC
+23:15 GWG      I found it. They did CDN, but not CDN with SPDY
+23:15 prologic you get just as good performance if you gzip, uglify, etc your web content
+23:15 prologic ahh

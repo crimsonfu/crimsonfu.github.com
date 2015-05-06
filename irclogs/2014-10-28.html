@@ -1,0 +1,84 @@
+Time  Nick      Message
+18:28 pdurbin   semiosis: do you front your Java app servers with anything? Apache or Nginx or whatever?
+18:29 semiosis  our old system (which will be shutdown in a couple weeks!) was a hodgepodge of java & php blended together with a lot of apache wizardry
+18:29 semiosis  our new system is cleanly separated into rest api servers running tomcat and php web servers running apache
+18:30 pdurbin   so do you front tomcat with anything? or do you just run tomcat on port 8080
+18:30 semiosis  amazon elastic load balancer to tomcat 8080
+18:30 pdurbin   hmm. ok
+18:30 * pdurbin is being driven crazy by a session bug
+18:31 semiosis  ewwww, state
+18:31 pdurbin   cookies. jsessionid
+19:55 semiosis  i remember that stuff looking unnecessarily complicated in tomcat
+19:55 semiosis  tomcat clustering iirc
+19:56 hydrajump working on bringing up a new bastion host, because old one is not maintained in a long time.
+19:56 semiosis  whereas with php all one needs to do is set the memcache or redis server address and it's done
+19:56 bear      yea, I always reached for glassfish when confronted with a java clustering urge
+19:56 hydrajump Any advice for fail2ban vs sshguard?
+19:57 semiosis  hydrajump: are those still necessary when password login is disabled?
+19:58 bear      iptables and password disabled is preferred
+19:58 bear      fail2ban or sshguard is nice only if your scanning the logs for ips that are doing bad things and comparing them to other events
+21:14 hydrajump semiosis: I think so to prevent lots of attempts at trying to brute force.
+21:15 semiosis  maybe i'm being naive but i'm not worried about brute force attempts against 2048+ bit keys
+21:15 hydrajump yeah that's true I don't think they are likely to gain access. I would think you still want to block the repeated attempts
+21:16 hydrajump codex: what does the security guru think :P
+21:16 * codex   waiting for the security guru to come along
+21:16 hydrajump hehe
+21:17 codex     i use fail2ban -- it's great
+21:17 codex     when properly configured, it helps a lot
+21:17 codex     it's not perfect. Don't "rely" on it. It's a nice "general" filter to filter out the crap of the crap
+21:17 hydrajump so it has value even with "big" keys
+21:17 codex     the main issue is the delay in event -> to log -> to read/injection by fail2ban
+21:17 codex     if someone is really hammering you, they will get a few thousand hits before your "6 in 30 seconds" rule hits
+21:18 hydrajump what about sshguard any different or it is just ssh specific whereas fail2ban works with multiple services?
+21:18 codex     I haven't used sshguard (i use fail2ban for ssh, web, anything that has a log really)
+21:19 codex     assuming it works the same way -- looks at logs, parses, and has some sort of an iptables logic?
+21:19 hydrajump can you share any specific things you configure in sshd_config and your ssh fail2ban rule?
+21:19 codex     yea, one sec
+21:19 codex     i'll lookup what I have
+21:20 codex     I am using the default filter by 'Cyril Jaquier'
+21:20 codex     and the ddos one by 'Yaroslav Halchenko'
+21:20 codex     I think both come by default with the system
+21:21 codex     i have an ingoreip with all my IP ranges, and something like this:
+21:21 codex     maxretry = 5
+21:21 codex     findtime = 30
+21:21 codex     bantime = 1800
+21:26 semiosis  pdurbin: top 3 to watch?  https://www.oracle.com/javaone/sessions/index.html
+21:31 hydrajump codex: do you bother to run sshd on a non-standard port...I know it doesn't do anything for security ;)
+21:33 semiosis  i run openvpn on a non-standard port, fwiw
+21:34 codex     there are two big "schools of thought" here -- if it's a non-standard port, when something like heartbleed happens, it will give you some time
+21:35 codex     if you are running unpatched, a non-standard port won't help
+21:35 codex     I think the biggest advantage is to prevent the drive-by's
+21:35 codex     openvpn is a great example -- why have 1000 people per day poke at your openvpn just because it happens to sit on that port
+21:35 codex     plus, with openvpn, it's way more useful having it on 443 and udp/53 :)
+21:36 semiosis  never had my udp/41194 packets filtered yet
+21:36 semiosis  hotels, airports, etc
+21:36 semiosis  but running on 53 is a great idea
+21:52 hydrajump codex: really run openvpn on udp 53?
+21:53 hydrajump what do you gain from opening port udp 53 and using that for OpenVPN?
+21:53 hydrajump maybe I'm missing the obvious?
+21:54 pdurbin   semiosis: well, Enterprise Nashorn since you asked about it, I guess
+21:55 pdurbin   anything by Venkat Subramaniam is good
+21:55 semiosis  hydrajump: other people's networks may be less likely to block that outbound
+21:55 semiosis  hydrajump: so you have a better chance of reaching your ovpn gateway
+21:55 bear      and if they do their iptables rules allow inbound 53 if an outbound request is pending
+22:07 semiosis  pdurbin: thx
+22:08 semiosis  watching Thinking in Functional Programming now
+22:08 pdurbin   where's my talk, I'd like to know
+22:08 semiosis  s/Programming/Style/
+22:09 pdurbin   I'll try to watch that one. This is the talk by him I went to: Programming with Lambda Expressions in Java [CON1770] https://oracleus.activeevents.com/2014/connect/sessionDetail.ww?SESSION_ID=1770 (which was good and funny)
+22:27 semiosis  tbh, this talk is mostly a pitch for FP, very beginner
+22:27 semiosis  should be titled "What is FP?"
+22:35 pdurbin   bummer
+22:35 pdurbin   semiosis: did I tell you about the lambda lab? a friend went through the whole thing and got a lot out of it
+22:36 semiosis  havent heard of it
+22:39 pdurbin   I first mentioned it here: http://irclog.greptilian.com/sourcefu/2014-10-02#i_79001
+22:39 pdurbin   here it is: https://github.com/stuart-marks/LambdaHOLv2
+22:40 semiosis  nice!
+22:40 pdurbin   I think I only made it through exercise 8 or so. planning on going through it at some point
+22:40 semiosis  wow 27 of them
+22:41 pdurbin   it's basically a Java 8 lambda kata ... failing tests, then you use lambdas to make them pass
+22:41 semiosis  I'd love this on a flight
+22:43 pdurbin   don't cheat with the directory of solutions :)
+22:44 pdurbin   oh, and there are hints too, hidden by default, at least in netbeans
+22:45 hydrajump semiosis: bear interesting. I've been running my own on 1194 udp, but for the new openvpn deployment I'll do that.
+23:50 hydrajump btw another good security source https://bettercrypto.org/

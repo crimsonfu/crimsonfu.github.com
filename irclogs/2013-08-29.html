@@ -1,0 +1,8 @@
+Time  Nick    Message
+16:11 pdurbin grrr. trying to use curl with --data-binary to POST a big file but... curl(98299) malloc: *** mmap(size=140737488359424) failed (error code=12)
+16:15 pdurbin trying `cat hugefile | curl -T- -X POST [URL]` from Curl malloc fails - http://permalink.gmane.org/gmane.comp.web.curl.general/13050
+16:16 pdurbin SwordError: The uploaded file exceeded the maximum file size this server will accept (the file is 3129244058 bytes but the server will only accept files as large as 128776246 bytes)
+16:16 pdurbin \o/
+16:17 pdurbin that -T- looks so weird
+16:17 pdurbin ok, it works with -T - as well, which makes more sense. STDIN
+16:18 pdurbin anyway, thank you Daniel Stenberg, author of that post :)

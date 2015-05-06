@@ -1,0 +1,21 @@
+Time  Nick      Message
+00:54 hydrajump Can someone with iptables experience please have a look at these rules and tell me if they look good from a security standpoint https://github.com/infosecsociety/osdt/blob/master/firewall.sh /cc codex
+00:55 hydrajump I don't see anything odd, but I'd appreciate a second look as I'm more familiar with working with Vyatta which provides a CLI abstraction on iptables.
+05:56 codex     hydrajump: add tcp for 53 (dns)
+05:57 codex     larger lookups/zone transfers go over tcp
+05:58 codex     otherwise looks good to me - nothing stands out as "obvious"
+05:58 codex     the forwarding - i am not sure about. I feel like that might bypass a whole bunch of the rules
+05:59 codex     unless you want that by design
+15:57 semiosis  hydrajump: on debian distros you can install iptables-persistent to get 'service iptables save' and restore on boot functionality
+16:51 hydrajump semiosis: thanks I've seen that, but not used it yet.
+16:54 semiosis  imo, better to use that than invent your own
+17:03 semiosis  hydrajump: i'm enjoying reading your ovpn server.conf.  i though i knew a lot about openvpn best practices but there's a bunch of stuff that's new to me here!
+17:20 hydrajump yeah same here
+17:28 semiosis  five minutes into using datadog and i'm liking what i see
+17:30 hydrajump semiosis: cool
+17:30 hydrajump semiosis: so you use openvpn a lot?
+17:33 semiosis  <3 openvpn
+17:33 semiosis  been using it for years
+17:34 hydrajump cool mind if I pick your brains when I work on it maybe later this week if I get time?
+17:34 semiosis  any time
+17:34 hydrajump semiosis: awesome thanks :D

@@ -1,0 +1,116 @@
+Time  Nick       Message
+01:14 pdurbin    cruxybox
+02:04 prologic   heh
+12:55 larsks     prologic: Have you see alpine linux? Busybox + a package manager...but not related to crux.
+12:55 larsks     It makes for great minimal docker images.
+13:09 prologic   not sure if I have
+13:09 prologic   got a link?
+13:13 pdurbin    huh. "Alpine uses its own package management system, apk-tools" http://en.wikipedia.org/wiki/Alpine_Linux
+13:19 prologic   ta
+21:25 pdurbin    prologic: fancy new stuff. I had never heard of https://matt.ucc.asn.au/dropbear/dropbear.html nor http://troglobit.com/finit.html
+21:32 prologic   yeah :)
+21:33 prologic   all of which my os are using
+21:33 prologic   finit is great btw
+21:33 prologic   lovely init system
+21:33 prologic   my main concern now is a package manager
+21:33 prologic   but it's hard to decide on what language to write it in
+21:33 pdurbin    I'm not used to the new init systems.
+21:33 prologic   of all the alternative I've considered
+21:33 prologic   I think finit is the simplest t ouse and get your head around
+21:34 prologic   and has just the "right" number of features
+21:34 prologic   although I'm in talks with the dev to optionally drop inetd support
+21:34 prologic   and I'm not really using the plugin system either
+21:37 pdurbin    I guess the older init systems work well enough for me and my modest needs.
+21:39 prologic   sure they do :)
+21:39 prologic   you have no choice :)
+21:39 prologic   haha
+21:41 pdurbin    :)
+21:41 pdurbin    prologic: so wait, you're going to write a new package manager?
+21:45 prologic   yes
+21:45 prologic   I believe so
+21:45 prologic   and finding it hard to choose a decent language
+21:45 prologic   one that's not so low level that you spend all your time writing code and dealing with pointers
+21:45 prologic   but one that isn't so high level that when it's compiled or bundled it's just full of cruft and bloat
+21:45 prologic   e.g:
+21:46 prologic   A Go "Hello World!" yields you ~1.8MB alone
+21:46 prologic   throw in a few networking and http client libraries (i.e: a simple app to get the contents of a web uri) 5.6MB!
+21:46 prologic   makes me think Go is worthless as a systems programming language with such hugh runtime dependenices
+21:46 pdurbin    I just read an interesting article about rewriting a C++ program/service in Go. It wasn't all good news.
+21:47 prologic   yeah
+21:47 prologic   nevermind any other pitfalls of Go
+21:47 prologic   so I'm not really favouring Go at this point for a no. of reasons
+21:47 prologic   I'd no sooner write it all in Python
+21:47 prologic   and just bundle it with pyinstaller
+21:47 prologic   which ends up like
+21:47 prologic   hello: 4.2MB
+21:47 prologic   get: 5.2MB
+21:48 prologic   and that's by adding the requests library
+21:48 pdurbin    "I feel the outcome was suboptimal" https://togototo.wordpress.com/2015/03/07/fulfilling-a-pikedream-the-ups-of-downs-of-porting-50k-lines-of-c-to-go/
+21:48 * prologic reads
+22:41 prologic   so
+22:41 prologic   we're going with the name: Val
+22:41 prologic   Val LInux
+22:41 prologic   https://github.com/vallinux/base
+22:51 pdurbin    prologic: short for Valhalla?
+23:04 prologic   no
+23:04 prologic   Swedish for "Choice"
+23:04 prologic   Val is the Linux that lets you choose!
+23:04 prologic   :)
+23:04 prologic   we'll likely have packages for all common things you'd expect
+23:04 prologic   XFCE, GNOME, KDE, etc
+23:05 prologic   still trying to get integrated Docker into it to
+23:05 prologic   why not :)
+23:05 prologic   but need to work out a few dependency issues
+23:06 prologic   mkfs.ext4 (default fs used by devmapepr)
+23:06 prologic   and iptables
+23:33 pdurbin    prologic: ah so it can be a desktop. or for a laptop. (I see an issue for wifi support.) not just for servers
+23:45 prologic   *nods*
+23:46 prologic   we're just re-inventing the wheel so to speak I guess
+23:46 prologic   and redoing some decisions other distros have made
+23:46 prologic   :)
+23:46 prologic   haha
+23:46 pdurbin    prologic: what's wrong with CRUX?
+23:47 prologic   nothing per say
+23:48 prologic   but recent poor communications from the core dev team has led me to this
+23:48 prologic   all over a silly thing really
+23:48 prologic   the introduction of start-stop-daemon from debign
+23:48 prologic   it had the potential to break live systems if you werne't careful
+23:48 prologic   luckily I caught the change in time
+23:48 prologic   also our aging SysVInit usage
+23:49 prologic   and whilst CRUX's ports and package utliite s are awesome and great
+23:49 prologic   it does get a bit tedious sometimes
+23:49 prologic   it would be better IHMO to support the CRUX style Pkgfile(s) and ports
+23:49 prologic   but have first class support for binary packages
+23:49 prologic   built form those sources
+23:49 prologic   so we intend to remain compatible in that sense with CRUX
+23:49 prologic   compatible with their Pkgfile format
+23:49 prologic   and the built packages they produce
+23:49 prologic   essentially TGZ
+23:51 pdurbin    so it's kind of a fork of CRUX
+23:54 prologic   cool
+23:54 prologic   Val builds perfectly on Debian/Ubuntu
+23:54 prologic   not a fork as such
+23:54 prologic   probably more a variant
+23:54 prologic   we actually haven't forked CRUX in any way :)
+23:55 prologic   we may possibly be compatible with Arch's PKGBUILD and packages too
+23:55 prologic   I mean why not right :)
+23:55 prologic   leverage other people's hard work :)
+23:55 prologic   so the package manager will have to be quite resilient and smart
+23:56 pdurbin    gonna support rpms and debs too?
+23:56 prologic   in theory we could
+23:56 prologic   but probably not in the early stages
+23:56 prologic   reason being is they are more complex package formats
+23:56 prologic   whereas CRUX and Arch share the same package format really
+23:56 prologic   TGZ / Tarballs
+23:57 prologic   and if you recall Arch's PKGBUILD is a direct deriviate of CRUX's Pkgfile
+23:57 pdurbin    ah. didn't know that
+23:57 prologic   we're going to support the same Pkgfile directly
+23:57 prologic   btu with some backwards compatible changes
+23:57 prologic   yeah
+23:57 prologic   Arch is basically CRUX in every way
+23:57 prologic   they didn't fork CRUX though
+23:57 prologic   but they learned enough about CRUX"s internals to build what Arch is today
+23:58 prologic   we watched their development happen
+23:58 prologic   and the original authors asking lots of questions in #crux
+23:58 prologic   :)
+23:58 prologic   quite a few years ago now

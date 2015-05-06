@@ -1,0 +1,68 @@
+Time  Nick     Message
+16:16 pdurbin  semiosis: can I show you my Java session problem?
+16:17 semiosis um, ok
+16:18 pdurbin  [dvn-auth] Fwd: User sessions mixed up when Java app deployed to Glassfish is fronted with Apache httpd - https://lists.iq.harvard.edu/pipermail/dvn-auth/2014-October/000020.html
+16:29 semiosis pdurbin: you have exactly one apache/glassfish server?  or are there more than one?
+16:32 pdurbin  exactly one. all on the same box
+16:37 semiosis pdurbin: experiment... what if you use http instead of ajp for the apache-glassfish connection?
+16:37 pdurbin  yeah, that's what's being suggested here: http://shibboleth.net/pipermail/users/2014-October/017895.html
+16:38 pdurbin  maybe AJP is buggy in Glassfish. dunno
+16:38 semiosis tbh, more likely our understanding of AJP is buggy :)
+16:38 pdurbin  in the post it sounds like using mod_proxy_http is less secure
+16:39 semiosis well, it's localhost
+16:39 pdurbin  semiosis: amen to that. I just want something that works
+16:39 semiosis ajp is more performant
+16:39 pdurbin  ok
+16:40 pdurbin  "Yes, I'm suggesting if the issue turns out to be AJP (or to rule that out), you can do what WebLogic does, and use a reverse HTTP proxy in Apache to do the front-ending. You switch the ajp:// forwards to http:// or https:// forwards, and use headers to pass the attribute data in."
+16:40 pdurbin  I guess it's something to try.
+16:40 semiosis also beware, with http proxying you need to enable ProxyPreserveHost -- http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypreservehost
+16:40 semiosis this is automagic with ajp
+16:40 semiosis well, you may not *need* to, but it's probably a good idea
+16:40 pdurbin  so hard to reproduce this bug reliably though. things will be fine for a few hours or days and then suddenly sessions start getting scrambled.
+16:41 semiosis oh that's very interesting
+16:42 pdurbin  yeah. you restart glassfish and httpd and the problem goes away for a while
+16:42 pdurbin  semiosis: thanks for the tip about ProxyPreserveHost
+16:42 semiosis yw
+16:43 semiosis also note, with http proxying your remoteip will be localhost, whereas with ajp glassfish would see the true remote ip
+16:43 semiosis i think apache will put the remote ip in the XForwardedFor header
+16:43 pdurbin  hmm. that's a problem. we have a mandate to support IP groups
+16:43 semiosis tomcat has a RemoteIPValve to address this situation, https://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/valves/RemoteIpValve.html
+16:44 semiosis idk how that works on glassfish though
+16:44 semiosis the tomcat remoteip valve reads the xforwardedfor & xforwardedproto and sets the request remote IP & security
+16:44 pdurbin  Whither IP Groups? - Google Groups - https://groups.google.com/forum/#!msg/dataverse-community/hQO1UDMa-yY/GlhMVIbYR_8J
+16:44 pdurbin  ok
+16:45 semiosis for example, our AWS ELBs handle SSL, and set those two headers, which tomcat then reads so our java app thinks it has a real HTTPS connection to RemoeIP
+16:45 semiosis remember I said our old system had a lot of wizardry?
+16:45 pdurbin  :)
+16:45 semiosis this is part of it
+16:45 pdurbin  so you can see the real remote ip, which is good
+16:46 semiosis apache 2.4 has mod_remoteip, which i look forward to using in the very near future
+16:47 pdurbin  hmm. ok
+16:54 semiosis pdurbin: where are your sessions stored?  in glassfish & apache?  or just glassfish?
+16:56 semiosis in any case, try lowering your session timeouts to something really short... one minute maybe.  i suspect that will either solve or exacerbate the problem.
+17:02 pdurbin  both? dunno
+17:03 semiosis well, i'm pretty sure apache itself doesnt do sessions, although mod_shib may
+17:04 semiosis look at the cookies your client gets
+17:04 semiosis that'll tell you
+18:23 semiosis yes! http://speling.shemnon.com/blog/2014/09/12/maven-javafx-plugin-8-dot-1-released/
+18:29 pdurbin  even when I see the username change in the corner of the app, the JSESSIONID in the cookie is the same (using livehttpheaders in firefox)
+18:30 semiosis well
+18:30 semiosis the plot thickens
+18:38 pdurbin  the cookie crumbles
+18:51 semiosis pdurbin: did you switch to http?
+18:52 pdurbin  not yet
+18:53 semiosis starting to think some bean is being reused between requests without being reinitialized from the new request/session
+18:53 semiosis or perhaps a singleton object
+18:54 semiosis maybe AJP is confusing the request handler because the connection stays up
+18:54 semiosis wild theory
+18:55 pdurbin  semiosis: did you see the thing about beans at http://shibboleth.net/pipermail/users/2014-October/017885.html ?
+18:57 semiosis not until now
+18:58 pdurbin  semiosis: switching "ProxyPass / ajp://localhost:8009/" to "ProxyPass / http://localhost:8080/" works in that I can still get at the app. Not sure if it will fix the problem or not.
+18:59 semiosis how about the remoteip issue?  unless you sort that out everyone will appear as localhost to java
+18:59 pdurbin  yeah, will need to figure that out
+20:50 pdurbin  doesn't "just work" with my shib code. and there are security implications of using request headers: https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPAttributeAccess
+21:15 semiosis pdurbin: why couldn't you do shibboleth in java?
+21:17 semiosis imho, making a java app depend on apache is an antipattern
+21:17 semiosis having been there & done that myself
+23:48 pdurbin  semiosis: about a year ago (!) I tried using a pure Java solution for Shibboleth/SAML: OIOSAML which is based on OpenSAML: https://lists.iq.harvard.edu/pipermail/dvn-auth/2013-October/000002.html
+23:52 pdurbin  but I had all kinds of trouble with it: Investigate use of standard JAXP in OpenSAML 3.0?, was Re: Deploy Shib2 IdP in Glassfish 3 - http://shibboleth.net/pipermail/users/2013-November/012900.html

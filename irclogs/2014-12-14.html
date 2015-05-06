@@ -1,0 +1,137 @@
+Time  Nick       Message
+02:52 pdurbin    oh, I thought you were kidding that that's a thing :)
+07:01 Guest26971 pdurbin, no quite serious
+07:01 Guest26971 there is such a project
+07:01 Guest26971 gopherproject.org
+07:01 Guest26971 #gopherproject
+13:12 pdurbin    I know this site somehow.
+13:12 pdurbin    ah yes, because for a while I used this: TTYtter: an interactive console text-based command-line Twitter client and Perl platform (whew!) - http://www.floodgap.com/software/ttytter/
+15:28 prologic   Oh guess what?
+15:28 prologic   http://www.pythondiary.com/blog/Dec.12,2014/building-gopher-client-django.html
+15:28 prologic   http://www.pythondiary.com/blog/Dec.13,2014/planet-python-now-available-gopher.html
+15:35 pdurbin    "Have you ever wanted to enable your users to access your Gopher server without the need of them installing a browser plugin, installing a standalone software, or using a third part proxy service?"
+15:35 pdurbin    ... can't say that I have
+15:36 pdurbin    tychoish: oh, I was singing ikiwiki's praises yesterday
+16:27 pdurbin    prologic: crux: http://irclog.perlgeek.de/linuxvillage/2014-12-14#i_9804534
+16:28 prologic   ahh nice
+16:36 henson     Setting up public server for first time on an old machine. I've disabled root ssh login (and password login), and installed fail2ban. I've got postfix, ssh, and apache exposed publicly. Any other recommendations?
+16:37 prologic   swap out postfix for esmtp and relay via gmail
+16:37 prologic   swap out apache for lighttpd or nginx
+16:37 pdurbin    henson: welcome! so you're new to rpm distros: https://indiewebcamp.com/irc/2014-12-14#t1418574774491
+16:37 pdurbin    mhayden: henson seems to be getting into selinux, your favorite :)
+16:37 prologic   install docker, learn it, use it :)
+16:38 prologic   my 2c worth :)
+16:38 henson     prologic: So you're running your webservices out of docker? Do you make seperate docker files for each service?
+16:38 prologic   I'll be building a new server soon on hetzner.de
+16:38 prologic   moving away from my physical at codero.com
+16:38 prologic   henson, I do yes
+16:38 pdurbin    henson: I assume you don't allow relaying with postfix, that it's relatively locked down
+16:39 prologic   henson, also setup gopher :)
+16:39 henson     pdurbin: Yeah, just single server, no relay.
+16:39 henson     prologic: Hahaha, that's awesome. I've only read about it old books ;-)
+16:39 henson     prologic: I'm still reading mail from terminal though. Have any imap suggestions?
+16:40 pdurbin    prologic has been on a gopher kick for 3 days
+16:40 prologic   gopher://arrow.shortcircuit.net.au is my Gopherspace for now :)
+16:41 prologic   imap client?
+16:41 prologic   mutt
+16:41 henson     Oh, no, sorry. IMAP server
+16:42 pdurbin    dovecot is probably the default IMAP server on Fedora. I've used Cyrus in the past
+16:42 prologic   oh
+16:42 prologic   dovecot
+16:43 prologic   yeah cyrus or dovecot
+16:43 prologic   but again I do recommend getting into Docker :)
+16:43 prologic   and Dockerizing everything
+16:43 prologic   it'll save you many painful hours later on when you have to figure out how the hell you configured things :)
+16:44 pdurbin    prologic: have you used Puppet, Chef, Ansible, Salt, etc?
+16:45 henson     pdurbin: Ooh! I'm interested in that as well. Not sure which one to pick. I know was popular choice in the past
+16:48 pdurbin    I have the most experience with Puppet but I'm 2 years out of date. Some experience with Salt. Not sure what to recommend. Honestly, I've switched to little shell scripts in Vagrant for now until I decide. :)
+16:50 pdurbin    henson: here's my server config captured in Puppet configs: https://github.com/pdurbin/greptilian-vagrant
+16:52 pdurbin    prologic: that's how I remember what I did :)
+16:55 henson     pdurbin: that's a great idea. installing git now
+16:57 pdurbin    I assume people use Puppet, Chef, etc. with Docker but I don't know.
+17:10 henson     Last question.. ;-)    Favorite Linux IRC client?
+17:10 pdurbin    weechat!
+18:16 pdurbin    GWG: welcome! heh. "server administration tax" https://indiewebcamp.com/irc/2014-12-14#t1418580742718 :)
+18:18 GWG        I was hosting a site for someone ob my server. I just evicted them. They took my load from averaging 0.7 to peaking at 75
+18:18 GWG        They would not take my advice on what not to do
+18:19 GWG        So, I built myself a new server and left.
+18:19 GWG        Then told them that they could move or transfer the old one to their names
+18:20 GWG        I still have a bunch of things I need to build/rebuild. Like better monitoring
+18:22 GWG        When pdurbin mentioned this place, I thought I might learn some things or get ideas lurking
+18:31 pdurbin    GWG: not sure what kind of monitoring you're looking for but this was easy to install: http://munin.greptilian.com
+18:43 bear       I've also used monit for small server counts - http://mmonit.com/monit/
+18:43 GWG        I use monit and collectd, actually
+18:43 GWG        I didn't find Munin suited me
+18:44 GWG        So, this time around, I focused on thinking through my alert conditions much more thoroughly.
+18:44 GWG        So I wouldn't get a flood of useless info and miss the useful info
+18:44 GWG        That's my monitoring issue right now
+18:45 GWG        How to decide what I need to know
+18:45 bear       yep - that's the hard part of monitoring
+18:45 bear       you only know that by setting a value for a threshold, waiting for the alert and then deciding if it was too soon or too late :)
+18:45 bear       because each server environment is different
+18:46 bear       80% drive full warning seems ok unless your app creates 15% space during peak and you run out of disk because of a surge
+18:46 bear       things like that
+18:46 GWG        I learned a lot when those people killed my server
+18:47 bear       doing a post-mortem after *all* server outages is the only way to learn
+18:49 GWG        Then there is collectd, which is graph based monitoring.
+18:49 GWG        I had a lot of pretty graphs
+18:49 bear       that is more accurately called metrics
+18:49 GWG        I felt I didn't take advantage of them
+18:50 pdurbin    bear: have you tried https://github.com/mperham/inspeqtor ? It's new and inspired by monit. I heard about it at http://thechangelog.com/130/
+18:51 bear       inspeqtor looks good - seems to be more for small server setups ... ah, ruby Sidekiq authors... now I get the q in the name :)
+18:53 pdurbin    semiosis: too bad I missed you when you were in town for http://monitorama.com
+18:56 pdurbin    this is a new open source montoring system: http://blog.serverfault.com/2014/11/10/announcing-bosun/
+19:04 pdurbin    I run my IRC client on my only server so I usually find out pretty quickly when it's down. No need for alerts. :)
+20:42 prologic   pdurbin, Puppet and Ansaible
+20:42 prologic   preference towards Ansiable
+20:42 prologic   however these days
+20:42 prologic   preference towards Immutable Infrastructure -- Docker
+20:43 pdurbin    makes sense
+20:43 GWG        I missed the questoin there
+20:45 pdurbin    GWG: http://irclog.perlgeek.de/crimsonfu/2014-12-14#i_9804595
+20:48 GWG        There's a log.
+20:48 GWG        great
+20:48 GWG        Bookmarking that
+20:49 GWG        pdurbin: Wish someone had suggested that before I built a server...could save me if I ever have to move again
+20:49 GWG        Note to self...research that
+20:50 prologic   Yeah Docker ftw
+20:50 prologic   seriously
+20:52 GWG        I like this room...it makes me think of new things
+20:52 GWG        Conversely...you are all giving me a lot of work
+20:54 prologic   indeed :)
+20:54 prologic   Also don't forget gopher :)
+20:59 GWG        Gopher? Who uses Gopher still?
+20:59 GWG        After that, I'll start up my news server
+21:00 GWG        Wait, people still use those
+21:00 prologic   Apparently quite a few folk do
+21:00 prologic   myself included :)
+21:00 prologic   gopher://arrow.shortcircuit.net.au
+21:01 GWG        Interesting
+21:01 GWG        I thought gopher was extinct
+21:01 prologic   far from it
+21:01 prologic   ~3.5M selectors indexed with over ~150 known Gopherspaces
+21:01 GWG        Learn something new every day
+21:03 prologic   I was surprised too
+21:03 prologic   but honestly I'm glad
+21:03 prologic   I think we could revitalize Gopher
+21:03 prologic   and give it a new set of wheels :)
+21:04 prologic   This guy Kevin from Python Diary is another such example
+21:04 prologic   gopher://gopher.veroneau.net/1/
+21:04 prologic   Also: gopher://gopher.veroneau.net/1/Feeds/Planet%20Python -- Planet Python Feeds
+21:05 prologic   And: gopher://gopherpedia.com/1/ -- Interface to Wikipedia
+21:05 prologic   Also I highly recommend Gophernicus as a server if you plan to setup your own Gopherspace
+21:05 prologic   gopher://gophernicus.org
+21:06 prologic   it's very modern, maintained, stable, secure and fast
+21:21 GWG        Hmm...
+21:59 pdurbin    GWG: suggested Puppet or similar?
+22:05 GWG        I just haven't gotten to deployment
+22:10 sivoais    has anyone tried CFEngine? I'm amazed that it supports Android deployment
+22:11 sivoais    it looks like a solid piece of software
+22:20 pdurbin    sivoais: I know a guy who used to swear by it and was excited about the rewrite for version 3
+22:22 pdurbin    not sure what it would have to do with android dev though
+22:22 sivoais    there seems to be a Scala-based frontend tool that uses it <http://en.wikipedia.org/wiki/Rudder_(software)>
+22:23 sivoais    pdurbin: I think it is for provisioning devices in enterprises where people have a company phone/tablet
+22:23 sivoais    and those need to be locked down
+22:24 pdurbin    ah. ok
+22:25 sivoais    more info here <http://cfengine.com/company/blog-detail/untethered-cfengine-hitches-a-lift-on-android/>
+22:34 * pdurbin  is glad he isn't in the business of locking down people's phones

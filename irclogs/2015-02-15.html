@@ -1,0 +1,111 @@
+Time  Nick    Message
+13:02 dotplus pdurbin: my orgs were visible. Without looking into *at all* this sounds like a very scary "all your repos are belong to ... someone" permission granter.
+13:02 dotplus the sort of thing you might expect to see when downloading some shady phone app.
+13:45 pdurbin dotplus: it *does* seem shady. like an app that's requesting too much permission, perhaps. I'm still confused by the whole thing. I took the advice from bene and opened an issue: https://github.com/mozillascience/site/issues/11
+13:46 pdurbin I put a couple screenshots in there. Do they help explain my security concerns?
+14:06 pdurbin mhayden and codex: you're both security-minded. What do you think of that issue I opened?
+15:35 mhayden pdurbin: which?
+15:36 pdurbin mhayden: https://github.com/mozillascience/site/issues/11
+15:36 mhayden oof
+15:36 mhayden that looks less than good
+15:38 pdurbin mhayden: but is the problem that the app is requesting too much permission? Or is the problem with GitHub's defaults?
+15:38 mhayden that i'm not sure about
+15:38 mhayden it's been a while since i messed w/github oauth
+15:40 pdurbin you see why I didn't click "Authorize application" :)
+15:42 pdurbin mhayden: here's where I argue a bit that GitHub's defaults are weird: http://irclog.greptilian.com/sourcefu/2015-02-14#i_97077
+15:42 pdurbin mhayden: you could make a blog post about it! :)
+15:46 pdurbin codex: you blog about security stuff too :)
+15:46 pdurbin it could be a race!
+17:08 bene    ah, i guess i'm not bpeisenbraun
+17:08 bene    i'm bene@klatsch.org
+17:08 bene    https://github.com/bpeisenbraun is me
+17:08 bene    no idea
+17:08 bene    github says your page is 404
+17:10 pdurbin bene: you don't see a pending invitation?
+17:10 bene    no
+17:11 pdurbin Pending invitations
+17:11 pdurbin Ben Eisenbraun
+17:11 pdurbin bpeisenbraun
+17:11 pdurbin Ben Eisenbraun
+17:11 pdurbin Invitations are sent via email and can be accepted at https://github.com/crimsonfu
+17:11 bene    ah, when i go to the main page i see it
+17:12 bene    i'm a member of your herd now
+17:12 bene    and i see the oauth-test thing
+17:15 pdurbin bene: and I see you at https://github.com/orgs/crimsonfu/people (when I'm logged in). I gave you the lowest membership possible. Read only. But now... do you see crimsonfu listed when you go to http://www.mozillascience.org/auth/github ?
+17:15 bene    yeah, i saw that before though
+17:16 bene    https://www.dropbox.com/s/isuzu2icpfij0l9/Screenshot%202015-02-15%2012.15.54.png?dl=0
+17:16 pdurbin bene: ok, and if you hover over the green checkmark you see the same "This organization allows the application to access private organization data and modify public organization data" ?
+17:17 bene    https://www.dropbox.com/s/sif643mogx63te0/Screenshot%202015-02-15%2012.17.30.png?dl=0
+17:18 pdurbin ok. so you do. so weird
+17:18 pdurbin bene: want to go ahead and click "Authorize application"?
+17:19 pdurbin (we can trust these people, and crimsonfu has nothing to hide)  :)
+17:21 pdurbin bene: take your time. I'm heading out to shovel my sidewalk. Record snow at the Blue Hills: https://twitter.com/bhobservatory/status/566973319917096960
+17:22 bene    i'm reading the github oauth docs
+17:45 bear    pdurbin - I ran into this issue last week with a client of ours who is using github oauth for their app
+17:46 bear    I advised our dev team to create new/temp github accounts to test the app with because it was asking for such an open permission set
+19:13 pdurbin bear: ok, so I'm not crazy. thanks :)
+19:14 pdurbin bene: yeah, looking at github's oauth docs is what prompted me to comment on a specific commit: https://github.com/mozillascience/site/commit/0456491dbd8627757f85ecf1076f6fb534bdab68#commitcomment-9748672
+19:14 bear    yea, it seemed very aggressive such that I don't think anyone using github oauth is even aware of how much it asks for (they probably don't deal with a lot of multiple org people like ourselves)
+19:17 pdurbin bear: yeah, but doesn't it seem like all it takes if for me as an owner of an org to create a read-only team, add someone as a member (like I did with bene) and then that person has the authority to allow an application to access access private organization data and modify public organization data? Seems crazy.
+19:18 bear    yea, very - anyone who is a non-employee enjoying access to a single repo can open up our entire org
+19:21 pdurbin exactly!
+19:23 pdurbin bear: and if bene (part of a read-only team) clicks "Authorize application" will I as the owner of the crisonfu org even know that he opened up the org to that application by looking at https://github.com/organizations/crimsonfu/settings/oauth_application_policy ? It's unclear.
+19:24 bear    that is also my issue - I only discovered it because I was signing on to a test application the dev team was being asked to use so I saw the permission list
+19:24 bear    otherwise I would have been completely clueless
+19:24 pdurbin bene: did you click "Authorize application"? That screen hasn't changed. It still says "Policy: No restrictions... All applications authorized by organization members have access to crimsonfu's data." Again, this seems to be the default for all orgs.
+19:26 bear    it appears that each org can set: /settings/oauth_application_policy/
+19:26 pdurbin oh, sure, I'm just arguing that there should be secure defaults.
+19:29 bear    same
+19:29 bear    and it's not obvious from the org profile view what permissions a dev has granted an app once the org admin "grants" access
+19:30 pdurbin well, I'm hoping that if bene clicks "authorize application" I'll be able to tell from that screen. but I'm not holding my breath
+19:32 pdurbin I mean, the takeaway seems to be the owners of every organization on GitHub should click the "Setup application access restrictions" button but there's a *long* list of things that will stop working (deploy keys, etc.) when you do: https://help.github.com/articles/about-third-party-application-restrictions/
+19:34 pdurbin so I'm quite reticent to click that button before announcing the change to my team that stuff like deploys might stop working
+19:35 bear    yea, that is what i'm working thru now also
+19:35 bear    I just clicked it for our main repo because it has a lot of client data contained within it - going to have to deal with "why did this break?" questions
+19:42 pdurbin bear: better you than me when I'm about to go on vacation ;)
+19:42 bear    ouch - yea, not a good time to experimient with that for you
+19:44 pdurbin I'm hoping we make it out of Boston: https://twitter.com/philipdurbin/status/566935963944112128
+19:44 bear    wow - that's even more snow for your area - crazy
+19:45 pdurbin my five year old just helped me clear off the car: https://www.youtube.com/watch?v=TGEIe-3sHxA
+19:50 bear    haha - he's such a great helper! (even with the snow being taller than he is!)
+19:56 pdurbin yeah, she's great. and thank goodness that isn't my car the huge icicle is hanging over: https://plus.google.com/photos/+PhilDurbin/albums/6116162267094458817
+20:01 bene    i clicked teh button
+20:02 bene    but i don't really want to join the moz science group
+20:02 bene    all right
+20:02 bene    i did it just for you phil
+20:02 pdurbin \o/
+20:02 pdurbin bene: you're the best
+20:02 bene    grab your screenshots and let me know when you're done so i can drop it :-)
+20:03 pdurbin bene: unfortunately, as expected, I can't tell you've "opened up" the crimsonfu org to that app. https://github.com/organizations/crimsonfu/settings/oauth_application_policy looks the same.
+20:03 pdurbin bene: you can drop it. thanks much
+20:05 bene    https://www.dropbox.com/s/iice1mbnanu6mpt/Screenshot%202015-02-15%2015.04.58.png?dl=0
+20:05 bene    that's what it shows for me
+20:09 pdurbin bene: thanks. hmm. I thought the "Organization access" would be more underneath the "Mozilla Science Lab" app.
+20:11 pdurbin but I assume if you click "Revoke access" that "Organization access" goes away
+20:11 bene    taht's what it looks like
+20:12 pdurbin bene: it all went away?
+20:15 bear    oops - didn't mean to assume "he" for your 5yr old - apologies to her!
+20:15 bene    yes
+20:16 pdurbin bear: heh. no worries
+20:16 pdurbin bene: ok, thanks
+20:19 pdurbin bear: I'm just happy you're picking up what I'm putting down about the weird GitHub defaults.
+20:20 * bear  nods
+20:20 bear    I would suggest that you send that to security@ as a vulnerability
+20:23 pdurbin yeah. it's hard to explain though
+20:24 bear    "an organization owner has zero visibility into permissions granted by other org owners"
+20:25 pdurbin well, it's worse than that
+20:25 bear    "an organization owner has zero visibility into permissions granted by other org members"
+20:25 pdurbin because *members* of read-only teams can apparently grant access
+20:25 pdurbin oh wait
+20:25 bear    yea, was trying to work that part into
+20:25 pdurbin that's what you said :)
+20:25 bear    but your because statement really sets the tone for why it's bad
+20:26 bear    we would almost have to create a test org for this
+20:26 bear    and then screen shot the heck out of it
+20:28 pdurbin bear: ok, I filled out the form after clicking "GitHub support" at the bottom of https://help.github.com/articles/github-security/ ... linked back to this chat. better than nuthin'
+20:28 * bear  nods
+20:44 pdurbin bear: oh, it seems like they should add something to https://help.github.com/articles/keeping-your-organization-secure/
+20:44 bear    yea, that page should definitely have a blurb about third party apps
+20:45 pdurbin bear: I think this whole whitelisting of apps idea is only a month old: https://github.com/blog/1941-organization-approved-applications
+20:46 bear    that makes me happy - as it means I haven't been ignorant of this hole for long
+20:47 pdurbin heh

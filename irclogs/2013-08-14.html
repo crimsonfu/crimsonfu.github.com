@@ -1,0 +1,20 @@
+Time  Nick     Message
+15:43 semiosis mhayden: this is really cool stuff! https://plus.google.com/u/0/101646943125332675164/posts/WDxDrYsgJxQ
+15:43 semiosis security analysis of dropbox
+16:53 mhayden  semiosis: pretty deep analysis, isn't it?
+16:54 semiosis i only read the first page since i'm at work but sounds like they've got some good stuff.  i'm looking forward to reading the rest later
+17:20 whorka   it's a pretty thorough decompile and reverse engineering of the API, with the potential now to create an open-source dropbox client
+18:46 semiosis until they change things
+20:43 semiosis trying git-bisect for the first time.  this looks super cool
+20:43 semiosis http://git-scm.com/book/en/Git-Tools-Debugging-with-Git#Binary-Search
+22:23 pdurbin  mhayden: pdf? oh man
+22:24 pdurbin  at least there's an abstract: https://www.usenix.org/looking-inside-drop-box
+22:25 pdurbin  yeah this is good stuff
+22:26 pdurbin  you guys might also enjoy this (I did): https://www.ksplice.com/doc/ksplice.pdf
+22:26 pdurbin  it's also linked from here: https://www.ksplice.com/paper
+22:27 pdurbin  oh and I've definitely heard good things about git-bisect. there's some tool that's build on top of it...
+22:28 semiosis sadly it didnt help me
+22:28 semiosis i dont think we introduced the bug in our code
+22:30 pdurbin  oh
+22:30 pdurbin  well, here's the tool I was thinking of: https://github.com/mhagger/git-imerge
+22:30 pdurbin  via http://episodes.gitminutes.com/2013/06/gitminutes-12-git-merge-2013-part-4.html
