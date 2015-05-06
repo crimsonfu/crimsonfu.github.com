@@ -1,0 +1,56 @@
+Time  Nick      Message
+00:09 melodie   this topic has been posted at the LinuxVillage forum today: If you're a freedom lover, here's something you should be aware of - http://beta.linuxvillage.net/index.php/topic,353.0.html
+00:10 melodie   the article itself is scary
+00:10 melodie   methinks...
+00:14 pdurbin   something about https://en.wikipedia.org/wiki/Bilderberg_Group ?
+00:14 pdurbin   which I've never heard of
+00:15 melodie   pdurbin I have heard of before
+00:15 melodie   ues, there is something about them at the page you point to
+00:17 semiosis  crazy conspiracy theories
+00:18 melodie   semiosis perhaps, or not
+00:18 semiosis  lol
+00:18 melodie   pdurbin do you easily read long pages at the screen ?
+19:20 melodie   hi
+19:21 melodie   is someone around?
+19:22 larsks    What's up?
+19:22 melodie   hi larsks
+19:23 melodie   someone asking a question related to bash in #linuxchix at irc.linuxchix.org : I am waiting to see if she pops up here
+19:23 larsks    Okee dokey. Happy to help out if I can.
+19:24 melodie   nice!
+19:30 melodie   hi soulshake !
+19:30 soulshake o/
+19:30 melodie   larsks here is the question which was asked
+19:30 melodie   <aj> can somebody enlighten me as to the purpose of this construct in a sh script?     if [ "o$2" != 'o' ]; then
+19:30 melodie   <aj> what is with the 'o' in that context?
+19:30 melodie   <aj> (trying to read somebody else's code)
+19:30 melodie   <aj> it looks to me like they were trying to test if $2 is empty, in a weird roundabout way
+19:30 melodie   larsks what do you think?
+19:37 larsks    I believe in old versions of the Bourne shell, if "$2" evaluated to an empty string it could cause problems. So putting that "o" there guarantees that the string will never be empty.
+19:37 larsks    You see that, for example, in GNU autoconf scripts (which try to be as portable as possible).
+19:38 larsks    Here: http://stackoverflow.com/questions/6852612/bash-test-for-empty-string-with-x
+19:40 soulshake interesting! thanks
+19:40 melodie   this is very interesting
+19:41 melodie   larsks what about recent versions of the Bourne shell ?
+19:41 melodie   no problem with $2 produces an empty string?
+19:43 larsks    If you read the answer on stackoverflow, you'll note it's not just empty strings but also variables that start with "-" (or possibly other characters).  With bash, at least, this isn't a problem: given $foo="-gt", I can run '[ "$foo" ]' without errors.
+19:43 larsks    Don't know about other shells.
+19:43 larsks    I think in general if you quote your variable expansion ("$2") you're okay.
+19:43 larsks    Bash and other modern shells also have the '[[ ... ]]' operator which has slightly saner semantics than the traditional Bourne shell test.
+19:52 melodie   what is the difference between "traditional Bourne shell" and "BASH" which means "Bourne Again SHell" as I was told?
+19:52 melodie   when is the frontier?
+19:52 melodie   or version number? Or is it a complete rewrite?
+19:53 melodie   as far as you know...
+19:53 melodie   me newbie forever :)
+19:54 larsks    Well, Bash supports most traditional Bourne shell syntax plus a number of its own extensions.
+19:55 melodie   ok, thanks for the explanation
+19:55 larsks    "Traditional Bourne shell" means something that complies with (I think) the POSIX requires for /bin/sh.  You don't see them too much in practice...but for example, some Debian or Ubuntu may use "dash", so bash extensions aren't available in /bin/sh.
+19:55 larsks    This is why you should always use /bin/bash if you expect to use bash extensions.
+19:56 melodie   instead of ? of /bin/sh perhaps ?
+19:57 melodie   yes, I just reread what you just said
+19:57 melodie   now i understand the difference
+20:08 ben_e     the BSDs all use some stripped down version of /bin/sh that is neither bash-derived nor dash
+20:08 ben_e     http://svnweb.freebsd.org/base/releng/9.1/bin/sh/ <- e.g.
+20:37 semiosis  just did a little inspecting of the new google play music all access stream & found 320k MP3 inside
+20:37 semiosis  not too shabby
+21:11 ben_e     beer o'clock
+21:11 pdurbin   soccer practice o'clock
