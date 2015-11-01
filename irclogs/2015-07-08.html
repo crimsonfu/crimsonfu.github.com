@@ -1,0 +1,44 @@
+Time  Nick         Message
+00:22 pdurbin      hydrajump: find with -exclude?
+00:24 pdurbin      oh, I guess I was thinking of -prune
+00:24 pdurbin      find . -path './sites' -prune -o -path './logs' -prune -o -path './stats' -prune -o -perm -u+w -exec ls -ld {} \;
+02:33 mhayden      hydrajump: i have!
+15:08 SunyataZero_ Hi all can i ask a question about choosing a cms? (I was recommended to go here from a person at #openstack)
+15:17 SunyataZero_ I'm helping an organization that works with people who come to this country (Sweden) understanding different languages (including right-to-left) and some who are disabled (difficulties to see for example) I'm going to build a new website for them and i was wondering which of the big three CMSs you would recommend for multi-language and accessability? Wordpress, Drupal 8, Joomla (I've read that Drupal 8 has improvements in t
+15:18 pdurbin      SunyataZero_: I think your message was cut off a bit: http://irclog.perlgeek.de/crimsonfu/2015-07-08
+15:19 SunyataZero_ alright, i'll try again
+15:19 SunyataZero_ I'm helping an organization that works with people who come to this country (Sweden) understanding different languages (including right-to-left) and some who are disabled (difficulties to see for example)
+15:19 SunyataZero_ I'm going to build a new website for them and i was wondering which of the big three CMSs you would recommend for multi-language and accessability?
+15:19 SunyataZero_ Wordpress, Drupal 8, Joomla (I've read that Drupal 8 has improvements in these areas so if going with Drupal it would be 8 and not 7)
+15:19 SunyataZero_ Grateful for any help!
+15:20 SunyataZero_ pdurbin: thank you for recommending this channel
+15:20 pdurbin      well, I started it: http://crimsonfu.github.io/2012/01/30/introducing-crimsonfu.html :)
+15:35 pdurbin      SunyataZero_: so I just chatted with a guy who works on http://theopenscholar.org which is based on Drupal. I'm going to send him a link to your questions.
+15:36 SunyataZero_ thank you!
+15:38 pdurbin      SunyataZero_: what's the best way to get in touch with you?
+15:41 SunyataZero_ pdurbin: Oh, you can reach me at tord.dellsen@gmail.com
+15:41 SunyataZero_ pdurbin: thanks again, really!
+15:42 pdurbin      SunyataZero_: you might want to ask at http://webapps.stackexchange.com
+15:45 SunyataZero_ pdurbin: Alright i'll do that, thank you
+15:45 pdurbin      SunyataZero_: please post a link if you do
+15:45 hydrajump    pdurbin: I ended up solving it like this last night https://gist.github.com/hydrajump/4b817dbe5a2fdced39f9
+15:46 pdurbin      hydrajump: cool
+15:46 hydrajump    I saw your solution after I was done so I didn't get a chance to test it
+15:54 SunyataZero_ pdurbin: Ok, here is the link: http://webapps.stackexchange.com/questions/80016/best-cms-for-multi-language-and-accessability
+15:59 pdurbin      SunyataZero_: looks great
+15:59 bene         for i in * ; do if [ -d "$i" ] && ! $(echo "$i" | egrep -q 'notA|notB|notC') ; then mv -v $i ../ ; fi ; done
+15:59 bene         or something similar if you want to do it all in one command
+16:00 bene         when parsing * output you need to mind your IFS and watch for spaces, etc too
+16:02 SunyataZero_ pdurbin: this is a great place, thank you for recommending this channel
+16:03 pdurbin      I like it here. So geeky. :)
+16:05 bene         NERD
+16:06 bene         . o O ( <pdurbin> This is my happening, and it freaks me out! )
+16:12 hydrajump    bene: thanks yeah in my case all the dirs where numeric without spaces, so I didn't need to validate the names
+16:13 pdurbin      bene: we should have lunch sometime. I forget if you're still around at lunchtime though.
+16:13 * pdurbin    is hungry
+16:14 bene         i can be
+16:14 bene         i WFH 1-2 days/week
+16:14 bene         otherwise i'm down by south station
+16:14 pdurbin      ah. right
+17:45 bene         maybe friday
+17:47 * pdurbin    pencils bene in

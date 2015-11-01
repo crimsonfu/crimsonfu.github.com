@@ -1,0 +1,23 @@
+Time  Nick      Message
+14:39 pdurbin   on centos apache (httpd) makes used of setuid, right? I was looking for a good reference for this for https://github.com/IQSS/dataverse/issues/1934#issuecomment-119988778
+14:47 pdurbin   I poked around at init scripts but couldn't find anything using setuid.
+15:57 bene      it's not setuid
+15:58 bene      the process that binds to 80/443 is run by root
+15:58 bene      it passes the connection to the non-root children
+15:58 bene      and spawns more children in response to load demand
+16:01 bene      i think the only reason it requires the initial root process is to bind the ports under 1024
+17:14 hydrajump https://www.kickstarter.com/projects/slidenjoy/slidenjoy-double-or-triple-your-screens
+19:18 pdurbin   bene: yeah, that makes sense, no setuid. and if you run `ps` you can plainly see that one httpd is running as root. on centos anyway. I guess this is a good explanation: http://serverfault.com/questions/355223/centos-httpd-running-as-both-root-and-apache-user/355230#355230
+19:28 bene      yeah, you can run entirely without root as long as you aren't binding ports < 1024
+19:28 pdurbin   it reminds me of how sendmail runs as root
+19:31 bene      i have not run sendmail for anything serious in 15+ years
+19:31 pdurbin   I was about to add "if anyone remembers sendmail"
+22:11 pdurbin_m Is there a place that offers free hosting for mailing lists AND data liberation (ability to download the archived messages)?
+22:18 hydrajump pdurbin_m: maybe http://librelist.com/
+22:32 pdurbin_m hmm, rysnc. nice
+22:37 hydrajump mhayden: have you used alpine? If so what do you think compared to debian/ubuntu?
+22:47 pdurbin   hydrajump: what am I doing wrong? I'm trying to do this, for example, to rsync email from a random list: rsync -azv librelist.com::archives/attic/2015/06/28/queue
+22:48 pdurbin   that is, I'm trying to follow http://librelist.com/help.html ... does it work for you?
+22:53 hydrajump I haven't tried. I just recalled librelist as a possible answer to your question, but I have no experience using it :(
+22:54 hydrajump is it possible that you can't do it with someone else's list?
+22:57 hydrajump pdurbin: old issue https://github.com/mitsuhiko/flask/issues/682

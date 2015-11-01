@@ -1,0 +1,30 @@
+Time  Nick       Message
+13:50 tfhartmann does any know know of a kernel parameter that can be passed to anaconda to load a module?  I've got an issue where I'm loading the CentOS 6.5 after PXE booting off Mellanox 40g interfaces, the installer starts, but doesn't load the module. I can drop to a shell and load it manually
+13:51 tfhartmann thought I'd throw it out to the wild and see if anyone had any thoughts
+14:02 pdurbin    tfhartmann: hmm, nothing is jumping out at me at http://rhinstaller.github.io/anaconda/
+14:02 pdurbin    there's some modprobe stuff at https://github.com/rhinstaller/anaconda/blob/master/dracut/anaconda-modprobe.sh
+14:02 tfhartmann yeah, been combing through that page, and a number of others hoping for some light at the end of the tunnel :p
+14:04 pdurbin    tfhartmann: maybe you can do the install off a "normal" interface and then switch to the Mellanox one later.
+14:16 bene       loadmodules=mod1,mod2,mod3 on the kernel command line maybe?
+14:22 tfhartmann is there a loadmodules parameter? That would be awesome!
+14:22 tfhartmann
+14:22 bene       it's not in anaconda though
+14:22 bene       it's a kernel parameter in grub/pxe land
+14:23 bene       so like: kernel /path/to/vmlinux loadmodules=mod1,mod2
+14:23 bene       in the pxe config
+14:23 bene       i may not be understanding where you're getting stuck
+14:24 bene       since you can pxe boot off the mellanox interface?
+14:24 tfhartmann man that sounds exactly like where i'm getting hung up, I'll give it a try and report back.  :)
+14:28 bene       http://distro.ibiblio.org/fatdog/web/faqs/boot-options.html <- search for loadmodules
+14:28 bene       i have no clue what fatdog is
+14:29 bene       maybe that's not legit at all, but it looks like linux to me
+14:32 tfhartmann LOL I just finished a test using "waitdev" to see if that would work too
+14:39 tfhartmann aww loadmodule=mlx4_en didn't help :/
+14:43 pdurbin    bene: you're fired
+14:48 pdurbin    ;)
+14:53 pdurbin    tfhartmann: I take it that's what you're using when you drop to a shell
+14:54 tfhartmann yeah just doing a modprobe mlx4_en  to load the module from the shell
+14:58 pdurbin    tfhartmann: what about doing the install on another interface?
+14:59 tfhartmann yeah, I think thats where I'm headed, do the build off a 1g interface then down it post kickstart :/
+15:00 pdurbin    yeah
+15:01 pdurbin    could ask some people who have that mellanox adapter what they do

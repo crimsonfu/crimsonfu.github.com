@@ -1,0 +1,39 @@
+Time  Nick      Message
+01:26 prologic  I had a look at my customers' instances this morning
+01:26 prologic  each container averages ~16-30MB of memory utilization
+01:26 prologic  so yeah
+01:27 prologic  there is no way my customers are going to pay $16 for their hosting vs. $5
+08:42 hydrajump prologic: have you looked at what it would cost you to run your service on DO or AWS and whether charging $0.10 per container would even cover the cost of operating the infrastructure+support etc?
+09:22 prologic  good question
+09:22 prologic  I presently run everything on DO anyway
+09:22 prologic  I have 2 customers hosted on DO
+09:22 prologic  and usually run my own stuff too on there; but atm I'm not
+09:23 prologic  But yeah I'm typically running anywhere from 8 to 12 containers on various hosts
+09:23 prologic  so at $0.10/month that works out to be quite cost effective
+09:25 prologic  both customers are running 8 containers each on $5/month DO vms
+09:25 prologic  so that's about $0.62/month per container
+09:25 prologic  much less than Joyent's $2 per container per month minimum
+11:55 hydrajump I've never used DO, but I was thinking that if you were going to do this on AWS probably worth considering using their ECS service.
+12:06 prologic  AFAICT using ECS is not more advantageous than using regulsr Docker
+12:06 prologic  and/or with Docker Compose
+12:06 prologic  I think ECS just works nicely with the rest of the AWS API(s)
+12:06 prologic  The way I run things at the moment is with DO instances and autodock
+12:07 prologic  See: https://github.com/prologic/autodock-paas
+12:07 prologic  which (btw) works remarkably well :)
+12:07 prologic  I believe a few other companies have started using autodock internally as well
+12:35 pdurbin   searchbot: lucky aws ecs
+12:35 searchbot pdurbin: http://aws.amazon.com/ecs/
+12:35 pdurbin   ah. "Amazon EC2 Container Service (ECS) is a highly scalable, high performance container management service that supports Docker containers." neat
+12:56 mhayden   pdurbin: feels like i need a Ph.D. to use it though
+12:56 mhayden   i'm waiting to see a container mgmt platform that doesn't feel like that ;)
+13:02 pdurbin   heh
+13:02 pdurbin   mhayden: maybe try prologic's thing
+14:04 hydrajump mhayden: doesn't rackspace have a docker service :P
+14:04 * mhayden winks
+22:24 prologic  openshift
+22:24 prologic  :P
+22:34 pdurbin   prologic: had you heard of openshift before I dropped that link at http://irclog.greptilian.com/sourcefu/2015-07-29 ?
+22:35 prologic  yes :)
+22:35 prologic  Just wasn't aware they were rewriting it to obd Docker native
+22:36 pdurbin   yeah, me neither. it used to be in Ruby. looks like the rewrote it in Go for version 3 that supports Docker
+22:42 prologic  seems that way yeah

@@ -1,0 +1,45 @@
+Time  Nick      Message
+12:03 arcanine  does any one know of a good place to start when your email server has been blacklisted and accused of sending out spam?
+12:06 prologic  contact the maintainers of the backlists
+12:06 prologic  and explain the situation nicely
+12:07 prologic  and request the IP / IP-Range to be removed
+12:07 prologic  Then fix your system(s) (well beforehand :P)
+12:09 pdurbin   arcanine: yeah, as prologic indicated, make sure you're innocent first :)
+12:10 arcanine  well I've already submitted the IP address for removal and now the server is back in the list, so it seems like they're detecting something the problem is I don't even know where to begin looking to ensure the server isn't inject or being spammy
+12:10 arcanine  their language was "It shows signs of being infected with a spam sending trojan, malicious link or some other form of botnet."
+12:11 arcanine  the server is an ubuntu box running a couple of websites
+12:14 arcanine  hmm I'll try contacting them to see if they can be more specific
+12:14 prologic  run a spam test suite against your server
+12:14 prologic  there are many such tools online
+12:14 prologic  that's the first thing to do
+12:15 prologic  in general; don't allow inbound SMTP access
+12:15 prologic  except for local delivery to *known* mailboxes
+12:15 prologic  Ubuntu you say?
+12:16 prologic  Is it running postfix, exim or similar?
+12:16 prologic  it's highly likely it's an open relay (common mistake)
+12:16 prologic  or (unlikely) you *could* have been r00ted
+12:16 prologic  and you do indeed have some macilcious software on the box sending outbound mail
+12:17 prologic  any open unsecured accounts on the server you aware of? :)
+12:17 prologic  or suspecious of
+12:23 hydrajump arcanine: http://www.dnsstuff.com/ has some good tools you can use. You can register for a free 30 day trial
+12:24 mhayden   happy monday, folks
+12:27 arcanine  erm I'll try and check prologic
+12:28 arcanine  hm /etc/passwd doesn't seem to have anything super unusual in it though I'm not really sure what I'm looking for, tbh I don't know what we use for outbound emails on this machine I'll try and figure it out
+12:28 prologic  happy to (for a fee?) login to your box and do some investigative work? :P
+12:31 arcanine  looks like postfix, that's ok, the boss is out at the moment we do have a friend who's a linux guy but I don't like to keep bothering him
+12:31 arcanine  thank you for the offer though
+12:39 prologic  well I can take a quick looksie if you like
+12:40 prologic  but yeah do a spam test against it
+12:40 prologic  http://mxtoolbox.com/diagnostic.aspx
+13:16 hydrajump mhayden: happy monday to you too :P
+13:16 hydrajump mhayden: why would one want to do this "current status:
+13:16 hydrajump # rm /dev/urandom; dd if=/dev/zero of=/dev/urandom bs=1M count=1
+13:17 mhayden   WAT
+13:17 hydrajump I assume it has something to do with security?
+13:17 hydrajump mhayden: https://twitter.com/whitequark/status/621486489902403584
+13:17 mhayden   sounds like they want to generate random numbers debian style :P
+13:18 mhayden   color me confused
+13:18 mhayden   if they have an FPGA supplying random numbers, it should be coming out through /dev/hwrandom
+13:18 mhayden   https://www.kernel.org/doc/menuconfig/drivers-char-hw_random-Kconfig.html
+13:20 hydrajump so nothing to see here really
+13:26 mhayden   yeah, i'm confused

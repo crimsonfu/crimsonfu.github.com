@@ -1,0 +1,47 @@
+Time  Nick     Message
+00:34 pdurbin  prologic: people here might know about ZFS
+00:36 prologic ahh
+00:36 prologic anyone here a zfs expoert and/or SMARRT wizard? :)
+00:39 pdurbin  prologic: SMARRT with 2 Rs?
+00:43 bene     it's verruh SMARRT
+00:44 pdurbin  wicked smaht
+00:44 prologic eh?
+00:45 pdurbin  prologic: what's your question?
+00:46 prologic Okay
+00:47 prologic my question is:
+00:48 prologic Should I just replace the disk /dev/sdf that last night reported an increased error count from 7 to 8? I'm doing a scrub atm (normally I do once/month via crond). It's a RAID-Z2 so I'm not that worried; but just what's best practice here? smartctl -a /dev/sdf (https://gist.github.com/39c9365994e4e98a7371) seems to indicate all 8 errors are CRC errors; so the drive is producing CRC errors?
+00:49 prologic Also:
+00:49 prologic $ zpool status
+00:49 prologic pool: data
+00:49 prologic state: ONLINE
+00:49 prologic scan: scrub repaired 0 in 0h27m with 0 errors on Sat Aug 22 10:35:01 2015
+00:49 prologic So I'm not sure really what to do here
+00:49 prologic the pool is not reporting any issues despite the CRC error count increases
+00:52 pdurbin  I guess replace it. If it's cheap.
+00:54 pdurbin  or it's enough to convince the vendor to send you a new one. NetApp was always good about this
+00:57 pdurbin  they also cost an arm and a leg, of course :)
+01:28 prologic well these drives aren't cheap
+01:28 prologic and they are still under warrenty
+02:05 prologic someone just mentioned in #zfsonlinux that CRC errors usually mean a bad SATA cable
+02:06 prologic and that the drive is probably fine (not reporting any critical sector/read errors)
+02:08 pdurbin  hmm. ok
+02:10 prologic hey this is all new to me :)
+02:10 prologic I'm just trying to find practical sound advice
+02:10 prologic from more experience persons :)
+02:11 prologic rung the shop I bought them from and he said to bring it in for replacement (seems to know about SMART stuff); said it'd take 3-4 weeks to RMA
+02:11 prologic so I'd have to buy a new driver anyway (which they have none of that even closely match the other 9 I have!)
+11:18 pdurbin  prologic: cool. so you were able to convince them to RMA it
+14:27 bene     in the US most of the drive manufacturers offer advance RMAs for a $5-10 fee
+14:27 bene     takes 2-3 days in my experience
+14:27 bene     they send you a new drive and prepaid return mailer for the dead one
+14:27 bene     well worth it from my POV
+14:28 bene     but that drive doesn't look like it's in bad shape to me
+14:28 bene     the cable swap might be worth trying though
+14:28 bene     similar advice here: https://ata.wiki.kernel.org/index.php/Libata_error_messages
+14:28 bene     (search for ICRC)
+15:56 pdurbin  I wonder if this will be any good: http://www.devopsdays.org/events/2015-boston/
+16:50 bene     sold out
+17:54 pdurbin  huh. I couldn't even tell what the talks are
+20:34 bene     if you're on the boston devops meetup list you get the announcements about that conference when it's still open
+20:38 pdurbin  oh. I think I heard about it at http://theshipshow.com/2015/08/managing-the-communityops/
+20:38 pdurbin  bene: is there a list of talks?

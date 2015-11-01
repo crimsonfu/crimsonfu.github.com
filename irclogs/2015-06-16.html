@@ -1,0 +1,29 @@
+Time  Nick      Message
+00:24 pdurbin   searchbot: lucky tarsnap
+00:24 searchbot pdurbin: http://www.tarsnap.com/
+01:44 mhayden   hydrajump: i have once or twice... now i just use duply/duplicity
+01:45 mhayden   lots of cheap backends there
+10:43 hydrajump mhayden: so was your choice to not use tarsnap based on its cost and dependency on aws?
+12:04 mhayden   i can't remember the cost differences but i just felt like my data was more accessible if i used duply/duplicity with another storage backend
+12:04 mhayden   emailing someone to clear out a backup for me feels weird in 2015
+12:04 mhayden   i generally use rackspace cloud files (i'm biased) or google cloud storage for my duplicity backups
+12:04 mhayden   google's reduced redundancy is ~ $0.02/gb IIRC
+12:05 mhayden   https://cloud.google.com/storage/pricing $0.026 for regular down to $0.01 at cheapest
+12:06 mhayden   although the nearline comes with some hazards -- they don't expect you to touch it regularly
+15:09 pdurbin   bene codex larsks: let me know if you'd like to go with me to this someday: http://wiki.mako.cc/Grendel%27s_Den_on_Sundays
+15:19 hydrajump mhayden: yeah I'm still on the fence regarding tarsnap. I'm primarily looking for an open source backup solution for Mac OS X to off-site cloud storage preferably AWS S3. Finding such a solution is not easy that has security and privacy in mind. Tarsnap's security looks to be very good from what I've read, but as you said there are things I'm not super keen on. Ideally a FOSS client for OS X which backups
+15:19 hydrajump up to my own AWS S3 account using strong encryption and possibly deduplication would be awesome.
+15:36 mhayden   yeah, privacy and integrity are huge for me
+15:36 mhayden   that's why i leverage duply/duplicity since 1) they're open source 2) they use GPG for verification/signing/encryption and 3) they give me plenty of options for storage backends
+15:37 mhayden   plus i can change backends anytime if i really want to just by migrating the data and changing configs
+15:38 bene      "Our meeting time is officially 9:00 but it's not usual for nobody to show up before 9:30."
+15:39 bene      so that means they are punctual?
+15:50 larsks    pdurbin: that's almost past my bedtime on Sunday :)
+15:50 bene      benjamin mako hill sounds very familiar to me
+15:51 bene      i wonder if he's related to the gweeps
+17:11 hydrajump mhayden: what OS do you use? FreeBSD?
+17:36 mhayden   mainly linux
+19:29 * pdurbin had mhayden pegged as a BSDer ;)
+19:34 bene      his blog is mostly linux stuff though
+19:39 pdurbin   just kidding. he's forever talking about selinux
+20:29 mhayden   pdurbin: i see what you did there

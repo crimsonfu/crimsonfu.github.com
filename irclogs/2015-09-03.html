@@ -1,0 +1,34 @@
+Time  Nick     Message
+15:28 skay     pdurbin: do you have any nice deployment scripts for snailbot?
+15:28 skay     pdurbin: we want to have an irc logging instances for a group, but wall it behind ldap or sso
+15:41 pdurbin  skay: maybe this will help: https://github.com/dvn/iqirclog-vagrant
+15:42 skay     :) <3 yay!
+15:43 skay     pdurbin: my friend says thanks
+15:43 pdurbin  skay: are you going to use snailbot or ilbot? or something else? prologic has a logger
+15:43 skay     pdurbin: I haven't thought it through entirely.
+15:44 skay     pdurbin: do you have a recommendation? I picked a bot I've seen channels use and suggested it
+15:46 * skay   scrolls through prologic's repos on github
+15:47 * skay   assumes this is the one? https://github.com/circuits/irclogger
+15:48 prologic yes
+15:48 prologic used to log #circuits, #crux, #crux-devel and a few others
+15:48 prologic no fancy web ui however
+15:49 prologic http://irclogs.shortcircuit.net.au/
+15:49 prologic You *may* also want to consider kdb (https://github.com/prologic/kdb) -- a highly extensible bot (also includes logging plugin)
+15:54 pdurbin  skay: here are some IRC logging services I like: http://wiki.greptilian.com/irc/logging
+15:56 pdurbin  oh, I like these logs too: https://indiewebcamp.com/irc/2015-09-02 . bear knows them
+16:00 skay     prologic: I'll take a look at kdb. we've got some krufty bots that depend on python things that are really old
+16:01 skay     https://wiki.pumpingstationone.org/IRC#IRC_Bots
+16:01 skay     not all python. we have other languages. haskell, go, etc. iirc
+16:04 prologic skay, cool! please let me know if you *do* use kdb in any way
+16:04 prologic it's quite modern and not old at all :)
+16:05 prologic it also has an API and Web UI too if that's considered "fancy" :)
+16:05 prologic https://github.com/prologic/autodock/issues/1
+16:05 prologic err
+16:05 prologic https://github.com/prologic/autodock/issues/1
+16:05 prologic argg
+16:05 prologic !
+16:05 prologic http://kdb.vz1.bne.shortcircuit.net.au/
+16:05 prologic finally!
+16:05 prologic stupid copy/paste :)
+16:06 prologic http://kdb.vz1.bne.shortcircuit.net.au/api/uptime
+16:06 prologic I guess it means that "scripting" kdb is pretty easy too really

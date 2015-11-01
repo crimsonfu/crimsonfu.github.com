@@ -1,0 +1,55 @@
+Time  Nick      Message
+14:53 pdurbin   is "Amazon Linux OS" a thing? is it based on Ubuntu? CentOS? /cc semiosis
+14:54 semiosis  @lucky amazon linux
+14:54 semiosis  ?!
+14:54 semiosis  http://aws.amazon.com/amazon-linux-ami/
+14:55 semiosis  yes, it's an RPM distro, perhaps centos derived, i'm not sure about the exact lineage
+14:58 semiosis  i still think ubuntu is the best linux for ec2, and you can run the exact same thing on your own machine in a VM, whereas Amazon Linux runs only in EC2
+14:58 semiosis  although I suppose you could rip the boot image and try to boot that locally, it's not supported
+14:59 semiosis  see also, https://www.exratione.com/2014/08/do-not-use-amazon-linux/
+15:15 mhayden   the amazon linux distro carries most of the stuff from centos but has some extra packages / newer packages
+15:15 mhayden   and they mess with the kernel
+15:15 mhayden   i'm biased, but using amazon linux feels like you're locking yourself in
+15:16 mhayden   unless you're heavily into immutable infrastructure ;)
+15:36 pdurbin   ok, so Amazon Linux OS is a thing and it's RPM based. Thanks. That's what I thought when I saw RPMs, yum, and EPEL mentioned at http://aws.amazon.com/amazon-linux-ami/faqs/
+15:37 pdurbin   but I hear what you're saying about lock in
+16:04 hydrajump pdurbin: sometimes using Amazon Linux is the way to go for instance if you need to use GPUs which some AWS instances types support. Doing it with say Ubuntu is a PITA and usually doesn't work.
+16:22 semiosis  hydrajump: good point!
+16:22 semiosis  i gave up trying to get the GPU working in ubuntu lol
+16:23 pdurbin   ok. I don't need performance though. I just need easy hosting. maybe I should try Heroku
+16:24 semiosis  pdurbin: hosting for what?
+16:25 pdurbin   Django apps
+16:25 semiosis  or elastic beanstalk... http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
+16:26 semiosis  that's amazon's alternative to heroku... it's ec2 with amazon linux under the hood but you dont need to see that
+16:28 hydrajump pdurbin: like semiosis said if you just want to host you django apps and not worry about all the underlying stuff then heroku or elastic beanstalk are probably better. If you are interested in managing the server etc than ec2 will give you all the control you desire.
+16:29 pdurbin   I don't want control. I want easy. :)
+16:30 hydrajump hehe then look at those PaaS services that will let you deploy with git like heroku and elastic beanstalk
+16:30 pdurbin   prologic: you're a Python guy. Any thoughts?
+16:33 pdurbin   hydrajump: not much about databases on that page but I gather I could use one on elastic beanstalk
+16:34 pdurbin   ok, more info here looks like: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.db.html
+16:35 pdurbin   http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-rds.html#create-deploy-python-rds-newdb
+16:36 pdurbin   oh good, beanstalk mentioned here at least: https://wiki.harvard.edu/confluence/display/HUITArch/Standardization+of+Instance+Components
+16:37 hydrajump pdurbin: yeah with elastic beanstalk you can hook up your python app to a database using Amazon's RDS service and use mysql, postgres and some other DB I forget. No MongoDB.
+16:38 pdurbin   we are not so fancy to use mongo yet :)
+16:38 hydrajump hehe
+16:52 pdurbin   maybe I'll add AWS to http://crimsonfu.github.io/topics :)
+19:21 bene      https://hub.openshift.com/quickstarts/72-django <- openshift has django support
+19:38 pdurbin   bene: ah. thanks!
+19:40 pdurbin   https://www.pythonanywhere.com/details/django_hosting
+19:40 pdurbin   I heard about that at http://www.talkpythontome.com/episodes/show/10/bringing-python-to-the-masses-with-hosting-and-devops-at-pythonanywhere
+20:59 prologic  pdurbin, think about?
+21:44 pdurbin_m prologic: should I host Django apps on Heroku? the goal is minimal fuss
+21:45 pdurbin_m JoeJulian: in town for the summit?
+21:46 pdurbin_m semiosis: last time we grabbed beers and you guys gave me gluster schwag :)
+21:46 semiosis  that was fun.  too bad the heat lost that night iirc
+21:54 pdurbin_m semiosis: are you going to be around? nominally I'm cleared for a geeks night out
+21:54 semiosis  nope, not this time.
+21:55 pdurbin_m mhayden: ^^
+21:55 semiosis  would love to get back to boston some time
+21:56 pdurbin_m getting some consistently nice weather finally
+22:01 semiosis  ooh 72/61 that does sound nice
+22:54 bene      pdurbin: when's your geeks night out?
+23:01 pdurbin   bene: not sure but mhayden is coming to town this weekend. and codex and I might go to http://wiki.mako.cc/Grendel%27s_Den_on_Sundays some day. maybe we should go this Sunday night
+23:01 bene      i can't make it this sunday for grendels
+23:01 bene      but i'm down for that some time
+23:03 pdurbin   maybe I'll try to get out for TWO geek nights

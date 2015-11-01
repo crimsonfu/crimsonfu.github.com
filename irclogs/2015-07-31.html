@@ -1,0 +1,215 @@
+Time  Nick      Message
+10:50 pdurbin   mhayden: https://www.twilio.com/blog/2015/07/how-to-protect-your-android-device-from-stagefright-exploit.html
+11:49 mhayden   pdurbin: thanks for that, but i'm on CM 12.1 -- it's been patched for ~ 2.5 weeks
+12:11 pdurbin   mhayden: I should have picked your brain about CM over dinner. I assume you were running it then.
+12:11 mhayden   it's quite good
+12:12 mhayden   i used to say "i won't buy non-Nexus androids"
+12:12 mhayden   but now i saw "i won't buy androids that can't run CM"
+12:12 mhayden   s/saw/say/
+12:12 pdurbin   gotcha
+14:50 hydrajump Is CM a specific Andriod version?
+14:51 hydrajump "Cookie Monster" version?
+15:03 pdurbin   c is for cyanogen (sp?) that's good enough for me. m is for mod
+15:03 pdurbin   searchbot: lucky cyanogen mod
+15:03 searchbot pdurbin: http://www.cyanogenmod.org/
+15:11 mhayden   pdurbin: well played
+15:35 pdurbin   I guess I'm happy enough with the vanilla Android on my Nexus 5.
+15:35 pdurbin   even if I have to wait longer for security patches
+16:00 hydrajump I'm happy with my iPhone :P but was just curious about CM
+16:04 larsks    Hah, the former NetApp sales rep for Harvard just joined Red Hat :)
+16:08 pdurbin   larsks: is there a tweet about it?
+16:10 larsks    pdurbin: nope, just saw some email...
+18:10 pdurbin   pic is used for http://www.catb.org/hacker-emblem/ but what's a more modern pic?
+18:25 larsks    pdurbin: svg?
+18:26 pdurbin   larsks: by hand?
+18:27 larsks    Maybe?
+18:28 larsks    This is not by me, but it's pretty simple: http://chunk.io/f/c6db5da37a7c47d1b83ae702e1840527
+18:28 pdurbin   I want to create an architecture diagram in vim and then run it through something to make a PNG.
+18:28 pdurbin   sivoais: and not with that tool you used. I didn't like how the "source" looked for the input file.
+18:28 larsks    Huh.  Maybe stick with pic?
+18:29 larsks    I usually use graphviz for graph-type things, but that's not really suitable for architecture diagrams.
+18:29 pdurbin   larsks: who wants to write xml (svg) by hand. nobody! :)
+18:30 larsks    Well, it helps when you explain what exactly you're trying to do...
+18:30 larsks    For architecture diagrams, I usually throw up my hands and use dia, inkscape, or even google draw.
+18:31 larsks    (Usually saving them as svg, which version controls nicely, and using a makefile to generate any other formats that I need)
+18:33 pdurbin   yeah, I might have to throw up my hands too
+18:34 larsks    Just write raw postscript? :)
+18:36 pdurbin   sounds fun
+18:38 pdurbin   I've had some luck with http://search.cpan.org/dist/App-Asciio/lib/App/Asciio.pm :)
+18:38 larsks    In a similar vein, are you familiar with http://asciiflow.com/?
+18:39 pdurbin   yeah, was just going to link to that. thanks
+18:42 pdurbin   hmm, maybe http://plantuml.com/imgp/component_004.png
+18:43 pdurbin   from http://plantuml.com/component.html#Component
+18:45 pdurbin   we're already using plantuml at https://github.com/IQSS/dataverse/tree/master/doc/Architecture
+19:09 pdurbin   yeah, this might could work: https://github.com/IQSS/dataverse/commit/2ed629b
+19:10 pdurbin   larsks: what do you think?
+19:11 melodie   hi
+19:12 larsks    pdurbin: ++graphviz :)
+19:13 melodie   are there people interested in exploring a framework which is lightweight and comes with a light lib? I don't know anything about coding (just ideas about it, not much). I have met recently with a lib which also comes with a coding framework : do you know about IUP ? (I compiled it in a vm when it was the 3.4 now is the 3.5 with fixes)
+19:13 pdurbin   larsks: hmm? you like graphviz instead of plantuml?
+19:13 larsks    pdurbin: no, I like that you are using dot + plantuml -graphvizdot.
+19:13 melodie   don't know coding : not that I would not like to learn, but it needs actually more time than I can use, at least yet.
+19:13 pdurbin   oh oh. sure :)
+19:14 pdurbin   melodie: hi! what is IUP again?
+19:14 larsks    is that http://sourceforge.net/projects/iup/ ?
+19:14 melodie   hi pdurbin, how are you? I'll show the link to you and give an example of a program done with it
+19:14 melodie   I don't know about sourceforge but I know the website of the project:
+19:15 melodie   http://www.tecgraf.puc-rio.br/iup
+19:15 melodie   and here is a program I have been using in Archlinux, built on IUP:
+19:15 melodie   https://github.com/maoserr/redshiftgui
+19:15 melodie   and here is what it looks like in the X session:
+19:16 melodie   http://maoserr.github.io/projects/redshiftgui/
+19:17 melodie   as I would like to get redshiftgui into Debian and Ubuntu and the others later, I noticed IUP isn't in the Debian repositories, so I started to work on the idea from the bottom : compile IUP, which needed help from upstream, and very nicely the author sent me mail after mail back to help me. he also used my feedback to correct what needed to be fixed.
+19:18 melodie   finally I got the two parts compiled and ready to work. then I had issues with redshiftgui sources compiling and didn't go further yet because I had other things to take care of more urgently.
+19:19 melodie   yet it's not forgotten!
+19:20 sivoais   pdurbin: tikz can work, but has a steep learning curve
+19:21 sivoais   it is very much a modern pic
+19:21 pdurbin   larsks: if you're involved with jboss/wildfly (or not) I'd like to pick your brain about how to make javaee apps easy to install and configure. perhaps via yum
+19:21 pdurbin   sivoais: is that what you were using?
+19:21 larsks    pdurbin: nah, I'm mostly  a Python person.
+19:22 larsks    ...although I do quite a bit of packaging work, so I might have opinions on that side of things.
+19:23 pdurbin   larsks: ok, well, `yum install dataverse` would be cool. I could even try to get it in fedora :)
+19:24 pdurbin   but I don't know how many javaee apps can be installed via yum
+19:24 pdurbin   let's call them wildfly apps
+19:27 sivoais   pdurbin: no, that was xfig. TiKz is made to be written by hand. It's an embedded language for TeX <http://www.texample.net/tikz/>
+19:31 sivoais   melodie: I had seen IUP before. Someone had put together Perl bindings for it. Looks neat.
+19:37 pdurbin   sivoais: ok but hmm, I don't like the markup at http://www.texample.net/tikz/examples/ so much. plantuml is much easier on the eyes: https://github.com/IQSS/dataverse/blob/2ed629b6aa8ca1f3a312a3f786021b6e5e003ff4/doc/Architecture/components.uml
+19:40 melodie   sivoais do you think it's as light as the project website says?
+19:41 melodie   larsks what do you package? for Fedora?
+19:45 sivoais   melodie: it seems very lightweight, but I have not tried coding with it. I'm building it now.
+19:45 sivoais   It's certainly much more lightweight than Gtk+ or Qt.
+19:47 melodie   sivoais while you do build, do you think later you could teach be a few things about how to use it? (it says it's easy to use for coding, but I have never coded, just tried to follow a few lessons on the web, fast caught back by the daily needs and other more immediate projects)
+19:48 melodie   just a question... you can say "no, I don't have teaching skills!" XD
+19:48 melodie   (for instance)
+19:51 melodie   ?
+19:51 melodie   sivoais how is the build going? Does it work for you?
+19:52 sivoais   hmm, it seems to have had an error... let me take a look
+19:53 sivoais   ah, I see. This library just wraps around the native libraries
+19:53 sivoais   so on Linux, it uses Gtk+
+19:53 sivoais   but I don't have the headers for that installed
+19:57 sivoais   melodie: let me get back to you in a few hours. I have to step away for a while. In the meantime, maybe you can make a list of what you want to use coding for. That can help narrow the focus. :-)
+19:58 melodie   sivoais it's 22pm here, (France, South) if I'm not here anymore I'll be back at some time in the future days
+19:59 melodie   sivoais if you need help with the build, please take note, the dev upstream is very helpful and responds very fast
+19:59 sivoais   ah, well. Then I'll catch you later. I'm in the south of the USA
+20:00 sivoais   thanks, I'll see how it turns out. I just installed the Gtk+ headers
+20:01 melodie   sivoais ok south US, good. I can visit you some day? :D
+20:02 melodie   you have horses around to ride, don't you? :D
+20:02 sivoais   hahah, not personally! But there are lots of rodeos!
+20:02 melodie   (it's late here, excuse my joyfullness)
+20:03 melodie   I don't do rodeo, I'd kill myself. just riding for walks with quarter horses or apaloosa would be nice :)
+20:17 Azgarech  Hello everyone
+20:18 Azgarech  melodie invite me to come over here
+20:18 melodie   hi Azgarech
+20:18 melodie   Azgarech works with the Viperr team : Fedora with Openbox!
+20:18 Azgarech  apparently there is a bunch of adminsys who script around here. quite my taste
+20:19 melodie   Azgarech who code
+20:19 melodie   http://crimsonfu.github.io/
+20:23 Azgarech  my apologies
+20:26 Azgarech  http://viperr.org the website of our project
+20:57 pdurbin   Azgarech: welcome!
+20:57 pdurbin   Azgarech: what part of Viperr do you work on?
+20:58 Azgarech  Mostly the rpms
+20:58 Azgarech  but also scripting and testing
+20:58 Azgarech  we are two behind the project so a lot of work have to be done and shared
+20:59 pdurbin   cool. I ran Fedora for years
+20:59 pdurbin   mhayden runs it. others here maybe. larsks perhaps
+21:00 Azgarech  I really like Fedora but I don't need all stuff of Gnome-Shell
+21:00 Azgarech  I like it K.I.S.S
+21:00 melodie   pdurbin we might team up around the Openbox respective parts of our projects
+21:00 Azgarech  I will love it
+21:01 mhayden   i use gnome 3 but i only have chrome, terminals, thunderbird open
+21:01 Azgarech  I really think we can create a big move around Openbox environment
+21:01 pdurbin   yeah, I'm not sure about gnome 3
+21:02 melodie   Azgarech have you seen the wiki page I put up around Openbox branded distros? It's in French now, but slystone might translate it to the English side of the wiki soon
+21:02 * larsks  admits to a Fedora habit.
+21:02 Azgarech  can you give me the link to this page
+21:02 Azgarech  I am not sure to have seen it
+21:03 melodie   yes of course, http://wiki.linuxvillage.org/doku.php?id=fr:configuration:gestionnaire_de_fenetres
+21:04 melodie   hopefully we will soon have it also in English, linked from here: http://wiki.linuxvillage.org/doku.php?id=en:start
+21:05 Azgarech  I may work on it if you want
+21:05 pdurbin   melodie: openbox is what you use in bento?
+21:05 Azgarech  scuse my French, but my English is not that bat
+21:06 pdurbin   yeah, openbox in bento: https://gitlab.com/groups/bento-openbox
+21:06 melodie   pdurbin yes sir!
+21:06 pdurbin   I guess I'm waiting for Fedora and Ubuntu to improve their default GUIs. Not that I'm in a huge hurry.
+21:07 melodie   pdurbin here is a description of the last uploaded:
+21:07 melodie   http://linuxvillage.org/en/2015/07/bento-openbox-trusty-soon-final/
+21:07 melodie   and I'm about to upload the final, right now
+21:08 Azgarech  melodie can you give me the text who need to be translated ? I way give some time on it and some English's natives will be able to correct it after
+21:08 Azgarech  http://www.estcequonmetenprodaujourdhui.info/
+21:08 pdurbin   Should Fedora and Ubuntu switch to Openbox as their default GUI?
+21:09 mhayden   that'd be a change ;)
+21:09 Azgarech  melodie this shouldn't be put in production
+21:09 Azgarech  not yet
+21:09 Azgarech  never on Friday
+21:09 pdurbin   mhayden: have you tried Openbox? I haven't.
+21:09 Azgarech  pdurbin: I love the idea that yoou expose here but it may never happen
+21:09 mhayden   i have -- and fluxbox
+21:10 Azgarech  people need interface who thinks for them not the opposite
+21:10 melodie   I have been told fluxbox and openbox have the same need in resource : one as light as the other
+21:11 melodie   Azgarech Bento Openbox brings comprehensive UI to their desktops
+21:11 melodie   I have installed it to a bunch of end users, and they have been fine with it ever after
+21:12 melodie   the only questions they need to ask me once a while is related to the change between Windows and GNU/Linux, nothing very difficult to adress (it is in the range of GNU/Linux, or it isn't, depending on the related device, such as some cheap Tomtom GPS for instance)
+21:13 Azgarech  We try to keep VIperr for advanced user
+21:13 Azgarech  behind only two behind he project is not helping
+21:13 Azgarech  we don't want to spend our time to help newbies
+21:14 Azgarech  not that we don't like it ( penthium2 is a linux teacher)
+21:14 Azgarech  but we just don't have time for it
+21:14 melodie   I aim the people who don't want to learn computing but want to use it, the ones who have machines suffering with a Windows OS, and the advanced users who want to have a reliable system to do stuff, and see later for customization.
+21:15 melodie   I use it with services I make the users pay for as well.
+21:20 Azgarech  mhayden pdurbin what are your inux attractons?
+21:20 Azgarech  s/attractons/attractions/g
+21:24 pdurbin   Azgarech: attractions? Why do I use Linux? Because I love open source.
+21:25 Azgarech  :)
+21:25 Azgarech  fair enough
+21:26 melodie   pdurbin and you are also an infinite source of leads in the matter, I must say, I would bring people here just for that reason
+21:28 pdurbin   heh
+21:32 melodie   pdurbin ie: Azgarech does Fedora packages, but he needs to get help to improve his packaging, this is one of the reasons why I invited him here. I think he could find good people to help him with his learning curve?
+21:43 Azgarech  I just started since the viperr6 version
+21:43 Azgarech  we were using stupid tools for it  before
+21:43 Azgarech  I wanted to make it more clean and right
+21:44 Azgarech  now I try to make it Fedora friendly package
+21:44 pdurbin   melodie: sorry. cooking dinner
+21:44 Azgarech  but it's sometimes hard to keep the requirements with patch and so .
+21:44 Azgarech  cooking is good
+21:45 melodie   pdurbin have a nice meal! "bon appetite"
+21:45 Azgarech  :)
+22:04 pdurbin   Azgarech: sure, I've written a few .spec files for RPMs. others here have too, I'm sure
+22:13 Azgarech  http://labo.azgarech.org:8080/azgarech/RPM-V7/tree/master/SPECS
+22:13 Azgarech  mine
+22:14 Azgarech  I am going to perfect it in a few weeks
+22:15 melodie   Azgarech Unit193 has tought me the secret of a real Openbox session !!
+22:15 melodie   (while looking at your spec files, thinking… )
+22:15 Azgarech  so tought me it
+22:15 melodie   I can't yet, it needs an updated xsettingsd package
+22:15 Azgarech  I have to make it more similar one an other
+22:16 Azgarech  I try a few way to make it
+22:16 melodie   so you can start a new spec file for xsettingsd perhaps?
+22:16 Azgarech  now I have to make it right for echa of them
+22:16 melodie   believe me on word, his method is perfect, clean and lean.
+22:16 Azgarech  if you give me the source and how to compile it of course
+22:16 melodie   Azgarech you might want to check if there is a xsettingsd package in Fedora
+22:17 melodie   here is the patch https://github.com/derat/xsettingsd/commit/b4999f5e9e99224caf97d09f25ee731774ecd7be
+22:17 Azgarech  xsettingsd.x86_64 : Provides settings to X11 clients via the XSETTINGS specification
+22:17 Azgarech  there is
+22:18 melodie   the patch is very recent
+22:18 melodie   and is the main piece allowing to create the real session (while using a light tool)
+22:19 Azgarech  I may have a look at it on sunday
+22:19 melodie   you will get that by reading the text at the top of the page
+22:19 Azgarech  my Girlfriend start to look at me like I should stop with computer or she gonna me it fly
+22:19 melodie   I have redone Unit's packages with the "dpkg-repack" tool provided in his distro
+22:20 melodie   aha
+22:20 melodie   sure, go take time with your lady. that's normal.
+22:21 Azgarech  good night/afternoon/morning all ( still don"t know your locations)
+22:22 melodie   :)
+22:22 melodie   pdurbin is in Boston!
+22:22 Azgarech  .time boston
+22:23 Azgarech  arf my bot is not here, I am stupid
+22:23 melodie   get out! your lady waits! a shame really! :D
+22:23 Azgarech  see you all
+22:23 Azgarech  xsettingsd.x86_64 : Provides settings to X11 clients via the XSETTINGS specification
+22:24 melodie   leaving too, good night/evening
+22:33 pdurbin   Azgarech: you can send your bot in here if it isn't annoying :)
+22:35 pdurbin   we only have two bots in here: ilbot3 and searchbot
+22:35 pdurbin   I don't think JoeJulian counts.
+22:43 JoeJulian :P

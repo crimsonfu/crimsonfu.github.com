@@ -1,0 +1,45 @@
+Time  Nick      Message
+12:25 dotplus   seems like it could be useful.
+12:26 dotplus   There is one likely (serious, negative) side effect that strikes me. But that's one that seems to be becoming very prevalent all over our data-driven world and that is the misinterpretation of statistics.
+12:30 dotplus   I need to organise my thoughts on this properly and write it up, but the basic idea (modulo early morning brainfail) is: that the more we have and rely on data to inform our understanding and decisions about what is true, which seems to be a good thing and helpful, the greater the Significance (for our Understanding) of inaccurate/incomplete data. And given that for almost all interesting questions data is *necessarily* massively incomplete, ...
+12:30 dotplus   ... this is a big problem for our understanding.
+12:31 dotplus   s/statistics/data/
+12:36 pdurbin   dotplus: yes, but that's a danger I'm willing to risk :)
+12:38 dotplus   Once upon a time I was working for 1 team of ~3 team IT group (unix/windows/hardware + a couple of partial FTEs which didn't fit well into any group). Likely any good IT org, we used a ticketing system to help ensure requests didn't get dropped. $boss was aware that (some of windows and hardware were ... "underperforming"). $grandboss (above the IT org) wanted to use the ticketing system to measure "productivity" and prove/disprove the claim ...
+12:38 dotplus   ... to decline/support dismissal.
+12:41 dotplus   *we* enlightened folks can see half-a-dozen problems in an eyeblink with attempting to interpret ticketing system data to determine whether someone is a useful IT employee or not, but it's not that uncommon to do so.
+12:41 bene_     that's not a problem of bad/incomplete data though
+12:42 bene_     that's misusing the data you have
+12:42 dotplus   not entirely, but bad or incomplete data exacerbates the problem and increases the likelihood
+12:42 dotplus   of misuse
+12:43 bene_     i don't see the trend of increasing our reliance on data-driven decision making being bad in that case though
+12:43 bene_     in a previous decade it would have been "fire ralph. my gut says he's slower."
+12:43 bene_     is that any better? :-)
+12:44 bene_     i think you're generally right though
+12:44 bene_     the data-driven approach is not a panacea
+12:44 bene_     and it comes with its own traps and pitfalls
+12:45 bene_     the metrics you choose to measure, especially as they relate to human performance, will be gamed, intentionally or not, by those same humans
+12:45 dotplus   not from grandboss. it would have been "fire those who work for you who are slacker(s)" i.e. delegation to judgement. which in this case would have been good.
+12:47 dotplus   yes, the metrics you choose to measure will be gamed and the interpretations you garner from those metrics will influence the future.
+12:50 dotplus   pdurbin: I'm not arguing against "My ranking" or whatever. I think having a simple, convenient way to say things like "it looks like way more people care much more about adding support for markdown than restructuredtext" would be awesome. I'm just warning (Cassandra style?) that this will be abused intentionally or ignorantly.
+12:51 dotplus   not least because, for anything but the simplest questions, interpreting the data will be *difficult*
+12:52 dotplus   difficult as in a "Hard Problem"
+12:56 dotplus   bene_: And in some ways, I would say that "the metrics says Ralph is a slacker, fire him" is at least as bad as your "my gut says.." situation, because there is a (disingenuous?) call to (bogus) authority. "The data shows he's a slacker" when there are usually going to be other possible explanations that are less likely to be examined because the data/metrics/presentation/experiment don't highlight certain (relevant) factors.
+12:57 dotplus   at least in the "my gut says" case, there is no pretence of objectivity
+13:32 bene_     the end result is the same for ralph though :-/
+13:32 bene_     i wrote that line about 30 minutes ago but didn't hit enter because it's tangential to your point i think
+13:33 bene_     the call to authority thing is an interesting point
+13:34 bene_     i wonder if our (the US) general litigiousness has played a part in the data-driven part of HR decisions
+13:35 bene_     i think we're more in agreement than not
+13:35 bene_     to speak to your original thesis though, i think in this instance it's more a case of not measuring the right thing rather than having inaccurate/incomplete data
+13:36 bene_     the data says ralph is slower to close tickets/closes fewer tickets/etc
+13:38 bene_     whether or not that's the right metric seems more like an alternate failure mode for the data driven approach to me
+13:39 bene_     i was making and drinking coffee in the 30 minute window before hitting enter :-)
+14:03 dotplus   yes, I'm not addressing whether it sucks for Ralph. It might or it might be just what he needs:)
+14:05 dotplus   I agree that the general litigiousness and CYA mentality of "developed" (organizational?) culture, not just USian, is a contributing factor.
+14:08 dotplus   I also agree that "not measuring the right thing" is also a major problem. And I think it partly results because it's usually difficult (impossible?) and almost always (too?) expensive to determine what the "right thing" is.
+14:09 dotplus   And yes, I think we're more in agreement than not
+14:10 dotplus   except about $beverage
+14:10 * dotplus pats his teapot
+17:01 hydrajump this is very cool http://casual-effects.com/markdeep/
+17:02 hydrajump "Markdeep is a technology for writing plain text documents that will look good in any web browser. It supports diagrams, common styling conventions, and equations as extensions of Markdown syntax."

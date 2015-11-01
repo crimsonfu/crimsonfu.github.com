@@ -1,0 +1,64 @@
+Time  Nick    Message
+16:12 melodie hi
+16:13 melodie I started to use Customizer in replacement for Ubuntu-Builder, https://github.com/clearkimura/Customizer/ for the next Bento Openbox builds, and found out the xz compression option could not work with 64bits versions because it was not present in the python script.
+16:14 melodie from there I changed it for myself, then went to my github account, forked, modified, did a new branch and a pull request, not the github gui offers to "merge pull request":
+16:14 melodie "This branch is up-to-date with the base branch
+16:14 melodie Merging can be performed automatically.
+16:14 melodie or view . "
+16:15 melodie what does it mean? should I press the green button and for what purpose?
+16:15 melodie thanks for lighting me!
+16:15 melodie btw here is the page: https://github.com/melodie11/Customizer/pull/1
+16:18 melodie I thought I'd ask pdurbin ? :)
+16:18 melodie if you are around, if not I'll keep tuned thanks to the logs
+16:32 pdurbin melodie: I think you should use this link to create a pull request: https://github.com/clearkimura/Customizer/compare/master...melodie11:melodie11-patch-1
+16:33 pdurbin that way the pull request will be against clearkimura's repo rather than your own
+16:33 melodie hello pdurbin ok, so I push that green button now
+16:33 pdurbin "create pull request" yes
+16:34 melodie now it says: " Merge pull request #1 from melodie11/melodie11-patch-1
+16:34 melodie "
+16:34 melodie and offers a green button to "confirm"
+16:34 pdurbin hmm, what you want is for your pull request to appear at https://github.com/clearkimura/Customizer/pulls
+16:35 melodie yes
+16:35 melodie now it says:
+16:35 melodie "
+16:35 melodie Pull request successfully merged and closed
+16:35 melodie You’re all set—the melodie11-patch-1 branch can be safely deleted.
+16:35 melodie "
+16:35 melodie is that what was needed to appear at clearkimura's customizer page?
+16:35 melodie if so how long will that take to happen?
+16:37 pdurbin melodie: you are creating pull requests against your own repo. Instead, you should create pull requests against the upstream repo (clearkimura's repo)
+16:37 melodie omg
+16:37 melodie what should I do from now for that to happen?
+16:38 pdurbin melodie: start by clicking "Compare" from https://github.com/melodie11/Customizer/tree/melodie11-patch-1
+16:38 melodie ok I'm there
+16:38 pdurbin what does the 'base fork' say?
+16:40 melodie in the drop down button I read "Clearkimura/Customizer" and under:
+16:40 melodie V Able to merge
+16:40 melodie "These branches can be automatically merged"
+16:41 melodie do you need a screenshot?
+16:43 melodie pdurbin http://meets.free.fr/images/github-pull-request.png
+16:47 pdurbin melodie: looks good. now click "create pull request"
+16:47 melodie oh ok
+16:49 melodie pdurbin \o/ !
+16:49 melodie https://github.com/clearkimura/Customizer/pulls?q=is%3Aopen+is%3Apr
+16:49 melodie it's here! thanks a lot! :D
+16:49 melodie pdurbin perhaps next time I come to you before I start clicking, so I start on the right button?
+17:10 pdurbin melodie: good job. next time you can teach someone else :)
+17:10 melodie pdurbin really not yet
+17:11 melodie I don't know how I could have avoided to go wrong when I started
+17:11 pdurbin people in #openhatch are very helpful when it comes to helping people make their first pull request. people like skay are in there
+18:37 melodie hi skay
+18:38 melodie pdurbin it was a very very tiny contribution, and I thought doing a pull request could look more elegant than sending a bug report with suggest for adding "ia64" in a python script :D
+18:47 pdurbin melodie: a pull request is perfect in this case. good job
+18:50 melodie thanks, very nice of you
+18:50 melodie and if you want to customize your own Ubuntu for whatever purpose, I'll warmly recommand Customizer for this purpose
+18:51 melodie just one thing, it needs lots of cpu power
+18:57 skay    o/
+18:59 melodie pdurbin as you have convinced me to register to github a while ago, you are my own github guru for any question. :)
+19:03 pdurbin :)
+19:04 pdurbin github is fun
+19:10 melodie if you say so :D
+19:12 pdurbin well, it's "social coding"
+19:12 pdurbin it's sort of the main forum I participate in. the issue tracker, I mean
+19:12 melodie ok
+19:13 melodie thinking of, at gitlab I participated to tint2 but didn't get any answer since we sent translations for the tint2rc gui

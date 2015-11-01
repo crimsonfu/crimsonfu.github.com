@@ -1,0 +1,37 @@
+Time  Nick      Message
+01:45 pdurbin   mhayden: https://major.io/2015/10/14/what-i-learned-while-securing-ubuntu/ is really good. I'd be curious to know if you ended up configuring a firewall (and if so, how).
+01:50 mhayden   pdurbin: thanks -- sounds like most folks use that iptables-persistent package
+01:51 mhayden   i really dislike ufw
+01:51 mhayden   a kernel dev i know told me "i used to use ufw but then i lost my box of crayons"
+01:51 mhayden   but yeah, this security on ubuntu experience has been rough
+01:53 pdurbin   searchbot: lucky iptables-persistent
+01:53 searchbot pdurbin: https://www.thomas-krenn.com/en/wiki/Saving_Iptables_Firewall_Rules_Permanently
+01:54 pdurbin   I've been playing with Ubuntu a bit (again) and I was surprised that there was no firewall by default.
+01:57 pdurbin   ok, looks like iptables-persistent is listed on both of the pages I bookmarked. brief mention at https://help.ubuntu.com/community/IptablesHowTo and more detail at https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04
+07:26 hydrajump interesting read mhayden!
+07:27 hydrajump Don't know if I've asked you already, but have you played with Alpine Linux http://www.alpinelinux.org/ ?
+07:28 hydrajump I've started to use it for some project instead of ubuntu and really like the minimalism. Services don't start automatically as you mentioned on Ubuntu and you have to explicitly configure them to start on boot.
+07:36 hydrajump Are you worthy? http://www.cnet.com/news/engineer-builds-working-thors-hammer-only-he-can-lift/
+12:22 mhayden   hydrajump: i've heard of it, but that's about it
+13:24 larsks    hydrajump: I love alpine for building docker containers...
+13:27 hydrajump larsks: have you used it for non-docker use-cases?
+13:28 larsks    hydrajump: I built a cloud image out of it that I could boot in openstack and have it autoconfigure an ssh key...and that's about it.
+13:29 larsks    I like it for docker because it's not really any bigger than the busybox images, but has a functional package manager.
+13:29 hydrajump yeah that's true
+13:29 hydrajump what host OS are you using for your docker workloads?
+13:29 larsks    I'm running Fedora 23 on my laptop, which is where I mostly use docker.
+13:30 hydrajump ok
+13:30 pdurbin   I wonder if anyone is using Docker in production.
+13:35 hydrajump pdurbin: there a many who've said so publicly such as Shopify
+13:36 hydrajump there are many others...
+13:47 pdurbin   https://www.shopify.com/technology/15934308-docker-at-shopify-how-we-built-containers-that-power-over-100-000-online-shops
+13:47 pdurbin   hydrajump: thanks
+13:52 hydrajump pdurbin: you're welcome ;) as I said there are many many companies using docker in production today.
+13:52 hydrajump this is also a pretty cool use-case that you may find interesting https://www.youtube.com/watch?v=Au_8wWA0ZQI
+13:59 pdurbin   hmm. "Containerising scientific software leads to fungible scientific methods which can be objectively compared and easily interchanged."
+13:59 pdurbin   yeah, skay might be into that too
+14:09 skay      pdurbin: url?
+14:10 pdurbin   skay: the youtube link ^^
+14:10 skay      thanks
+14:12 pdurbin   http://nucleotid.es/using-images/
+14:12 pdurbin   via http://jgi.doe.gov/automating-selection-process-genome-assembler/

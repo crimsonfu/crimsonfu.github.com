@@ -1,0 +1,137 @@
+Time  Nick      Message
+00:22 prologic  pdurbin, should be fine :)
+00:22 prologic  Heroku is just as good as any other PaaaS :)
+00:23 pdurbin   prologic: trouble is, I've never used Heroku. I have played with OpenShift at least
+00:28 prologic  alternatively use Digital Ocean + Docker + autodock
+00:29 pdurbin   that sounds like maybe too much fuss
+00:30 pdurbin   it's funny how it all comes down to familiarity
+00:30 pdurbin   that's Rich Hickey point with simple vs easy
+00:30 pdurbin   's
+00:36 pdurbin   I hear Heroku is expensive. I wonder if it's worth it.
+01:35 pdurbin   bene: are you up for geeking out at all this weekend? gonna try to meet up with mhayden if we can so we can trade more stories about westmaas ;) /cc ironcamel
+01:37 bene      i'm camping this weekend
+01:37 bene      and convening with some other geeks on sunday night i think
+04:35 prologic  pdurbin, would you like me to show you how easy my alternative approach really is?
+04:35 prologic  I'll demo it off live :)
+11:14 pdurbin   prologic: that might be useful. however, I should probably better explain what I mean by easy. some of this comes down to dev vs ops and who is resposible for what. I'm kind of assuming your approach means that dev (you) is responsible for everything, that you are also ops, basically
+11:19 prologic  this is true in general; yes
+11:19 prologic  but the solutions I build can also be used by just ops quite easily
+11:19 prologic  albeit I generally don't provide webuis or guis
+11:19 prologic  just simple interfaces and tools
+11:20 prologic  If you've read my blog post before: http://shortcircuit.net.au/~prologic/blog/article/2015/03/24/a-docker-based-mini-paas/
+11:20 prologic  it's really as simple as copying that docker-compose.yml snippet
+11:20 prologic  and running docker-compose up -d
+11:21 prologic  the next thing I'm building (not yet published/released) is a tool to help orchestrate docker machines and services/containers
+11:21 prologic  that uses both docker-machine and docker-compose together in a single declarative way
+11:29 pdurbin   prologic: I'd be curious to hear what tasks would be the responsibility of dev vs ops
+11:31 prologic  well I believe the two should be as simple as easy other I think
+11:31 prologic  I'm a developer but I do operating as well and vice versa
+11:31 prologic  I've been (so far in my career) as much of a developer as a sysadmin/networkadmin/operations person
+11:32 pdurbin   prologic: you're saying you want both roles to be easy. dev and ops. sure. sounds good. but the roles are different
+11:32 pdurbin   who does what?
+11:33 pdurbin   in your docker model?
+11:34 prologic  https://github.com/jimmyshen/sunset
+11:34 prologic  this is really cool
+11:34 prologic  ahh that's true I guess
+11:34 prologic  but I guess what I'm really saying is that to be a good developer you have to be a good operations person and vice versa
+11:35 prologic  I think the old model of developers develop software
+11:35 pdurbin   oh absolutely. that's what this channel is about!
+11:35 prologic  then palm it off to another team to deploy
+11:35 prologic  is broken
+11:35 pdurbin   "ops problem now"
+11:35 prologic  exactly
+11:35 prologic  it's that kind of mentality that has caused a lot of poorly written software
+11:35 prologic  and poorly deployed systems
+11:35 pdurbin   yep, yep
+11:35 prologic  software and deployment *should* be living breathing systems
+11:36 prologic  hence the dev+ops culture I think
+11:36 pdurbin   yep
+11:36 prologic  so think there is no distinct lines so to speak
+11:36 prologic  the lines are very much blurred
+11:36 pdurbin   well
+11:36 pdurbin   the other day I started making a list
+11:36 prologic  http://aroberge.blogspot.com.au/2015/06/generating-mazes.html
+11:36 prologic  this is also a nice read
+11:37 pdurbin   trying to think through if dev or ops is *primarily* responsible for things on my list
+11:38 pdurbin   someone (or some team) has to own each responsibilty (primarily at least). it shouldn't be squishy
+11:38 prologic  well yeah
+11:38 prologic  yeah I dunno
+11:38 pdurbin   dev and ops shouldn't be fighting about "I thought you were responsible for that"
+11:38 prologic  I'm in two minds about that
+11:38 prologic  on one hand it's hard to let go of the "red tape"
+11:38 pdurbin   there should be clarity
+11:38 prologic  and to try to keep the lines separate
+11:38 prologic  on the other IHMO I think it's better tthat all are responsible
+11:39 prologic  I think a lot of this can be solved with good/better communications?
+11:39 prologic  rather than strict bureaucratic processes?
+11:39 prologic  think about the ways in which many open source software projects and systems develop, thrive and continue to grow
+11:40 prologic  often with crazy limitations to resources and man power
+11:40 prologic  :)
+11:40 pdurbin   I'm not talking about bureacracy. I'm just talking about a list of responsibilities that has dev or ops next to each bullet point
+11:40 prologic  ahh k
+11:40 prologic  but this kind of thinking assumes a difference between a person that can be in a dev role or ops role?
+11:41 prologic  or have I misunderstood that?
+11:42 pdurbin   I'm almost embarrassed to share the list because it's pretty old school. not very devopsy :)
+11:42 pdurbin   maybe I could clean it up and throw it in a google doc or something
+11:42 pdurbin   and allow comments
+11:43 prologic  github it
+11:43 prologic  inline core-review style commenting
+11:43 pdurbin   heh. I guess I could stick it somewhere under https://github.com/crimsonfu/crimsonfu.github.com
+11:45 pdurbin   maybe a branch would be best
+11:45 prologic  *nods*
+11:47 mhayden   pdurbin: i could do some geeking
+11:48 pdurbin   mhayden: I was looking at the weather. too bad it looks a bit rainy sunday night. I was thinking I could bike over to hynes, give you a hubway fob, and then bike over to grendels
+11:48 pdurbin   searchbot: lucky boston hubway
+11:48 searchbot pdurbin: http://www.thehubway.com/
+11:49 pdurbin   prologic: so maybe the branch will contain a future blog post by me
+11:49 mhayden   i thought "hubway fob" was something i needed to look up on urban dictionary
+11:49 pdurbin   once it's been peer reviewed :)
+11:50 pdurbin   mhayden: heh. there's also a bus that goes right down mass ave (#1) or the T
+11:51 mhayden   gotcha
+11:52 prologic  pdurbin, sounds good :)
+11:53 pdurbin   mhayden: so if we're going to grendels sunday night we should ping codex
+11:55 mhayden   okay, there's a dev nation shindig that night
+11:55 mhayden   not sure on timing
+11:56 pdurbin   can anyone go to dev nation?
+12:10 pdurbin   mhayden: I'd go to anything with "dev" in it :)
+12:13 mhayden   i think registration shot up to 750 for 2 days :|
+12:16 pdurbin   yikes!
+12:16 pdurbin   what am I made of money
+12:20 mhayden   hah
+12:20 mhayden   it was ~ 200 before
+12:20 pdurbin   mhayden: I've been cleared for whatever. lunch, coffee. I can come to hynes. we'll bring the party to you if you want :)
+12:21 pdurbin   (might be a party of 2)
+12:41 mhayden   okay,will let you know when i get there
+12:41 mhayden   boarding now
+12:59 pdurbin   safe flight!
+13:00 pdurbin   I could use some help with naming a project: http://irclog.greptilian.com/sourcefu/2015-06-20#i_121593
+13:57 pdurbin   is there a free online tool that lets people suggest names and everyone gets to vote?
+14:03 pdurbin   or maybe it would be called a polling tool
+14:07 hydrajump pdurbin: http://strawpoll.me/
+14:13 pdurbin   hydrajump: yeah? you like that one? never heard of it
+14:13 pdurbin   is anyone able to create a card here? https://trello.com/b/9oNykDM3/addressbookmvc-rename
+14:19 pdurbin   hydrajump: strawpoll doesn't seem to allow the public to add suggestions to the poll
+14:28 pdurbin   maybe http://shapado.com would work
+15:04 hydrajump pdurbin: I've never used strawpoll just something I've come across and made a note.
+17:26 codex     pdurbin: cant' this sunday, but i'll definitely join you some week
+17:26 codex     next few weeks are out -- still dealing with selling a house, etc.
+18:45 pdurbin   my wife wants to buy a bigger place
+19:33 melodie   hi
+19:35 melodie   pdurbin there has been a forum "change era" each year since 2013, I'm watching one of the latest videos, perhaps of 2015. While I'd love to share it here, I have to warn it's all in French. https://www.youtube.com/watch?v=qovluEnSFB8
+19:38 mhayden   stuck in baltimore...
+19:39 mhayden   broken lav on the plane  :(
+19:47 melodie   hi mhayden
+19:48 melodie   as long as you're not in the plane when it breaks.. ?
+21:21 pdurbin   melodie: forum change era? you mean people upgrade from SMF to Vanilla to Discourse?
+21:33 melodie   pdurbin not quite, they do the revolution everywhere from the inside out
+21:33 melodie   disruption they say, innovation, improve, upgrade... the society
+21:34 melodie   in school, in enterprise...
+21:47 pdurbin   melodie: but you really mean forum software?
+21:50 melodie   no not software, a large meeting irl
+21:50 hydrajump for anyoen interested in learning Swift https://medium.com/ios-os-x-development/apple-has-published-a-great-free-learn-to-code-course-for-swift-on-github-feb5e4d70691 semiosis maybe for you ;)
+21:50 melodie   pdurbin http://www.forumchangerdere.fr/
+21:56 pdurbin   oh, a real forum :)
+22:13 pdurbin   hydrajump: can you please try adding an idea to this http://www.tricider.com/brainstorming/35DVEKere5x ?
+22:13 pdurbin   (or anyone)
+22:16 hydrajump pdurbin: done
+22:21 pdurbin   hydrajump: thanks!

@@ -1,0 +1,27 @@
+Time  Nick    Message
+02:16 pdurbin Philip Durbin on Twitter: "The #leapsecond bug @ptinsley wrote about in 2012 was interesting: http://t.co/tvbrIyh3g8 http://t.co/UtH10T8LdB" - https://twitter.com/philipdurbin/status/616040532486299649
+17:08 pdurbin does anyone here use Software Collections? (scl) https://www.softwarecollections.org
+17:09 bene    yup
+17:10 bene    well, the rhel/centos ones anyway
+17:10 pdurbin bene: I'm getting this: /usr/bin/ld: cannot find -lpython2.7
+17:10 pdurbin even after I do `scl enable python27 bash`
+17:10 pdurbin on CentOS 6
+17:16 pdurbin bene: any ideas?
+17:28 bear    ld is the linker - do you have python's dev package installed
+17:28 pdurbin yep. python27-python-devel-2.7.5-10.el6.x86_64
+17:31 bear    ah - looks like python's config tool returns the -l without a path - see the conversation in https://bugzilla.redhat.com/show_bug.cgi?id=1040065 for how they solved it for mysql
+17:36 pdurbin bear: thanks! compiling now. I change it from...
+17:36 pdurbin g++ `$(python)-config --ldflags` -pthread -shared $(objs) -o maptools.so
+17:36 pdurbin to...
+17:36 pdurbin g++ `$(python)-config --ldflags` -L/opt/rh/python27/root/usr/lib64 -pthread -shared $(objs) -o maptools.so
+17:36 bear    +1
+17:36 pdurbin and now it works :)
+17:36 bear    sweet
+17:37 pdurbin that was in the makefile
+17:37 pdurbin before I was trying to set up the equivalent of /etc/ld.so.conf.d/mysql-x86_64.conf for python but I wasn't getting anywhere
+17:38 bear    yea, that method leads to madness IMO
+17:39 bear    because folks tend to only use half of the tools required for pkgconfig and ldconfig to inter-operate
+17:41 bene    and you end up with half dynamic info based on install path and package version and half hard-coded options in the configure script or makefile
+17:41 bene    building software on unix is awesome!
+17:42 pdurbin heh
+17:42 pdurbin it builds just fine on CentOS 7 which already has Python 2.7

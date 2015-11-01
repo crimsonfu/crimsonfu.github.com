@@ -1,0 +1,30 @@
+Time  Nick     Message
+09:03 Azgarech Hello
+09:16 pdurbin  Azgarech: good morning
+09:24 Azgarech good afternoon for you I believe
+09:25 pdurbin  no, the sun is just coming up
+09:32 Azgarech ok
+09:35 Azgarech I am working on Iptables
+09:48 pdurbin  Azgarech: packaging it?
+09:50 Azgarech no no. Making some Iptables scripts for a few server
+09:50 Azgarech I want to limit the scan made on some of them
+09:50 pdurbin  ah. ok. I just left some comments on a pull request: https://github.com/pdurbin/addressbookmvc/pull/12
+09:50 Azgarech #Flood Limitation
+09:50 Azgarech iptables -A FORWARD -p tcp --syn -m limit --limit 1/second -j ACCEPT
+09:50 Azgarech iptables -A FORWARD -p udp -m limit --limit 1/second -j ACCEPT
+09:50 Azgarech iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/second -j ACCEPT
+09:50 Azgarech ## Block scan
+09:50 Azgarech iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+11:49 pdurbin  "most startups do not fail because they had insufficiently awesome ops teams" http://www.arresteddevops.com/building-an-ops-team/
+11:51 Azgarech for now I am still just an Admin
+11:51 Azgarech not yet an hybrid
+11:52 pdurbin  Azgarech: but you do some coding, right?
+12:08 Azgarech I do
+12:08 Azgarech a bit of python and other language
+12:09 Azgarech but I am still a noob about it
+12:15 pdurbin  Azgarech: no worries, I still have many Python questions: http://irclog.greptilian.com/sourcefu/2015-08-01#i_130969
+12:30 Azgarech ;)
+12:42 pdurbin  Azgarech: you're welcome in #sourcefu as well, of course. everyone is :)
+12:45 Azgarech what is sourcefu main line ?
+13:08 pdurbin  Azgarech: main line? the website is http://sourcefu.com
+13:22 Azgarech thanks

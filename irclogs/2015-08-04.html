@@ -1,0 +1,62 @@
+Time  Nick      Message
+14:34 Azgarech  https://letsencrypt.readthedocs.org/en/latest/using.html#quick-start
+14:34 Azgarech  let's encrypt is alive
+14:37 pdurbin   huh. free certs according to https://letsencrypt.org
+14:55 dotplus   not generally available yet, hopefully September.
+14:56 Azgarech  the system is already functionnal :)
+14:56 Azgarech  using the client from the git
+14:57 dotplus   for arbitrary domains?
+14:57 Azgarech  and can be use for commercial use also
+14:57 Azgarech  :)
+14:58 Azgarech  you can't use wild card so for every subdomain you have do give the command for it
+14:58 dotplus   huh, that's ahead of schedule and not announced on their blog yet
+14:58 Azgarech  I just digged around
+14:58 Azgarech  and tried
+14:59 dotplus   by "arbitrary", I meant other than the "...only for a pre-approved set of domains" that they mentioned.
+14:59 Azgarech  the only thing is taht the certificate gived before annoucement can be erased
+15:02 Azgarech  I gonna try it on my own website
+15:02 Azgarech  apparently work for .org
+15:05 dotplus   so I'm not really into the idea of their client manipulating my webserver config directly, since that should be controlled by config mgmt. However, from their FAQ: "Note that automated configuration is not required. It can be disabled if you prefer to configure your server software yourself."
+15:05 dotplus   do you know whether that's "letsencrypt auth" is for?
+15:08 Azgarech  it's asking you question
+15:08 Azgarech  when letsencrypt -d ww.domain.org auth specify directly the domain to take in considération
+15:24 Azgarech  I gonna try it on my personnal website tonight
+15:24 Azgarech  if you will want some feedback
+15:24 dotplus   sure, why not?
+15:27 dotplus   in the meantime, I looked at it. Seems like the answer to my question is "yes" and I think the command would be: "letsencrypt auth --authenticator standalone www.example.com". It's not clear to me how the ACME challenge/authentication process works, but I guess you *have* to run the command from the machine that DNS resolves as the domain you're asking for a cert from?
+15:29 dotplus   so I'm not really into the idea of their client manipulating my webserver config directly, since that should be controlled by my config mgmt. However, from the FAQ: "Note that automated configuration is not required. It can be disabled if you prefer to configure your server software yourself." I think the command would be: "letsencrypt auth --authenticator standalone www.example.com". It's not clear to me how the ACME ...
+15:29 dotplus   ... challenge/authentication process works, but I guess you *have* to run the command from the machine that DNS resolves as the domain you're asking for a cert
+15:29 dotplus   for
+15:29 dotplus   bah, mischan
+15:30 pdurbin   yes, I'll configure security-related stuff myself, thanks
+15:34 dotplus   right, but if you can give me good cert for free that will be widely accepted, I'll be glad to install it myself:)
+15:35 dotplus   I'll let crimsonfu what answer I get from the letsencrypt folk, if any.
+15:41 Azgarech  IMPORTANT NOTES:
+15:41 Azgarech  - Automatic renewal and deployment has been enabled for your
+15:41 Azgarech  certificate. These settings can be configured in the directories
+15:41 Azgarech  under /etc/letsencrypt/configs
+15:41 Azgarech  :)
+15:42 dotplus   ouch. get your filthy hands off my keys/certs!
+15:43 Azgarech  I gonna do it manually
+15:52 Azgarech  There is a delay to activate the certificate
+15:52 Azgarech  my website is not veryfied yet
+15:57 Azgarech  https://coolaj86.com/articles/lets-encrypt-on-raspberry-pi/
+15:59 Azgarech  We will need to wait september then
+17:31 dotplus   apparently, we're looking for --authenticator manual for now. It will return a file which must be posted on the server.
+17:31 dotplus   later there will be DNS challenge so the letsencrypt command  will need to be done on the server itself.
+19:44 bene      party people, what's up?
+19:47 pdurbin   bene: I had something for you but now I forget what it was.
+19:49 hydrajump http://www.linuxjournal.com/content/hacking-safe-bash
+19:50 hydrajump ^^ a DIY approach to a password manager using bash, gpg
+19:50 hydrajump and tar
+19:57 pdurbin   bene: oh, I know, I was wondering if you listen to metal.
+20:02 bene      sorta?
+20:03 bene      http://www.last.fm/user/bpeisenbraun
+20:03 pdurbin   heh. they were looking for people to be in ghostbusters
+20:28 pdurbin   hydrajump: are you using that?
+20:30 hydrajump pdurbin: no I use 1Password
+20:41 pdurbin   ah. ok. I use a symmetrically encrypted file
+21:27 JoeJulian I use keepass. I like the ability to use the same file across all my devices.
+21:30 JoeJulian @apt
+21:31 JoeJulian @repo
+21:31 JoeJulian and it helps if I'm in the right channel for that...

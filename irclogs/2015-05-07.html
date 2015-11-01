@@ -1,0 +1,7 @@
+Time  Nick    Message
+15:30 pdurbin what do you call something that's load balanced? cluster.example.com? I feel like maybe there's a better word than "cluster".
+16:03 dotplus pool?
+16:04 dotplus if you're looking for an A/CNAME, just it call it the thing: smtp.example.com, www.example.com
+16:05 dotplus and then the individual hosts are foo-N.example.com, your load balancers are lbN (or even smtp-lbN)
+16:13 pdurbin hmm, maybe pool
+16:13 pdurbin dotplus: it's for testing so the emphasis is that it's load balanced

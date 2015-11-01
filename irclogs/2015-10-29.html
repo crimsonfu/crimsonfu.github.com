@@ -1,0 +1,29 @@
+Time  Nick      Message
+00:09 pdurbin   so I had lunch with another soccer dad after the game last weekend and it turns out he co authored The Unix-Haters Handbook: https://en.wikipedia.org/wiki/The_Unix-Haters_Handbook
+13:30 pdurbin   What should I do if a node.js process keeps dying? How can I start it up again? https://github.com/erming/shout-roadmap/issues/10
+14:04 bene_     while loop in a screen session</quick_and_dirty>
+14:04 bene_     as long as it stays in the foreground
+14:04 bene_     if it daemonizes, you need something slightly more complex
+14:58 pdurbin   hmm. screen session. right now I'm starting it in the background like this: /home/shout/node_modules/.bin/shout &
+15:08 bene_     is this for production or dev/testing/personal use?
+15:12 pdurbin   meh, gray area. if http://chat.dataverse.org is down I have a custom 503 error page that links to alternative ways to join the #dataverse channel on freenode
+15:12 pdurbin   but it's annoying when that node.js process goes down
+15:14 bene_     upstart or svscan or one of the process watcher tools is probably appropriate then
+15:15 bene_     http://cr.yp.to/daemontools/supervise.html
+15:15 bene_     what OS are you on?
+15:19 bene_     there's one that's popular with the ruby crowd, but i can't remember the name of it
+15:22 bene_     ooh, you can do it with monit
+15:23 pdurbin   hmm, supervise seems to be different than supervisor: http://supervisord.org
+15:23 bene_     there we go
+15:24 bene_     it was supervisord that i was thinking of
+15:24 bene_     god also seems popular
+15:24 bene_     http://shapeshed.com/managing-unicorn-workers-with-monit/ <- the monit example at the end looks nice
+15:24 bene_     ah, and systemd can do it too i think
+15:25 pdurbin   hmm, that unicorn example reminds me of http://docs.gunicorn.org/en/19.3/deploy.html#supervisor
+15:25 bene_     so a bunch of included-with-the-system tools and a bunch more addons
+15:25 pdurbin   "autorestart=true"
+16:23 larsks    pdurbin: systemd, with Restart=always (or Restart=on-failure)...
+16:23 pdurbin   larsks: cool. thanks
+16:23 pdurbin   it would be interesting to have a log. to know how often the thing has to be restarted
+16:53 JoeJulian Google lays down the gauntlet: https://googleonlinesecurity.blogspot.com/2015/10/sustaining-digital-certificate-security.html
+16:57 bene_     "We may take further action as additional information becomes available to us." <- translation: Lawyers, sharpen your knives!

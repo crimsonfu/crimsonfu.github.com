@@ -1,0 +1,62 @@
+Time  Nick      Message
+12:33 mhayden   wowzers -> https://threatpost.com/united-airlines-hands-out-million-mile-bug-bounty/113766
+12:41 pdurbin   eeep! "Roberts told investigators he took control of the airplane and caused it to climb and turn."
+17:38 pdurbin   grr. getting http://security.stackexchange.com/questions/93117/firefoxsecure-connection-failederror-codessl-error-weak-server-ephemeral-dh-k on one of my servers
+19:09 bear      yea, a lot of certs are going to need updating
+19:10 pdurbin   but I got a SHA-2 cert. I thought I was all set
+19:44 melodie   hi
+20:08 pdurbin   melodie: hi
+20:11 melodie   pdurbin a very new version of Bento Openbox Trusty, almost declared ok for all is out
+20:11 melodie   annoucements plus gitlab for the project and more
+20:12 melodie   http://linuxvillage.org/en/2015/07/bento-openbox-trusty-soon-final/
+20:12 melodie   https://gitlab.com/bento-openbox
+20:12 melodie   :)
+20:59 bear      pdurbin - oh, this is because your dhparam value is < 1024
+20:59 bear      which is not a cert issue but a web server issue - nginx, apache
+21:31 pdurbin_m bear: hmm. ok
+21:31 bear      do you control your web server?
+21:34 pdurbin_m yeah. glassfish and apache
+21:34 pdurbin_m not sure what changed
+21:35 bear      the browsers now complain about the dhparam value being too low
+21:35 bear      nothing changed on the server side
+21:36 bear      see http://serverfault.com/a/693244 for a nice step-by-step to fix this
+21:36 bear      for apache
+21:40 pdurbin_m huh. ok. thanks. but I wonder why only one of servers is affected
+21:41 bear      you mean apache vs nginx in general?
+21:41 bear      they both are, I just posted about apache
+21:42 bear      glassfish, nginx, apache are all needing to be updated to make sure the default dhparam they serve is > 1023 bits
+21:43 pdurbin_m no no. I mean we have a lot of servers
+21:45 bear      ohhh
+21:46 bear      (can't help you with that one :)
+21:46 pdurbin   :)
+21:46 pdurbin   bear: well I'm glad to hear that maybe my cert is fine
+21:47 bear      the only issue you could have with your cert is if you mix sha2 with non sha2 intermidiates
+21:48 pdurbin   did I? here's the server in question: https://staging.dataverse.org
+21:50 bear      your root cert is sha-1, two intermediates are sha-384 and then yours which is sha-256
+21:51 pdurbin   bear: so what does that mean? I have a bad root certificate?
+21:51 bear      "Your connection to staging.dataverse.org is encrypted with obsolete cryptography."
+21:51 bear      i'm finding out more details - one sec
+21:52 pdurbin   thanks. right, that's what chrome says
+21:52 bear      yea, that's where I cut-n-pasted it from
+21:53 bear      your cert is fine, it's the RC4 crypto and dhparam that are the culprit
+21:53 pdurbin   bear: so what should I do, doctor?
+21:54 bear      so fixing your cipher suite and dhparam...
+21:54 bear      one sec - I have a great resource link for you on what cipher suite to use
+21:54 bear      the tool I used to discover this is https://www.ssllabs.com/ssltest/analyze.html?d=staging.dataverse.org
+21:56 bear      check this page - it will have guides to what cipher suite to use based on what level of backwards compatibility you need -- https://wiki.mozilla.org/Security/Server_Side_TLS
+21:56 bear      it also has docs on how to update dhparam and other security items
+21:56 pdurbin   ok, and then I should reconfigure apache based on the answer you linked: http://serverfault.com/questions/693241/how-to-fix-logjam-vulnerability-in-apache-httpd/693244#693244
+21:57 bear      I would skip that completely and use the info that the moz wiki provides
+21:57 bear      https://wiki.mozilla.org/Security/Server_Side_TLS#Apache
+21:57 pdurbin   ah. ok. thanks
+21:57 bear      the other was when I thought it was dhparam only :)
+21:58 pdurbin   SSLCipherSuite parameter, looks like
+21:59 pdurbin   gotta cook dinner but I'll check the logs. thanks, bear!!
+22:00 bear      yvw
+22:01 pdurbin   for anyone googling for this error, here it is: Problem loading page - Secure Connection Failed - An error occurred during a connection to staging.dataverse.org. SSL received a weak ephemeral Diffie-Hellman key in Server Key Exchange handshake message. (Error code: ssl_error_weak_server_ephemeral_dh_key)
+22:03 mhayden   pdurbin: yeah, recent versions of nss just deny access to those sites with weak DH params
+22:03 mhayden   at least firefox tells you why -- chrome just has a hard error with little explanation
+22:07 JoeJulian I hate how mobile chrome does that. I can either visit a site overriding a cert failure, or not. I can't look at the cert to make my own determination.
+22:47 pdurbin   firefox is just brutal. if you click "report this error" you get "Reporting the address and certificate information for staging.dataverse.org will help us identify and block malicious sites. Thanks for helping create a safer web!" :(
+22:49 bear      wow, thanks for making me feel bad as a site owner firefox
+23:24 pdurbin   conveniently, there's a checkbox for "Automatically report errors in the future" next to the "Report" button

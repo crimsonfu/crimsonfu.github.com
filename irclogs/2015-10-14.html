@@ -1,0 +1,55 @@
+Time  Nick        Message
+14:25 pdurbin     are the cool kids using http://prometheus.io these days? please see my comment at https://github.com/IQSS/dataverse/issues/2595#issuecomment-148065637
+14:27 pdurbin     or should I use Ganglia?
+14:54 bene        what are you trying to do?
+14:54 bene        just graph stats from the jvm?
+14:57 pdurbin     stats from glassfish
+14:57 pdurbin     which runs on the jvm
+14:58 pdurbin     and in addition to graphing, perhaps an email, an alert, would be sent when a critical threshold is reached
+14:58 pdurbin     standard monitoring stuff
+15:28 bene        is this just for you or something you want to bundle with dvn?
+15:43 pdurbin     we could bundle it. I'll go add it to this: Dataverse Installation Monitoring Functional Requirements Document (FRD): https://docs.google.com/document/d/11YDzhuilIXktld6PSTv3hgcdJyenEBUO-ooUqJlRpbc/edit?usp=sharing
+16:20 dotplus     ganglia is an older project, which might mean "feels old fashioned" or "mature" depending on your point of view. Comments: 1) it *wants* multicast but doesn't require it 2) it's aimed at collecting standard (system) metrics from clusters (think "grid computing" (remember that?) and/or the HPC world) and it feels like it. 3) It's coming from the metrics end of the spectrum rather than the alerting end, although like most of the tools it can ...
+16:20 dotplus     ... be made to do the other end than its primary focus.
+16:21 dotplus     if this is your thing, go for it, it's good stuff. If that doesn't sound like your use case/world, you might find you're trying to use a screwdriver to drive a nail.
+16:22 bene        yeah, ganglia is probably not a good choice
+16:22 dotplus     4) The docs are hidden: https://github.com/ganglia/monitor-core/wiki
+16:22 bene        grid computing is still very much a thing
+16:24 dotplus     yeah, that was a joke, because arguably grid computing was never really anything but a marketing term. Until last year, I was supporting various HPC clusters and the country's largest supercomputer
+16:25 bene        what country was that?
+16:25 dotplus     usa
+16:25 bene        i think the grid vs cluster descriptors are somewhat useful
+16:25 dotplus     titan (ornl.gov)
+16:26 bene        i.e. single vs multi admin, relative hardware homogeneity vs very diverse, predictable networking vs internet-connected madness
+16:26 bene        cool
+16:27 bene        when i worked at HMS we had one of the first biomed applications running on open science grid
+16:29 dotplus     perhaps they're useful terms. I don't pretend to be a Real HPC person, I was supporting the standard infrastructure there. There were (small) teams for the Cray and for the clusters, so I got exposure to some HPC things, but in many ways it was not that much different any other similarly sized environment from my perspective.
+16:39 bene        monit looks interesting as a baked-into-the-application-environment monitoring tool
+16:39 bene        do you provide AMIs or other machine images for dvn?
+17:19 bene_______ bummer
+17:19 bene_______ lost my nick registration
+17:19 pdurbin     heh
+17:20 pdurbin     we need to reboot this conversation. it got cut off here: http://irclog.perlgeek.de/crimsonfu/2015-10-14#i_11374297
+17:21 pdurbin     people have asked for VMware images for Dataverse: https://github.com/IQSS/dataverse/issues/2280
+17:24 bene_______ this feels fake man
+17:24 bene_______ it's no longer spontaneous
+17:24 bene_______ there's no life to this conversation
+17:25 bene_______ we're just parroting lines so the bot can write bits into the magnetic field of the cosmos
+17:25 pdurbin     heh
+17:25 pdurbin     I wish I hadn't closed my buffer. I'd just "up arrow" and spew the same lines. :)
+17:26 bene_______ 12:38 <  dotplus> anyway, to answer pdurbin's real question, he probably doesn't want ganglia. If you know ganglia and know it meets your need, it works, it's mature and extensible with modules (in python or C). If you're looking for a modern, generic approach to threshold-based alerting, storing timeseries data and graphing that data, you'll want to look elsewhere
+17:26 bene_______ 12:45 <  pdurbin> bene: users have asked for VMware images of Dataverse: https://github.com/IQSS/dataverse/issues/2280
+17:26 bene_______ 12:47 <  pdurbin> oh, and we call it "Dataverse" now. "DVN" is a legacy term referring to the old 3.x version
+17:26 bene_______ 12:48 <  pdurbin> I only recently learned what a grid is: "We have defined Grids as being concerned with enabling coordinated resource sharing and problem solving in dynamic, multi-institutional virtual organizations." http://www.mcs.anl.gov/papers/P1075.pdf
+17:26 bene_______ 12:50 <  pdurbin> bene: yes, I'm all for letting people installing Dataverse decide where to dump stats. I'm just
+17:27 pdurbin     just what? what?
+17:27 bene_______ 12:50 <  pdurbin> bene: yes, I'm all for letting people installing Dataverse decide where to dump stats. I'm just asking which tool people like. sound like not Ganglia :)
+17:27 bene_______ 12:54 <     bene> whatever solution you end up with can be the basis for the performance parts of your automated acceptance testing
+17:27 bene_______ 12:54 <     bene> i would have that be a goal anyway
+17:27 bene_______ 12:55 <  pdurbin> bene: please hold that thought
+17:27 pdurbin     well, I don't want to dictate the solution
+17:27 pdurbin     "you must use ganglia"
+17:27 pdurbin     I don't care what people use
+17:27 pdurbin     I just want pretty graphs
+17:29 pdurbin     and I want people who run our software to easily capture stats if they want to
+17:29 pdurbin     hence the script I wrote

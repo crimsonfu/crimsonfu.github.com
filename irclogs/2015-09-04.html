@@ -1,0 +1,35 @@
+Time  Nick      Message
+04:32 prologic  Does anyone here know much about AWS and Public IP Addressing?
+04:33 prologic  Specifically around releasing an address of an EC2 (that you had no control over); e.g: AWS reboots your instance and it's Public IP Address changes? *Does/Can* that happen? If it does; is it rate? Is it based off DHCP-like technology and DHCP leases?
+11:22 pdurbin   prologic: semiosis knows AWS quite well
+11:23 hydrajump prologic: IIRC if your EC2 instance has an assigned public IP (not an elastic IP which costs money) and you or AWS reboots the instance then the public IP will change.
+11:23 hydrajump let me double check
+11:26 hydrajump one correction. the public ip only changes when you start/stop **not** reboot!
+11:27 hydrajump prologic: "A public IP address is assigned to your instance from Amazon's pool of public IP addresses, and is not associated with your AWS account. When a public IP address is disassociated from your instance, it is released back into the public IP address pool, and you cannot reuse it."
+11:27 hydrajump "We release the public IP address for your instance when it's stopped or terminated. Your stopped instance receives a new public IP address when it's restarted."
+11:28 hydrajump source: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses
+11:29 prologic  yeah
+11:29 prologic  that's whay I thought
+11:29 prologic  so as long as your instance is nailed up
+11:29 prologic  it's public ip should not change
+11:29 prologic  So basically in theory what I'm looking to do at work
+11:30 prologic  is spin up an EC2 in each zone of a region
+11:30 prologic  they both get a public ip
+11:30 prologic  and on boot I automatically add the ips into a wildcard record set / zone with a 1m ttl
+11:30 prologic  possibly with weighted routing?
+12:44 hydrajump sounds like you want to use route53 for that
+12:45 hydrajump as well as ELBs
+12:49 prologic  well yes Route53
+12:49 prologic  but I'm not sold on ELBs per se
+12:49 prologic  as I plan to use my own load balancer
+12:49 prologic  haproxy for example
+16:27 semiosis  prologic: sounds like you want to use an autoscaling group with an ELB in front
+16:27 semiosis  that will take care of everything for you
+16:27 semiosis  you can set the AS group to use all the zones and it will keep instances running in there
+16:37 semiosis  prologic: i'm most familiar with "ec2-classic" but now they're pushing everyone into VPC.  i believe with VPC you can control the private IP of your hosts, so you wouldn't need to do any dynamic config (of DNS, for example) for your haproxy
+16:38 semiosis  another benefit of vpc is access to the latest generation of instances, which give more performance per dollar
+18:20 JoeJulian I'm starting to wonder about that last statement. We seem to be having more and more resource starved users on aws in #gluster. I don't know enough about aws to know what to ask though.
+20:20 semiosis  JoeJulian: can you give me a log link so i can see what you're talking about?  also feel free to ping me next time that comes up
+20:51 prologic  yeah
+20:52 prologic  I've found in practice that AutoScaling Groups and ELBs don't really scale all that well
+20:52 prologic  they respond too slowly to load spoikes

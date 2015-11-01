@@ -1,0 +1,103 @@
+Time  Nick      Message
+00:46 prologic  So guys...
+00:46 prologic  I was just chatting to Joyent about their Docker/Container based hosting services
+00:46 prologic  and their pricing model
+00:46 prologic  This is the 4th company I've seen now that offer Docker-based hosting services
+00:46 prologic  at a price point IHMO that is not attractive enough to move away from traditional VM hosting + Docker
+00:47 prologic  Basically the TL;DR is this
+00:47 prologic  Joyent: $2/month for 128MB RAM, 2Gb SSD that runs 1 (one) single container
+00:47 prologic  Digital Ocean: $5/month (running Ubuntu+Docker) with 512MB RAM, 20GB SSD that can run dozens or more containers
+00:48 prologic  I'm a big proponent of Docker and Containers as you all know; but I'm sick to death of these new hosting/service companies popping up all over the place offering Docker-centric hosting services with no competitive price point advantage
+00:48 prologic  I want to do something about it I think
+00:49 pdurbin   http://shortcircuit.net.au/~prologic/blog/article/2015/03/24/a-docker-based-mini-paas/ :)
+00:50 prologic  Right
+00:50 pdurbin   prologic: instead of $2 for should Joyent be charging $1 for the same service?
+00:50 prologic  You think I should build one?
+00:50 prologic  Would anyone else be interested in joining my efforts?\
+00:50 prologic  No even less
+00:50 pdurbin   50 cents?
+00:50 prologic  $0.10 even
+00:50 pdurbin   heh
+00:51 prologic  Because containers are all about microservices
+00:51 prologic  and small processes
+00:51 prologic  a typical piece of software might let's say
+00:51 prologic  have a task processora
+00:51 prologic  a database
+00:51 prologic  an storage container
+00:51 prologic  a web app backend
+00:51 prologic  and frontend
+00:51 prologic  and a load balance
+00:51 prologic  see where I'm going?
+00:51 prologic  at $2/month per container
+00:52 prologic  this starts to to become ridiculously expensive
+00:52 pdurbin   a bit off topic but Discourse is so heavy it requires a $10 Digital Ocean VM rather than a $5 one. not sure how it does on containers
+00:52 prologic  and that just runs 1 app/website/whatever
+00:52 prologic  Ahh really?
+00:52 prologic  that's disappointing
+00:54 pdurbin   "The default of 1 GB RAM works fine for small Discourse communities. We do recommend 2 GB RAM for medium communities." https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md . the 1 GB is $10
+00:54 pdurbin   the 2 GB one on digital ocean is $20
+01:00 prologic  geez
+01:00 prologic  wtf is this shit written in?
+01:00 prologic  Oh
+01:00 prologic  Ruby
+01:00 prologic  enough said
+01:01 prologic  so I guess one of our #openknot high-level goals will be memory footprint and resource utilization
+01:01 prologic  which I think we're on the right direction and architecture to achieve
+01:03 prologic  anyway back to my Docker-based hosting convo
+01:03 prologic  let's see
+01:03 prologic  http://cadvisor.vz1.bne.shortcircuit.net.au/containers/
+01:04 prologic  here's cadvisor; resource monitoring tool on my desktop at home
+01:04 prologic  that runs quite a few containers
+01:04 prologic  and what I do development on obviously
+01:07 prologic  So I'm running 8 containers
+01:07 prologic  Let's see how much each are using in terms of memory
+01:07 prologic  prologic_hello_1 = 13MB
+01:07 prologic  Oh and ay Joyent's (and others) pricing
+01:07 prologic  that's $16/month already
+01:08 prologic  broker_smtpd_1 = 23MB
+01:12 prologic  prologic_autodock_1 = 30MB
+01:12 prologic  prologic_autodockhipache_1 = 16MB
+01:12 prologic  prologic_autodocklogger_1 = 14MB
+01:13 prologic  prologic_bitlbee_1 = 6MB
+01:13 prologic  prologic_cadvisor_1: 37MB
+01:13 prologic  prologic_hipache_1 = 182MB
+01:13 prologic  Have I made my point?
+01:14 prologic  the only container that I'd want to run ona larger instance is hipache
+01:14 prologic  everything else can fit all together into a 128MB instnace/vm
+01:24 pdurbin   sounds like you're better off with a VM to run Docker on
+01:35 prologic  At this point ; yes
+01:35 prologic  Do you think we could realistically fix the situation?
+01:35 prologic  Even if we built some software and infrastructure around other cloud hosting?
+01:45 prologic  I've just spun back up my circuitsaddressbookmvc demo
+01:45 prologic  circuits_circuitsaddressbookmvc_1 = 26MB
+02:25 pdurbin   nice
+11:56 hydrajump prologic: it's probably quite an undertaking to create the service you are suggesting. Where would you plan on hosting said service?
+12:59 mhayden   pdurbin: yeah, that android vuln is scary
+13:00 pdurbin   don't give out your phone number
+13:09 mhayden   pdurbin: oops
+13:13 pdurbin   :)
+18:08 hydrajump I always thought that when you calculated the checksum of a file, e.g. openssl sha1 myfile that the checksum was a representation not only of the content of said file, but also the file's timestamp and filename.
+18:09 hydrajump Apparently the checksum is calculated only from the file's content.
+18:13 pdurbin   that sounds right. an md5 of the content. nothing to do with timestamps
+18:15 hydrajump I just thought for some reason that if you have two files with the exact same contents but different timestamps the checksums would differ, but I guess that would make it difficult to compare files
+18:16 pdurbin   sure would
+18:17 pdurbin   hydrajump: you *might* be interested in this: http://guides.dataverse.org/en/latest/developers/unf
+18:19 hydrajump pdurbin: interesting thanks.
+18:25 pdurbin   sure
+19:14 hydrajump I have two directories A and B. Both contain .txt files and A has less files than B. What I'd like to do is see if the filenames in A exist in B.
+19:14 hydrajump I have this so far find . -maxdepth 1 -name "2014*.txt" -exec basename {} \;
+19:15 hydrajump that gives me the filenames inside each directory that I'm interested in comparing
+19:15 hydrajump Now I could redirect to two output files and then do a diff or something, but I'm wondering if there is a way that I can change the -exec to do the comparison
+19:16 hydrajump So I've run the above find in dir A and saved the output as namesA.txt
+19:16 hydrajump then I tried to use this
+19:16 hydrajump find . -maxdepth 1 -name "2014*.txt" -exec grep ~/namesA.txt {} \;
+19:16 pdurbin   hydrajump: reminds me of http://stackoverflow.com/questions/68372/what-is-your-single-most-favorite-command-line-trick-using-bash/164795#164795
+19:16 hydrajump from inside the B directory but that grep is not working
+19:17 pdurbin   diff <(ls dir1) <(ls dir2)
+19:19 hydrajump pdurbin: YES!
+19:19 hydrajump thank you that's exactly what I wanted
+19:19 pdurbin   :)
+19:20 pdurbin   good old process substitution - http://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html
+21:21 prologic  hydrajump, DO, AWS?
+21:44 pdurbin   prologic's basement
+23:31 prologic  lol
