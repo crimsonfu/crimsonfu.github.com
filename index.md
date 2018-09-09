@@ -27,7 +27,7 @@ Our primary means of communication is an IRC channel on [Freenode](http://freeno
 
 If you enjoy the [topics](topics) you see in [our logs][logs], you are welcome to join the conversation!  The easiest way is via http://webchat.freenode.net/?channels=crimsonfu but most of us use desktop IRC clients such as [irssi](http://www.irssi.org), [Pidgin](http://www.pidgin.im), or [Adium](http://adium.im) or mobile IRC clients such as [IRC999](http://itunes.apple.com/us/app/irc999/id360698285?mt=8) or [AndChat](https://play.google.com/store/apps/details?id=net.andchat&hl=en).
 
-From time to time, we run [a script](bin/logfetch.pl) to back up our logs to http://crimsonfu.github.com/irclogs which means they'll be included in a git clone of our website repo for easy offline searching.
+From time to time, we run [a script](bin/logfetch.pl) to back up our logs to <http://crimsonfu.github.com/irclogs> which means they'll be included in a git clone of our website repo for easy offline searching.
 
 ## Articles
 
