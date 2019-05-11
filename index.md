@@ -5,7 +5,7 @@ title: crimsonfu - sysadmins who code
 <a href="https://github.com/crimsonfu/crimsonfu.github.com/blob/master/images/crimsonfu-logo.svg"><img src="http://www.gravatar.com/avatar/5accd79d827a12591f4b2ba652362688?s=48" alt="crimsonfu logo, patches welcome!"></a>
 `{"crimsonfu": "ConfiguRatIon Management of Systems Or Network kung FU"}`
 
-<http://irclog.perlgeek.de/crimsonfu/today>
+<http://irclogs.shortcircuit.net.au/%23crimsonfu/latest.log.html>
 
 ## Guiding principles
 
@@ -51,4 +51,4 @@ Fu is a nod to <http://commandlinefu.com and http://catb.org/jargon/html/F/suffi
 
 The source is at <http://github.com/crimsonfu/crimsonfu.github.com>
 
-[logs]: http://irclog.perlgeek.de/crimsonfu
+[logs]: http://irclogs.shortcircuit.net.au/%23crimsonfu/
