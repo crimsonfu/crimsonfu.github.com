@@ -4,7 +4,7 @@ author: shuff
 layout: default
 ---
 
-Members of the Harvard community will almost certainly have encountered the [Iris Project](http://iris.fas.harvard.edu/), A.K.A "let's all move to Exchange!"  What is an Outlook-fearing sysadmin to do?  Our very own [pdurbin](http://crimsonfu.github.com/members/pdurbin) has already written a helpful guide to [accessing Iris mail via IMAP](http://www.people.fas.harvard.edu/~pdurbin/blog/howto/use-iris-from-linux.html), but what about the glorious calendaring promised by Exchange?
+Members of the Harvard community will almost certainly have encountered the [Iris Project](http://iris.fas.harvard.edu/), A.K.A "let's all move to Exchange!"  What is an Outlook-fearing sysadmin to do?  Our very own [pdurbin](http://crimsonfu.github.io/members/pdurbin) has already written a helpful guide to [accessing Iris mail via IMAP](http://www.people.fas.harvard.edu/~pdurbin/blog/howto/use-iris-from-linux.html), but what about the glorious calendaring promised by Exchange?
 
 The following procedure worked for me:
 

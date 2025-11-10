@@ -134,7 +134,7 @@ Next, we set up logging for the channel.  Moritz Lenz, "moritz" on freenode, pos
 Days passed and we started using the channel.  We [briefly discussed](http://irclog.perlgeek.de/crimsonfu/2012-01-26#i_5055415) that because the channel is being logged and there is nothing to prevent anyone from joining the channel, we are vulnerable to attack by spammers.  Switching to mode +i is suggested:
 
     15:50 pdurbin  sorry to get meta, but one of my concerns is that spammers will jump in this irc channel and fill our logs ( http://irclog.perlgeek.de/crimsonfu ) with spam :(
-    15:50 pdurbin  it's for this reason that i haven't mentioned the irc channel at http://crimsonfu.github.com yet
+    15:50 pdurbin  it's for this reason that i haven't mentioned the irc channel at http://crimsonfu.github.io yet
     15:53 whorka   I think you can set invite-only with /mode #crimsonfu +i
 
 Here is what +i means:
@@ -166,7 +166,7 @@ As such, for now, we're not going to use +i mode.  Here is the conversation with
     spammers will jump in this irc channel and fill our logs ( 
     http://irclog.perlgeek.de/crimsonfu ) with spam :(
     15:50 pdurbin  it's for this reason that i haven't mentioned the irc 
-    channel at http://crimsonfu.github.com yet
+    channel at http://crimsonfu.github.io yet
     15:53 whorka   I think you can set invite-only with /mode #crimsonfu +i
 
     Before I spend too much time on figuring this +i (invite-only) mode on 

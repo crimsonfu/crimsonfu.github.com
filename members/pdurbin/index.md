@@ -2,11 +2,11 @@
 title: Philip Durbin
 layout: default
 ---
-I started the #crimsonfu IRC channel (where I go by "pdurbin") and arranged for it to be logged at http://irclog.perlgeek.de/crimsonfu (shut down) and later http://irclogs.shortcircuit.net.au/%23crimsonfu/latest.log.html
+I started the #crimsonfu IRC channel (where I went by "pdurbin") and it was a nice place to hang out for a while. You can still find the logs at <https://crimsonfu.github.io/irclogs/>.
 
-http://greptilian.com is my website, where you can find links to my accounts on GitHub, Twitter, etc.
+<http://greptilian.com> is my website, where you can find links to my accounts on GitHub, etc.
 
-I authored most of the http://crimsonfu.github.com home page, including our guiding principles, as well as the following posts:
+I authored most of the <http://crimsonfu.github.io> home page, including our guiding principles, as well as the following posts:
 
 <ul>
 

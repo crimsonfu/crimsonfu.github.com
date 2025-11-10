@@ -17,4 +17,4 @@ Founded in early 2012, we are still defining ourselves, but here are a few of ou
 
 Among other things, we do some **C**onfigu**R**at**I**on **M**anagement of **S**ystems **O**r **N**etwork kung **FU**.
 
-To read more about us, please visit http://crimsonfu.github.com
+To read more about us, please visit http://crimsonfu.github.io
